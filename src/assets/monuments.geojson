@@ -1,0 +1,4280 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833333333,
+                    40.366111111
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q338889",
+                "itemLabel": "Şirvanşahlar saray kompleksi",
+                "inventoryID": "3"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836,
+                    40.365033
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q344569",
+                "itemLabel": "İçərişəhər",
+                "inventoryID": "2"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.057222222,
+                    39.68375
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q507050",
+                "itemLabel": "Amaras monastırı",
+                "inventoryID": "246"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.008611111,
+                    40.415555555
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q754560",
+                "itemLabel": "Atəşgah",
+                "inventoryID": "1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.407722222,
+                    39.64425
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q953940",
+                "itemLabel": "Ağoğlan monastırı",
+                "inventoryID": "310"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.140805555,
+                    40.491847222
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q1072217",
+                "itemLabel": "Tuba Şahi məscidi",
+                "inventoryID": "95"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.747416666,
+                    39.758888888
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q2001493",
+                "itemLabel": "Qazançı kilsəsi",
+                "inventoryID": "358"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.988603,
+                    39.619189
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q2002193",
+                "itemLabel": "Azıx mağarası",
+                "inventoryID": "22"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.266111111,
+                    41.141388888
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q2070071",
+                "itemLabel": "Avey kilsəsi",
+                "inventoryID": "283"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.358938888,
+                    40.677511111
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q2074754",
+                "itemLabel": "Şah Abbas məscidi",
+                "inventoryID": "184"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.193066666,
+                    41.248933333
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q2503492",
+                "itemLabel": "Kiş kilsəsi",
+                "inventoryID": "53"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.90972223,
+                    41.45722223
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q2506004",
+                "itemLabel": "Qum bazilikası",
+                "inventoryID": "286"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.073111111,
+                    41.329222222
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q2511710",
+                "itemLabel": "Qırmızı körpü",
+                "inventoryID": "7"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836614,
+                    40.366309
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q2879959",
+                "itemLabel": "Hacı Qayıb hamamı",
+                "inventoryID": "92"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.232296448,
+                    41.142155331
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4154400",
+                "itemLabel": "Damcılı mağarası",
+                "inventoryID": "24"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.83575,
+                    40.365611111
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4160569",
+                "itemLabel": "Cümə məscidi (Köhnə Bakı)",
+                "inventoryID": "89"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.941995,
+                    40.532518
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4273760",
+                "itemLabel": "Diribaba türbəsi",
+                "inventoryID": "297"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.802152777,
+                    39.160241666
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4273768",
+                "itemLabel": "Məmmədbəyli türbəsi",
+                "inventoryID": "391"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.841712,
+                    40.157047
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4344728",
+                "itemLabel": "Papravənd türbəsi",
+                "inventoryID": "4044"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.053743,
+                    41.467668
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4446068",
+                "itemLabel": "Sumuq qala",
+                "inventoryID": "285"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.964922,
+                    39.604928
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4449657",
+                "itemLabel": "Tağlar mağarası",
+                "inventoryID": "23"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.193611111,
+                    41.201111111
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4522517",
+                "itemLabel": "Yuxarı Karvansara",
+                "inventoryID": "332"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.75666667,
+                    40.49111111
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q10986920",
+                "itemLabel": "Koroğlu qalası (Gədəbəy)",
+                "inventoryID": "216"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836691,
+                    40.3663585
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12837474",
+                "itemLabel": "Bazar meydanı",
+                "inventoryID": "93"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.196835,
+                    41.203362
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12838419",
+                "itemLabel": "Dairəvi məbəd",
+                "inventoryID": "327"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.27904,
+                    41.04778
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12838556",
+                "itemLabel": "Didivan qalası",
+                "inventoryID": "282"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.832868,
+                    40.364801
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12839813",
+                "itemLabel": "Gileyli məscidi",
+                "inventoryID": "82"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833611111,
+                    40.366944444
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12840111",
+                "itemLabel": "Hacı Bani məscidi",
+                "inventoryID": "77"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.35738,
+                    40.68104
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12840471",
+                "itemLabel": "Hüseyniyyə məscidi",
+                "inventoryID": "3983"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.83573,
+                    40.365072
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12840947",
+                "itemLabel": "Kiçik Karvansaray",
+                "inventoryID": "80"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8372999,
+                    40.3667809
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12842275",
+                "itemLabel": "Multani karvansarası",
+                "inventoryID": "79"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.19671,
+                    41.203971
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12843453",
+                "itemLabel": "Şəki qalası",
+                "inventoryID": "330"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.334596,
+                    40.669798
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12844384",
+                "itemLabel": "Qazaxlar məscidi",
+                "inventoryID": "3990"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.150136077,
+                    40.876524895
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12844661",
+                "itemLabel": "Qız qalası",
+                "inventoryID": "266"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.511666666,
+                    41.361111111
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12846199",
+                "itemLabel": "Səkinəxanım məscidi",
+                "inventoryID": "298"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.83559,
+                    40.36812
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12847518",
+                "itemLabel": "Xanlar məscidi",
+                "inventoryID": "90"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833888888,
+                    40.365
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12847654",
+                "itemLabel": "Xıdır Məscidi",
+                "inventoryID": "84"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.856111111,
+                    38.750833333
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12848333",
+                "itemLabel": "Zindan qalası",
+                "inventoryID": "4810"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.832505,
+                    40.366
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12848542",
+                "itemLabel": "Çin məscidi",
+                "inventoryID": "67"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836805,
+                    40.36565
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12848886",
+                "itemLabel": "İkimərtəbəli karvansaray (Bakı)",
+                "inventoryID": "81"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.920213,
+                    40.463716
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12849456",
+                "itemLabel": "Şakirağa türbəsi",
+                "inventoryID": "126"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.12938,
+                    40.49751
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12849518",
+                "itemLabel": "Şağan qalası",
+                "inventoryID": "94"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834544,
+                    40.364678
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12849537",
+                "itemLabel": "Şeyx İbrahim məscidi",
+                "inventoryID": "87"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834244,
+                    40.363746
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q14814260",
+                "itemLabel": "Qasımbəy hamamı",
+                "inventoryID": "83"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.83277778,
+                    40.36444444
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q14814854",
+                "itemLabel": "Ağа Mikayıl hamamı",
+                "inventoryID": "76"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.197568,
+                    41.204841
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q15039321",
+                "itemLabel": "Şəkixanovların evi",
+                "inventoryID": "331"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.007568397,
+                    40.560707861
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16413649",
+                "itemLabel": "Nardaran məscidi",
+                "inventoryID": "136"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.986813,
+                    40.419998
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16413883",
+                "itemLabel": "Nizaməddin məscidi",
+                "inventoryID": "168"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.348888888,
+                    40.671666666
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16414311",
+                "itemLabel": "Ozan məscidi",
+                "inventoryID": "3989"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.307670015,
+                    41.128641702
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16414394",
+                "itemLabel": "Bideyiz məbədi",
+                "inventoryID": "325"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.822445022,
+                    38.929104246
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16416335",
+                "itemLabel": "Aza körpüsü",
+                "inventoryID": "416"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829594,
+                    40.378809
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16417049",
+                "itemLabel": "Hacı Sultanəli məscidi",
+                "inventoryID": "174"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.191385185,
+                    41.200711588
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16417458",
+                "itemLabel": "Aşağı Karvansara",
+                "inventoryID": "333"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.835277777,
+                    40.364722222
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16417538",
+                "itemLabel": "Həzrəti Əli məscidi",
+                "inventoryID": "86"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.835795,
+                    40.3651025
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q19799922",
+                "itemLabel": "Mədrəsə məscid",
+                "inventoryID": "88"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836396,
+                    40.366548
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q19799928",
+                "itemLabel": "Təkiyə (İçəri Şəhər)",
+                "inventoryID": "74"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.778467699,
+                    40.527872988
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q20570873",
+                "itemLabel": "\"Hacı Səfəralı\" məscidi",
+                "inventoryID": "4008"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.617777777,
+                    41.126666666
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q20584552",
+                "itemLabel": "Surxayxan qalası",
+                "inventoryID": "315"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.352139994,
+                    40.681807606
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q20587468",
+                "itemLabel": "Şərəfxanlı məscidi",
+                "inventoryID": "3860"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834105,
+                    40.368131
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q20980828",
+                "itemLabel": "Dördbucaqlı qala",
+                "inventoryID": "75"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.837194809,
+                    40.390715879
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q21635821",
+                "itemLabel": "Rixard Zorgenin heykəli",
+                "inventoryID": "427"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8372999,
+                    40.3667809
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q25536644",
+                "itemLabel": "Buxara karvansarayı",
+                "inventoryID": "78"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.776038688,
+                    40.528423384
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31296490",
+                "itemLabel": "Hacı Səfəralı hamamı",
+                "inventoryID": "4009"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.327565814,
+                    40.666320198
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31298740",
+                "itemLabel": "Qızıl Hacılı Məscidi",
+                "inventoryID": "3987"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.920324924,
+                    40.463816181
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31299025",
+                "itemLabel": "Hacı Şəhla məscidi",
+                "inventoryID": "127"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.994166666,
+                    40.587222222
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31299039",
+                "itemLabel": "Hacı Baxış məscidi",
+                "inventoryID": "134"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.433955,
+                    40.600423
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31299273",
+                "itemLabel": "Şeyx Dursun türbəsi",
+                "inventoryID": "205"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.023888888,
+                    41.0625
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31309985",
+                "itemLabel": "Dördkünclü qala",
+                "inventoryID": "4524"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.109697283,
+                    40.066237555
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31310712",
+                "itemLabel": "Gəşəlitəpə",
+                "inventoryID": "729"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.130285844,
+                    40.060440018
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31310725",
+                "itemLabel": "Xanlıqtəpə",
+                "inventoryID": "713"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.515119,
+                    41.364208
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q55699316",
+                "itemLabel": "Ərdəbil məscidi",
+                "inventoryID": "4618"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.130513846,
+                    40.060117376
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q55700110",
+                "itemLabel": "Töyrətəpə (Ağcabədi)",
+                "inventoryID": "716"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.243122321,
+                    40.077939755
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q55700171",
+                "itemLabel": "Yastıtəpə (Ağcabədi)",
+                "inventoryID": "722"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836944444,
+                    40.368611111
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q65275361",
+                "itemLabel": "Yeraltı hamam",
+                "inventoryID": "72"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.154156066,
+                    40.493481989
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q65276232",
+                "itemLabel": "Pir Həsən türbəsi",
+                "inventoryID": "96"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.842199632,
+                    40.373814105
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q65276710",
+                "itemLabel": "İmadəddin Nəsiminin heykəli",
+                "inventoryID": "457"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.84369081,
+                    40.528386716
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q67982654",
+                "itemLabel": "Hacı Heybət məscidi (Fatmayı)",
+                "inventoryID": "4013"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.840027777,
+                    40.369027777
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q95951669",
+                "itemLabel": "Peterburq Şimal bankının binası",
+                "inventoryID": "165"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.1895,
+                    41.20048
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q97225056",
+                "itemLabel": "Ağvanlar hamamı",
+                "inventoryID": "4995"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.918166666,
+                    40.464027777
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q97231657",
+                "itemLabel": "Balaxanı qum hamamı",
+                "inventoryID": "128"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.5905,
+                    40.5179
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q97513340",
+                "itemLabel": "Əyrivəng kilsəsi",
+                "inventoryID": "4255"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.3960367,
+                    41.097039465
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q110108886",
+                "itemLabel": "Əyyub ağa məscidi",
+                "inventoryID": "4083"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.759284,
+                    39.757766
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q110319375",
+                "itemLabel": "Pənah xanın sarayı (Şuşa)",
+                "inventoryID": "338"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.8302,
+                    38.5042
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q124987047",
+                "itemLabel": "Kərbəlayi Həmid Abdulla hamamı",
+                "inventoryID": "4116"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.1541,
+                    40.4933
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q130235127",
+                "itemLabel": "Axund Abuturab türbəsi",
+                "inventoryID": "97"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.231406455,
+                    40.769397972
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q133853870",
+                "itemLabel": "Hacı Məcid Əfəndi məscidi",
+                "inventoryID": "4367"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.95820286,
+                    39.462480447
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134546389",
+                "itemLabel": "Daşbaşı kilsəsi",
+                "inventoryID": "4350"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.366524,
+                    41.2093
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134620261",
+                "itemLabel": "Gavur qalası",
+                "inventoryID": "326"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.390131494,
+                    40.756206184
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134732800",
+                "itemLabel": "Basqal hamamı",
+                "inventoryID": "4466"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.173865394,
+                    41.174585793
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134986879",
+                "itemLabel": "Qışlaq məscidi",
+                "inventoryID": "4977"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.182586342,
+                    41.209878529
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134987305",
+                "itemLabel": "1 nömrəli fabrikin binası",
+                "inventoryID": "4967"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.920977496,
+                    40.543181918
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135005738",
+                "itemLabel": "Aşağı hamam",
+                "inventoryID": "3185"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.170593382,
+                    41.187251995
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135062033",
+                "itemLabel": "Topqarağac məscidi",
+                "inventoryID": "4973"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830530835,
+                    40.37686776
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135390128",
+                "itemLabel": "Zərgərpalan hamamı",
+                "inventoryID": "3578"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.075703771,
+                    41.073623702
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q224819",
+                "itemLabel": "Əskipara monastırı",
+                "inventoryID": "281"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.356388888,
+                    40.679166666
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q1424921",
+                "itemLabel": "Aleksandr Nevski kilsəsi",
+                "inventoryID": "3855"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.9061,
+                    40.0655
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q2065395",
+                "itemLabel": "Şahbulaq qalası",
+                "inventoryID": "4047"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.921008,
+                    41.3889495
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q3652485",
+                "itemLabel": "Kürmük kilsəsi",
+                "inventoryID": "4581"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.236944444,
+                    38.798055555
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q3663001",
+                "itemLabel": "Allar mağarası",
+                "inventoryID": "1188"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.334638,
+                    39.422959
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4073062",
+                "itemLabel": "Arğalı türbəsi",
+                "inventoryID": "4212"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.511666666,
+                    41.091944444
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4133628",
+                "itemLabel": "Qarğalar təpəsi",
+                "inventoryID": "793"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.184686111,
+                    41.088705555
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4134788",
+                "itemLabel": "Göyəzən qalası",
+                "inventoryID": "4534"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.421666666,
+                    39.906388888
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4211578",
+                "itemLabel": "Kamiltəpə",
+                "inventoryID": "746"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.147156797,
+                    40.495726943
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4242006",
+                "itemLabel": "Dairəvi Mərdəkan qalası",
+                "inventoryID": "4.2"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.191388888,
+                    39.851666666
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4313112",
+                "itemLabel": "Nərgiztəpə",
+                "inventoryID": "1116"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.458333333,
+                    41.124444444
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4526087",
+                "itemLabel": "Şomulutəpə yaşayış yeri",
+                "inventoryID": "1273"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8458,
+                    40.3819
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4832398",
+                "itemLabel": "Azərbaycan Dövlət Pantomim Teatrı",
+                "inventoryID": "3037"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.0228,
+                    38.9097
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q5306443",
+                "itemLabel": "Cümə məscidi",
+                "inventoryID": "414"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.204025991,
+                    41.203322148
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q5306451",
+                "itemLabel": "Giləhli məscidi",
+                "inventoryID": "328"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836311,
+                    40.365761
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q6538185",
+                "itemLabel": "Aşur məscidi",
+                "inventoryID": "91"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.771412,
+                    41.591405
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q7137065",
+                "itemLabel": "Pəriqala",
+                "inventoryID": "387"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.155966562,
+                    40.544461155
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q10985915",
+                "itemLabel": "Bayan monastırı",
+                "inventoryID": "4185"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.019819542,
+                    38.913720827
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12835739",
+                "itemLabel": "Ambaras məscidi",
+                "inventoryID": "5322"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.370469,
+                    40.470751
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12835773",
+                "itemLabel": "Anahit kilsəsi",
+                "inventoryID": "4292"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.443556479,
+                    41.738257597
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12836063",
+                "itemLabel": "Arılıqbinə monastır kompleksi",
+                "inventoryID": "4142"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.364291,
+                    40.671165
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12836178",
+                "itemLabel": "Avropa tipli hamam (Gəncə)",
+                "inventoryID": "3830"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.036439,
+                    41.458941
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12838203",
+                "itemLabel": "Cinli qala",
+                "inventoryID": "4554"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.360759827,
+                    41.09318669
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12838279",
+                "itemLabel": "Cümə məscidi (Qazax)",
+                "inventoryID": "4513"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.826589,
+                    40.387247
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12841772",
+                "itemLabel": "Mehdi Hüseynzadənin heykəli",
+                "inventoryID": "453"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.835588888,
+                    40.367591666
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12842223",
+                "itemLabel": "Molla Əhməd Məscidi",
+                "inventoryID": "958"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.45833333,
+                    41.07083333
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12842452",
+                "itemLabel": "Müqəddəs Yelisey kompleksi",
+                "inventoryID": "1637"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.386209383,
+                    40.826102019
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12843333",
+                "itemLabel": "Niyalqala",
+                "inventoryID": "1168"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.4667852,
+                    41.074223961
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12843767",
+                "itemLabel": "Müqəddəs Yelisey kilsəsi",
+                "inventoryID": "4940"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.055621319,
+                    41.465536744
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12844152",
+                "itemLabel": "Qalaça (Şamilqala)",
+                "inventoryID": "4550"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.062921,
+                    41.467983
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12846988",
+                "itemLabel": "Ulu məscid",
+                "inventoryID": "284"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.355193,
+                    40.675094
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12847459",
+                "itemLabel": "Xalq Cümhuriyyəti binası",
+                "inventoryID": "3986"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.358236,
+                    40.677379
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12848616",
+                "itemLabel": "Çökək hamam",
+                "inventoryID": "3870"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.34796,
+                    40.68191
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12849437",
+                "itemLabel": "Şahsevənlər məscidi",
+                "inventoryID": "3818"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.833877,
+                    41.376529
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12861609",
+                "itemLabel": "Müqəddəs Nino kilsəsi",
+                "inventoryID": "4563"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.187641,
+                    41.200452
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q13365115",
+                "itemLabel": "Ömər Əfəndi məscidi",
+                "inventoryID": "4979"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.318888888,
+                    40.5875
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q14864401",
+                "itemLabel": "Alman lüteran kilsəsi",
+                "inventoryID": "4276"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.329366,
+                    40.662419
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16414271",
+                "itemLabel": "Bağmanlar məscidi",
+                "inventoryID": "3984"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.828787895,
+                    38.682332326
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16414607",
+                "itemLabel": "Şeyx Zahid türbəsi",
+                "inventoryID": "4838"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.847055555,
+                    38.751527777
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16414761",
+                "itemLabel": "Böyük Bazar məscidi",
+                "inventoryID": "4805"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.7937,
+                    38.700771
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16414887",
+                "itemLabel": "Bəlləbur qalası",
+                "inventoryID": "4807"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.923873003,
+                    41.415170277
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16415283",
+                "itemLabel": "Qaxmuğal məscidi",
+                "inventoryID": "4565"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.837801,
+                    40.385913
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16415387",
+                "itemLabel": "Əjdərbəy məscidi",
+                "inventoryID": "120"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.432363251,
+                    40.761056725
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16416279",
+                "itemLabel": "Fit qalası",
+                "inventoryID": "4360"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.44204075,
+                    40.775565913
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16417167",
+                "itemLabel": "Haram qalası",
+                "inventoryID": "5834"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.026657397,
+                    38.911738552
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16417366",
+                "itemLabel": "Sərşəhər məscidi",
+                "inventoryID": "5329"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.3983879,
+                    41.126582
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16418294",
+                "itemLabel": "Muxas qülləsi",
+                "inventoryID": "4942"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.430821,
+                    40.804712
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16418383",
+                "itemLabel": "Xan qalası",
+                "inventoryID": "4362"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.83701,
+                    40.366099
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q20573552",
+                "itemLabel": "Baba Kuhi Bakuvi məscidi",
+                "inventoryID": "548"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.1134,
+                    40.5172
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q20576490",
+                "itemLabel": "Cümə məscidi",
+                "inventoryID": "2586"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.57814,
+                    41.076973
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q20577874",
+                "itemLabel": "Gavurqala",
+                "inventoryID": "1650"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.147584463,
+                    40.491933589
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q20578467",
+                "itemLabel": "Hacı Zeynalabdin Tağıyevin villası",
+                "inventoryID": "2579"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833333333,
+                    40.367222222
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q21012753",
+                "itemLabel": "Hacı Heybət məscidi (İçərişəhər)",
+                "inventoryID": "2167"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.0248,
+                    38.9101
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q25540814",
+                "itemLabel": "Mingis məscidi",
+                "inventoryID": "5332"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.779389,
+                    40.563148
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q25541465",
+                "itemLabel": "Şah Soltan Hüseyn Məscidi",
+                "inventoryID": "4010"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.222897,
+                    40.46386
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31299002",
+                "itemLabel": "Zurnabad qalası",
+                "inventoryID": "4290"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834708038,
+                    40.366075159
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31299040",
+                "itemLabel": "Hacı Qayıb məscidi",
+                "inventoryID": "2356"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.652496023,
+                    41.636450551
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31304640",
+                "itemLabel": "Zaqatala kilsəsi",
+                "inventoryID": "5210"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.012790381,
+                    41.059094619
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31309982",
+                "itemLabel": "Qatır körpüsü",
+                "inventoryID": "4519"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.107655312,
+                    40.062291033
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31310708",
+                "itemLabel": "Cəfərqulutəpə",
+                "inventoryID": "730"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.820589,
+                    41.458075
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31310977",
+                "itemLabel": "Şah Abbas məscidi",
+                "inventoryID": "4308"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.009370838,
+                    40.557977589
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31311167",
+                "itemLabel": "Xan hamamı",
+                "inventoryID": "135"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.874444,
+                    41.408889
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31356032",
+                "itemLabel": "Müqəddəs Mixeyil kilsəsi",
+                "inventoryID": "4570"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834416666,
+                    40.374666666
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q48028669",
+                "itemLabel": "Fantaziya hamamı",
+                "inventoryID": "3731"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.576969555,
+                    41.252268913
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q55699180",
+                "itemLabel": "Rustov məscidi",
+                "inventoryID": "4626"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.92241757,
+                    40.458722827
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q55700594",
+                "itemLabel": "Şah Səfi karvansarası",
+                "inventoryID": "3220"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.339044811,
+                    38.982115263
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q55702856",
+                "itemLabel": "Abi-Dərdə türbəsi",
+                "inventoryID": "4471"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.458102908,
+                    40.753080343
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q65276001",
+                "itemLabel": "Kələzeyvə türbəsi",
+                "inventoryID": "4358"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.822655325,
+                    38.608516392
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q65276171",
+                "itemLabel": "Məşədi Abutalıb hamamı",
+                "inventoryID": "4121"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.729758408,
+                    40.512370982
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q65279747",
+                "itemLabel": "Cami məscidi",
+                "inventoryID": "4023"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.731763257,
+                    40.514176012
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q65279829",
+                "itemLabel": "II Kəsrani türbəsi",
+                "inventoryID": "4020"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.843069738,
+                    40.529247867
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q67928686",
+                "itemLabel": "Abbasəli hamamı",
+                "inventoryID": "4016"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.84205838,
+                    40.529117712
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q67929017",
+                "itemLabel": "Əlbatti məscidi",
+                "inventoryID": "4011"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.844715805,
+                    40.529146896
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q68003094",
+                "itemLabel": "Salam məscidi",
+                "inventoryID": "4015"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.884442409,
+                    40.493977487
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q68903141",
+                "itemLabel": "Sumahi türbəsi",
+                "inventoryID": "4001"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.918712515,
+                    40.46403735
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q96354642",
+                "itemLabel": "Balaxanı ovdanı",
+                "inventoryID": "543"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.5096,
+                    41.3629
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q97234065",
+                "itemLabel": "Hacı Cəfər Məscidi",
+                "inventoryID": "4619"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833444444,
+                    40.371416666
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q105079015",
+                "itemLabel": "Hacı Mustafa Rəsulovun mülkü",
+                "inventoryID": "3688"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.995781862,
+                    39.442029394
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q105819880",
+                "itemLabel": "Müqəddəs Məryəm kilsəsi (Ərəkül)",
+                "inventoryID": "4330"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.005226492,
+                    40.535823378
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q110101196",
+                "itemLabel": "Şamxal hamamı",
+                "inventoryID": "3188"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.716728,
+                    40.407051
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q110101204",
+                "itemLabel": "Qobu hamamı",
+                "inventoryID": "4004"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.738793829,
+                    40.651973335
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q110104543",
+                "itemLabel": "Əbülfəzlil Əbbas məscidi",
+                "inventoryID": "4268"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.851324716,
+                    38.754347102
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q110105648",
+                "itemLabel": "İsa bəyin evi",
+                "inventoryID": "4794"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.192142148,
+                    41.199310035
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q110109898",
+                "itemLabel": "Rəşid bəy Əfəndiyevin Ev-Muzeyi",
+                "inventoryID": "5689"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.952204386,
+                    40.444408294
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q111097882",
+                "itemLabel": "Cümə məscidi (Sabunçu)",
+                "inventoryID": "3218"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.832556705,
+                    40.364653681
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q123692020",
+                "itemLabel": "Ədibin evi",
+                "inventoryID": "2399"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.230579641,
+                    41.030840904
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q128215260",
+                "itemLabel": "Təpəbaşı nekropolu",
+                "inventoryID": "1733"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.178888888,
+                    41.208888888
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q128403487",
+                "itemLabel": "Abdulxalıq hamamı",
+                "inventoryID": "4974"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.381861587,
+                    40.846719813
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q129175814",
+                "itemLabel": "Bədöyün məscidi",
+                "inventoryID": "4381"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.767003378,
+                    41.49884265
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q130356144",
+                "itemLabel": "Güllük kənd məscidi",
+                "inventoryID": "4561"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.826498117,
+                    40.371665396
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q131010702",
+                "itemLabel": "Təndir hamamı",
+                "inventoryID": "3757"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.759440365,
+                    41.206254613
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134576452",
+                "itemLabel": "Kilvar kilsəsi",
+                "inventoryID": "4197"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.941998645,
+                    40.712789821
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134732783",
+                "itemLabel": "Qalagah kilsəsi",
+                "inventoryID": "4364"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.919075013,
+                    40.547496342
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135005845",
+                "itemLabel": "Hacı Zeynal hamamı",
+                "inventoryID": "3183"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.204738181,
+                    41.204700527
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135045351",
+                "itemLabel": "Səkkiz üzlü minarə",
+                "inventoryID": "4982"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.171299358,
+                    41.187305406
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135272605",
+                "itemLabel": "Qışlaq hamamı",
+                "inventoryID": "4971"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.037528042,
+                    41.079748474
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135273269",
+                "itemLabel": "Daşbulaq kilsəsi",
+                "inventoryID": "4991"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.644200254,
+                    41.446320476
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135442082",
+                "itemLabel": "Müqəddəs Məryəmin Himayəsi kilsəsi",
+                "inventoryID": "4653"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.564710741,
+                    39.289652509
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135494026",
+                "itemLabel": "Rus Pravoslav kilsəsi (Cəlilabad)",
+                "inventoryID": "4178"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.83725,
+                    40.366166666
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q842822",
+                "itemLabel": "Qız qalası",
+                "inventoryID": "2.2"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.140756459,
+                    40.492097318
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q943140",
+                "itemLabel": "Dördkünc Mərdəkan qalası",
+                "inventoryID": "4.1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.004813888,
+                    40.561388888
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q943153",
+                "itemLabel": "Nardaran qalası",
+                "inventoryID": "4.4"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.980058,
+                    40.45613
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q1014729",
+                "itemLabel": "Ramana qalası",
+                "inventoryID": "4.3"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833041666,
+                    40.366069444
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q1521003",
+                "itemLabel": "Saray məscidi",
+                "inventoryID": "3.3"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834698,
+                    40.365406
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q1535049",
+                "itemLabel": "Sınıqqala məscidi",
+                "inventoryID": "2.1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.942418476,
+                    39.593711375
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q2699193",
+                "itemLabel": "Ktişvəng monastırı",
+                "inventoryID": "4354-1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833333333,
+                    40.366111111
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4077315",
+                "itemLabel": "Saray hamamı",
+                "inventoryID": "3.7"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833459,
+                    40.365981
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4273786",
+                "itemLabel": "Seyid Yəhya türbəsi",
+                "inventoryID": "3.4"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.0226,
+                    39.51345
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4437912",
+                "itemLabel": "Ağ xaç kilsəsi",
+                "inventoryID": "4323"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.945291,
+                    41.080384
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q4516154",
+                "itemLabel": "Çıraqqala",
+                "inventoryID": "4.7"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.02333333,
+                    40.83333333
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12835673",
+                "itemLabel": "Alman lüteran kilsəsi (Şəmkir)",
+                "inventoryID": "4999"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.837861111,
+                    40.366527777
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12836949",
+                "itemLabel": "Ağa Zeynal hamamı",
+                "inventoryID": "93-10"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.516184587,
+                    38.802383309
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12837181",
+                "itemLabel": "Babagil türbəsi",
+                "inventoryID": "4789"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8367,
+                    40.3681
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12837306",
+                "itemLabel": "Bakı xan sarayı",
+                "inventoryID": "69,70,71,73"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834469,
+                    40.366126
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12838048",
+                "itemLabel": "Bəylər məscidi",
+                "inventoryID": "93-9"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.426944444,
+                    41.086388888
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12838084",
+                "itemLabel": "Calut kilsəsi",
+                "inventoryID": "4941"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.852361111,
+                    38.765083333
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12840945",
+                "itemLabel": "Kiçik Bazar məscidi",
+                "inventoryID": "4806"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833468888,
+                    40.366166944
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12841258",
+                "itemLabel": "Kеyqubаd məscidi",
+                "inventoryID": "3.8"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8372,
+                    40.3661
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12842301",
+                "itemLabel": "Murad darvazası",
+                "inventoryID": "3.6"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.0227776,
+                    41.4584777
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12846983",
+                "itemLabel": "Ulu körpü",
+                "inventoryID": "4552"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.650400962,
+                    41.636343589
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12848260",
+                "itemLabel": "Zaqatala qalası",
+                "inventoryID": "5218"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.678278082,
+                    41.480181327
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q12849534",
+                "itemLabel": "Şeyx Yusif türbəsi",
+                "inventoryID": "4301"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.68411,
+                    41.67264
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16413635",
+                "itemLabel": "Çingizqala",
+                "inventoryID": "5221"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.359988996,
+                    41.093056432
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16414341",
+                "itemLabel": "İsrafil ağa hamamı",
+                "inventoryID": "4514"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833469444,
+                    40.366227777
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16414684",
+                "itemLabel": "Şirvanşahların türbəsi",
+                "inventoryID": "3.5"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8325,
+                    40.365833333
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16415094",
+                "itemLabel": "Cin məscidi",
+                "inventoryID": "93-8"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.512194444,
+                    41.363611111
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16415181",
+                "itemLabel": "Cümə məscidi",
+                "inventoryID": "4615"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.298111169,
+                    41.000246134
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16416289",
+                "itemLabel": "Aydınbulaq qülləsi",
+                "inventoryID": "6036"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.507222222,
+                    41.361944444
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16416672",
+                "itemLabel": "Gümbəzli hamam",
+                "inventoryID": "4606"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.825833333,
+                    40.369166666
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16417010",
+                "itemLabel": "Hacı Cavad məscidi",
+                "inventoryID": "3511"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.175054686,
+                    41.231349351
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16417018",
+                "itemLabel": "Hacı Mahmud Əfəndi türbəsi",
+                "inventoryID": "4536"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.264264709,
+                    41.238932746
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16417290",
+                "itemLabel": "Səməd Vurğunun Poeziya Evi",
+                "inventoryID": "5652"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.972479,
+                    41.433258
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16417495",
+                "itemLabel": "Həsənxan qalası",
+                "inventoryID": "4546"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.717,
+                    41.2742
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16417651",
+                "itemLabel": "Torpaqqala",
+                "inventoryID": "5854"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.856341702,
+                    38.754178569
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16417760",
+                "itemLabel": "Lənkəran xan sarayı",
+                "inventoryID": "4793"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.366424114,
+                    40.682565524
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16418202",
+                "itemLabel": "Mollacəlilli məscidi",
+                "inventoryID": "3892"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.323483178,
+                    40.664531761
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16418640",
+                "itemLabel": "Xəlfəli məscidi",
+                "inventoryID": "3847"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.356359,
+                    40.670811
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16418658",
+                "itemLabel": "Zərrabi məscidi",
+                "inventoryID": "3890"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.409058951,
+                    39.208794459
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q16418664",
+                "itemLabel": "Zəviyyə məscidi",
+                "inventoryID": "5300"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8358,
+                    40.3674
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q19798499",
+                "itemLabel": "Mirzə Əhməd məscidi",
+                "inventoryID": "2182"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836882295,
+                    40.366268847
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q20404595",
+                "itemLabel": "Müqəddəs Varfolomey kilsəsi (Bakı)",
+                "inventoryID": "5716-1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.193888888,
+                    41.201388888
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q20586818",
+                "itemLabel": "İmam Əli məscidi",
+                "inventoryID": "334-1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.1885,
+                    41.2037
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q21661993",
+                "itemLabel": "Gödək minarəli məscid",
+                "inventoryID": "4980"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.203172585,
+                    40.524881594
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31195426",
+                "itemLabel": "Qabriyel kilsəsi",
+                "inventoryID": "4294"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833469444,
+                    40.366227777
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31271606",
+                "itemLabel": "Divanxana",
+                "inventoryID": "3.2"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.113489253,
+                    40.057390303
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31310721",
+                "itemLabel": "Hacılar",
+                "inventoryID": "5756"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.943486,
+                    41.425638
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q31355108",
+                "itemLabel": "Müqəddəs Georgi kilsəsi",
+                "inventoryID": "4569"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.561388888,
+                    41.324444444
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q55698945",
+                "itemLabel": "Birinci Nügədi kənd məscidi",
+                "inventoryID": "4622"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.908079236,
+                    38.883910769
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q55700598",
+                "itemLabel": "Şingiley məscidi",
+                "inventoryID": "5345"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.890800021,
+                    40.570690669
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q56633670",
+                "itemLabel": "Hacı Şahverdi hamamı",
+                "inventoryID": "3213"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.206543639,
+                    41.204860033
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q56758708",
+                "itemLabel": "Bəxtiyar Vahabzadənin ev-muzeyi",
+                "inventoryID": "4996-30"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.890893153,
+                    40.561507901
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q60231854",
+                "itemLabel": "Hacı Əbu-Salam hamamı",
+                "inventoryID": "3212"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.827016437,
+                    40.558812832
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q67431484",
+                "itemLabel": "Əlimurad hamamı",
+                "inventoryID": "2573-1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.179411,
+                    41.203401
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q97225446",
+                "itemLabel": "Dərə hamamı",
+                "inventoryID": "4981"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.1941965,
+                    41.2007262
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q97227133",
+                "itemLabel": "Tağlı körpülər",
+                "inventoryID": "4996"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.195101,
+                    41.203112
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q97227420",
+                "itemLabel": "Yeraltı hamam",
+                "inventoryID": "4975"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.920525111,
+                    40.464196189
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q97302239",
+                "itemLabel": "Eldarzadənin türbəsi",
+                "inventoryID": "3219"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.026265,
+                    39.519793
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q102254612",
+                "itemLabel": "Holy Resurrection Church",
+                "inventoryID": "4319"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.839313396,
+                    40.324290235
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q104713528",
+                "itemLabel": "Güngörməz qalası",
+                "inventoryID": "1082"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.235678032,
+                    38.790176841
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q107100914",
+                "itemLabel": "Dəvə fiqurlarından karvan daş kompleksi",
+                "inventoryID": "6139"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.947940625,
+                    40.386059469
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q110101108",
+                "itemLabel": "Əhmədli məscidi",
+                "inventoryID": "4911"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.982472653,
+                    40.457839573
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q110101207",
+                "itemLabel": "Ramana məscidi",
+                "inventoryID": "3214"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836596533,
+                    40.367667678
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q119954175",
+                "itemLabel": "Zəncirli ev",
+                "inventoryID": "93-4"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.291666666,
+                    41.309166666
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q123418226",
+                "itemLabel": "Susay məscidi",
+                "inventoryID": "4624"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.546388888,
+                    41.219722222
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q125522857",
+                "itemLabel": "Xanəgah məscidi (Quba)",
+                "inventoryID": "4660"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.193682335,
+                    41.201454616
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q128386659",
+                "itemLabel": "Zülfüqarovun mədrəsəsi",
+                "inventoryID": "4996-7"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.196553853,
+                    41.202831558
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q129260179",
+                "itemLabel": "Şəki Sənətkarlar Evi",
+                "inventoryID": "4996-16"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.700855453,
+                    41.538057653
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q130350127",
+                "itemLabel": "Çobankol kənd məscidi",
+                "inventoryID": "5253"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.798859733,
+                    40.436084974
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q133334860",
+                "itemLabel": "Biləcəri Müqəddəs Varfolomey kilsəsi",
+                "inventoryID": "2573-6"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.201283049,
+                    41.203730532
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134899544",
+                "itemLabel": "Səmədovların evi",
+                "inventoryID": "4996-46"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.192416115,
+                    41.200612988
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134980648",
+                "itemLabel": "Məmməd Sadıq Əliyevin ticarət kontorunun binası",
+                "inventoryID": "4996-11"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.195107347,
+                    41.201554617
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134980744",
+                "itemLabel": "Dadanovların mülkləri",
+                "inventoryID": "4996-1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.195107347,
+                    41.201554617
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134980744",
+                "itemLabel": "Dadanovların mülkləri",
+                "inventoryID": "4996-2"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.195107347,
+                    41.201554617
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134980744",
+                "itemLabel": "Dadanovların mülkləri",
+                "inventoryID": "4996-3"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.195107347,
+                    41.201554617
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134980744",
+                "itemLabel": "Dadanovların mülkləri",
+                "inventoryID": "4996-4"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.195107347,
+                    41.201554617
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134980744",
+                "itemLabel": "Dadanovların mülkləri",
+                "inventoryID": "4996-5"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.199337226,
+                    41.203746989
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134987039",
+                "itemLabel": "İsmayıl Hüseynbəyovun evi",
+                "inventoryID": "4996-18"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.199730406,
+                    41.20348184
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q134992068",
+                "itemLabel": "İsmayıl Hüseynbəyovun evi 2",
+                "inventoryID": "4996-19"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.859236508,
+                    40.565441959
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135005783",
+                "itemLabel": "Hacı Ağa Murad hamamı",
+                "inventoryID": "2573-3"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.18779583,
+                    41.200501464
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135042934",
+                "itemLabel": "Tacir İsmayıl bəyin evi",
+                "inventoryID": "4996-43"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.181333331,
+                    41.200980783
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135094743",
+                "itemLabel": "Building on Ahmadiyya Jabrayilov Street 14",
+                "inventoryID": "4996-6"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.190388205,
+                    41.201984028
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135103459",
+                "itemLabel": "Abdulla bəy Əfəndizadənin evi",
+                "inventoryID": "4996-35"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.193667873,
+                    41.203584245
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135108452",
+                "itemLabel": "Hacı Zülqədər Zülfüqarovun evi",
+                "inventoryID": "4996-8"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.822561102,
+                    40.47424794
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135312189",
+                "itemLabel": "Hacı Əmrah hamamı",
+                "inventoryID": "2571"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834179714,
+                    40.371031301
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135447225",
+                "itemLabel": "Mərkəzi Univermaq (Bakı)",
+                "inventoryID": "3262"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.186817845,
+                    41.200523235
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135513254",
+                "itemLabel": "Hacıağa Məhərrəmin evi",
+                "inventoryID": "4996-29"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.181295506,
+                    41.200445284
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135513281",
+                "itemLabel": "Əhmədiyyə Cəbrayılov küçəsi 9 ünvanındakı bina",
+                "inventoryID": "4996-55"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.186784952,
+                    41.200540699
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135513392",
+                "itemLabel": "Mülkədar Şirin bəyin evi 2",
+                "inventoryID": "4996-28"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.196219446,
+                    41.203021182
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135514846",
+                "itemLabel": "Təcridxananın birinci binası",
+                "inventoryID": "4996-15"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.845792582,
+                    40.380136533
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q135712619",
+                "itemLabel": "Molokanların ibadət evi",
+                "inventoryID": "3166-1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.860704559,
+                    40.402063016
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q136342226",
+                "itemLabel": "İnşaatçıların mədəniyyət sarayı",
+                "inventoryID": "2865"
+            }
+        }
+    ]
+}
