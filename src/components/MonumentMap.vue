@@ -11,6 +11,12 @@ import L from 'leaflet'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import 'leaflet.markercluster'
+
+import { LocateControl } from "leaflet.locatecontrol";
+import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
+import 'leaflet.fullscreen/Control.FullScreen.css';
+import "leaflet.fullscreen"
+
 import monumentsGeoJSONRaw from '../assets/monuments.geojson?raw'
 
 export default defineComponent({
@@ -60,12 +66,20 @@ export default defineComponent({
       }).eachLayer(layer => markers.addLayer(layer))
 
       // Initialize map
-      const map = L.map('map').setView([initialLat, initialLng], initialZoom)
+      const map = L.map('map', {
+        fullscreenControl: true,
+        fullscreenControlOptions: {
+          position: 'topleft',
+          forceSeparateButton: true,
+        }
+      }).setView([initialLat, initialLng], initialZoom)
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; OpenStreetMap'
       }).addTo(map)
       map.addLayer(markers)
+
+      new LocateControl().addTo(map);
 
       // Open popup for target marker
       if (targetMarker) {
