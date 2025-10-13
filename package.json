@@ -13,6 +13,8 @@
   "license": "ISC",
   "packageManager": "pnpm@10.18.2",
   "dependencies": {
+    "@types/leaflet.fullscreen": "^3.0.3",
+    "@types/leaflet.locatecontrol": "^0.82.1",
     "@wikimedia/codex": "^2.3.2",
     "@wikimedia/codex-design-tokens": "^2.3.2",
     "@wikimedia/codex-icons": "^2.3.2",
@@ -20,6 +22,8 @@
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "leaflet": "^1.9.4",
+    "leaflet.fullscreen": "^4.0.0",
+    "leaflet.locatecontrol": "^0.85.1",
     "leaflet.markercluster": "^1.5.3",
     "passport": "^0.7.0",
     "passport-mediawiki-oauth": "^0.1.0",
