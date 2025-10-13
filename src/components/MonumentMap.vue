@@ -8,14 +8,17 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import L from 'leaflet'
+import 'leaflet.markercluster'
+import "leaflet.fullscreen"
+import { LocateControl } from "leaflet.locatecontrol";
+
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
-import 'leaflet.markercluster'
-
-import { LocateControl } from "leaflet.locatecontrol";
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
 import 'leaflet.fullscreen/Control.FullScreen.css';
-import "leaflet.fullscreen"
+
+//TODO: Add leaflet-search and leaflet-geosearch
+//TODO: Analyze usage of Leaflet.EasyButton
 
 import monumentsGeoJSONRaw from '../assets/monuments.geojson?raw'
 
@@ -79,7 +82,11 @@ export default defineComponent({
       }).addTo(map)
       map.addLayer(markers)
 
-      new LocateControl().addTo(map);
+      const locateControl = new LocateControl({
+        keepCurrentZoomLevel: true
+      })
+
+      locateControl.addTo(map);
 
       // Open popup for target marker
       if (targetMarker) {
