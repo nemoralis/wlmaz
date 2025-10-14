@@ -19,8 +19,6 @@ import 'leaflet.fullscreen/Control.FullScreen.css';
 
 //TODO: Add leaflet-search and leaflet-geosearch
 //TODO: Analyze usage of Leaflet.EasyButton
-//TODO: Implement auto update for geojson file
-
 import monumentsGeoJSONRaw from '../assets/monuments.geojson?raw'
 
 export default defineComponent({
@@ -43,7 +41,7 @@ export default defineComponent({
       // TARGET MARKER OUTER SCOPE
       let targetMarker: L.Layer | null = null
 
-      // Add GeoJSON markers
+      //TODO: Implement auto update for geojson file
       L.geoJSON(geoData, {
         pointToLayer: (feature, latlng) => {
           const name = feature.properties?.itemLabel || 'Unknown'
