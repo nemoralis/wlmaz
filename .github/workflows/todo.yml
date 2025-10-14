@@ -1,2 +1,14 @@
-- name: TODO to Issue
-  uses: alstr/todo-to-issue-action@v5.1.13
+name: TODO to Issue
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  todo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: TODO to Issue
+        uses: alstr/todo-to-issue-action@v5.1.13
