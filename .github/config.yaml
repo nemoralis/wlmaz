@@ -1,2 +1,2 @@
-- name: todo-issue
-  uses: Juulsn/todo-issue@v1.1.4
+todo:
+  keyword: ['@todo','TODO']
