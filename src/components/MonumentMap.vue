@@ -67,7 +67,7 @@ export default defineComponent({
         }
       }).eachLayer(layer => markers.addLayer(layer))
 
-      // Initialize map
+      //TODO: Testing TODO
       const map = L.map('map', {
         fullscreenControl: true,
         fullscreenControlOptions: {
