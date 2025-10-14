@@ -1,2 +1,2 @@
-todo:
-  keyword: "@makeAnIssue"
+- name: todo-issue
+  uses: Juulsn/todo-issue@v1.1.4
