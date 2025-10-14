@@ -20,6 +20,7 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+//TODO: Add route support for static help pages
 app.use('/auth', authRoutes)
 app.use('/upload', uploadRoutes)
 
