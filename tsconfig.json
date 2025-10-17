@@ -8,7 +8,14 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "types": ["vite/client"]
+    "types": [
+      "vite/client"
+    ],
+    "noEmit": true,
+    "allowImportingTsExtensions": true
   },
-  "include": ["src/**/*", "src/shims-vue.d.ts"]
+  "include": [
+    "src/**/*",
+    "src/shims-vue.d.ts"
+  ],
 }
