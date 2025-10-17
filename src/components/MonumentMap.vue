@@ -33,12 +33,10 @@ export default defineComponent({
       const urlParams = new URLSearchParams(window.location.search)
       const targetInventory = urlParams.get('inventory')
 
-      // Default map coordinates
       let initialLat = 40.4093
       let initialLng = 49.8671
       let initialZoom = 7
 
-      // TARGET MARKER OUTER SCOPE
       let targetMarker: L.Layer | null = null
 
       //TODO: Implement auto update for geojson file
@@ -55,7 +53,6 @@ export default defineComponent({
             weight: 1
           }).bindPopup(name)
 
-          // Check for target inventory
           if (targetInventory && inventory === targetInventory) {
             targetMarker = marker
             initialLat = latlng.lat
@@ -67,8 +64,7 @@ export default defineComponent({
         }
       }).eachLayer(layer => markers.addLayer(layer))
 
-      //TODO: Testing TODO
-      //TODO: Testing TODO 2
+      // Initialize map
       const map = L.map('map', {
         fullscreenControl: true,
         fullscreenControlOptions: {
@@ -88,11 +84,9 @@ export default defineComponent({
 
       locateControl.addTo(map);
 
-      // Open popup for target marker
       if (targetMarker) {
         (targetMarker as L.CircleMarker).openPopup()
       } else {
-        // No inventoryID → try to center from URL lat/lng/zoom
         const latParam = urlParams.get('lat')
         const lngParam = urlParams.get('lng')
         const zoomParam = urlParams.get('zoom')
@@ -101,7 +95,6 @@ export default defineComponent({
         }
       }
 
-      // Realtime URL updates on map move/zoom if not targeting inventoryID
       if (!targetInventory) {
         map.on('moveend zoomend', () => {
           const center = map.getCenter()
