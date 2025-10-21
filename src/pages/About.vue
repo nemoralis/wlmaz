@@ -1,3 +1,6 @@
 <template>
-    <div style="padding:16px">About this project</div>
+  /**
+  TODO: Add project information
+  */
+  <div style="padding: 16px">About this project</div>
 </template>

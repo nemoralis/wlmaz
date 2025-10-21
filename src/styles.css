@@ -2,19 +2,19 @@
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #app {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 #main {
-    flex: 1;
-    width: 100%;
+  flex: 1;
+  width: 100%;
 }
