@@ -1,6 +1,9 @@
 import passport from "passport";
 // @ts-ignore
 import { Strategy as MediaWikiStrategy } from "passport-mediawiki-oauth";
+if (!process.env.WM_CONSUMER_KEY || !process.env.WM_CONSUMER_SECRET) {
+  throw new Error("WM_CONSUMER_KEY and WM_CONSUMER_SECRET must be set");
+}
 
 passport.use(
   new MediaWikiStrategy(
@@ -11,7 +14,14 @@ passport.use(
       baseURL: "https://commons.wikimedia.org/",
     },
     (token: string, tokenSecret: string, profile: any, done: any) => {
-      done(null, { token, tokenSecret, profile });
+      const user: WikiUser = {
+        id: profile.id,
+        username: profile.displayName || profile.username,
+        token: token,
+        tokenSecret: tokenSecret,
+      };
+
+      done(null, user);
     },
   ),
 );
@@ -20,8 +30,8 @@ passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser((obj, done) => {
-  done(null, obj!);
+passport.deserializeUser((user: WikiUser, done) => {
+  done(null, user);
 });
 
 export default passport;

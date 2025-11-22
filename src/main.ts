@@ -5,6 +5,7 @@ import { createPinia } from "pinia";
 import "./styles.css";
 import "./assets/tailwind.css";
 
+// Leaflet Core CSS
 import "leaflet/dist/leaflet.css";
 
 createApp(App).use(createPinia()).use(router).mount("#app");
