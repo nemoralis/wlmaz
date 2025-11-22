@@ -1,13 +1,32 @@
 import { createRouter, createWebHistory } from "vue-router";
-import MonumentMap from "../components/MonumentMap.vue";
-import AboutPage from "../pages/About.vue";
+import type { RouteRecordRaw } from "vue-router";
 
-const routes = [
-  { path: "/", component: MonumentMap },
-  { path: "/about", component: AboutPage },
+const routes: Array<RouteRecordRaw> = [
+  {
+    path: "/",
+    name: "Home",
+    // Lazy Load: Only downloads Leaflet code when the user is actually on this page
+    component: () => import("../components/MonumentMap.vue"),
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: () => import("../pages/About.vue"),
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/"
+  }
 ];
 
 export const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 0 };
+    }
+  },
 });
