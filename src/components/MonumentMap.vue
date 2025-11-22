@@ -62,16 +62,28 @@
               <h2 class="text-xl font-bold text-gray-900 mb-1">{{ selectedMonument.itemLabel }}</h2>
               <p class="text-xs text-gray-500 mb-4 font-mono">ID: {{ selectedMonument.inventoryID }}</p>
 
-              <div class="mb-6">
-                <img v-if="selectedMonument.image" :src="selectedMonument.image"
-                  class="w-full h-48 object-cover rounded-lg shadow-sm border border-gray-200" alt="Monument" />
+              <div class="mb-6 relative min-h-[200px]">
+                <div v-if="selectedMonument.image">
+                  <a :href="selectedMonument.image" target="_blank" rel="noopener">
+                    <div v-if="imageLoading"
+                      class="w-full h-48 bg-gray-200 animate-pulse rounded-lg flex items-center justify-center">
+                      <i class="fa fa-image text-gray-300 text-3xl"></i>
+                    </div>
+
+                    <img :src="getOptimizedImage(selectedMonument.image)"
+                      class="w-full h-auto max-h-[300px] object-cover rounded-lg shadow-md transition-opacity duration-300"
+                      :class="{ 'opacity-0 absolute top-0': imageLoading, 'opacity-100': !imageLoading }" alt="Monument"
+                      loading="lazy" @load="imageLoading = false" />
+                  </a>
+                </div>
+
                 <div v-else
                   class="w-full h-32 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 gap-2">
                   <i class="fa fa-camera text-2xl"></i>
-                  <span class="text-sm font-medium">Şəkil mövcud deyil</span>
+                  <span class="text-sm font-medium">No image available</span>
                 </div>
-              </div>
 
+              </div>
               <div class="border-t border-gray-100 pt-6">
                 <div v-if="auth.isAuthenticated">
                   <button @click="openUploadModal"
@@ -95,12 +107,31 @@
 
               <div class="mt-8">
                 <h3 class="text-sm font-bold text-gray-900 mb-2 uppercase tracking-wide">Metadata</h3>
+
                 <div class="bg-gray-50 rounded border border-gray-200 text-sm">
+
                   <div class="p-2 border-b border-gray-200 flex justify-between">
-                    <span class="text-gray-500">Koordinatları</span>
-                    <span class="font-mono text-gray-700">{{ selectedMonument.lat?.toFixed(4) }}, {{
-                      selectedMonument.lon?.toFixed(4) }}</span>
+                    <span class="text-gray-500">Coordinates</span>
+                    <span class="font-mono text-gray-700">
+                      {{ selectedMonument.lat?.toFixed(4) }}, {{ selectedMonument.lon?.toFixed(4) }}
+                    </span>
                   </div>
+
+                  <div v-if="selectedMonument.item" class="p-2 flex justify-between items-center">
+                    <span class="text-gray-500 flex items-center gap-2">
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Wikidata.svg/330px-Wikidata.svg.png"
+                        class="w-5 h-auto opacity-60" alt="Wikidata" />
+                      Wikidata
+                    </span>
+
+                    <a :href="selectedMonument.item" target="_blank" rel="noopener noreferrer"
+                      class="text-blue-600 hover:text-blue-800 hover:underline text-xs font-semibold flex items-center gap-1 transition-colors">
+                      View Item
+                      <i class="fa fa-external-link-alt"></i>
+                    </a>
+                  </div>
+
                 </div>
               </div>
 
@@ -120,7 +151,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref, shallowRef, nextTick } from "vue";
+import { defineComponent, onMounted, onUnmounted, ref, shallowRef, nextTick, watch } from "vue";
 import L from "leaflet";
 import "leaflet.markercluster";
 import "leaflet-sidebar-v2";
@@ -153,10 +184,23 @@ export default defineComponent({
     const mapInstance = shallowRef<L.Map | null>(null);
     const sidebarInstance = shallowRef<L.Control | null>(null);
     const selectedMonument = ref<MonumentProps | null>(null);
+    const imageLoading = ref(true);
 
+    // 2. Watch for selection changes to RESET the loading state
+    watch(selectedMonument, () => {
+      imageLoading.value = true; // Show spinner immediately when switching
+    });
     const openUploadModal = () => {
       console.log("Opening upload modal for", selectedMonument.value?.itemLabel);
       // TODO: Trigger upload modal
+    };
+
+    const getOptimizedImage = (url: string, width = 600) => {
+      if (!url) return "";
+
+      // Check if it already has query parameters
+      const separator = url.includes("?") ? "&" : "?";
+      return `${url}${separator}width=${width}`;
     };
 
     onMounted(() => {
@@ -183,7 +227,7 @@ export default defineComponent({
       sidebarInstance.value = sidebar;
 
       const geoData = JSON.parse(monumentsGeoJSONRaw);
-      const markers = L.markerClusterGroup({ showCoverageOnHover: false });
+      const markers = L.markerClusterGroup({ showCoverageOnHover: false, chunkedLoading: true });
 
       L.geoJSON(geoData, {
         pointToLayer: (feature, latlng) => {
@@ -212,7 +256,7 @@ export default defineComponent({
       }).addTo(markers);
 
       map.addLayer(markers);
-      new LocateControl({ keepCurrentZoomLevel: true, position: 'topright' }).addTo(map);
+      new LocateControl({ keepCurrentZoomLevel: false, flyTo: true, position: 'topright' }).addTo(map);
     });
 
     onUnmounted(() => {
@@ -226,7 +270,9 @@ export default defineComponent({
       mapContainer,
       auth,
       selectedMonument,
-      openUploadModal
+      imageLoading,
+      openUploadModal,
+      getOptimizedImage,
     };
   },
 });

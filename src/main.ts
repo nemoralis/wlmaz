@@ -3,8 +3,6 @@ import App from "./App.vue";
 import { router } from "./routes/index";
 import { createPinia } from "pinia";
 import "./styles.css";
-import "./assets/tailwind.css";
-
 // Leaflet Core CSS
 import "leaflet/dist/leaflet.css";
 
