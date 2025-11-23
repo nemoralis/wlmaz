@@ -44,7 +44,7 @@
 
         <button v-else @click="auth.login"
           class="bg-[#3366cc] text-white px-5 py-1.5 rounded-md text-sm font-semibold hover:bg-[#2a4b8d] transition-colors shadow-sm">
-          Daxil ol (Wiki)
+          Daxil ol
         </button>
       </div>
     </header>
