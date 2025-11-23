@@ -173,11 +173,36 @@
 
                 <div class="bg-gray-50 rounded border border-gray-200 text-sm">
 
-                  <div class="p-2 border-b border-gray-200 flex justify-between">
-                    <span class="text-gray-500">Koordinatlar</span>
-                    <span class="font-mono text-gray-700">
-                      {{ selectedMonument.lat?.toFixed(4) }}, {{ selectedMonument.lon?.toFixed(4) }}
-                    </span>
+                  <div class="p-2 border-b border-gray-200 flex justify-between items-center h-9"> <span
+                      class="text-gray-500">Coordinates</span>
+
+                    <div class="flex items-center gap-2">
+
+                      <button @click="copyCoords(selectedMonument.lat!, selectedMonument.lon!)"
+                        class="group font-mono text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-1.5 py-0.5 rounded transition-all text-xs cursor-pointer flex items-center gap-1.5"
+                        title="Click to copy coordinates">
+                        <span v-if="!coordsCopied" class="flex items-center gap-1">
+                          {{ selectedMonument.lat?.toFixed(4) }}, {{ selectedMonument.lon?.toFixed(4) }}
+                          <i
+                            class="fa-regular fa-copy text-[10px] opacity-0 group-hover:opacity-100 text-gray-400 transition-opacity"></i>
+                        </span>
+
+                        <span v-else class="flex items-center gap-1 text-green-600">
+                          <i class="fa fa-check"></i> Copied!
+                        </span>
+                      </button>
+                      <a :href="`https://www.google.com/maps?q=${selectedMonument.lat},${selectedMonument.lon}`"
+                        target="_blank" rel="noopener noreferrer"
+                        class="text-gray-400 hover:text-green-600 transition-colors" title="Open in Google Maps">
+                        <i class="fa-solid fa-map-location-dot text-sm"></i>
+                      </a>
+                      <a :href="`https://www.google.com/maps/dir/?api=1&destination=${selectedMonument.lat},${selectedMonument.lon}`"
+                        target="_blank" rel="noopener noreferrer"
+                        class="text-gray-400 hover:text-blue-600 transition-colors"
+                        title="Get Directions on Google Maps">
+                        <i class="fa-solid fa-diamond-turn-right text-sm"></i>
+                      </a>
+                    </div>
                   </div>
 
                   <div v-if="selectedMonument.item" class="p-2 flex justify-between items-center">
@@ -242,7 +267,7 @@ import {
   getCategoryUrl
 } from "../utils/monumentFormatters";
 import { useWikiCredits } from "../composables/useWikiCredits";
-
+import { useClipboard } from "../composables/useClipboard";
 // CSS Imports
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
@@ -263,7 +288,11 @@ export default defineComponent({
 
     // Local state
     const imageLoading = ref(true);
-    const inventoryCopied = ref(false)
+    const { copied: inventoryCopied, copy: copyInventory } = useClipboard();
+
+    // 2. Coordinates Copy Logic
+    // Rename 'copied' to 'coordsCopied'
+    const { copied: coordsCopied, copy: copyRawCoords } = useClipboard();
 
     watch(selectedMonument, (newVal) => {
       imageLoading.value = true;
@@ -272,11 +301,8 @@ export default defineComponent({
       }
     });
 
-    const copyInventory = async (id: string) => {
-      if (!id) return;
-      await navigator.clipboard.writeText(id);
-      inventoryCopied.value = true;
-      setTimeout(() => inventoryCopied.value = false, 2000);
+    const copyCoords = (lat: number, lon: number) => {
+      copyRawCoords(`${lat}, ${lon}`);
     };
 
     const openUploadModal = () => {
@@ -372,6 +398,8 @@ export default defineComponent({
       imageLoading,
       inventoryCopied,
       copyInventory,
+      coordsCopied,
+      copyCoords,
       getOptimizedImage,
       getDescriptionPage,
       getCategoryUrl,
