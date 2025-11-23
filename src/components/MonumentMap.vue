@@ -223,6 +223,15 @@ import "leaflet.markercluster";
 import "leaflet-sidebar-v2";
 import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
+import { MonumentProps } from "../types";
+
+import {
+  getMonumentIcon,
+  getOptimizedImage,
+  getDescriptionPage,
+  getCategoryUrl
+} from "../utils/monumentFormatters";
+import { useWikiCredits } from "../composables/useWikiCredits";
 
 // CSS Imports
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -231,130 +240,40 @@ import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-// Inside MonumentMap.vue script section
-
-interface MonumentProps {
-  itemLabel?: string;
-  itemDescription?: string; // New
-  itemAltLabel?: string;    // New
-  inventory?: string;       // Renamed from inventoryID
-  image?: string;
-  commonsCategory?: string;
-  item?: string;            // Wikidata Link
-  azLink?: string;          // Wikipedia Link
-  commonsLink?: string;     // Commons Category Link
-  lat?: number;
-  lon?: number;
-  [key: string]: any;
-}
 export default defineComponent({
   name: "MonumentMap",
   setup() {
     const auth = useAuthStore();
+    const { imageCredit, fetchImageMetadata } = useWikiCredits(); // Use Composable
+
     const mapContainer = ref<HTMLElement | null>(null);
     const mapInstance = shallowRef<L.Map | null>(null);
     const sidebarInstance = shallowRef<L.Control | null>(null);
     const selectedMonument = ref<MonumentProps | null>(null);
+
+    // Local state
     const imageLoading = ref(true);
-    const inventoryCopied = ref(false);
-    const imageCredit = ref<{ author: string; license: string } | null>(null);
+    const inventoryCopied = ref(false)
 
     watch(selectedMonument, (newVal) => {
       imageLoading.value = true;
-      imageCredit.value = null
-      if (newVal && newVal.image) {
+      if (newVal?.image) {
         fetchImageMetadata(newVal.image);
       }
     });
+
+    const copyInventory = async (id: string) => {
+      if (!id) return;
+      await navigator.clipboard.writeText(id);
+      inventoryCopied.value = true;
+      setTimeout(() => inventoryCopied.value = false, 2000);
+    };
+
     const openUploadModal = () => {
       console.log("Opening upload modal for", selectedMonument.value?.itemLabel);
       // TODO: Trigger upload modal
     };
 
-    const getOptimizedImage = (url: string, width = 600) => {
-      if (!url) return "";
-      const separator = url.includes("?") ? "&" : "?";
-      return `${url}${separator}width=${width}`;
-    };
-
-    const copyInventory = async (id: string) => {
-      if (!id) return;
-
-      try {
-        await navigator.clipboard.writeText(id);
-        inventoryCopied.value = true;
-        setTimeout(() => {
-          inventoryCopied.value = false;
-        }, 2000);
-      } catch (err) {
-        console.error("Failed to copy", err);
-      }
-    };
-
-    const getCategoryUrl = (props: MonumentProps): string => {
-      if (props.commonsLink) return props.commonsLink;
-
-      if (props.commonsCategory) {
-        return `https://commons.wikimedia.org/wiki/Category:${encodeURIComponent(props.commonsCategory)}`;
-      }
-
-      return "";
-    };
-
-    const getDescriptionPage = (url: string) => {
-      if (!url) return "";
-      // Simple string replacement is the safest method here
-      return url.replace("Special:FilePath/", "File:")
-    };
-
-    const fetchImageMetadata = async (imageUrl: string) => {
-      if (!imageUrl) return;
-      let filename = decodeURIComponent(imageUrl).split("Special:FilePath/").pop() || "";
-      if (!filename.startsWith("File:")) {
-        filename = `File:${filename}`;
-      }
-
-      try {
-        const apiUrl = `https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=extmetadata&titles=${encodeURIComponent(filename)}&formatversion=2&origin=*`;
-
-        const res = await fetch(apiUrl);
-        const data = await res.json();
-
-        const page = data.query?.pages?.[0];
-        if (page && page.imageinfo && page.imageinfo[0]) {
-          const meta = page.imageinfo[0].extmetadata;
-
-          let author = meta.Permission?.value;
-          if (!author && meta.Artist?.value) {
-            author = meta.Artist.value.replace(/<[^>]*>?/gm, '');
-          }
-
-          imageCredit.value = {
-            author: author || "Wikimedia Commons",
-            license: meta.LicenseShortName?.value
-          };
-        }
-      } catch (e) {
-        console.error("Failed to load credits", e);
-        imageCredit.value = null;
-      }
-    };
-
-    const getMonumentIcon = (name: string = ""): string => {
-      const n = name.toLowerCase();
-
-      if (n.includes("məscid")) return "fa-mosque";
-      if (n.includes("kilsə") || n.includes("monastır")) return "fa-church";
-      if (n.includes("qala") || n.includes("bürc")) return "fa-chess-rook";
-      if (n.includes("körpü")) return "fa-archway";
-      if (n.includes("hamam")) return "fa-soap";
-      if (n.includes("türbə") || n.includes("mavzoley")) return "fa-kaaba";
-      if (n.includes("saray")) return "fa-place-of-worship";
-      if (n.includes("ev") || n.includes("mülk")) return "fa-home";
-      if (n.includes("nekropol")) return "fa-skull"
-
-      return "fa-landmark";
-    };
     onMounted(async () => {
       if (!mapContainer.value) return;
 
@@ -441,13 +360,13 @@ export default defineComponent({
       auth,
       selectedMonument,
       imageLoading,
-      openUploadModal,
-      getOptimizedImage,
       inventoryCopied,
       copyInventory,
-      getCategoryUrl,
+      getOptimizedImage,
       getDescriptionPage,
-      imageCredit
+      getCategoryUrl,
+      imageCredit,
+      openUploadModal
     };
   },
 });
