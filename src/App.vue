@@ -28,7 +28,7 @@
             leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100"
             leave-to-class="transform opacity-0 scale-95">
             <div v-if="menuOpen"
-              class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl py-1 z-[9999]">
+              class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl py-1 z-9999">
               <a :href="commonsUrl" target="_blank" rel="noopener"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
                 Mənim yükləmələrim ↗
