@@ -26,7 +26,6 @@ export default defineConfig({
             'leaflet',
             'leaflet.markercluster',
             'leaflet.locatecontrol',
-            'leaflet.fullscreen'
           ],
         },
       },

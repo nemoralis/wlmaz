@@ -59,9 +59,19 @@
 
           <div class="mt-4">
             <div v-if="selectedMonument">
-              <h2 class="text-xl font-bold text-gray-900 leading-tight">
-                {{ selectedMonument.itemLabel }}
-              </h2>
+              <div class="flex items-start justify-between gap-3 mb-1">
+
+                <h2 class="text-xl font-bold text-gray-900 leading-tight">
+                  {{ selectedMonument.itemLabel }}
+                </h2>
+
+                <a v-if="selectedMonument.item" :href="selectedMonument.item" target="_blank" rel="noopener noreferrer"
+                  class="shrink-0 mt-1 p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+                  title="Edit this item on Wikidata">
+                  <i class="fa-solid fa-pen text-xs"></i>
+                </a>
+
+              </div>
 
               <p v-if="selectedMonument.itemAltLabel" class="text-sm text-gray-500 italic mt-1">
                 {{ selectedMonument.itemAltLabel }}
