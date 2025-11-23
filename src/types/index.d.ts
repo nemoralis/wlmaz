@@ -21,10 +21,20 @@ export interface WikiUser {
  * Represents the GeoJSON properties for a Monument.
  * Matches the structure of your monuments.geojson file.
  */
-export interface MonumentProperties {
+// Add this to your existing types file
+
+export interface MonumentProps {
     itemLabel?: string;
-    inventoryID?: string;
+    itemDescription?: string;
+    itemAltLabel?: string;
+    inventory?: string;
     image?: string;
+    commonsCategory?: string;
+    item?: string;
+    azLink?: string;
+    commonsLink?: string;
+    lat?: number;
+    lon?: number;
     [key: string]: any;
 }
 
