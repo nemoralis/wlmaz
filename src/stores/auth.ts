@@ -1,59 +1,59 @@
 import { defineStore } from "pinia";
 
 interface User {
-  id: string;
-  username: string;
-  token?: string;
+   id: string;
+   username: string;
+   token?: string;
 }
 
 interface AuthState {
-  user: User | null;
-  loading: boolean;
+   user: User | null;
+   loading: boolean;
 }
 
 export const useAuthStore = defineStore("auth", {
-  state: (): AuthState => ({
-    user: null,
-    loading: false,
-  }),
+   state: (): AuthState => ({
+      user: null,
+      loading: false,
+   }),
 
-  getters: {
-    displayName: (state) => state.user?.username || "İstifadəçi",
-    isAuthenticated: (state) => !!state.user,
-  },
+   getters: {
+      displayName: (state) => state.user?.username || "İstifadəçi",
+      isAuthenticated: (state) => !!state.user,
+   },
 
-  actions: {
-    async fetchUser() {
-      this.loading = true;
-      try {
-        const res = await fetch("/auth/me");
+   actions: {
+      async fetchUser() {
+         this.loading = true;
+         try {
+            const res = await fetch("/auth/me");
 
-        if (res.ok) {
-          const data = await res.json();
-          this.user = data;
-        } else {
-          this.user = null;
-        }
-      } catch (err) {
-        console.error("Failed to fetch user:", err);
-        this.user = null;
-      } finally {
-        this.loading = false;
-      }
-    },
+            if (res.ok) {
+               const data = await res.json();
+               this.user = data;
+            } else {
+               this.user = null;
+            }
+         } catch (err) {
+            console.error("Failed to fetch user:", err);
+            this.user = null;
+         } finally {
+            this.loading = false;
+         }
+      },
 
-    login() {
-      window.location.href = "http://localhost:3000/auth/login";
-    },
+      login() {
+         window.location.href = "http://localhost:3000/auth/login";
+      },
 
-    async logout() {
-      try {
-        await fetch("/auth/logout", { method: "GET" });
-        this.user = null;
-        window.location.reload();
-      } catch (err) {
-        console.error("Logout failed", err);
-      }
-    },
-  },
+      async logout() {
+         try {
+            await fetch("/auth/logout", { method: "GET" });
+            this.user = null;
+            window.location.reload();
+         } catch (err) {
+            console.error("Logout failed", err);
+         }
+      },
+   },
 });

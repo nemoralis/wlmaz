@@ -1,3 +1,3 @@
 <template>
-  <div style="padding: 16px">About this project</div>
+   <div style="padding: 16px">About this project</div>
 </template>

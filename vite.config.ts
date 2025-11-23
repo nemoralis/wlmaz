@@ -18,7 +18,20 @@ export default defineConfig({
       },
     },
   },
+  esbuild: {
+    drop: ["console", "debugger"],
+  },
   build: {
+    minify: "terser",
+    terserOptions: {
+      format: {
+        comments: false, 
+      },
+      compress: {
+        drop_console: true, 
+        drop_debugger: true,
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks: {
