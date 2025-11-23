@@ -10,11 +10,11 @@ import { DefineComponent } from "vue";
  * Used in Passport serialization and Pinia store.
  */
 export interface WikiUser {
-    id: string;
-    username: string;
-    token: string;       // OAuth Access Token
-    tokenSecret: string; // OAuth Secret (Backend only ideally, but needed for types)
-    profile?: any;       // Raw profile data from MediaWiki
+   id: string;
+   username: string;
+   token: string; // OAuth Access Token
+   tokenSecret: string; // OAuth Secret (Backend only ideally, but needed for types)
+   profile?: any; // Raw profile data from MediaWiki
 }
 
 /**
@@ -24,18 +24,18 @@ export interface WikiUser {
 // Add this to your existing types file
 
 export interface MonumentProps {
-    itemLabel?: string;
-    itemDescription?: string;
-    itemAltLabel?: string;
-    inventory?: string;
-    image?: string;
-    commonsCategory?: string;
-    item?: string;
-    azLink?: string;
-    commonsLink?: string;
-    lat?: number;
-    lon?: number;
-    [key: string]: any;
+   itemLabel?: string;
+   itemDescription?: string;
+   itemAltLabel?: string;
+   inventory?: string;
+   image?: string;
+   commonsCategory?: string;
+   item?: string;
+   azLink?: string;
+   commonsLink?: string;
+   lat?: number;
+   lon?: number;
+   [key: string]: any;
 }
 
 // ========================================================
@@ -46,8 +46,8 @@ export interface MonumentProps {
  * Allows importing .vue files
  */
 declare module "*.vue" {
-    const component: DefineComponent<{}, {}, any>;
-    export default component;
+   const component: DefineComponent<{}, {}, any>;
+   export default component;
 }
 
 /**
@@ -55,26 +55,25 @@ declare module "*.vue" {
  * Example: import geojson from "./data.geojson?raw";
  */
 declare module "*?raw" {
-    const content: string;
-    export default content;
+   const content: string;
+   export default content;
 }
 
 /**
  * Handle missing types for passport-mediawiki-oauth
  */
 declare module "passport-mediawiki-oauth" {
-    import { Strategy as PassportStrategy } from "passport";
-    export class Strategy extends PassportStrategy {
-        constructor(options: any, verify: any);
-    }
+   import { Strategy as PassportStrategy } from "passport";
+   export class Strategy extends PassportStrategy {
+      constructor(options: any, verify: any);
+   }
 }
 
-
 declare module "leaflet-sidebar-v2" {
-    import * as L from "leaflet";
-    // Just a basic shim to allow the import
-    const content: any;
-    export default content;
+   import * as L from "leaflet";
+   // Just a basic shim to allow the import
+   const content: any;
+   export default content;
 }
 
 // ========================================================
@@ -86,8 +85,8 @@ declare module "leaflet-sidebar-v2" {
  * This fixes `req.user.tokenSecret` errors in your backend routes.
  */
 declare global {
-    namespace Express {
-        // eslint-disable-next-line @typescript-eslint/no-empty-interface
-        interface User extends WikiUser { }
-    }
+   namespace Express {
+      // eslint-disable-next-line @typescript-eslint/no-empty-interface
+      interface User extends WikiUser {}
+   }
 }
