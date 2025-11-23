@@ -285,13 +285,11 @@ export default defineComponent({
     const mapInstance = shallowRef<L.Map | null>(null);
     const sidebarInstance = shallowRef<L.Control | null>(null);
     const selectedMonument = ref<MonumentProps | null>(null);
+    const activeMarkerLayer = shallowRef<L.Marker | null>(null);
 
-    // Local state
     const imageLoading = ref(true);
     const { copied: inventoryCopied, copy: copyInventory } = useClipboard();
 
-    // 2. Coordinates Copy Logic
-    // Rename 'copied' to 'coordsCopied'
     const { copied: coordsCopied, copy: copyRawCoords } = useClipboard();
 
     watch(selectedMonument, (newVal) => {
@@ -310,6 +308,29 @@ export default defineComponent({
       // TODO: Trigger upload modal
     };
 
+    const highlightMarker = (marker: L.Marker | null) => {
+      // A. Remove highlight from previous marker (if it exists and is visible)
+      if (activeMarkerLayer.value) {
+        const el = activeMarkerLayer.value.getElement();
+        if (el) {
+          // Find the inner div with class .marker-pin
+          const pin = el.querySelector('.marker-pin');
+          pin?.classList.remove('selected-highlight');
+        }
+      }
+
+      // B. Add highlight to new marker
+      if (marker) {
+        const el = marker.getElement();
+        if (el) {
+          const pin = el.querySelector('.marker-pin');
+          pin?.classList.add('selected-highlight');
+        }
+        activeMarkerLayer.value = marker;
+      } else {
+        activeMarkerLayer.value = null;
+      }
+    };
     onMounted(async () => {
       if (!mapContainer.value) return;
 
@@ -334,6 +355,7 @@ export default defineComponent({
       sidebarInstance.value = sidebar;
       map.on('click', () => {
         sidebar.close();
+        highlightMarker(null);
       })
 
       try {
@@ -368,6 +390,7 @@ export default defineComponent({
 
             marker.on("click", async (e) => {
               L.DomEvent.stopPropagation(e);
+              highlightMarker(marker);
               selectedMonument.value = props;
               await nextTick();
               sidebar.open("details");
@@ -404,7 +427,8 @@ export default defineComponent({
       getDescriptionPage,
       getCategoryUrl,
       imageCredit,
-      openUploadModal
+      openUploadModal,
+      highlightMarker
     };
   },
 });
@@ -432,5 +456,16 @@ img {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+:deep(.marker-pin.selected-highlight) {
+  border-color: #fbbf24 !important;
+  /* Amber-400 */
+  box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.5) !important;
+  /* Glow ring */
+  transform: scale(1.3) !important;
+  /* Make it bigger */
+  z-index: 9999 !important;
+  transition: all 0.3s ease;
 }
 </style>
