@@ -4,13 +4,14 @@ export const getMonumentIcon = (name: string = ""): string => {
    const n = name.toLowerCase();
    if (n.includes("məscid")) return "fa-mosque";
    if (n.includes("kilsə") || n.includes("monastır")) return "fa-church";
-   if (n.includes("qala") || n.includes("bürc")) return "fa-chess-rook";
+   if (n.includes("qala") || n.includes("bürc") || n.includes("qüllə")) return "fa-chess-rook";
    if (n.includes("körpü")) return "fa-archway";
    if (n.includes("hamam")) return "fa-soap";
    if (n.includes("türbə") || n.includes("mavzoley") || n.includes("saray"))
       return "fa-place-of-worship";
    if (n.includes("ev") || n.includes("mülk") || n.includes("bina")) return "fa-home";
    if (n.includes("sinaqoq")) return "fa-synagogue";
+   if (n.includes("nekropol")) return "fa-skull";
    return "fa-landmark";
 };
 

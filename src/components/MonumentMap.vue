@@ -363,6 +363,7 @@ export default defineComponent({
       const sidebarInstance = shallowRef<L.Control | null>(null);
       const selectedMonument = ref<MonumentProps | null>(null);
       const activeMarkerLayer = shallowRef<L.Marker | null>(null);
+      const markerLookup = new Map<string, L.Marker>();
 
       const imageLoading = ref(true);
       const { copied: inventoryCopied, copy: copyInventory } = useClipboard();
@@ -370,9 +371,21 @@ export default defineComponent({
       const { copied: coordsCopied, copy: copyRawCoords } = useClipboard();
 
       watch(selectedMonument, (newVal) => {
-         imageLoading.value = true;
-         if (newVal?.image) {
-            fetchImageMetadata(newVal.image);
+         const url = new URL(window.location.href);
+
+         if (newVal && newVal.itemLabel) {
+            document.title = `${newVal.itemLabel} | Viki Abidələri Sevir`;
+
+            if (newVal.inventory) {
+               url.searchParams.set("inventory", newVal.inventory);
+               window.history.replaceState({}, "", url);
+            }
+            imageLoading.value = true;
+            if (newVal.image) fetchImageMetadata(newVal.image);
+         } else {
+            document.title = "Viki Abidələri Sevir Azərbaycan";
+            url.searchParams.delete("inventory");
+            window.history.replaceState({}, "", url);
          }
       });
 
@@ -386,17 +399,13 @@ export default defineComponent({
       };
 
       const highlightMarker = (marker: L.Marker | null) => {
-         // A. Remove highlight from previous marker (if it exists and is visible)
          if (activeMarkerLayer.value) {
             const el = activeMarkerLayer.value.getElement();
             if (el) {
-               // Find the inner div with class .marker-pin
                const pin = el.querySelector(".marker-pin");
                pin?.classList.remove("selected-highlight");
             }
          }
-
-         // B. Add highlight to new marker
          if (marker) {
             const el = marker.getElement();
             if (el) {
@@ -408,6 +417,7 @@ export default defineComponent({
             activeMarkerLayer.value = null;
          }
       };
+
       onMounted(async () => {
          if (!mapContainer.value) return;
 
@@ -434,7 +444,12 @@ export default defineComponent({
          sidebarInstance.value = sidebar;
          map.on("click", () => {
             sidebar.close();
+         });
+         sidebar.on("closing", () => {
+            const url = new URL(window.location.href);
             highlightMarker(null);
+            url.searchParams.delete("inventory");
+            window.history.replaceState({}, "", url);
          });
 
          try {
@@ -469,11 +484,18 @@ export default defineComponent({
                      iconAnchor: [15, 15],
                   });
                   const marker = L.marker(latlng, { icon: customIcon });
-
+                  if (props.inventory) {
+                     markerLookup.set(props.inventory, marker);
+                  }
                   marker.on("click", async (e) => {
                      L.DomEvent.stopPropagation(e);
                      highlightMarker(marker);
                      selectedMonument.value = props;
+
+                     const url = new URL(window.location.href);
+                     url.searchParams.set("inventory", props.inventory || "");
+                     window.history.replaceState({}, "", url);
+
                      await nextTick();
                      sidebar.open("details");
                   });
@@ -488,6 +510,22 @@ export default defineComponent({
                flyTo: true,
                position: "topright",
             }).addTo(map);
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetId = urlParams.get("inventory");
+
+            if (targetId && markerLookup.has(targetId)) {
+               const targetMarker = markerLookup.get(targetId)!;
+
+               markers.zoomToShowLayer(targetMarker, async () => {
+                  highlightMarker(targetMarker);
+                  const feature = (targetMarker as any).feature;
+                  selectedMonument.value = feature.properties;
+
+                  await nextTick();
+                  sidebar.open("details");
+               });
+            }
          } catch (err) {
             throw err;
          }
