@@ -62,10 +62,9 @@ REDIS_URL=redis://localhost:6379
 ### 3. Run Development Server
 
 This command runs both the Vite Frontend and the Express Backend concurrently.
-Bash
 
 ```bash
-pnpm dev
+pnpm run dev
 ```
 
 - Frontend: http://localhost:5173
