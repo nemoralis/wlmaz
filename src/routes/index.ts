@@ -5,8 +5,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
-    // Lazy Load: Only downloads Leaflet code when the user is actually on this page
-    component: () => import("../components/MonumentMap.vue"),
+    // Change this to point to the new wrapper page
+    component: () => import("../pages/Home.vue"),
   },
   {
     path: "/about",
