@@ -339,6 +339,22 @@ export default defineComponent({
         imageCredit.value = null;
       }
     };
+
+    const getMonumentIcon = (name: string = ""): string => {
+      const n = name.toLowerCase();
+
+      if (n.includes("məscid")) return "fa-mosque";
+      if (n.includes("kilsə") || n.includes("monastır")) return "fa-church";
+      if (n.includes("qala") || n.includes("bürc")) return "fa-chess-rook";
+      if (n.includes("körpü")) return "fa-archway";
+      if (n.includes("hamam")) return "fa-soap";
+      if (n.includes("türbə") || n.includes("mavzoley")) return "fa-kaaba";
+      if (n.includes("saray")) return "fa-place-of-worship";
+      if (n.includes("ev") || n.includes("mülk")) return "fa-home";
+      if (n.includes("nekropol")) return "fa-skull"
+
+      return "fa-landmark";
+    };
     onMounted(async () => {
       if (!mapContainer.value) return;
 
@@ -361,6 +377,9 @@ export default defineComponent({
       }).addTo(map);
 
       sidebarInstance.value = sidebar;
+      map.on('click', () => {
+        sidebar.close();
+      })
 
       try {
         const response = await fetch('/monuments.geojson');
@@ -379,13 +398,18 @@ export default defineComponent({
             props.lon = latlng.lng;
 
             const hasImage = !!props.image;
-            const marker = L.circleMarker(latlng, {
-              radius: 8,
-              color: hasImage ? "#10b981" : "#2a7ae2",
-              fillColor: hasImage ? "#34d399" : "#4285f4",
-              fillOpacity: 0.8,
-              weight: 1,
+            const faIcon = getMonumentIcon(props.itemLabel);
+            const bgClass = hasImage ? "marker-has-image" : "marker-needs-image";
+
+            const customIcon = L.divIcon({
+              className: "custom-div-icon",
+              html: `<div class="marker-pin ${bgClass}">
+             <i class="fa-solid ${faIcon} text-white text-[14px]"></i>
+           </div>`,
+              iconSize: [30, 30],
+              iconAnchor: [15, 15]
             });
+            const marker = L.marker(latlng, { icon: customIcon });
 
             marker.on("click", async (e) => {
               L.DomEvent.stopPropagation(e);
