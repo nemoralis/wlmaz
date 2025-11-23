@@ -1,14 +1,91 @@
-# WLMAZ - Azerbaijan Heritage Monuments Map
+# 🇦🇿 Wiki Loves Monuments Azerbaijan - Interactive Map
 
-A web platform to discover and photograph heritage monuments across Azerbaijan.  
-Interactive map powered by Leaflet, showing monuments from GeoJSON data, with circle markers and clustering. Supports sharing links to specific monuments via `inventory`.
+![WLMAZ Project Banner](./public/wlm-az.png)
 
----
+[![Vue 3](https://img.shields.io/badge/Vue.js-3.5-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+  [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900?style=for-the-badge&logo=leaflet&logoColor=white)](https://leafletjs.com/)
+  [![Express](https://img.shields.io/badge/Express-5.0-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 
-## Features
 
-- Interactive map with clustered circle markers
-- Show monument by `inventory` in URL
-- Realtime map URL updates when panning/zooming (if no inventoryID)
-- Quick integration with Wikimedia (planned OAuth support)
-- Fully built with Vue 3, TypeScript, Vite, and Node.js backend
+**WLMAZ** is a full-stack mapping application designed to help contributors discover heritage monuments in Azerbaijan and upload photos directly to Wikimedia Commons.
+
+It features a responsive, clustered map interface powered by Vue 3 and Leaflet, backed by a secure Node.js proxy that handles MediaWiki OAuth authentication and uploads.
+
+
+## ✨ Features
+
+### 🗺️ Interactive Map
+* **High-Performance Clustering:** Handles thousands of monument points using `Leaflet.markercluster` with chunked loading.
+* **Visual Status:** Markers are color-coded (Green = Has Image, Blue = Needs Image).
+* **Deep Linking:** Share specific monuments via URL parameters (e.g., `?inventory=4810`).
+* **Responsive Sidebar:** Detailed view of monuments using `leaflet-sidebar-v2`, fully optimized for mobile devices.
+* **Rich Metadata:** Displays Wikidata IDs, Wikipedia links, and automatic image credits.
+
+### 🔐 Authentication & Uploads
+* **MediaWiki OAuth 1.0a:** Secure login using existing Wikimedia accounts.
+* **Direct Uploads:** Upload photos to Wikimedia Commons directly from the interface.
+* **Session Management:** Supports both Memory (Dev) and Redis (Production) session stores.
+
+
+## 🚀 Getting Started
+
+### Prerequisites
+* **Node.js:** v20.6.0 or higher (Required for `--env-file` support).
+* **pnpm:** Recommended package manager.
+* **Docker:** For running Redis locally.
+
+### 1. Clone & Install
+```bash
+git clone [https://github.com/nemoralis/wlmaz.git](https://github.com/nemoralis/wlmaz.git)
+cd wlmaz
+pnpm install
+```
+
+### 2. Environment Setup
+
+Create a `.env` file in the root directory:
+```bash
+PORT=3000
+NODE_ENV=development
+CLIENT_URL=http://localhost:5173
+
+# Authentication (Get these from Special:OAuthConsumerRegistration on Commons)
+WM_CONSUMER_KEY=your_consumer_key
+WM_CONSUMER_SECRET=your_consumer_secret
+SESSION_SECRET=your_complex_random_string
+
+REDIS_URL=redis://localhost:6379
+```
+
+### 3. Run Development Server
+
+This command runs both the Vite Frontend and the Express Backend concurrently.
+Bash
+
+```bash
+pnpm dev
+```
+
+- Frontend: http://localhost:5173
+- Backend: http://localhost:3000
+
+## 🏗️ Architecture
+
+The project is a Monorepo-style structure where Frontend and Backend live together but are served separately.
+
+```
+wlmaz/
+├── public/             # Static assets (GeoJSON, Logos)
+├── src/
+│   ├── components/     # Vue Components (MonumentMap, UploadModal)
+│   ├── pages/          # Views (Home, About)
+│   ├── stores/         # Pinia State (Auth)
+│   ├── auth/           # Passport.js & OAuth Logic
+│   ├── routes/         # Express API Routes
+│   ├── types/          # Shared TypeScript Interfaces
+│   ├── index.ts        # Backend Entry Point
+│   └── main.ts         # Frontend Entry Point
+└── vite.config.ts      # Vite Configuration
+```
