@@ -165,8 +165,6 @@ import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-import monumentsGeoJSONRaw from "../assets/monuments.geojson?raw";
-
 interface MonumentProps {
   itemLabel?: string;
   inventoryID?: string;
@@ -203,7 +201,7 @@ export default defineComponent({
       return `${url}${separator}width=${width}`;
     };
 
-    onMounted(() => {
+    onMounted(async () => {
       if (!mapContainer.value) return;
 
       const map = L.map(mapContainer.value, {
@@ -226,37 +224,47 @@ export default defineComponent({
 
       sidebarInstance.value = sidebar;
 
-      const geoData = JSON.parse(monumentsGeoJSONRaw);
-      const markers = L.markerClusterGroup({ showCoverageOnHover: false, chunkedLoading: true });
+      try {
+        const response = await fetch('/monuments.geojson');
 
-      L.geoJSON(geoData, {
-        pointToLayer: (feature, latlng) => {
-          const props = feature.properties as MonumentProps;
-          props.lat = latlng.lat;
-          props.lon = latlng.lng;
+        if (!response.ok) {
+          throw new Error(`Failed to load data: ${response.statusText}`);
+        }
 
-          const hasImage = !!props.image;
-          const marker = L.circleMarker(latlng, {
-            radius: 8,
-            color: hasImage ? "#10b981" : "#2a7ae2",
-            fillColor: hasImage ? "#34d399" : "#4285f4",
-            fillOpacity: 0.8,
-            weight: 1,
-          });
+        const geoData = await response.json();
+        const markers = L.markerClusterGroup({ showCoverageOnHover: false, chunkedLoading: true });
 
-          marker.on("click", async (e) => {
-            L.DomEvent.stopPropagation(e);
-            selectedMonument.value = props;
-            await nextTick();
-            sidebar.open("details");
-          });
+        L.geoJSON(geoData, {
+          pointToLayer: (feature, latlng) => {
+            const props = feature.properties as MonumentProps;
+            props.lat = latlng.lat;
+            props.lon = latlng.lng;
 
-          return marker;
-        },
-      }).addTo(markers);
+            const hasImage = !!props.image;
+            const marker = L.circleMarker(latlng, {
+              radius: 8,
+              color: hasImage ? "#10b981" : "#2a7ae2",
+              fillColor: hasImage ? "#34d399" : "#4285f4",
+              fillOpacity: 0.8,
+              weight: 1,
+            });
 
-      map.addLayer(markers);
-      new LocateControl({ keepCurrentZoomLevel: false, flyTo: true, position: 'topright' }).addTo(map);
+            marker.on("click", async (e) => {
+              L.DomEvent.stopPropagation(e);
+              selectedMonument.value = props;
+              await nextTick();
+              sidebar.open("details");
+            });
+
+            return marker;
+          },
+        }).addTo(markers);
+
+        map.addLayer(markers);
+        new LocateControl({ keepCurrentZoomLevel: false, flyTo: true, position: 'topright' }).addTo(map);
+      } catch (err) {
+        throw err;
+      }
     });
 
     onUnmounted(() => {
