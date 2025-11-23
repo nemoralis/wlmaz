@@ -59,48 +59,101 @@
 
           <div class="mt-4">
             <div v-if="selectedMonument">
-              <h2 class="text-xl font-bold text-gray-900 mb-1">{{ selectedMonument.itemLabel }}</h2>
-              <p class="text-xs text-gray-500 mb-4 font-mono">ID: {{ selectedMonument.inventoryID }}</p>
+              <h2 class="text-xl font-bold text-gray-900 leading-tight">
+                {{ selectedMonument.itemLabel }}
+              </h2>
 
-              <div class="mb-6 relative min-h-[200px]">
+              <p v-if="selectedMonument.itemAltLabel" class="text-sm text-gray-500 italic mt-1">
+                {{ selectedMonument.itemAltLabel }}
+              </p>
+
+              <div v-if="selectedMonument.inventory" class="mt-2 mb-3">
+                <button @click="copyInventory(selectedMonument.inventory)"
+                  class="group inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border transition-all duration-200 bg-gray-100 text-gray-800 border-gray-200 hover:bg-gray-200 hover:border-gray-300 cursor-pointer"
+                  :class="inventoryCopied ? 'bg-green-100 text-green-700 border-green-200' : ''"
+                  title="Click to copy ID">
+                  <span v-if="!inventoryCopied" class="flex items-center">
+                    İnventar: {{ selectedMonument.inventory }}
+                    <i class="fa fa-copy hidden group-hover:inline-block ml-1.5 text-[10px] text-gray-500"></i>
+                  </span>
+
+                  <span v-else class="flex items-center gap-1">
+                    <i class="fa fa-check"></i> Kopiyalandı!
+                  </span>
+                </button>
+              </div>
+
+              <p v-if="selectedMonument.itemDescription"
+                class="text-sm text-gray-700 mb-4 leading-relaxed border-l-4 border-blue-100 pl-3">
+                {{ selectedMonument.itemDescription }}
+              </p>
+
+              <div class="mb-4 relative">
+
                 <div v-if="selectedMonument.image">
                   <a :href="selectedMonument.image" target="_blank" rel="noopener">
                     <div v-if="imageLoading"
-                      class="w-full h-48 bg-gray-200 animate-pulse rounded-lg flex items-center justify-center">
+                      class="w-full h-48 bg-gray-200 animate-pulse rounded-lg flex items-center justify-center absolute top-0 left-0 z-10">
                       <i class="fa fa-image text-gray-300 text-3xl"></i>
                     </div>
 
                     <img :src="getOptimizedImage(selectedMonument.image)"
-                      class="w-full h-auto max-h-[300px] object-cover rounded-lg shadow-md transition-opacity duration-300"
-                      :class="{ 'opacity-0 absolute top-0': imageLoading, 'opacity-100': !imageLoading }" alt="Monument"
-                      loading="lazy" @load="imageLoading = false" />
+                      class="w-full h-auto max-h-[300px] object-cover rounded-lg shadow-sm border border-gray-200"
+                      :class="{ 'opacity-0': imageLoading, 'opacity-100': !imageLoading }" alt="Monument" loading="lazy"
+                      @load="imageLoading = false" />
                   </a>
+
+                  <div class="text-right mt-1.5 min-h-4">
+                    <transition name="fade">
+                      <span v-if="imageCredit && !imageLoading" class="text-[10px] text-gray-500 block truncate">
+                        <i class="fa-regular fa-copyright text-[9px] mr-0.5"></i>
+                        {{ imageCredit.author }}
+                        <span class="mx-1 text-gray-300">|</span>
+                        {{ imageCredit.license }}
+                      </span>
+                    </transition>
+                  </div>
                 </div>
 
                 <div v-else
                   class="w-full h-32 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 gap-2">
                   <i class="fa fa-camera text-2xl"></i>
-                  <span class="text-sm font-medium">No image available</span>
+                  <span class="text-sm font-medium">Şəkil yoxdur</span>
                 </div>
 
               </div>
-              <div class="border-t border-gray-100 pt-6">
+              <div class="flex gap-2 mb-4">
+                <a v-if="selectedMonument.image" :href="getDescriptionPage(selectedMonument.image)" target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-blue-600 hover:border-blue-300 transition-all text-xs font-semibold shadow-sm text-center"
+                  title="Fayl detallarına bax">
+                  <i class="fa-regular fa-file-image text-sm"></i>
+                  <span>Fayla bax</span>
+                </a>
+
+                <a v-if="selectedMonument.commonsLink || selectedMonument.commonsCategory"
+                  :href="getCategoryUrl(selectedMonument)" target="_blank" rel="noopener noreferrer"
+                  class="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-blue-600 hover:border-blue-300 transition-all text-xs font-semibold shadow-sm text-center"
+                  title="Bu abidənin bütün şəkillərinə bax">
+                  <i class="fa-regular fa-images text-sm"></i>
+                  <span>Bütün şəkillər</span>
+                </a>
+              </div>
+              <div class="border-t border-gray-100 pt-4">
+
                 <div v-if="auth.isAuthenticated">
                   <button @click="openUploadModal"
                     class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-sm flex items-center justify-center gap-2 active:scale-[0.98]">
                     <i class="fa fa-upload"></i>
                     Şəkil yüklə
                   </button>
-                  <p class="text-xs text-gray-500 mt-3 text-center">
-                    Yükləmələr CC BY-SA 4.0 lisenziyası ilə yayımlanır
-                  </p>
                 </div>
 
                 <div v-else class="bg-blue-50 p-4 rounded-lg text-center border border-blue-100">
-                  <p class="text-blue-800 font-medium mb-2">Töfhə vermək istəyirsiz?</p>
+                  <p class="text-blue-800 font-medium mb-2">Şəkil yükləmək istəyirsiniz?</p>
                   <button @click="auth.login"
-                    class="text-sm bg-white text-blue-600 border border-blue-200 px-4 py-2 rounded-md font-semibold hover:bg-blue-50 transition-colors">
-                    Vikimedia ilə daxil ol
+                    class="text-sm bg-white text-blue-600 border border-blue-200 px-4 py-2 rounded-md font-semibold hover:bg-blue-50 transition-colors w-full">
+                    Daxil ol
                   </button>
                 </div>
               </div>
@@ -111,7 +164,7 @@
                 <div class="bg-gray-50 rounded border border-gray-200 text-sm">
 
                   <div class="p-2 border-b border-gray-200 flex justify-between">
-                    <span class="text-gray-500">Coordinates</span>
+                    <span class="text-gray-500">Koordinatlar</span>
                     <span class="font-mono text-gray-700">
                       {{ selectedMonument.lat?.toFixed(4) }}, {{ selectedMonument.lon?.toFixed(4) }}
                     </span>
@@ -122,12 +175,25 @@
                       <img
                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Wikidata.svg/330px-Wikidata.svg.png"
                         class="w-5 h-auto opacity-60" alt="Wikidata" />
-                      Wikidata
+                      Vikidata
                     </span>
 
                     <a :href="selectedMonument.item" target="_blank" rel="noopener noreferrer"
                       class="text-blue-600 hover:text-blue-800 hover:underline text-xs font-semibold flex items-center gap-1 transition-colors">
-                      View Item
+                      Elementə bax
+                      <i class="fa fa-external-link-alt"></i>
+                    </a>
+                  </div>
+                  <div v-if="selectedMonument.azLink"
+                    class="p-2 border-t border-gray-200 flex justify-between items-center">
+                    <span class="text-gray-500 flex items-center gap-2">
+                      <i class="fa-brands fa-wikipedia-w opacity-60"></i>
+                      Vikipediya
+                    </span>
+
+                    <a :href="selectedMonument.azLink" target="_blank" rel="noopener noreferrer"
+                      class="text-blue-600 hover:underline text-xs font-semibold flex items-center gap-1">
+                      Məqaləni oxu
                       <i class="fa fa-external-link-alt"></i>
                     </a>
                   </div>
@@ -165,15 +231,22 @@ import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
+// Inside MonumentMap.vue script section
+
 interface MonumentProps {
   itemLabel?: string;
-  inventoryID?: string;
+  itemDescription?: string; // New
+  itemAltLabel?: string;    // New
+  inventory?: string;       // Renamed from inventoryID
   image?: string;
+  commonsCategory?: string;
+  item?: string;            // Wikidata Link
+  azLink?: string;          // Wikipedia Link
+  commonsLink?: string;     // Commons Category Link
   lat?: number;
   lon?: number;
   [key: string]: any;
 }
-
 export default defineComponent({
   name: "MonumentMap",
   setup() {
@@ -183,10 +256,15 @@ export default defineComponent({
     const sidebarInstance = shallowRef<L.Control | null>(null);
     const selectedMonument = ref<MonumentProps | null>(null);
     const imageLoading = ref(true);
+    const inventoryCopied = ref(false);
+    const imageCredit = ref<{ author: string; license: string } | null>(null);
 
-    // 2. Watch for selection changes to RESET the loading state
-    watch(selectedMonument, () => {
-      imageLoading.value = true; // Show spinner immediately when switching
+    watch(selectedMonument, (newVal) => {
+      imageLoading.value = true;
+      imageCredit.value = null
+      if (newVal && newVal.image) {
+        fetchImageMetadata(newVal.image);
+      }
     });
     const openUploadModal = () => {
       console.log("Opening upload modal for", selectedMonument.value?.itemLabel);
@@ -195,12 +273,72 @@ export default defineComponent({
 
     const getOptimizedImage = (url: string, width = 600) => {
       if (!url) return "";
-
-      // Check if it already has query parameters
       const separator = url.includes("?") ? "&" : "?";
       return `${url}${separator}width=${width}`;
     };
 
+    const copyInventory = async (id: string) => {
+      if (!id) return;
+
+      try {
+        await navigator.clipboard.writeText(id);
+        inventoryCopied.value = true;
+        setTimeout(() => {
+          inventoryCopied.value = false;
+        }, 2000);
+      } catch (err) {
+        console.error("Failed to copy", err);
+      }
+    };
+
+    const getCategoryUrl = (props: MonumentProps): string => {
+      if (props.commonsLink) return props.commonsLink;
+
+      if (props.commonsCategory) {
+        return `https://commons.wikimedia.org/wiki/Category:${encodeURIComponent(props.commonsCategory)}`;
+      }
+
+      return "";
+    };
+
+    const getDescriptionPage = (url: string) => {
+      if (!url) return "";
+      // Simple string replacement is the safest method here
+      return url.replace("Special:FilePath/", "File:")
+    };
+
+    const fetchImageMetadata = async (imageUrl: string) => {
+      if (!imageUrl) return;
+      let filename = decodeURIComponent(imageUrl).split("Special:FilePath/").pop() || "";
+      if (!filename.startsWith("File:")) {
+        filename = `File:${filename}`;
+      }
+
+      try {
+        const apiUrl = `https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=extmetadata&titles=${encodeURIComponent(filename)}&formatversion=2&origin=*`;
+
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+
+        const page = data.query?.pages?.[0];
+        if (page && page.imageinfo && page.imageinfo[0]) {
+          const meta = page.imageinfo[0].extmetadata;
+
+          let author = meta.Permission?.value;
+          if (!author && meta.Artist?.value) {
+            author = meta.Artist.value.replace(/<[^>]*>?/gm, '');
+          }
+
+          imageCredit.value = {
+            author: author || "Wikimedia Commons",
+            license: meta.LicenseShortName?.value
+          };
+        }
+      } catch (e) {
+        console.error("Failed to load credits", e);
+        imageCredit.value = null;
+      }
+    };
     onMounted(async () => {
       if (!mapContainer.value) return;
 
@@ -281,6 +419,11 @@ export default defineComponent({
       imageLoading,
       openUploadModal,
       getOptimizedImage,
+      inventoryCopied,
+      copyInventory,
+      getCategoryUrl,
+      getDescriptionPage,
+      imageCredit
     };
   },
 });
@@ -298,5 +441,15 @@ export default defineComponent({
 
 img {
   max-width: 100%;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
