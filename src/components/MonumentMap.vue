@@ -21,7 +21,6 @@
                      <i class="fa fa-external-link-alt"></i>
                   </a>
                </li>
-
                <li>
                   <a
                      href="https://github.com/nemoralis/wlmaz"
@@ -102,7 +101,6 @@
                                  class="fa fa-copy ml-1.5 hidden text-[10px] text-gray-500 group-hover:inline-block"
                               ></i>
                            </span>
-
                            <span v-else class="flex items-center gap-1">
                               <i class="fa fa-check"></i> Kopiyalandı!
                            </span>
@@ -118,7 +116,11 @@
 
                      <div class="relative mb-4">
                         <div v-if="selectedMonument.image">
-                           <a :href="selectedMonument.image" target="_blank" rel="noopener">
+                           <a
+                              :href="getDescriptionPage(selectedMonument.image)"
+                              target="_blank"
+                              rel="noopener"
+                           >
                               <div
                                  v-if="imageLoading"
                                  class="absolute top-0 left-0 z-10 flex h-48 w-full animate-pulse items-center justify-center rounded-lg bg-gray-200"
@@ -162,6 +164,7 @@
                            <span class="text-sm font-medium">Şəkil yoxdur</span>
                         </div>
                      </div>
+
                      <div class="mb-4 flex gap-2">
                         <a
                            v-if="selectedMonument.image"
@@ -187,6 +190,7 @@
                            <span>Bütün şəkillər</span>
                         </a>
                      </div>
+
                      <div class="border-t border-gray-100 pt-4">
                         <div v-if="auth.isAuthenticated">
                            <button
@@ -196,6 +200,9 @@
                               <i class="fa fa-upload"></i>
                               Şəkil yüklə
                            </button>
+                           <p class="mt-2 text-center text-xs text-gray-500">
+                              Uploads are licensed under CC BY-SA 4.0
+                           </p>
                         </div>
 
                         <div
@@ -218,13 +225,11 @@
                         <h3 class="mb-2 text-sm font-bold tracking-wide text-gray-900 uppercase">
                            Metadata
                         </h3>
-
                         <div class="rounded border border-gray-200 bg-gray-50 text-sm">
                            <div
                               class="flex h-9 items-center justify-between border-b border-gray-200 p-2"
                            >
                               <span class="text-gray-500">Coordinates</span>
-
                               <div class="flex items-center gap-2">
                                  <button
                                     @click="
@@ -240,7 +245,6 @@
                                           class="fa-regular fa-copy text-[10px] text-gray-400 opacity-0 transition-opacity group-hover:opacity-100"
                                        ></i>
                                     </span>
-
                                     <span v-else class="flex items-center gap-1 text-green-600">
                                        <i class="fa fa-check"></i> Copied!
                                     </span>
@@ -278,7 +282,6 @@
                                  />
                                  Vikidata
                               </span>
-
                               <a
                                  :href="selectedMonument.item"
                                  target="_blank"
@@ -289,6 +292,7 @@
                                  <i class="fa fa-external-link-alt"></i>
                               </a>
                            </div>
+
                            <div
                               v-if="selectedMonument.azLink"
                               class="flex items-center justify-between border-t border-gray-200 p-2"
@@ -297,7 +301,6 @@
                                  <i class="fa-brands fa-wikipedia-w opacity-60"></i>
                                  Vikipediya
                               </span>
-
                               <a
                                  :href="selectedMonument.azLink"
                                  target="_blank"
@@ -332,11 +335,15 @@
 import { defineComponent, onMounted, onUnmounted, ref, shallowRef, nextTick, watch } from "vue";
 import L from "leaflet";
 import "leaflet.markercluster";
-import "leaflet-sidebar-v2";
 import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
 import { MonumentProps } from "../types";
 
+// Explicit imports for Sidebar
+import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
+import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
+
+// Utils & Composables
 import {
    getMonumentIcon,
    getOptimizedImage,
@@ -345,10 +352,10 @@ import {
 } from "../utils/monumentFormatters";
 import { useWikiCredits } from "../composables/useWikiCredits";
 import { useClipboard } from "../composables/useClipboard";
+
 // CSS Imports
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
-import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -356,26 +363,27 @@ export default defineComponent({
    name: "MonumentMap",
    setup() {
       const auth = useAuthStore();
-      const { imageCredit, fetchImageMetadata } = useWikiCredits(); // Use Composable
+      const { imageCredit, fetchImageMetadata } = useWikiCredits();
+      const { copied: inventoryCopied, copy: copyInventory } = useClipboard();
+      const { copied: coordsCopied, copy: copyRawCoords } = useClipboard();
+      const copyCoords = (lat: number, lon: number) => copyRawCoords(`${lat}, ${lon}`);
 
+      // Map Refs
       const mapContainer = ref<HTMLElement | null>(null);
       const mapInstance = shallowRef<L.Map | null>(null);
       const sidebarInstance = shallowRef<L.Control | null>(null);
       const selectedMonument = ref<MonumentProps | null>(null);
+      const imageLoading = ref(true);
+
       const activeMarkerLayer = shallowRef<L.Marker | null>(null);
       const markerLookup = new Map<string, L.Marker>();
+      let markersGroup: L.MarkerClusterGroup | null = null;
 
-      const imageLoading = ref(true);
-      const { copied: inventoryCopied, copy: copyInventory } = useClipboard();
-
-      const { copied: coordsCopied, copy: copyRawCoords } = useClipboard();
-
+      // Watcher
       watch(selectedMonument, (newVal) => {
          const url = new URL(window.location.href);
-
          if (newVal && newVal.itemLabel) {
             document.title = `${newVal.itemLabel} | Viki Abidələri Sevir`;
-
             if (newVal.inventory) {
                url.searchParams.set("inventory", newVal.inventory);
                window.history.replaceState({}, "", url);
@@ -389,48 +397,80 @@ export default defineComponent({
          }
       });
 
-      const copyCoords = (lat: number, lon: number) => {
-         copyRawCoords(`${lat}, ${lon}`);
-      };
-
-      const openUploadModal = () => {
-         console.log("Opening upload modal for", selectedMonument.value?.itemLabel);
-         // TODO: Trigger upload modal
-      };
-
       const highlightMarker = (marker: L.Marker | null) => {
          if (activeMarkerLayer.value) {
             const el = activeMarkerLayer.value.getElement();
-            if (el) {
-               const pin = el.querySelector(".marker-pin");
-               pin?.classList.remove("selected-highlight");
-            }
+            el?.querySelector(".marker-pin")?.classList.remove("selected-highlight");
          }
          if (marker) {
             const el = marker.getElement();
-            if (el) {
-               const pin = el.querySelector(".marker-pin");
-               pin?.classList.add("selected-highlight");
-            }
+            el?.querySelector(".marker-pin")?.classList.add("selected-highlight");
             activeMarkerLayer.value = marker;
          } else {
             activeMarkerLayer.value = null;
          }
       };
 
+      const selectMonument = async (marker: L.Marker) => {
+         if (!marker || !markersGroup) return;
+         (markersGroup as any).zoomToShowLayer(marker, async () => {
+            highlightMarker(marker);
+            const props = (marker as any).feature.properties;
+            selectedMonument.value = props;
+            await nextTick();
+            (sidebarInstance.value as any)?.open("details");
+         });
+      };
+
+      const openUploadModal = () => {
+         console.log("Opening upload modal for", selectedMonument.value?.itemLabel);
+      };
+
       onMounted(async () => {
          if (!mapContainer.value) return;
 
+         const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: "© OpenStreetMap",
+         });
+
+         const googleSatLayer = L.tileLayer("https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
+            maxZoom: 20,
+            attribution: "© Google",
+         });
+
+         const googleHybridLayer = L.tileLayer(
+            "https://mt0.google.com/vt/lyrs=y&x={x}&y={y}&z={z}",
+            {
+               maxZoom: 20,
+               attribution: "© Google",
+            },
+         );
          const map = L.map(mapContainer.value, {
             zoomControl: false,
+            layers: [osmLayer], // Default to OSM
          }).setView([40.4093, 49.8671], 7);
+
          mapInstance.value = map;
 
-         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            attribution: "&copy; OpenStreetMap",
-         }).addTo(map);
+         const baseMaps = {
+            OpenStreetMap: osmLayer,
+            "Google Satellite": googleSatLayer, // Pure images
+            "Google Hybrid": googleHybridLayer, // Images + Roads/Labels
+         };
+         // Add Layer Control (Top Right)
+         const layerControl = L.control
+            .layers(baseMaps, undefined, { position: "topright" })
+            .addTo(map);
 
+         // --- VISUAL CUSTOMIZATION ---
+         const container = layerControl.getContainer();
+
+         // A. Custom Icon for Collapsed State
+         const toggleBtn = container?.querySelector(".leaflet-control-layers-toggle");
+         if (toggleBtn) {
+            toggleBtn.innerHTML = '<i class="fa-solid fa-layer-group text-gray-600 text-sm"></i>';
+         }
          L.control.zoom({ position: "topright" }).addTo(map);
 
          const sidebar = (L.control as any)
@@ -442,9 +482,12 @@ export default defineComponent({
             .addTo(map);
 
          sidebarInstance.value = sidebar;
+
          map.on("click", () => {
             sidebar.close();
+            highlightMarker(null);
          });
+
          sidebar.on("closing", () => {
             const url = new URL(window.location.href);
             highlightMarker(null);
@@ -454,13 +497,10 @@ export default defineComponent({
 
          try {
             const response = await fetch("/monuments.geojson");
-
-            if (!response.ok) {
-               throw new Error(`Failed to load data: ${response.statusText}`);
-            }
-
+            if (!response.ok) throw new Error("Failed to load");
             const geoData = await response.json();
-            const markers = L.markerClusterGroup({
+
+            markersGroup = L.markerClusterGroup({
                showCoverageOnHover: false,
                chunkedLoading: true,
             });
@@ -478,56 +518,42 @@ export default defineComponent({
                   const customIcon = L.divIcon({
                      className: "custom-div-icon",
                      html: `<div class="marker-pin ${bgClass}">
-             <i class="fa-solid ${faIcon} text-white text-[14px]"></i>
-           </div>`,
+                          <i class="fa-solid ${faIcon} text-white text-[14px]"></i>
+                        </div>`,
                      iconSize: [30, 30],
                      iconAnchor: [15, 15],
                   });
+
                   const marker = L.marker(latlng, { icon: customIcon });
-                  if (props.inventory) {
-                     markerLookup.set(props.inventory, marker);
-                  }
-                  marker.on("click", async (e) => {
+                  if (props.inventory) markerLookup.set(props.inventory, marker);
+
+                  marker.on("click", (e) => {
                      L.DomEvent.stopPropagation(e);
-                     highlightMarker(marker);
-                     selectedMonument.value = props;
-
-                     const url = new URL(window.location.href);
-                     url.searchParams.set("inventory", props.inventory || "");
-                     window.history.replaceState({}, "", url);
-
-                     await nextTick();
-                     sidebar.open("details");
+                     selectMonument(marker);
                   });
 
                   return marker;
                },
-            }).addTo(markers);
+            }).addTo(markersGroup);
 
-            map.addLayer(markers);
+            map.addLayer(markersGroup);
+
             new LocateControl({
                keepCurrentZoomLevel: false,
                flyTo: true,
                position: "topright",
             }).addTo(map);
 
+            // URL Deep Linking
             const urlParams = new URLSearchParams(window.location.search);
             const targetId = urlParams.get("inventory");
 
             if (targetId && markerLookup.has(targetId)) {
                const targetMarker = markerLookup.get(targetId)!;
-
-               markers.zoomToShowLayer(targetMarker, async () => {
-                  highlightMarker(targetMarker);
-                  const feature = (targetMarker as any).feature;
-                  selectedMonument.value = feature.properties;
-
-                  await nextTick();
-                  sidebar.open("details");
-               });
+               selectMonument(targetMarker);
             }
          } catch (err) {
-            throw err;
+            console.error(err);
          }
       });
 
@@ -552,18 +578,20 @@ export default defineComponent({
          getCategoryUrl,
          imageCredit,
          openUploadModal,
-         highlightMarker,
       };
    },
 });
 </script>
 
 <style scoped>
-.leaflet-sidebar {
+/* ==================================================================
+   1. LEAFLET SIDEBAR & UI FIXES
+   ================================================================== */
+:deep(.leaflet-sidebar) {
    z-index: 2000;
 }
 
-.leaflet-sidebar-tabs li.disabled {
+:deep(.leaflet-sidebar-tabs li.disabled) {
    opacity: 0.5;
    pointer-events: none;
 }
@@ -572,24 +600,144 @@ img {
    max-width: 100%;
 }
 
+/* Vue Transitions */
 .fade-enter-active,
 .fade-leave-active {
    transition: opacity 0.3s ease;
 }
-
 .fade-enter-from,
 .fade-leave-to {
    opacity: 0;
 }
 
+/* ==================================================================
+   2. MARKER STYLING
+   ================================================================== */
+/* The Marker Pin Container */
+:deep(.marker-pin) {
+   width: 30px;
+   height: 30px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border: 2px solid white;
+   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+   transition: all 0.2s ease;
+}
+
+/* Hover State */
+:deep(.marker-pin:hover) {
+   transform: scale(1.15);
+   z-index: 1000 !important;
+   cursor: pointer;
+}
+
+/* Status Colors */
+:deep(.marker-has-image) {
+   background-color: #10b981; /* emerald-500 */
+}
+:deep(.marker-needs-image) {
+   background-color: #2a7ae2; /* blue-500 */
+}
+
+/* SELECTED STATE (Gold Glow) */
 :deep(.marker-pin.selected-highlight) {
-   border-color: #fbbf24 !important;
-   /* Amber-400 */
+   border-color: #fbbf24 !important; /* amber-400 */
    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.5) !important;
-   /* Glow ring */
    transform: scale(1.3) !important;
-   /* Make it bigger */
    z-index: 9999 !important;
-   transition: all 0.3s ease;
+}
+
+/* ==================================================================
+   3. CUSTOM LAYER CONTROL (Clean Card Style)
+   ================================================================== */
+
+/* A. The Collapsed Toggle Button */
+:deep(.leaflet-control-layers-toggle) {
+   /* Remove default "layers.png" image */
+   background-image: none !important;
+
+   /* Match Zoom Button Dimensions */
+   width: 30px !important;
+   height: 30px !important;
+   background-color: white;
+   border-radius: 4px;
+
+   /* Center the FontAwesome Icon */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: background-color 0.1s;
+}
+
+:deep(.leaflet-control-layers-toggle:hover) {
+   background-color: #f4f4f4;
+}
+
+/* B. The Expanded Menu (Card) */
+:deep(.leaflet-control-layers-expanded) {
+   padding: 12px 12px !important; /* Restore padding since header is gone */
+   background: white;
+   border-radius: 8px;
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+   border: none !important;
+   min-width: 160px;
+   font-family: inherit;
+}
+
+/* C. List Items */
+:deep(.leaflet-control-layers label) {
+   display: flex;
+   align-items: center;
+   margin-bottom: 8px;
+   cursor: pointer;
+   font-size: 13px;
+   color: #374151; /* gray-700 */
+   transition: color 0.2s;
+}
+
+:deep(.leaflet-control-layers label:last-child) {
+   margin-bottom: 0;
+}
+
+:deep(.leaflet-control-layers label:hover) {
+   color: #2563eb; /* blue-600 */
+}
+
+/* D. Custom Radio Input */
+:deep(.leaflet-control-layers input[type="radio"]) {
+   accent-color: #2563eb;
+   width: 15px;
+   height: 15px;
+   margin-right: 10px;
+   cursor: pointer;
+}
+
+/* ==================================================================
+   4. CONTROL ALIGNMENT (Layers vs Zoom)
+   ================================================================== */
+
+/* Container Positioning */
+:deep(.leaflet-control-layers) {
+   border: 2px solid rgba(0, 0, 0, 0.2); /* Match zoom border */
+   border-radius: 4px;
+   box-shadow: none;
+
+   /* ALIGNMENT: Push away from right edge to match Zoom */
+   margin-right: 10px !important;
+   margin-top: 10px !important;
+}
+
+/* Remove border when expanded (looks cleaner for the card style) */
+:deep(.leaflet-control-layers.leaflet-control-layers-expanded) {
+   border: none;
+}
+
+/* Ensure Zoom Control is aligned identically */
+:deep(.leaflet-control-zoom) {
+   margin-right: 10px !important;
+   border: 2px solid rgba(0, 0, 0, 0.2) !important;
+   box-shadow: none !important;
 }
 </style>
