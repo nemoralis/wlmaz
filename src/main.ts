@@ -1,3 +1,7 @@
+import { registerSW } from "virtual:pwa-register";
+
+registerSW({ immediate: true });
+
 import { createApp } from "vue";
 import App from "./App.vue";
 import { router } from "./routes/index";

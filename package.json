@@ -9,8 +9,8 @@
     "dev:frontend": "vite",
     "dev:backend": "tsx watch --env-file=.env src/index.ts",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview",
-    "format": "prettier --write src/",
+    "preview": "vite preview --host",
+    "format": "prettier --write --list-different src/",
     "lint": "eslint src/ --ext .ts,.vue --fix"
   },
   "dependencies": {
@@ -35,7 +35,8 @@
     "pinia": "^3.0.3",
     "redis": "^5.10.0",
     "vue": "^3.5.13",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.3",
+    "workbox-window": "^7.4.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.15.0",
@@ -54,6 +55,7 @@
     "@types/passport": "^1.0.17",
     "@typescript-eslint/eslint-plugin": "^8.47.0",
     "@typescript-eslint/parser": "^8.47.0",
+    "@vite-pwa/assets-generator": "^1.0.2",
     "@vitejs/plugin-vue": "^6.0.1",
     "concurrently": "^9.2.1",
     "eslint": "^9.39.1",
@@ -66,6 +68,7 @@
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vite": "^7.1.9",
+    "vite-plugin-pwa": "^1.1.0",
     "vue-tsc": "^3.0.0"
   },
   "pnpm": {
