@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DefineComponent } from "vue";
 
+/// <reference types="vite-plugin-pwa/client" />
+
 // ========================================================
 // 1. SHARED DOMAIN INTERFACES
 // ========================================================

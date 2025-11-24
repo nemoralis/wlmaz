@@ -90,7 +90,6 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useAuthStore } from "./stores/auth";
-
 const auth = useAuthStore();
 const menuOpen = ref(false);
 const dropdownContainer = ref<HTMLElement | null>(null);
