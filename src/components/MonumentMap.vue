@@ -4,10 +4,10 @@
          <div class="leaflet-sidebar-tabs">
             <ul role="tablist">
                <li>
-                  <a href="#home" role="tab"><i class="fa fa-bars"></i></a>
+                  <a href="#home" role="tab"><i class="fa fa-info"></i></a>
                </li>
                <li :class="{ disabled: !selectedMonument }">
-                  <a href="#details" role="tab"><i class="fa fa-info"></i></a>
+                  <a href="#details" role="tab"><i class="fa fa-landmark"></i></a>
                </li>
             </ul>
 
@@ -36,7 +36,9 @@
 
          <div class="leaflet-sidebar-content">
             <div class="leaflet-sidebar-pane" id="home">
-               <h1 class="mt-4 mb-4 text-2xl font-bold text-gray-800">WLM Azerbaijan</h1>
+               <h1 class="mt-4 mb-4 text-2xl font-bold text-gray-800">
+                  Viki Abidələri Sevir Azərbaycan
+               </h1>
                <p class="mb-4 text-gray-600">
                   Welcome! Click on any marker to view details or upload a photo.
                </p>
@@ -48,7 +50,7 @@
                      <span class="text-sm">Has Image</span>
                   </div>
                   <div class="flex items-center gap-3">
-                     <span class="h-4 w-4 rounded-full border border-[#2a7ae2] bg-[#4285f4]"></span>
+                     <span class="h-4 w-4 rounded-full border border-red-600 bg-red-500"></span>
                      <span class="text-sm">Needs Image</span>
                   </div>
                </div>
@@ -57,7 +59,7 @@
             <div class="leaflet-sidebar-pane" id="details">
                <h1 class="leaflet-sidebar-header">
                   {{ selectedMonument ? "Abidə detalları" : "Abidə seç" }}
-                  <div class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></div>
+                  <div class="leaflet-sidebar-close"><i class="fa-solid fa-times"></i></div>
                </h1>
 
                <div class="mt-4">
@@ -596,6 +598,21 @@ export default defineComponent({
    pointer-events: none;
 }
 
+:deep(.leaflet-sidebar-tabs > ul > li.active > a) {
+   background-color: #8f0000 !important; /* Deep Red */
+   color: white;
+}
+
+/* Update Sidebar Header Background */
+:deep(.leaflet-sidebar-header) {
+   background-color: #8f0000 !important;
+   color: white !important;
+}
+
+/* Ensure the Close Button (X) matches the text color */
+:deep(.leaflet-sidebar-close) {
+   color: white !important;
+}
 img {
    max-width: 100%;
 }
@@ -635,12 +652,15 @@ img {
 
 /* Status Colors */
 :deep(.marker-has-image) {
-   background-color: #10b981; /* emerald-500 */
-}
-:deep(.marker-needs-image) {
-   background-color: #2a7ae2; /* blue-500 */
+   background-color: #10b981; /* Emerald (Unchanged) */
 }
 
+:deep(.marker-needs-image) {
+   /* Changed from Blue to Red */
+   background-color: #ef4444; /* Tailwind Red-500 (Bright red for visibility) */
+   /* OR use your specific dark red if preferred: */
+   /* background-color: #8f0000; */
+}
 /* SELECTED STATE (Gold Glow) */
 :deep(.marker-pin.selected-highlight) {
    border-color: #fbbf24 !important; /* amber-400 */
