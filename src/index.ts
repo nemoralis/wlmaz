@@ -6,7 +6,7 @@ import uploadRoutes from "./routes/upload.ts";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-
+import rateLimit from "express-rate-limit";
 import { createClient } from "redis";
 import { RedisStore } from "connect-redis";
 
@@ -20,12 +20,20 @@ const redisClient = createClient({
 redisClient.on("error", (err) => console.log("Redis Client Error", err));
 redisClient.on("connect", () => console.log("Connected to Redis"));
 
+const limiter = rateLimit({
+   windowMs: 15 * 60 * 1000,
+   max: 100,
+   standardHeaders: true,
+   legacyHeaders: false,
+   message: "Too many requests from this IP, please try again later.",
+});
+
 const startServer = async () => {
    await redisClient.connect();
 
    app.use(helmet());
    app.use(morgan("dev"));
-
+   app.use(limiter);
    app.use(
       cors({
          origin: process.env.CLIENT_URL || "http://localhost:5173",
