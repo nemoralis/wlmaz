@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"pnpm run dev:frontend\" \"pnpm run dev:backend\"",
-    "dev:frontend": "vite",
+    "dev:frontend": "vite --host",
     "dev:backend": "tsx watch --env-file=.env src/index.ts",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview --host",

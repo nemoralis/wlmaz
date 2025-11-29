@@ -760,4 +760,81 @@ img {
    border: 2px solid rgba(0, 0, 0, 0.2) !important;
    box-shadow: none !important;
 }
+
+/* ==================================================================
+   5. MOBILE SCROLL FIXES
+   ================================================================== */
+
+/* 1. Force the content container to handle scrolling */
+:deep(.leaflet-sidebar-content) {
+   overflow-y: auto !important; /* Force scrollbar */
+   height: 100%; /* Ensure it fills the container */
+   -webkit-overflow-scrolling: touch; /* Critical: Smooth scrolling on iOS */
+   overscroll-behavior: contain; /* Prevents scroll chaining to the map */
+}
+
+/* Global Sidebar Z-Index */
+:deep(.leaflet-sidebar) {
+   z-index: 3000 !important; /* Force it above Leaflet controls (which are ~1000) */
+   position: absolute; /* Ensure it floats relative to the parent */
+}
+
+/* MOBILE STYLES */
+/* MOBILE STYLES */
+@media (max-width: 768px) {
+   /* 1. Base Sidebar State (Collapsed) */
+   :deep(.leaflet-sidebar) {
+      width: 40px !important;
+      max-width: 40px !important;
+      height: 100% !important;
+      z-index: 3000 !important;
+      /* Firefox Fix: Ensure the container itself doesn't block map touches outside its bounds */
+      pointer-events: auto !important;
+   }
+
+   /* 2. Open State (Full Screen) */
+   :deep(.leaflet-sidebar:not(.collapsed)) {
+      width: 100% !important;
+      max-width: 100% !important;
+      position: absolute !important;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      /* Firefox Fix: Force it to capture all events when open */
+      pointer-events: auto !important;
+   }
+
+   /* 3. Content Scrolling & Interaction */
+   :deep(.leaflet-sidebar-content) {
+      overflow-y: auto !important;
+      height: 100% !important;
+      background-color: white;
+      padding-bottom: 80px !important;
+
+      /* --- CRITICAL FIXES FOR FIREFOX MOBILE --- */
+
+      /* 1. Re-enable vertical scrolling (overrides Leaflet's 'none') */
+      touch-action: pan-y !important;
+
+      /* 2. iOS momentum scrolling */
+      -webkit-overflow-scrolling: touch !important;
+
+      /* 3. Ensure clicks work explicitly */
+      pointer-events: auto !important;
+
+      /* 4. Prevent map drag from starting when touching sidebar */
+      cursor: default;
+   }
+
+   /* 4. Sticky Header */
+   :deep(.leaflet-sidebar-header) {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      /* Ensure header can be touched/clicked (Close button) */
+      pointer-events: auto !important;
+      touch-action: manipulation !important;
+   }
+}
 </style>
