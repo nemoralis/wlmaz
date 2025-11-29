@@ -116,8 +116,10 @@
                         {{ selectedMonument.itemDescription }}
                      </p>
 
-                     <div class="relative mb-4">
-                        <div v-if="selectedMonument.image">
+                     <div
+                        class="relative mb-4 h-64 w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-100"
+                     >
+                        <div v-if="selectedMonument.image" class="h-full w-full">
                            <a
                               :href="getDescriptionPage(selectedMonument.image)"
                               target="_blank"
@@ -125,14 +127,17 @@
                            >
                               <div
                                  v-if="imageLoading"
-                                 class="absolute top-0 left-0 z-10 flex h-48 w-full animate-pulse items-center justify-center rounded-lg bg-gray-200"
+                                 class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-100 text-gray-400"
                               >
-                                 <i class="fa fa-image text-3xl text-gray-300"></i>
+                                 <div
+                                    class="mb-2 h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"
+                                 ></div>
+                                 <span class="text-xs font-medium">Yüklənir...</span>
                               </div>
 
                               <img
                                  :src="getOptimizedImage(selectedMonument.image)"
-                                 class="h-auto max-h-[300px] w-full rounded-lg border border-gray-200 object-cover shadow-sm"
+                                 class="h-full w-full object-cover transition-opacity duration-500"
                                  :class="{
                                     'opacity-0': imageLoading,
                                     'opacity-100': !imageLoading,
@@ -143,15 +148,18 @@
                               />
                            </a>
 
-                           <div class="mt-1.5 min-h-4 text-right">
+                           <div
+                              v-if="!imageLoading"
+                              class="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/70 to-transparent p-2 text-right"
+                           >
                               <transition name="fade">
                                  <span
-                                    v-if="imageCredit && !imageLoading"
-                                    class="block truncate text-[10px] text-gray-500"
+                                    v-if="imageCredit"
+                                    class="block truncate text-[10px] text-white/90"
                                  >
                                     <i class="fa-regular fa-copyright mr-0.5 text-[9px]"></i>
                                     {{ imageCredit.author }}
-                                    <span class="mx-1 text-gray-300">|</span>
+                                    <span class="mx-1 opacity-50">|</span>
                                     {{ imageCredit.license }}
                                  </span>
                               </transition>
@@ -160,9 +168,9 @@
 
                         <div
                            v-else
-                           class="flex h-32 w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 bg-gray-100 text-gray-400"
+                           class="flex h-full w-full flex-col items-center justify-center gap-2 text-gray-400"
                         >
-                           <i class="fa fa-camera text-2xl"></i>
+                           <i class="fa fa-camera text-3xl opacity-50"></i>
                            <span class="text-sm font-medium">Şəkil yoxdur</span>
                         </div>
                      </div>
