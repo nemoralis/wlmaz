@@ -40,6 +40,63 @@
                   Viki Abidələri Sevir Azərbaycan
                </h1>
 
+               <!-- Search Box -->
+               <div class="mb-6">
+                  <div class="relative">
+                     <input
+                        v-model="searchQuery"
+                        type="text"
+                        placeholder="Abidə axtar (Ad, İnventar)..."
+                        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 text-sm shadow-sm transition-all focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                     />
+                     <i class="fa fa-search absolute left-3 top-2.5 text-gray-400"></i>
+                     <button
+                        v-if="searchQuery"
+                        @click="searchQuery = ''"
+                        class="absolute right-3 top-2.5 cursor-pointer text-gray-400 hover:text-gray-600"
+                     >
+                        <i class="fa fa-times"></i>
+                     </button>
+                  </div>
+
+                  <!-- Search Results -->
+                  <div
+                     v-if="searchQuery"
+                     class="absolute left-0 right-0 z-50 mt-1 max-h-[60vh] overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-xl"
+                     style="margin: 0 10px"
+                  >
+                     <div
+                        v-if="searchResults.length === 0"
+                        class="p-4 text-center text-sm text-gray-500"
+                     >
+                        Nəticə tapılmadı
+                     </div>
+                     <ul v-else class="divide-y divide-gray-100">
+                        <li
+                           v-for="result in searchResults"
+                           :key="result.item.properties.id"
+                           @click="flyToMonument(result.item)"
+                           class="cursor-pointer px-4 py-3 transition-colors hover:bg-blue-50"
+                        >
+                           <div class="font-medium text-gray-800">
+                              {{ result.item.properties.itemLabel }}
+                           </div>
+                           <div class="mt-0.5 flex items-center gap-2 text-xs text-gray-500">
+                              <span
+                                 v-if="result.item.properties.inventory"
+                                 class="rounded bg-gray-100 px-1.5 py-0.5 font-mono"
+                              >
+                                 {{ result.item.properties.inventory }}
+                              </span>
+                              <span v-if="result.item.properties.image" class="text-green-600">
+                                 <i class="fa fa-image"></i> Şəkilli
+                              </span>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+
                <div class="mb-6 grid grid-cols-2 gap-3 text-center">
                   <div class="rounded-lg border border-blue-100 bg-blue-50 p-3">
                      <div class="text-2xl font-bold text-blue-700">{{ stats.total }}</div>
@@ -69,7 +126,25 @@
                </div>
 
                <div class="rounded-lg border border-gray-200 bg-gray-50 p-4">
-                  <h3 class="mb-2 font-bold text-gray-700">Xəritə Legenda</h3>
+                  <h3 class="mb-3 font-bold text-gray-700">Xəritə Legenda</h3>
+                  <div class="space-y-2">
+                     <div class="flex items-center gap-3">
+                        <div
+                           class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-red-500 shadow-sm"
+                        >
+                           <i class="fa-solid fa-monument text-[10px] text-white"></i>
+                        </div>
+                        <span class="text-sm font-medium text-gray-600">Şəkli yoxdur</span>
+                     </div>
+                     <div class="flex items-center gap-3">
+                        <div
+                           class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-green-500 shadow-sm"
+                        >
+                           <i class="fa-solid fa-monument text-[10px] text-white"></i>
+                        </div>
+                        <span class="text-sm font-medium text-gray-600">Şəkli var</span>
+                     </div>
+                  </div>
                </div>
             </div>
 
@@ -372,8 +447,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref, shallowRef, nextTick, watch } from "vue";
+import { defineComponent, onMounted, onUnmounted, ref, shallowRef, nextTick, watch, computed } from "vue";
 import L from "leaflet";
+import Fuse from "fuse.js";
 import "leaflet.markercluster";
 import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
@@ -421,6 +497,24 @@ export default defineComponent({
       const markerLookup = new Map<string, L.Marker>();
       let markersGroup: L.MarkerClusterGroup | null = null;
 
+      // Search
+      const searchQuery = ref("");
+      const fuse = shallowRef<Fuse<any> | null>(null);
+
+      const searchResults = computed(() => {
+         if (!searchQuery.value || !fuse.value) return [];
+         return fuse.value.search(searchQuery.value).slice(0, 50);
+      });
+
+      const flyToMonument = (feature: any) => {
+         const { inventory } = feature.properties;
+         if (inventory && markerLookup.has(inventory)) {
+            const marker = markerLookup.get(inventory)!;
+            selectMonument(marker);
+            searchQuery.value = "";
+         }
+      };
+
       // Watcher
       watch(selectedMonument, (newVal) => {
          const url = new URL(window.location.href);
@@ -456,6 +550,9 @@ export default defineComponent({
       const selectMonument = async (marker: L.Marker) => {
          if (!marker || !markersGroup) return;
          (markersGroup as any).zoomToShowLayer(marker, async () => {
+            // Center map on marker
+            mapInstance.value?.flyTo(marker.getLatLng(), 18);
+
             highlightMarker(marker);
             const props = (marker as any).feature.properties;
             selectedMonument.value = props;
@@ -571,6 +668,14 @@ export default defineComponent({
             const buffer = await response.arrayBuffer();
             const geoData = geobuf.decode(new Pbf(buffer)) as FeatureCollection;
             const allFeatures = geoData.features;
+            
+            // Initialize Fuse
+            fuse.value = new Fuse(allFeatures, {
+               keys: ["properties.itemLabel", "properties.inventory"],
+               threshold: 0.3,
+               ignoreLocation: true,
+            });
+
             stats.value.total = allFeatures.length;
             stats.value.withImage = allFeatures.filter((f: any) => f.properties.image).length;
             markersGroup = L.markerClusterGroup({
@@ -623,6 +728,8 @@ export default defineComponent({
             if (targetId && markerLookup.has(targetId)) {
                const targetMarker = markerLookup.get(targetId)!;
                selectMonument(targetMarker);
+            } else {
+               sidebar.open("home");
             }
          } catch (err) {
             console.error(err);
@@ -652,6 +759,9 @@ export default defineComponent({
          openUploadModal,
          shareMonument,
          stats,
+         searchQuery,
+         searchResults,
+         flyToMonument,
       };
    },
 });
