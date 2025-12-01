@@ -97,19 +97,42 @@
                   </div>
                </div>
 
-               <div class="mb-6 grid grid-cols-2 gap-3 text-center">
-                  <div class="rounded-lg border border-blue-100 bg-blue-50 p-3">
-                     <div class="text-2xl font-bold text-blue-700">{{ stats.total }}</div>
-                     <div class="text-xs font-bold tracking-wider text-blue-600 uppercase">
-                        Cəmi Abidə
+               <div class="mb-6 grid grid-cols-3 gap-2 text-center">
+                  <div class="rounded-lg border border-blue-100 bg-blue-50 p-2">
+                     <div class="text-xl font-bold text-blue-700">{{ stats.total }}</div>
+                     <div class="text-[10px] font-bold tracking-wider text-blue-600 uppercase">
+                        Cəmi
                      </div>
                   </div>
-                  <div class="rounded-lg border border-green-100 bg-green-50 p-3">
-                     <div class="text-2xl font-bold text-green-700">{{ stats.withImage }}</div>
-                     <div class="text-xs font-bold tracking-wider text-green-600 uppercase">
+                  <div class="rounded-lg border border-green-100 bg-green-50 p-2">
+                     <div class="text-xl font-bold text-green-700">{{ stats.withImage }}</div>
+                     <div class="text-[10px] font-bold tracking-wider text-green-600 uppercase">
                         Şəkilli
                      </div>
                   </div>
+                  <div class="rounded-lg border border-red-100 bg-red-50 p-2">
+                     <div class="text-xl font-bold text-red-700">
+                        {{ stats.total - stats.withImage }}
+                     </div>
+                     <div class="text-[10px] font-bold tracking-wider text-red-600 uppercase">
+                        Şəkilsiz
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Filter Toggle -->
+               <div class="mb-6 flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-4">
+                  <span class="text-sm font-medium text-gray-700">Yalnız şəkilsizləri göstər</span>
+                  <button
+                     @click="toggleNeedsPhoto"
+                     class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+                     :class="needsPhotoOnly ? 'bg-blue-600' : 'bg-gray-200'"
+                  >
+                     <span
+                        class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                        :class="needsPhotoOnly ? 'translate-x-5' : 'translate-x-0'"
+                     ></span>
+                  </button>
                </div>
 
                <div class="mb-6">
@@ -494,6 +517,28 @@ export default defineComponent({
       const activeMarkerLayer = shallowRef<L.Marker | null>(null);
       const markerLookup = new Map<string, L.Marker>();
       let markersGroup: L.MarkerClusterGroup | null = null;
+      let allMarkers: L.Marker[] = [];
+
+      // Filter
+      const needsPhotoOnly = ref(false);
+
+      const toggleNeedsPhoto = () => {
+         needsPhotoOnly.value = !needsPhotoOnly.value;
+         updateMapFilter();
+      };
+
+      const updateMapFilter = () => {
+         if (!markersGroup) return;
+         
+         markersGroup.clearLayers();
+
+         if (needsPhotoOnly.value) {
+            const filtered = allMarkers.filter((m: any) => !m.feature.properties.image);
+            markersGroup.addLayers(filtered);
+         } else {
+            markersGroup.addLayers(allMarkers);
+         }
+      };
 
       // Search
       const searchQuery = ref("");
@@ -684,7 +729,14 @@ export default defineComponent({
                chunkedLoading: true,
             });
 
-            L.geoJSON(geoData, {
+
+
+            // Store all markers
+            // We need to extract layers from the GeoJSON layer we just created
+            // But L.geoJSON returns a layer group.
+            // Let's do it slightly differently to get the markers array.
+            
+            const geoJsonLayer = L.geoJSON(geoData, {
                pointToLayer: (feature, latlng) => {
                   const props = feature.properties as MonumentProps;
                   props.lat = latlng.lat;
@@ -712,8 +764,11 @@ export default defineComponent({
                   });
 
                   return marker;
-               },
-            }).addTo(markersGroup);
+               }
+            });
+
+            allMarkers = geoJsonLayer.getLayers() as L.Marker[];
+            markersGroup.addLayers(allMarkers);
 
             map.addLayer(markersGroup);
 
@@ -763,6 +818,8 @@ export default defineComponent({
          searchQuery,
          searchResults,
          flyToMonument,
+         needsPhotoOnly,
+         toggleNeedsPhoto,
       };
    },
 });
