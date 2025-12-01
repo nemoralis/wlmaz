@@ -127,21 +127,19 @@
 
                <div class="rounded-lg border border-gray-200 bg-gray-50 p-4">
                   <h3 class="mb-3 font-bold text-gray-700">Xəritə Legenda</h3>
-                  <div class="space-y-2">
+                  <div class="space-y-3">
                      <div class="flex items-center gap-3">
                         <div
-                           class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-red-500 shadow-sm"
-                        >
-                           <i class="fa-solid fa-monument text-[10px] text-white"></i>
-                        </div>
+                           class="h-[30px] w-[30px] rounded-full border-2 border-white shadow-sm"
+                           style="background-color: #ef4444"
+                        ></div>
                         <span class="text-sm font-medium text-gray-600">Şəkli yoxdur</span>
                      </div>
                      <div class="flex items-center gap-3">
                         <div
-                           class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-green-500 shadow-sm"
-                        >
-                           <i class="fa-solid fa-monument text-[10px] text-white"></i>
-                        </div>
+                           class="h-[30px] w-[30px] rounded-full border-2 border-white shadow-sm"
+                           style="background-color: #10b981"
+                        ></div>
                         <span class="text-sm font-medium text-gray-600">Şəkli var</span>
                      </div>
                   </div>
@@ -551,7 +549,7 @@ export default defineComponent({
          if (!marker || !markersGroup) return;
          (markersGroup as any).zoomToShowLayer(marker, async () => {
             // Center map on marker
-            mapInstance.value?.flyTo(marker.getLatLng(), 18);
+            mapInstance.value?.flyTo(marker.getLatLng(), 16);
 
             highlightMarker(marker);
             const props = (marker as any).feature.properties;
@@ -671,7 +669,7 @@ export default defineComponent({
             
             // Initialize Fuse
             fuse.value = new Fuse(allFeatures, {
-               keys: ["properties.itemLabel", "properties.inventory"],
+               keys: ["properties.itemLabel", "properties.inventory", "properties.itemAltLabel"],
                threshold: 0.3,
                ignoreLocation: true,
             });
