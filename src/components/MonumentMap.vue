@@ -650,11 +650,14 @@ export default defineComponent({
             highlightMarker(null);
          });
 
-         sidebar.on("closing", () => {
-            const url = new URL(window.location.href);
-            highlightMarker(null);
-            url.searchParams.delete("inventory");
-            window.history.replaceState({}, "", url);
+         sidebar.on("content", (e: any) => {
+            if (e.id !== "details") {
+               highlightMarker(null);
+               selectedMonument.value = null;
+               const url = new URL(window.location.href);
+               url.searchParams.delete("inventory");
+               window.history.replaceState({}, "", url);
+            }
          });
 
          try {
