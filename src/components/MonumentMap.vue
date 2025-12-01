@@ -39,20 +39,37 @@
                <h1 class="mt-4 mb-4 text-2xl font-bold text-gray-800">
                   Viki Abidələri Sevir Azərbaycan
                </h1>
-               <p class="mb-4 text-gray-600">
-                  Welcome! Click on any marker to view details or upload a photo.
-               </p>
+
+               <div class="mb-6 grid grid-cols-2 gap-3 text-center">
+                  <div class="rounded-lg border border-blue-100 bg-blue-50 p-3">
+                     <div class="text-2xl font-bold text-blue-700">{{ stats.total }}</div>
+                     <div class="text-xs font-bold tracking-wider text-blue-600 uppercase">
+                        Cəmi Abidə
+                     </div>
+                  </div>
+                  <div class="rounded-lg border border-green-100 bg-green-50 p-3">
+                     <div class="text-2xl font-bold text-green-700">{{ stats.withImage }}</div>
+                     <div class="text-xs font-bold tracking-wider text-green-600 uppercase">
+                        Şəkilli
+                     </div>
+                  </div>
+               </div>
+
+               <div class="mb-6">
+                  <div class="mb-1 flex justify-between text-xs font-medium text-gray-500">
+                     <span>Gedişat</span>
+                     <span>{{ Math.round((stats.withImage / stats.total) * 100) || 0 }}%</span>
+                  </div>
+                  <div class="h-2.5 w-full overflow-hidden rounded-full bg-gray-200">
+                     <div
+                        class="h-2.5 rounded-full bg-green-500 transition-all duration-1000 ease-out"
+                        :style="{ width: `${(stats.withImage / stats.total) * 100}%` }"
+                     ></div>
+                  </div>
+               </div>
 
                <div class="rounded-lg border border-gray-200 bg-gray-50 p-4">
-                  <h3 class="mb-2 font-bold text-gray-700">Map Legend</h3>
-                  <div class="mb-2 flex items-center gap-3">
-                     <span class="h-4 w-4 rounded-full border border-[#10b981] bg-[#34d399]"></span>
-                     <span class="text-sm">Has Image</span>
-                  </div>
-                  <div class="flex items-center gap-3">
-                     <span class="h-4 w-4 rounded-full border border-red-600 bg-red-500"></span>
-                     <span class="text-sm">Needs Image</span>
-                  </div>
+                  <h3 class="mb-2 font-bold text-gray-700">Xəritə Legenda</h3>
                </div>
             </div>
 
@@ -361,6 +378,9 @@ import "leaflet.markercluster";
 import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
 import { MonumentProps } from "../types";
+import geobuf from "geobuf";
+import Pbf from "pbf";
+import type { FeatureCollection } from "geojson";
 
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
@@ -396,7 +416,7 @@ export default defineComponent({
       const sidebarInstance = shallowRef<L.Control | null>(null);
       const selectedMonument = ref<MonumentProps | null>(null);
       const imageLoading = ref(true);
-
+      const stats = ref({ total: 0, withImage: 0 });
       const activeMarkerLayer = shallowRef<L.Marker | null>(null);
       const markerLookup = new Map<string, L.Marker>();
       let markersGroup: L.MarkerClusterGroup | null = null;
@@ -543,10 +563,16 @@ export default defineComponent({
          });
 
          try {
-            const response = await fetch("/monuments.geojson");
-            if (!response.ok) throw new Error("Failed to load");
-            const geoData = await response.json();
+            const response = await fetch("/monuments.pbf");
 
+            if (!response.ok) {
+               throw new Error(`Failed to load data: ${response.statusText}`);
+            }
+            const buffer = await response.arrayBuffer();
+            const geoData = geobuf.decode(new Pbf(buffer)) as FeatureCollection;
+            const allFeatures = geoData.features;
+            stats.value.total = allFeatures.length;
+            stats.value.withImage = allFeatures.filter((f: any) => f.properties.image).length;
             markersGroup = L.markerClusterGroup({
                showCoverageOnHover: false,
                chunkedLoading: true,
@@ -625,6 +651,7 @@ export default defineComponent({
          imageCredit,
          openUploadModal,
          shareMonument,
+         stats,
       };
    },
 });
