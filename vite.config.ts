@@ -2,12 +2,14 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
-import { VitePWA } from "vite-plugin-pwa"; // <--- Import this
+import { VitePWA } from "vite-plugin-pwa";
+import viteCompression from "vite-plugin-compression";
 
 export default defineConfig({
    plugins: [
       vue(),
       tailwindcss(),
+      viteCompression({ algorithm: "brotliCompress" }),
       VitePWA({
          registerType: "autoUpdate",
          includeAssets: ["favicon.ico", "apple-touch-icon.png", "wlm-az.png"],
