@@ -59,7 +59,20 @@
             <div class="leaflet-sidebar-pane" id="details">
                <h1 class="leaflet-sidebar-header">
                   {{ selectedMonument ? "Abidə detalları" : "Abidə seç" }}
-                  <div class="leaflet-sidebar-close"><i class="fa-solid fa-times"></i></div>
+                  <div class="flex items-center">
+                     <button
+                        v-if="selectedMonument"
+                        @click="shareMonument"
+                        class="mr-4 text-white/80 transition-colors hover:text-white"
+                        title="Paylaş"
+                     >
+                        <i class="fa-solid fa-share-nodes"></i>
+                     </button>
+
+                     <div class="leaflet-sidebar-close">
+                        <i class="fa-solid fa-times"></i>
+                     </div>
+                  </div>
                </h1>
 
                <div class="mt-4">
@@ -349,11 +362,11 @@ import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
 import { MonumentProps } from "../types";
 
-// Explicit imports for Sidebar
+// Sidebar & Plugins
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
 import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 
-// Utils & Composables
+// Utils
 import {
    getMonumentIcon,
    getOptimizedImage,
@@ -363,7 +376,7 @@ import {
 import { useWikiCredits } from "../composables/useWikiCredits";
 import { useClipboard } from "../composables/useClipboard";
 
-// CSS Imports
+// CSS
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
@@ -378,7 +391,6 @@ export default defineComponent({
       const { copied: coordsCopied, copy: copyRawCoords } = useClipboard();
       const copyCoords = (lat: number, lon: number) => copyRawCoords(`${lat}, ${lon}`);
 
-      // Map Refs
       const mapContainer = ref<HTMLElement | null>(null);
       const mapInstance = shallowRef<L.Map | null>(null);
       const sidebarInstance = shallowRef<L.Control | null>(null);
@@ -432,6 +444,27 @@ export default defineComponent({
          });
       };
 
+      const shareMonument = async () => {
+         if (!selectedMonument.value) return;
+
+         const url = window.location.href;
+         const title = selectedMonument.value.itemLabel || "Abidə";
+         const text = `Viki Abidələri Sevir: ${title}`;
+
+         // Use Native Share if supported (Mobile)
+         if (navigator.share) {
+            try {
+               await navigator.share({ title, text, url });
+            } catch (err) {
+               console.log("Share cancelled");
+            }
+         } else {
+            // Fallback: Copy URL to clipboard
+            await navigator.clipboard.writeText(url);
+            alert("Link kopyalandı!"); // Or use a toast notification
+         }
+      };
+
       const openUploadModal = () => {
          console.log("Opening upload modal for", selectedMonument.value?.itemLabel);
       };
@@ -439,16 +472,15 @@ export default defineComponent({
       onMounted(async () => {
          if (!mapContainer.value) return;
 
+         // 1. Layers
          const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             maxZoom: 19,
             attribution: "© OpenStreetMap",
          });
-
          const googleSatLayer = L.tileLayer("https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
             maxZoom: 20,
             attribution: "© Google",
          });
-
          const googleHybridLayer = L.tileLayer(
             "https://mt0.google.com/vt/lyrs=y&x={x}&y={y}&z={z}",
             {
@@ -456,33 +488,37 @@ export default defineComponent({
                attribution: "© Google",
             },
          );
+
+         // 2. Map
          const map = L.map(mapContainer.value, {
             zoomControl: false,
-            layers: [osmLayer], // Default to OSM
+            layers: [osmLayer],
          }).setView([40.4093, 49.8671], 7);
 
          mapInstance.value = map;
 
+         // 3. Layer Control
          const baseMaps = {
-            OpenStreetMap: osmLayer,
-            "Google Satellite": googleSatLayer, // Pure images
-            "Google Hybrid": googleHybridLayer, // Images + Roads/Labels
+            Xəritə: osmLayer,
+            "Peyk (Google)": googleSatLayer,
+            "Hibrid (Google)": googleHybridLayer,
          };
-         // Add Layer Control (Top Right)
+
          const layerControl = L.control
             .layers(baseMaps, undefined, { position: "topright" })
             .addTo(map);
 
-         // --- VISUAL CUSTOMIZATION ---
-         const container = layerControl.getContainer();
-
-         // A. Custom Icon for Collapsed State
-         const toggleBtn = container?.querySelector(".leaflet-control-layers-toggle");
+         // Style the layer button
+         const toggleBtn = layerControl
+            .getContainer()
+            ?.querySelector(".leaflet-control-layers-toggle");
          if (toggleBtn) {
             toggleBtn.innerHTML = '<i class="fa-solid fa-layer-group text-gray-600 text-sm"></i>';
          }
+
          L.control.zoom({ position: "topright" }).addTo(map);
 
+         // 4. Sidebar
          const sidebar = (L.control as any)
             .sidebar({
                container: "sidebar",
@@ -493,6 +529,7 @@ export default defineComponent({
 
          sidebarInstance.value = sidebar;
 
+         // Map Events
          map.on("click", () => {
             sidebar.close();
             highlightMarker(null);
@@ -554,7 +591,6 @@ export default defineComponent({
                position: "topright",
             }).addTo(map);
 
-            // URL Deep Linking
             const urlParams = new URLSearchParams(window.location.search);
             const targetId = urlParams.get("inventory");
 
@@ -588,57 +624,51 @@ export default defineComponent({
          getCategoryUrl,
          imageCredit,
          openUploadModal,
+         shareMonument,
       };
    },
 });
 </script>
-
 <style scoped>
-/* ==================================================================
-   1. LEAFLET SIDEBAR & UI FIXES
-   ================================================================== */
+/* 1. LAYOUT */
+/* 1. LAYOUT & Z-INDEX (CRITICAL FIXES) */
 :deep(.leaflet-sidebar) {
-   z-index: 2000;
+   position: absolute !important;
+   /* Anchor top and bottom to fill parent exactly */
+   top: 0;
+   bottom: 0;
+   height: auto !important; /* Disable fixed height */
+   z-index: 2000 !important;
 }
-
 :deep(.leaflet-sidebar-tabs li.disabled) {
    opacity: 0.5;
    pointer-events: none;
 }
 
-:deep(.leaflet-sidebar-tabs > ul > li.active > a) {
-   background-color: #8f0000 !important; /* Deep Red */
-   color: white;
-}
-
-/* Update Sidebar Header Background */
-:deep(.leaflet-sidebar-header) {
-   background-color: #8f0000 !important;
-   color: white !important;
-}
-
-/* Ensure the Close Button (X) matches the text color */
-:deep(.leaflet-sidebar-close) {
-   color: white !important;
-}
 img {
    max-width: 100%;
 }
 
-/* Vue Transitions */
-.fade-enter-active,
-.fade-leave-active {
-   transition: opacity 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-   opacity: 0;
-}
+/* 2. MOBILE */
+@media (max-width: 768px) {
+   :deep(.leaflet-sidebar) {
+      width: 40px !important;
+      max-width: 40px !important;
+   }
+   :deep(.leaflet-sidebar:not(.collapsed)) {
+      width: 100% !important;
+      max-width: 100% !important;
+   }
 
-/* ==================================================================
-   2. MARKER STYLING
-   ================================================================== */
-/* The Marker Pin Container */
+   :deep(.leaflet-sidebar-content) {
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
+      touch-action: pan-y !important;
+      pointer-events: auto !important;
+   }
+}
+/* 3. MARKERS */
 :deep(.marker-pin) {
    width: 30px;
    height: 30px;
@@ -650,62 +680,58 @@ img {
    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
    transition: all 0.2s ease;
 }
-
-/* Hover State */
 :deep(.marker-pin:hover) {
    transform: scale(1.15);
    z-index: 1000 !important;
    cursor: pointer;
 }
-
-/* Status Colors */
 :deep(.marker-has-image) {
-   background-color: #10b981; /* Emerald (Unchanged) */
+   background-color: #10b981;
 }
-
 :deep(.marker-needs-image) {
-   /* Changed from Blue to Red */
-   background-color: #ef4444; /* Tailwind Red-500 (Bright red for visibility) */
-   /* OR use your specific dark red if preferred: */
-   /* background-color: #8f0000; */
+   background-color: #ef4444;
 }
-/* SELECTED STATE (Gold Glow) */
 :deep(.marker-pin.selected-highlight) {
-   border-color: #fbbf24 !important; /* amber-400 */
+   border-color: #fbbf24 !important;
    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.5) !important;
    transform: scale(1.3) !important;
    z-index: 9999 !important;
 }
 
-/* ==================================================================
-   3. CUSTOM LAYER CONTROL (Clean Card Style)
-   ================================================================== */
+/* 4. THEME (Red) */
+:deep(.leaflet-sidebar-header) {
+   background-color: #8f0000 !important;
+   color: white !important;
+}
+:deep(.leaflet-sidebar-close) {
+   color: white !important;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+:deep(.leaflet-sidebar-tabs > ul > li.active > a) {
+   background-color: #8f0000 !important;
+   color: white;
+}
 
-/* A. The Collapsed Toggle Button */
+/* 5. CONTROLS */
 :deep(.leaflet-control-layers-toggle) {
-   /* Remove default "layers.png" image */
    background-image: none !important;
-
-   /* Match Zoom Button Dimensions */
    width: 30px !important;
    height: 30px !important;
    background-color: white;
    border-radius: 4px;
-
-   /* Center the FontAwesome Icon */
    display: flex;
    align-items: center;
    justify-content: center;
    transition: background-color 0.1s;
 }
-
 :deep(.leaflet-control-layers-toggle:hover) {
    background-color: #f4f4f4;
 }
 
-/* B. The Expanded Menu (Card) */
 :deep(.leaflet-control-layers-expanded) {
-   padding: 12px 12px !important; /* Restore padding since header is gone */
+   padding: 12px !important;
    background: white;
    border-radius: 8px;
    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
@@ -714,26 +740,17 @@ img {
    font-family: inherit;
 }
 
-/* C. List Items */
 :deep(.leaflet-control-layers label) {
    display: flex;
    align-items: center;
    margin-bottom: 8px;
    cursor: pointer;
    font-size: 13px;
-   color: #374151; /* gray-700 */
-   transition: color 0.2s;
+   color: #374151;
 }
-
-:deep(.leaflet-control-layers label:last-child) {
-   margin-bottom: 0;
-}
-
 :deep(.leaflet-control-layers label:hover) {
-   color: #2563eb; /* blue-600 */
+   color: #2563eb;
 }
-
-/* D. Custom Radio Input */
 :deep(.leaflet-control-layers input[type="radio"]) {
    accent-color: #2563eb;
    width: 15px;
@@ -742,107 +759,25 @@ img {
    cursor: pointer;
 }
 
-/* ==================================================================
-   4. CONTROL ALIGNMENT (Layers vs Zoom)
-   ================================================================== */
-
-/* Container Positioning */
-:deep(.leaflet-control-layers) {
-   border: 2px solid rgba(0, 0, 0, 0.2); /* Match zoom border */
+:deep(.leaflet-control-layers),
+:deep(.leaflet-control-zoom) {
+   border: 2px solid rgba(0, 0, 0, 0.2) !important;
    border-radius: 4px;
-   box-shadow: none;
-
-   /* ALIGNMENT: Push away from right edge to match Zoom */
+   box-shadow: none !important;
    margin-right: 10px !important;
    margin-top: 10px !important;
 }
-
-/* Remove border when expanded (looks cleaner for the card style) */
 :deep(.leaflet-control-layers.leaflet-control-layers-expanded) {
-   border: none;
+   border: none !important;
 }
 
-/* Ensure Zoom Control is aligned identically */
-:deep(.leaflet-control-zoom) {
-   margin-right: 10px !important;
-   border: 2px solid rgba(0, 0, 0, 0.2) !important;
-   box-shadow: none !important;
+/* Transitions */
+.fade-enter-active,
+.fade-leave-active {
+   transition: opacity 0.3s ease;
 }
-
-/* ==================================================================
-   5. MOBILE SCROLL FIXES
-   ================================================================== */
-
-/* 1. Force the content container to handle scrolling */
-:deep(.leaflet-sidebar-content) {
-   overflow-y: auto !important; /* Force scrollbar */
-   height: 100%; /* Ensure it fills the container */
-   -webkit-overflow-scrolling: touch; /* Critical: Smooth scrolling on iOS */
-   overscroll-behavior: contain; /* Prevents scroll chaining to the map */
-}
-
-/* Global Sidebar Z-Index */
-:deep(.leaflet-sidebar) {
-   z-index: 3000 !important; /* Force it above Leaflet controls (which are ~1000) */
-   position: absolute; /* Ensure it floats relative to the parent */
-}
-
-/* MOBILE STYLES */
-/* MOBILE STYLES */
-@media (max-width: 768px) {
-   /* 1. Base Sidebar State (Collapsed) */
-   :deep(.leaflet-sidebar) {
-      width: 40px !important;
-      max-width: 40px !important;
-      height: 100% !important;
-      z-index: 3000 !important;
-      /* Firefox Fix: Ensure the container itself doesn't block map touches outside its bounds */
-      pointer-events: auto !important;
-   }
-
-   /* 2. Open State (Full Screen) */
-   :deep(.leaflet-sidebar:not(.collapsed)) {
-      width: 100% !important;
-      max-width: 100% !important;
-      position: absolute !important;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      /* Firefox Fix: Force it to capture all events when open */
-      pointer-events: auto !important;
-   }
-
-   /* 3. Content Scrolling & Interaction */
-   :deep(.leaflet-sidebar-content) {
-      overflow-y: auto !important;
-      height: 100% !important;
-      background-color: white;
-      padding-bottom: 80px !important;
-
-      /* --- CRITICAL FIXES FOR FIREFOX MOBILE --- */
-
-      /* 1. Re-enable vertical scrolling (overrides Leaflet's 'none') */
-      touch-action: pan-y !important;
-
-      /* 2. iOS momentum scrolling */
-      -webkit-overflow-scrolling: touch !important;
-
-      /* 3. Ensure clicks work explicitly */
-      pointer-events: auto !important;
-
-      /* 4. Prevent map drag from starting when touching sidebar */
-      cursor: default;
-   }
-
-   /* 4. Sticky Header */
-   :deep(.leaflet-sidebar-header) {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      /* Ensure header can be touched/clicked (Close button) */
-      pointer-events: auto !important;
-      touch-action: manipulation !important;
-   }
+.fade-enter-from,
+.fade-leave-to {
+   opacity: 0;
 }
 </style>
