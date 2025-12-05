@@ -276,6 +276,8 @@
 
                               <img
                                  :src="getOptimizedImage(selectedMonument.image)"
+                                 :srcset="getSrcSet(selectedMonument.image, [320, 500, 800, 1024])"
+                                 sizes="(max-width: 768px) 100vw, 400px"
                                  class="h-full w-full object-cover transition-opacity duration-500"
                                  :class="{
                                     'opacity-0': imageLoading,
@@ -501,6 +503,7 @@ import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 import {
    getMonumentIcon,
    getOptimizedImage,
+   getSrcSet,
    getDescriptionPage,
    getCategoryUrl,
 } from "../utils/monumentFormatters";
@@ -830,27 +833,29 @@ export default defineComponent({
       });
 
       return {
-         mapContainer,
          auth,
+         mapContainer,
+         sidebarInstance,
          selectedMonument,
          imageLoading,
-         inventoryCopied,
-         copyInventory,
-         coordsCopied,
-         copyCoords,
-         getOptimizedImage,
-         getDescriptionPage,
-         getCategoryUrl,
-         imageCredit,
-         openUploadModal,
-         shareMonument,
          stats,
          searchQuery,
          searchResults,
          flyToMonument,
+         shareMonument,
+         getOptimizedImage,
+         getSrcSet,
+         getDescriptionPage,
+         getCategoryUrl,
+         copyInventory,
+         inventoryCopied,
+         copyCoords,
+         coordsCopied,
+         imageCredit,
+         showUploadModal,
+         openUploadModal,
          needsPhotoOnly,
          toggleNeedsPhoto,
-         showUploadModal,
          linkCopied,
       };
    },

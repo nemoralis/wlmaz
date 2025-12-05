@@ -17,7 +17,18 @@ export const getMonumentIcon = (name: string = ""): string => {
 
 export const getOptimizedImage = (url: string): string => {
    if (!url) return "";
+   // If it's a Wikimedia Commons Special:FilePath URL, we can request a specific width
+   if (url.includes("Special:FilePath/")) {
+      return `${url}?width=500`;
+   }
    return url;
+};
+
+export const getSrcSet = (url: string, widths: number[]): string => {
+   if (!url || !url.includes("Special:FilePath/")) return "";
+   return widths
+      .map((w) => `${url}?width=${w} ${w}w`)
+      .join(", ");
 };
 
 export const getDescriptionPage = (url: string): string => {
