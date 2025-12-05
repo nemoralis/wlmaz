@@ -37,7 +37,7 @@
     "oauth-1.0a": "^2.2.6",
     "passport": "0.7.0",
     "passport-mediawiki-oauth": "^0.1.0",
-    "pbf": "^3.3.0",
+    "pbf": "^4.0.0",
     "pinia": "^3.0.3",
     "redis": "^5.10.0",
     "vue": "^3.5.13",
