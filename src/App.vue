@@ -15,6 +15,12 @@
                Statistika
             </router-link>
             <router-link
+               to="/table"
+               class="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
+            >
+               Siyahı
+            </router-link>
+            <router-link
                to="/about"
                class="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
             >
