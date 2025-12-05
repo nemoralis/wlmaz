@@ -28,6 +28,8 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "useDefineForClassFields": true,
     "jsx": "preserve"
   },
   "include": [

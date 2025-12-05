@@ -1,4 +1,4 @@
-import { MonumentProps } from "../types";
+import type { MonumentProps } from "../types";
 
 export const getMonumentIcon = (name: string = ""): string => {
    const n = name.toLowerCase();
