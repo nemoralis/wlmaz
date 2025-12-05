@@ -623,7 +623,9 @@ export default defineComponent({
          if (!marker || !markersGroup) return;
          (markersGroup as any).zoomToShowLayer(marker, async () => {
             // Center map on marker
-            mapInstance.value?.flyTo(marker.getLatLng(), 16);
+            const currentZoom = mapInstance.value?.getZoom() || 16;
+            const targetZoom = Math.max(currentZoom, 16);
+            mapInstance.value?.flyTo(marker.getLatLng(), targetZoom);
 
             highlightMarker(marker);
             const props = (marker as any).feature.properties;
