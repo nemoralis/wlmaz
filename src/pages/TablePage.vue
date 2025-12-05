@@ -15,13 +15,13 @@
          <div class="bg-white rounded-xl shadow-sm border border-gray-200 flex-1 flex flex-col overflow-hidden">
             <!-- Search / Filter (Optional, can add later) -->
             
-            <div class="overflow-auto flex-1">
+            <div class="overflow-auto flex-1 overflow-x-auto">
                <table class="min-w-full divide-y divide-gray-200">
                   <thead class="bg-gray-50 sticky top-0 z-10">
                      <tr>
                         <th 
                            scope="col" 
-                           class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 w-24"
+                           class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 w-1"
                            @click="sortBy('inventory')"
                         >
                            İnventar 
@@ -56,7 +56,7 @@
                         </td>
                      </tr>
                      <tr v-for="monument in sortedMonuments" :key="monument.item" class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 w-1">
                            {{ monument.inventory || '-' }}
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-500">

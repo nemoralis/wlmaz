@@ -43,8 +43,25 @@
             </div>
          </div>
 
+         <!-- Key Metrics -->
+         <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div class="rounded-xl border border-blue-100 bg-blue-50 p-6">
+               <div class="text-sm font-medium text-blue-600">Ümumi Abidə</div>
+               <div class="mt-2 text-3xl font-bold text-blue-700">{{ currentStats.total }}</div>
+            </div>
+            <div class="rounded-xl border border-green-100 bg-green-50 p-6">
+               <div class="text-sm font-medium text-green-600">Şəkilli Abidə</div>
+               <div class="mt-2 text-3xl font-bold text-green-700">{{ currentStats.withImage }}</div>
+            </div>
+            <div class="rounded-xl border border-red-100 bg-red-50 p-6">
+               <div class="text-sm font-medium text-red-600">Şəkilsiz Abidə</div>
+               <div class="mt-2 text-3xl font-bold text-red-700">{{ currentStats.withoutImage }}</div>
+            </div>
+         </div>
+
          <!-- Charts -->
-         <div class="mt-6 grid gap-6 lg:grid-cols-2">
+         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <!-- Growth Chart -->
             <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
                <h3 class="mb-4 text-lg font-semibold text-gray-800">Abidə Sayı (Dinamika)</h3>
                <div class="h-[300px]">
