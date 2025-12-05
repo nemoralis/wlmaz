@@ -1,30 +1,42 @@
 <template>
    <div id="app" class="flex h-dvh w-screen flex-col overflow-hidden">
+      <!-- Skip to main content link for keyboard users -->
+      <a
+         href="#main-content"
+         class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[10000] focus:rounded-md focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-white focus:shadow-lg"
+      >
+         Əsas məzmuna keç
+      </a>
+
       <header
+         role="banner"
          class="relative z-50 flex h-14 flex-none items-center gap-4 border-b border-gray-200 bg-white px-4"
       >
          <!-- Logo -->
-         <a href="/" class="flex h-full flex-none shrink-0 items-center">
+         <a href="/" class="flex h-full flex-none shrink-0 items-center" aria-label="Ana səhifəyə qayıt">
             <img src="/wlm-az.png" alt="Wiki Loves Monuments Azerbaijan" class="h-10 w-auto" />
          </a>
 
          <!-- Desktop Nav -->
-         <nav class="ml-6 hidden gap-4 md:flex">
+         <nav role="navigation" aria-label="Əsas naviqasiya" class="ml-6 hidden gap-4 md:flex">
             <router-link
                to="/stats"
                class="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
+               aria-label="Statistika səhifəsinə get"
             >
                Statistika
             </router-link>
             <router-link
                to="/table"
                class="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
+               aria-label="Siyahı səhifəsinə get"
             >
                Siyahı
             </router-link>
             <router-link
                to="/about"
                class="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
+               aria-label="Haqqında səhifəsinə get"
             >
                Haqqında
             </router-link>
@@ -36,6 +48,10 @@
                <div v-if="auth.user" class="relative">
                   <button
                      @click="toggleMenu"
+                     @keydown="handleDropdownKeydown"
+                     :aria-expanded="menuOpen"
+                     aria-haspopup="true"
+                     aria-label="İstifadəçi menyusu"
                      class="flex items-center gap-2 font-medium text-gray-800 transition-colors hover:text-blue-600 focus:outline-none"
                   >
                      <span class="hidden sm:inline">{{ auth.user.username || "İstifadəçi" }}</span>
@@ -47,6 +63,7 @@
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
+                        aria-hidden="true"
                      >
                         <path
                            stroke-linecap="round"
@@ -67,6 +84,8 @@
                   >
                      <div
                         v-if="menuOpen"
+                        role="menu"
+                        aria-label="İstifadəçi menyusu"
                         class="absolute right-0 z-[9999] mt-2 w-48 rounded-lg border border-gray-200 bg-white py-1 shadow-xl"
                      >
                         <div class="block px-4 py-2 text-xs font-semibold text-gray-500 sm:hidden">
@@ -76,13 +95,15 @@
                            :href="commonsUrl"
                            target="_blank"
                            rel="noopener"
+                           role="menuitem"
                            class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
                         >
                            Mənim yükləmələrim ↗
                         </a>
-                        <div class="my-1 border-t border-gray-100"></div>
+                        <div class="my-1 border-t border-gray-100" role="separator"></div>
                         <button
                            @click="logout"
+                           role="menuitem"
                            class="block w-full px-4 py-2 text-left text-sm text-red-600 transition-colors hover:bg-red-50"
                         >
                            Çıxış
@@ -94,6 +115,7 @@
                <button
                   v-else
                   @click="auth.login"
+                  aria-label="Wikimedia hesabınızla daxil olun"
                   class="rounded-md bg-[#3366cc] px-5 py-1.5 text-sm font-semibold whitespace-nowrap text-white shadow-sm transition-colors hover:bg-[#2a4b8d]"
                >
                   Daxil ol
@@ -104,8 +126,12 @@
             <button
                class="rounded-md p-2 text-gray-600 hover:bg-gray-100 focus:outline-none md:hidden"
                @click="mobileNavOpen = !mobileNavOpen"
+               @keydown.escape="mobileNavOpen = false"
+               :aria-expanded="mobileNavOpen"
+               aria-label="Mobil menyunu aç"
+               aria-controls="mobile-nav"
             >
-               <i class="fa-solid fa-bars text-xl"></i>
+               <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
             </button>
          </div>
       </header>
@@ -121,33 +147,39 @@
       >
          <div
             v-if="mobileNavOpen"
+            id="mobile-nav"
+            role="navigation"
+            aria-label="Mobil naviqasiya"
             class="absolute top-14 left-0 z-40 flex w-full flex-col space-y-3 border-b border-gray-200 bg-white p-4 shadow-xl md:hidden"
          >
             <router-link
                to="/stats"
                class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
                @click="mobileNavOpen = false"
+               aria-label="Statistika səhifəsinə get"
             >
-               <i class="fa-solid fa-chart-pie w-5 text-gray-400"></i> Statistika
+               <i class="fa-solid fa-chart-pie w-5 text-gray-400" aria-hidden="true"></i> Statistika
             </router-link>
             <router-link
                to="/table"
                class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
                @click="mobileNavOpen = false"
+               aria-label="Siyahı səhifəsinə get"
             >
-               <i class="fa-solid fa-list w-5 text-gray-400"></i> Siyahı
+               <i class="fa-solid fa-list w-5 text-gray-400" aria-hidden="true"></i> Siyahı
             </router-link>
             <router-link
                to="/about"
                class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
                @click="mobileNavOpen = false"
+               aria-label="Haqqında səhifəsinə get"
             >
-               <i class="fa-solid fa-circle-info w-5 text-gray-400"></i> Haqqında
+               <i class="fa-solid fa-circle-info w-5 text-gray-400" aria-hidden="true"></i> Haqqında
             </router-link>
          </div>
       </transition>
 
-      <main class="relative w-full flex-1 overflow-y-auto">
+      <main id="main-content" role="main" class="relative w-full flex-1 overflow-y-auto" tabindex="-1">
          <router-view />
       </main>
    </div>
@@ -163,6 +195,19 @@ const dropdownContainer = ref<HTMLElement | null>(null);
 
 const toggleMenu = () => {
    menuOpen.value = !menuOpen.value;
+};
+
+const handleDropdownKeydown = (event: KeyboardEvent) => {
+   // Close dropdown with Escape key
+   if (event.key === "Escape" && menuOpen.value) {
+      menuOpen.value = false;
+      event.preventDefault();
+   }
+   // Open dropdown with Enter or Space
+   if ((event.key === "Enter" || event.key === " ") && !menuOpen.value) {
+      menuOpen.value = true;
+      event.preventDefault();
+   }
 };
 
 const handleClickOutside = (event: MouseEvent) => {

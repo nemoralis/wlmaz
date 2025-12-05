@@ -45,38 +45,58 @@
                   <div class="relative">
                      <input
                         v-model="searchQuery"
+                        @keydown="handleSearchKeydown"
+                        ref="searchInput"
+                        role="combobox"
+                        aria-autocomplete="list"
+                        :aria-expanded="(searchQuery && searchResults.length > 0) ? 'true' : 'false'"
+                        aria-controls="search-results"
+                        aria-label="Abidə axtar"
                         type="text"
                         placeholder="Abidə axtar (Ad, İnventar)..."
                         class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                      />
-                     <i class="fa fa-search absolute top-2.5 left-3 text-gray-400"></i>
+                     <i class="fa fa-search absolute top-2.5 left-3 text-gray-400" aria-hidden="true"></i>
                      <button
                         v-if="searchQuery"
-                        @click="searchQuery = ''"
+                        @click="clearSearch"
+                        aria-label="Axtarışı təmizlə"
                         class="absolute top-2.5 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
                      >
-                        <i class="fa fa-times"></i>
+                        <i class="fa fa-times" aria-hidden="true"></i>
                      </button>
                   </div>
 
                   <!-- Search Results -->
                   <div
                      v-if="searchQuery"
+                     id="search-results"
+                     role="listbox"
+                     aria-label="Axtarış nəticələri"
                      class="absolute right-0 left-0 z-50 mt-1 max-h-[60vh] overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-xl"
                      style="margin: 0 10px"
                   >
                      <div
                         v-if="searchResults.length === 0"
+                        role="status"
+                        aria-live="polite"
                         class="p-4 text-center text-sm text-gray-500"
                      >
                         Nəticə tapılmadı
                      </div>
                      <ul v-else class="divide-y divide-gray-100">
                         <li
-                           v-for="result in searchResults"
+                           v-for="(result, index) in searchResults"
                            :key="result.item.properties.id"
-                           @click="flyToMonument(result.item)"
+                           @click="selectSearchResult(result.item)"
+                           @keydown.enter="selectSearchResult(result.item)"
+                           @keydown.space.prevent="selectSearchResult(result.item)"
+                           :ref="el => setSearchResultRef(el, index)"
+                           role="option"
+                           :aria-selected="selectedSearchIndex === index"
+                           tabindex="0"
                            class="cursor-pointer px-4 py-3 transition-colors hover:bg-blue-50"
+                           :class="{ 'bg-blue-50': selectedSearchIndex === index }"
                         >
                            <div class="font-medium text-gray-800">
                               {{ result.item.properties.itemLabel }}
@@ -89,11 +109,22 @@
                                  {{ result.item.properties.inventory }}
                               </span>
                               <span v-if="result.item.properties.image" class="text-green-600">
-                                 <i class="fa fa-image"></i> Şəkilli
+                                 <i class="fa fa-image" aria-hidden="true"></i> Şəkilli
                               </span>
                            </div>
                         </li>
                      </ul>
+                  </div>
+
+                  <!-- Screen reader announcement for search results -->
+                  <div
+                     v-if="searchQuery"
+                     role="status"
+                     aria-live="polite"
+                     aria-atomic="true"
+                     class="sr-only"
+                  >
+                     {{ searchResults.length }} nəticə tapıldı
                   </div>
                </div>
 
@@ -124,9 +155,14 @@
                <div
                   class="mb-6 flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-4"
                >
-                  <span class="text-sm font-medium text-gray-700">Yalnız şəkilsizləri göstər</span>
+                  <span class="text-sm font-medium text-gray-700" id="filter-label">Yalnız şəkilsizləri göstər</span>
                   <button
                      @click="toggleNeedsPhoto"
+                     @keydown.enter.prevent="toggleNeedsPhoto"
+                     @keydown.space.prevent="toggleNeedsPhoto"
+                     role="switch"
+                     :aria-checked="needsPhotoOnly"
+                     aria-labelledby="filter-label"
                      class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:outline-none"
                      :class="needsPhotoOnly ? 'bg-blue-600' : 'bg-gray-200'"
                   >
@@ -140,9 +176,9 @@
                <div class="mb-6">
                   <div class="mb-1 flex justify-between text-xs font-medium text-gray-500">
                      <span>Gedişat</span>
-                     <span>{{ Math.round((stats.withImage / stats.total) * 100) || 0 }}%</span>
+                     <span aria-label="{{ Math.round((stats.withImage / stats.total) * 100) || 0 }} faiz tamamlandı">{{ Math.round((stats.withImage / stats.total) * 100) || 0 }}%</span>
                   </div>
-                  <div class="h-2.5 w-full overflow-hidden rounded-full bg-gray-200">
+                  <div class="h-2.5 w-full overflow-hidden rounded-full bg-gray-200" role="progressbar" :aria-valuenow="Math.round((stats.withImage / stats.total) * 100) || 0" aria-valuemin="0" aria-valuemax="100">
                      <div
                         class="h-2.5 rounded-full bg-green-500 transition-all duration-1000 ease-out"
                         :style="{ width: `${(stats.withImage / stats.total) * 100}%` }"
@@ -178,10 +214,11 @@
                      <button
                         v-if="selectedMonument"
                         @click="shareMonument"
+                        aria-label="Abidə linkini paylaş"
                         class="mr-4 text-white/80 transition-colors hover:text-white"
                         title="Paylaş"
                      >
-                        <i class="fa-solid fa-share-nodes"></i>
+                        <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
                      </button>
 
                      <div class="leaflet-sidebar-close">
@@ -560,9 +597,12 @@ export default defineComponent({
       const needsPhotoOnly = ref(false);
 
       // Search
+      const searchInput = ref<HTMLInputElement | null>(null);
       const searchQuery = ref("");
       const debouncedSearchQuery = ref("");
       const fuse = shallowRef<Fuse<any> | null>(null);
+      const selectedSearchIndex = ref(-1);
+      const searchResultRefs: (HTMLElement | null)[] = [];
       let searchTimeout: ReturnType<typeof setTimeout>;
 
       // --- Methods ---
@@ -650,6 +690,63 @@ export default defineComponent({
             markersGroup.value.addLayers(filtered);
          } else {
             markersGroup.value.addLayers(allMarkers);
+         }
+      };
+
+      // Accessibility: Keyboard navigation for search results
+      const clearSearch = () => {
+         searchQuery.value = "";
+         selectedSearchIndex.value = -1;
+      };
+
+      const selectSearchResult = (feature: any) => {
+         flyToMonument(feature);
+         selectedSearchIndex.value = -1;
+      };
+
+      const setSearchResultRef = (el: any, index: number) => {
+         if (el) {
+            searchResultRefs[index] = el as HTMLElement;
+         }
+      };
+
+      const handleSearchKeydown = (event: KeyboardEvent) => {
+         if (!searchResults.value.length) return;
+
+         switch (event.key) {
+            case "ArrowDown":
+               event.preventDefault();
+               selectedSearchIndex.value = Math.min(
+                  selectedSearchIndex.value + 1,
+                  searchResults.value.length - 1,
+               );
+               searchResultRefs[selectedSearchIndex.value]?.scrollIntoView({
+                  block: "nearest",
+               });
+               break;
+
+            case "ArrowUp":
+               event.preventDefault();
+               selectedSearchIndex.value = Math.max(selectedSearchIndex.value - 1, -1);
+               if (selectedSearchIndex.value >= 0) {
+                  searchResultRefs[selectedSearchIndex.value]?.scrollIntoView({
+                     block: "nearest",
+                  });
+               }
+               break;
+
+            case "Enter":
+               event.preventDefault();
+               if (selectedSearchIndex.value >= 0) {
+                  selectSearchResult(searchResults.value[selectedSearchIndex.value].item);
+               }
+               break;
+
+            case "Escape":
+               event.preventDefault();
+               clearSearch();
+               searchInput.value?.blur();
+               break;
          }
       };
 
@@ -865,13 +962,19 @@ export default defineComponent({
          stats,
          showUploadModal,
          needsPhotoOnly,
+         searchInput,
          searchQuery,
          searchResults,
+         selectedSearchIndex,
          // Actions
          openUploadModal,
          toggleNeedsPhoto,
          flyToMonument,
          shareMonument,
+         clearSearch,
+         selectSearchResult,
+         setSearchResultRef,
+         handleSearchKeydown,
          // Utils
          getOptimizedImage,
          getSrcSet,
