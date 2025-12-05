@@ -1,8 +1,6 @@
 <template>
    <div>
-      <h1 class="mt-4 mb-4 text-2xl font-bold text-gray-800">
-         Viki Abidələri Sevir Azərbaycan
-      </h1>
+      <h1 class="mt-4 mb-4 text-2xl font-bold text-gray-800">Viki Abidələri Sevir Azərbaycan</h1>
 
       <!-- Search Component -->
       <SearchBar :monuments="monuments" @select-monument="$emit('select-monument', $event)" />
@@ -11,23 +9,17 @@
       <div class="mb-6 grid grid-cols-3 gap-2 text-center">
          <div class="rounded-lg border border-blue-100 bg-blue-50 p-2">
             <div class="text-xl font-bold text-blue-700">{{ stats.total }}</div>
-            <div class="text-[10px] font-bold tracking-wider text-blue-600 uppercase">
-               Cəmi
-            </div>
+            <div class="text-[10px] font-bold tracking-wider text-blue-600 uppercase">Cəmi</div>
          </div>
          <div class="rounded-lg border border-green-100 bg-green-50 p-2">
             <div class="text-xl font-bold text-green-700">{{ stats.withImage }}</div>
-            <div class="text-[10px] font-bold tracking-wider text-green-600 uppercase">
-               Şəkilli
-            </div>
+            <div class="text-[10px] font-bold tracking-wider text-green-600 uppercase">Şəkilli</div>
          </div>
          <div class="rounded-lg border border-red-100 bg-red-50 p-2">
             <div class="text-xl font-bold text-red-700">
                {{ stats.total - stats.withImage }}
             </div>
-            <div class="text-[10px] font-bold tracking-wider text-red-600 uppercase">
-               Şəkilsiz
-            </div>
+            <div class="text-[10px] font-bold tracking-wider text-red-600 uppercase">Şəkilsiz</div>
          </div>
       </div>
 
@@ -35,7 +27,9 @@
       <div
          class="mb-6 flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-4"
       >
-         <span class="text-sm font-medium text-gray-700" id="filter-label">Yalnız şəkilsizləri göstər</span>
+         <span class="text-sm font-medium text-gray-700" id="filter-label"
+            >Yalnız şəkilsizləri göstər</span
+         >
          <button
             @click="$emit('toggle-filter')"
             @keydown.enter.prevent="$emit('toggle-filter')"

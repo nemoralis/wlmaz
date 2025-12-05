@@ -72,15 +72,7 @@
 </template>
 
 <script lang="ts">
-import {
-   defineComponent,
-   onMounted,
-   onUnmounted,
-   ref,
-   shallowRef,
-   nextTick,
-   watch,
-} from "vue";
+import { defineComponent, onMounted, onUnmounted, ref, shallowRef, nextTick, watch } from "vue";
 import L from "leaflet";
 import "leaflet.markercluster";
 import { LocateControl } from "leaflet.locatecontrol";
@@ -347,7 +339,7 @@ export default defineComponent({
          worker.postMessage({ type: "INIT" });
 
          worker.onmessage = (e) => {
- if (e.data.type === "DATA_READY") {
+            if (e.data.type === "DATA_READY") {
                const { geoData } = e.data;
 
                // Populate allMonuments for SearchBar component

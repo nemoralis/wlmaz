@@ -52,10 +52,7 @@
                </div>
             </div>
 
-            <p
-               v-if="monument.itemAltLabel"
-               class="mt-1 text-sm text-gray-500 italic"
-            >
+            <p v-if="monument.itemAltLabel" class="mt-1 text-sm text-gray-500 italic">
                {{ monument.itemAltLabel }}
             </p>
 
@@ -91,11 +88,7 @@
                class="relative mb-4 h-64 w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-100"
             >
                <div v-if="monument.image" class="h-full w-full">
-                  <a
-                     :href="getDescriptionPage(monument.image)"
-                     target="_blank"
-                     rel="noopener"
-                  >
+                  <a :href="getDescriptionPage(monument.image)" target="_blank" rel="noopener">
                      <div
                         v-if="imageLoading"
                         class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-100 text-gray-400"
@@ -126,10 +119,7 @@
                      class="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/70 to-transparent p-2 text-right"
                   >
                      <transition name="fade">
-                        <span
-                           v-if="imageCredit"
-                           class="block truncate text-[10px] text-white/90"
-                        >
+                        <span v-if="imageCredit" class="block truncate text-[10px] text-white/90">
                            <i class="fa-regular fa-copyright mr-0.5 text-[9px]"></i>
                            {{ imageCredit.author }}
                            <span class="mx-1 opacity-50">|</span>
@@ -190,13 +180,8 @@
                   </p>
                </div>
 
-               <div
-                  v-else
-                  class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-center"
-               >
-                  <p class="mb-2 font-medium text-blue-800">
-                     Şəkil yükləmək istəyirsiniz?
-                  </p>
+               <div v-else class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
+                  <p class="mb-2 font-medium text-blue-800">Şəkil yükləmək istəyirsiniz?</p>
                   <button
                      @click="$emit('login')"
                      class="w-full rounded-md border border-blue-200 bg-white px-4 py-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50"
@@ -213,9 +198,7 @@
                </h3>
                <div class="rounded border border-gray-200 bg-gray-50 text-sm">
                   <!-- Coordinates -->
-                  <div
-                     class="flex h-9 items-center justify-between border-b border-gray-200 p-2"
-                  >
+                  <div class="flex h-9 items-center justify-between border-b border-gray-200 p-2">
                      <span class="text-gray-500">Coordinates</span>
                      <div class="flex items-center gap-2">
                         <button
@@ -255,10 +238,7 @@
                   </div>
 
                   <!-- Wikidata -->
-                  <div
-                     v-if="monument.item"
-                     class="flex items-center justify-between p-2"
-                  >
+                  <div v-if="monument.item" class="flex items-center justify-between p-2">
                      <span class="flex items-center gap-2 text-gray-500">
                         <img
                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Wikidata.svg/330px-Wikidata.svg.png"
