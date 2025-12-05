@@ -51,7 +51,7 @@ export default defineConfig({
             globPatterns: ["**/*.{js,css,html,ico,png,svg}"], // Cache all build assets
             runtimeCaching: [
                {
-                  urlPattern: /\/monuments\.geojson$/,
+                  urlPattern: /\/monuments\.pbf$/,
                   handler: "StaleWhileRevalidate",
                   options: {
                      cacheName: "api-data",
