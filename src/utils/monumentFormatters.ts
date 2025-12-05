@@ -26,9 +26,7 @@ export const getOptimizedImage = (url: string): string => {
 
 export const getSrcSet = (url: string, widths: number[]): string => {
    if (!url || !url.includes("Special:FilePath/")) return "";
-   return widths
-      .map((w) => `${url}?width=${w} ${w}w`)
-      .join(", ");
+   return widths.map((w) => `${url}?width=${w} ${w}w`).join(", ");
 };
 
 export const getDescriptionPage = (url: string): string => {
