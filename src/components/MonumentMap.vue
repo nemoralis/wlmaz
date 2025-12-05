@@ -872,7 +872,7 @@ export default defineComponent({
    /* Anchor top and bottom to fill parent exactly */
    top: 0;
    bottom: 0;
-   height: auto !important; /* Disable fixed height */
+   height: 100% !important;
    z-index: 2000 !important;
 }
 :deep(.leaflet-sidebar-tabs li.disabled) {
