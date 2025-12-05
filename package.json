@@ -29,7 +29,7 @@
     "hpp": "^0.2.3",
     "leaflet": "^1.9.4",
     "leaflet-sidebar-v2": "^3.2.3",
-    "leaflet.fullscreen": "^4.0.0",
+    "leaflet.fullscreen": "^5.0.0",
     "leaflet.locatecontrol": "^0.85.1",
     "leaflet.markercluster": "^1.5.3",
     "morgan": "^1.10.0",
