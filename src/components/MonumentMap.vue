@@ -310,7 +310,7 @@
                            class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-xs font-semibold text-gray-700 shadow-sm transition-all hover:border-blue-300 hover:bg-gray-50 hover:text-blue-600"
                            title="Fayl detallarına bax"
                         >
-                           <i class="fa-regular fa-file-image text-sm"></i>
+                           <i class="fa-solid fa-file-image text-sm"></i>
                            <span>Fayla bax</span>
                         </a>
 
@@ -322,7 +322,7 @@
                            class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-xs font-semibold text-gray-700 shadow-sm transition-all hover:border-blue-300 hover:bg-gray-50 hover:text-blue-600"
                            title="Bu abidənin bütün şəkillərinə bax"
                         >
-                           <i class="fa-regular fa-images text-sm"></i>
+                           <i class="fa-solid fa-images text-sm"></i>
                            <span>Bütün şəkillər</span>
                         </a>
                      </div>
@@ -498,7 +498,6 @@ import { useClipboard } from "../composables/useClipboard";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default defineComponent({
    name: "MonumentMap",
