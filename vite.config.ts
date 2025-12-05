@@ -108,6 +108,7 @@ export default defineConfig({
       drop: ["console", "debugger"],
    },
    build: {
+      target: "esnext",
       minify: "terser",
       terserOptions: {
          format: { comments: false },
@@ -116,7 +117,15 @@ export default defineConfig({
       rollupOptions: {
          output: {
             manualChunks: {
-               "leaflet-vendor": ["leaflet", "leaflet.markercluster", "leaflet.locatecontrol"],
+               "leaflet-vendor": [
+                  "leaflet",
+                  "leaflet.markercluster",
+                  "leaflet.locatecontrol",
+                  "leaflet-sidebar-v2",
+                  "leaflet.fullscreen",
+               ],
+               "vue-vendor": ["vue", "vue-router", "pinia"],
+               "utils-vendor": ["fuse.js", "geobuf", "pbf", "axios"],
             },
          },
       },
