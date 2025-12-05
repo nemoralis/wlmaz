@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { type Request, type Response, type NextFunction } from "express";
 import session from "express-session";
 import passport from "./auth/passport.ts";
 import authRoutes from "./auth/routes.ts";
@@ -9,6 +9,7 @@ import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 import { createClient } from "redis";
 import { RedisStore } from "connect-redis";
+import hpp from "hpp";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,9 +32,35 @@ const limiter = rateLimit({
 const startServer = async () => {
    await redisClient.connect();
 
-   app.use(helmet());
+   app.set("trust proxy", 1); // Trust first proxy (required for secure cookies on Vercel/Nginx)
+
+   app.use(
+      helmet({
+         contentSecurityPolicy: {
+            directives: {
+               defaultSrc: ["'self'"],
+               scriptSrc: ["'self'", "'unsafe-inline'", "https://maps.googleapis.com"],
+               imgSrc: [
+                  "'self'",
+                  "data:",
+                  "blob:",
+                  "https://*.openstreetmap.org",
+                  "https://*.google.com",
+                  "https://*.googleapis.com",
+                  "https://upload.wikimedia.org",
+                  "https://commons.wikimedia.org",
+               ],
+               connectSrc: ["'self'", "https://*.googleapis.com"],
+               styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+               fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            },
+         },
+         crossOriginEmbedderPolicy: false, // Required for some map resources
+      }),
+   );
    app.use(morgan("dev"));
    app.use(limiter);
+   app.use(hpp()); // Prevent HTTP Parameter Pollution
    app.use(
       cors({
          origin: process.env.CLIENT_URL || "http://localhost:5173",
@@ -41,8 +68,8 @@ const startServer = async () => {
       }),
    );
 
-   app.use(express.json({ limit: "50mb" }));
-   app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+   app.use(express.json({ limit: "10kb" })); // Lower limit for JSON (DoS protection)
+   app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
    app.use(
       session({
