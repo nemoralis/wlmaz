@@ -9,7 +9,7 @@ const PUBLIC_DIR = path.join(__dirname, '../public');
 const GEOJSON_PATH = path.join(PUBLIC_DIR, 'monuments.geojson');
 
 // SPARQL Query to fetch monuments in Azerbaijan
-const SPARQL_QUERY = `
+const SPARQL_QUERY = `#defaultView:Map
 SELECT 
   ?item 
   ?itemLabel 
@@ -23,30 +23,60 @@ SELECT
   ?commonsLink 
 WHERE {
   ?item wdt:P13410 ?inventory.
+  
+  # 1. Coordinates
   OPTIONAL { ?item wdt:P625 ?coordinate. }
   
+  # 2. Image
   OPTIONAL { ?item wdt:P18 ?image. }
+  
+  # 3. Commons Category Name
   OPTIONAL { ?item wdt:P373 ?commonsCategory. }
+
+  # 4. Sitelinks
   OPTIONAL { ?azLink schema:about ?item ; schema:isPartOf <https://az.wikipedia.org/> . }
   OPTIONAL { ?commonsLink schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> . }
 
+  # 5. Labels, Descriptions, Aliases
+  # "az" first means description and aliases will be in Azerbaijani if available
   SERVICE wikibase:label { 
     bd:serviceParam wikibase:language "az,en". 
   }
+}`;
+
+class SPARQLQueryDispatcher {
+  endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = endpoint;
+  }
+
+  async query(sparqlQuery: string): Promise<any> {
+    const fullUrl = this.endpoint + '?query=' + encodeURIComponent(sparqlQuery);
+    const headers = { 
+      'Accept': 'application/sparql-results+json',
+      'User-Agent': 'WLMAZ-Updater/1.0 (https://github.com/nemoralis/wlmaz)'
+    };
+
+    const response = await fetch(fullUrl, { headers });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data: ${response.statusText}`);
+    }
+    return response.json();
+  }
 }
-`;
+
+const endpointUrl = 'https://query.wikidata.org/sparql';
+
+interface SparqlValue {
+  type: string;
+  value: string;
+  datatype?: string;
+  [key: string]: any;
+}
 
 interface SparqlBinding {
-  item: { value: string };
-  itemLabel: { value: string };
-  itemDescription?: { value: string };
-  itemAltLabel?: { value: string };
-  inventory: { value: string };
-  coordinate?: { value: string };
-  image?: { value: string };
-  commonsCategory?: { value: string };
-  azLink?: { value: string };
-  commonsLink?: { value: string };
+  [key: string]: SparqlValue;
 }
 
 interface GeoJSONFeature {
@@ -56,16 +86,7 @@ interface GeoJSONFeature {
     coordinates: [number, number];
   };
   properties: {
-    item: string;
-    itemLabel: string;
-    itemDescription?: string;
-    itemAltLabel?: string;
-    inventory: string;
-    image?: string;
-    commonsCategory?: string;
-    azLink?: string;
-    commonsLink?: string;
-    [key: string]: any;
+    [key: string]: string;
   };
 }
 
@@ -74,56 +95,40 @@ interface GeoJSON {
   features: GeoJSONFeature[];
 }
 
-async function fetchMonuments() {
-  console.log('Fetching data from Wikidata...');
-  const url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(SPARQL_QUERY)}&format=json`;
-  
-  const response = await fetch(url, {
-    headers: {
-      'User-Agent': 'WLMAZ-Updater/1.0 (https://github.com/nemoralis/wlmaz)',
-      'Accept': 'application/sparql-results+json'
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data: ${response.statusText}`);
-  }
-
-  const data = await response.json();
-  return data.results.bindings as SparqlBinding[];
-}
-
 function transformToGeoJSON(bindings: SparqlBinding[]): GeoJSON {
-  const features: GeoJSONFeature[] = bindings
-    .filter(b => b.coordinate) // Filter out items without coordinates
-    .map((b): GeoJSONFeature | null => {
-      const wkt = b.coordinate!.value;
-      const match = wkt.match(/Point\(([-\d.]+) ([-\d.]+)\)/);
-      if (!match) return null;
-      
-      const lon = parseFloat(match[1]);
-      const lat = parseFloat(match[2]);
+  const features: GeoJSONFeature[] = [];
 
-      return {
+  for (const row of bindings) {
+    const properties: { [key: string]: string } = {};
+    let coordinates: [number, number] | null = null;
+
+    for (const rowVar in row) {
+      const binding = row[rowVar];
+      
+      // Check for WKT literal (coordinates)
+      if (binding.type === 'literal' && binding.datatype === 'http://www.opengis.net/ont/geosparql#wktLiteral') {
+        const match = binding.value.match(/Point\(([-\d.]+) ([-\d.]+)\)/);
+        if (match) {
+          coordinates = [parseFloat(match[1]), parseFloat(match[2])];
+        }
+      } else {
+        // Add other fields to properties
+        properties[rowVar] = binding.value;
+      }
+    }
+
+    // Only add feature if coordinates were found
+    if (coordinates) {
+      features.push({
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [lon, lat]
+          coordinates: coordinates
         },
-        properties: {
-          item: b.item.value,
-          itemLabel: b.itemLabel.value,
-          itemDescription: b.itemDescription?.value,
-          itemAltLabel: b.itemAltLabel?.value,
-          inventory: b.inventory.value,
-          image: b.image?.value,
-          commonsCategory: b.commonsCategory?.value,
-          azLink: b.azLink?.value,
-          commonsLink: b.commonsLink?.value
-        }
-      };
-    })
-    .filter((f): f is GeoJSONFeature => f !== null);
+        properties: properties
+      });
+    }
+  }
 
   return {
     type: 'FeatureCollection',
@@ -143,7 +148,11 @@ async function main() {
     }
 
     // 2. Fetch new data
-    const bindings = await fetchMonuments();
+    console.log('Fetching data from Wikidata...');
+    const queryDispatcher = new SPARQLQueryDispatcher( endpointUrl );
+    const data = await queryDispatcher.query( SPARQL_QUERY );
+    const bindings = data.results.bindings as SparqlBinding[];
+    
     const newData = transformToGeoJSON(bindings);
 
     // 3. Compare and calculate stats
