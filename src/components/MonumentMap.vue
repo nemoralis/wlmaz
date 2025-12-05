@@ -464,6 +464,8 @@
       </div>
 
       <div ref="mapContainer" class="z-0 h-full w-full"></div>
+
+      <UploadModal :is-open="showUploadModal" @close="showUploadModal = false" />
    </div>
 </template>
 
@@ -477,6 +479,7 @@ import { useAuthStore } from "../stores/auth";
 import { MonumentProps } from "../types";
 import type { FeatureCollection } from "geojson";
 import DataWorker from "../workers/data.worker?worker";
+import UploadModal from "./UploadModal.vue";
 
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
@@ -517,6 +520,9 @@ export default defineComponent({
       const markerLookup = new Map<string, L.Marker>();
       let markersGroup: L.MarkerClusterGroup | null = null;
       let allMarkers: L.Marker[] = [];
+
+      // UI State
+      const showUploadModal = ref(false);
 
       // Filter
       const needsPhotoOnly = ref(false);
@@ -634,7 +640,7 @@ export default defineComponent({
       };
 
       const openUploadModal = () => {
-         console.log("Opening upload modal for", selectedMonument.value?.itemLabel);
+         showUploadModal.value = true;
       };
 
       onMounted(async () => {
@@ -833,7 +839,11 @@ export default defineComponent({
          flyToMonument,
          needsPhotoOnly,
          toggleNeedsPhoto,
+         showUploadModal,
       };
+   },
+   components: {
+      UploadModal,
    },
 });
 </script>
