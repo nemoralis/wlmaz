@@ -1,4 +1,4 @@
-import { WikiUser } from "@/types";
+import type { WikiUser } from "@/types";
 import passport from "passport";
 // @ts-ignore
 import { Strategy as MediaWikiStrategy } from "passport-mediawiki-oauth";
