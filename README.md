@@ -69,6 +69,14 @@ pnpm run dev
 - Frontend: http://localhost:5173
 - Backend: http://localhost:3000
 
+## 🛠️ Tech Stack
+
+*   **Frontend:** [Vue 3](https://vuejs.org/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/), [Pinia](https://pinia.vuejs.org/), [TailwindCSS](https://tailwindcss.com/)
+*   **Map:** [Leaflet](https://leafletjs.com/), [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster), [geobuf](https://github.com/mapbox/geobuf)
+*   **Backend:** [Node.js](https://nodejs.org/), [Express](https://expressjs.com/)
+*   **Database/Cache:** [Redis](https://redis.io/)
+*   **Authentication:** [Passport.js](https://www.passportjs.org/) (MediaWiki OAuth)
+
 ## 🏗️ Architecture
 
 The project is a Monorepo-style structure where Frontend and Backend live together but are served separately.
@@ -77,13 +85,29 @@ The project is a Monorepo-style structure where Frontend and Backend live togeth
 wlmaz/
 ├── public/             # Static assets (GeoJSON, Logos)
 ├── src/
-│   ├── components/     # Vue Components (MonumentMap, UploadModal)
-│   ├── pages/          # Views (Home, About)
-│   ├── stores/         # Pinia State (Auth)
 │   ├── auth/           # Passport.js & OAuth Logic
+│   ├── components/     # Vue Components (MonumentMap, UploadModal)
+│   ├── composables/    # Vue Composables (useAuth, useMap)
+│   ├── pages/          # Views (Home, About)
 │   ├── routes/         # Express API Routes
+│   ├── stores/         # Pinia State (Auth)
 │   ├── types/          # Shared TypeScript Interfaces
+│   ├── utils/          # Helper functions
+│   ├── workers/        # Web Workers for heavy processing
 │   ├── index.ts        # Backend Entry Point
 │   └── main.ts         # Frontend Entry Point
 └── vite.config.ts      # Vite Configuration
 ```
+
+## 📜 Scripts
+
+*   `pnpm run dev`: Run both frontend and backend in development mode.
+*   `pnpm run build`: Type-check and build the frontend for production.
+*   `pnpm run preview`: Preview the production build locally.
+*   `pnpm run convert-data`: Convert `monuments.geojson` to `monuments.pbf` (Protocol Buffers) for faster loading.
+*   `pnpm run lint`: Lint and fix files.
+*   `pnpm run format`: Format files with Prettier.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a PR.
