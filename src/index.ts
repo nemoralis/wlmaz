@@ -95,7 +95,7 @@ const startServer = async () => {
    app.use("/auth", authRoutes);
    app.use("/upload", uploadRoutes);
 
-   app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
       console.error(err);
       res.status(500).json({ error: true, message: err.message });
    });

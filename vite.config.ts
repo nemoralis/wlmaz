@@ -4,15 +4,26 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { VitePWA } from "vite-plugin-pwa";
 import viteCompression from "vite-plugin-compression";
+import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
 export default defineConfig({
    plugins: [
       vue(),
       tailwindcss(),
       viteCompression({ algorithm: "brotliCompress" }),
+      ViteImageOptimizer({
+         png: { quality: 80 },
+         jpeg: { quality: 80 },
+         webp: { quality: 80 },
+      }),
       VitePWA({
          registerType: "autoUpdate",
          includeAssets: ["favicon.ico", "apple-touch-icon.png", "wlm-az.png"],
+
+         // Only enable PWA in production
+         devOptions: {
+            enabled: false,
+         },
 
          manifest: {
             name: "Viki Abidələri Sevir - Xəritə",
@@ -21,6 +32,10 @@ export default defineConfig({
             theme_color: "#2a7ae2",
             background_color: "#ffffff",
             display: "standalone",
+            start_url: "/",
+            scope: "/",
+            orientation: "any",
+            categories: ["travel", "education", "photography"],
             icons: [
                {
                   src: "pwa-192x192.png",
@@ -45,20 +60,40 @@ export default defineConfig({
                   purpose: "maskable",
                },
             ],
+            // Quick action shortcuts
+            shortcuts: [
+               {
+                  name: "Xəritə",
+                  short_name: "Map",
+                  description: "Abidələr xəritəsinə get",
+                  url: "/",
+                  icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
+               },
+               {
+                  name: "Statistika",
+                  short_name: "Stats",
+                  description: "Statistikaya bax",
+                  url: "/stats",
+                  icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
+               },
+            ],
          },
 
          workbox: {
-            globPatterns: ["**/*.{js,css,html,ico,png,svg}"], // Cache all build assets
+            globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+            // Increase max size for map chunks
+            maximumFileSizeToCacheInBytes: 3000000, // 3MB
             runtimeCaching: [
                {
                   urlPattern: /\/monuments\.pbf$/,
-                  handler: "StaleWhileRevalidate",
+                  handler: "NetworkFirst", // Get fresh data first, fall back to cache
                   options: {
                      cacheName: "api-data",
                      expiration: {
-                        maxEntries: 1,
+                        maxEntries: 5,
                         maxAgeSeconds: 60 * 60 * 24 * 7, // 1 week
                      },
+                     networkTimeoutSeconds: 3, // Fall back to cache after 3s
                   },
                },
                {
@@ -91,6 +126,12 @@ export default defineConfig({
       }),
    ],
 
+   // Optimize dependency pre-bundling
+   optimizeDeps: {
+      include: ["leaflet", "leaflet.markercluster", "geobuf", "pbf"],
+      exclude: ["workbox-window"], // Already bundled by PWA plugin
+   },
+
    resolve: {
       alias: {
          "@": path.resolve(__dirname, "./src"),
@@ -110,9 +151,17 @@ export default defineConfig({
    build: {
       target: "esnext",
       minify: "terser",
+      // Increase chunk size warning limit for map tiles
+      chunkSizeWarningLimit: 600,
+      // Better CSS code splitting
+      cssCodeSplit: true,
       terserOptions: {
          format: { comments: false },
-         compress: { drop_console: true, drop_debugger: true },
+         compress: {
+            drop_console: true,
+            drop_debugger: true,
+            pure_funcs: ["console.log"], // Remove console.log specifically
+         },
       },
       rollupOptions: {
          output: {
@@ -125,6 +174,20 @@ export default defineConfig({
                ],
                "vue-vendor": ["vue", "vue-router", "pinia"],
                "utils-vendor": ["fuse.js", "geobuf", "pbf"],
+               // Separate Chart.js (only loaded on stats page)
+               "chart-vendor": ["chart.js", "vue-chartjs"],
+            },
+            // Better asset naming for cache busting
+            assetFileNames: (assetInfo) => {
+               const info = assetInfo.name.split(".");
+               const ext = info[info.length - 1];
+               if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(assetInfo.name)) {
+                  return `assets/images/[name]-[hash][extname]`;
+               }
+               if (/\.(woff2?|eot|ttf|otf)$/.test(assetInfo.name)) {
+                  return `assets/fonts/[name]-[hash][extname]`;
+               }
+               return `assets/[name]-[hash][extname]`;
             },
          },
       },

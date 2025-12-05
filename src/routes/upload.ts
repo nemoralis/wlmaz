@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 
-router.post("/", (req, res) => {
+router.post("/", (_req, res) => {
    res.send("Upload endpoint (to be implemented)");
 });
 

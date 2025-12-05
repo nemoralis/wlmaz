@@ -32,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
 export const router = createRouter({
    history: createWebHistory(),
    routes,
-   scrollBehavior(to, from, savedPosition) {
+   scrollBehavior(_to, _from, savedPosition) {
       if (savedPosition) {
          return savedPosition;
       } else {
