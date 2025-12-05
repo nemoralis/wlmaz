@@ -13,7 +13,8 @@
     "build": "pnpm run convert-data && vue-tsc -b && vite build",
     "preview": "vite preview --host",
     "format": "prettier --write --list-different src/",
-    "lint": "eslint src/ --ext .ts,.vue --fix"
+    "lint": "eslint src/ --ext .ts,.vue --fix",
+    "analyze": "vite-bundle-visualizer"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
@@ -73,12 +74,15 @@
     "geojson": "^0.5.0",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
+    "svgo": "^4.0.0",
     "tailwindcss": "^4.1.14",
     "terser": "^5.44.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vite": "^7.1.9",
+    "vite-bundle-visualizer": "^1.2.1",
     "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-image-optimizer": "^2.0.3",
     "vite-plugin-pwa": "^1.1.0",
     "vue-tsc": "^3.0.0"
   },

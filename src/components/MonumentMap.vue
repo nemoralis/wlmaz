@@ -80,8 +80,7 @@ import {
    shallowRef,
    nextTick,
    watch,
-   computed,
-}  from "vue";
+} from "vue";
 import L from "leaflet";
 import "leaflet.markercluster";
 import { LocateControl } from "leaflet.locatecontrol";
