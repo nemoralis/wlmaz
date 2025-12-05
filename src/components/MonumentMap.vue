@@ -195,16 +195,29 @@
                            {{ selectedMonument.itemLabel }}
                         </h2>
 
-                        <a
-                           v-if="selectedMonument.item"
-                           :href="selectedMonument.item"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="mt-1 shrink-0 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-blue-50 hover:text-blue-600"
-                           title="Edit this item on Wikidata"
-                        >
-                           <i class="fa-solid fa-pen text-xs"></i>
-                        </a>
+                        <div class="flex shrink-0 items-center gap-1">
+                           <a
+                              v-if="selectedMonument.item"
+                              :href="selectedMonument.item"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="mt-1 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-blue-50 hover:text-blue-600"
+                              title="Edit this item on Wikidata"
+                           >
+                              <i class="fa-solid fa-pen text-xs"></i>
+                           </a>
+                           <button
+                              @click="shareMonument"
+                              class="mt-1 rounded-full p-1.5 transition-colors hover:bg-blue-50 hover:text-blue-600"
+                              :class="linkCopied ? 'text-green-600 bg-green-50' : 'text-gray-400'"
+                              title="Paylaş"
+                           >
+                              <i
+                                 class="fa-solid text-xs"
+                                 :class="linkCopied ? 'fa-check' : 'fa-share-nodes'"
+                              ></i>
+                           </button>
+                        </div>
                      </div>
 
                      <p
@@ -506,6 +519,7 @@ export default defineComponent({
       const { imageCredit, fetchImageMetadata } = useWikiCredits();
       const { copied: inventoryCopied, copy: copyInventory } = useClipboard();
       const { copied: coordsCopied, copy: copyRawCoords } = useClipboard();
+      const { copied: linkCopied, copy: copyLink } = useClipboard();
       const copyCoords = (lat: number, lon: number) => copyRawCoords(`${lat}, ${lon}`);
 
       const mapContainer = ref<HTMLElement | null>(null);
@@ -632,8 +646,7 @@ export default defineComponent({
             }
          } else {
             // Fallback: Copy URL to clipboard
-            await navigator.clipboard.writeText(url);
-            alert("Link kopyalandı!"); // Or use a toast notification
+            copyLink(url);
          }
       };
 
@@ -838,6 +851,7 @@ export default defineComponent({
          needsPhotoOnly,
          toggleNeedsPhoto,
          showUploadModal,
+         linkCopied,
       };
    },
    components: {
