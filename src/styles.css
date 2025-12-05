@@ -52,3 +52,18 @@ body {
    background-color: #fd0000;
    /* Your custom blue */
 }
+
+/* Override Leaflet Marker Cluster Default Colors */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+   background-color: rgba(37, 99, 235, 0.4) !important;
+}
+
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+   background-color: rgba(37, 99, 235, 0.9) !important;
+   color: white !important;
+   font-weight: bold;
+}
