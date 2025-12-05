@@ -163,13 +163,14 @@ async function main() {
     const newData = transformToGeoJSON(bindings);
 
     // 3. Compare and calculate stats
+    // 3. Compare and calculate stats
+    let added = 0;
+    let removed = 0;
+    let updated = 0;
+
     if (existingData) {
       const existingIds = new Set(existingData.features.map(f => f.properties.inventory));
       const newIds = new Set(newData.features.map(f => f.properties.inventory));
-
-      let added = 0;
-      let removed = 0;
-      let updated = 0;
 
       // Added
       for (const id of newIds) {
@@ -209,6 +210,45 @@ async function main() {
     // 4. Save new data
     await fs.writeFile(GEOJSON_PATH, JSON.stringify(newData, null, 4));
     console.log(`Saved updated GeoJSON to ${GEOJSON_PATH}`);
+
+    // 5. Save History
+    if (existingData) {
+       const HISTORY_PATH = path.join(PUBLIC_DIR, 'stats-history.json');
+       let history: any[] = [];
+       try {
+          const content = await fs.readFile(HISTORY_PATH, 'utf-8');
+          history = JSON.parse(content);
+       } catch (e) {
+          // Start new history
+          console.log('Starting new history file.');
+       }
+   
+       const today = new Date().toISOString().split('T')[0];
+       const withImage = newData.features.filter(f => f.properties.image).length;
+       
+       const entry = {
+          date: today,
+          timestamp: Date.now(),
+          total: newData.features.length,
+          withImage,
+          withoutImage: newData.features.length - withImage,
+          diff: { 
+             added, 
+             removed, 
+             updated 
+          }
+       };
+       
+       // Remove existing entry for same date to allow re-runs
+       history = history.filter(h => h.date !== today);
+       history.push(entry);
+       
+       // Sort by date
+       history.sort((a, b) => a.timestamp - b.timestamp);
+       
+       await fs.writeFile(HISTORY_PATH, JSON.stringify(history, null, 2));
+       console.log(`Saved update stats to ${HISTORY_PATH}`);
+    }
 
   } catch (error) {
     console.error('Error updating monuments:', error);

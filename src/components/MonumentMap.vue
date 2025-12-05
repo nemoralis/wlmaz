@@ -167,6 +167,15 @@
                      </div>
                   </div>
                </div>
+               
+               <div class="mt-4 border-t border-gray-100 pt-4">
+                  <router-link
+                     to="/stats"
+                     class="flex items-center justify-center gap-2 rounded-lg bg-blue-50 px-4 py-3 text-sm font-medium text-blue-600 transition hover:bg-blue-100"
+                  >
+                     <i class="fa-solid fa-chart-line"></i> Statistika və Hesabatlar
+                  </router-link>
+               </div>
             </div>
 
             <div class="leaflet-sidebar-pane" id="details">
