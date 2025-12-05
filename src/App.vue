@@ -87,7 +87,7 @@
          </div>
       </header>
 
-      <main class="relative w-full flex-1">
+      <main class="relative w-full flex-1 overflow-y-auto">
          <router-view />
       </main>
    </div>

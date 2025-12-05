@@ -1,5 +1,5 @@
 <template>
-   <div class="flex h-screen flex-col bg-gray-50">
+   <div class="flex h-full flex-col bg-gray-50">
       <div class="bg-white p-4 shadow-sm">
          <div class="container mx-auto flex items-center justify-between">
             <h1 class="text-xl font-bold text-gray-800">
