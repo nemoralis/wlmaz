@@ -517,7 +517,11 @@ import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
 
 export default defineComponent({
    name: "MonumentMap",
+   components: {
+      UploadModal,
+   },
    setup() {
+      // --- Stores & Composables ---
       const auth = useAuthStore();
       const { imageCredit, fetchImageMetadata } = useWikiCredits();
       const { copied: inventoryCopied, copy: copyInventory } = useClipboard();
@@ -525,40 +529,24 @@ export default defineComponent({
       const { copied: linkCopied, copy: copyLink } = useClipboard();
       const copyCoords = (lat: number, lon: number) => copyRawCoords(`${lat}, ${lon}`);
 
+      // --- Refs & State ---
       const mapContainer = ref<HTMLElement | null>(null);
       const mapInstance = shallowRef<L.Map | null>(null);
       const sidebarInstance = shallowRef<L.Control | null>(null);
+      const markersGroup = shallowRef<L.MarkerClusterGroup | null>(null);
+      
       const selectedMonument = ref<MonumentProps | null>(null);
-      const imageLoading = ref(true);
-      const stats = ref({ total: 0, withImage: 0 });
       const activeMarkerLayer = shallowRef<L.Marker | null>(null);
+      
+      // Data
+      const stats = ref({ total: 0, withImage: 0 });
+      const imageLoading = ref(true);
       const markerLookup = new Map<string, L.Marker>();
-      let markersGroup: L.MarkerClusterGroup | null = null;
       let allMarkers: L.Marker[] = [];
 
-      // UI State
+      // UI
       const showUploadModal = ref(false);
-
-      // Filter
       const needsPhotoOnly = ref(false);
-
-      const toggleNeedsPhoto = () => {
-         needsPhotoOnly.value = !needsPhotoOnly.value;
-         updateMapFilter();
-      };
-
-      const updateMapFilter = () => {
-         if (!markersGroup) return;
-         
-         markersGroup.clearLayers();
-
-         if (needsPhotoOnly.value) {
-            const filtered = allMarkers.filter((m: any) => !m.feature.properties.image);
-            markersGroup.addLayers(filtered);
-         } else {
-            markersGroup.addLayers(allMarkers);
-         }
-      };
 
       // Search
       const searchQuery = ref("");
@@ -566,53 +554,21 @@ export default defineComponent({
       const fuse = shallowRef<Fuse<any> | null>(null);
       let searchTimeout: ReturnType<typeof setTimeout>;
 
-      watch(searchQuery, (newVal) => {
-         clearTimeout(searchTimeout);
-         searchTimeout = setTimeout(() => {
-            debouncedSearchQuery.value = newVal;
-         }, 300);
-      });
-
-      const searchResults = computed(() => {
-         if (!debouncedSearchQuery.value || !fuse.value) return [];
-         return fuse.value.search(debouncedSearchQuery.value).slice(0, 50);
-      });
-
-      const flyToMonument = (feature: any) => {
-         const { inventory } = feature.properties;
-         if (inventory && markerLookup.has(inventory)) {
-            const marker = markerLookup.get(inventory)!;
-            selectMonument(marker);
-            searchQuery.value = "";
-         }
-      };
-
-      // Watcher
-      watch(selectedMonument, (newVal) => {
-         const url = new URL(window.location.href);
-         if (newVal && newVal.itemLabel) {
-            document.title = `${newVal.itemLabel} | Viki Abidələri Sevir`;
-            if (newVal.inventory) {
-               url.searchParams.set("inventory", newVal.inventory);
-               window.history.replaceState({}, "", url);
-            }
-            imageLoading.value = true;
-            if (newVal.image) fetchImageMetadata(newVal.image);
-         } else {
-            document.title = "Viki Abidələri Sevir Azərbaycan";
-            url.searchParams.delete("inventory");
-            window.history.replaceState({}, "", url);
-         }
-      });
+      // --- Methods ---
 
       const highlightMarker = (marker: L.Marker | null) => {
+         // 1. Remove highlight from previous
          if (activeMarkerLayer.value) {
             const el = activeMarkerLayer.value.getElement();
             el?.querySelector(".marker-pin")?.classList.remove("selected-highlight");
          }
+         
+         // 2. Add highlight to new
          if (marker) {
             const el = marker.getElement();
-            el?.querySelector(".marker-pin")?.classList.add("selected-highlight");
+            if (el) {
+               el.querySelector(".marker-pin")?.classList.add("selected-highlight");
+            }
             activeMarkerLayer.value = marker;
          } else {
             activeMarkerLayer.value = null;
@@ -620,250 +576,271 @@ export default defineComponent({
       };
 
       const selectMonument = async (marker: L.Marker) => {
-         if (!marker || !markersGroup) return;
-         (markersGroup as any).zoomToShowLayer(marker, async () => {
-            // Center map on marker
-            const currentZoom = mapInstance.value?.getZoom() || 16;
-            const targetZoom = Math.max(currentZoom, 16);
-            mapInstance.value?.flyTo(marker.getLatLng(), targetZoom);
+         if (!marker || !markersGroup.value) return;
 
+         const performSelection = async () => {
             highlightMarker(marker);
+            
             const props = (marker as any).feature.properties;
             selectedMonument.value = props;
+            
             await nextTick();
             (sidebarInstance.value as any)?.open("details");
-         });
+         };
+
+         // Check if marker is visible (not clustered)
+         // Leaflet.markercluster provides getVisibleParent. 
+         // If it returns the marker itself, it is visible. If it returns a cluster, it is clustered.
+         const visibleParent = (markersGroup.value as any).getVisibleParent(marker);
+         
+         if (visibleParent && visibleParent !== marker) {
+             // It is clustered. Use zoomToShowLayer to reveal it.
+             (markersGroup.value as any).zoomToShowLayer(marker, () => {
+                 performSelection();
+             });
+         } else {
+             // It is already visible (or spiderfied). Just select it.
+             // IMPORTANT: Do NOT flyTo/panTo here to avoid closing spiderfied clusters.
+             performSelection();
+         }
       };
 
+      const flyToMonument = (feature: any) => {
+         console.log(feature)
+         const { inventory } = feature.properties;
+         if (inventory && markerLookup.has(inventory)) {
+            const marker = markerLookup.get(inventory)!;
+            
+            const visibleParent = (markersGroup.value as any)?.getVisibleParent(marker);
+            
+            if (visibleParent && visibleParent !== marker) {
+               (markersGroup.value as any).zoomToShowLayer(marker, () => {
+                  selectMonument(marker);
+               });
+            } else {
+               mapInstance.value?.flyTo(marker.getLatLng(), 16, { duration: 1.5 });
+               
+               const props = (marker as any).feature.properties;
+               selectedMonument.value = props;
+               (sidebarInstance.value as any)?.open("details");
+               activeMarkerLayer.value = marker; 
+            }
+            searchQuery.value = "";
+         }
+      };
+
+      const toggleNeedsPhoto = () => {
+         needsPhotoOnly.value = !needsPhotoOnly.value;
+         if (!markersGroup.value) return;
+
+         markersGroup.value.clearLayers();
+         if (needsPhotoOnly.value) {
+            const filtered = allMarkers.filter((m: any) => !m.feature.properties.image);
+            markersGroup.value.addLayers(filtered);
+         } else {
+            markersGroup.value.addLayers(allMarkers);
+         }
+      };
+
+      const openUploadModal = () => showUploadModal.value = true;
+      
       const shareMonument = async () => {
          if (!selectedMonument.value) return;
-
          const url = window.location.href;
          const title = selectedMonument.value.itemLabel || "Abidə";
          const text = `Viki Abidələri Sevir: ${title}`;
 
-         // Use Native Share if supported (Mobile)
          if (navigator.share) {
-            try {
-               await navigator.share({ title, text, url });
-            } catch (err) {
-               console.log("Share cancelled");
-            }
+            try { await navigator.share({ title, text, url }); } 
+            catch (err) { console.log("Share cancelled"); }
          } else {
-            // Fallback: Copy URL to clipboard
             copyLink(url);
          }
       };
 
-      const openUploadModal = () => {
-         showUploadModal.value = true;
-      };
+      // --- Watchers ---
+      watch(searchQuery, (newVal) => {
+         clearTimeout(searchTimeout);
+         searchTimeout = setTimeout(() => { debouncedSearchQuery.value = newVal; }, 300);
+      });
 
-      onMounted(async () => {
+      const searchResults = computed(() => {
+         if (!debouncedSearchQuery.value || !fuse.value) return [];
+         return fuse.value.search(debouncedSearchQuery.value).slice(0, 50);
+      });
+
+      watch(selectedMonument, (newVal) => {
+         const url = new URL(window.location.href);
+         if (newVal && newVal.itemLabel) {
+            document.title = `${newVal.itemLabel} | Viki Abidələri Sevir`;
+            if (newVal.inventory) url.searchParams.set("inventory", newVal.inventory);
+            imageLoading.value = true;
+            if (newVal.image) fetchImageMetadata(newVal.image);
+         } else {
+            document.title = "Viki Abidələri Sevir Azərbaycan";
+            url.searchParams.delete("inventory");
+         }
+         window.history.replaceState({}, "", url);
+      });
+
+      // --- Initialize ---
+      onMounted(() => {
          if (!mapContainer.value) return;
 
-         // 1. Layers
-         const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            attribution: "© OpenStreetMap",
-         });
-         const googleSatLayer = L.tileLayer("https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
-            maxZoom: 20,
-            attribution: "© Google",
-         });
-         const googleHybridLayer = L.tileLayer(
-            "https://mt0.google.com/vt/lyrs=y&x={x}&y={y}&z={z}",
-            {
-               maxZoom: 20,
-               attribution: "© Google",
-            },
-         );
-
-         // 2. Map
-         const map = L.map(mapContainer.value, {
-            zoomControl: false,
-            layers: [osmLayer],
-         }).setView([40.4093, 49.8671], 7);
-
+         // 1. Map Setup
+         const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" });
+         const map = L.map(mapContainer.value, { zoomControl: false, layers: [osmLayer] }).setView([40.4093, 49.8671], 7);
+         
          mapInstance.value = map;
 
-         // 3. Layer Control
+         // 2. Controls
          const baseMaps = {
-            Xəritə: osmLayer,
-            "Peyk (Google)": googleSatLayer,
-            "Hibrid (Google)": googleHybridLayer,
+             "Xəritə": osmLayer,
+             "Peyk (Google)": L.tileLayer("https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", { maxZoom: 20, attribution: "© Google" }),
+             "Hibrid (Google)": L.tileLayer("https://mt0.google.com/vt/lyrs=y&x={x}&y={y}&z={z}", { maxZoom: 20, attribution: "© Google" })
          };
-
-         const layerControl = L.control
-            .layers(baseMaps, undefined, { position: "topright" })
-            .addTo(map);
-
-         // Style the layer button
-         const toggleBtn = layerControl
-            .getContainer()
-            ?.querySelector(".leaflet-control-layers-toggle");
-         if (toggleBtn) {
-            toggleBtn.innerHTML = '<i class="fa-solid fa-layer-group text-gray-600 text-sm"></i>';
-         }
+         
+         const layerControl = L.control.layers(baseMaps, undefined, { position: "topright" }).addTo(map);
+         
+         // Custom icon for layer control
+         const toggleBtn = layerControl.getContainer()?.querySelector(".leaflet-control-layers-toggle");
+         if (toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-layer-group text-gray-600 text-sm"></i>';
 
          L.control.zoom({ position: "topright" }).addTo(map);
 
-         // 4. Sidebar
-         const sidebar = (L.control as any)
-            .sidebar({
-               container: "sidebar",
-               position: "left",
-               autopan: true,
-            })
-            .addTo(map);
-
+         const sidebar = (L.control as any).sidebar({ container: "sidebar", position: "left", autopan: true }).addTo(map);
          sidebarInstance.value = sidebar;
 
-         // Map Events
+         // 3. Global Map Events
          map.on("click", () => {
             sidebar.close();
             highlightMarker(null);
+         });
+
+         // Robust highlight: Apply class when layer is added (virtualization support)
+         map.on("layeradd", (e) => {
+            if (activeMarkerLayer.value && e.layer === activeMarkerLayer.value) {
+               const el = (e.layer as L.Marker).getElement();
+               el?.querySelector(".marker-pin")?.classList.add("selected-highlight");
+            }
          });
 
          sidebar.on("content", (e: any) => {
             if (e.id !== "details") {
                highlightMarker(null);
                selectedMonument.value = null;
-               const url = new URL(window.location.href);
-               url.searchParams.delete("inventory");
-               window.history.replaceState({}, "", url);
             }
          });
 
-         try {
-            const worker = new DataWorker();
-            worker.postMessage({ type: "INIT" });
+         // 4. Data Loading
+         const worker = new DataWorker();
+         worker.postMessage({ type: "INIT" });
 
-            worker.onmessage = (e) => {
-               if (e.data.type === "DATA_READY") {
-                  const { geoData, fuseIndex } = e.data;
-                  const allFeatures = geoData.features;
+         worker.onmessage = (e) => {
+            if (e.data.type === "DATA_READY") {
+               const { geoData, fuseIndex } = e.data;
+               
+               // Setup Fuse
+               fuse.value = new Fuse(geoData.features, {
+                  keys: ["properties.itemLabel", "properties.inventory", "properties.itemAltLabel"],
+                  threshold: 0.3,
+                  ignoreLocation: true
+               }, Fuse.parseIndex(fuseIndex));
 
-                  // Reconstruct Fuse with pre-computed index
-                  const myIndex = Fuse.parseIndex(fuseIndex);
-                  fuse.value = new Fuse(
-                     allFeatures,
-                     {
-                        keys: [
-                           "properties.itemLabel",
-                           "properties.inventory",
-                           "properties.itemAltLabel",
-                        ],
-                        threshold: 0.3,
-                        ignoreLocation: true,
-                     },
-                     myIndex,
-                  );
+               // Update Stats
+               stats.value.total = geoData.features.length;
+               stats.value.withImage = geoData.features.filter((f: any) => f.properties.image).length;
 
-                  stats.value.total = allFeatures.length;
-                  stats.value.withImage = allFeatures.filter((f: any) => f.properties.image).length;
-                  markersGroup = L.markerClusterGroup({
-                     showCoverageOnHover: false,
-                     chunkedLoading: true,
-                  });
+               // Create Cluster Group
+               const clusterGroup = L.markerClusterGroup({
+                  showCoverageOnHover: false,
+                  chunkedLoading: true,
+                  spiderfyOnMaxZoom: true,
+                  zoomToBoundsOnClick: true
+               });
+               markersGroup.value = clusterGroup;
 
-                  const geoJsonLayer = L.geoJSON(geoData, {
-                     pointToLayer: (feature, latlng) => {
-                        const props = feature.properties as MonumentProps;
-                        props.lat = latlng.lat;
-                        props.lon = latlng.lng;
+               // Create Layers
+               const geoJsonLayer = L.geoJSON(geoData, {
+                  pointToLayer: (feature, latlng) => {
+                     const props = feature.properties as MonumentProps;
+                     const hasImage = !!props.image;
+                     const faIcon = getMonumentIcon(props.itemLabel);
+                     const bgClass = hasImage ? "marker-has-image" : "marker-needs-image";
+                     
+                     const icon = L.divIcon({
+                        className: "custom-div-icon",
+                        html: `<div class="marker-pin ${bgClass}"><i class="fa-solid ${faIcon} text-white text-[14px]"></i></div>`,
+                        iconSize: [30, 30],
+                        iconAnchor: [15, 15]
+                     });
 
-                        const hasImage = !!props.image;
-                        const faIcon = getMonumentIcon(props.itemLabel);
-                        const bgClass = hasImage ? "marker-has-image" : "marker-needs-image";
-
-                        const customIcon = L.divIcon({
-                           className: "custom-div-icon",
-                           html: `<div class="marker-pin ${bgClass}">
-                          <i class="fa-solid ${faIcon} text-white text-[14px]"></i>
-                        </div>`,
-                           iconSize: [30, 30],
-                           iconAnchor: [15, 15],
-                        });
-
-                        const marker = L.marker(latlng, { icon: customIcon });
-                        if (props.inventory) markerLookup.set(props.inventory, marker);
-
-                        marker.on("click", (e) => {
-                           L.DomEvent.stopPropagation(e);
-                           selectMonument(marker);
-                        });
-
-                        return marker;
-                     },
-                  });
-
-                  allMarkers = geoJsonLayer.getLayers() as L.Marker[];
-                  markersGroup.addLayers(allMarkers);
-
-                  map.addLayer(markersGroup);
-
-                  new LocateControl({
-                     keepCurrentZoomLevel: false,
-                     flyTo: true,
-                     position: "topright",
-                  }).addTo(map);
-
-                  const urlParams = new URLSearchParams(window.location.search);
-                  const targetId = urlParams.get("inventory");
-
-                  if (targetId && markerLookup.has(targetId)) {
-                     const targetMarker = markerLookup.get(targetId)!;
-                     selectMonument(targetMarker);
-                  } else {
-                     sidebar.open("home");
+                     const marker = L.marker(latlng, { icon });
+                     // Store ID
+                     if (props.inventory) markerLookup.set(props.inventory, marker);
+                     return marker;
                   }
-               } else if (e.data.type === "ERROR") {
-                  console.error("Worker Error:", e.data.error);
+               });
+
+               allMarkers = geoJsonLayer.getLayers() as L.Marker[];
+               clusterGroup.addLayers(allMarkers);
+               
+               // Group Event delegation
+               clusterGroup.on("click", (evt: any) => {
+                  L.DomEvent.stopPropagation(evt.originalEvent);
+                  selectMonument(evt.layer);
+               });
+
+               map.addLayer(clusterGroup);
+               
+               new LocateControl({ position: "topright", flyTo: true }).addTo(map);
+
+               // Initial URL Navigation
+               const urlParams = new URLSearchParams(window.location.search);
+               const inventory = urlParams.get("inventory");
+               if (inventory && markerLookup.has(inventory)) {
+                  selectMonument(markerLookup.get(inventory)!);
+               } else {
+                  sidebar.open("home");
                }
-            };
-         } catch (err) {
-            console.error(err);
-         }
+            }
+         };
       });
 
       onUnmounted(() => {
-         if (mapInstance.value) {
-            mapInstance.value.remove();
-            mapInstance.value = null;
-         }
+         mapInstance.value?.remove();
       });
 
       return {
          auth,
          mapContainer,
-         sidebarInstance,
+         // State
          selectedMonument,
          imageLoading,
          stats,
+         showUploadModal,
+         needsPhotoOnly,
          searchQuery,
          searchResults,
+         // Actions
+         openUploadModal,
+         toggleNeedsPhoto,
          flyToMonument,
          shareMonument,
+         // Utils
          getOptimizedImage,
          getSrcSet,
          getDescriptionPage,
          getCategoryUrl,
-         copyInventory,
-         inventoryCopied,
-         copyCoords,
-         coordsCopied,
          imageCredit,
-         showUploadModal,
-         openUploadModal,
-         needsPhotoOnly,
-         toggleNeedsPhoto,
+         // Clipboard
+         inventoryCopied,
+         coordsCopied,
          linkCopied,
+         copyInventory,
+         copyCoords
       };
-   },
-   components: {
-      UploadModal,
-   },
+   }
 });
 </script>
 <style scoped>
