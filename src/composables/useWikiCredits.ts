@@ -26,13 +26,17 @@ export function useWikiCredits() {
          if (page && page.imageinfo && page.imageinfo[0]) {
             const meta = page.imageinfo[0].extmetadata;
 
-            let author = meta.Permission?.value;
+            let author = meta.Attribution?.value;
             if (!author && meta.Artist?.value) {
-               author = meta.Artist.value.replace(/<[^>]*>?/gm, "");
+               author = meta.Artist.value;
+            }
+
+            if (author) {
+               author = author.replace(/<[^>]*>?/gm, "");
             }
 
             imageCredit.value = {
-               author: author || "Wiki Commons",
+               author: author || "Wikimedia Commons",
                license: meta.LicenseShortName?.value || "CC BY-SA",
             };
          } else {
