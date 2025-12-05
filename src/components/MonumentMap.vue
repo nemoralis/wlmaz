@@ -476,8 +476,7 @@ import Fuse from "fuse.js";
 import "leaflet.markercluster";
 import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
-import { MonumentProps } from "../types";
-import type { FeatureCollection } from "geojson";
+import type { MonumentProps } from "../types";
 import DataWorker from "../workers/data.worker?worker";
 import UploadModal from "./UploadModal.vue";
 
