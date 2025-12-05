@@ -35,484 +35,32 @@
          </div>
 
          <div class="leaflet-sidebar-content">
+            <!-- Home Pane -->
             <div class="leaflet-sidebar-pane" id="home">
-               <h1 class="mt-4 mb-4 text-2xl font-bold text-gray-800">
-                  Viki Abidələri Sevir Azərbaycan
-               </h1>
-
-               <!-- Search Box -->
-               <div class="mb-6">
-                  <div class="relative">
-                     <input
-                        v-model="searchQuery"
-                        @keydown="handleSearchKeydown"
-                        ref="searchInput"
-                        role="combobox"
-                        aria-autocomplete="list"
-                        :aria-expanded="(searchQuery && searchResults.length > 0) ? 'true' : 'false'"
-                        aria-controls="search-results"
-                        aria-label="Abidə axtar"
-                        type="text"
-                        placeholder="Abidə axtar (Ad, İnventar)..."
-                        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                     />
-                     <i class="fa fa-search absolute top-2.5 left-3 text-gray-400" aria-hidden="true"></i>
-                     <button
-                        v-if="searchQuery"
-                        @click="clearSearch"
-                        aria-label="Axtarışı təmizlə"
-                        class="absolute top-2.5 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
-                     >
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                     </button>
-                  </div>
-
-                  <!-- Search Results -->
-                  <div
-                     v-if="searchQuery"
-                     id="search-results"
-                     role="listbox"
-                     aria-label="Axtarış nəticələri"
-                     class="absolute right-0 left-0 z-50 mt-1 max-h-[60vh] overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-xl"
-                     style="margin: 0 10px"
-                  >
-                     <div
-                        v-if="searchResults.length === 0"
-                        role="status"
-                        aria-live="polite"
-                        class="p-4 text-center text-sm text-gray-500"
-                     >
-                        Nəticə tapılmadı
-                     </div>
-                     <ul v-else class="divide-y divide-gray-100">
-                        <li
-                           v-for="(result, index) in searchResults"
-                           :key="result.item.properties.id"
-                           @click="selectSearchResult(result.item)"
-                           @keydown.enter="selectSearchResult(result.item)"
-                           @keydown.space.prevent="selectSearchResult(result.item)"
-                           :ref="el => setSearchResultRef(el, index)"
-                           role="option"
-                           :aria-selected="selectedSearchIndex === index"
-                           tabindex="0"
-                           class="cursor-pointer px-4 py-3 transition-colors hover:bg-blue-50"
-                           :class="{ 'bg-blue-50': selectedSearchIndex === index }"
-                        >
-                           <div class="font-medium text-gray-800">
-                              {{ result.item.properties.itemLabel }}
-                           </div>
-                           <div class="mt-0.5 flex items-center gap-2 text-xs text-gray-500">
-                              <span
-                                 v-if="result.item.properties.inventory"
-                                 class="rounded bg-gray-100 px-1.5 py-0.5 font-mono"
-                              >
-                                 {{ result.item.properties.inventory }}
-                              </span>
-                              <span v-if="result.item.properties.image" class="text-green-600">
-                                 <i class="fa fa-image" aria-hidden="true"></i> Şəkilli
-                              </span>
-                           </div>
-                        </li>
-                     </ul>
-                  </div>
-
-                  <!-- Screen reader announcement for search results -->
-                  <div
-                     v-if="searchQuery"
-                     role="status"
-                     aria-live="polite"
-                     aria-atomic="true"
-                     class="sr-only"
-                  >
-                     {{ searchResults.length }} nəticə tapıldı
-                  </div>
-               </div>
-
-               <div class="mb-6 grid grid-cols-3 gap-2 text-center">
-                  <div class="rounded-lg border border-blue-100 bg-blue-50 p-2">
-                     <div class="text-xl font-bold text-blue-700">{{ stats.total }}</div>
-                     <div class="text-[10px] font-bold tracking-wider text-blue-600 uppercase">
-                        Cəmi
-                     </div>
-                  </div>
-                  <div class="rounded-lg border border-green-100 bg-green-50 p-2">
-                     <div class="text-xl font-bold text-green-700">{{ stats.withImage }}</div>
-                     <div class="text-[10px] font-bold tracking-wider text-green-600 uppercase">
-                        Şəkilli
-                     </div>
-                  </div>
-                  <div class="rounded-lg border border-red-100 bg-red-50 p-2">
-                     <div class="text-xl font-bold text-red-700">
-                        {{ stats.total - stats.withImage }}
-                     </div>
-                     <div class="text-[10px] font-bold tracking-wider text-red-600 uppercase">
-                        Şəkilsiz
-                     </div>
-                  </div>
-               </div>
-
-               <!-- Filter Toggle -->
-               <div
-                  class="mb-6 flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-4"
-               >
-                  <span class="text-sm font-medium text-gray-700" id="filter-label">Yalnız şəkilsizləri göstər</span>
-                  <button
-                     @click="toggleNeedsPhoto"
-                     @keydown.enter.prevent="toggleNeedsPhoto"
-                     @keydown.space.prevent="toggleNeedsPhoto"
-                     role="switch"
-                     :aria-checked="needsPhotoOnly"
-                     aria-labelledby="filter-label"
-                     class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:outline-none"
-                     :class="needsPhotoOnly ? 'bg-blue-600' : 'bg-gray-200'"
-                  >
-                     <span
-                        class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-                        :class="needsPhotoOnly ? 'translate-x-5' : 'translate-x-0'"
-                     ></span>
-                  </button>
-               </div>
-
-               <div class="mb-6">
-                  <div class="mb-1 flex justify-between text-xs font-medium text-gray-500">
-                     <span>Gedişat</span>
-                     <span aria-label="{{ Math.round((stats.withImage / stats.total) * 100) || 0 }} faiz tamamlandı">{{ Math.round((stats.withImage / stats.total) * 100) || 0 }}%</span>
-                  </div>
-                  <div class="h-2.5 w-full overflow-hidden rounded-full bg-gray-200" role="progressbar" :aria-valuenow="Math.round((stats.withImage / stats.total) * 100) || 0" aria-valuemin="0" aria-valuemax="100">
-                     <div
-                        class="h-2.5 rounded-full bg-green-500 transition-all duration-1000 ease-out"
-                        :style="{ width: `${(stats.withImage / stats.total) * 100}%` }"
-                     ></div>
-                  </div>
-               </div>
-
-               <div class="rounded-lg border border-gray-200 bg-gray-50 p-4">
-                  <h3 class="mb-3 font-bold text-gray-700">Xəritə Legenda</h3>
-                  <div class="space-y-3">
-                     <div class="flex items-center gap-3">
-                        <div
-                           class="h-[30px] w-[30px] rounded-full border-2 border-white shadow-sm"
-                           style="background-color: #ef4444"
-                        ></div>
-                        <span class="text-sm font-medium text-gray-600">Şəkli yoxdur</span>
-                     </div>
-                     <div class="flex items-center gap-3">
-                        <div
-                           class="h-[30px] w-[30px] rounded-full border-2 border-white shadow-sm"
-                           style="background-color: #10b981"
-                        ></div>
-                        <span class="text-sm font-medium text-gray-600">Şəkli var</span>
-                     </div>
-                  </div>
-               </div>
+               <MonumentSidebarHome
+                  :stats="stats"
+                  :needs-photo-only="needsPhotoOnly"
+                  :monuments="allMonuments"
+                  @toggle-filter="toggleNeedsPhoto"
+                  @select-monument="flyToMonument"
+               />
             </div>
 
+            <!-- Details Pane -->
             <div class="leaflet-sidebar-pane" id="details">
-               <h1 class="leaflet-sidebar-header">
-                  {{ selectedMonument ? "Abidə detalları" : "Abidə seç" }}
-                  <div class="flex items-center">
-                     <button
-                        v-if="selectedMonument"
-                        @click="shareMonument"
-                        aria-label="Abidə linkini paylaş"
-                        class="mr-4 text-white/80 transition-colors hover:text-white"
-                        title="Paylaş"
-                     >
-                        <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
-                     </button>
-
-                     <div class="leaflet-sidebar-close">
-                        <i class="fa-solid fa-times"></i>
-                     </div>
-                  </div>
-               </h1>
-
-               <div class="mt-4">
-                  <div v-if="selectedMonument">
-                     <div class="mb-1 flex items-start justify-between gap-3">
-                        <h2 class="text-xl leading-tight font-bold text-gray-900">
-                           {{ selectedMonument.itemLabel }}
-                        </h2>
-
-                        <div class="flex shrink-0 items-center gap-1">
-                           <a
-                              v-if="selectedMonument.item"
-                              :href="selectedMonument.item"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              class="mt-1 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-blue-50 hover:text-blue-600"
-                              title="Edit this item on Wikidata"
-                           >
-                              <i class="fa-solid fa-pen text-xs"></i>
-                           </a>
-                           <button
-                              @click="shareMonument"
-                              class="mt-1 rounded-full p-1.5 transition-colors hover:bg-blue-50 hover:text-blue-600"
-                              :class="linkCopied ? 'bg-green-50 text-green-600' : 'text-gray-400'"
-                              title="Paylaş"
-                           >
-                              <i
-                                 class="fa-solid text-xs"
-                                 :class="linkCopied ? 'fa-check' : 'fa-share-nodes'"
-                              ></i>
-                           </button>
-                        </div>
-                     </div>
-
-                     <p
-                        v-if="selectedMonument.itemAltLabel"
-                        class="mt-1 text-sm text-gray-500 italic"
-                     >
-                        {{ selectedMonument.itemAltLabel }}
-                     </p>
-
-                     <div v-if="selectedMonument.inventory" class="mt-2 mb-3">
-                        <button
-                           @click="copyInventory(selectedMonument.inventory)"
-                           class="group inline-flex cursor-pointer items-center rounded border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800 transition-all duration-200 hover:border-gray-300 hover:bg-gray-200"
-                           :class="
-                              inventoryCopied ? 'border-green-200 bg-green-100 text-green-700' : ''
-                           "
-                           title="Click to copy ID"
-                        >
-                           <span v-if="!inventoryCopied" class="flex items-center">
-                              İnventar: {{ selectedMonument.inventory }}
-                              <i
-                                 class="fa fa-copy ml-1.5 hidden text-[10px] text-gray-500 group-hover:inline-block"
-                              ></i>
-                           </span>
-                           <span v-else class="flex items-center gap-1">
-                              <i class="fa fa-check"></i> Kopiyalandı!
-                           </span>
-                        </button>
-                     </div>
-
-                     <p
-                        v-if="selectedMonument.itemDescription"
-                        class="mb-4 border-l-4 border-blue-100 pl-3 text-sm leading-relaxed text-gray-700"
-                     >
-                        {{ selectedMonument.itemDescription }}
-                     </p>
-
-                     <div
-                        class="relative mb-4 h-64 w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-100"
-                     >
-                        <div v-if="selectedMonument.image" class="h-full w-full">
-                           <a
-                              :href="getDescriptionPage(selectedMonument.image)"
-                              target="_blank"
-                              rel="noopener"
-                           >
-                              <div
-                                 v-if="imageLoading"
-                                 class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-100 text-gray-400"
-                              >
-                                 <div
-                                    class="mb-2 h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"
-                                 ></div>
-                                 <span class="text-xs font-medium">Yüklənir...</span>
-                              </div>
-
-                              <img
-                                 :src="getOptimizedImage(selectedMonument.image)"
-                                 :srcset="getSrcSet(selectedMonument.image, [320, 500, 800, 1024])"
-                                 sizes="(max-width: 768px) 100vw, 400px"
-                                 class="h-full w-full object-cover transition-opacity duration-500"
-                                 :class="{
-                                    'opacity-0': imageLoading,
-                                    'opacity-100': !imageLoading,
-                                 }"
-                                 alt="Monument"
-                                 loading="lazy"
-                                 @load="imageLoading = false"
-                              />
-                           </a>
-
-                           <div
-                              v-if="!imageLoading"
-                              class="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/70 to-transparent p-2 text-right"
-                           >
-                              <transition name="fade">
-                                 <span
-                                    v-if="imageCredit"
-                                    class="block truncate text-[10px] text-white/90"
-                                 >
-                                    <i class="fa-regular fa-copyright mr-0.5 text-[9px]"></i>
-                                    {{ imageCredit.author }}
-                                    <span class="mx-1 opacity-50">|</span>
-                                    {{ imageCredit.license }}
-                                 </span>
-                              </transition>
-                           </div>
-                        </div>
-
-                        <div
-                           v-else
-                           class="flex h-full w-full flex-col items-center justify-center gap-2 text-gray-400"
-                        >
-                           <i class="fa fa-camera text-3xl opacity-50"></i>
-                           <span class="text-sm font-medium">Şəkil yoxdur</span>
-                        </div>
-                     </div>
-
-                     <div class="mb-4 flex gap-2">
-                        <a
-                           v-if="selectedMonument.image"
-                           :href="getDescriptionPage(selectedMonument.image)"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-xs font-semibold text-gray-700 shadow-sm transition-all hover:border-blue-300 hover:bg-gray-50 hover:text-blue-600"
-                           title="Fayl detallarına bax"
-                        >
-                           <i class="fa-solid fa-file-image text-sm"></i>
-                           <span>Fayla bax</span>
-                        </a>
-
-                        <a
-                           v-if="selectedMonument.commonsLink || selectedMonument.commonsCategory"
-                           :href="getCategoryUrl(selectedMonument)"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-xs font-semibold text-gray-700 shadow-sm transition-all hover:border-blue-300 hover:bg-gray-50 hover:text-blue-600"
-                           title="Bu abidənin bütün şəkillərinə bax"
-                        >
-                           <i class="fa-solid fa-images text-sm"></i>
-                           <span>Bütün şəkillər</span>
-                        </a>
-                     </div>
-
-                     <div class="border-t border-gray-100 pt-4">
-                        <div v-if="auth.isAuthenticated">
-                           <button
-                              @click="openUploadModal"
-                              class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white shadow-sm transition-all hover:bg-blue-700 active:scale-[0.98]"
-                           >
-                              <i class="fa fa-upload"></i>
-                              Şəkil yüklə
-                           </button>
-                           <p class="mt-2 text-center text-xs text-gray-500">
-                              Uploads are licensed under CC BY-SA 4.0
-                           </p>
-                        </div>
-
-                        <div
-                           v-else
-                           class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-center"
-                        >
-                           <p class="mb-2 font-medium text-blue-800">
-                              Şəkil yükləmək istəyirsiniz?
-                           </p>
-                           <button
-                              @click="auth.login"
-                              class="w-full rounded-md border border-blue-200 bg-white px-4 py-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50"
-                           >
-                              Daxil ol
-                           </button>
-                        </div>
-                     </div>
-
-                     <div class="mt-8">
-                        <h3 class="mb-2 text-sm font-bold tracking-wide text-gray-900 uppercase">
-                           Metadata
-                        </h3>
-                        <div class="rounded border border-gray-200 bg-gray-50 text-sm">
-                           <div
-                              class="flex h-9 items-center justify-between border-b border-gray-200 p-2"
-                           >
-                              <span class="text-gray-500">Coordinates</span>
-                              <div class="flex items-center gap-2">
-                                 <button
-                                    @click="
-                                       copyCoords(selectedMonument.lat!, selectedMonument.lon!)
-                                    "
-                                    class="group flex cursor-pointer items-center gap-1.5 rounded px-1.5 py-0.5 font-mono text-xs text-gray-700 transition-all hover:bg-blue-50 hover:text-blue-600"
-                                    title="Click to copy coordinates"
-                                 >
-                                    <span v-if="!coordsCopied" class="flex items-center gap-1">
-                                       {{ selectedMonument.lat?.toFixed(4) }},
-                                       {{ selectedMonument.lon?.toFixed(4) }}
-                                       <i
-                                          class="fa-regular fa-copy text-[10px] text-gray-400 opacity-0 transition-opacity group-hover:opacity-100"
-                                       ></i>
-                                    </span>
-                                    <span v-else class="flex items-center gap-1 text-green-600">
-                                       <i class="fa fa-check"></i> Copied!
-                                    </span>
-                                 </button>
-                                 <a
-                                    :href="`https://www.google.com/maps?q=${selectedMonument.lat},${selectedMonument.lon}`"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-gray-400 transition-colors hover:text-green-600"
-                                    title="Open in Google Maps"
-                                 >
-                                    <i class="fa-solid fa-map-location-dot text-sm"></i>
-                                 </a>
-                                 <a
-                                    :href="`https://www.google.com/maps/dir/?api=1&destination=${selectedMonument.lat},${selectedMonument.lon}`"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-gray-400 transition-colors hover:text-blue-600"
-                                    title="Get Directions on Google Maps"
-                                 >
-                                    <i class="fa-solid fa-diamond-turn-right text-sm"></i>
-                                 </a>
-                              </div>
-                           </div>
-
-                           <div
-                              v-if="selectedMonument.item"
-                              class="flex items-center justify-between p-2"
-                           >
-                              <span class="flex items-center gap-2 text-gray-500">
-                                 <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Wikidata.svg/330px-Wikidata.svg.png"
-                                    class="h-auto w-5 opacity-60"
-                                    alt="Wikidata"
-                                 />
-                                 Vikidata
-                              </span>
-                              <a
-                                 :href="selectedMonument.item"
-                                 target="_blank"
-                                 rel="noopener noreferrer"
-                                 class="flex items-center gap-1 text-xs font-semibold text-blue-600 transition-colors hover:text-blue-800 hover:underline"
-                              >
-                                 Elementə bax
-                                 <i class="fa fa-external-link-alt"></i>
-                              </a>
-                           </div>
-
-                           <div
-                              v-if="selectedMonument.azLink"
-                              class="flex items-center justify-between border-t border-gray-200 p-2"
-                           >
-                              <span class="flex items-center gap-2 text-gray-500">
-                                 <i class="fa-brands fa-wikipedia-w opacity-60"></i>
-                                 Vikipediya
-                              </span>
-                              <a
-                                 :href="selectedMonument.azLink"
-                                 target="_blank"
-                                 rel="noopener noreferrer"
-                                 class="flex items-center gap-1 text-xs font-semibold text-blue-600 hover:underline"
-                              >
-                                 Məqaləni oxu
-                                 <i class="fa fa-external-link-alt"></i>
-                              </a>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-
-                  <div
-                     v-else
-                     class="flex h-64 flex-col items-center justify-center px-4 text-center text-gray-400"
-                  >
-                     <i class="fa fa-map-marker-alt mb-4 text-4xl text-gray-300"></i>
-                     <p>Click on a blue or green marker on the map to see details here.</p>
-                  </div>
-               </div>
+               <MonumentDetails
+                  :monument="selectedMonument"
+                  :image-credit="imageCredit"
+                  :is-authenticated="auth.isAuthenticated"
+                  :inventory-copied="inventoryCopied"
+                  :coords-copied="coordsCopied"
+                  :link-copied="linkCopied"
+                  @open-upload="openUploadModal"
+                  @share="shareMonument"
+                  @copy-inventory="copyInventory"
+                  @copy-coords="copyCoords"
+                  @login="auth.login"
+               />
             </div>
          </div>
       </div>
@@ -533,15 +81,16 @@ import {
    nextTick,
    watch,
    computed,
-} from "vue";
+}  from "vue";
 import L from "leaflet";
-import Fuse from "fuse.js";
 import "leaflet.markercluster";
 import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
 import type { MonumentProps } from "../types";
 import DataWorker from "../workers/data.worker?worker";
 import UploadModal from "./UploadModal.vue";
+import MonumentSidebarHome from "./map/MonumentSidebarHome.vue";
+import MonumentDetails from "./map/MonumentDetails.vue";
 
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
@@ -567,6 +116,8 @@ export default defineComponent({
    name: "MonumentMap",
    components: {
       UploadModal,
+      MonumentSidebarHome,
+      MonumentDetails,
    },
    setup() {
       // --- Stores & Composables ---
@@ -588,6 +139,7 @@ export default defineComponent({
 
       // Data
       const stats = ref({ total: 0, withImage: 0 });
+      const allMonuments = ref<any[]>([]);
       const imageLoading = ref(true);
       const markerLookup = new Map<string, L.Marker>();
       let allMarkers: L.Marker[] = [];
@@ -595,15 +147,6 @@ export default defineComponent({
       // UI
       const showUploadModal = ref(false);
       const needsPhotoOnly = ref(false);
-
-      // Search
-      const searchInput = ref<HTMLInputElement | null>(null);
-      const searchQuery = ref("");
-      const debouncedSearchQuery = ref("");
-      const fuse = shallowRef<Fuse<any> | null>(null);
-      const selectedSearchIndex = ref(-1);
-      const searchResultRefs: (HTMLElement | null)[] = [];
-      let searchTimeout: ReturnType<typeof setTimeout>;
 
       // --- Methods ---
 
@@ -663,7 +206,6 @@ export default defineComponent({
             const marker = markerLookup.get(inventory)!;
 
             const visibleParent = (markersGroup.value as any)?.getVisibleParent(marker);
-
             if (visibleParent && visibleParent !== marker) {
                (markersGroup.value as any).zoomToShowLayer(marker, () => {
                   selectMonument(marker);
@@ -676,7 +218,6 @@ export default defineComponent({
                (sidebarInstance.value as any)?.open("details");
                activeMarkerLayer.value = marker;
             }
-            searchQuery.value = "";
          }
       };
 
@@ -690,63 +231,6 @@ export default defineComponent({
             markersGroup.value.addLayers(filtered);
          } else {
             markersGroup.value.addLayers(allMarkers);
-         }
-      };
-
-      // Accessibility: Keyboard navigation for search results
-      const clearSearch = () => {
-         searchQuery.value = "";
-         selectedSearchIndex.value = -1;
-      };
-
-      const selectSearchResult = (feature: any) => {
-         flyToMonument(feature);
-         selectedSearchIndex.value = -1;
-      };
-
-      const setSearchResultRef = (el: any, index: number) => {
-         if (el) {
-            searchResultRefs[index] = el as HTMLElement;
-         }
-      };
-
-      const handleSearchKeydown = (event: KeyboardEvent) => {
-         if (!searchResults.value.length) return;
-
-         switch (event.key) {
-            case "ArrowDown":
-               event.preventDefault();
-               selectedSearchIndex.value = Math.min(
-                  selectedSearchIndex.value + 1,
-                  searchResults.value.length - 1,
-               );
-               searchResultRefs[selectedSearchIndex.value]?.scrollIntoView({
-                  block: "nearest",
-               });
-               break;
-
-            case "ArrowUp":
-               event.preventDefault();
-               selectedSearchIndex.value = Math.max(selectedSearchIndex.value - 1, -1);
-               if (selectedSearchIndex.value >= 0) {
-                  searchResultRefs[selectedSearchIndex.value]?.scrollIntoView({
-                     block: "nearest",
-                  });
-               }
-               break;
-
-            case "Enter":
-               event.preventDefault();
-               if (selectedSearchIndex.value >= 0) {
-                  selectSearchResult(searchResults.value[selectedSearchIndex.value].item);
-               }
-               break;
-
-            case "Escape":
-               event.preventDefault();
-               clearSearch();
-               searchInput.value?.blur();
-               break;
          }
       };
 
@@ -770,17 +254,6 @@ export default defineComponent({
       };
 
       // --- Watchers ---
-      watch(searchQuery, (newVal) => {
-         clearTimeout(searchTimeout);
-         searchTimeout = setTimeout(() => {
-            debouncedSearchQuery.value = newVal;
-         }, 300);
-      });
-
-      const searchResults = computed(() => {
-         if (!debouncedSearchQuery.value || !fuse.value) return [];
-         return fuse.value.search(debouncedSearchQuery.value).slice(0, 50);
-      });
 
       watch(selectedMonument, (newVal) => {
          const url = new URL(window.location.href);
@@ -843,6 +316,12 @@ export default defineComponent({
             .addTo(map);
          sidebarInstance.value = sidebar;
 
+         // Listen for sidebar closing event to clear selected monument
+         sidebar.on("closing", () => {
+            selectedMonument.value = null;
+            highlightMarker(null);
+         });
+
          // 3. Global Map Events
          map.on("click", () => {
             sidebar.close();
@@ -869,23 +348,11 @@ export default defineComponent({
          worker.postMessage({ type: "INIT" });
 
          worker.onmessage = (e) => {
-            if (e.data.type === "DATA_READY") {
-               const { geoData, fuseIndex } = e.data;
+ if (e.data.type === "DATA_READY") {
+               const { geoData } = e.data;
 
-               // Setup Fuse
-               fuse.value = new Fuse(
-                  geoData.features,
-                  {
-                     keys: [
-                        "properties.itemLabel",
-                        "properties.inventory",
-                        "properties.itemAltLabel",
-                     ],
-                     threshold: 0.3,
-                     ignoreLocation: true,
-                  },
-                  Fuse.parseIndex(fuseIndex),
-               );
+               // Populate allMonuments for SearchBar component
+               allMonuments.value = geoData.features;
 
                // Update Stats
                stats.value.total = geoData.features.length;
@@ -962,19 +429,12 @@ export default defineComponent({
          stats,
          showUploadModal,
          needsPhotoOnly,
-         searchInput,
-         searchQuery,
-         searchResults,
-         selectedSearchIndex,
+         allMonuments,
          // Actions
          openUploadModal,
          toggleNeedsPhoto,
          flyToMonument,
          shareMonument,
-         clearSearch,
-         selectSearchResult,
-         setSearchResultRef,
-         handleSearchKeydown,
          // Utils
          getOptimizedImage,
          getSrcSet,
