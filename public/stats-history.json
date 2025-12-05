@@ -1,0 +1,14 @@
+[
+  {
+    "date": "2025-12-05",
+    "timestamp": 1764967171602,
+    "total": 296,
+    "withImage": 255,
+    "withoutImage": 41,
+    "diff": {
+      "added": 0,
+      "removed": 0,
+      "updated": 2
+    }
+  }
+]
