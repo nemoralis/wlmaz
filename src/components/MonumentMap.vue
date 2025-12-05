@@ -47,13 +47,13 @@
                         v-model="searchQuery"
                         type="text"
                         placeholder="Abidə axtar (Ad, İnventar)..."
-                        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 text-sm shadow-sm transition-all focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                      />
-                     <i class="fa fa-search absolute left-3 top-2.5 text-gray-400"></i>
+                     <i class="fa fa-search absolute top-2.5 left-3 text-gray-400"></i>
                      <button
                         v-if="searchQuery"
                         @click="searchQuery = ''"
-                        class="absolute right-3 top-2.5 cursor-pointer text-gray-400 hover:text-gray-600"
+                        class="absolute top-2.5 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
                      >
                         <i class="fa fa-times"></i>
                      </button>
@@ -62,7 +62,7 @@
                   <!-- Search Results -->
                   <div
                      v-if="searchQuery"
-                     class="absolute left-0 right-0 z-50 mt-1 max-h-[60vh] overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-xl"
+                     class="absolute right-0 left-0 z-50 mt-1 max-h-[60vh] overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-xl"
                      style="margin: 0 10px"
                   >
                      <div
@@ -121,11 +121,13 @@
                </div>
 
                <!-- Filter Toggle -->
-               <div class="mb-6 flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-4">
+               <div
+                  class="mb-6 flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-4"
+               >
                   <span class="text-sm font-medium text-gray-700">Yalnız şəkilsizləri göstər</span>
                   <button
                      @click="toggleNeedsPhoto"
-                     class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+                     class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:outline-none"
                      :class="needsPhotoOnly ? 'bg-blue-600' : 'bg-gray-200'"
                   >
                      <span
@@ -166,15 +168,6 @@
                         <span class="text-sm font-medium text-gray-600">Şəkli var</span>
                      </div>
                   </div>
-               </div>
-               
-               <div class="mt-4 border-t border-gray-100 pt-4">
-                  <router-link
-                     to="/stats"
-                     class="flex items-center justify-center gap-2 rounded-lg bg-blue-50 px-4 py-3 text-sm font-medium text-blue-600 transition hover:bg-blue-100"
-                  >
-                     <i class="fa-solid fa-chart-line"></i> Statistika və Hesabatlar
-                  </router-link>
                </div>
             </div>
 
@@ -218,7 +211,7 @@
                            <button
                               @click="shareMonument"
                               class="mt-1 rounded-full p-1.5 transition-colors hover:bg-blue-50 hover:text-blue-600"
-                              :class="linkCopied ? 'text-green-600 bg-green-50' : 'text-gray-400'"
+                              :class="linkCopied ? 'bg-green-50 text-green-600' : 'text-gray-400'"
                               title="Paylaş"
                            >
                               <i
@@ -494,7 +487,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref, shallowRef, nextTick, watch, computed } from "vue";
+import {
+   defineComponent,
+   onMounted,
+   onUnmounted,
+   ref,
+   shallowRef,
+   nextTick,
+   watch,
+   computed,
+} from "vue";
 import L from "leaflet";
 import Fuse from "fuse.js";
 import "leaflet.markercluster";
@@ -543,10 +545,10 @@ export default defineComponent({
       const mapInstance = shallowRef<L.Map | null>(null);
       const sidebarInstance = shallowRef<L.Control | null>(null);
       const markersGroup = shallowRef<L.MarkerClusterGroup | null>(null);
-      
+
       const selectedMonument = ref<MonumentProps | null>(null);
       const activeMarkerLayer = shallowRef<L.Marker | null>(null);
-      
+
       // Data
       const stats = ref({ total: 0, withImage: 0 });
       const imageLoading = ref(true);
@@ -571,7 +573,7 @@ export default defineComponent({
             const el = activeMarkerLayer.value.getElement();
             el?.querySelector(".marker-pin")?.classList.remove("selected-highlight");
          }
-         
+
          // 2. Add highlight to new
          if (marker) {
             const el = marker.getElement();
@@ -589,50 +591,50 @@ export default defineComponent({
 
          const performSelection = async () => {
             highlightMarker(marker);
-            
+
             const props = (marker as any).feature.properties;
             selectedMonument.value = props;
-            
+
             await nextTick();
             (sidebarInstance.value as any)?.open("details");
          };
 
          // Check if marker is visible (not clustered)
-         // Leaflet.markercluster provides getVisibleParent. 
+         // Leaflet.markercluster provides getVisibleParent.
          // If it returns the marker itself, it is visible. If it returns a cluster, it is clustered.
          const visibleParent = (markersGroup.value as any).getVisibleParent(marker);
-         
+
          if (visibleParent && visibleParent !== marker) {
-             // It is clustered. Use zoomToShowLayer to reveal it.
-             (markersGroup.value as any).zoomToShowLayer(marker, () => {
-                 performSelection();
-             });
+            // It is clustered. Use zoomToShowLayer to reveal it.
+            (markersGroup.value as any).zoomToShowLayer(marker, () => {
+               performSelection();
+            });
          } else {
-             // It is already visible (or spiderfied). Just select it.
-             // IMPORTANT: Do NOT flyTo/panTo here to avoid closing spiderfied clusters.
-             performSelection();
+            // It is already visible (or spiderfied). Just select it.
+            // IMPORTANT: Do NOT flyTo/panTo here to avoid closing spiderfied clusters.
+            performSelection();
          }
       };
 
       const flyToMonument = (feature: any) => {
-         console.log(feature)
+         console.log(feature);
          const { inventory } = feature.properties;
          if (inventory && markerLookup.has(inventory)) {
             const marker = markerLookup.get(inventory)!;
-            
+
             const visibleParent = (markersGroup.value as any)?.getVisibleParent(marker);
-            
+
             if (visibleParent && visibleParent !== marker) {
                (markersGroup.value as any).zoomToShowLayer(marker, () => {
                   selectMonument(marker);
                });
             } else {
                mapInstance.value?.flyTo(marker.getLatLng(), 16, { duration: 1.5 });
-               
+
                const props = (marker as any).feature.properties;
                selectedMonument.value = props;
                (sidebarInstance.value as any)?.open("details");
-               activeMarkerLayer.value = marker; 
+               activeMarkerLayer.value = marker;
             }
             searchQuery.value = "";
          }
@@ -651,8 +653,8 @@ export default defineComponent({
          }
       };
 
-      const openUploadModal = () => showUploadModal.value = true;
-      
+      const openUploadModal = () => (showUploadModal.value = true);
+
       const shareMonument = async () => {
          if (!selectedMonument.value) return;
          const url = window.location.href;
@@ -660,8 +662,11 @@ export default defineComponent({
          const text = `Viki Abidələri Sevir: ${title}`;
 
          if (navigator.share) {
-            try { await navigator.share({ title, text, url }); } 
-            catch (err) { console.log("Share cancelled"); }
+            try {
+               await navigator.share({ title, text, url });
+            } catch (err) {
+               console.log("Share cancelled");
+            }
          } else {
             copyLink(url);
          }
@@ -670,7 +675,9 @@ export default defineComponent({
       // --- Watchers ---
       watch(searchQuery, (newVal) => {
          clearTimeout(searchTimeout);
-         searchTimeout = setTimeout(() => { debouncedSearchQuery.value = newVal; }, 300);
+         searchTimeout = setTimeout(() => {
+            debouncedSearchQuery.value = newVal;
+         }, 300);
       });
 
       const searchResults = computed(() => {
@@ -697,27 +704,46 @@ export default defineComponent({
          if (!mapContainer.value) return;
 
          // 1. Map Setup
-         const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" });
-         const map = L.map(mapContainer.value, { zoomControl: false, layers: [osmLayer] }).setView([40.4093, 49.8671], 7);
-         
+         const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: "© OpenStreetMap",
+         });
+         const map = L.map(mapContainer.value, { zoomControl: false, layers: [osmLayer] }).setView(
+            [40.4093, 49.8671],
+            7,
+         );
+
          mapInstance.value = map;
 
          // 2. Controls
          const baseMaps = {
-             "Xəritə": osmLayer,
-             "Peyk (Google)": L.tileLayer("https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", { maxZoom: 20, attribution: "© Google" }),
-             "Hibrid (Google)": L.tileLayer("https://mt0.google.com/vt/lyrs=y&x={x}&y={y}&z={z}", { maxZoom: 20, attribution: "© Google" })
+            Xəritə: osmLayer,
+            "Peyk (Google)": L.tileLayer("https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
+               maxZoom: 20,
+               attribution: "© Google",
+            }),
+            "Hibrid (Google)": L.tileLayer("https://mt0.google.com/vt/lyrs=y&x={x}&y={y}&z={z}", {
+               maxZoom: 20,
+               attribution: "© Google",
+            }),
          };
-         
-         const layerControl = L.control.layers(baseMaps, undefined, { position: "topright" }).addTo(map);
-         
+
+         const layerControl = L.control
+            .layers(baseMaps, undefined, { position: "topright" })
+            .addTo(map);
+
          // Custom icon for layer control
-         const toggleBtn = layerControl.getContainer()?.querySelector(".leaflet-control-layers-toggle");
-         if (toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-layer-group text-gray-600 text-sm"></i>';
+         const toggleBtn = layerControl
+            .getContainer()
+            ?.querySelector(".leaflet-control-layers-toggle");
+         if (toggleBtn)
+            toggleBtn.innerHTML = '<i class="fa-solid fa-layer-group text-gray-600 text-sm"></i>';
 
          L.control.zoom({ position: "topright" }).addTo(map);
 
-         const sidebar = (L.control as any).sidebar({ container: "sidebar", position: "left", autopan: true }).addTo(map);
+         const sidebar = (L.control as any)
+            .sidebar({ container: "sidebar", position: "left", autopan: true })
+            .addTo(map);
          sidebarInstance.value = sidebar;
 
          // 3. Global Map Events
@@ -748,24 +774,34 @@ export default defineComponent({
          worker.onmessage = (e) => {
             if (e.data.type === "DATA_READY") {
                const { geoData, fuseIndex } = e.data;
-               
+
                // Setup Fuse
-               fuse.value = new Fuse(geoData.features, {
-                  keys: ["properties.itemLabel", "properties.inventory", "properties.itemAltLabel"],
-                  threshold: 0.3,
-                  ignoreLocation: true
-               }, Fuse.parseIndex(fuseIndex));
+               fuse.value = new Fuse(
+                  geoData.features,
+                  {
+                     keys: [
+                        "properties.itemLabel",
+                        "properties.inventory",
+                        "properties.itemAltLabel",
+                     ],
+                     threshold: 0.3,
+                     ignoreLocation: true,
+                  },
+                  Fuse.parseIndex(fuseIndex),
+               );
 
                // Update Stats
                stats.value.total = geoData.features.length;
-               stats.value.withImage = geoData.features.filter((f: any) => f.properties.image).length;
+               stats.value.withImage = geoData.features.filter(
+                  (f: any) => f.properties.image,
+               ).length;
 
                // Create Cluster Group
                const clusterGroup = L.markerClusterGroup({
                   showCoverageOnHover: false,
                   chunkedLoading: true,
                   spiderfyOnMaxZoom: true,
-                  zoomToBoundsOnClick: true
+                  zoomToBoundsOnClick: true,
                });
                markersGroup.value = clusterGroup;
 
@@ -776,24 +812,24 @@ export default defineComponent({
                      const hasImage = !!props.image;
                      const faIcon = getMonumentIcon(props.itemLabel);
                      const bgClass = hasImage ? "marker-has-image" : "marker-needs-image";
-                     
+
                      const icon = L.divIcon({
                         className: "custom-div-icon",
                         html: `<div class="marker-pin ${bgClass}"><i class="fa-solid ${faIcon} text-white text-[14px]"></i></div>`,
                         iconSize: [30, 30],
-                        iconAnchor: [15, 15]
+                        iconAnchor: [15, 15],
                      });
 
                      const marker = L.marker(latlng, { icon });
                      // Store ID
                      if (props.inventory) markerLookup.set(props.inventory, marker);
                      return marker;
-                  }
+                  },
                });
 
                allMarkers = geoJsonLayer.getLayers() as L.Marker[];
                clusterGroup.addLayers(allMarkers);
-               
+
                // Group Event delegation
                clusterGroup.on("click", (evt: any) => {
                   L.DomEvent.stopPropagation(evt.originalEvent);
@@ -801,7 +837,7 @@ export default defineComponent({
                });
 
                map.addLayer(clusterGroup);
-               
+
                new LocateControl({ position: "topright", flyTo: true }).addTo(map);
 
                // Initial URL Navigation
@@ -847,9 +883,9 @@ export default defineComponent({
          coordsCopied,
          linkCopied,
          copyInventory,
-         copyCoords
+         copyCoords,
       };
-   }
+   },
 });
 </script>
 <style scoped>

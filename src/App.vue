@@ -9,6 +9,12 @@
 
          <nav class="flex gap-4">
             <router-link
+               to="/stats"
+               class="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
+            >
+               Statistika
+            </router-link>
+            <router-link
                to="/about"
                class="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
             >
