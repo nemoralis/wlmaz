@@ -9,7 +9,7 @@
     "dev:frontend": "vite --host",
     "dev:backend": "tsx watch --env-file=.env src/index.ts",
     "update-data": "tsx scripts/update-monuments.ts && pnpm run convert-data",
-    "convert-data": "json2geobuf public/monuments.geojson > public/monuments.pbf",
+    "convert-data": "json2geobuf < public/monuments.geojson > public/monuments.pbf",
     "build": "pnpm run convert-data && vue-tsc -b && vite build",
     "preview": "vite preview --host",
     "format": "prettier --write --list-different src/",
