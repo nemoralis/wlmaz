@@ -3,7 +3,7 @@
       <!-- Skip to main content link for keyboard users -->
       <a
          href="#main-content"
-         class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[10000] focus:rounded-md focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-white focus:shadow-lg"
+         class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[10000] focus:rounded-md focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-white focus:shadow-lg"
       >
          Əsas məzmuna keç
       </a>
@@ -13,7 +13,11 @@
          class="relative z-50 flex h-14 flex-none items-center gap-4 border-b border-gray-200 bg-white px-4"
       >
          <!-- Logo -->
-         <a href="/" class="flex h-full flex-none shrink-0 items-center" aria-label="Ana səhifəyə qayıt">
+         <a
+            href="/"
+            class="flex h-full flex-none shrink-0 items-center"
+            aria-label="Ana səhifəyə qayıt"
+         >
             <img src="/wlm-az.png" alt="Wiki Loves Monuments Azerbaijan" class="h-10 w-auto" />
          </a>
 
@@ -179,7 +183,12 @@
          </div>
       </transition>
 
-      <main id="main-content" role="main" class="relative w-full flex-1 overflow-y-auto" tabindex="-1">
+      <main
+         id="main-content"
+         role="main"
+         class="relative w-full flex-1 overflow-y-auto"
+         tabindex="-1"
+      >
          <router-view />
       </main>
    </div>

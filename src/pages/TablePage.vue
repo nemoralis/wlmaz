@@ -21,9 +21,7 @@
             <!-- Search / Filter -->
             <div class="border-b border-gray-200 bg-gray-50 p-4">
                <div class="relative max-w-md">
-                  <div
-                     class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
-                  >
+                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                      <i class="fa-solid fa-search text-gray-400"></i>
                   </div>
                   <input
@@ -97,7 +95,10 @@
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-500">
                            <div class="font-medium text-gray-900">{{ monument.itemLabel }}</div>
-                           <div v-if="monument.itemDescription" class="mt-0.5 text-xs text-gray-500">
+                           <div
+                              v-if="monument.itemDescription"
+                              class="mt-0.5 text-xs text-gray-500"
+                           >
                               {{ monument.itemDescription }}
                            </div>
                            <div v-if="monument.itemAltLabel" class="mt-0.5 text-xs text-gray-400">

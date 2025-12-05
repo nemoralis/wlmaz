@@ -7,7 +7,7 @@
             ref="searchInput"
             role="combobox"
             aria-autocomplete="list"
-            :aria-expanded="(searchQuery && searchResults.length > 0) ? 'true' : 'false'"
+            :aria-expanded="searchQuery && searchResults.length > 0 ? 'true' : 'false'"
             aria-controls="search-results"
             aria-label="Abidə axtar"
             type="text"
@@ -49,7 +49,7 @@
                @click="selectResult(result.item)"
                @keydown.enter="selectResult(result.item)"
                @keydown.space.prevent="selectResult(result.item)"
-               :ref="el => setResultRef(el, index)"
+               :ref="(el) => setResultRef(el, index)"
                role="option"
                :aria-selected="selectedIndex === index"
                tabindex="0"
@@ -75,13 +75,7 @@
       </div>
 
       <!-- Screen reader announcement for search results -->
-      <div
-         v-if="searchQuery"
-         role="status"
-         aria-live="polite"
-         aria-atomic="true"
-         class="sr-only"
-      >
+      <div v-if="searchQuery" role="status" aria-live="polite" aria-atomic="true" class="sr-only">
          {{ searchResults.length }} nəticə tapıldı
       </div>
    </div>
@@ -119,11 +113,7 @@ watch(
       if (!monuments || monuments.length === 0) return;
 
       fuse = new Fuse(monuments, {
-         keys: [
-            "properties.itemLabel",
-            "properties.inventory",
-            "properties.itemAltLabel",
-         ],
+         keys: ["properties.itemLabel", "properties.inventory", "properties.itemAltLabel"],
          threshold: 0.3,
          ignoreLocation: true,
       });
@@ -169,10 +159,7 @@ const handleSearchKeydown = (event: KeyboardEvent) => {
    switch (event.key) {
       case "ArrowDown":
          event.preventDefault();
-         selectedIndex.value = Math.min(
-            selectedIndex.value + 1,
-            searchResults.value.length - 1,
-         );
+         selectedIndex.value = Math.min(selectedIndex.value + 1, searchResults.value.length - 1);
          resultRefs[selectedIndex.value]?.scrollIntoView({
             block: "nearest",
          });

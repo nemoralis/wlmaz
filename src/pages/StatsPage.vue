@@ -17,10 +17,7 @@
       <div class="container mx-auto flex-1 overflow-y-auto p-4 sm:p-6">
          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             <!-- Stat Cards -->
-            <StatsCard
-               title="Ümumi abidə"
-               :value="currentStats.total"
-            />
+            <StatsCard title="Ümumi abidə" :value="currentStats.total" />
 
             <StatsCard
                title="Şəkilli abidə"
@@ -29,19 +26,12 @@
                :subtext="`${imagePercentage}% əhatə`"
             />
 
-            <StatsCard
-               title="Şəkilsiz abidə"
-               :value="currentStats.withoutImage"
-               color="red"
-            />
+            <StatsCard title="Şəkilsiz abidə" :value="currentStats.withoutImage" color="red" />
 
-            <StatsCard
-               title="Son yenilənmə"
-               :value="lastUpdateDate"
-            />
+            <StatsCard title="Son yenilənmə" :value="lastUpdateDate" />
          </div>
 
-         <div class="grid grid-cols-1 gap-6 mt-6 lg:grid-cols-2">
+         <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
             <!-- Growth Chart -->
             <StatsLineChart :history="history" />
 
@@ -63,13 +53,7 @@ export default defineComponent({
    name: "StatsPage",
    components: { StatsCard, StatsLineChart, StatsDoughnutChart },
    setup() {
-      const {
-         history,
-         currentStats,
-         imagePercentage,
-         lastUpdateDate,
-         fetchData,
-      } = useStats();
+      const { history, currentStats, imagePercentage, lastUpdateDate, fetchData } = useStats();
 
       onMounted(fetchData);
 
