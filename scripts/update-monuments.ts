@@ -130,6 +130,13 @@ function transformToGeoJSON(bindings: SparqlBinding[]): GeoJSON {
     }
   }
 
+  // Sort features by inventory number
+  features.sort((a, b) => {
+    const invA = a.properties.inventory || '';
+    const invB = b.properties.inventory || '';
+    return invA.localeCompare(invB, undefined, { numeric: true, sensitivity: 'base' });
+  });
+
   return {
     type: 'FeatureCollection',
     features
@@ -157,8 +164,8 @@ async function main() {
 
     // 3. Compare and calculate stats
     if (existingData) {
-      const existingIds = new Set(existingData.features.map(f => f.properties.item));
-      const newIds = new Set(newData.features.map(f => f.properties.item));
+      const existingIds = new Set(existingData.features.map(f => f.properties.inventory));
+      const newIds = new Set(newData.features.map(f => f.properties.inventory));
 
       let added = 0;
       let removed = 0;
@@ -174,14 +181,11 @@ async function main() {
         if (!newIds.has(id)) removed++;
       }
 
-      // Updated (simplified check: if ID exists in both, we assume it might be updated. 
-      // For a deep check, we would compare properties, but for now let's just count potential updates 
-      // or just say "Refreshed X items")
-      // Actually, let's do a property comparison for a few key fields to be more accurate.
+      // Updated
       for (const newFeature of newData.features) {
-        const id = newFeature.properties.item;
+        const id = newFeature.properties.inventory;
         if (existingIds.has(id)) {
-          const existingFeature = existingData.features.find(f => f.properties.item === id);
+          const existingFeature = existingData.features.find(f => f.properties.inventory === id);
           if (existingFeature) {
              // Simple JSON stringify comparison for properties
              if (JSON.stringify(newFeature.properties) !== JSON.stringify(existingFeature.properties) ||
