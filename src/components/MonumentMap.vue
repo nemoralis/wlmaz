@@ -475,9 +475,8 @@ import "leaflet.markercluster";
 import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
 import { MonumentProps } from "../types";
-import geobuf from "geobuf";
-import Pbf from "pbf";
 import type { FeatureCollection } from "geojson";
+import DataWorker from "../workers/data.worker?worker";
 
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
@@ -542,11 +541,20 @@ export default defineComponent({
 
       // Search
       const searchQuery = ref("");
+      const debouncedSearchQuery = ref("");
       const fuse = shallowRef<Fuse<any> | null>(null);
+      let searchTimeout: ReturnType<typeof setTimeout>;
+
+      watch(searchQuery, (newVal) => {
+         clearTimeout(searchTimeout);
+         searchTimeout = setTimeout(() => {
+            debouncedSearchQuery.value = newVal;
+         }, 300);
+      });
 
       const searchResults = computed(() => {
-         if (!searchQuery.value || !fuse.value) return [];
-         return fuse.value.search(searchQuery.value).slice(0, 50);
+         if (!debouncedSearchQuery.value || !fuse.value) return [];
+         return fuse.value.search(debouncedSearchQuery.value).slice(0, 50);
       });
 
       const flyToMonument = (feature: any) => {
@@ -706,87 +714,92 @@ export default defineComponent({
          });
 
          try {
-            const response = await fetch("/monuments.pbf");
+            const worker = new DataWorker();
+            worker.postMessage({ type: "INIT" });
 
-            if (!response.ok) {
-               throw new Error(`Failed to load data: ${response.statusText}`);
-            }
-            const buffer = await response.arrayBuffer();
-            const geoData = geobuf.decode(new Pbf(buffer)) as FeatureCollection;
-            const allFeatures = geoData.features;
-            
-            // Initialize Fuse
-            fuse.value = new Fuse(allFeatures, {
-               keys: ["properties.itemLabel", "properties.inventory", "properties.itemAltLabel"],
-               threshold: 0.3,
-               ignoreLocation: true,
-            });
+            worker.onmessage = (e) => {
+               if (e.data.type === "DATA_READY") {
+                  const { geoData, fuseIndex } = e.data;
+                  const allFeatures = geoData.features;
 
-            stats.value.total = allFeatures.length;
-            stats.value.withImage = allFeatures.filter((f: any) => f.properties.image).length;
-            markersGroup = L.markerClusterGroup({
-               showCoverageOnHover: false,
-               chunkedLoading: true,
-            });
+                  // Reconstruct Fuse with pre-computed index
+                  const myIndex = Fuse.parseIndex(fuseIndex);
+                  fuse.value = new Fuse(
+                     allFeatures,
+                     {
+                        keys: [
+                           "properties.itemLabel",
+                           "properties.inventory",
+                           "properties.itemAltLabel",
+                        ],
+                        threshold: 0.3,
+                        ignoreLocation: true,
+                     },
+                     myIndex,
+                  );
 
+                  stats.value.total = allFeatures.length;
+                  stats.value.withImage = allFeatures.filter((f: any) => f.properties.image).length;
+                  markersGroup = L.markerClusterGroup({
+                     showCoverageOnHover: false,
+                     chunkedLoading: true,
+                  });
 
+                  const geoJsonLayer = L.geoJSON(geoData, {
+                     pointToLayer: (feature, latlng) => {
+                        const props = feature.properties as MonumentProps;
+                        props.lat = latlng.lat;
+                        props.lon = latlng.lng;
 
-            // Store all markers
-            // We need to extract layers from the GeoJSON layer we just created
-            // But L.geoJSON returns a layer group.
-            // Let's do it slightly differently to get the markers array.
-            
-            const geoJsonLayer = L.geoJSON(geoData, {
-               pointToLayer: (feature, latlng) => {
-                  const props = feature.properties as MonumentProps;
-                  props.lat = latlng.lat;
-                  props.lon = latlng.lng;
+                        const hasImage = !!props.image;
+                        const faIcon = getMonumentIcon(props.itemLabel);
+                        const bgClass = hasImage ? "marker-has-image" : "marker-needs-image";
 
-                  const hasImage = !!props.image;
-                  const faIcon = getMonumentIcon(props.itemLabel);
-                  const bgClass = hasImage ? "marker-has-image" : "marker-needs-image";
-
-                  const customIcon = L.divIcon({
-                     className: "custom-div-icon",
-                     html: `<div class="marker-pin ${bgClass}">
+                        const customIcon = L.divIcon({
+                           className: "custom-div-icon",
+                           html: `<div class="marker-pin ${bgClass}">
                           <i class="fa-solid ${faIcon} text-white text-[14px]"></i>
                         </div>`,
-                     iconSize: [30, 30],
-                     iconAnchor: [15, 15],
+                           iconSize: [30, 30],
+                           iconAnchor: [15, 15],
+                        });
+
+                        const marker = L.marker(latlng, { icon: customIcon });
+                        if (props.inventory) markerLookup.set(props.inventory, marker);
+
+                        marker.on("click", (e) => {
+                           L.DomEvent.stopPropagation(e);
+                           selectMonument(marker);
+                        });
+
+                        return marker;
+                     },
                   });
 
-                  const marker = L.marker(latlng, { icon: customIcon });
-                  if (props.inventory) markerLookup.set(props.inventory, marker);
+                  allMarkers = geoJsonLayer.getLayers() as L.Marker[];
+                  markersGroup.addLayers(allMarkers);
 
-                  marker.on("click", (e) => {
-                     L.DomEvent.stopPropagation(e);
-                     selectMonument(marker);
-                  });
+                  map.addLayer(markersGroup);
 
-                  return marker;
+                  new LocateControl({
+                     keepCurrentZoomLevel: false,
+                     flyTo: true,
+                     position: "topright",
+                  }).addTo(map);
+
+                  const urlParams = new URLSearchParams(window.location.search);
+                  const targetId = urlParams.get("inventory");
+
+                  if (targetId && markerLookup.has(targetId)) {
+                     const targetMarker = markerLookup.get(targetId)!;
+                     selectMonument(targetMarker);
+                  } else {
+                     sidebar.open("home");
+                  }
+               } else if (e.data.type === "ERROR") {
+                  console.error("Worker Error:", e.data.error);
                }
-            });
-
-            allMarkers = geoJsonLayer.getLayers() as L.Marker[];
-            markersGroup.addLayers(allMarkers);
-
-            map.addLayer(markersGroup);
-
-            new LocateControl({
-               keepCurrentZoomLevel: false,
-               flyTo: true,
-               position: "topright",
-            }).addTo(map);
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const targetId = urlParams.get("inventory");
-
-            if (targetId && markerLookup.has(targetId)) {
-               const targetMarker = markerLookup.get(targetId)!;
-               selectMonument(targetMarker);
-            } else {
-               sidebar.open("home");
-            }
+            };
          } catch (err) {
             console.error(err);
          }
