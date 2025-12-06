@@ -363,23 +363,27 @@ export default defineComponent({
                // Create Layers
                const geoJsonLayer = L.geoJSON(geoData, {
                   pointToLayer: (feature, latlng) => {
-                     const props = feature.properties as MonumentProps;
-                     const hasImage = !!props.image;
-                     const faIcon = getMonumentIcon(props.itemLabel);
-                     const bgClass = hasImage ? "marker-has-image" : "marker-needs-image";
+                      const props = feature.properties as MonumentProps;
+                      // Add coordinates from geometry to properties
+                      props.lat = latlng.lat;
+                      props.lon = latlng.lng;
+                      
+                      const hasImage = !!props.image;
+                      const faIcon = getMonumentIcon(props.itemLabel);
+                      const bgClass = hasImage ? "marker-has-image" : "marker-needs-image";
 
-                     const icon = L.divIcon({
-                        className: "custom-div-icon",
-                        html: `<div class="marker-pin ${bgClass}"><i class="fa-solid ${faIcon} text-white text-[14px]"></i></div>`,
-                        iconSize: [30, 30],
-                        iconAnchor: [15, 15],
-                     });
+                      const icon = L.divIcon({
+                         className: "custom-div-icon",
+                         html: `<div class="marker-pin ${bgClass}"><i class="fa-solid ${faIcon} text-white text-[14px]"></i></div>`,
+                         iconSize: [30, 30],
+                         iconAnchor: [15, 15],
+                      });
 
-                     const marker = L.marker(latlng, { icon });
-                     // Store ID
-                     if (props.inventory) markerLookup.set(props.inventory, marker);
-                     return marker;
-                  },
+                      const marker = L.marker(latlng, { icon });
+                      // Store ID
+                      if (props.inventory) markerLookup.set(props.inventory, marker);
+                      return marker;
+                   },
                });
 
                allMarkers = geoJsonLayer.getLayers() as L.Marker[];

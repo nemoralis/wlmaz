@@ -198,7 +198,7 @@
                </h3>
                <div class="rounded border border-gray-200 bg-gray-50 text-sm">
                   <!-- Coordinates -->
-                  <div class="flex h-9 items-center justify-between border-b border-gray-200 p-2">
+                  <div v-if="monument.lat && monument.lon" class="flex h-9 items-center justify-between border-b border-gray-200 p-2">
                      <span class="text-gray-500">Coordinates</span>
                      <div class="flex items-center gap-2">
                         <button
