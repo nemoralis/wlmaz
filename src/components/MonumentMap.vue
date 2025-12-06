@@ -41,6 +41,7 @@
                   :stats="stats"
                   :needs-photo-only="needsPhotoOnly"
                   :monuments="allMonuments"
+                  :fuse-index="searchIndex"
                   @toggle-filter="toggleNeedsPhoto"
                   @select-monument="flyToMonument"
                />
@@ -131,6 +132,7 @@ export default defineComponent({
       // Data
       const stats = ref({ total: 0, withImage: 0 });
       const allMonuments = ref<any[]>([]);
+      const searchIndex = shallowRef<any>(null);
       const imageLoading = ref(true);
       const markerLookup = new Map<string, L.Marker>();
       let allMarkers: L.Marker[] = [];
@@ -340,7 +342,10 @@ export default defineComponent({
 
          worker.onmessage = (e) => {
             if (e.data.type === "DATA_READY") {
-               const { geoData } = e.data;
+               const { geoData, fuseIndex } = e.data;
+
+               // Store pre-computed index
+               searchIndex.value = fuseIndex;
 
                // Populate allMonuments for SearchBar component
                allMonuments.value = geoData.features;
@@ -425,6 +430,7 @@ export default defineComponent({
          showUploadModal,
          needsPhotoOnly,
          allMonuments,
+         searchIndex,
          // Actions
          openUploadModal,
          toggleNeedsPhoto,

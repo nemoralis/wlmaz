@@ -3,7 +3,11 @@
       <h1 class="mt-4 mb-4 text-2xl font-bold text-gray-800">Viki Abidələri Sevir Azərbaycan</h1>
 
       <!-- Search Component -->
-      <SearchBar :monuments="monuments" @select-monument="$emit('select-monument', $event)" />
+      <SearchBar 
+         :monuments="monuments" 
+         :fuse-index="fuseIndex"
+         @select-monument="$emit('select-monument', $event)" 
+      />
 
       <!-- Statistics Cards -->
       <div class="mb-6 grid grid-cols-3 gap-2 text-center">
@@ -82,6 +86,7 @@ interface Props {
    stats: { total: number; withImage: number };
    needsPhotoOnly: boolean;
    monuments: Feature[];
+   fuseIndex?: any;
 }
 
 const props = defineProps<Props>();
