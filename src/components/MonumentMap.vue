@@ -73,16 +73,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref, shallowRef, nextTick, watch } from "vue";
+import { defineComponent, onMounted, onUnmounted, ref, shallowRef, nextTick, watch, defineAsyncComponent } from "vue";
 import L from "leaflet";
 import "leaflet.markercluster";
 import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
 import type { MonumentProps } from "../types";
 import DataWorker from "../workers/data.worker?worker";
-import UploadModal from "./UploadModal.vue";
+const UploadModal = defineAsyncComponent(() => import("./UploadModal.vue"));
 import MonumentSidebarHome from "./map/MonumentSidebarHome.vue";
-import MonumentDetails from "./map/MonumentDetails.vue";
+const MonumentDetails = defineAsyncComponent(() => import("./map/MonumentDetails.vue"));
 
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
