@@ -88,6 +88,7 @@ import type { Feature } from "geojson";
 
 interface Props {
    monuments: Feature[];
+   fuseIndex?: any;
 }
 
 const props = defineProps<Props>();
@@ -108,15 +109,24 @@ let searchTimeout: ReturnType<typeof setTimeout>;
 
 // Initialize Fuse search
 watch(
-   () => props.monuments,
-   (monuments) => {
+   [() => props.monuments, () => props.fuseIndex],
+   ([monuments, fuseIndex]) => {
       if (!monuments || monuments.length === 0) return;
 
-      fuse = new Fuse(monuments, {
+      const options = {
          keys: ["properties.itemLabel", "properties.inventory", "properties.itemAltLabel"],
          threshold: 0.3,
          ignoreLocation: true,
-      });
+      };
+
+      if (fuseIndex) {
+         // Load pre-computed index from worker
+         const myIndex = Fuse.parseIndex(fuseIndex);
+         fuse = new Fuse<Feature>(monuments, options, myIndex);
+      } else {
+         // Fallback if index not ready
+         fuse = new Fuse(monuments, options);
+      }
    },
    { immediate: true },
 );
