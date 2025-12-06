@@ -4,7 +4,7 @@
       <div class="border-b border-gray-200 bg-white">
          <div class="container mx-auto px-4 py-8">
             <div class="flex items-center justify-between">
-               <h1 class="text-3xl font-bold text-gray-900">Layihə Haqqında</h1>
+               <h1 class="text-3xl font-bold text-gray-900">Layihə haqqında</h1>
                <router-link to="/" class="text-blue-600 hover:underline">
                   <i class="fa-solid fa-arrow-left mr-1"></i> Xəritəyə qayıt
                </router-link>
