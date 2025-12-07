@@ -36,7 +36,7 @@
 
          <div class="leaflet-sidebar-content">
             <!-- Home Pane -->
-            <div class="leaflet-sidebar-pane" id="home">
+            <div id="home" class="leaflet-sidebar-pane">
                <MonumentSidebarHome
                   :stats="stats"
                   :needs-photo-only="needsPhotoOnly"
@@ -48,7 +48,7 @@
             </div>
 
             <!-- Details Pane -->
-            <div class="leaflet-sidebar-pane" id="details">
+            <div id="details" class="leaflet-sidebar-pane">
                <MonumentDetails
                   :monument="selectedMonument"
                   :image-credit="imageCredit"
@@ -107,6 +107,7 @@ import {
 } from "../utils/monumentFormatters";
 import { useWikiCredits } from "../composables/useWikiCredits";
 import { useClipboard } from "../composables/useClipboard";
+import { useOverpass } from "../composables/useOverpass";
 
 // CSS
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -128,6 +129,7 @@ export default defineComponent({
       const { copied: coordsCopied, copy: copyRawCoords } = useClipboard();
       const { copied: linkCopied, copy: copyLink } = useClipboard();
       const copyCoords = (lat: number, lon: number) => copyRawCoords(`${lat}, ${lon}`);
+      const { fetchBuildingsWithWikidata, loading: overpassLoading } = useOverpass();
 
       // --- Refs & State ---
       const mapContainer = ref<HTMLElement | null>(null);
@@ -294,15 +296,19 @@ export default defineComponent({
                maxZoom: 20,
                attribution: "© Google",
             }),
-            "Hibrid (Google)": L.tileLayer("https://mt0.google.com/vt/lyrs=y&x={x}&y={y}&z={z}", {
-               maxZoom: 20,
-               attribution: "© Google",
-            }),
-         };
+             "Hibrid (Google)": L.tileLayer("https://mt0.google.com/vt/lyrs=y&x={x}&y={y}&z={z}", {
+                maxZoom: 20,
+                attribution: "© Google",
+             }),
+          };
 
-         const layerControl = L.control
-            .layers(baseMaps, undefined, { position: "topright" })
-            .addTo(map);
+          const overlays = {
+             "OSM Debug (Wikidata)": L.layerGroup(),
+          };
+
+          const layerControl = L.control
+             .layers(baseMaps, overlays, { position: "topright" })
+             .addTo(map);
 
          // Custom icon for layer control
          const toggleBtn = layerControl
@@ -331,12 +337,54 @@ export default defineComponent({
          });
 
          // Robust highlight: Apply class when layer is added (virtualization support)
-         map.on("layeradd", (e) => {
-            if (activeMarkerLayer.value && e.layer === activeMarkerLayer.value) {
-               const el = (e.layer as L.Marker).getElement();
-               el?.querySelector(".marker-pin")?.classList.add("selected-highlight");
-            }
-         });
+          map.on("layeradd", (e) => {
+             if (activeMarkerLayer.value && e.layer === activeMarkerLayer.value) {
+                const el = (e.layer as L.Marker).getElement();
+                el?.querySelector(".marker-pin")?.classList.add("selected-highlight");
+             }
+             if (e.layer === overlays["OSM Debug (Wikidata)"]) {
+                updateOverpassLayer();
+             }
+          });
+
+          map.on("moveend", () => {
+             if (map.hasLayer(overlays["OSM Debug (Wikidata)"])) {
+                updateOverpassLayer();
+             }
+          });
+
+          const updateOverpassLayer = async () => {
+             if (overpassLoading.value) return;
+             // Throttle check could be added here
+             const bounds = map.getBounds();
+             const bbox = `${bounds.getSouth()},${bounds.getWest()},${bounds.getNorth()},${bounds.getEast()}`;
+
+             // Don't fetch if zoomed out too far
+             if (map.getZoom() < 15) {
+                overlays["OSM Debug (Wikidata)"].clearLayers();
+                return;
+             }
+
+             const geojson = await fetchBuildingsWithWikidata(bbox);
+             if (geojson) {
+                overlays["OSM Debug (Wikidata)"].clearLayers();
+                L.geoJSON(geojson, {
+                   style: {
+                      color: "#3b82f6",
+                      weight: 2,
+                      opacity: 0.7,
+                      fillOpacity: 0.1,
+                   },
+                   onEachFeature: (feature, layer) => {
+                      if (feature.properties?.wikidata) {
+                         layer.bindPopup(
+                            `<strong>Wikidata:</strong> <a href="https://www.wikidata.org/wiki/${feature.properties.wikidata}" target="_blank">${feature.properties.wikidata}</a>`,
+                         );
+                      }
+                   },
+                }).addTo(overlays["OSM Debug (Wikidata)"]);
+             }
+          };
 
          sidebar.on("content", (e: any) => {
             if (e.id !== "details") {
