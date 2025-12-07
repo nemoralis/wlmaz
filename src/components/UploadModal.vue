@@ -11,8 +11,8 @@
             >
                <div class="absolute top-4 right-4">
                   <button
-                     @click="$emit('close')"
                      class="rounded-full p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+                     @click="$emit('close')"
                   >
                      <i class="fa fa-times text-xl"></i>
                   </button>

@@ -2,9 +2,8 @@
    <div class="mb-6">
       <div class="relative">
          <input
-            v-model="searchQuery"
-            @keydown="handleSearchKeydown"
             ref="searchInput"
+            v-model="searchQuery"
             role="combobox"
             aria-autocomplete="list"
             :aria-expanded="searchQuery && searchResults.length > 0 ? 'true' : 'false'"
@@ -13,13 +12,14 @@
             type="text"
             placeholder="Abidə axtar (Ad, İnventar)..."
             class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+            @keydown="handleSearchKeydown"
          />
          <i class="fa fa-search absolute top-2.5 left-3 text-gray-400" aria-hidden="true"></i>
          <button
             v-if="searchQuery"
-            @click="clearSearch"
             aria-label="Axtarışı təmizlə"
             class="absolute top-2.5 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
+            @click="clearSearch"
          >
             <i class="fa fa-times" aria-hidden="true"></i>
          </button>
@@ -46,15 +46,15 @@
             <li
                v-for="(result, index) in searchResults"
                :key="result.item.properties?.id"
-               @click="selectResult(result.item)"
-               @keydown.enter="selectResult(result.item)"
-               @keydown.space.prevent="selectResult(result.item)"
                :ref="(el) => setResultRef(el, index)"
                role="option"
                :aria-selected="selectedIndex === index"
                tabindex="0"
                class="cursor-pointer px-4 py-3 transition-colors hover:bg-blue-50"
                :class="{ 'bg-blue-50': selectedIndex === index }"
+               @click="selectResult(result.item)"
+               @keydown.enter="selectResult(result.item)"
+               @keydown.space.prevent="selectResult(result.item)"
             >
                <div class="font-medium text-gray-800">
                   {{ result.item.properties?.itemLabel }}
