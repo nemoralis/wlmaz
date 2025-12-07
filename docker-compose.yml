@@ -16,5 +16,19 @@ services:
 
       restart: always
 
+   app:
+      container_name: wlmaz_app
+      build: .
+      restart: always
+      ports:
+         - "80:3000"
+      environment:
+         - NODE_ENV=production
+         - PORT=3000
+         - REDIS_URL=redis://default:MYRedisPassword@wlmaz_redis:6379
+      depends_on:
+         - redis
+
+
 volumes:
    redis_data:
