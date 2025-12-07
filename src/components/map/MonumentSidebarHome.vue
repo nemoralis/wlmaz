@@ -3,10 +3,10 @@
       <h1 class="mt-4 mb-4 text-2xl font-bold text-gray-800">Viki Abidələri Sevir Azərbaycan</h1>
 
       <!-- Search Component -->
-      <SearchBar 
-         :monuments="monuments" 
+      <SearchBar
+         :monuments="monuments"
          :fuse-index="fuseIndex"
-         @select-monument="$emit('select-monument', $event)" 
+         @select-monument="$emit('select-monument', $event)"
       />
 
       <!-- Statistics Cards -->

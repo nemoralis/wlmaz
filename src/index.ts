@@ -10,6 +10,7 @@ import rateLimit from "express-rate-limit";
 import { createClient } from "redis";
 import { RedisStore } from "connect-redis";
 import hpp from "hpp";
+import compression from "compression";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -59,6 +60,7 @@ const startServer = async () => {
       }),
    );
    app.use(morgan("dev"));
+   app.use(compression());
    app.use(limiter);
    app.use(hpp()); // Prevent HTTP Parameter Pollution
    app.use(
@@ -94,6 +96,18 @@ const startServer = async () => {
 
    app.use("/auth", authRoutes);
    app.use("/upload", uploadRoutes);
+
+   // Serve static files in production
+   if (process.env.NODE_ENV === "production" || process.env.SERVE_STATIC) {
+      const path = await import("path");
+      const distPath = path.resolve(__dirname, "../dist");
+
+      app.use(express.static(distPath));
+
+      app.get("*", (_req, res) => {
+         res.sendFile(path.join(distPath, "index.html"));
+      });
+   }
 
    app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
       console.error(err);

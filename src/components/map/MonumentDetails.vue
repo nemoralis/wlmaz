@@ -91,13 +91,9 @@
                   <a :href="getDescriptionPage(monument.image)" target="_blank" rel="noopener">
                      <div
                         v-if="imageLoading"
-                        class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-100 text-gray-400"
-                     >
-                        <div
-                           class="mb-2 h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"
-                        ></div>
-                        <span class="text-xs font-medium">Yüklənir...</span>
-                     </div>
+                        class="absolute inset-0 z-10 animate-pulse bg-gray-200"
+                        aria-hidden="true"
+                     ></div>
 
                      <img
                         :src="getOptimizedImage(monument.image)"
@@ -198,7 +194,10 @@
                </h3>
                <div class="rounded border border-gray-200 bg-gray-50 text-sm">
                   <!-- Coordinates -->
-                  <div v-if="monument.lat && monument.lon" class="flex h-9 items-center justify-between border-b border-gray-200 p-2">
+                  <div
+                     v-if="monument.lat && monument.lon"
+                     class="flex h-9 items-center justify-between border-b border-gray-200 p-2"
+                  >
                      <span class="text-gray-500">Coordinates</span>
                      <div class="flex items-center gap-2">
                         <button
