@@ -14,7 +14,11 @@
     "preview": "vite preview --host",
     "format": "prettier --write --list-different src/",
     "lint": "eslint src/ --ext .ts,.vue --fix",
-    "analyze": "vite-bundle-visualizer"
+    "analyze": "vite-bundle-visualizer",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,vue,js}": "eslint --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
@@ -74,6 +78,8 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.6.0",
     "geojson": "^0.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
     "svgo": "^4.0.0",
