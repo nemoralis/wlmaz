@@ -3,39 +3,40 @@
 ![WLMAZ Project Banner](./public/wlm-az.png)
 
 ![GitHub License](https://img.shields.io/github/license/nemoralis/wlmaz)
-![Contributors](https://img.shields.io/github/contributors/nemoralis/wlmaz?color=dark-green) ![Stargazers](https://img.shields.io/github/stars/nemoralis/wlmaz?style=social) 
-![Issues](https://img.shields.io/github/issues/nemoralis/wlmaz) 
-![GitHub Sponsors](https://img.shields.io/github/sponsors/nemoralis) 
-
+![Contributors](https://img.shields.io/github/contributors/nemoralis/wlmaz?color=dark-green) ![Stargazers](https://img.shields.io/github/stars/nemoralis/wlmaz?style=social)
+![Issues](https://img.shields.io/github/issues/nemoralis/wlmaz)
+![GitHub Sponsors](https://img.shields.io/github/sponsors/nemoralis)
 
 **WLMAZ** is a full-stack mapping application designed to help contributors discover heritage monuments in Azerbaijan and upload photos directly to Wikimedia Commons.
 
 It features a responsive, clustered map interface powered by Vue 3 and Leaflet, backed by a secure Node.js proxy that handles MediaWiki OAuth authentication and uploads.
 
-
 ## ✨ Features
 
 ### 🗺️ Interactive Map
-* **High-Performance Clustering:** Handles thousands of monument points using `Leaflet.markercluster` with chunked loading.
-* **Visual Status:** Markers are color-coded (Green = Has Image, Blue = Needs Image).
-* **Deep Linking:** Share specific monuments via URL parameters (e.g., `?inventory=4810`).
-* **Responsive Sidebar:** Detailed view of monuments using `leaflet-sidebar-v2`, fully optimized for mobile devices.
-* **Rich Metadata:** Displays Wikidata IDs, Wikipedia links, and automatic image credits.
+
+- **High-Performance Clustering:** Handles thousands of monument points using `Leaflet.markercluster` with chunked loading.
+- **Visual Status:** Markers are color-coded (Green = Has Image, Blue = Needs Image).
+- **Deep Linking:** Share specific monuments via URL parameters (e.g., `?inventory=4810`).
+- **Responsive Sidebar:** Detailed view of monuments using `leaflet-sidebar-v2`, fully optimized for mobile devices.
+- **Rich Metadata:** Displays Wikidata IDs, Wikipedia links, and automatic image credits.
 
 ### 🔐 Authentication & Uploads
-* **MediaWiki OAuth 1.0a:** Secure login using existing Wikimedia accounts.
-* **Direct Uploads:** Upload photos to Wikimedia Commons directly from the interface.
-* **Session Management:** Supports both Memory (Dev) and Redis (Production) session stores.
 
+- **MediaWiki OAuth 1.0a:** Secure login using existing Wikimedia accounts.
+- **Direct Uploads:** Upload photos to Wikimedia Commons directly from the interface.
+- **Session Management:** Supports both Memory (Dev) and Redis (Production) session stores.
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-* **Node.js:** v20.6.0 or higher (Required for `--env-file` support).
-* **pnpm:** Recommended package manager.
-* **Docker:** For running Redis locally.
+
+- **Node.js:** v20.6.0 or higher (Required for `--env-file` support).
+- **pnpm:** Recommended package manager.
+- **Docker:** For running Redis locally.
 
 ### 1. Clone & Install
+
 ```bash
 git clone https://github.com/nemoralis/wlmaz.git
 cd wlmaz
@@ -45,6 +46,7 @@ pnpm install
 ### 2. Environment Setup
 
 Create a `.env` file in the root directory:
+
 ```bash
 PORT=3000
 NODE_ENV=development
@@ -69,13 +71,23 @@ pnpm run dev
 - Frontend: http://localhost:5173
 - Backend: http://localhost:3000
 
+## 🐳 Deployment (Docker)
+
+The application is containerized and can be deployed as a single unit.
+
+```bash
+# Build and run with Docker
+docker build -t wlmaz .
+docker run -p 3000:3000 -e REDIS_URL=redis://host.docker.internal:6379 wlmaz
+```
+
 ## 🛠️ Tech Stack
 
-*   **Frontend:** [Vue 3](https://vuejs.org/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/), [Pinia](https://pinia.vuejs.org/), [TailwindCSS](https://tailwindcss.com/)
-*   **Map:** [Leaflet](https://leafletjs.com/), [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster), [geobuf](https://github.com/mapbox/geobuf)
-*   **Backend:** [Node.js](https://nodejs.org/), [Express](https://expressjs.com/)
-*   **Database/Cache:** [Redis](https://redis.io/)
-*   **Authentication:** [Passport.js](https://www.passportjs.org/) (MediaWiki OAuth)
+- **Frontend:** [Vue 3](https://vuejs.org/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/), [Pinia](https://pinia.vuejs.org/), [TailwindCSS](https://tailwindcss.com/)
+- **Map:** [Leaflet](https://leafletjs.com/), [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster), [geobuf](https://github.com/mapbox/geobuf)
+- **Backend:** [Node.js](https://nodejs.org/), [Express](https://expressjs.com/)
+- **Database/Cache:** [Redis](https://redis.io/)
+- **Authentication:** [Passport.js](https://www.passportjs.org/) (MediaWiki OAuth)
 
 ## 🏗️ Architecture
 
@@ -101,12 +113,12 @@ wlmaz/
 
 ## 📜 Scripts
 
-*   `pnpm run dev`: Run both frontend and backend in development mode.
-*   `pnpm run build`: Type-check and build the frontend for production.
-*   `pnpm run preview`: Preview the production build locally.
-*   `pnpm run convert-data`: Convert `monuments.geojson` to `monuments.pbf` (Protocol Buffers) for faster loading.
-*   `pnpm run lint`: Lint and fix files.
-*   `pnpm run format`: Format files with Prettier.
+- `pnpm run dev`: Run both frontend and backend in development mode.
+- `pnpm run build`: Type-check and build the frontend for production.
+- `pnpm run preview`: Preview the production build locally.
+- `pnpm run convert-data`: Convert `monuments.geojson` to `monuments.pbf` (Protocol Buffers) for faster loading.
+- `pnpm run lint`: Lint and fix files.
+- `pnpm run format`: Format files with Prettier.
 
 ## 🤝 Contributing
 

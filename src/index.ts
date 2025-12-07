@@ -70,7 +70,7 @@ const startServer = async () => {
       }),
    );
 
-   app.use(express.json({ limit: "10kb" })); // Lower limit for JSON (DoS protection)
+   app.use(express.json({ limit: "10kb" }));
    app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
    app.use(
@@ -114,9 +114,33 @@ const startServer = async () => {
       res.status(500).json({ error: true, message: err.message });
    });
 
-   app.listen(PORT, () => {
+   app.get("/health", async (_req, res) => {
+      try {
+         await redisClient.ping();
+         res.json({ status: "ok", redis: "connected" });
+      } catch (err) {
+         res.status(500).json({ status: "error", redis: "disconnected" });
+      }
+   });
+
+   const server = app.listen(PORT, () => {
       console.log(`Backend server is running on http://localhost:${PORT}`);
    });
+
+   const gracefulShutdown = async (signal: string) => {
+      console.log(`${signal} received: closing HTTP server`);
+      server.close(async () => {
+         console.log("HTTP server closed");
+         if (redisClient.isOpen) {
+            await redisClient.quit();
+            console.log("Redis client closed");
+         }
+         process.exit(0);
+      });
+   };
+
+   process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
+   process.on("SIGINT", () => gracefulShutdown("SIGINT"));
 };
 
 startServer().catch(console.error);
