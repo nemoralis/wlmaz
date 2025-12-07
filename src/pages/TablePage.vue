@@ -120,9 +120,9 @@
                         <td class="px-6 py-4 text-right text-sm font-medium whitespace-nowrap">
                            <!-- Upload Button -->
                            <button
-                              @click="isUploadModalOpen = true"
                               class="mr-3 text-gray-600 hover:text-blue-600"
                               title="Şəkil Yüklə"
+                              @click="isUploadModalOpen = true"
                            >
                               <i class="fa-solid fa-cloud-arrow-up"></i>
                            </button>

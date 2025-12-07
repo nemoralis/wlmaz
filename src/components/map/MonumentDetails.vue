@@ -5,10 +5,10 @@
          <div class="flex items-center">
             <button
                v-if="monument"
-               @click="$emit('share')"
                aria-label="Abidə linkini paylaş"
                class="mr-4 text-white/80 transition-colors hover:text-white"
                title="Paylaş"
+               @click="$emit('share')"
             >
                <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
             </button>
@@ -39,10 +39,10 @@
                      <i class="fa-solid fa-pen text-xs"></i>
                   </a>
                   <button
-                     @click="$emit('share')"
                      class="mt-1 rounded-full p-1.5 transition-colors hover:bg-blue-50 hover:text-blue-600"
                      :class="linkCopied ? 'bg-green-50 text-green-600' : 'text-gray-400'"
                      title="Paylaş"
+                     @click="$emit('share')"
                   >
                      <i
                         class="fa-solid text-xs"
@@ -59,10 +59,10 @@
             <!-- Inventory Badge -->
             <div v-if="monument.inventory" class="mt-2 mb-3">
                <button
-                  @click="$emit('copy-inventory', monument.inventory)"
                   class="group inline-flex cursor-pointer items-center rounded border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800 transition-all duration-200 hover:border-gray-300 hover:bg-gray-200"
                   :class="inventoryCopied ? 'border-green-200 bg-green-100 text-green-700' : ''"
                   title="Click to copy ID"
+                  @click="$emit('copy-inventory', monument.inventory)"
                >
                   <span v-if="!inventoryCopied" class="flex items-center">
                      İnventar: {{ monument.inventory }}
@@ -167,8 +167,8 @@
             <div class="border-t border-gray-100 pt-4">
                <div v-if="isAuthenticated">
                   <button
-                     @click="$emit('open-upload')"
                      class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white shadow-sm transition-all hover:bg-blue-700 active:scale-[0.98]"
+                     @click="$emit('open-upload')"
                   >
                      <i class="fa fa-upload"></i>
                      Şəkil yüklə
@@ -181,8 +181,8 @@
                <div v-else class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
                   <p class="mb-2 font-medium text-blue-800">Şəkil yükləmək istəyirsiniz?</p>
                   <button
-                     @click="$emit('login')"
                      class="w-full rounded-md border border-blue-200 bg-white px-4 py-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50"
+                     @click="$emit('login')"
                   >
                      Daxil ol
                   </button>
@@ -203,9 +203,9 @@
                      <span class="text-gray-500">Coordinates</span>
                      <div class="flex items-center gap-2">
                         <button
-                           @click="$emit('copy-coords', monument.lat!, monument.lon!)"
                            class="group flex cursor-pointer items-center gap-1.5 rounded px-1.5 py-0.5 font-mono text-xs text-gray-700 transition-all hover:bg-blue-50 hover:text-blue-600"
                            title="Click to copy coordinates"
+                           @click="$emit('copy-coords', monument.lat!, monument.lon!)"
                         >
                            <span v-if="!coordsCopied" class="flex items-center gap-1">
                               {{ monument.lat?.toFixed(4) }}, {{ monument.lon?.toFixed(4) }}

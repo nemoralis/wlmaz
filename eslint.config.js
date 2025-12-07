@@ -1,26 +1,85 @@
-/* eslint-env node */
-import "@rushstack/eslint-patch/modern-module-resolution";
+import pluginVue from "eslint-plugin-vue";
+import tsParser from "@typescript-eslint/parser";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import eslintConfigPrettier from "eslint-config-prettier";
 
-module.exports = {
-    root: true,
-    env: {
-        node: true,
-        browser: true,
-        es2021: true,
+export default [
+  {
+    ignores: ["dist/**", "node_modules/**", "public/**", "coverage/**", ".husky/**"]
+  },
+  
+  // Base Vue Configs
+  ...pluginVue.configs["flat/recommended"],
+  
+  // TypeScript Config (for .ts/.tsx files)
+  {
+    files: ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        sourceType: "module",
+        ecmaVersion: "latest"
+      },
+      globals: {
+        process: "readonly",
+        window: "readonly",
+        document: "readonly",
+        console: "readonly",
+        module: "readonly",
+        navigator: "readonly",
+      }
     },
-    extends: [
-        "plugin:vue/vue3-recommended",
-        "eslint:recommended",
-        "@vue/eslint-config-typescript",
-        "prettier",
-    ],
-    parserOptions: {
-        ecmaVersion: "latest",
+    plugins: {
+      "@typescript-eslint": tsPlugin
     },
     rules: {
-        "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-        "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-        "vue/multi-word-component-names": "off", // Allows "Home.vue" instead of "HomePage.vue"
-        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+      ...tsPlugin.configs.recommended.rules,
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+      "no-undef": "off"
+    }
+  },
+
+  // Vue Config (for .vue files)
+  {
+    files: ["**/*.vue"],
+    languageOptions: {
+      // Re-assert parser for Vue to be sure, though flat/recommended does it
+      parser: pluginVue.parser,
+      parserOptions: {
+        parser: tsParser, // Delegate script content to TS parser
+        sourceType: "module",
+        extraFileExtensions: [".vue"],
+      },
+      globals: {
+        process: "readonly",
+        window: "readonly",
+        document: "readonly",
+        console: "readonly",
+        module: "readonly",
+        navigator: "readonly",
+      }
     },
-};
+    plugins: {
+      "@typescript-eslint": tsPlugin
+    },
+    rules: {
+      ...tsPlugin.configs.recommended.rules,
+      "vue/multi-word-component-names": "off",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+      "no-undef": "off"
+    }
+  },
+
+  // Global overrides
+  {
+     rules: {
+         "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+         "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+     }
+  },
+
+  // Prettier config must be last
+  eslintConfigPrettier
+];

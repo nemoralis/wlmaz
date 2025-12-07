@@ -48,15 +48,15 @@
 
          <div class="ml-auto flex items-center gap-4">
             <!-- User Dropdown (Always Visible or Collapsed?) - Keeping Visible for utility -->
-            <div class="relative flex items-center gap-4" ref="dropdownContainer">
+            <div ref="dropdownContainer" class="relative flex items-center gap-4">
                <div v-if="auth.user" class="relative">
                   <button
-                     @click="toggleMenu"
-                     @keydown="handleDropdownKeydown"
                      :aria-expanded="menuOpen"
                      aria-haspopup="true"
                      aria-label="İstifadəçi menyusu"
                      class="flex items-center gap-2 font-medium text-gray-800 transition-colors hover:text-blue-600 focus:outline-none"
+                     @click="toggleMenu"
+                     @keydown="handleDropdownKeydown"
                   >
                      <span class="hidden sm:inline">{{ auth.user.username || "İstifadəçi" }}</span>
                      <span class="sm:hidden"><i class="fa-solid fa-user"></i></span>
@@ -106,9 +106,9 @@
                         </a>
                         <div class="my-1 border-t border-gray-100" role="separator"></div>
                         <button
-                           @click="logout"
                            role="menuitem"
                            class="block w-full px-4 py-2 text-left text-sm text-red-600 transition-colors hover:bg-red-50"
+                           @click="logout"
                         >
                            Çıxış
                         </button>
@@ -118,9 +118,9 @@
 
                <button
                   v-else
-                  @click="auth.login"
                   aria-label="Wikimedia hesabınızla daxil olun"
                   class="rounded-md bg-[#3366cc] px-5 py-1.5 text-sm font-semibold whitespace-nowrap text-white shadow-sm transition-colors hover:bg-[#2a4b8d]"
+                  @click="auth.login"
                >
                   Daxil ol
                </button>
@@ -129,11 +129,11 @@
             <!-- Hamburger Button (Mobile Only) -->
             <button
                class="rounded-md p-2 text-gray-600 hover:bg-gray-100 focus:outline-none md:hidden"
-               @click="mobileNavOpen = !mobileNavOpen"
-               @keydown.escape="mobileNavOpen = false"
                :aria-expanded="mobileNavOpen"
                aria-label="Mobil menyunu aç"
                aria-controls="mobile-nav"
+               @click="mobileNavOpen = !mobileNavOpen"
+               @keydown.escape="mobileNavOpen = false"
             >
                <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
             </button>
@@ -159,24 +159,24 @@
             <router-link
                to="/stats"
                class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
-               @click="mobileNavOpen = false"
                aria-label="Statistika səhifəsinə get"
+               @click="mobileNavOpen = false"
             >
                <i class="fa-solid fa-chart-pie w-5 text-gray-400" aria-hidden="true"></i> Statistika
             </router-link>
             <router-link
                to="/table"
                class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
-               @click="mobileNavOpen = false"
                aria-label="Siyahı səhifəsinə get"
+               @click="mobileNavOpen = false"
             >
                <i class="fa-solid fa-list w-5 text-gray-400" aria-hidden="true"></i> Siyahı
             </router-link>
             <router-link
                to="/about"
                class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
-               @click="mobileNavOpen = false"
                aria-label="Haqqında səhifəsinə get"
+               @click="mobileNavOpen = false"
             >
                <i class="fa-solid fa-circle-info w-5 text-gray-400" aria-hidden="true"></i> Haqqında
             </router-link>
