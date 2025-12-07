@@ -86,14 +86,14 @@ export default defineConfig({
             runtimeCaching: [
                {
                   urlPattern: /\/monuments\.pbf$/,
-                  handler: "NetworkFirst", // Get fresh data first, fall back to cache
+                  handler: "StaleWhileRevalidate", // Load from cache immediately, update in background
                   options: {
                      cacheName: "api-data",
                      expiration: {
                         maxEntries: 5,
                         maxAgeSeconds: 60 * 60 * 24 * 7, // 1 week
                      },
-                     networkTimeoutSeconds: 3, // Fall back to cache after 3s
+                     // networkTimeoutSeconds not needed for StaleWhileRevalidate
                   },
                },
                {
@@ -176,19 +176,7 @@ export default defineConfig({
                "utils-vendor": ["fuse.js", "geobuf", "pbf"],
                // Separate Chart.js (only loaded on stats page)
                "chart-vendor": ["chart.js", "vue-chartjs"],
-            },
-            // Better asset naming for cache busting
-            assetFileNames: (assetInfo) => {
-               const info = assetInfo.name.split(".");
-               const ext = info[info.length - 1];
-               if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(assetInfo.name)) {
-                  return `assets/images/[name]-[hash][extname]`;
-               }
-               if (/\.(woff2?|eot|ttf|otf)$/.test(assetInfo.name)) {
-                  return `assets/fonts/[name]-[hash][extname]`;
-               }
-               return `assets/[name]-[hash][extname]`;
-            },
+            }
          },
       },
    },

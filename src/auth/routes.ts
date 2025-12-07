@@ -9,7 +9,7 @@ router.get(
    "/callback",
    passport.authenticate("mediawiki", {
       failureRedirect: "/auth/login",
-      successRedirect: "http://localhost:5173/",
+      successRedirect: process.env.CLIENT_URL || "/",
    }),
 );
 
