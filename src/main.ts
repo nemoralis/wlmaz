@@ -11,4 +11,15 @@ import "./styles.css";
 import "leaflet/dist/leaflet.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-createApp(App).use(createPinia()).use(router).mount("#app");
+import { configure } from "vue-gtag";
+
+configure({
+   tagId: process.env.VITE_GA_MEASUREMENT_ID!,
+   pageTracker: { router },
+   initMode: process.env.NODE_ENV === "production" ? "auto" : "manual",
+});
+
+createApp(App)
+   .use(createPinia())
+   .use(router)
+   .mount("#app");
