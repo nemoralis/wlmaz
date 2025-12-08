@@ -13,7 +13,7 @@
                <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
             </button>
 
-            <div class="leaflet-sidebar-close">
+            <div class="leaflet-sidebar-close" @click="$emit('close')">
                <i class="fa-solid fa-times"></i>
             </div>
          </div>
@@ -321,6 +321,7 @@ defineEmits<{
    "copy-inventory": [inventory: string];
    "copy-coords": [lat: number, lon: number];
    login: [];
+   close: [];
 }>();
 
 const imageLoading = ref(true);
