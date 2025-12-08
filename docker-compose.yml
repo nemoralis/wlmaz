@@ -9,26 +9,10 @@ services:
          - ./redis.conf:/usr/local/etc/redis/redis.conf:ro
          - redis_data:/data
 
-      # UNCOMMENT THIS FOR LOCAL DEVELOPMENT
-      # (But keep it commented out on your Production Server)
       ports:
          - "6379:6379"
 
       restart: always
-
-   app:
-      container_name: wlmaz_app
-      build: .
-      restart: always
-      ports:
-         - "80:3000"
-      environment:
-         - NODE_ENV=production
-         - PORT=3000
-         - REDIS_URL=redis://default:MYRedisPassword@wlmaz_redis:6379
-      depends_on:
-         - redis
-
 
 volumes:
    redis_data:
