@@ -254,8 +254,8 @@ export default defineComponent({
          if (navigator.share) {
             try {
                await navigator.share({ title, text, url });
-            } catch (_err) {
-               console.log("Share cancelled");
+            } catch (err) {
+               console.error(err);
             }
          } else {
             copyLink(url);

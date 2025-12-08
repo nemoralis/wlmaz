@@ -48,7 +48,8 @@
     "vue": "^3.5.13",
     "vue-chartjs": "^5.3.3",
     "vue-router": "^4.6.3",
-    "workbox-window": "^7.4.0"
+    "workbox-window": "^7.4.0",
+    "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.15.0",
@@ -85,7 +86,7 @@
     "svgo": "^4.0.0",
     "tailwindcss": "^4.1.14",
     "terser": "^5.44.1",
-    "tsx": "^4.19.2",
+
     "typescript": "^5.7.3",
     "vite": "^7.1.9",
     "vite-bundle-visualizer": "^1.2.1",
