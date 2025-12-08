@@ -48,7 +48,7 @@ export interface MonumentProps {
  * Allows importing .vue files
  */
 declare module "*.vue" {
-   const component: DefineComponent<{}, {}, any>;
+   const component: DefineComponent<object, object, any>;
    export default component;
 }
 
@@ -72,7 +72,6 @@ declare module "passport-mediawiki-oauth" {
 }
 
 declare module "leaflet-sidebar-v2" {
-   import * as L from "leaflet";
    // Just a basic shim to allow the import
    const content: any;
    export default content;
@@ -88,7 +87,7 @@ declare module "leaflet-sidebar-v2" {
  */
 declare global {
    namespace Express {
-      // eslint-disable-next-line @typescript-eslint/no-empty-interface
+      // eslint-disable-next-line @typescript-eslint/no-empty-object-type
       interface User extends WikiUser {}
    }
 }

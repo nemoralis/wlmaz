@@ -36,7 +36,7 @@
 
          <div class="leaflet-sidebar-content">
             <!-- Home Pane -->
-            <div class="leaflet-sidebar-pane" id="home">
+            <div id="home" class="leaflet-sidebar-pane">
                <MonumentSidebarHome
                   :stats="stats"
                   :needs-photo-only="needsPhotoOnly"
@@ -48,7 +48,7 @@
             </div>
 
             <!-- Details Pane -->
-            <div class="leaflet-sidebar-pane" id="details">
+            <div id="details" class="leaflet-sidebar-pane">
                <MonumentDetails
                   :monument="selectedMonument"
                   :image-credit="imageCredit"
@@ -140,8 +140,8 @@ export default defineComponent({
 
       // Data
       const stats = ref({ total: 0, withImage: 0 });
-      const allMonuments = ref<any[]>([]);
-      const searchIndex = shallowRef<any>(null);
+      const allMonuments = ref<any[]>([]); // Using any[] to match prop expectation
+      const searchIndex = shallowRef<unknown>(null);
       const imageLoading = ref(true);
       const markerLookup = new Map<string, L.Marker>();
       let allMarkers: L.Marker[] = [];
@@ -177,21 +177,25 @@ export default defineComponent({
          const performSelection = async () => {
             highlightMarker(marker);
 
-            const props = (marker as any).feature.properties;
+            const props = (marker as L.Marker & { feature: { properties: MonumentProps } }).feature
+               .properties;
             selectedMonument.value = props;
 
             await nextTick();
-            (sidebarInstance.value as any)?.open("details");
+            (sidebarInstance.value as L.Control & { open: (id: string) => void })?.open("details");
          };
 
          // Check if marker is visible (not clustered)
          // Leaflet.markercluster provides getVisibleParent.
-         // If it returns the marker itself, it is visible. If it returns a cluster, it is clustered.
-         const visibleParent = (markersGroup.value as any).getVisibleParent(marker);
+         const cluster = markersGroup.value as L.MarkerClusterGroup & {
+            getVisibleParent: (m: L.Marker) => L.Marker | null;
+            zoomToShowLayer: (m: L.Marker, cb: () => void) => void;
+         };
+         const visibleParent = cluster.getVisibleParent(marker);
 
          if (visibleParent && visibleParent !== marker) {
             // It is clustered. Use zoomToShowLayer to reveal it.
-            (markersGroup.value as any).zoomToShowLayer(marker, () => {
+            cluster.zoomToShowLayer(marker, () => {
                performSelection();
             });
          } else {
@@ -201,9 +205,9 @@ export default defineComponent({
          }
       };
 
-      const flyToMonument = (feature: any) => {
-         console.log(feature);
-         const { inventory } = feature.properties;
+      const flyToMonument = (feature: unknown) => {
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         const { inventory } = (feature as any).properties;
          if (inventory && markerLookup.has(inventory)) {
             const marker = markerLookup.get(inventory)!;
 
@@ -215,9 +219,12 @@ export default defineComponent({
             } else {
                mapInstance.value?.flyTo(marker.getLatLng(), 16, { duration: 1.5 });
 
-               const props = (marker as any).feature.properties;
+               const props = (marker as L.Marker & { feature: { properties: MonumentProps } })
+                  .feature.properties;
                selectedMonument.value = props;
-               (sidebarInstance.value as any)?.open("details");
+               (sidebarInstance.value as L.Control & { open: (id: string) => void })?.open(
+                  "details",
+               );
                activeMarkerLayer.value = marker;
             }
          }
@@ -247,7 +254,7 @@ export default defineComponent({
          if (navigator.share) {
             try {
                await navigator.share({ title, text, url });
-            } catch (err) {
+            } catch (_err) {
                console.log("Share cancelled");
             }
          } else {
@@ -404,9 +411,10 @@ export default defineComponent({
                clusterGroup.addLayers(allMarkers);
 
                // Group Event delegation
-               clusterGroup.on("click", (evt: any) => {
+               clusterGroup.on("click", (evt: L.LeafletMouseEvent) => {
                   L.DomEvent.stopPropagation(evt.originalEvent);
-                  selectMonument(evt.layer);
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  selectMonument((evt as any).layer);
                });
 
                map.addLayer(clusterGroup);
@@ -419,7 +427,9 @@ export default defineComponent({
                if (inventory && markerLookup.has(inventory)) {
                   selectMonument(markerLookup.get(inventory)!);
                } else {
-                  sidebar.open("home");
+                  if (window.innerWidth > 768) {
+                     sidebar.open("home");
+                  }
                }
             }
          };

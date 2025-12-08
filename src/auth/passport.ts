@@ -1,6 +1,5 @@
 import type { WikiUser } from "@/types";
 import passport from "passport";
-// @ts-ignore
 import { Strategy as MediaWikiStrategy } from "passport-mediawiki-oauth";
 if (!process.env.WM_CONSUMER_KEY || !process.env.WM_CONSUMER_SECRET) {
    throw new Error("WM_CONSUMER_KEY and WM_CONSUMER_SECRET must be set");
@@ -11,10 +10,15 @@ passport.use(
       {
          consumerKey: process.env.WM_CONSUMER_KEY,
          consumerSecret: process.env.WM_CONSUMER_SECRET,
-         callbackURL: "http://localhost:3000/auth/callback",
+         callbackURL: `${process.env.CLIENT_URL || "http://localhost:3000"}/auth/callback`,
          baseURL: "https://commons.wikimedia.org/",
       },
-      (token: string, tokenSecret: string, profile: any, done: any) => {
+      (
+         token: string,
+         tokenSecret: string,
+         profile: WikiUser & { displayName?: string; id: string; username: string },
+         done: (err: any, user?: WikiUser) => void,
+      ) => {
          const user: WikiUser = {
             id: profile.id,
             username: profile.displayName || profile.username,

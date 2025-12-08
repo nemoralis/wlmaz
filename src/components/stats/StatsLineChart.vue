@@ -2,7 +2,7 @@
    <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
       <h3 class="mb-4 text-lg font-semibold text-gray-800">Abidə Sayı (Dinamika)</h3>
       <div class="h-[300px]">
-         <Line v-if="chartData" :data="chartData" :options="chartOptions" />
+         <LineChart v-if="chartData" :data="chartData" :options="chartOptions" />
          <div v-else class="flex h-full items-center justify-center text-gray-400">
             Məlumat yüklənir...
          </div>
@@ -22,14 +22,14 @@ import {
    Tooltip,
    Legend,
 } from "chart.js";
-import { Line } from "vue-chartjs";
+import { Line as LineChart } from "vue-chartjs";
 import type { StatHistoryItem } from "../../composables/useStats";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 export default defineComponent({
    name: "StatsLineChart",
-   components: { Line },
+   components: { LineChart },
    props: {
       history: {
          type: Array as () => StatHistoryItem[],

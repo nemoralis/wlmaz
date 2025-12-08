@@ -91,7 +91,7 @@
                   <a :href="getDescriptionPage(monument.image)" target="_blank" rel="noopener">
                      <div
                         v-if="imageLoading"
-                        class="absolute inset-0 z-10 flex items-center justify-center animate-pulse bg-gray-200"
+                        class="absolute inset-0 z-10 flex animate-pulse items-center justify-center bg-gray-200"
                         aria-hidden="true"
                      >
                         <i class="fa-regular fa-image text-4xl text-gray-300"></i>
