@@ -22,5 +22,17 @@
       "removed": 0,
       "updated": 2
     }
+  },
+  {
+    "date": "2025-12-08",
+    "timestamp": 1765153452772,
+    "total": 297,
+    "withImage": 257,
+    "withoutImage": 40,
+    "diff": {
+      "added": 1,
+      "removed": 0,
+      "updated": 2
+    }
   }
 ]
