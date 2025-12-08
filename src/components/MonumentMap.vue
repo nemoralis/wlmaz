@@ -36,7 +36,7 @@
 
          <div class="leaflet-sidebar-content">
             <!-- Home Pane -->
-            <div class="leaflet-sidebar-pane" id="home">
+            <div id="home" class="leaflet-sidebar-pane">
                <MonumentSidebarHome
                   :stats="stats"
                   :needs-photo-only="needsPhotoOnly"
@@ -48,7 +48,7 @@
             </div>
 
             <!-- Details Pane -->
-            <div class="leaflet-sidebar-pane" id="details">
+            <div id="details" class="leaflet-sidebar-pane">
                <MonumentDetails
                   :monument="selectedMonument"
                   :image-credit="imageCredit"
@@ -107,6 +107,7 @@ import {
 } from "../utils/monumentFormatters";
 import { useWikiCredits } from "../composables/useWikiCredits";
 import { useClipboard } from "../composables/useClipboard";
+import { useRoute, useRouter } from "vue-router";
 
 // CSS
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -123,6 +124,8 @@ export default defineComponent({
    setup() {
       // --- Stores & Composables ---
       const auth = useAuthStore();
+      const route = useRoute();
+      const router = useRouter();
       const { imageCredit, fetchImageMetadata } = useWikiCredits();
       const { copied: inventoryCopied, copy: copyInventory } = useClipboard();
       const { copied: coordsCopied, copy: copyRawCoords } = useClipboard();
@@ -258,17 +261,36 @@ export default defineComponent({
       // --- Watchers ---
 
       watch(selectedMonument, (newVal) => {
-         const url = new URL(window.location.href);
          if (newVal && newVal.itemLabel) {
             document.title = `${newVal.itemLabel} | Viki Abidələri Sevir`;
-            if (newVal.inventory) url.searchParams.set("inventory", newVal.inventory);
+            if (newVal.inventory) {
+               // Update URL via router
+               router.replace({ name: 'Monument', params: { id: newVal.inventory }});
+            }
             imageLoading.value = true;
             if (newVal.image) fetchImageMetadata(newVal.image);
          } else {
             document.title = "Viki Abidələri Sevir Azərbaycan";
-            url.searchParams.delete("inventory");
+            // Check if we are currently on a monument route effectively
+            if (route.name === 'Monument') {
+               router.replace({ name: 'Home' });
+            }
          }
-         window.history.replaceState({}, "", url);
+      });
+      
+      // Watch route changes to support back/forward navigation
+      watch(() => route.params.id, (newId) => {
+          if (newId && typeof newId === 'string' && markerLookup.has(newId)) {
+             // Only select if it's different from current
+             if (selectedMonument.value?.inventory !== newId) {
+                selectMonument(markerLookup.get(newId)!);
+             }
+          } else if (!newId) {
+             // If we navigated back to home (no ID), close sidebar
+             if (selectedMonument.value) {
+                (sidebarInstance.value as any)?.close();
+             }
+          }
       });
 
       // --- Initialize ---
@@ -413,14 +435,23 @@ export default defineComponent({
 
                new LocateControl({ position: "topright", flyTo: true }).addTo(map);
 
+               new LocateControl({ position: "topright", flyTo: true }).addTo(map);
+
                // Initial URL Navigation
-               const urlParams = new URLSearchParams(window.location.search);
-               const inventory = urlParams.get("inventory");
-               if (inventory && markerLookup.has(inventory)) {
-                  selectMonument(markerLookup.get(inventory)!);
-               } else {
-                  sidebar.open("home");
-               }
+               const handleInitialSelection = () => {
+                  // Prioritize route params (Clean URL) then query params (Legacy)
+                  const routeId = route.params.id as string;
+                  const queryId = route.query.inventory as string;
+                  const targetId = routeId || queryId;
+
+                  if (targetId && markerLookup.has(targetId)) {
+                     selectMonument(markerLookup.get(targetId)!);
+                  } else {
+                     sidebar.open("home");
+                  }
+               };
+
+               handleInitialSelection();
             }
          };
       });

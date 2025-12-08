@@ -11,6 +11,12 @@ import { createClient } from "redis";
 import { RedisStore } from "connect-redis";
 import hpp from "hpp";
 import compression from "compression";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -99,12 +105,82 @@ const startServer = async () => {
 
    // Serve static files in production
    if (process.env.NODE_ENV === "production" || process.env.SERVE_STATIC) {
-      const path = await import("path");
       const distPath = path.resolve(__dirname, "../dist");
+
+      // Load monuments data for SEO
+      let monumentsData: any = null;
+      try {
+         const geojsonPath = path.resolve(__dirname, "../public/monuments.geojson");
+         if (fs.existsSync(geojsonPath)) {
+            const data = fs.readFileSync(geojsonPath, "utf-8");
+            monumentsData = JSON.parse(data);
+         }
+      } catch (e) {
+         console.error("Failed to load monuments.geojson for SEO:", e);
+      }
 
       app.use(express.static(distPath));
 
-      app.get("*", (_req, res) => {
+      // Dynamic SEO Route for Monuments
+      app.get("/monument/:id", (req, res) => {
+         const { id } = req.params;
+         const indexPath = path.join(distPath, "index.html");
+
+         fs.readFile(indexPath, "utf8", (err, htmlData) => {
+            if (err) {
+               console.error("Error reading index.html", err);
+               res.status(500).send("Server Error");
+               return;
+            }
+
+            // Default metadata
+            let title = "Viki Abidələri Sevir Azərbaycan";
+            let description = "Azərbaycandakı abidələrin interaktiv xəritəsi. Viki Abidələri Sevir müsabiqəsi üçün fotoşəkillər yükləyin.";
+            let image = "/wlm-az.png";
+            let url = `https://vikiabidelerisevir.az/monument/${id}`;
+
+            // Find monument
+            if (monumentsData) {
+               const monument = monumentsData.features.find(
+                  (f: any) => f.properties.inventory === id || f.properties.id === id
+               );
+
+               if (monument) {
+                  const p = monument.properties;
+                  title = `${p.itemLabel} | Viki Abidələri Sevir`;
+                  description = `Bu abidə haqqında daha çox öyrənin: ${p.address || "Ünvan yoxdur"}.`;
+                  if (p.image) {
+                     if (p.image.startsWith("http")) {
+                        image = p.image.replace("http://", "https://");
+                        if (!image.includes("width=")) {
+                           image += "?width=1200";
+                        }
+                     } else {
+                        // Convert commons image title to URL
+                        // Example: "File:Foobar.jpg" -> "https://commons.wikimedia.org/wiki/Special:FilePath/Foobar.jpg?width=1200"
+                        const filename = p.image.replace("File:", "").replace("Şəkil:", "");
+                        image = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}?width=1200`;
+                     }
+                  }
+               }
+            }
+
+            // Inject Metadata
+            const injectedHtml = htmlData
+               .replace(/<title>.*<\/title>/, `<title>${title}</title>`)
+               .replace(/<meta property="og:title" content=".*" \/>/, `<meta property="og:title" content="${title}" />`)
+               .replace(/<meta property="og:description" content=".*" \/>/, `<meta property="og:description" content="${description}" />`)
+               .replace(/<meta property="og:image" content=".*" \/>/, `<meta property="og:image" content="${image}" />`)
+               .replace(/<meta property="og:url" content=".*" \/>/, `<meta property="og:url" content="${url}" />`)
+               .replace(/<meta property="twitter:title" content=".*" \/>/, `<meta property="twitter:title" content="${title}" />`)
+               .replace(/<meta property="twitter:description" content=".*" \/>/, `<meta property="twitter:description" content="${description}" />`)
+               .replace(/<meta property="twitter:image" content=".*" \/>/, `<meta property="twitter:image" content="${image}" />`);
+
+            res.send(injectedHtml);
+         });
+      });
+
+      app.get(/.*/, (_req, res) => {
          res.sendFile(path.join(distPath, "index.html"));
       });
    }
