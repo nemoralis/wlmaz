@@ -452,6 +452,25 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.38736778,
+                    40.102395302
+                ]
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q137274025",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:AE_1951,_0263",
+                "inventory": "26-231",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qobustan%20inscription.jpg",
+                "commonsCategory": "AE 1951, 0263",
+                "itemLabel": "Qədim Roma yazısı",
+                "itemDescription": "Qobustandakı latın kitabəsi"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.193066666,
                     41.248933333
                 ]
