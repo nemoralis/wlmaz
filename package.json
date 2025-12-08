@@ -15,6 +15,7 @@
     "format": "prettier --write --list-different src/",
     "lint": "eslint src/ --ext .ts,.vue --fix",
     "analyze": "vite-bundle-visualizer",
+    "serve": "SERVE_STATIC=true tsx --env-file=.env src/index.ts",
     "prepare": "husky"
   },
   "lint-staged": {
