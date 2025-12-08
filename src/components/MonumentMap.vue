@@ -61,6 +61,7 @@
                   @copy-inventory="copyInventory"
                   @copy-coords="copyCoords"
                   @login="auth.login"
+                  @close="closeSidebar"
                />
             </div>
          </div>
@@ -254,12 +255,16 @@ export default defineComponent({
          if (navigator.share) {
             try {
                await navigator.share({ title, text, url });
-            } catch (err) {
-               console.error(err);
+            } catch (_err) {
+               // Share cancelled
             }
          } else {
             copyLink(url);
          }
+      };
+
+      const closeSidebar = () => {
+         (sidebarInstance.value as any)?.close();
       };
 
       // --- Watchers ---
@@ -467,6 +472,7 @@ export default defineComponent({
          linkCopied,
          copyInventory,
          copyCoords,
+         closeSidebar,
       };
    },
 });
