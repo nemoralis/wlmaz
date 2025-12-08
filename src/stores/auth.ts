@@ -43,7 +43,7 @@ export const useAuthStore = defineStore("auth", {
       },
 
       login() {
-         window.location.href = "http://localhost:3000/auth/login";
+         window.location.href = "/auth/login";
       },
 
       async logout() {

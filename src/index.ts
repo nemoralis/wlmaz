@@ -48,7 +48,6 @@ const startServer = async () => {
                   "https://*.openstreetmap.org",
                   "https://*.google.com",
                   "https://*.googleapis.com",
-                  "https://upload.wikimedia.org",
                   "https://commons.wikimedia.org",
                ],
                connectSrc: ["'self'", "https://*.googleapis.com"],
@@ -65,7 +64,7 @@ const startServer = async () => {
    app.use(hpp()); // Prevent HTTP Parameter Pollution
    app.use(
       cors({
-         origin: process.env.CLIENT_URL || "http://localhost:5173",
+         origin: process.env.CLIENT_URL || "https://wikilovesmonuments.az",
          credentials: true,
       }),
    );
@@ -99,8 +98,11 @@ const startServer = async () => {
 
    // Serve static files in production
    if (process.env.NODE_ENV === "production" || process.env.SERVE_STATIC) {
-      const path = await import("path")
-      const distPath = process.env.NODE_ENV === "production" ? "/var/www/wlmaz/dist" : path.resolve(__dirname, "../dist"); 
+      const path = await import("path");
+      const distPath =
+         process.env.NODE_ENV === "production"
+            ? "/var/www/wlmaz/dist"
+            : path.resolve(__dirname, "../dist");
       console.log("Serving static files from:", distPath);
 
       app.use(express.static(distPath));
@@ -110,7 +112,7 @@ const startServer = async () => {
       });
    }
 
-   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+   app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
       console.error(err);
       res.status(500).json({ error: true, message: err.message });
    });
@@ -119,7 +121,7 @@ const startServer = async () => {
       try {
          await redisClient.ping();
          res.json({ status: "ok", redis: "connected" });
-      } catch (err) {
+      } catch (_err) {
          res.status(500).json({ status: "error", redis: "disconnected" });
       }
    });

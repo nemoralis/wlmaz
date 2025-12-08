@@ -15,6 +15,7 @@ router.get(
 
 router.get("/me", (req, res) => {
    if (req.isAuthenticated() && req.user) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { token, tokenSecret, ...publicProfile } = req.user;
 
       res.json(publicProfile);
