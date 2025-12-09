@@ -36,6 +36,11 @@ export const getMonumentIcon = (name: string = ""): string => {
 
 export const getOptimizedImage = (url: string): string => {
    if (!url) return "";
+   // Force HTTPS
+   if (url.startsWith("http:")) {
+      url = url.replace("http:", "https:");
+   }
+   
    // If it's a Wikimedia Commons Special:FilePath URL, we can request a specific width
    if (url.includes("Special:FilePath/")) {
       return `${url}?width=500`;
@@ -45,7 +50,8 @@ export const getOptimizedImage = (url: string): string => {
 
 export const getSrcSet = (url: string, widths: number[]): string => {
    if (!url || !url.includes("Special:FilePath/")) return "";
-   return widths.map((w) => `${url}?width=${w} ${w}w`).join(", ");
+   const secureUrl = url.startsWith("http:") ? url.replace("http:", "https:") : url;
+   return widths.map((w) => `${secureUrl}?width=${w} ${w}w`).join(", ");
 };
 
 export const getDescriptionPage = (url: string): string => {
