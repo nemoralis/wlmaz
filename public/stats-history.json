@@ -37,14 +37,14 @@
   },
   {
     "date": "2025-12-10",
-    "timestamp": 1765367061293,
+    "timestamp": 1765367247402,
     "total": 299,
     "withImage": 260,
     "withoutImage": 39,
     "diff": {
-      "added": 2,
+      "added": 0,
       "removed": 0,
-      "updated": 297
+      "updated": 2
     }
   }
 ]
