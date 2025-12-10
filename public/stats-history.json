@@ -34,5 +34,17 @@
       "removed": 0,
       "updated": 2
     }
+  },
+  {
+    "date": "2025-12-10",
+    "timestamp": 1765367061293,
+    "total": 299,
+    "withImage": 260,
+    "withoutImage": 39,
+    "diff": {
+      "added": 2,
+      "removed": 0,
+      "updated": 297
+    }
   }
 ]
