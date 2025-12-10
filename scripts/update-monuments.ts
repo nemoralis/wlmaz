@@ -119,7 +119,6 @@ function transformToGeoJSON(bindings: SparqlBinding[]): GeoJSON {
 
     // Only add feature if coordinates were found
     if (coordinates) {
-      // Sort keys to ensure deterministic JSON structure (prevents false "updated" flags)
       const sortedProperties = Object.keys(properties).sort().reduce((obj, key) => { 
           obj[key] = properties[key]; 
           return obj;
@@ -172,7 +171,6 @@ async function main() {
     // 3. Compare and calculate stats
     let added = 0;
     let removed = 0;
-    let updated = 0;
 
     if (existingData) {
       const existingIds = new Set(existingData.features.map(f => f.properties.inventory));
@@ -188,26 +186,10 @@ async function main() {
         if (!newIds.has(id)) removed++;
       }
 
-      // Updated
-      for (const newFeature of newData.features) {
-        const id = newFeature.properties.inventory;
-        if (existingIds.has(id)) {
-          const existingFeature = existingData.features.find(f => f.properties.inventory === id);
-          if (existingFeature) {
-             // Simple JSON stringify comparison for properties
-             if (JSON.stringify(newFeature.properties) !== JSON.stringify(existingFeature.properties) ||
-                 JSON.stringify(newFeature.geometry) !== JSON.stringify(existingFeature.geometry)) {
-               updated++;
-             }
-          }
-        }
-      }
-
       console.log('--- Update Statistics ---');
       console.log(`Total Monuments: ${newData.features.length}`);
       console.log(`Added: ${added}`);
       console.log(`Removed: ${removed}`);
-      console.log(`Updated: ${updated}`);
       console.log('-------------------------');
     } else {
       console.log(`Fetched ${newData.features.length} monuments.`);
@@ -241,7 +223,6 @@ async function main() {
           diff: { 
              added, 
              removed, 
-             updated 
           }
        };
        
