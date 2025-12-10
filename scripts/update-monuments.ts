@@ -119,13 +119,19 @@ function transformToGeoJSON(bindings: SparqlBinding[]): GeoJSON {
 
     // Only add feature if coordinates were found
     if (coordinates) {
+      // Sort keys to ensure deterministic JSON structure (prevents false "updated" flags)
+      const sortedProperties = Object.keys(properties).sort().reduce((obj, key) => { 
+          obj[key] = properties[key]; 
+          return obj;
+      }, {} as { [key: string]: string });
+
       features.push({
         type: 'Feature',
         geometry: {
           type: 'Point',
           coordinates: coordinates
         },
-        properties: properties
+        properties: sortedProperties
       });
     }
   }
