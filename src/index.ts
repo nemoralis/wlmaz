@@ -60,10 +60,12 @@ const startServer = async () => {
    );
    const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
 
-   app.use(morgan(morganFormat, {
-      skip: (req, _res) => req.url === '/health',
-      stream: process.stdout
-   }));
+   app.use(
+      morgan(morganFormat, {
+         skip: (req, _res) => req.url === "/health",
+         stream: process.stdout,
+      }),
+   );
    app.use(compression());
    app.use(limiter);
    app.use(hpp()); // Prevent HTTP Parameter Pollution
@@ -77,28 +79,28 @@ const startServer = async () => {
    app.use(express.json({ limit: "10kb" }));
    app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
-  app.use(
-   session({
-      name: "wlmaz", 
-      
-      store: new RedisStore({
-         client: redisClient,
-         prefix: "wlmaz:",
-         ttl: 86400 * 7, 
+   app.use(
+      session({
+         name: "wlmaz",
+
+         store: new RedisStore({
+            client: redisClient,
+            prefix: "wlmaz:",
+            ttl: 86400 * 7,
+         }),
+
+         secret: process.env.SESSION_SECRET!,
+         resave: false,
+         saveUninitialized: false,
+
+         cookie: {
+            secure: process.env.NODE_ENV === "production",
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+            sameSite: "lax",
+         },
       }),
-      
-      secret: process.env.SESSION_SECRET!,
-      resave: false,
-      saveUninitialized: false, 
-      
-      cookie: {
-         secure: process.env.NODE_ENV === "production",
-         httpOnly: true,
-         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-         sameSite: "lax", 
-      },
-   }),
-);
+   );
 
    app.use(passport.initialize());
    app.use(passport.session());
