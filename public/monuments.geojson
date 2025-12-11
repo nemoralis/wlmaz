@@ -1206,6 +1206,42 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    50.034086,
+                    40.570424
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Bilg%C9%99h_qalas%C4%B1",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bilg%C9%99h%20qalas%C4%B1.jpg",
+                "inventory": "131",
+                "item": "http://www.wikidata.org/entity/Q12837576",
+                "itemAltLabel": "Bilgah qalası",
+                "itemLabel": "Bilgəh qalası"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.01329542,
+                    40.561882698
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Khan Garden Pavilion",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Khan_Garden_Pavilion",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Xan%20ba%C4%9F%C4%B1n%C4%B1n%20k%C3%B6%C5%9Fk%C3%BC.jpg",
+                "inventory": "133",
+                "item": "http://www.wikidata.org/entity/Q137342822",
+                "itemLabel": "Xan bağının köşkü"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.994166666,
                     40.587222222
                 ]
@@ -1249,9 +1285,13 @@
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/R%C9%99him%C9%99_xan%C4%B1m_ziyar%C9%99tgah%C4%B1",
+                "commonsCategory": "Rahima khanum mosque",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Rahima_khanum_mosque",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/R%C9%99him%C9%99%20xan%C4%B1m%20m%C9%99scidi.jpg",
                 "inventory": "136",
                 "item": "http://www.wikidata.org/entity/Q16413649",
+                "itemAltLabel": "Pirsəid məscidi, Rəhimə xanım ziyarətgahı, Rəhimə xanım məscidi",
+                "itemDescription": "Nardaranda məscid",
                 "itemLabel": "Nardaran məscidi"
             }
         },
@@ -2046,6 +2086,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    50.02968734,
+                    40.544164809
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C6%8Fmiraslan_ovdan%C4%B1",
+                "commonsCategory": "Ovdan in Mashtaga",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Ovdan_in_Mashtaga",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mashtagha%20ovdan%20%28cropped%29.jpg",
+                "inventory": "542",
+                "item": "http://www.wikidata.org/entity/Q110101202",
+                "itemAltLabel": "Maştağa ovdanı",
+                "itemDescription": "Maştağada ovdan",
+                "itemLabel": "Əmiraslan ovdanı"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.918712515,
                     40.46403735
                 ]
@@ -2706,6 +2767,25 @@
                 "item": "http://www.wikidata.org/entity/Q110101196",
                 "itemDescription": "Maştağada hamam",
                 "itemLabel": "Şamxal hamamı"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.887759366,
+                    40.557172785
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Mosque in Pirshagi",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Mosque_in_Pirshagi",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mosque%20in%20Pirshagi%204.jpg",
+                "inventory": "3211",
+                "item": "http://www.wikidata.org/entity/Q137342836",
+                "itemDescription": "Pirşağıda məscid",
+                "itemLabel": "Pirşağı məscidi"
             }
         },
         {
@@ -5057,6 +5137,7 @@
             "properties": {
                 "commonsCategory": "Daşbulaq church",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Da%C5%9Fbulaq_church",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Da%C5%9Fbulaq%20kils%C9%99sinin%20m%C9%99rk%C9%99zi%20nefi%20v%C9%99%20altar%C4%B1.jpg",
                 "inventory": "4991",
                 "item": "http://www.wikidata.org/entity/Q135273269",
                 "itemDescription": "Daşbulaq kəndində yerləşən kilsə",
