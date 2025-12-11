@@ -40,7 +40,7 @@ export const getOptimizedImage = (url: string): string => {
    if (url.startsWith("http:")) {
       url = url.replace("http:", "https:");
    }
-   
+
    // If it's a Wikimedia Commons Special:FilePath URL, we can request a specific width
    if (url.includes("Special:FilePath/")) {
       return `${url}?width=500`;
