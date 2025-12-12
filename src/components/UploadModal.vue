@@ -421,8 +421,9 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, computed, watch } from "vue";
-import exifr from "exifr";
-import heic2any from "heic2any";
+// Remove static imports to save bundle size
+// import exifr from "exifr";
+// import heic2any from "heic2any";
 
 interface FileItem {
    id: string;
@@ -591,6 +592,9 @@ export default defineComponent({
             // Generate Preview
             if (isHeic) {
                try {
+                  // Dynamic Import heic2any
+                  const heic2any = (await import("heic2any")).default;
+                  
                   const resultBlob = await heic2any({
                      blob: file,
                      toType: "image/jpeg",
@@ -620,10 +624,14 @@ export default defineComponent({
             Array.from(newFiles).map(async (file, index) => {
                if (!file.type.startsWith("image/")) return;
 
-               // Find the newly added file item (simple lookup since we append)
+               // Note: This logic assumes sequential append.
+               // For robustness, we could return items from the map above.
                const item = files.value[files.value.length - newFiles.length + index];
 
                try {
+                  // Dynamic Import exifr
+                  const exifr = (await import("exifr")).default;
+
                   const data = await exifr.parse(file, ["DateTimeOriginal", "latitude", "longitude"]);
                   if (data) {
                      if (data.DateTimeOriginal) {
