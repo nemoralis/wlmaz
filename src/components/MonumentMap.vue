@@ -69,7 +69,11 @@
 
       <div ref="mapContainer" class="z-0 h-full w-full"></div>
 
-      <UploadModal :is-open="showUploadModal" @close="showUploadModal = false" />
+      <UploadModal
+         :is-open="showUploadModal"
+         :monument="selectedMonument"
+         @close="showUploadModal = false"
+      />
    </div>
 </template>
 

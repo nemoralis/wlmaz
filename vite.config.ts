@@ -182,6 +182,7 @@ export default defineConfig({
                "chart-vendor": ["chart.js", "vue-chartjs"],
             }
          },
+         external: ["sharp"],
       },
    },
 });
