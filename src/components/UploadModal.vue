@@ -106,9 +106,30 @@
                   </div>
                </div>
 
+               <!-- DISABLED STATE (Full Modal) -->
+               <div
+                  v-if="!uploadsEnabled"
+                  class="flex h-full w-full flex-col items-center justify-center p-8 text-center"
+               >
+                  <div class="mb-6 rounded-full bg-red-100 p-6">
+                     <i class="fa fa-ban text-5xl text-red-600"></i>
+                  </div>
+                  <h3 class="mb-3 text-2xl font-bold text-gray-900">Yükləmələr dayandırılıb</h3>
+                  <p class="mb-8 max-w-md text-gray-600">
+                     Vikianbara yükləmə xidməti müvəqqəti olaraq dayandırılıb. Zəhmət olmasa daha
+                     sonra cəhd edin.
+                  </p>
+                  <button
+                     class="rounded-lg bg-gray-100 px-8 py-3 font-medium text-gray-700 hover:bg-gray-200"
+                     @click="closeModal"
+                  >
+                     Bağla
+                  </button>
+               </div>
+
                <!-- Left Side: Image Previews (Scrollable Grid) -->
                <div
-                  v-if="!uploadComplete"
+                  v-else-if="!uploadComplete"
                   class="relative flex w-full flex-col bg-gray-50 md:w-5/12"
                >
                   <div class="flex items-center justify-between p-4 pb-2 md:hidden">
@@ -209,7 +230,10 @@
                </div>
 
                <!-- Right Side: Config Form -->
-               <div v-if="!uploadComplete" class="flex w-full flex-col bg-white md:w-7/12">
+               <div
+                  v-if="!uploadComplete && uploadsEnabled"
+                  class="flex w-full flex-col bg-white md:w-7/12"
+               >
                   <!-- Header -->
                   <div class="flex items-center justify-between border-b border-gray-100 px-6 py-4">
                      <div>
@@ -227,17 +251,13 @@
                   </div>
                   
                   <!-- Warnings -->
-                  <div v-if="!uploadsEnabled" class="px-6 pt-4">
-                     <div class="rounded-lg bg-red-50 p-3 text-sm text-red-700 border border-red-200">
-                        <i class="fa fa-ban mr-1"></i>
-                        Yükləmələr müvəqqəti olaraq dayandırılıb. Zəhmət olmasa daha sonra cəhd edin.
-                     </div>
-                  </div>
-
-                  <div v-if="hasHeicFiles && uploadsEnabled" class="px-6 pt-4">
-                     <div class="rounded-lg bg-yellow-50 p-3 text-sm text-yellow-700 border border-yellow-200">
+                  <div v-if="hasHeicFiles" class="px-6 pt-4">
+                     <div
+                        class="border border-yellow-200 bg-yellow-50 text-yellow-700 rounded-lg p-3 text-sm"
+                     >
                         <i class="fa fa-exclamation-triangle mr-1"></i>
-                        HEIC fayllarını Vikianbara yükləmək mümkün olmadığı üçün onlar avtomatik olaraq <strong>JPG</strong> formatına çevriləcək.
+                        HEIC fayllarını Vikianbara yükləmək mümkün olmadığı üçün onlar avtomatik
+                        olaraq <strong>JPG</strong> formatına çevriləcək.
                      </div>
                   </div>
 
@@ -487,20 +507,36 @@ export default defineComponent({
          license: "cc-by-sa-4.0",
       });
 
+      const checkStatus = async () => {
+         try {
+            const res = await fetch("/upload/status");
+            if (res.ok) {
+               const data = await res.json();
+               uploadsEnabled.value = data.enabled;
+            }
+         } catch (e) {
+            console.error("Failed to check status", e);
+         }
+      };
+
       // Watch for opening to pre-fill data
       watch(
          () => props.isOpen,
          (newVal) => {
-            if (newVal && props.monument) {
-               // Pre-fill title if monument is provided
-               const name = props.monument.itemLabel || "";
-               const inv = props.monument.inventory;
+            if (newVal) {
+               checkStatus();
 
-               // Default to Inventory format first, will be updated to Year format if EXIF exists
-               if (name && inv) {
-                  bulkForm.title = `${name} (${inv})`;
-               } else if (name) {
-                  bulkForm.title = name;
+               if (props.monument) {
+                  // Pre-fill title if monument is provided
+                  const name = props.monument.itemLabel || "";
+                  const inv = props.monument.inventory;
+
+                  // Default to Inventory format first, will be updated to Year format if EXIF exists
+                  if (name && inv) {
+                     bulkForm.title = `${name} (${inv})`;
+                  } else if (name) {
+                     bulkForm.title = name;
+                  }
                }
             }
          },
