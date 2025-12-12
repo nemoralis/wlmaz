@@ -227,7 +227,14 @@
                   </div>
                   
                   <!-- Warnings -->
-                  <div v-if="hasHeicFiles" class="px-6 pt-4">
+                  <div v-if="!uploadsEnabled" class="px-6 pt-4">
+                     <div class="rounded-lg bg-red-50 p-3 text-sm text-red-700 border border-red-200">
+                        <i class="fa fa-ban mr-1"></i>
+                        Yükləmələr müvəqqəti olaraq dayandırılıb. Zəhmət olmasa daha sonra cəhd edin.
+                     </div>
+                  </div>
+
+                  <div v-if="hasHeicFiles && uploadsEnabled" class="px-6 pt-4">
                      <div class="rounded-lg bg-yellow-50 p-3 text-sm text-yellow-700 border border-yellow-200">
                         <i class="fa fa-exclamation-triangle mr-1"></i>
                         HEIC fayllarını Vikianbara yükləmək mümkün olmadığı üçün onlar avtomatik olaraq <strong>JPG</strong> formatına çevriləcək.
@@ -400,7 +407,7 @@
                         </button>
                         <button
                            type="button"
-                           :disabled="!isValid || isUploading || files.length === 0"
+                           :disabled="!isValid || isUploading || files.length === 0 || !uploadsEnabled"
                            class="flex min-w-[120px] items-center justify-center rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white shadow-sm hover:from-blue-700 hover:to-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
                            @click="handleUpload"
                         >
@@ -472,6 +479,7 @@ export default defineComponent({
       const mode = ref<"bulk" | "individual">("bulk");
       const uploadComplete = ref(false);
       const uploadResults = ref<UploadResult[]>([]);
+      const uploadsEnabled = ref(true);
 
       const bulkForm = reactive({
          title: "",
@@ -807,6 +815,7 @@ export default defineComponent({
          licenseDescription,
          licenseUrl,
          hasHeicFiles,
+         uploadsEnabled,
       };
    },
 });

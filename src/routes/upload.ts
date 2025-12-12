@@ -36,6 +36,11 @@ const upload = multer({
 	limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
 });
 
+// Status Check Endpoint
+router.get("/status", (_req, res) => {
+   res.json({ enabled: process.env.ENABLE_UPLOADS === "true" });
+});
+
 router.post("/upload", uploadLimiter, upload.single("file"), async (req, res) => {
    // Feature Flag Check
    if (process.env.ENABLE_UPLOADS !== "true") {
