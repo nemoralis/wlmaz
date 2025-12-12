@@ -32,6 +32,7 @@
     "express-session": "^1.18.1",
     "fuse.js": "^7.1.0",
     "geobuf": "^3.0.2",
+    "heic2any": "^0.0.4",
     "helmet": "^8.0.0",
     "hpp": "^0.2.3",
     "leaflet": "^1.9.4",

@@ -122,7 +122,7 @@
                            <button
                               class="mr-3 text-gray-600 hover:text-blue-600"
                               title="Şəkil Yüklə"
-                              @click="isUploadModalOpen = true"
+                              @click="openUploadModal(monument)"
                            >
                               <i class="fa-solid fa-cloud-arrow-up"></i>
                            </button>
@@ -155,7 +155,11 @@
             </div>
          </div>
       </div>
-      <UploadModal :is-open="isUploadModalOpen" @close="isUploadModalOpen = false" />
+      <UploadModal
+         :is-open="isUploadModalOpen"
+         :monument="selectedMonumentForUpload"
+         @close="isUploadModalOpen = false"
+      />
    </div>
 </template>
 
@@ -182,6 +186,12 @@ export default defineComponent({
       const sortKey = ref("inventory");
       const sortOrder = ref(1); // 1 asc, -1 desc
       const isUploadModalOpen = ref(false);
+      const selectedMonumentForUpload = ref<Monument | null>(null);
+
+      const openUploadModal = (monument: Monument) => {
+         selectedMonumentForUpload.value = monument;
+         isUploadModalOpen.value = true;
+      };
 
       onMounted(async () => {
          try {
@@ -253,6 +263,8 @@ export default defineComponent({
          sortKey,
          sortOrder,
          isUploadModalOpen,
+         selectedMonumentForUpload,
+         openUploadModal,
          searchQuery,
       };
    },
