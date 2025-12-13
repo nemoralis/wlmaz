@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class="animate-slide-in">
       <h1 class="leaflet-sidebar-header">
          {{ monument ? "Abidə detalları" : "Abidə seç" }}
          <div class="flex items-center">
@@ -338,3 +338,20 @@ watch(
    },
 );
 </script>
+
+<style scoped>
+@keyframes slideIn {
+   from {
+      opacity: 0;
+      transform: translateX(20px);
+   }
+   to {
+      opacity: 1;
+      transform: translateX(0);
+   }
+}
+
+.animate-slide-in {
+   animation: slideIn 0.3s ease-out forwards;
+}
+</style>

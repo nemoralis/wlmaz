@@ -497,6 +497,23 @@ export default defineComponent({
    pointer-events: none;
 }
 
+:deep(.leaflet-sidebar-tabs) {
+   background-color: rgba(255, 255, 255, 0.8) !important;
+   backdrop-filter: blur(12px) !important;
+   -webkit-backdrop-filter: blur(12px) !important;
+   border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+:deep(.leaflet-sidebar-content) {
+   background-color: rgba(255, 255, 255, 0.85) !important; /* Semi-transparent */
+   backdrop-filter: blur(12px) !important;
+   -webkit-backdrop-filter: blur(12px) !important;
+}
+
+:deep(.leaflet-sidebar-pane) {
+   background-color: transparent !important; /* Allow blur to show through */
+}
+
 img {
    max-width: 100%;
 }

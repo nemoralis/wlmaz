@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class="animate-fade-in-up">
       <h1 class="mt-4 mb-4 text-2xl font-bold text-gray-800">Viki Abidələri Sevir Azərbaycan</h1>
 
       <!-- Search Component -->
@@ -100,3 +100,23 @@ const progressPercent = computed(() => {
    return Math.round((props.stats.withImage / props.stats.total) * 100) || 0;
 });
 </script>
+
+<style scoped>
+@keyframes fadeInUp {
+   from {
+      opacity: 0;
+      transform: translateY(10px);
+   }
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
+.animate-fade-in-up {
+   animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Staggered animation for children could be added here if needed,
+   but a simple fade-up for the whole container is a good start. */
+</style>
