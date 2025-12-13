@@ -3,11 +3,11 @@
       <Transition name="modal">
          <div
             v-if="isOpen"
-            class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+            class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-md p-4"
             @click.self="closeModal"
          >
             <div
-               class="relative flex h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-xl md:flex-row"
+               class="relative flex h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white/95 shadow-2xl backdrop-blur-sm md:flex-row border border-white/20"
             >
                <!-- Close Button (Mobile) -->
                <button
@@ -232,7 +232,7 @@
                <!-- Right Side: Config Form -->
                <div
                   v-if="!uploadComplete && uploadsEnabled"
-                  class="flex w-full flex-col bg-white md:w-7/12"
+                  class="flex w-full flex-col md:w-7/12"
                >
                   <!-- Header -->
                   <div class="flex items-center justify-between border-b border-gray-100 px-6 py-4">
