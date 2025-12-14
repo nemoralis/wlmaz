@@ -99,27 +99,6 @@
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/%C5%9Eirvan%C5%9Fahlar_saray%C4%B1",
                 "commonsCategory": "Palace of the Shirvanshahs",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Azerbaigian-baku3.jpg",
-                "inventory": "3",
-                "item": "http://www.wikidata.org/entity/Q338889",
-                "itemAltLabel": "Şirvanşahlar sarayı, Şirvanşahlar Sarayı Kompleksi",
-                "itemDescription": "palace in Azerbaijan",
-                "itemLabel": "Şirvanşahlar saray kompleksi",
-                "lastModified": "2025-11-21T16:29:35Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    49.833333333,
-                    40.366111111
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eirvan%C5%9Fahlar_saray%C4%B1",
-                "commonsCategory": "Palace of the Shirvanshahs",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Palace%20of%20Shirvanshahs%20common.JPG",
                 "inventory": "3",
                 "item": "http://www.wikidata.org/entity/Q338889",
@@ -831,27 +810,6 @@
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Həzrəti Əli məscidi",
                 "lastModified": "2025-05-21T22:31:54Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    49.834544,
-                    40.364678
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eeyx_%C4%B0brahim_m%C9%99scidi",
-                "commonsCategory": "Sheikh İbrahim Mosque",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Sheikh_%C4%B0brahim_Mosque",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C5%9Eeyx%20%C4%B0brahim%20m%C9%99scidi.JPG",
-                "inventory": "87",
-                "item": "http://www.wikidata.org/entity/Q12849537",
-                "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Şeyx İbrahim məscidi",
-                "lastModified": "2025-06-30T04:45:34Z"
             }
         },
         {
