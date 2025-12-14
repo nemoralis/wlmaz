@@ -128,3 +128,67 @@ select:focus-visible {
    color: white !important;
    font-weight: bold;
 }
+
+/* ============================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+   * {
+      border-width: 2px !important;
+   }
+
+   /* Ensure text has sufficient contrast */
+   .text-gray-500 {
+      color: #374151 !important;
+   }
+
+   .text-gray-400 {
+      color: #4b5563 !important;
+   }
+
+   .text-gray-600 {
+      color: #1f2937 !important;
+   }
+
+   /* Strengthen focus indicators */
+   *:focus-visible {
+      outline-width: 4px !important;
+      outline-offset: 3px !important;
+   }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+   *,
+   *::before,
+   *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+   }
+
+   /* Disable transform transitions */
+   .marker-pin:hover {
+      transform: none !important;
+   }
+}
+
+/* Enhanced Focus Indicators for Better Visibility */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+   outline: 3px solid #2563eb !important;
+   outline-offset: 3px !important;
+   box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.2) !important;
+}
+
+/* Skip link visible state enhancement */
+.focus\:not-sr-only:focus {
+   z-index: 10000;
+   box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}

@@ -21,10 +21,12 @@
             <!-- Search / Filter -->
             <div class="border-b border-gray-200 bg-gray-50 p-4">
                <div class="relative max-w-md">
+                  <label for="monument-search" class="sr-only">Abidə axtar</label>
                   <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                     <i class="fa-solid fa-search text-gray-400"></i>
+                     <i class="fa-solid fa-search text-gray-400" aria-hidden="true"></i>
                   </div>
                   <input
+                     id="monument-search"
                      v-model="searchQuery"
                      type="text"
                      class="block w-full rounded-lg border border-gray-300 bg-white p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
@@ -39,8 +41,19 @@
                      <tr>
                         <th
                            scope="col"
+                           role="button"
+                           tabindex="0"
+                           :aria-sort="
+                              sortKey === 'inventory'
+                                 ? sortOrder === 1
+                                    ? 'ascending'
+                                    : 'descending'
+                                 : 'none'
+                           "
                            class="w-1 cursor-pointer px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase hover:bg-gray-100"
                            @click="sortBy('inventory')"
+                           @keydown.enter="sortBy('inventory')"
+                           @keydown.space.prevent="sortBy('inventory')"
                         >
                            İnventar
                            <i
@@ -49,12 +62,24 @@
                                  sortOrder === 1 ? 'fa-solid fa-sort-up' : 'fa-solid fa-sort-down'
                               "
                               class="ml-1"
+                              aria-hidden="true"
                            ></i>
                         </th>
                         <th
                            scope="col"
+                           role="button"
+                           tabindex="0"
+                           :aria-sort="
+                              sortKey === 'itemLabel'
+                                 ? sortOrder === 1
+                                    ? 'ascending'
+                                    : 'descending'
+                                 : 'none'
+                           "
                            class="cursor-pointer px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase hover:bg-gray-100"
                            @click="sortBy('itemLabel')"
+                           @keydown.enter="sortBy('itemLabel')"
+                           @keydown.space.prevent="sortBy('itemLabel')"
                         >
                            Ad
                            <i
@@ -63,6 +88,7 @@
                                  sortOrder === 1 ? 'fa-solid fa-sort-up' : 'fa-solid fa-sort-down'
                               "
                               class="ml-1"
+                              aria-hidden="true"
                            ></i>
                         </th>
                         <th
@@ -120,28 +146,32 @@
                         <td class="px-6 py-4 text-right text-sm font-medium whitespace-nowrap">
                            <!-- Upload Button -->
                            <button
+                              aria-label="Şəkil yüklə"
                               class="mr-3 text-gray-600 hover:text-blue-600"
                               title="Şəkil Yüklə"
                               @click="openUploadModal(monument)"
                            >
-                              <i class="fa-solid fa-cloud-arrow-up"></i>
+                              <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
                            </button>
 
                            <a
                               v-if="monument.article"
                               :href="monument.article"
                               target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label="Vikipediyada oxu"
                               class="mr-3 text-gray-600 hover:text-gray-900"
                               title="Wikipedia"
                            >
-                              <i class="fa-brands fa-wikipedia-w"></i>
+                              <i class="fa-brands fa-wikipedia-w" aria-hidden="true"></i>
                            </a>
                            <router-link
                               :to="'/?inventory=' + monument.inventory"
+                              aria-label="Xəritədə göstər"
                               class="mr-3 text-blue-600 hover:text-blue-900"
                               title="Xəritədə göstər"
                            >
-                              <i class="fa-solid fa-location-dot"></i>
+                              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
                            </router-link>
                         </td>
                      </tr>

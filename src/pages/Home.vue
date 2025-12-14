@@ -31,7 +31,11 @@
 import { ref, onErrorCaptured } from "vue";
 import { useHead } from "@unhead/vue";
 import MonumentMap from "../components/MonumentMap.vue";
-import { useOrganizationSchema, useWebSiteSchema, schemaToJsonLd } from "../composables/useSchemaOrg";
+import {
+   useOrganizationSchema,
+   useWebSiteSchema,
+   schemaToJsonLd,
+} from "../composables/useSchemaOrg";
 
 const error = ref<Error | null>(null);
 
@@ -44,7 +48,8 @@ useHead({
    meta: [
       {
          name: "description",
-         content: "Azərbaycandakı abidələrin interaktiv xəritəsi. Viki Abidələri Sevir müsabiqəsi üçün fotoşəkillər yükləyin.",
+         content:
+            "Azərbaycandakı abidələrin interaktiv xəritəsi. Viki Abidələri Sevir müsabiqəsi üçün fotoşəkillər yükləyin.",
       },
    ],
    script: [

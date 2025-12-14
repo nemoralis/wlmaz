@@ -33,12 +33,14 @@
                      :href="monument.item"
                      target="_blank"
                      rel="noopener noreferrer"
+                     aria-label="Wikidatada redaktə et"
                      class="mt1 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-blue-50 hover:text-blue-600"
                      title="Edit this item on Wikidata"
                   >
-                     <i class="fa-solid fa-pen text-xs"></i>
+                     <i class="fa-solid fa-pen text-xs" aria-hidden="true"></i>
                   </a>
                   <button
+                     aria-label="Abidə linkini paylaş"
                      class="mt-1 rounded-full p-1.5 transition-colors hover:bg-blue-50 hover:text-blue-600"
                      :class="linkCopied ? 'bg-green-50 text-green-600' : 'text-gray-400'"
                      title="Paylaş"
@@ -47,6 +49,7 @@
                      <i
                         class="fa-solid text-xs"
                         :class="linkCopied ? 'fa-check' : 'fa-share-nodes'"
+                        aria-hidden="true"
                      ></i>
                   </button>
                </div>
@@ -59,6 +62,7 @@
             <!-- Inventory Badge -->
             <div v-if="monument.inventory" class="mt-2 mb-3">
                <button
+                  aria-label="İnventar nömrəsini kopyala"
                   class="group inline-flex cursor-pointer items-center rounded border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800 transition-all duration-200 hover:border-gray-300 hover:bg-gray-200"
                   :class="inventoryCopied ? 'border-green-200 bg-green-100 text-green-700' : ''"
                   title="Click to copy ID"
@@ -143,10 +147,11 @@
                   :href="getDescriptionPage(monument.image)"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Fayl detallarına bax"
                   class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-xs font-semibold text-gray-700 shadow-sm transition-all hover:border-blue-300 hover:bg-gray-50 hover:text-blue-600"
                   title="Fayl detallarına bax"
                >
-                  <i class="fa-solid fa-file-image text-sm"></i>
+                  <i class="fa-solid fa-file-image text-sm" aria-hidden="true"></i>
                   <span>Fayla bax</span>
                </a>
 
@@ -155,10 +160,11 @@
                   :href="getCategoryUrl(monument)"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Bütün şəkillərinə bax"
                   class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-xs font-semibold text-gray-700 shadow-sm transition-all hover:border-blue-300 hover:bg-gray-50 hover:text-blue-600"
-                  title="Bu abidənin bütün şəkillər inə bax"
+                  title="Bu abidənin bütün şəkillərinə bax"
                >
-                  <i class="fa-solid fa-images text-sm"></i>
+                  <i class="fa-solid fa-images text-sm" aria-hidden="true"></i>
                   <span>Bütün şəkillər</span>
                </a>
             </div>
@@ -167,10 +173,11 @@
             <div class="border-t border-gray-100 pt-4">
                <div v-if="isAuthenticated">
                   <button
+                     aria-label="Şəkil yüklə"
                      class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white shadow-sm transition-all hover:bg-blue-700 active:scale-[0.98]"
                      @click="$emit('open-upload')"
                   >
-                     <i class="fa fa-upload"></i>
+                     <i class="fa fa-upload" aria-hidden="true"></i>
                      Şəkil yüklə
                   </button>
                </div>
@@ -178,6 +185,7 @@
                <div v-else class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
                   <p class="mb-2 font-medium text-blue-800">Şəkil yükləmək istəyirsiniz?</p>
                   <button
+                     aria-label="Daxil ol"
                      class="w-full rounded-md border border-blue-200 bg-white px-4 py-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50"
                      @click="$emit('login')"
                   >
@@ -218,19 +226,21 @@
                            :href="`https://www.google.com/maps?q=${monument.lat},${monument.lon}`"
                            target="_blank"
                            rel="noopener noreferrer"
+                           aria-label="Google Maps-da aç"
                            class="text-gray-400 transition-colors hover:text-green-600"
                            title="Open in Google Maps"
                         >
-                           <i class="fa-solid fa-map-location-dot text-sm"></i>
+                           <i class="fa-solid fa-map-location-dot text-sm" aria-hidden="true"></i>
                         </a>
                         <a
                            :href="`https://www.google.com/maps/dir/?api=1&destination=${monument.lat},${monument.lon}`"
                            target="_blank"
                            rel="noopener noreferrer"
+                           aria-label="Yol tarifi al"
                            class="text-gray-400 transition-colors hover:text-blue-600"
                            title="Get Directions on Google Maps"
                         >
-                           <i class="fa-solid fa-diamond-turn-right text-sm"></i>
+                           <i class="fa-solid fa-diamond-turn-right text-sm" aria-hidden="true"></i>
                         </a>
                      </div>
                   </div>
@@ -238,7 +248,7 @@
                   <!-- Wikidata -->
                   <div v-if="monument.item" class="flex items-center justify-between p-2">
                      <span class="flex items-center gap-2 text-gray-500">
-                        <CdxIcon :icon="cdxIconLogoWikidata" class="w-5 h-5 opacity-60" />
+                        <CdxIcon :icon="cdxIconLogoWikidata" class="h-5 w-5 opacity-60" />
                         Vikidata
                      </span>
                      <a
@@ -258,7 +268,7 @@
                      class="flex items-center justify-between border-t border-gray-200 p-2"
                   >
                      <span class="flex items-center gap-2 text-gray-500">
-                        <CdxIcon :icon="cdxIconLogoWikipedia" class="w-5 h-5 opacity-60" />
+                        <CdxIcon :icon="cdxIconLogoWikipedia" class="h-5 w-5 opacity-60" />
                         Vikipediya
                      </span>
                      <a
@@ -290,8 +300,8 @@
 <script lang="ts" setup>
 import { ref, watch } from "vue";
 import type { MonumentProps } from "@/types";
-import { CdxIcon } from '@wikimedia/codex';
-import { cdxIconLogoWikipedia, cdxIconLogoWikidata } from '@wikimedia/codex-icons';
+import { CdxIcon } from "@wikimedia/codex";
+import { cdxIconLogoWikipedia, cdxIconLogoWikidata } from "@wikimedia/codex-icons";
 import {
    getOptimizedImage,
    getSrcSet,

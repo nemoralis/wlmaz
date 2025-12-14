@@ -10,10 +10,7 @@ const API_CONFIG = {
    consumer: {
       key: (IS_PROD ? process.env.WM_CONSUMER_KEY : process.env.WM_CONSUMER_TEST)?.trim() || "",
       secret:
-         (IS_PROD
-            ? process.env.WM_CONSUMER_SECRET
-            : process.env.WM_CONSUMERSC_TEST
-         )?.trim() || "",
+         (IS_PROD ? process.env.WM_CONSUMER_SECRET : process.env.WM_CONSUMERSC_TEST)?.trim() || "",
    },
 };
 
