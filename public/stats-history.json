@@ -60,13 +60,13 @@
   },
   {
     "date": "2025-12-14",
-    "timestamp": 1765715756815,
-    "total": 303,
-    "withImage": 265,
+    "timestamp": 1765755355082,
+    "total": 301,
+    "withImage": 263,
     "withoutImage": 38,
     "diff": {
-      "added": 1,
-      "removed": 1
+      "added": 0,
+      "removed": 0
     }
   }
 ]

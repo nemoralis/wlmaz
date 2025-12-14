@@ -9,7 +9,7 @@ const PUBLIC_DIR = path.join(__dirname, '../public');
 const GEOJSON_PATH = path.join(PUBLIC_DIR, 'monuments.geojson');
 
 // SPARQL Query to fetch monuments in Azerbaijan
-const SPARQL_QUERY = `#defaultView:Map
+const SPARQL_QUERY = `
 SELECT 
   ?item 
   ?itemLabel 
@@ -17,31 +17,37 @@ SELECT
   ?itemAltLabel 
   ?inventory 
   ?coordinate 
-  ?image 
+  ?image
   ?commonsCategory 
   ?azLink 
   ?commonsLink 
-  ?lastModified # Last edit of Wikidata item
+  ?lastModified 
 WHERE {
-  ?item wdt:P13410 ?inventory.
-  
-  # 2. Add this triple to get the date
-  ?item schema:dateModified ?lastModified .
-  
-  # 1. Coordinates
-  OPTIONAL { ?item wdt:P625 ?coordinate. }
-  
-  # 2. Image
-  OPTIONAL { ?item wdt:P18 ?image. }
-  
-  # 3. Commons Category Name
-  OPTIONAL { ?item wdt:P373 ?commonsCategory. }
+  {
+    SELECT 
+      ?item 
+      ?inventory 
+      (SAMPLE(?img) AS ?image)               # Sample image
+      (SAMPLE(?coord) AS ?coordinate)         # Sample coordinate
+      (SAMPLE(?cat) AS ?commonsCategory)      # Sample category
+      (SAMPLE(?az) AS ?azLink)                # Sample Azerbaijani Wikipedia link
+      (SAMPLE(?cLink) AS ?commonsLink)        # Sample Wikimedia Commons link
+      (MAX(?mod) AS ?lastModified)            # Get latest edit date
+    WHERE {
+      ?item wdt:P13410 ?inventory.
+      
+      ?item schema:dateModified ?mod .
 
-  # 4. Sitelinks
-  OPTIONAL { ?azLink schema:about ?item ; schema:isPartOf <https://az.wikipedia.org/> . }
-  OPTIONAL { ?commonsLink schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> . }
+      OPTIONAL { ?item wdt:P625 ?coord. }
+      OPTIONAL { ?item wdt:P18 ?img. }
+      OPTIONAL { ?item wdt:P373 ?cat. }
 
-  # 5. Labels, Descriptions, Aliases
+      # Sitelinks
+      OPTIONAL { ?az schema:about ?item ; schema:isPartOf <https://az.wikipedia.org/> . }
+      OPTIONAL { ?cLink schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> . }
+    }
+    GROUP BY ?item ?inventory
+  }.
   SERVICE wikibase:label { 
     bd:serviceParam wikibase:language "az,en". 
   }
