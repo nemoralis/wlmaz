@@ -58,6 +58,7 @@
                      @click="toggleMenu"
                      @keydown="handleDropdownKeydown"
                   >
+                     <i class="fa-solid fa-user-circle text-lg"></i>
                      <span class="hidden sm:inline">{{ auth.user.username || "İstifadəçi" }}</span>
                      <span class="sm:hidden"><i class="fa-solid fa-user"></i></span>
                      <svg
