@@ -14,6 +14,10 @@ const monumentsPath = path.resolve(process.cwd(), 'public/monuments.geojson');
 let monumentRoutes: string[] = [];
 let lastmodMap: Record<string, Date> = {};
 
+// Static routes for SPA
+const staticRoutes = ['/', '/stats', '/table', '/about'];
+const buildTime = new Date();
+
 try {
    const monumentsData = fs.readFileSync(monumentsPath, 'utf-8');
    const geoData: FeatureCollection = JSON.parse(monumentsData);
@@ -30,7 +34,15 @@ try {
       }
    });
    
-   console.log(`Loaded ${monumentRoutes.length} monument routes for sitemap`);
+   // Add build timestamp for static routes
+   staticRoutes.forEach(route => {
+      lastmodMap[route] = buildTime;
+   });
+   
+   // Combine static and dynamic routes
+   monumentRoutes = [...staticRoutes, ...monumentRoutes];
+   
+   console.log(`Loaded ${monumentRoutes.length} total routes for sitemap (${staticRoutes.length} static, ${monumentRoutes.length - staticRoutes.length} monuments)`);
 } catch (error) {
    console.warn('Could not load monuments data for sitemap:', error);
 }
@@ -157,7 +169,13 @@ export default defineConfig({
          hostname: 'https://wikilovesmonuments.az',
          dynamicRoutes: monumentRoutes,
          changefreq: 'monthly',
-         priority: 0.6,
+         priority: {
+            '/': 1.0,              // Homepage - highest priority
+            '/stats': 0.8,         // Main sections
+            '/table': 0.8,
+            '/about': 0.5,
+            '*': 0.6               // Default for monument pages
+         },
          lastmod: lastmodMap,
          robots: [
             { userAgent: '*', allow: '/' }
