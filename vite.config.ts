@@ -39,8 +39,8 @@ try {
       lastmodMap[route] = buildTime;
    });
    
-   // Combine static and dynamic routes
-   monumentRoutes = [...staticRoutes, ...monumentRoutes];
+   // Combine static and dynamic routes, removing duplicates
+   monumentRoutes = Array.from(new Set([...staticRoutes, ...monumentRoutes]));
    
    console.log(`Loaded ${monumentRoutes.length} total routes for sitemap (${staticRoutes.length} static, ${monumentRoutes.length - staticRoutes.length} monuments)`);
 } catch (error) {
