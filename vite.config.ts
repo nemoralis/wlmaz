@@ -24,7 +24,10 @@ try {
    
    geoData.features.forEach(f => {
       if (f.properties?.inventory) {
-         const route = `/monument/${f.properties.inventory}`;
+         // URL-encode dots in inventory IDs (e.g., "3.2" becomes "3%2E2")
+         // This fixes sitemap generation which treats dots as file extensions
+         const encodedInventory = f.properties.inventory.replace(/\./g, '%2E');
+         const route = `/monument/${encodedInventory}`;
          monumentRoutes.push(route);
          
          // Store Wikidata's last modified date
