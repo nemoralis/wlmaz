@@ -5,6 +5,35 @@ import path from "path";
 import { VitePWA } from "vite-plugin-pwa";
 import viteCompression from "vite-plugin-compression";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
+import Sitemap from 'vite-plugin-sitemap';
+import fs from 'fs';
+import type { FeatureCollection } from 'geojson';
+
+// Read monuments data for sitemap generation
+const monumentsPath = path.resolve(process.cwd(), 'public/monuments.geojson');
+let monumentRoutes: string[] = [];
+let lastmodMap: Record<string, Date> = {};
+
+try {
+   const monumentsData = fs.readFileSync(monumentsPath, 'utf-8');
+   const geoData: FeatureCollection = JSON.parse(monumentsData);
+   
+   geoData.features.forEach(f => {
+      if (f.properties?.inventory) {
+         const route = `/monument/${f.properties.inventory}`;
+         monumentRoutes.push(route);
+         
+         // Store Wikidata's last modified date
+         if (f.properties.lastModified) {
+            lastmodMap[route] = new Date(f.properties.lastModified);
+         }
+      }
+   });
+   
+   console.log(`Loaded ${monumentRoutes.length} monument routes for sitemap`);
+} catch (error) {
+   console.warn('Could not load monuments data for sitemap:', error);
+}
 
 export default defineConfig({
    plugins: [
@@ -123,6 +152,16 @@ export default defineConfig({
                },
             ],
          },
+      }),
+      Sitemap({
+         hostname: 'https://wikilovesmonuments.az',
+         dynamicRoutes: monumentRoutes,
+         changefreq: 'monthly',
+         priority: 0.6,
+         lastmod: lastmodMap,
+         robots: [
+            { userAgent: '*', allow: '/' }
+         ]
       }),
    ],
 

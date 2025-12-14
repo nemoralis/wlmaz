@@ -21,8 +21,12 @@ SELECT
   ?commonsCategory 
   ?azLink 
   ?commonsLink 
+  ?lastModified # Last edit of Wikidata item
 WHERE {
   ?item wdt:P13410 ?inventory.
+  
+  # 2. Add this triple to get the date
+  ?item schema:dateModified ?lastModified .
   
   # 1. Coordinates
   OPTIONAL { ?item wdt:P625 ?coordinate. }
@@ -38,7 +42,6 @@ WHERE {
   OPTIONAL { ?commonsLink schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> . }
 
   # 5. Labels, Descriptions, Aliases
-  # "az" first means description and aliases will be in Azerbaijani if available
   SERVICE wikibase:label { 
     bd:serviceParam wikibase:language "az,en". 
   }
