@@ -1,12 +1,9 @@
 import path from "path";
 import { fileURLToPath } from "url";
-import compression from "compression";
 import { RedisStore } from "connect-redis";
-import cors from "cors";
 import express, { type NextFunction, type Request, type Response } from "express";
 import rateLimit from "express-rate-limit";
 import session from "express-session";
-import helmet from "helmet";
 import hpp from "hpp";
 import morgan from "morgan";
 import { createClient } from "redis";
@@ -39,31 +36,7 @@ const limiter = rateLimit({
 const startServer = async () => {
    await redisClient.connect();
 
-   app.set("trust proxy", 1); // Trust first proxy (required for secure cookies on Vercel/Nginx)
-
-   app.use(
-      helmet({
-         contentSecurityPolicy: {
-            directives: {
-               defaultSrc: ["'self'"],
-               scriptSrc: ["'self'", "'unsafe-inline'", "https://maps.googleapis.com"],
-               imgSrc: [
-                  "'self'",
-                  "data:",
-                  "blob:",
-                  "https://*.openstreetmap.org",
-                  "https://*.google.com",
-                  "https://*.googleapis.com",
-                  "https://commons.wikimedia.org",
-               ],
-               connectSrc: ["'self'", "https://*.googleapis.com"],
-               styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-               fontSrc: ["'self'", "https://fonts.gstatic.com"],
-            },
-         },
-         crossOriginEmbedderPolicy: false, // Required for some map resources
-      }),
-   );
+   app.set("trust proxy", 1); // Trust first proxy (required for secure cookies behind Nginx)
    const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
 
    app.use(
@@ -72,15 +45,8 @@ const startServer = async () => {
          stream: process.stdout,
       }),
    );
-   app.use(compression());
    app.use(limiter);
    app.use(hpp()); // Prevent HTTP Parameter Pollution
-   app.use(
-      cors({
-         origin: process.env.CLIENT_URL || "https://wikilovesmonuments.az",
-         credentials: true,
-      }),
-   );
 
    app.use(express.json({ limit: "10kb" }));
    app.use(express.urlencoded({ extended: true, limit: "10kb" }));
