@@ -119,10 +119,18 @@
                   <div class="mt-6 rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
                      <p class="mb-3 text-gray-700">Bu abidənin şəklini çəkmisiniz?</p>
                      <button
+                        v-if="auth.user"
                         class="w-full rounded-lg bg-green-600 px-4 py-2 text-white transition hover:bg-green-700"
                         @click="showUploadInfo"
                      >
                         <i class="fas fa-camera mr-2"></i> Şəkil Yüklə
+                     </button>
+                     <button
+                        v-else
+                        class="w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
+                        @click="auth.login"
+                     >
+                        <i class="fas fa-sign-in-alt mr-2"></i> Yükləmək üçün daxil ol
                      </button>
                   </div>
                </div>
@@ -152,6 +160,7 @@ import {
    cdxIconLogoWikipedia,
 } from "@wikimedia/codex-icons";
 import UploadModal from "../components/UploadModal.vue";
+import { useAuthStore } from "../stores/auth";
 import {
    schemaToJsonLd,
    useBreadcrumbSchema,
@@ -160,6 +169,8 @@ import {
 import { useWikiCredits } from "../composables/useWikiCredits";
 import type { MonumentProps } from "../types";
 import { getOptimizedImage } from "../utils/monumentFormatters";
+
+const auth = useAuthStore();
 
 const route = useRoute();
 const loading = ref(true);
