@@ -29,9 +29,35 @@
 
 <script lang="ts" setup>
 import { ref, onErrorCaptured } from "vue";
+import { useHead } from "@unhead/vue";
 import MonumentMap from "../components/MonumentMap.vue";
+import { useOrganizationSchema, useWebSiteSchema, schemaToJsonLd } from "../composables/useSchemaOrg";
 
 const error = ref<Error | null>(null);
+
+// Schema.org markup for homepage
+const organizationSchema = useOrganizationSchema();
+const websiteSchema = useWebSiteSchema();
+
+useHead({
+   title: "Viki Abidələri Sevir Azərbaycan - İnteraktiv Xəritə",
+   meta: [
+      {
+         name: "description",
+         content: "Azərbaycandakı abidələrin interaktiv xəritəsi. Viki Abidələri Sevir müsabiqəsi üçün fotoşəkillər yükləyin.",
+      },
+   ],
+   script: [
+      {
+         type: "application/ld+json",
+         innerHTML: schemaToJsonLd(organizationSchema),
+      },
+      {
+         type: "application/ld+json",
+         innerHTML: schemaToJsonLd(websiteSchema),
+      },
+   ],
+});
 
 onErrorCaptured((err) => {
    console.error("Map Error Captured:", err);

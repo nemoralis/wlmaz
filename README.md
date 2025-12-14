@@ -1,7 +1,5 @@
-# 🇦🇿 Wiki Loves Monuments Azerbaijan - Interactive Map
-
 ![WLMAZ Project Banner](./public/wlm-az.png)
-
+🇦🇿 Wiki Loves Monuments Azerbaijan - Interactive Map
 ![GitHub License](https://img.shields.io/github/license/nemoralis/wlmaz)
 ![Contributors](https://img.shields.io/github/contributors/nemoralis/wlmaz?color=dark-green) ![Stargazers](https://img.shields.io/github/stars/nemoralis/wlmaz?style=social)
 ![Issues](https://img.shields.io/github/issues/nemoralis/wlmaz)
@@ -20,6 +18,7 @@ It features a responsive, clustered map interface powered by Vue 3 and Leaflet, 
 - **Deep Linking:** Share specific monuments via URL parameters (e.g., `?inventory=4810`).
 - **Responsive Sidebar:** Detailed view of monuments using `leaflet-sidebar-v2`, fully optimized for mobile devices.
 - **Rich Metadata:** Displays Wikidata IDs, Wikipedia links, and automatic image credits.
+- **SEO Optimized:** Integrated Schema.org structured data for better search engine visibility.
 
 ### 🔐 Authentication & Uploads
 
@@ -88,6 +87,7 @@ docker run -p 3000:3000 -e REDIS_URL=redis://host.docker.internal:6379 wlmaz
 - **Backend:** [Node.js](https://nodejs.org/), [Express](https://expressjs.com/)
 - **Database/Cache:** [Redis](https://redis.io/)
 - **Authentication:** [Passport.js](https://www.passportjs.org/) (MediaWiki OAuth)
+- **SEO:** [Schema.org](https://schema.org/) structured data (JSON-LD) for monuments, organization, and navigation
 
 ## 🏗️ Architecture
 
