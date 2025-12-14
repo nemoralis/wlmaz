@@ -133,7 +133,8 @@ useHead({
    meta: [
       {
          name: "description",
-         content: "Wiki Loves Monuments Azərbaycan layihəsi haqqında. Azərbaycandakı mədəni irs abidələrinin fotoşəkillərini toplayın və paylaşın.",
+         content:
+            "Wiki Loves Monuments Azərbaycan layihəsi haqqında. Azərbaycandakı mədəni irs abidələrinin fotoşəkillərini toplayın və paylaşın.",
       },
    ],
    script: [

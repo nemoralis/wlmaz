@@ -11,9 +11,9 @@ const router = express.Router();
 
 // Rate Limiting: 20 uploads per 15 minutes
 const uploadLimiter = rateLimit({
-	windowMs: 15 * 60 * 1000,
-	max: 20,
-	message: { error: "Upload limit reached. Please try again later." },
+   windowMs: 15 * 60 * 1000,
+   max: 20,
+   message: { error: "Upload limit reached. Please try again later." },
 });
 
 // Disk Storage Configuration
@@ -22,18 +22,18 @@ const uploadDir = "/tmp/wlmaz-uploads";
 fs.mkdir(uploadDir, { recursive: true }).catch(console.error);
 
 const storage = multer.diskStorage({
-	destination: (_req, _file, cb) => {
-		cb(null, uploadDir);
-	},
-	filename: (_req, file, cb) => {
-		const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-		cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname));
-	},
+   destination: (_req, _file, cb) => {
+      cb(null, uploadDir);
+   },
+   filename: (_req, file, cb) => {
+      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+      cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname));
+   },
 });
 
 const upload = multer({
-	storage: storage,
-	limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
+   storage: storage,
+   limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
 });
 
 // Status Check Endpoint
@@ -133,14 +133,13 @@ ${categoryText}
          {
             text: wikitext,
             comment: `Uploaded via wikilovesmonuments.az`,
-         }
+         },
       );
 
       res.json({
          filename: result.filename,
          url: result.url,
       });
-
    } catch (error: any) {
       console.error("Upload error:", error);
       res.status(500).json({
@@ -150,7 +149,9 @@ ${categoryText}
    } finally {
       // Clean up temp file
       if (req.file) {
-         await fs.unlink(filePath).catch((err) => console.error("Failed to cleanup temp file:", err));
+         await fs
+            .unlink(filePath)
+            .catch((err) => console.error("Failed to cleanup temp file:", err));
       }
    }
 });

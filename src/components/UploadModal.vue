@@ -3,31 +3,45 @@
       <Transition name="modal">
          <div
             v-if="isOpen"
-            class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-md p-4"
+            class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 p-4 backdrop-blur-md"
             @click.self="closeModal"
          >
             <div
-               class="relative flex h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white/95 shadow-2xl backdrop-blur-sm md:flex-row border border-white/20"
+               ref="modalContainer"
+               role="dialog"
+               aria-modal="true"
+               aria-labelledby="upload-modal-title"
+               class="relative flex h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/20 bg-white/95 shadow-2xl backdrop-blur-sm md:flex-row"
             >
                <!-- Close Button (Mobile) -->
                <button
+                  aria-label="Modulu bağla"
                   class="absolute top-4 right-4 z-10 rounded-full bg-white/80 p-2 text-gray-500 hover:bg-gray-100 md:hidden"
                   @click="closeModal"
                >
-                  <i class="fa fa-times text-xl"></i>
+                  <i class="fa fa-times text-xl" aria-hidden="true"></i>
                </button>
+
+               <!-- Hidden title for screen readers -->
+               <h2 id="upload-modal-title" class="sr-only">Şəkil yüklə</h2>
 
                <!-- UPLOAD PROGRESS OVERLAY -->
                <div
                   v-if="isUploading"
+                  role="status"
+                  aria-live="polite"
+                  aria-atomic="true"
                   class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm"
                >
                   <div class="w-full max-w-sm px-6 text-center">
                      <!-- Spinner -->
                      <div class="mb-6 inline-block">
-                        <i class="fa fa-circle-notch fa-spin text-4xl text-blue-600"></i>
+                        <i
+                           class="fa fa-circle-notch fa-spin text-4xl text-blue-600"
+                           aria-hidden="true"
+                        ></i>
                      </div>
-                     
+
                      <h3 class="mb-2 text-xl font-bold text-gray-900">Yüklənir...</h3>
                      <p class="mb-6 text-sm text-gray-500">
                         {{ currentFileIndex + 1 }} / {{ files.length }} şəkil yüklənir
@@ -35,14 +49,19 @@
 
                      <!-- Progress Bar -->
                      <div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
-                        <div 
+                        <div
                            class="h-full rounded-full bg-blue-600 transition-all duration-300 ease-out"
                            :style="{ width: `${uploadProgress}%` }"
+                           role="progressbar"
+                           :aria-valuenow="uploadProgress"
+                           aria-valuemin="0"
+                           aria-valuemax="100"
                         ></div>
                      </div>
                      <div class="mt-2 text-right text-xs font-medium text-gray-400">
                         {{ uploadProgress }}%
                      </div>
+                     <span class="sr-only">Yükləmə: {{ uploadProgress }}%</span>
                   </div>
                </div>
 
@@ -219,7 +238,9 @@
                      {{ files.length }} şəkil seçilib
                   </div>
 
+                  <label for="file-upload" class="sr-only">Fayl seçin</label>
                   <input
+                     id="file-upload"
                      ref="fileInput"
                      type="file"
                      accept="image/*,.heic,.heif"
@@ -230,10 +251,7 @@
                </div>
 
                <!-- Right Side: Config Form -->
-               <div
-                  v-if="!uploadComplete && uploadsEnabled"
-                  class="flex w-full flex-col md:w-7/12"
-               >
+               <div v-if="!uploadComplete && uploadsEnabled" class="flex w-full flex-col md:w-7/12">
                   <!-- Header -->
                   <div class="flex items-center justify-between border-b border-gray-100 px-6 py-4">
                      <div>
@@ -243,17 +261,18 @@
                         </p>
                      </div>
                      <button
+                        aria-label="Modulu bağla"
                         class="hidden rounded-full text-gray-400 hover:text-gray-600 md:block"
                         @click="closeModal"
                      >
-                        <i class="fa fa-times text-xl"></i>
+                        <i class="fa fa-times text-xl" aria-hidden="true"></i>
                      </button>
                   </div>
-                  
+
                   <!-- Warnings -->
                   <div v-if="hasHeicFiles" class="px-6 pt-4">
                      <div
-                        class="border border-yellow-200 bg-yellow-50 text-yellow-700 rounded-lg p-3 text-sm"
+                        class="rounded-lg border border-yellow-200 bg-yellow-50 p-3 text-sm text-yellow-700"
                      >
                         <i class="fa fa-exclamation-triangle mr-1"></i>
                         HEIC fayllarını Vikianbara yükləmək mümkün olmadığı üçün onlar avtomatik
@@ -303,16 +322,22 @@
                      <form v-else class="space-y-6" @submit.prevent>
                         <!-- BULK MODE -->
                         <div v-if="mode === 'bulk'" class="space-y-4">
-                           <div v-if="files.length > 1" class="rounded-lg bg-blue-50 p-3 text-sm text-blue-700">
+                           <div
+                              v-if="files.length > 1"
+                              class="rounded-lg bg-blue-50 p-3 text-sm text-blue-700"
+                           >
                               <i class="fa fa-info-circle mr-1"></i>
-                              Bu məlumatlar <strong>{{ files.length }}</strong> şəkilin hamısına tətbiq
-                              olunacaq.
+                              Bu məlumatlar <strong>{{ files.length }}</strong> şəkilin hamısına
+                              tətbiq olunacaq.
                            </div>
                            <div>
-                              <label class="mb-1 block text-sm font-medium text-gray-700"
+                              <label
+                                 for="bulk-title"
+                                 class="mb-1 block text-sm font-medium text-gray-700"
                                  >Başlıq (Ortaq)</label
                               >
                               <input
+                                 id="bulk-title"
                                  v-model="bulkForm.title"
                                  type="text"
                                  class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
@@ -354,10 +379,13 @@
                               </p>
                            </div>
                            <div>
-                              <label class="mb-1 block text-sm font-medium text-gray-700"
+                              <label
+                                 for="bulk-description"
+                                 class="mb-1 block text-sm font-medium text-gray-700"
                                  >Təsvir (Ortaq)</label
                               >
                               <textarea
+                                 id="bulk-description"
                                  v-model="bulkForm.description"
                                  rows="4"
                                  class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
@@ -427,7 +455,9 @@
                         </button>
                         <button
                            type="button"
-                           :disabled="!isValid || isUploading || files.length === 0 || !uploadsEnabled"
+                           :disabled="
+                              !isValid || isUploading || files.length === 0 || !uploadsEnabled
+                           "
                            class="flex min-w-[120px] items-center justify-center rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white shadow-sm hover:from-blue-700 hover:to-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
                            @click="handleUpload"
                         >
@@ -447,7 +477,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, computed, watch } from "vue";
+import { defineComponent, ref, reactive, computed, watch, toRef } from "vue";
+import { useFocusTrap } from "../composables/useFocusTrap";
 // Remove static imports to save bundle size
 // import exifr from "exifr";
 // import heic2any from "heic2any";
@@ -490,6 +521,12 @@ export default defineComponent({
    },
    emits: ["close"],
    setup(props, { emit }) {
+      const modalContainer = ref<HTMLElement | null>(null);
+      const isOpen = toRef(props, "isOpen");
+
+      // Initialize focus trap
+      useFocusTrap(modalContainer, isOpen);
+
       const isDragging = ref(false);
       const fileInput = ref<HTMLInputElement | null>(null);
       const files = ref<FileItem[]>([]);
@@ -567,7 +604,8 @@ export default defineComponent({
          const map: Record<string, string> = {
             "cc-by-sa-4.0":
                "Başqaları əsərinizi istifadə edə bilər, amma sizə istinad verməli və eyni lisenziya ilə paylaşmalıdırlar.",
-            "cc-by-4.0": "Başqaları əsərinizi istifadə edə bilər, sadəcə sizə istinad vermələri kifayətdir.",
+            "cc-by-4.0":
+               "Başqaları əsərinizi istifadə edə bilər, sadəcə sizə istinad vermələri kifayətdir.",
             cc0: "Əsərinizi ictimai varidata bağışlayırsınız. Heç bir məhdudiyyət yoxdur.",
          };
          return map[bulkForm.license] || "";
@@ -638,7 +676,7 @@ export default defineComponent({
                try {
                   // Dynamic Import heic2any
                   const heic2any = (await import("heic2any")).default;
-                  
+
                   const resultBlob = await heic2any({
                      blob: file,
                      toType: "image/jpeg",
@@ -651,7 +689,7 @@ export default defineComponent({
                } catch (e) {
                   console.error("HEIC Preview failed", e);
                   // Fallback to generic icon or keep empty
-                  item.preview = ""; 
+                  item.preview = "";
                }
             } else {
                // Standard image
@@ -663,7 +701,7 @@ export default defineComponent({
          // Note: We need to wait for items to be pushed. The forEach above is passing async callback but `files.value.push` is sync.
          // However, the `preview` generation is async for HEIC.
          // The EXIF parsing uses the original `file` object so it's fine running in parallel.
-         
+
          Promise.all(
             Array.from(newFiles).map(async (file, index) => {
                if (!file.type.startsWith("image/")) return;
@@ -676,7 +714,11 @@ export default defineComponent({
                   // Dynamic Import exifr
                   const exifr = (await import("exifr")).default;
 
-                  const data = await exifr.parse(file, ["DateTimeOriginal", "latitude", "longitude"]);
+                  const data = await exifr.parse(file, [
+                     "DateTimeOriginal",
+                     "latitude",
+                     "longitude",
+                  ]);
                   if (data) {
                      if (data.DateTimeOriginal) {
                         const date = new Date(data.DateTimeOriginal);
@@ -829,6 +871,7 @@ export default defineComponent({
       };
 
       return {
+         modalContainer,
          isDragging,
          fileInput,
          files,

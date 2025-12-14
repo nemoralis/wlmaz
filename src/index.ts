@@ -11,8 +11,8 @@ import { createClient } from "redis";
 import { RedisStore } from "connect-redis";
 import hpp from "hpp";
 import compression from "compression";
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 
