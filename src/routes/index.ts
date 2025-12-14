@@ -24,6 +24,11 @@ const routes: Array<RouteRecordRaw> = [
       component: () => import("../pages/TablePage.vue"),
    },
    {
+      path: "/monument/:id",
+      name: "Monument",
+      component: () => import("../pages/MonumentPage.vue"),
+   },
+   {
       path: "/:pathMatch(.*)*",
       redirect: "/",
    },

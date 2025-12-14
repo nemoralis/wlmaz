@@ -19,7 +19,8 @@
                 "item": "http://www.wikidata.org/entity/Q754560",
                 "itemAltLabel": "Suraxanı atəşgahı",
                 "itemDescription": "Müxtəlif dövrlərdə zərdüştilər, hinduistlər və siqhlər tərəfindən ibadətgah alov məbədidir",
-                "itemLabel": "Atəşgah"
+                "itemLabel": "Atəşgah",
+                "lastModified": "2025-07-28T05:43:37Z"
             }
         },
         {
@@ -39,7 +40,8 @@
                 "item": "http://www.wikidata.org/entity/Q344569",
                 "itemAltLabel": "İçəri Şəhər, İçəri şəhər",
                 "itemDescription": "Bakı şəhərinin tarixi hissəsi",
-                "itemLabel": "İçərişəhər"
+                "itemLabel": "İçərişəhər",
+                "lastModified": "2025-11-08T14:37:56Z"
             }
         },
         {
@@ -60,7 +62,8 @@
                 "item": "http://www.wikidata.org/entity/Q1535049",
                 "itemAltLabel": "Məhəmməd məscidi",
                 "itemDescription": "mosque in Azerbaijan",
-                "itemLabel": "Sınıqqala məscidi"
+                "itemLabel": "Sınıqqala məscidi",
+                "lastModified": "2025-07-12T10:14:32Z"
             }
         },
         {
@@ -80,7 +83,8 @@
                 "inventory": "2.2",
                 "item": "http://www.wikidata.org/entity/Q842822",
                 "itemDescription": "Memarlıq abidəsi",
-                "itemLabel": "Qız qalası"
+                "itemLabel": "Qız qalası",
+                "lastModified": "2025-10-23T19:12:11Z"
             }
         },
         {
@@ -100,7 +104,8 @@
                 "item": "http://www.wikidata.org/entity/Q338889",
                 "itemAltLabel": "Şirvanşahlar sarayı, Şirvanşahlar Sarayı Kompleksi",
                 "itemDescription": "palace in Azerbaijan",
-                "itemLabel": "Şirvanşahlar saray kompleksi"
+                "itemLabel": "Şirvanşahlar saray kompleksi",
+                "lastModified": "2025-11-21T16:29:35Z"
             }
         },
         {
@@ -120,7 +125,8 @@
                 "item": "http://www.wikidata.org/entity/Q338889",
                 "itemAltLabel": "Şirvanşahlar sarayı, Şirvanşahlar Sarayı Kompleksi",
                 "itemDescription": "palace in Azerbaijan",
-                "itemLabel": "Şirvanşahlar saray kompleksi"
+                "itemLabel": "Şirvanşahlar saray kompleksi",
+                "lastModified": "2025-11-21T16:29:35Z"
             }
         },
         {
@@ -140,7 +146,8 @@
                 "inventory": "3.2",
                 "item": "http://www.wikidata.org/entity/Q31271606",
                 "itemDescription": "architectural feature in Baku, Azerbaijan",
-                "itemLabel": "Divanxana"
+                "itemLabel": "Divanxana",
+                "lastModified": "2025-04-02T15:49:22Z"
             }
         },
         {
@@ -161,7 +168,8 @@
                 "item": "http://www.wikidata.org/entity/Q1521003",
                 "itemAltLabel": "Şah məscidi",
                 "itemDescription": "mosque",
-                "itemLabel": "Saray məscidi"
+                "itemLabel": "Saray məscidi",
+                "lastModified": "2025-04-02T15:53:35Z"
             }
         },
         {
@@ -182,7 +190,8 @@
                 "item": "http://www.wikidata.org/entity/Q4273786",
                 "itemAltLabel": "Seyid Yəhya Bakuvi türbəsi",
                 "itemDescription": "Historic site in Baku, Azerbaijan",
-                "itemLabel": "Seyid Yəhya türbəsi"
+                "itemLabel": "Seyid Yəhya türbəsi",
+                "lastModified": "2025-11-10T07:57:59Z"
             }
         },
         {
@@ -203,7 +212,8 @@
                 "item": "http://www.wikidata.org/entity/Q16414684",
                 "itemAltLabel": "Şirvanşah Xəlilullahın anası və oğlu üçün tikdirdiyi türbə, Şirvanşahlar türbəsi",
                 "itemDescription": "Historical monument of the XV century in the Republic of Azerbaijan",
-                "itemLabel": "Şirvanşahların türbəsi"
+                "itemLabel": "Şirvanşahların türbəsi",
+                "lastModified": "2025-11-10T07:57:25Z"
             }
         },
         {
@@ -221,7 +231,8 @@
                 "inventory": "3.6",
                 "item": "http://www.wikidata.org/entity/Q12842301",
                 "itemAltLabel": "Sultan Murad darvazası",
-                "itemLabel": "Murad darvazası"
+                "itemLabel": "Murad darvazası",
+                "lastModified": "2025-11-10T07:58:59Z"
             }
         },
         {
@@ -241,7 +252,8 @@
                 "inventory": "3.7",
                 "item": "http://www.wikidata.org/entity/Q4077315",
                 "itemDescription": "is bath houses, dated back to the 15th century and are a part of the Shirvanshahs’ Palace Complex in Azerbaijan",
-                "itemLabel": "Saray hamamı"
+                "itemLabel": "Saray hamamı",
+                "lastModified": "2025-04-02T15:58:40Z"
             }
         },
         {
@@ -261,7 +273,8 @@
                 "inventory": "3.8",
                 "item": "http://www.wikidata.org/entity/Q12841258",
                 "itemDescription": "historical mosque of the 14th century in Azerbaijan",
-                "itemLabel": "Kеyqubаd məscidi"
+                "itemLabel": "Kеyqubаd məscidi",
+                "lastModified": "2025-04-28T02:24:16Z"
             }
         },
         {
@@ -282,7 +295,8 @@
                 "item": "http://www.wikidata.org/entity/Q943140",
                 "itemAltLabel": "Mərdəkan qalası-1",
                 "itemDescription": "castle in Azerbaijan",
-                "itemLabel": "Dördkünc Mərdəkan qalası"
+                "itemLabel": "Dördkünc Mərdəkan qalası",
+                "lastModified": "2025-12-08T21:52:56Z"
             }
         },
         {
@@ -303,7 +317,8 @@
                 "item": "http://www.wikidata.org/entity/Q4242006",
                 "itemAltLabel": "Mərdəkan qalası-2",
                 "itemDescription": "historical and architectural monument in the Khazar district in Baku",
-                "itemLabel": "Dairəvi Mərdəkan qalası"
+                "itemLabel": "Dairəvi Mərdəkan qalası",
+                "lastModified": "2025-09-29T13:28:21Z"
             }
         },
         {
@@ -323,7 +338,8 @@
                 "inventory": "4.3",
                 "item": "http://www.wikidata.org/entity/Q1014729",
                 "itemDescription": "fortress in Azerbaijan",
-                "itemLabel": "Ramana qalası"
+                "itemLabel": "Ramana qalası",
+                "lastModified": "2025-07-14T05:36:40Z"
             }
         },
         {
@@ -343,7 +359,8 @@
                 "inventory": "4.4",
                 "item": "http://www.wikidata.org/entity/Q943153",
                 "itemDescription": "geographical object",
-                "itemLabel": "Nardaran qalası"
+                "itemLabel": "Nardaran qalası",
+                "lastModified": "2025-09-29T11:48:36Z"
             }
         },
         {
@@ -363,7 +380,8 @@
                 "inventory": "4.7",
                 "item": "http://www.wikidata.org/entity/Q4516154",
                 "itemDescription": "ruined ancient fortress overlooking the Caspian coastal plains north of Baku in Azerbaijan",
-                "itemLabel": "Çıraqqala"
+                "itemLabel": "Çıraqqala",
+                "lastModified": "2025-05-25T19:09:30Z"
             }
         },
         {
@@ -384,7 +402,8 @@
                 "item": "http://www.wikidata.org/entity/Q2511710",
                 "itemAltLabel": "Sınıq körpü, Sınıq-körpü",
                 "itemDescription": "Azərbaycan və Gürcüstan arasında körpü",
-                "itemLabel": "Qırmızı körpü"
+                "itemLabel": "Qırmızı körpü",
+                "lastModified": "2025-09-29T11:25:41Z"
             }
         },
         {
@@ -405,7 +424,8 @@
                 "item": "http://www.wikidata.org/entity/Q2002193",
                 "itemAltLabel": "Azıx",
                 "itemDescription": "Füzuli rayonunda yerləşən mağara",
-                "itemLabel": "Azıx mağarası"
+                "itemLabel": "Azıx mağarası",
+                "lastModified": "2025-10-25T13:53:54Z"
             }
         },
         {
@@ -424,7 +444,8 @@
                 "item": "http://www.wikidata.org/entity/Q4449657",
                 "itemAltLabel": "Taghlar cave",
                 "itemDescription": "cave and archaeological site in Azerbaijan",
-                "itemLabel": "Tağlar mağarası"
+                "itemLabel": "Tağlar mağarası",
+                "lastModified": "2025-05-26T10:47:56Z"
             }
         },
         {
@@ -445,7 +466,8 @@
                 "item": "http://www.wikidata.org/entity/Q4154400",
                 "itemAltLabel": "Damcılı mağara düşərgəsi",
                 "itemDescription": "Qazaxda yerləşən mağara",
-                "itemLabel": "Damcılı mağarası"
+                "itemLabel": "Damcılı mağarası",
+                "lastModified": "2025-06-10T09:58:55Z"
             }
         },
         {
@@ -464,7 +486,8 @@
                 "inventory": "26-231",
                 "item": "http://www.wikidata.org/entity/Q137274025",
                 "itemDescription": "Qobustandakı latın kitabəsi",
-                "itemLabel": "Qədim Roma yazısı"
+                "itemLabel": "Qədim Roma yazısı",
+                "lastModified": "2025-12-07T22:49:07Z"
             }
         },
         {
@@ -485,7 +508,8 @@
                 "item": "http://www.wikidata.org/entity/Q2503492",
                 "itemAltLabel": "Müqəddəs Yelisey kompleksi, Kiş məbədi",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən kilsə və tarix memarlıq abidəsi.",
-                "itemLabel": "Kiş kilsəsi"
+                "itemLabel": "Kiş kilsəsi",
+                "lastModified": "2025-05-05T08:54:23Z"
             }
         },
         {
@@ -506,7 +530,8 @@
                 "item": "http://www.wikidata.org/entity/Q12848542",
                 "itemAltLabel": "Çin Məscidi",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Çin məscidi"
+                "itemLabel": "Çin məscidi",
+                "lastModified": "2025-08-15T08:19:50Z"
             }
         },
         {
@@ -526,7 +551,8 @@
                 "inventory": "69,70,71,73",
                 "item": "http://www.wikidata.org/entity/Q12837306",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
-                "itemLabel": "Bakı xan sarayı"
+                "itemLabel": "Bakı xan sarayı",
+                "lastModified": "2025-05-01T10:15:29Z"
             }
         },
         {
@@ -547,7 +573,8 @@
                 "item": "http://www.wikidata.org/entity/Q65275361",
                 "itemAltLabel": "Underground Bath (Baku)",
                 "itemDescription": "hammam in Baku, Azerbaijan",
-                "itemLabel": "Yeraltı hamam"
+                "itemLabel": "Yeraltı hamam",
+                "lastModified": "2025-06-23T20:33:50Z"
             }
         },
         {
@@ -567,7 +594,8 @@
                 "inventory": "74",
                 "item": "http://www.wikidata.org/entity/Q19799928",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
-                "itemLabel": "Təkiyə (İçəri Şəhər)"
+                "itemLabel": "Təkiyə (İçəri Şəhər)",
+                "lastModified": "2025-05-01T10:15:18Z"
             }
         },
         {
@@ -587,7 +615,8 @@
                 "inventory": "75",
                 "item": "http://www.wikidata.org/entity/Q20980828",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən qala və tarix memarlıq abidəsi.",
-                "itemLabel": "Dördbucaqlı qala"
+                "itemLabel": "Dördbucaqlı qala",
+                "lastModified": "2025-05-01T10:14:33Z"
             }
         },
         {
@@ -607,7 +636,8 @@
                 "inventory": "76",
                 "item": "http://www.wikidata.org/entity/Q14814854",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
-                "itemLabel": "Ağа Mikayıl hamamı"
+                "itemLabel": "Ağа Mikayıl hamamı",
+                "lastModified": "2025-05-13T07:02:23Z"
             }
         },
         {
@@ -628,7 +658,8 @@
                 "item": "http://www.wikidata.org/entity/Q12840111",
                 "itemAltLabel": "Hacı Bani Məscidi",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Hacı Bani məscidi"
+                "itemLabel": "Hacı Bani məscidi",
+                "lastModified": "2025-05-01T10:09:05Z"
             }
         },
         {
@@ -648,7 +679,8 @@
                 "inventory": "78",
                 "item": "http://www.wikidata.org/entity/Q25536644",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən karvansara və tarix memarlıq abidəsi.",
-                "itemLabel": "Buxara karvansarayı"
+                "itemLabel": "Buxara karvansarayı",
+                "lastModified": "2025-05-01T10:12:49Z"
             }
         },
         {
@@ -668,7 +700,8 @@
                 "inventory": "79",
                 "item": "http://www.wikidata.org/entity/Q12842275",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən karvansara və tarix memarlıq abidəsi.",
-                "itemLabel": "Multani karvansarası"
+                "itemLabel": "Multani karvansarası",
+                "lastModified": "2025-05-01T10:13:01Z"
             }
         },
         {
@@ -689,7 +722,8 @@
                 "item": "http://www.wikidata.org/entity/Q12840947",
                 "itemAltLabel": "Xan karvansarası",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən karavansara və tarix memarlıq abidəsi",
-                "itemLabel": "Kiçik Karvansaray"
+                "itemLabel": "Kiçik Karvansaray",
+                "lastModified": "2025-06-09T20:50:30Z"
             }
         },
         {
@@ -710,7 +744,8 @@
                 "item": "http://www.wikidata.org/entity/Q12848886",
                 "itemAltLabel": "İkimərtəbəli karvansara",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən karavansara və tarix memarlıq abidəsi.",
-                "itemLabel": "İkimərtəbəli karvansaray (Bakı)"
+                "itemLabel": "İkimərtəbəli karvansaray (Bakı)",
+                "lastModified": "2025-05-01T10:11:54Z"
             }
         },
         {
@@ -731,7 +766,8 @@
                 "item": "http://www.wikidata.org/entity/Q12839813",
                 "itemAltLabel": "Comərd Gəray məscidi",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Gileyli məscidi"
+                "itemLabel": "Gileyli məscidi",
+                "lastModified": "2025-05-01T10:14:22Z"
             }
         },
         {
@@ -751,7 +787,8 @@
                 "inventory": "83",
                 "item": "http://www.wikidata.org/entity/Q14814260",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
-                "itemLabel": "Qasımbəy hamamı"
+                "itemLabel": "Qasımbəy hamamı",
+                "lastModified": "2025-05-01T10:12:26Z"
             }
         },
         {
@@ -771,7 +808,8 @@
                 "inventory": "84",
                 "item": "http://www.wikidata.org/entity/Q12847654",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Xıdır Məscidi"
+                "itemLabel": "Xıdır Məscidi",
+                "lastModified": "2025-05-21T22:34:26Z"
             }
         },
         {
@@ -791,7 +829,8 @@
                 "inventory": "86",
                 "item": "http://www.wikidata.org/entity/Q16417538",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Həzrəti Əli məscidi"
+                "itemLabel": "Həzrəti Əli məscidi",
+                "lastModified": "2025-05-21T22:31:54Z"
             }
         },
         {
@@ -811,7 +850,8 @@
                 "inventory": "87",
                 "item": "http://www.wikidata.org/entity/Q12849537",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Şeyx İbrahim məscidi"
+                "itemLabel": "Şeyx İbrahim məscidi",
+                "lastModified": "2025-06-30T04:45:34Z"
             }
         },
         {
@@ -831,7 +871,8 @@
                 "inventory": "87",
                 "item": "http://www.wikidata.org/entity/Q12849537",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Şeyx İbrahim məscidi"
+                "itemLabel": "Şeyx İbrahim məscidi",
+                "lastModified": "2025-06-30T04:45:34Z"
             }
         },
         {
@@ -852,7 +893,8 @@
                 "item": "http://www.wikidata.org/entity/Q19799922",
                 "itemAltLabel": "Mədrəsə-məscid",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Mədrəsə məscid"
+                "itemLabel": "Mədrəsə məscid",
+                "lastModified": "2025-10-23T19:21:30Z"
             }
         },
         {
@@ -873,7 +915,8 @@
                 "item": "http://www.wikidata.org/entity/Q4160569",
                 "itemAltLabel": "Cümə məscidi (Bakı), Cümə məscidi (İçərişəhər)",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Cümə məscidi (Köhnə Bakı)"
+                "itemLabel": "Cümə məscidi (Köhnə Bakı)",
+                "lastModified": "2025-05-24T13:52:08Z"
             }
         },
         {
@@ -893,7 +936,8 @@
                 "inventory": "90",
                 "item": "http://www.wikidata.org/entity/Q12847518",
                 "itemDescription": "XIX əsrdə İçərişəhərdə Məşədi Mirzə Qafar İsmayılov tərəfindən tikilmiş məscid.",
-                "itemLabel": "Xanlar məscidi"
+                "itemLabel": "Xanlar məscidi",
+                "lastModified": "2025-05-01T10:12:03Z"
             }
         },
         {
@@ -914,7 +958,8 @@
                 "item": "http://www.wikidata.org/entity/Q6538185",
                 "itemAltLabel": "Ashur Mosque",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Aşur məscidi"
+                "itemLabel": "Aşur məscidi",
+                "lastModified": "2025-05-01T10:13:38Z"
             }
         },
         {
@@ -935,7 +980,8 @@
                 "item": "http://www.wikidata.org/entity/Q2879959",
                 "itemAltLabel": "Hacı Bani hamamı",
                 "itemDescription": "İçərişəhərdə yerləşən hamam",
-                "itemLabel": "Hacı Qayıb hamamı"
+                "itemLabel": "Hacı Qayıb hamamı",
+                "lastModified": "2025-10-27T15:41:56Z"
             }
         },
         {
@@ -956,7 +1002,8 @@
                 "item": "http://www.wikidata.org/entity/Q12837474",
                 "itemAltLabel": "Bazar Meydanı, Sıratağlı dini-memarlıq kompleksi",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
-                "itemLabel": "Bazar meydanı"
+                "itemLabel": "Bazar meydanı",
+                "lastModified": "2025-07-31T20:53:15Z"
             }
         },
         {
@@ -977,7 +1024,8 @@
                 "item": "http://www.wikidata.org/entity/Q119954175",
                 "itemAltLabel": "Arxeologiya və Etnoqrafiya Muzeyi, Azərbaycan Dövlət Arxeologiya və Etnoqrafiya Muzeyi, Məlikov Qardaşlarının Evi",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
-                "itemLabel": "Zəncirli ev"
+                "itemLabel": "Zəncirli ev",
+                "lastModified": "2025-05-02T11:35:55Z"
             }
         },
         {
@@ -997,7 +1045,8 @@
                 "inventory": "93-8",
                 "item": "http://www.wikidata.org/entity/Q16415094",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Cin məscidi"
+                "itemLabel": "Cin məscidi",
+                "lastModified": "2025-05-01T10:18:43Z"
             }
         },
         {
@@ -1018,7 +1067,8 @@
                 "item": "http://www.wikidata.org/entity/Q12838048",
                 "itemAltLabel": "Beyler Mosque",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Bəylər məscidi"
+                "itemLabel": "Bəylər məscidi",
+                "lastModified": "2025-05-01T10:18:16Z"
             }
         },
         {
@@ -1038,7 +1088,8 @@
                 "inventory": "93-10",
                 "item": "http://www.wikidata.org/entity/Q12836949",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
-                "itemLabel": "Ağa Zeynal hamamı"
+                "itemLabel": "Ağa Zeynal hamamı",
+                "lastModified": "2025-06-23T19:47:04Z"
             }
         },
         {
@@ -1059,7 +1110,8 @@
                 "item": "http://www.wikidata.org/entity/Q12849518",
                 "itemAltLabel": "Shaghan Castle",
                 "itemDescription": "historic castle in Azerbaijan",
-                "itemLabel": "Şağan qalası"
+                "itemLabel": "Şağan qalası",
+                "lastModified": "2025-08-07T00:03:54Z"
             }
         },
         {
@@ -1080,7 +1132,8 @@
                 "item": "http://www.wikidata.org/entity/Q1072217",
                 "itemAltLabel": "Tübaşahi məscidi",
                 "itemDescription": "mosque",
-                "itemLabel": "Tuba Şahi məscidi"
+                "itemLabel": "Tuba Şahi məscidi",
+                "lastModified": "2025-07-14T03:36:01Z"
             }
         },
         {
@@ -1098,7 +1151,8 @@
                 "inventory": "96",
                 "item": "http://www.wikidata.org/entity/Q65276232",
                 "itemDescription": "historical and religious monument in Mardakan",
-                "itemLabel": "Pir Həsən türbəsi"
+                "itemLabel": "Pir Həsən türbəsi",
+                "lastModified": "2025-08-10T02:57:10Z"
             }
         },
         {
@@ -1118,7 +1172,8 @@
                 "inventory": "97",
                 "item": "http://www.wikidata.org/entity/Q130235127",
                 "itemDescription": "Azərbaycanda Mərdəkan qəsəbəsində yerləşən 1908-ci ilə aid ölkə əhəmiyyətli tarix-memarlıq abidəsi, türbə.",
-                "itemLabel": "Axund Abuturab türbəsi"
+                "itemLabel": "Axund Abuturab türbəsi",
+                "lastModified": "2025-12-05T06:36:21Z"
             }
         },
         {
@@ -1139,7 +1194,8 @@
                 "item": "http://www.wikidata.org/entity/Q16415387",
                 "itemAltLabel": "Blue Mosque, Ittifag Mosque",
                 "itemDescription": "1912-ci ildə Bakıda tikilmiş məscid.",
-                "itemLabel": "Əjdərbəy məscidi"
+                "itemLabel": "Əjdərbəy məscidi",
+                "lastModified": "2025-09-06T12:01:21Z"
             }
         },
         {
@@ -1159,7 +1215,8 @@
                 "inventory": "126",
                 "item": "http://www.wikidata.org/entity/Q12849456",
                 "itemDescription": "Bakının Balaxanı qəsəbəsində yerləşən XV əsr memarlıq abidəsi.",
-                "itemLabel": "Şakirağa türbəsi"
+                "itemLabel": "Şakirağa türbəsi",
+                "lastModified": "2025-07-09T09:09:58Z"
             }
         },
         {
@@ -1179,7 +1236,8 @@
                 "inventory": "127",
                 "item": "http://www.wikidata.org/entity/Q31299025",
                 "itemDescription": "Mosque in Balakhany, Baku, Azerbaijan",
-                "itemLabel": "Hacı Şəhla məscidi"
+                "itemLabel": "Hacı Şəhla məscidi",
+                "lastModified": "2025-07-10T20:46:29Z"
             }
         },
         {
@@ -1198,7 +1256,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Balaxan%C4%B1%20qum%20hamam%C4%B1.jpg",
                 "inventory": "128",
                 "item": "http://www.wikidata.org/entity/Q97231657",
-                "itemLabel": "Balaxanı qum hamamı"
+                "itemLabel": "Balaxanı qum hamamı",
+                "lastModified": "2025-06-23T19:52:00Z"
             }
         },
         {
@@ -1216,7 +1275,8 @@
                 "inventory": "131",
                 "item": "http://www.wikidata.org/entity/Q12837576",
                 "itemAltLabel": "Bilgah qalası",
-                "itemLabel": "Bilgəh qalası"
+                "itemLabel": "Bilgəh qalası",
+                "lastModified": "2025-12-11T00:19:23Z"
             }
         },
         {
@@ -1234,7 +1294,10 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Xan%20ba%C4%9F%C4%B1n%C4%B1n%20k%C3%B6%C5%9Fk%C3%BC.jpg",
                 "inventory": "133",
                 "item": "http://www.wikidata.org/entity/Q137342822",
-                "itemLabel": "Xan bağının köşkü"
+                "itemAltLabel": "Khan's Garden Pavilion",
+                "itemDescription": "pavilion in Nardaran, Baku",
+                "itemLabel": "Xan bağının köşkü",
+                "lastModified": "2025-12-11T21:27:26Z"
             }
         },
         {
@@ -1254,7 +1317,8 @@
                 "inventory": "134",
                 "item": "http://www.wikidata.org/entity/Q31299039",
                 "itemDescription": "Nardaran kəndində yerləşən XVII əsrə aid məscid.",
-                "itemLabel": "Hacı Baxış məscidi"
+                "itemLabel": "Hacı Baxış məscidi",
+                "lastModified": "2025-08-03T12:31:50Z"
             }
         },
         {
@@ -1271,7 +1335,8 @@
                 "inventory": "135",
                 "item": "http://www.wikidata.org/entity/Q31311167",
                 "itemAltLabel": "Hacı Zeynəddin hamamı, Qum hamamı",
-                "itemLabel": "Xan hamamı"
+                "itemLabel": "Xan hamamı",
+                "lastModified": "2025-06-23T20:22:54Z"
             }
         },
         {
@@ -1292,7 +1357,8 @@
                 "item": "http://www.wikidata.org/entity/Q16413649",
                 "itemAltLabel": "Pirsəid məscidi, Rəhimə xanım ziyarətgahı, Rəhimə xanım məscidi",
                 "itemDescription": "Nardaranda məscid",
-                "itemLabel": "Nardaran məscidi"
+                "itemLabel": "Nardaran məscidi",
+                "lastModified": "2025-12-11T00:28:18Z"
             }
         },
         {
@@ -1312,7 +1378,8 @@
                 "inventory": "165",
                 "item": "http://www.wikidata.org/entity/Q95951669",
                 "itemDescription": "Bank building in Azerbaijan",
-                "itemLabel": "Peterburq Şimal bankının binası"
+                "itemLabel": "Peterburq Şimal bankının binası",
+                "lastModified": "2025-07-22T15:55:31Z"
             }
         },
         {
@@ -1333,7 +1400,8 @@
                 "item": "http://www.wikidata.org/entity/Q16413883",
                 "itemAltLabel": "Nizamaddin Mosque",
                 "itemDescription": "mosque in Baku, Azerbaijan",
-                "itemLabel": "Nizaməddin məscidi"
+                "itemLabel": "Nizaməddin məscidi",
+                "lastModified": "2025-12-03T06:02:40Z"
             }
         },
         {
@@ -1353,7 +1421,8 @@
                 "inventory": "174",
                 "item": "http://www.wikidata.org/entity/Q16417049",
                 "itemDescription": "1904-1910-cu illərdə Bakıda tikilmiş məscid.",
-                "itemLabel": "Hacı Sultanəli məscidi"
+                "itemLabel": "Hacı Sultanəli məscidi",
+                "lastModified": "2025-05-05T10:15:59Z"
             }
         },
         {
@@ -1374,7 +1443,8 @@
                 "item": "http://www.wikidata.org/entity/Q2074754",
                 "itemAltLabel": "Cümə məscidi",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən məscid və memarlıq abidəsi.",
-                "itemLabel": "Şah Abbas məscidi"
+                "itemLabel": "Şah Abbas məscidi",
+                "lastModified": "2025-05-21T23:06:26Z"
             }
         },
         {
@@ -1391,7 +1461,8 @@
                 "inventory": "205",
                 "item": "http://www.wikidata.org/entity/Q31299273",
                 "itemDescription": "mausoleum in Agsu, Azerbaijan",
-                "itemLabel": "Şeyx Dursun türbəsi"
+                "itemLabel": "Şeyx Dursun türbəsi",
+                "lastModified": "2025-05-07T07:06:59Z"
             }
         },
         {
@@ -1407,7 +1478,8 @@
                 "inventory": "206",
                 "item": "http://www.wikidata.org/entity/Q31355157",
                 "itemDescription": "Balakən rayonunda yerləşən qala",
-                "itemLabel": "Pəri qalası"
+                "itemLabel": "Pəri qalası",
+                "lastModified": "2025-10-28T20:03:12Z"
             }
         },
         {
@@ -1427,7 +1499,8 @@
                 "inventory": "216",
                 "item": "http://www.wikidata.org/entity/Q10986920",
                 "itemDescription": "fortress in Gadabay, Azerbaijan",
-                "itemLabel": "Koroğlu qalası (Gədəbəy)"
+                "itemLabel": "Koroğlu qalası (Gədəbəy)",
+                "lastModified": "2025-06-24T00:16:44Z"
             }
         },
         {
@@ -1448,7 +1521,8 @@
                 "item": "http://www.wikidata.org/entity/Q13054400",
                 "itemAltLabel": "Qız qalası",
                 "itemDescription": "Gədəbəydə yerləşən qala",
-                "itemLabel": "Namərdqala"
+                "itemLabel": "Namərdqala",
+                "lastModified": "2025-10-17T22:49:20Z"
             }
         },
         {
@@ -1469,7 +1543,8 @@
                 "item": "http://www.wikidata.org/entity/Q507050",
                 "itemAltLabel": "Amaras",
                 "itemDescription": "Xocavənd rayonunda monastır",
-                "itemLabel": "Amaras monastırı"
+                "itemLabel": "Amaras monastırı",
+                "lastModified": "2025-09-29T07:53:04Z"
             }
         },
         {
@@ -1486,7 +1561,8 @@
                 "inventory": "266",
                 "item": "http://www.wikidata.org/entity/Q12844661",
                 "itemDescription": "İsmayıllıda yerləşən qala",
-                "itemLabel": "Qız qalası"
+                "itemLabel": "Qız qalası",
+                "lastModified": "2025-10-11T14:24:21Z"
             }
         },
         {
@@ -1507,7 +1583,8 @@
                 "item": "http://www.wikidata.org/entity/Q224819",
                 "itemAltLabel": "Holy Mother of God Church, Surb Astvatsatsin Church",
                 "itemDescription": "church",
-                "itemLabel": "Əskipara monastırı"
+                "itemLabel": "Əskipara monastırı",
+                "lastModified": "2025-08-09T10:28:44Z"
             }
         },
         {
@@ -1524,7 +1601,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Didivan%20qalas%C4%B1.jpg",
                 "inventory": "282",
                 "item": "http://www.wikidata.org/entity/Q12838556",
-                "itemLabel": "Didivan qalası"
+                "itemLabel": "Didivan qalası",
+                "lastModified": "2025-12-07T16:27:03Z"
             }
         },
         {
@@ -1545,7 +1623,8 @@
                 "item": "http://www.wikidata.org/entity/Q2070071",
                 "itemAltLabel": "Avey məbədi, Ay məbədi",
                 "itemDescription": "Daş Salahlı kəndində yerləşən kilsə",
-                "itemLabel": "Avey kilsəsi"
+                "itemLabel": "Avey kilsəsi",
+                "lastModified": "2025-08-26T08:17:22Z"
             }
         },
         {
@@ -1565,7 +1644,8 @@
                 "inventory": "284",
                 "item": "http://www.wikidata.org/entity/Q12846988",
                 "itemDescription": "mosque in İlisu, Azerbaijan",
-                "itemLabel": "Ulu məscid"
+                "itemLabel": "Ulu məscid",
+                "lastModified": "2025-06-24T19:50:50Z"
             }
         },
         {
@@ -1585,7 +1665,8 @@
                 "inventory": "285",
                 "item": "http://www.wikidata.org/entity/Q4446068",
                 "itemDescription": "historic site in Gakh, Azerbaijan",
-                "itemLabel": "Sumuq qala"
+                "itemLabel": "Sumuq qala",
+                "lastModified": "2025-12-09T06:45:43Z"
             }
         },
         {
@@ -1606,7 +1687,8 @@
                 "item": "http://www.wikidata.org/entity/Q2506004",
                 "itemAltLabel": "Qum məbədi",
                 "itemDescription": "church building in Qakh District, Azerbaijan",
-                "itemLabel": "Qum bazilikası"
+                "itemLabel": "Qum bazilikası",
+                "lastModified": "2025-06-24T14:46:05Z"
             }
         },
         {
@@ -1627,7 +1709,8 @@
                 "item": "http://www.wikidata.org/entity/Q4273760",
                 "itemAltLabel": "Diri baba türbəsi",
                 "itemDescription": "Historic site in Gobustan, Azerbaijan",
-                "itemLabel": "Diribaba türbəsi"
+                "itemLabel": "Diribaba türbəsi",
+                "lastModified": "2025-04-02T14:31:18Z"
             }
         },
         {
@@ -1647,7 +1730,8 @@
                 "inventory": "298",
                 "item": "http://www.wikidata.org/entity/Q12846199",
                 "itemDescription": "mosque in Quba, Azerbaijan",
-                "itemLabel": "Səkinəxanım məscidi"
+                "itemLabel": "Səkinəxanım məscidi",
+                "lastModified": "2025-04-03T05:35:22Z"
             }
         },
         {
@@ -1663,7 +1747,8 @@
                 "azLink": "https://az.wikipedia.org/wiki/%C6%8Fniq_qalas%C4%B1",
                 "inventory": "303",
                 "item": "http://www.wikidata.org/entity/Q19716707",
-                "itemLabel": "Əniq qalası"
+                "itemLabel": "Əniq qalası",
+                "lastModified": "2025-11-09T15:38:32Z"
             }
         },
         {
@@ -1684,7 +1769,8 @@
                 "item": "http://www.wikidata.org/entity/Q953940",
                 "itemAltLabel": "Sisərnəvəng monastırı",
                 "itemDescription": "Laçın rayonunda kilsə",
-                "itemLabel": "Ağoğlan monastırı"
+                "itemLabel": "Ağoğlan monastırı",
+                "lastModified": "2025-10-11T00:54:05Z"
             }
         },
         {
@@ -1703,7 +1789,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Surxayxan.jpg",
                 "inventory": "315",
                 "item": "http://www.wikidata.org/entity/Q20584552",
-                "itemLabel": "Surxayxan qalası"
+                "itemLabel": "Surxayxan qalası",
+                "lastModified": "2025-06-24T20:42:37Z"
             }
         },
         {
@@ -1721,7 +1808,8 @@
                 "inventory": "325",
                 "item": "http://www.wikidata.org/entity/Q16414394",
                 "itemDescription": "Şəkidə yerləşən kilsə",
-                "itemLabel": "Bideyiz məbədi"
+                "itemLabel": "Bideyiz məbədi",
+                "lastModified": "2025-06-24T14:33:30Z"
             }
         },
         {
@@ -1741,7 +1829,8 @@
                 "inventory": "326",
                 "item": "http://www.wikidata.org/entity/Q134620261",
                 "itemDescription": "Baş Kəldək kəndində yerləşən qala",
-                "itemLabel": "Gavur qalası"
+                "itemLabel": "Gavur qalası",
+                "lastModified": "2025-05-31T09:56:48Z"
             }
         },
         {
@@ -1762,7 +1851,8 @@
                 "item": "http://www.wikidata.org/entity/Q12838419",
                 "itemAltLabel": "Şəki kilsəsi, Şəki xanlarının ailə məscidi, Üç-Müqəddəs kilsəsi (Şəki)",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən məbəd və tarix memarlıq abidəsi.",
-                "itemLabel": "Dairəvi məbəd"
+                "itemLabel": "Dairəvi məbəd",
+                "lastModified": "2025-06-27T16:03:53Z"
             }
         },
         {
@@ -1782,7 +1872,8 @@
                 "inventory": "328",
                 "item": "http://www.wikidata.org/entity/Q5306451",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi məscid.",
-                "itemLabel": "Giləhli məscidi"
+                "itemLabel": "Giləhli məscidi",
+                "lastModified": "2025-07-30T18:53:20Z"
             }
         },
         {
@@ -1803,7 +1894,8 @@
                 "item": "http://www.wikidata.org/entity/Q12843453",
                 "itemAltLabel": "Nuxa qalası",
                 "itemDescription": "fortress in Shaki, Azerbaijan",
-                "itemLabel": "Şəki qalası"
+                "itemLabel": "Şəki qalası",
+                "lastModified": "2025-06-27T15:42:36Z"
             }
         },
         {
@@ -1823,7 +1915,8 @@
                 "inventory": "331",
                 "item": "http://www.wikidata.org/entity/Q15039321",
                 "itemDescription": "palace in Shaki, Azerbaijan",
-                "itemLabel": "Şəkixanovların evi"
+                "itemLabel": "Şəkixanovların evi",
+                "lastModified": "2025-12-03T22:22:35Z"
             }
         },
         {
@@ -1843,7 +1936,8 @@
                 "inventory": "332",
                 "item": "http://www.wikidata.org/entity/Q4522517",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən karvansara və tarix memarlıq abidəsi.",
-                "itemLabel": "Yuxarı Karvansara"
+                "itemLabel": "Yuxarı Karvansara",
+                "lastModified": "2025-09-19T23:35:04Z"
             }
         },
         {
@@ -1862,7 +1956,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ashagi%20kervansarai%201.JPG",
                 "inventory": "333",
                 "item": "http://www.wikidata.org/entity/Q16417458",
-                "itemLabel": "Aşağı Karvansara"
+                "itemLabel": "Aşağı Karvansara",
+                "lastModified": "2025-06-27T12:46:07Z"
             }
         },
         {
@@ -1882,7 +1977,8 @@
                 "inventory": "334-1",
                 "item": "http://www.wikidata.org/entity/Q20586818",
                 "itemDescription": "Mosque in Sheki, Azerbaijan",
-                "itemLabel": "İmam Əli məscidi"
+                "itemLabel": "İmam Əli məscidi",
+                "lastModified": "2025-08-06T00:26:28Z"
             }
         },
         {
@@ -1901,7 +1997,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/P%C9%99nah%20xan%C4%B1n%20saray%C4%B1%20%28%C5%9Eu%C5%9Fa%292021-12-16.jpg",
                 "inventory": "338",
                 "item": "http://www.wikidata.org/entity/Q110319375",
-                "itemLabel": "Pənah xanın sarayı (Şuşa)"
+                "itemLabel": "Pənah xanın sarayı (Şuşa)",
+                "lastModified": "2025-08-04T02:00:38Z"
             }
         },
         {
@@ -1922,7 +2019,8 @@
                 "item": "http://www.wikidata.org/entity/Q2001493",
                 "itemAltLabel": "Müqəddəs Xilaskar Kafedralı, Qazançetsotst kafedralı",
                 "itemDescription": "Müqəddəs Xilaskar Məsih kilsəsi",
-                "itemLabel": "Qazançı kilsəsi"
+                "itemLabel": "Qazançı kilsəsi",
+                "lastModified": "2025-04-02T14:30:36Z"
             }
         },
         {
@@ -1942,7 +2040,8 @@
                 "inventory": "380",
                 "item": "http://www.wikidata.org/entity/Q116313841",
                 "itemDescription": "Şuşa şəhərində XVIII əsrdə tikilmiş yaşayış binası",
-                "itemLabel": "Cabbar Qaryağdıoğlunun evi"
+                "itemLabel": "Cabbar Qaryağdıoğlunun evi",
+                "lastModified": "2025-11-17T03:46:58Z"
             }
         },
         {
@@ -1962,7 +2061,8 @@
                 "inventory": "387",
                 "item": "http://www.wikidata.org/entity/Q7137065",
                 "itemDescription": "Zaqatala rayonunda qala",
-                "itemLabel": "Pəriqala"
+                "itemLabel": "Pəriqala",
+                "lastModified": "2025-10-28T20:04:19Z"
             }
         },
         {
@@ -1982,7 +2082,8 @@
                 "inventory": "391",
                 "item": "http://www.wikidata.org/entity/Q4273768",
                 "itemDescription": "14th century site in Zangilan, Azerbaijan",
-                "itemLabel": "Məmmədbəyli türbəsi"
+                "itemLabel": "Məmmədbəyli türbəsi",
+                "lastModified": "2025-05-23T02:35:04Z"
             }
         },
         {
@@ -2003,7 +2104,8 @@
                 "item": "http://www.wikidata.org/entity/Q5306443",
                 "itemAltLabel": "Ordubad Cümə məscidi",
                 "itemDescription": "Azərbaycanın Ordubad şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Cümə məscidi"
+                "itemLabel": "Cümə məscidi",
+                "lastModified": "2025-05-01T13:22:07Z"
             }
         },
         {
@@ -2023,7 +2125,8 @@
                 "item": "http://www.wikidata.org/entity/Q16416335",
                 "itemAltLabel": "Şah Abbas körpüsü",
                 "itemDescription": "Azərbaycanda yerləşən, Səfəvilər dövrünə aid körpü.",
-                "itemLabel": "Aza körpüsü"
+                "itemLabel": "Aza körpüsü",
+                "lastModified": "2025-11-10T16:45:58Z"
             }
         },
         {
@@ -2043,7 +2146,8 @@
                 "inventory": "427",
                 "item": "http://www.wikidata.org/entity/Q21635821",
                 "itemDescription": "monument in Baku, Azerbaijan",
-                "itemLabel": "Rixard Zorgenin heykəli"
+                "itemLabel": "Rixard Zorgenin heykəli",
+                "lastModified": "2025-07-11T11:55:45Z"
             }
         },
         {
@@ -2061,7 +2165,8 @@
                 "inventory": "453",
                 "item": "http://www.wikidata.org/entity/Q12841772",
                 "itemDescription": "Azerbaijani World War II monument",
-                "itemLabel": "Mehdi Hüseynzadənin heykəli"
+                "itemLabel": "Mehdi Hüseynzadənin heykəli",
+                "lastModified": "2025-09-02T18:24:00Z"
             }
         },
         {
@@ -2078,7 +2183,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Samad%20Vurgun%20Street%20in%20Baku.jpg",
                 "inventory": "457",
                 "item": "http://www.wikidata.org/entity/Q65276710",
-                "itemLabel": "İmadəddin Nəsiminin heykəli"
+                "itemLabel": "İmadəddin Nəsiminin heykəli",
+                "lastModified": "2025-09-03T11:06:10Z"
             }
         },
         {
@@ -2099,7 +2205,8 @@
                 "item": "http://www.wikidata.org/entity/Q110101202",
                 "itemAltLabel": "Maştağa ovdanı",
                 "itemDescription": "Maştağada ovdan",
-                "itemLabel": "Əmiraslan ovdanı"
+                "itemLabel": "Əmiraslan ovdanı",
+                "lastModified": "2025-12-11T00:51:12Z"
             }
         },
         {
@@ -2119,7 +2226,8 @@
                 "inventory": "543",
                 "item": "http://www.wikidata.org/entity/Q96354642",
                 "itemDescription": "Şirvanşah əmiri Xacə Zeynəddinin göstərişi ilə XIV əsrdə Balaxanı qəsəbəsində tikilmiş ovdan.",
-                "itemLabel": "Balaxanı ovdanı"
+                "itemLabel": "Balaxanı ovdanı",
+                "lastModified": "2025-07-09T09:17:00Z"
             }
         },
         {
@@ -2139,7 +2247,8 @@
                 "inventory": "548",
                 "item": "http://www.wikidata.org/entity/Q20573552",
                 "itemDescription": "A mosque and historical architectural monument located in Baku, Azerbaijan.",
-                "itemLabel": "Baba Kuhi Bakuvi məscidi"
+                "itemLabel": "Baba Kuhi Bakuvi məscidi",
+                "lastModified": "2025-05-01T10:15:39Z"
             }
         },
         {
@@ -2156,7 +2265,8 @@
                 "inventory": "713",
                 "item": "http://www.wikidata.org/entity/Q31310725",
                 "itemDescription": "Ağcabədi rayonunun Qaraxanlı kəndinin yaxınlığında yerləşən arxeoloji abidə.",
-                "itemLabel": "Xanlıqtəpə"
+                "itemLabel": "Xanlıqtəpə",
+                "lastModified": "2025-05-25T15:57:52Z"
             }
         },
         {
@@ -2172,7 +2282,8 @@
                 "azLink": "https://az.wikipedia.org/wiki/T%C3%B6yr%C9%99t%C9%99p%C9%99_(A%C4%9Fcab%C9%99di)",
                 "inventory": "716",
                 "item": "http://www.wikidata.org/entity/Q55700110",
-                "itemLabel": "Töyrətəpə (Ağcabədi)"
+                "itemLabel": "Töyrətəpə (Ağcabədi)",
+                "lastModified": "2025-05-25T15:58:46Z"
             }
         },
         {
@@ -2188,7 +2299,8 @@
                 "azLink": "https://az.wikipedia.org/wiki/Yast%C4%B1t%C9%99p%C9%99_ya%C5%9Fay%C4%B1%C5%9F_yeri_(A%C4%9Fcab%C9%99di)",
                 "inventory": "722",
                 "item": "http://www.wikidata.org/entity/Q55700171",
-                "itemLabel": "Yastıtəpə (Ağcabədi)"
+                "itemLabel": "Yastıtəpə (Ağcabədi)",
+                "lastModified": "2025-05-25T15:58:30Z"
             }
         },
         {
@@ -2205,7 +2317,8 @@
                 "inventory": "729",
                 "item": "http://www.wikidata.org/entity/Q31310712",
                 "itemDescription": "Ağcabədi rayonunun Hacılar kəndinin şimal-qərbində yerləşən yaşayış yeri.",
-                "itemLabel": "Gəşəlitəpə"
+                "itemLabel": "Gəşəlitəpə",
+                "lastModified": "2025-05-25T15:57:32Z"
             }
         },
         {
@@ -2222,7 +2335,8 @@
                 "inventory": "730",
                 "item": "http://www.wikidata.org/entity/Q31310708",
                 "itemDescription": "Ağcabədi rayonunun Hacılar kəndində yerləşən arxeoloji abidə.",
-                "itemLabel": "Cəfərqulutəpə"
+                "itemLabel": "Cəfərqulutəpə",
+                "lastModified": "2025-05-25T15:57:22Z"
             }
         },
         {
@@ -2239,7 +2353,8 @@
                 "inventory": "746",
                 "item": "http://www.wikidata.org/entity/Q4211578",
                 "itemDescription": "Ağcabədi rayonunun Yeni Qaradolaq kəndindən cənubda yerləşən eneolit dövrünə aid yaşayış yeri.",
-                "itemLabel": "Kamiltəpə"
+                "itemLabel": "Kamiltəpə",
+                "lastModified": "2025-05-25T15:58:02Z"
             }
         },
         {
@@ -2258,7 +2373,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/D%C9%99v%C9%99g%C3%B6z%C3%BCnd%C9%99n%20xammal%2C%20Qarqalart%C9%99p%C9%99si.JPG",
                 "inventory": "793",
                 "item": "http://www.wikidata.org/entity/Q4133628",
-                "itemLabel": "Qarğalar təpəsi"
+                "itemLabel": "Qarğalar təpəsi",
+                "lastModified": "2025-05-07T07:05:00Z"
             }
         },
         {
@@ -2278,7 +2394,8 @@
                 "inventory": "958",
                 "item": "http://www.wikidata.org/entity/Q12842223",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Molla Əhməd Məscidi"
+                "itemLabel": "Molla Əhməd Məscidi",
+                "lastModified": "2025-10-23T19:19:16Z"
             }
         },
         {
@@ -2296,7 +2413,8 @@
                 "inventory": "1082",
                 "item": "http://www.wikidata.org/entity/Q104713528",
                 "itemDescription": "Hacıqabulda yerləşən qala",
-                "itemLabel": "Güngörməz qalası"
+                "itemLabel": "Güngörməz qalası",
+                "lastModified": "2025-10-11T02:09:18Z"
             }
         },
         {
@@ -2317,7 +2435,8 @@
                 "item": "http://www.wikidata.org/entity/Q4313112",
                 "itemAltLabel": "Nergiztapa, Nergiztepe",
                 "itemDescription": "archeological site in the Khojavend District of Azerbaijan",
-                "itemLabel": "Nərgiztəpə"
+                "itemLabel": "Nərgiztəpə",
+                "lastModified": "2025-05-23T03:12:06Z"
             }
         },
         {
@@ -2337,7 +2456,8 @@
                 "inventory": "1168",
                 "item": "http://www.wikidata.org/entity/Q12843333",
                 "itemDescription": "İsmayıllıda yerləşən qala",
-                "itemLabel": "Niyalqala"
+                "itemLabel": "Niyalqala",
+                "lastModified": "2025-10-11T14:37:29Z"
             }
         },
         {
@@ -2355,7 +2475,8 @@
                 "inventory": "1188",
                 "item": "http://www.wikidata.org/entity/Q3663001",
                 "itemDescription": "Allar kəndində kəşf olunmuş mağara",
-                "itemLabel": "Allar mağarası"
+                "itemLabel": "Allar mağarası",
+                "lastModified": "2025-05-24T10:34:20Z"
             }
         },
         {
@@ -2374,7 +2495,8 @@
                 "inventory": "1273",
                 "item": "http://www.wikidata.org/entity/Q4526087",
                 "itemAltLabel": "Şomutəpə",
-                "itemLabel": "Şomulutəpə yaşayış yeri"
+                "itemLabel": "Şomulutəpə yaşayış yeri",
+                "lastModified": "2025-05-07T07:05:23Z"
             }
         },
         {
@@ -2395,7 +2517,8 @@
                 "item": "http://www.wikidata.org/entity/Q12842452",
                 "itemAltLabel": "Kala Gergets",
                 "itemDescription": "Oğuz rayonunda yerləşən alban məbədi.",
-                "itemLabel": "Müqəddəs Yelisey kompleksi"
+                "itemLabel": "Müqəddəs Yelisey kompleksi",
+                "lastModified": "2025-06-24T20:31:43Z"
             }
         },
         {
@@ -2412,7 +2535,8 @@
                 "inventory": "1650",
                 "item": "http://www.wikidata.org/entity/Q20577874",
                 "itemDescription": "Tarixi-memarlıq abidəsi",
-                "itemLabel": "Gavurqala"
+                "itemLabel": "Gavurqala",
+                "lastModified": "2025-06-24T20:25:17Z"
             }
         },
         {
@@ -2432,7 +2556,27 @@
                 "inventory": "1733",
                 "item": "http://www.wikidata.org/entity/Q128215260",
                 "itemDescription": "Archaeological site in Shaki, Azerbaijan",
-                "itemLabel": "Təpəbaşı nekropolu"
+                "itemLabel": "Təpəbaşı nekropolu",
+                "lastModified": "2025-07-11T13:12:11Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.6381,
+                    39.2833
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/B%C3%BCl%C3%B6vqaya_ya%C5%9Fay%C4%B1%C5%9F_yeri",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/B%C3%BCl%C3%B6vqaya.jpg",
+                "inventory": "1925",
+                "item": "http://www.wikidata.org/entity/Q109253621",
+                "itemDescription": "Chalcolithic archaeological settlement in Nakhchivan, Azerbaijan",
+                "itemLabel": "Bülövqaya",
+                "lastModified": "2025-12-14T12:23:54Z"
             }
         },
         {
@@ -2452,7 +2596,8 @@
                 "inventory": "2167",
                 "item": "http://www.wikidata.org/entity/Q21012753",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Hacı Heybət məscidi (İçərişəhər)"
+                "itemLabel": "Hacı Heybət məscidi (İçərişəhər)",
+                "lastModified": "2025-05-04T18:45:04Z"
             }
         },
         {
@@ -2472,7 +2617,8 @@
                 "inventory": "2182",
                 "item": "http://www.wikidata.org/entity/Q19798499",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Mirzə Əhməd məscidi"
+                "itemLabel": "Mirzə Əhməd məscidi",
+                "lastModified": "2025-05-01T10:19:03Z"
             }
         },
         {
@@ -2490,7 +2636,8 @@
                 "inventory": "2356",
                 "item": "http://www.wikidata.org/entity/Q31299040",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Hacı Qayıb məscidi"
+                "itemLabel": "Hacı Qayıb məscidi",
+                "lastModified": "2025-05-01T10:19:12Z"
             }
         },
         {
@@ -2511,7 +2658,8 @@
                 "item": "http://www.wikidata.org/entity/Q123692020",
                 "itemAltLabel": "Mir Cəlal Paşayevin ev muzeyi",
                 "itemDescription": "İçərişəhərdə ev muzeyi",
-                "itemLabel": "Ədibin evi"
+                "itemLabel": "Ədibin evi",
+                "lastModified": "2025-09-03T11:02:17Z"
             }
         },
         {
@@ -2529,7 +2677,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Hac%C4%B1%20%C6%8Fmrah%20hamam%C4%B1.jpg",
                 "inventory": "2571",
                 "item": "http://www.wikidata.org/entity/Q135312189",
-                "itemLabel": "Hacı Əmrah hamamı"
+                "itemLabel": "Hacı Əmrah hamamı",
+                "lastModified": "2025-07-14T03:10:06Z"
             }
         },
         {
@@ -2549,7 +2698,8 @@
                 "inventory": "2573-1",
                 "item": "http://www.wikidata.org/entity/Q67431484",
                 "itemDescription": "Görədildə hamam",
-                "itemLabel": "Əlimurad hamamı"
+                "itemLabel": "Əlimurad hamamı",
+                "lastModified": "2025-06-19T23:02:44Z"
             }
         },
         {
@@ -2569,7 +2719,8 @@
                 "inventory": "2573-3",
                 "item": "http://www.wikidata.org/entity/Q135005783",
                 "itemDescription": "Fatmayı kəndində hamam",
-                "itemLabel": "Hacı Ağa Murad hamamı"
+                "itemLabel": "Hacı Ağa Murad hamamı",
+                "lastModified": "2025-06-21T23:43:56Z"
             }
         },
         {
@@ -2589,7 +2740,8 @@
                 "inventory": "2573-6",
                 "item": "http://www.wikidata.org/entity/Q133334860",
                 "itemDescription": "Biləcəridə yerləşən pravoslav kilsəsi",
-                "itemLabel": "Biləcəri Müqəddəs Varfolomey kilsəsi"
+                "itemLabel": "Biləcəri Müqəddəs Varfolomey kilsəsi",
+                "lastModified": "2025-04-30T07:13:20Z"
             }
         },
         {
@@ -2610,7 +2762,8 @@
                 "item": "http://www.wikidata.org/entity/Q20578467",
                 "itemAltLabel": "Taghiyev' villa",
                 "itemDescription": "Hacı Zeynalabdin Tağıyevə məxsus olmuş villa",
-                "itemLabel": "Hacı Zeynalabdin Tağıyevin villası"
+                "itemLabel": "Hacı Zeynalabdin Tağıyevin villası",
+                "lastModified": "2025-07-14T04:39:11Z"
             }
         },
         {
@@ -2630,7 +2783,8 @@
                 "inventory": "2586",
                 "item": "http://www.wikidata.org/entity/Q20576490",
                 "itemDescription": "Buzovna qəsəbəsində məscid",
-                "itemLabel": "Cümə məscidi"
+                "itemLabel": "Cümə məscidi",
+                "lastModified": "2025-11-01T12:31:22Z"
             }
         },
         {
@@ -2649,7 +2803,8 @@
                 "inventory": "2865",
                 "item": "http://www.wikidata.org/entity/Q136342226",
                 "itemAltLabel": "İnşaatçıların mədəniyyət evi",
-                "itemLabel": "İnşaatçıların mədəniyyət sarayı"
+                "itemLabel": "İnşaatçıların mədəniyyət sarayı",
+                "lastModified": "2025-09-21T01:40:38Z"
             }
         },
         {
@@ -2670,7 +2825,8 @@
                 "item": "http://www.wikidata.org/entity/Q4832398",
                 "itemAltLabel": "Şəfəq kinoteatrı",
                 "itemDescription": "Bakıda yerləşən teatr",
-                "itemLabel": "Azərbaycan Dövlət Pantomim Teatrı"
+                "itemLabel": "Azərbaycan Dövlət Pantomim Teatrı",
+                "lastModified": "2025-08-01T14:05:51Z"
             }
         },
         {
@@ -2690,7 +2846,8 @@
                 "inventory": "3166-1",
                 "item": "http://www.wikidata.org/entity/Q135712619",
                 "itemDescription": "Bakıda yerləşən ibadət evi",
-                "itemLabel": "Molokanların ibadət evi"
+                "itemLabel": "Molokanların ibadət evi",
+                "lastModified": "2025-08-12T20:49:47Z"
             }
         },
         {
@@ -2711,7 +2868,8 @@
                 "item": "http://www.wikidata.org/entity/Q130470781",
                 "itemAltLabel": "Soltan Əli məscidi, Hacı Manaf məscidi",
                 "itemDescription": "Kürdəxanıda, Ləhiş bağlarında məscid",
-                "itemLabel": "Bağ məscidi"
+                "itemLabel": "Bağ məscidi",
+                "lastModified": "2025-12-09T21:55:40Z"
             }
         },
         {
@@ -2731,7 +2889,8 @@
                 "inventory": "3183",
                 "item": "http://www.wikidata.org/entity/Q135005845",
                 "itemDescription": "Kürdəxanıda hamam",
-                "itemLabel": "Hacı Zeynal hamamı"
+                "itemLabel": "Hacı Zeynal hamamı",
+                "lastModified": "2025-06-22T00:09:38Z"
             }
         },
         {
@@ -2749,7 +2908,8 @@
                 "inventory": "3185",
                 "item": "http://www.wikidata.org/entity/Q135005738",
                 "itemDescription": "Kürdəxanıda hamam",
-                "itemLabel": "Aşağı hamam"
+                "itemLabel": "Aşağı hamam",
+                "lastModified": "2025-06-21T23:29:00Z"
             }
         },
         {
@@ -2766,7 +2926,8 @@
                 "inventory": "3188",
                 "item": "http://www.wikidata.org/entity/Q110101196",
                 "itemDescription": "Maştağada hamam",
-                "itemLabel": "Şamxal hamamı"
+                "itemLabel": "Şamxal hamamı",
+                "lastModified": "2025-06-22T00:36:58Z"
             }
         },
         {
@@ -2785,7 +2946,8 @@
                 "inventory": "3211",
                 "item": "http://www.wikidata.org/entity/Q137342836",
                 "itemDescription": "Pirşağıda məscid",
-                "itemLabel": "Pirşağı məscidi"
+                "itemLabel": "Pirşağı məscidi",
+                "lastModified": "2025-12-11T00:45:05Z"
             }
         },
         {
@@ -2805,7 +2967,8 @@
                 "inventory": "3212",
                 "item": "http://www.wikidata.org/entity/Q60231854",
                 "itemDescription": "building in Sabunchu district, Azerbaijan",
-                "itemLabel": "Hacı Əbu-Salam hamamı"
+                "itemLabel": "Hacı Əbu-Salam hamamı",
+                "lastModified": "2025-06-21T23:49:51Z"
             }
         },
         {
@@ -2825,7 +2988,8 @@
                 "inventory": "3213",
                 "item": "http://www.wikidata.org/entity/Q56633670",
                 "itemDescription": "Pirşağıda yerləşən hamam",
-                "itemLabel": "Hacı Şahverdi hamamı"
+                "itemLabel": "Hacı Şahverdi hamamı",
+                "lastModified": "2025-06-23T20:08:29Z"
             }
         },
         {
@@ -2846,7 +3010,8 @@
                 "item": "http://www.wikidata.org/entity/Q110101207",
                 "itemAltLabel": "Qurban məscidi",
                 "itemDescription": "1912–1914-cü illərdə tikilmiş tarix-memarlıq abidəsi, məscid.",
-                "itemLabel": "Ramana məscidi"
+                "itemLabel": "Ramana məscidi",
+                "lastModified": "2025-11-01T12:36:05Z"
             }
         },
         {
@@ -2862,7 +3027,8 @@
                 "azLink": "https://az.wikipedia.org/wiki/C%C3%BCm%C9%99_m%C9%99scidi_(Sabun%C3%A7u)",
                 "inventory": "3218",
                 "item": "http://www.wikidata.org/entity/Q111097882",
-                "itemLabel": "Cümə məscidi (Sabunçu)"
+                "itemLabel": "Cümə məscidi (Sabunçu)",
+                "lastModified": "2025-05-05T08:52:13Z"
             }
         },
         {
@@ -2881,7 +3047,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Eldarzad%C9%99nin%20t%C3%BCrb%C9%99si.jpg",
                 "inventory": "3219",
                 "item": "http://www.wikidata.org/entity/Q97302239",
-                "itemLabel": "Eldarzadənin türbəsi"
+                "itemLabel": "Eldarzadənin türbəsi",
+                "lastModified": "2025-07-09T09:07:33Z"
             }
         },
         {
@@ -2901,7 +3068,8 @@
                 "inventory": "3220",
                 "item": "http://www.wikidata.org/entity/Q55700594",
                 "itemDescription": "Balaxanıda yerləşən karvansaray",
-                "itemLabel": "Şah Səfi karvansarası"
+                "itemLabel": "Şah Səfi karvansarası",
+                "lastModified": "2025-07-09T09:13:54Z"
             }
         },
         {
@@ -2919,7 +3087,8 @@
                 "inventory": "3262",
                 "item": "http://www.wikidata.org/entity/Q135447225",
                 "itemDescription": "Bakıda yerləşən univermaq",
-                "itemLabel": "Mərkəzi Univermaq (Bakı)"
+                "itemLabel": "Mərkəzi Univermaq (Bakı)",
+                "lastModified": "2025-07-23T17:17:05Z"
             }
         },
         {
@@ -2939,7 +3108,8 @@
                 "inventory": "3511",
                 "item": "http://www.wikidata.org/entity/Q16417010",
                 "itemDescription": "mosque in Azerbaijan",
-                "itemLabel": "Hacı Cavad məscidi"
+                "itemLabel": "Hacı Cavad məscidi",
+                "lastModified": "2025-05-05T10:14:28Z"
             }
         },
         {
@@ -2958,7 +3128,8 @@
                 "inventory": "3578",
                 "item": "http://www.wikidata.org/entity/Q135390128",
                 "itemDescription": "Bakı şəhərində yerləşən tarixi memarlıq abidəsi və hamam.",
-                "itemLabel": "Zərgərpalan hamamı"
+                "itemLabel": "Zərgərpalan hamamı",
+                "lastModified": "2025-10-23T07:56:38Z"
             }
         },
         {
@@ -2979,7 +3150,8 @@
                 "item": "http://www.wikidata.org/entity/Q105079015",
                 "itemAltLabel": "İslamiyyə binası, İslamiyyə karvansarası, İslamiyyə mehmanxanası",
                 "itemDescription": "Bakıda yerləşən bina",
-                "itemLabel": "Hacı Mustafa Rəsulovun mülkü"
+                "itemLabel": "Hacı Mustafa Rəsulovun mülkü",
+                "lastModified": "2025-09-25T15:55:34Z"
             }
         },
         {
@@ -2999,7 +3171,8 @@
                 "inventory": "3731",
                 "item": "http://www.wikidata.org/entity/Q48028669",
                 "itemDescription": "Bath in Baku, Azerbaijan",
-                "itemLabel": "Fantaziya hamamı"
+                "itemLabel": "Fantaziya hamamı",
+                "lastModified": "2025-11-24T02:35:56Z"
             }
         },
         {
@@ -3019,7 +3192,8 @@
                 "inventory": "3757",
                 "item": "http://www.wikidata.org/entity/Q131010702",
                 "itemDescription": "Bakıda hamam",
-                "itemLabel": "Təndir hamamı"
+                "itemLabel": "Təndir hamamı",
+                "lastModified": "2025-06-23T20:31:49Z"
             }
         },
         {
@@ -3040,7 +3214,8 @@
                 "item": "http://www.wikidata.org/entity/Q12849437",
                 "itemAltLabel": "Şahsevənlər Məscidi",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən tarixi-memarlıq abidəsi və məscid.",
-                "itemLabel": "Şahsevənlər məscidi"
+                "itemLabel": "Şahsevənlər məscidi",
+                "lastModified": "2025-05-01T10:08:08Z"
             }
         },
         {
@@ -3060,7 +3235,8 @@
                 "inventory": "3830",
                 "item": "http://www.wikidata.org/entity/Q12836178",
                 "itemAltLabel": "Avropa Tipli hamam",
-                "itemLabel": "Avropa tipli hamam (Gəncə)"
+                "itemLabel": "Avropa tipli hamam (Gəncə)",
+                "lastModified": "2025-06-23T20:47:18Z"
             }
         },
         {
@@ -3077,7 +3253,8 @@
                 "inventory": "3847",
                 "item": "http://www.wikidata.org/entity/Q16418640",
                 "itemDescription": "Gəncə şəhərində yerləşən məscid və tarixi-memarlıq abidəsi.",
-                "itemLabel": "Xəlfəli məscidi"
+                "itemLabel": "Xəlfəli məscidi",
+                "lastModified": "2025-05-01T10:05:25Z"
             }
         },
         {
@@ -3098,7 +3275,8 @@
                 "item": "http://www.wikidata.org/entity/Q1424921",
                 "itemAltLabel": "Rus Pravoslav kilsəsi",
                 "itemDescription": "Gəncə şəhərində yerləşən pravoslav kilsəsi.",
-                "itemLabel": "Aleksandr Nevski kilsəsi"
+                "itemLabel": "Aleksandr Nevski kilsəsi",
+                "lastModified": "2025-09-13T19:14:01Z"
             }
         },
         {
@@ -3117,7 +3295,8 @@
                 "inventory": "3860",
                 "item": "http://www.wikidata.org/entity/Q20587468",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən məscid və memarlıq abidəsi.",
-                "itemLabel": "Şərəfxanlı məscidi"
+                "itemLabel": "Şərəfxanlı məscidi",
+                "lastModified": "2025-09-09T06:25:56Z"
             }
         },
         {
@@ -3138,7 +3317,8 @@
                 "item": "http://www.wikidata.org/entity/Q12848616",
                 "itemAltLabel": "Çökək Hamam",
                 "itemDescription": "historical bath in Ganja, Azerbaijan",
-                "itemLabel": "Çökək hamam"
+                "itemLabel": "Çökək hamam",
+                "lastModified": "2025-06-23T20:51:56Z"
             }
         },
         {
@@ -3158,7 +3338,8 @@
                 "inventory": "3890",
                 "item": "http://www.wikidata.org/entity/Q16418658",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən məscid və memarlıq abidəsi.",
-                "itemLabel": "Zərrabi məscidi"
+                "itemLabel": "Zərrabi məscidi",
+                "lastModified": "2025-12-03T09:03:56Z"
             }
         },
         {
@@ -3176,7 +3357,8 @@
                 "inventory": "3892",
                 "item": "http://www.wikidata.org/entity/Q16418202",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən məscid və tarix-memarlıq abidəsi.",
-                "itemLabel": "Mollacəlilli məscidi"
+                "itemLabel": "Mollacəlilli məscidi",
+                "lastModified": "2025-12-06T21:14:56Z"
             }
         },
         {
@@ -3197,7 +3379,8 @@
                 "item": "http://www.wikidata.org/entity/Q12840471",
                 "itemAltLabel": "Tatlar məscidi",
                 "itemDescription": "mosque in Ganja, Azerbaijan",
-                "itemLabel": "Hüseyniyyə məscidi"
+                "itemLabel": "Hüseyniyyə məscidi",
+                "lastModified": "2025-05-01T10:05:08Z"
             }
         },
         {
@@ -3215,7 +3398,8 @@
                 "item": "http://www.wikidata.org/entity/Q16414271",
                 "itemAltLabel": "Bağbanlar məscidi, Bala Bağman məscidi, Mirzə Kərim məscidi",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən 1884-cü ildə tikilmiş məscid və tarix-memarlıq abidəsi.",
-                "itemLabel": "Bağmanlar məscidi"
+                "itemLabel": "Bağmanlar məscidi",
+                "lastModified": "2025-05-27T13:49:09Z"
             }
         },
         {
@@ -3235,7 +3419,8 @@
                 "item": "http://www.wikidata.org/entity/Q12847459",
                 "itemAltLabel": "Gəncədə Xalq Cümhuriyyəti binası, Xalq Cumhuriyyətinin Binası",
                 "itemDescription": "Gəncədə yerləşən tarixi bina.",
-                "itemLabel": "Xalq Cümhuriyyəti binası"
+                "itemLabel": "Xalq Cümhuriyyəti binası",
+                "lastModified": "2025-05-25T15:40:38Z"
             }
         },
         {
@@ -3256,7 +3441,8 @@
                 "item": "http://www.wikidata.org/entity/Q31298740",
                 "itemAltLabel": "Gizil Hajili mosque, Gyzyl Hajli mosque, Qizil Hajili mosque",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən 1877-ci ildə tikilmiş məscid və tarix-memarlıq abidəsi.",
-                "itemLabel": "Qızıl Hacılı Məscidi"
+                "itemLabel": "Qızıl Hacılı Məscidi",
+                "lastModified": "2025-12-01T08:48:24Z"
             }
         },
         {
@@ -3277,7 +3463,8 @@
                 "item": "http://www.wikidata.org/entity/Q16414311",
                 "itemAltLabel": "Ozan Mosque",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən 1884-cü ildə tikilmiş məscid və tarix-memarlıq abidəsi.",
-                "itemLabel": "Ozan məscidi"
+                "itemLabel": "Ozan məscidi",
+                "lastModified": "2025-12-03T06:35:25Z"
             }
         },
         {
@@ -3298,7 +3485,8 @@
                 "item": "http://www.wikidata.org/entity/Q12844384",
                 "itemAltLabel": "Gazakhlar Mosque",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən 1886-cı ildə tikilmiş məscid və tarix-memarlıq abidəsi.",
-                "itemLabel": "Qazaxlar məscidi"
+                "itemLabel": "Qazaxlar məscidi",
+                "lastModified": "2025-05-01T10:05:39Z"
             }
         },
         {
@@ -3319,7 +3507,8 @@
                 "item": "http://www.wikidata.org/entity/Q68903141",
                 "itemAltLabel": "Sümahi türbəsi",
                 "itemDescription": "Digahda yerləşən türbə",
-                "itemLabel": "Sumahi türbəsi"
+                "itemLabel": "Sumahi türbəsi",
+                "lastModified": "2025-07-03T11:52:25Z"
             }
         },
         {
@@ -3338,7 +3527,8 @@
                 "item": "http://www.wikidata.org/entity/Q110101204",
                 "itemAltLabel": "Hacı Abdulla hamamı",
                 "itemDescription": "Qobuda hamam",
-                "itemLabel": "Qobu hamamı"
+                "itemLabel": "Qobu hamamı",
+                "lastModified": "2025-06-22T00:24:14Z"
             }
         },
         {
@@ -3357,7 +3547,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Hac%C4%B1%20S%C9%99f%C9%99ral%C4%B1%20m%C9%99scidi.jpg",
                 "inventory": "4008",
                 "item": "http://www.wikidata.org/entity/Q20570873",
-                "itemLabel": "\"Hacı Səfəralı\" məscidi"
+                "itemLabel": "\"Hacı Səfəralı\" məscidi",
+                "lastModified": "2025-07-11T20:47:34Z"
             }
         },
         {
@@ -3376,7 +3567,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Hac%C4%B1%20S%C9%99f%C9%99ral%C4%B1%20hamam%C4%B1%204.jpg",
                 "inventory": "4009",
                 "item": "http://www.wikidata.org/entity/Q31296490",
-                "itemLabel": "Hacı Səfəralı hamamı"
+                "itemLabel": "Hacı Səfəralı hamamı",
+                "lastModified": "2025-06-21T23:21:42Z"
             }
         },
         {
@@ -3396,7 +3588,8 @@
                 "inventory": "4010",
                 "item": "http://www.wikidata.org/entity/Q25541465",
                 "itemDescription": "historical mosque in Azerbaijan",
-                "itemLabel": "Şah Soltan Hüseyn Məscidi"
+                "itemLabel": "Şah Soltan Hüseyn Məscidi",
+                "lastModified": "2025-10-14T05:23:29Z"
             }
         },
         {
@@ -3416,7 +3609,8 @@
                 "inventory": "4011",
                 "item": "http://www.wikidata.org/entity/Q67929017",
                 "itemDescription": "1878-ci ildə tikilmiş tarix-memarlıq abidəsi, məscid. Azərbaycanın Fatmayı kəndində yerləşir.",
-                "itemLabel": "Əlbatti məscidi"
+                "itemLabel": "Əlbatti məscidi",
+                "lastModified": "2025-10-16T05:27:14Z"
             }
         },
         {
@@ -3436,7 +3630,8 @@
                 "inventory": "4013",
                 "item": "http://www.wikidata.org/entity/Q67982654",
                 "itemDescription": "XVII əsrdə tikilmiş tarix-memarlıq abidəsi, məscid. Azərbaycanın Fatmayı kəndində yerləşir.",
-                "itemLabel": "Hacı Heybət məscidi (Fatmayı)"
+                "itemLabel": "Hacı Heybət məscidi (Fatmayı)",
+                "lastModified": "2025-10-31T21:39:20Z"
             }
         },
         {
@@ -3456,7 +3651,8 @@
                 "inventory": "4015",
                 "item": "http://www.wikidata.org/entity/Q68003094",
                 "itemDescription": "XVIII əsrdə tikilmiş tarix-memarlıq abidəsi, məscid. Azərbaycanın Fatmayı kəndində yerləşir.",
-                "itemLabel": "Salam məscidi"
+                "itemLabel": "Salam məscidi",
+                "lastModified": "2025-10-16T05:27:34Z"
             }
         },
         {
@@ -3476,7 +3672,8 @@
                 "inventory": "4016",
                 "item": "http://www.wikidata.org/entity/Q67928686",
                 "itemDescription": "Fatmayıda hamam",
-                "itemLabel": "Abbasəli hamamı"
+                "itemLabel": "Abbasəli hamamı",
+                "lastModified": "2025-06-19T22:59:03Z"
             }
         },
         {
@@ -3495,7 +3692,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/II%20K%C9%99srani%20t%C3%BCrb%C9%99si%201.jpg",
                 "inventory": "4020",
                 "item": "http://www.wikidata.org/entity/Q65279829",
-                "itemLabel": "II Kəsrani türbəsi"
+                "itemLabel": "II Kəsrani türbəsi",
+                "lastModified": "2025-07-11T20:52:44Z"
             }
         },
         {
@@ -3514,7 +3712,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Cami%20m%C9%99scidi%20%28Saray%29.jpg",
                 "inventory": "4023",
                 "item": "http://www.wikidata.org/entity/Q65279747",
-                "itemLabel": "Cami məscidi"
+                "itemLabel": "Cami məscidi",
+                "lastModified": "2025-07-11T20:59:05Z"
             }
         },
         {
@@ -3531,7 +3730,8 @@
                 "inventory": "4044",
                 "item": "http://www.wikidata.org/entity/Q4344728",
                 "itemDescription": "mausoleum in Agdam District, Azerbaijan",
-                "itemLabel": "Papravənd türbəsi"
+                "itemLabel": "Papravənd türbəsi",
+                "lastModified": "2025-10-09T22:59:21Z"
             }
         },
         {
@@ -3552,7 +3752,8 @@
                 "item": "http://www.wikidata.org/entity/Q2065395",
                 "itemAltLabel": "Şahbulağı qalası",
                 "itemDescription": "Ağdam rayonunda qala",
-                "itemLabel": "Şahbulaq qalası"
+                "itemLabel": "Şahbulaq qalası",
+                "lastModified": "2025-06-23T23:55:46Z"
             }
         },
         {
@@ -3570,7 +3771,8 @@
                 "inventory": "4083",
                 "item": "http://www.wikidata.org/entity/Q110108886",
                 "itemDescription": "Ağstafa rayonun Dağ Kəsəmən kəndində yerləşən XIX əsrə aid məscid.",
-                "itemLabel": "Əyyub ağa məscidi"
+                "itemLabel": "Əyyub ağa məscidi",
+                "lastModified": "2025-05-07T06:56:54Z"
             }
         },
         {
@@ -3588,7 +3790,8 @@
                 "inventory": "4116",
                 "item": "http://www.wikidata.org/entity/Q124987047",
                 "itemDescription": "historic site in Astara District, Erchivan settlement",
-                "itemLabel": "Kərbəlayi Həmid Abdulla hamamı"
+                "itemLabel": "Kərbəlayi Həmid Abdulla hamamı",
+                "lastModified": "2025-11-03T02:47:38Z"
             }
         },
         {
@@ -3608,7 +3811,8 @@
                 "item": "http://www.wikidata.org/entity/Q65276171",
                 "itemAltLabel": "Məşədi Abu-Talib hamamı",
                 "itemDescription": "Astaranın Pensər kəndində hamam",
-                "itemLabel": "Məşədi Abutalıb hamamı"
+                "itemLabel": "Məşədi Abutalıb hamamı",
+                "lastModified": "2025-06-22T00:32:54Z"
             }
         },
         {
@@ -3626,7 +3830,8 @@
                 "item": "http://www.wikidata.org/entity/Q12836063",
                 "itemAltLabel": "Arılıqbinə məbəd kompleksi",
                 "itemDescription": "Monastır kompleksi.",
-                "itemLabel": "Arılıqbinə monastır kompleksi"
+                "itemLabel": "Arılıqbinə monastır kompleksi",
+                "lastModified": "2025-05-25T15:39:10Z"
             }
         },
         {
@@ -3646,7 +3851,8 @@
                 "inventory": "4170",
                 "item": "http://www.wikidata.org/entity/Q124428661",
                 "itemDescription": "Cəbrayıl rayonunda yerləşən məscid",
-                "itemLabel": "Çələbilər məscidi"
+                "itemLabel": "Çələbilər məscidi",
+                "lastModified": "2025-12-09T21:46:39Z"
             }
         },
         {
@@ -3663,7 +3869,8 @@
                 "inventory": "4178",
                 "item": "http://www.wikidata.org/entity/Q135494026",
                 "itemDescription": "Cəlilabad rayonunun Günəşli kəndində yerləşən kilsə.",
-                "itemLabel": "Rus Pravoslav kilsəsi (Cəlilabad)"
+                "itemLabel": "Rus Pravoslav kilsəsi (Cəlilabad)",
+                "lastModified": "2025-07-29T13:21:25Z"
             }
         },
         {
@@ -3684,7 +3891,8 @@
                 "item": "http://www.wikidata.org/entity/Q10985915",
                 "itemAltLabel": "Chicarvang",
                 "itemDescription": "Monastery in Azerbaijan",
-                "itemLabel": "Bayan monastırı"
+                "itemLabel": "Bayan monastırı",
+                "lastModified": "2025-09-02T08:22:39Z"
             }
         },
         {
@@ -3703,7 +3911,8 @@
                 "inventory": "4197",
                 "item": "http://www.wikidata.org/entity/Q134576452",
                 "itemDescription": "Şabranın Kilvar kəndində yerləşən kilsə",
-                "itemLabel": "Kilvar kilsəsi"
+                "itemLabel": "Kilvar kilsəsi",
+                "lastModified": "2025-09-09T06:21:53Z"
             }
         },
         {
@@ -3724,7 +3933,8 @@
                 "item": "http://www.wikidata.org/entity/Q4073062",
                 "itemAltLabel": "Əhmədalılar türbəsi",
                 "itemDescription": "Füzuli rayonunun Əhmədalılar kəndi yaxınlığında yerləşən XIII əsrə aid türbə.",
-                "itemLabel": "Arğalı türbəsi"
+                "itemLabel": "Arğalı türbəsi",
+                "lastModified": "2025-05-25T15:36:31Z"
             }
         },
         {
@@ -3744,7 +3954,8 @@
                 "inventory": "4242",
                 "item": "http://www.wikidata.org/entity/Q55699914",
                 "itemDescription": "Gədəbəydə kilsə",
-                "itemLabel": "Gədəbəy kilsəsi"
+                "itemLabel": "Gədəbəy kilsəsi",
+                "lastModified": "2025-11-23T14:31:00Z"
             }
         },
         {
@@ -3764,7 +3975,8 @@
                 "inventory": "4255",
                 "item": "http://www.wikidata.org/entity/Q97513340",
                 "itemDescription": "ruin of a church in Azerbaijan",
-                "itemLabel": "Əyrivəng kilsəsi"
+                "itemLabel": "Əyrivəng kilsəsi",
+                "lastModified": "2025-08-30T07:16:08Z"
             }
         },
         {
@@ -3785,7 +3997,8 @@
                 "item": "http://www.wikidata.org/entity/Q110104543",
                 "itemAltLabel": "Göyçay şəhər Mərkəz məscidi",
                 "itemDescription": "Göyçay şəhərində yerləşən məscid",
-                "itemLabel": "Əbülfəzlil Əbbas məscidi"
+                "itemLabel": "Əbülfəzlil Əbbas məscidi",
+                "lastModified": "2025-10-11T02:25:43Z"
             }
         },
         {
@@ -3806,7 +4019,8 @@
                 "item": "http://www.wikidata.org/entity/Q14864401",
                 "itemAltLabel": "Müqəddəs İohann kilsəsi",
                 "itemDescription": "Azərbaycanın Göygöl şəhərində yerləşən XIX əsrə aid tarixi-memarlıq abidəsi, Azərbaycanda tikilmiş ilk lüteran kilsəsi.",
-                "itemLabel": "Alman lüteran kilsəsi"
+                "itemLabel": "Alman lüteran kilsəsi",
+                "lastModified": "2025-06-23T23:14:41Z"
             }
         },
         {
@@ -3827,7 +4041,8 @@
                 "item": "http://www.wikidata.org/entity/Q31299002",
                 "itemAltLabel": "Qədim Gəncə qalası",
                 "itemDescription": "Göygöl rayonunda qala",
-                "itemLabel": "Zurnabad qalası"
+                "itemLabel": "Zurnabad qalası",
+                "lastModified": "2025-06-24T00:06:22Z"
             }
         },
         {
@@ -3844,7 +4059,8 @@
                 "inventory": "4292",
                 "item": "http://www.wikidata.org/entity/Q12835773",
                 "itemAltLabel": "Anahaid məbədi, Anahid kilsəsi, Anahid məbədi, Anaid məbədi, Anhaid məbədi",
-                "itemLabel": "Anahit kilsəsi"
+                "itemLabel": "Anahit kilsəsi",
+                "lastModified": "2025-06-23T21:01:21Z"
             }
         },
         {
@@ -3865,7 +4081,8 @@
                 "item": "http://www.wikidata.org/entity/Q31195426",
                 "itemAltLabel": "Şəhriyar kilsəsi",
                 "itemDescription": "Göygöldə kilsə",
-                "itemLabel": "Qabriyel kilsəsi"
+                "itemLabel": "Qabriyel kilsəsi",
+                "lastModified": "2025-09-29T04:12:24Z"
             }
         },
         {
@@ -3882,7 +4099,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C5%9Eeyx%20Yusif%20t%C3%BCrb%C9%99si.jpg",
                 "inventory": "4301",
                 "item": "http://www.wikidata.org/entity/Q12849534",
-                "itemLabel": "Şeyx Yusif türbəsi"
+                "itemLabel": "Şeyx Yusif türbəsi",
+                "lastModified": "2025-07-05T23:31:38Z"
             }
         },
         {
@@ -3898,7 +4116,8 @@
                 "azLink": "https://az.wikipedia.org/wiki/%C5%9Eah_Abbas_m%C9%99scidi_(Xa%C3%A7maz)",
                 "inventory": "4308",
                 "item": "http://www.wikidata.org/entity/Q31310977",
-                "itemLabel": "Şah Abbas məscidi"
+                "itemLabel": "Şah Abbas məscidi",
+                "lastModified": "2025-07-05T23:38:30Z"
             }
         },
         {
@@ -3917,7 +4136,8 @@
                 "inventory": "4319",
                 "item": "http://www.wikidata.org/entity/Q102254612",
                 "itemDescription": "church in Hadrut, Azerbaijan",
-                "itemLabel": "Holy Resurrection Church"
+                "itemLabel": "Holy Resurrection Church",
+                "lastModified": "2025-09-02T12:03:53Z"
             }
         },
         {
@@ -3938,7 +4158,8 @@
                 "item": "http://www.wikidata.org/entity/Q4437912",
                 "itemAltLabel": "Agh khach, White Cross church",
                 "itemDescription": "Armenian church in Çinarlı, Azerbaijan",
-                "itemLabel": "Ağ xaç kilsəsi"
+                "itemLabel": "Ağ xaç kilsəsi",
+                "lastModified": "2025-10-06T00:33:49Z"
             }
         },
         {
@@ -3959,7 +4180,8 @@
                 "item": "http://www.wikidata.org/entity/Q105819880",
                 "itemAltLabel": "Arakül kilsəsi, Ərəkül kilsəsi",
                 "itemDescription": "Xocavəndin Ərəkül kəndində yerləşən kilsə",
-                "itemLabel": "Müqəddəs Məryəm kilsəsi (Ərəkül)"
+                "itemLabel": "Müqəddəs Məryəm kilsəsi (Ərəkül)",
+                "lastModified": "2025-05-23T03:24:32Z"
             }
         },
         {
@@ -3978,7 +4200,8 @@
                 "inventory": "4350",
                 "item": "http://www.wikidata.org/entity/Q134546389",
                 "itemDescription": "Xocavənd rayonunda yerləşən kilsə",
-                "itemLabel": "Daşbaşı kilsəsi"
+                "itemLabel": "Daşbaşı kilsəsi",
+                "lastModified": "2025-05-23T04:20:14Z"
             }
         },
         {
@@ -3999,7 +4222,8 @@
                 "item": "http://www.wikidata.org/entity/Q2699193",
                 "itemAltLabel": "Ktishvang",
                 "itemDescription": "Xocavənd rayonunda monastır",
-                "itemLabel": "Ktişvəng monastırı"
+                "itemLabel": "Ktişvəng monastırı",
+                "lastModified": "2025-05-23T03:16:44Z"
             }
         },
         {
@@ -4016,7 +4240,8 @@
                 "inventory": "4358",
                 "item": "http://www.wikidata.org/entity/Q65276001",
                 "itemDescription": "Mausoleum in Azerbaijan",
-                "itemLabel": "Kələzeyvə türbəsi"
+                "itemLabel": "Kələzeyvə türbəsi",
+                "lastModified": "2025-10-11T18:25:01Z"
             }
         },
         {
@@ -4032,7 +4257,8 @@
                 "azLink": "https://az.wikipedia.org/wiki/Fit_qalas%C4%B1",
                 "inventory": "4360",
                 "item": "http://www.wikidata.org/entity/Q16416279",
-                "itemLabel": "Fit qalası"
+                "itemLabel": "Fit qalası",
+                "lastModified": "2025-10-11T13:34:17Z"
             }
         },
         {
@@ -4049,7 +4275,8 @@
                 "inventory": "4362",
                 "item": "http://www.wikidata.org/entity/Q16418383",
                 "itemDescription": "İsmayıllı rayonu ərazisində qala",
-                "itemLabel": "Xan qalası"
+                "itemLabel": "Xan qalası",
+                "lastModified": "2025-10-11T13:58:31Z"
             }
         },
         {
@@ -4068,7 +4295,8 @@
                 "inventory": "4364",
                 "item": "http://www.wikidata.org/entity/Q134732783",
                 "itemDescription": "İsmayıllının Qalagah kəndində kilsə",
-                "itemLabel": "Qalagah kilsəsi"
+                "itemLabel": "Qalagah kilsəsi",
+                "lastModified": "2025-06-08T00:21:13Z"
             }
         },
         {
@@ -4088,7 +4316,8 @@
                 "inventory": "4367",
                 "item": "http://www.wikidata.org/entity/Q133853870",
                 "itemDescription": "Azərbaycanda İsmayıllı rayonunun Diyallı kəndində yerləşən 1866-cı ilə aid məscid və tarix-memarlıq abidəsi.",
-                "itemLabel": "Hacı Məcid Əfəndi məscidi"
+                "itemLabel": "Hacı Məcid Əfəndi məscidi",
+                "lastModified": "2025-11-03T03:15:59Z"
             }
         },
         {
@@ -4108,7 +4337,8 @@
                 "inventory": "4381",
                 "item": "http://www.wikidata.org/entity/Q129175814",
                 "itemDescription": "Lahıc qəsəbəsində yerləşən 18-ci əsrə aid məscid.",
-                "itemLabel": "Bədöyün məscidi"
+                "itemLabel": "Bədöyün məscidi",
+                "lastModified": "2025-10-15T11:23:51Z"
             }
         },
         {
@@ -4127,7 +4357,8 @@
                 "inventory": "4466",
                 "item": "http://www.wikidata.org/entity/Q134732800",
                 "itemDescription": "İsmayıllıda hamam",
-                "itemLabel": "Basqal hamamı"
+                "itemLabel": "Basqal hamamı",
+                "lastModified": "2025-06-07T23:15:14Z"
             }
         },
         {
@@ -4146,7 +4377,8 @@
                 "item": "http://www.wikidata.org/entity/Q55702856",
                 "itemAltLabel": "Abudərdə türbəsi",
                 "itemDescription": "Yardımlı rayonunda yerləşən türbə",
-                "itemLabel": "Abi-Dərdə türbəsi"
+                "itemLabel": "Abi-Dərdə türbəsi",
+                "lastModified": "2025-05-23T02:55:03Z"
             }
         },
         {
@@ -4163,7 +4395,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qazax%20mosque.jpg",
                 "inventory": "4513",
                 "item": "http://www.wikidata.org/entity/Q12838279",
-                "itemLabel": "Cümə məscidi (Qazax)"
+                "itemLabel": "Cümə məscidi (Qazax)",
+                "lastModified": "2025-05-30T17:34:06Z"
             }
         },
         {
@@ -4180,7 +4413,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C4%B0srafil%20a%C4%9Fa%20hamam%C4%B1.jpg",
                 "inventory": "4514",
                 "item": "http://www.wikidata.org/entity/Q16414341",
-                "itemLabel": "İsrafil ağa hamamı"
+                "itemLabel": "İsrafil ağa hamamı",
+                "lastModified": "2025-08-12T07:35:47Z"
             }
         },
         {
@@ -4198,7 +4432,8 @@
                 "inventory": "4519",
                 "item": "http://www.wikidata.org/entity/Q31309982",
                 "itemDescription": "cultural heritage monument of Armenia",
-                "itemLabel": "Qatır körpüsü"
+                "itemLabel": "Qatır körpüsü",
+                "lastModified": "2025-07-03T12:38:22Z"
             }
         },
         {
@@ -4217,7 +4452,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Voskepar%20Fortress%2007.jpg",
                 "inventory": "4524",
                 "item": "http://www.wikidata.org/entity/Q31309985",
-                "itemLabel": "Dördkünclü qala"
+                "itemLabel": "Dördkünclü qala",
+                "lastModified": "2025-08-19T08:35:14Z"
             }
         },
         {
@@ -4238,7 +4474,8 @@
                 "item": "http://www.wikidata.org/entity/Q4134788",
                 "itemAltLabel": "Yeddibürclü qala",
                 "itemDescription": "Göyəzən dağında yerləşən qala",
-                "itemLabel": "Göyəzən qalası"
+                "itemLabel": "Göyəzən qalası",
+                "lastModified": "2025-06-25T15:00:48Z"
             }
         },
         {
@@ -4259,7 +4496,8 @@
                 "item": "http://www.wikidata.org/entity/Q16417018",
                 "itemAltLabel": "Göy türbə, Hacı Əfəndi türbəsi",
                 "itemDescription": "Qazaxın Aslanbəyli kəndində yerləşən türbə",
-                "itemLabel": "Hacı Mahmud Əfəndi türbəsi"
+                "itemLabel": "Hacı Mahmud Əfəndi türbəsi",
+                "lastModified": "2025-10-14T12:54:01Z"
             }
         },
         {
@@ -4277,7 +4515,8 @@
                 "inventory": "4546",
                 "item": "http://www.wikidata.org/entity/Q16417495",
                 "itemAltLabel": "Rus qalası",
-                "itemLabel": "Həsənxan qalası"
+                "itemLabel": "Həsənxan qalası",
+                "lastModified": "2025-06-24T20:07:09Z"
             }
         },
         {
@@ -4298,7 +4537,8 @@
                 "item": "http://www.wikidata.org/entity/Q12844152",
                 "itemAltLabel": "Şamilqala",
                 "itemDescription": "19th-century tower in Azerbaijan",
-                "itemLabel": "Qalaça (Şamilqala)"
+                "itemLabel": "Qalaça (Şamilqala)",
+                "lastModified": "2025-10-13T13:51:35Z"
             }
         },
         {
@@ -4317,7 +4557,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ulu%20k%C3%B6rp%C3%BC%2C%20%C4%B0lisu%2C%20Qax.JPG",
                 "inventory": "4552",
                 "item": "http://www.wikidata.org/entity/Q12846983",
-                "itemLabel": "Ulu körpü"
+                "itemLabel": "Ulu körpü",
+                "lastModified": "2025-06-24T14:51:25Z"
             }
         },
         {
@@ -4337,7 +4578,8 @@
                 "inventory": "4554",
                 "item": "http://www.wikidata.org/entity/Q12838203",
                 "itemDescription": "fortress near Ilisu, Gakh region of Azerbaijan",
-                "itemLabel": "Cinli qala"
+                "itemLabel": "Cinli qala",
+                "lastModified": "2025-06-24T14:41:08Z"
             }
         },
         {
@@ -4358,7 +4600,8 @@
                 "item": "http://www.wikidata.org/entity/Q7457201",
                 "itemAltLabel": "Yeddi kilsə məbədi",
                 "itemDescription": "church building in Azerbaijan",
-                "itemLabel": "Yeddi kilsə monastır kompleksi"
+                "itemLabel": "Yeddi kilsə monastır kompleksi",
+                "lastModified": "2025-10-15T14:17:11Z"
             }
         },
         {
@@ -4378,7 +4621,8 @@
                 "inventory": "4561",
                 "item": "http://www.wikidata.org/entity/Q130356144",
                 "itemDescription": "Mosque in Azerbaijan",
-                "itemLabel": "Güllük kənd məscidi"
+                "itemLabel": "Güllük kənd məscidi",
+                "lastModified": "2025-09-29T01:17:35Z"
             }
         },
         {
@@ -4397,7 +4641,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/St.%20Nino%20Church%20of%20Alibeglo.jpg",
                 "inventory": "4563",
                 "item": "http://www.wikidata.org/entity/Q12861609",
-                "itemLabel": "Müqəddəs Nino kilsəsi"
+                "itemLabel": "Müqəddəs Nino kilsəsi",
+                "lastModified": "2025-07-01T19:11:02Z"
             }
         },
         {
@@ -4417,7 +4662,8 @@
                 "inventory": "4565",
                 "item": "http://www.wikidata.org/entity/Q16415283",
                 "itemDescription": "mosque in Qakh, Azerbaijan",
-                "itemLabel": "Qaxmuğal məscidi"
+                "itemLabel": "Qaxmuğal məscidi",
+                "lastModified": "2025-06-24T19:45:56Z"
             }
         },
         {
@@ -4438,7 +4684,8 @@
                 "item": "http://www.wikidata.org/entity/Q31355108",
                 "itemAltLabel": "St George's Church, Qax İngiloy",
                 "itemDescription": "Georgian Orthodox Church in Gakh-Inguila, Qakh district, Azerbaijan",
-                "itemLabel": "Müqəddəs Georgi kilsəsi"
+                "itemLabel": "Müqəddəs Georgi kilsəsi",
+                "lastModified": "2025-09-27T02:54:44Z"
             }
         },
         {
@@ -4458,7 +4705,8 @@
                 "inventory": "4570",
                 "item": "http://www.wikidata.org/entity/Q31356032",
                 "itemAltLabel": "Church of Meshabash, Church of Meshebash",
-                "itemLabel": "Müqəddəs Mixeyil kilsəsi"
+                "itemLabel": "Müqəddəs Mixeyil kilsəsi",
+                "lastModified": "2025-06-24T20:28:14Z"
             }
         },
         {
@@ -4479,7 +4727,8 @@
                 "item": "http://www.wikidata.org/entity/Q3652485",
                 "itemAltLabel": "Kürmüx kilsəsi, Kürmüx məbədi",
                 "itemDescription": "Georgian church in the Qakh District of Azerbaijan",
-                "itemLabel": "Kürmük kilsəsi"
+                "itemLabel": "Kürmük kilsəsi",
+                "lastModified": "2025-06-24T14:39:27Z"
             }
         },
         {
@@ -4500,7 +4749,8 @@
                 "item": "http://www.wikidata.org/entity/Q16416672",
                 "itemAltLabel": "domed bath in Guba",
                 "itemDescription": "historical bathhouse in Azerbaijan",
-                "itemLabel": "Gümbəzli hamam"
+                "itemLabel": "Gümbəzli hamam",
+                "lastModified": "2025-06-21T23:40:39Z"
             }
         },
         {
@@ -4521,7 +4771,8 @@
                 "item": "http://www.wikidata.org/entity/Q16415181",
                 "itemAltLabel": "Quba cümə məscidi",
                 "itemDescription": "Qubada yerləşən ibadətgah",
-                "itemLabel": "Cümə məscidi"
+                "itemLabel": "Cümə məscidi",
+                "lastModified": "2025-10-22T15:38:32Z"
             }
         },
         {
@@ -4541,7 +4792,8 @@
                 "inventory": "4618",
                 "item": "http://www.wikidata.org/entity/Q55699316",
                 "itemDescription": "Quba şəhərində Fətəli xan küçəsi 113 ünvanında yerləşən XIX əsrə aid məscid.",
-                "itemLabel": "Ərdəbil məscidi"
+                "itemLabel": "Ərdəbil məscidi",
+                "lastModified": "2025-04-03T05:35:09Z"
             }
         },
         {
@@ -4562,7 +4814,8 @@
                 "item": "http://www.wikidata.org/entity/Q97234065",
                 "itemAltLabel": "Hacı Cəfər məscidi",
                 "itemDescription": "Qubada yerləşən ibadətgah",
-                "itemLabel": "Hacı Cəfər Məscidi"
+                "itemLabel": "Hacı Cəfər Məscidi",
+                "lastModified": "2025-12-02T06:13:47Z"
             }
         },
         {
@@ -4582,7 +4835,8 @@
                 "inventory": "4622",
                 "item": "http://www.wikidata.org/entity/Q55698945",
                 "itemDescription": "19th-century mosque in Guba region, Azerbaijan",
-                "itemLabel": "Birinci Nügədi kənd məscidi"
+                "itemLabel": "Birinci Nügədi kənd məscidi",
+                "lastModified": "2025-04-03T05:31:09Z"
             }
         },
         {
@@ -4602,7 +4856,8 @@
                 "inventory": "4624",
                 "item": "http://www.wikidata.org/entity/Q123418226",
                 "itemDescription": "mosque in Susay, Quba, Azerbaijan",
-                "itemLabel": "Susay məscidi"
+                "itemLabel": "Susay məscidi",
+                "lastModified": "2025-12-03T07:00:31Z"
             }
         },
         {
@@ -4622,7 +4877,8 @@
                 "inventory": "4626",
                 "item": "http://www.wikidata.org/entity/Q55699180",
                 "itemDescription": "mosque in Rustov, Quba, Azerbaijan",
-                "itemLabel": "Rustov məscidi"
+                "itemLabel": "Rustov məscidi",
+                "lastModified": "2025-04-03T05:32:26Z"
             }
         },
         {
@@ -4642,7 +4898,8 @@
                 "inventory": "4653",
                 "item": "http://www.wikidata.org/entity/Q135442082",
                 "itemDescription": "Quba rayonunun Hacıhüsenli kəndində yerləşən kilsə.",
-                "itemLabel": "Müqəddəs Məryəmin Himayəsi kilsəsi"
+                "itemLabel": "Müqəddəs Məryəmin Himayəsi kilsəsi",
+                "lastModified": "2025-08-05T06:33:35Z"
             }
         },
         {
@@ -4662,7 +4919,8 @@
                 "inventory": "4660",
                 "item": "http://www.wikidata.org/entity/Q125522857",
                 "itemDescription": "mosque in Azerbaijan",
-                "itemLabel": "Xanəgah məscidi (Quba)"
+                "itemLabel": "Xanəgah məscidi (Quba)",
+                "lastModified": "2025-04-28T01:07:40Z"
             }
         },
         {
@@ -4679,7 +4937,8 @@
                 "inventory": "4789",
                 "item": "http://www.wikidata.org/entity/Q12837181",
                 "itemDescription": "Azərbaycanın Lerik rayonunda yerləşəın dini-tarixi memarlıq abidəsi.",
-                "itemLabel": "Babagil türbəsi"
+                "itemLabel": "Babagil türbəsi",
+                "lastModified": "2025-05-25T15:43:49Z"
             }
         },
         {
@@ -4699,7 +4958,8 @@
                 "inventory": "4793",
                 "item": "http://www.wikidata.org/entity/Q16417760",
                 "itemDescription": "1913-cü Mir Əhməd xanın sifarişi ilə Lənkəranda tikilmiş saray.",
-                "itemLabel": "Lənkəran xan sarayı"
+                "itemLabel": "Lənkəran xan sarayı",
+                "lastModified": "2025-05-05T08:51:31Z"
             }
         },
         {
@@ -4719,7 +4979,8 @@
                 "inventory": "4794",
                 "item": "http://www.wikidata.org/entity/Q110105648",
                 "itemDescription": "Lənkəran şəhərində Axundov küçəsi 50 ünvanında yerləşən ev.",
-                "itemLabel": "İsa bəyin evi"
+                "itemLabel": "İsa bəyin evi",
+                "lastModified": "2025-05-05T08:51:20Z"
             }
         },
         {
@@ -4739,7 +5000,8 @@
                 "inventory": "4805",
                 "item": "http://www.wikidata.org/entity/Q16414761",
                 "itemDescription": "Lənkəran şəhərinin Böyük Bazar məhəlləsində tarixi məscid",
-                "itemLabel": "Böyük Bazar məscidi"
+                "itemLabel": "Böyük Bazar məscidi",
+                "lastModified": "2025-05-25T15:56:25Z"
             }
         },
         {
@@ -4760,7 +5022,8 @@
                 "item": "http://www.wikidata.org/entity/Q12840945",
                 "itemAltLabel": "Kiçik bazar məscidi",
                 "itemDescription": "Mosque in Lankaran, Azerbaijan",
-                "itemLabel": "Kiçik Bazar məscidi"
+                "itemLabel": "Kiçik Bazar məscidi",
+                "lastModified": "2025-05-05T08:50:58Z"
             }
         },
         {
@@ -4776,7 +5039,8 @@
                 "azLink": "https://az.wikipedia.org/wiki/B%C9%99ll%C9%99bur_qalas%C4%B1",
                 "inventory": "4807",
                 "item": "http://www.wikidata.org/entity/Q16414887",
-                "itemLabel": "Bəlləbur qalası"
+                "itemLabel": "Bəlləbur qalası",
+                "lastModified": "2025-06-03T08:48:04Z"
             }
         },
         {
@@ -4797,7 +5061,8 @@
                 "item": "http://www.wikidata.org/entity/Q12848333",
                 "itemAltLabel": "Dairəvi qala",
                 "itemDescription": "XVIII əsrdə tikilmiş Lənkəran qalasının bir hissəsi",
-                "itemLabel": "Zindan qalası"
+                "itemLabel": "Zindan qalası",
+                "lastModified": "2025-05-05T08:51:41Z"
             }
         },
         {
@@ -4813,7 +5078,8 @@
                 "azLink": "https://az.wikipedia.org/wiki/%C5%9Eeyx_Zahid_t%C3%BCrb%C9%99si",
                 "inventory": "4838",
                 "item": "http://www.wikidata.org/entity/Q16414607",
-                "itemLabel": "Şeyx Zahid türbəsi"
+                "itemLabel": "Şeyx Zahid türbəsi",
+                "lastModified": "2025-06-08T04:30:37Z"
             }
         },
         {
@@ -4833,7 +5099,8 @@
                 "inventory": "4911",
                 "item": "http://www.wikidata.org/entity/Q110101108",
                 "itemDescription": "1904-cü ildə tikilmiş və Bakıda yerləşən məscid.",
-                "itemLabel": "Əhmədli məscidi"
+                "itemLabel": "Əhmədli məscidi",
+                "lastModified": "2025-06-12T15:21:46Z"
             }
         },
         {
@@ -4851,7 +5118,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Alban%20kils%C9%99si%20O%C4%9Fuz%20%286%29.jpg",
                 "inventory": "4939",
                 "item": "http://www.wikidata.org/entity/Q136509655",
-                "itemLabel": "Oğuz alban kilsəsi"
+                "itemLabel": "Oğuz alban kilsəsi",
+                "lastModified": "2025-10-15T20:10:06Z"
             }
         },
         {
@@ -4872,7 +5140,8 @@
                 "item": "http://www.wikidata.org/entity/Q12843767",
                 "itemAltLabel": "Oğuz Tarix-Diyarşünaslıq Muzeyi",
                 "itemDescription": "1822-ci ildə tikilmiş ortodoks kilsəsi",
-                "itemLabel": "Müqəddəs Yelisey kilsəsi"
+                "itemLabel": "Müqəddəs Yelisey kilsəsi",
+                "lastModified": "2025-06-24T20:20:23Z"
             }
         },
         {
@@ -4891,7 +5160,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Calut%20church.jpg",
                 "inventory": "4941",
                 "item": "http://www.wikidata.org/entity/Q12838084",
-                "itemLabel": "Calut kilsəsi"
+                "itemLabel": "Calut kilsəsi",
+                "lastModified": "2025-09-02T08:27:13Z"
             }
         },
         {
@@ -4907,7 +5177,8 @@
                 "azLink": "https://az.wikipedia.org/wiki/Muxas_q%C3%BCll%C9%99si",
                 "inventory": "4942",
                 "item": "http://www.wikidata.org/entity/Q16418294",
-                "itemLabel": "Muxas qülləsi"
+                "itemLabel": "Muxas qülləsi",
+                "lastModified": "2025-06-24T20:12:04Z"
             }
         },
         {
@@ -4927,7 +5198,8 @@
                 "inventory": "4963",
                 "item": "http://www.wikidata.org/entity/Q136504941",
                 "itemDescription": "1892-ci ildə tikilmiş tarix-memarlıq abidəsi, məscid.",
-                "itemLabel": "Dəmirçi kənd məscidi"
+                "itemLabel": "Dəmirçi kənd məscidi",
+                "lastModified": "2025-11-01T12:20:48Z"
             }
         },
         {
@@ -4947,7 +5219,8 @@
                 "item": "http://www.wikidata.org/entity/Q134987305",
                 "itemAltLabel": "Yapon Yaqubların fabriki",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "1 nömrəli fabrikin binası"
+                "itemLabel": "1 nömrəli fabrikin binası",
+                "lastModified": "2025-07-21T06:45:28Z"
             }
         },
         {
@@ -4967,7 +5240,8 @@
                 "inventory": "4971",
                 "item": "http://www.wikidata.org/entity/Q135272605",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "Qışlaq hamamı"
+                "itemLabel": "Qışlaq hamamı",
+                "lastModified": "2025-08-04T07:10:55Z"
             }
         },
         {
@@ -4987,7 +5261,8 @@
                 "inventory": "4973",
                 "item": "http://www.wikidata.org/entity/Q135062033",
                 "itemDescription": "Şəkinin tarixi mərkəzində yerləşən XIX əsrə aid məscid.",
-                "itemLabel": "Topqarağac məscidi"
+                "itemLabel": "Topqarağac məscidi",
+                "lastModified": "2025-08-11T08:55:46Z"
             }
         },
         {
@@ -5004,7 +5279,8 @@
                 "inventory": "4974",
                 "item": "http://www.wikidata.org/entity/Q128403487",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
-                "itemLabel": "Abdulxalıq hamamı"
+                "itemLabel": "Abdulxalıq hamamı",
+                "lastModified": "2025-05-05T08:54:40Z"
             }
         },
         {
@@ -5024,7 +5300,8 @@
                 "inventory": "4975",
                 "item": "http://www.wikidata.org/entity/Q97227420",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
-                "itemLabel": "Yeraltı hamam"
+                "itemLabel": "Yeraltı hamam",
+                "lastModified": "2025-06-27T11:35:59Z"
             }
         },
         {
@@ -5044,7 +5321,8 @@
                 "inventory": "4977",
                 "item": "http://www.wikidata.org/entity/Q134986879",
                 "itemDescription": "Şəkidə yerləşən XIX əsrə aid tarix memarlıq abidəsi.",
-                "itemLabel": "Qışlaq məscidi"
+                "itemLabel": "Qışlaq məscidi",
+                "lastModified": "2025-07-21T06:43:16Z"
             }
         },
         {
@@ -5064,7 +5342,8 @@
                 "inventory": "4979",
                 "item": "http://www.wikidata.org/entity/Q13365115",
                 "itemDescription": "Şəkinin tarixi mərkəzində yerləşən XIX əsrə aid məscid.",
-                "itemLabel": "Ömər Əfəndi məscidi"
+                "itemLabel": "Ömər Əfəndi məscidi",
+                "lastModified": "2025-06-24T14:25:52Z"
             }
         },
         {
@@ -5084,7 +5363,8 @@
                 "inventory": "4980",
                 "item": "http://www.wikidata.org/entity/Q21661993",
                 "itemDescription": "mosque in Shaki, Azerbaijan",
-                "itemLabel": "Gödək minarəli məscid"
+                "itemLabel": "Gödək minarəli məscid",
+                "lastModified": "2025-06-20T14:19:14Z"
             }
         },
         {
@@ -5101,7 +5381,8 @@
                 "inventory": "4981",
                 "item": "http://www.wikidata.org/entity/Q97225446",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
-                "itemLabel": "Dərə hamamı"
+                "itemLabel": "Dərə hamamı",
+                "lastModified": "2025-05-05T08:55:11Z"
             }
         },
         {
@@ -5122,7 +5403,8 @@
                 "item": "http://www.wikidata.org/entity/Q135045351",
                 "itemAltLabel": "Minarə, Səkkiz guşəli minarə",
                 "itemDescription": "Şəkinin tarixi mərkəzində yerləşən XIX əsrə aid məscidin minarəsi.",
-                "itemLabel": "Səkkiz üzlü minarə"
+                "itemLabel": "Səkkiz üzlü minarə",
+                "lastModified": "2025-07-21T06:47:08Z"
             }
         },
         {
@@ -5141,7 +5423,8 @@
                 "inventory": "4991",
                 "item": "http://www.wikidata.org/entity/Q135273269",
                 "itemDescription": "Daşbulaq kəndində yerləşən kilsə",
-                "itemLabel": "Daşbulaq kilsəsi"
+                "itemLabel": "Daşbulaq kilsəsi",
+                "lastModified": "2025-12-10T11:58:53Z"
             }
         },
         {
@@ -5161,7 +5444,8 @@
                 "inventory": "4995",
                 "item": "http://www.wikidata.org/entity/Q97225056",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
-                "itemLabel": "Ağvanlar hamamı"
+                "itemLabel": "Ağvanlar hamamı",
+                "lastModified": "2025-06-27T10:40:36Z"
             }
         },
         {
@@ -5180,7 +5464,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Gurjana%20bridge%20-%20I%20%28202507%29.jpg",
                 "inventory": "4996",
                 "item": "http://www.wikidata.org/entity/Q97227133",
-                "itemLabel": "Tağlı körpülər"
+                "itemLabel": "Tağlı körpülər",
+                "lastModified": "2025-06-27T11:24:05Z"
             }
         },
         {
@@ -5200,7 +5485,8 @@
                 "inventory": "4996-1",
                 "item": "http://www.wikidata.org/entity/Q134980744",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidələri",
-                "itemLabel": "Dadanovların mülkləri"
+                "itemLabel": "Dadanovların mülkləri",
+                "lastModified": "2025-07-24T11:31:47Z"
             }
         },
         {
@@ -5220,7 +5506,8 @@
                 "inventory": "4996-2",
                 "item": "http://www.wikidata.org/entity/Q134980744",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidələri",
-                "itemLabel": "Dadanovların mülkləri"
+                "itemLabel": "Dadanovların mülkləri",
+                "lastModified": "2025-07-24T11:31:47Z"
             }
         },
         {
@@ -5240,7 +5527,8 @@
                 "inventory": "4996-3",
                 "item": "http://www.wikidata.org/entity/Q134980744",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidələri",
-                "itemLabel": "Dadanovların mülkləri"
+                "itemLabel": "Dadanovların mülkləri",
+                "lastModified": "2025-07-24T11:31:47Z"
             }
         },
         {
@@ -5260,7 +5548,8 @@
                 "inventory": "4996-4",
                 "item": "http://www.wikidata.org/entity/Q134980744",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidələri",
-                "itemLabel": "Dadanovların mülkləri"
+                "itemLabel": "Dadanovların mülkləri",
+                "lastModified": "2025-07-24T11:31:47Z"
             }
         },
         {
@@ -5280,7 +5569,8 @@
                 "inventory": "4996-5",
                 "item": "http://www.wikidata.org/entity/Q134980744",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidələri",
-                "itemLabel": "Dadanovların mülkləri"
+                "itemLabel": "Dadanovların mülkləri",
+                "lastModified": "2025-07-24T11:31:47Z"
             }
         },
         {
@@ -5300,7 +5590,8 @@
                 "item": "http://www.wikidata.org/entity/Q135094743",
                 "itemAltLabel": "5 saylı uşaq bağçasının binası",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "Building on Ahmadiyya Jabrayilov Street 14"
+                "itemLabel": "Building on Ahmadiyya Jabrayilov Street 14",
+                "lastModified": "2025-07-21T06:48:54Z"
             }
         },
         {
@@ -5321,7 +5612,8 @@
                 "item": "http://www.wikidata.org/entity/Q128386659",
                 "itemAltLabel": "Zülfüqarovun tikdirdiyi mollaxana",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "Zülfüqarovun mədrəsəsi"
+                "itemLabel": "Zülfüqarovun mədrəsəsi",
+                "lastModified": "2025-07-23T07:56:23Z"
             }
         },
         {
@@ -5340,7 +5632,8 @@
                 "inventory": "4996-8",
                 "item": "http://www.wikidata.org/entity/Q135108452",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "Hacı Zülqədər Zülfüqarovun evi"
+                "itemLabel": "Hacı Zülqədər Zülfüqarovun evi",
+                "lastModified": "2025-08-22T00:40:19Z"
             }
         },
         {
@@ -5360,7 +5653,8 @@
                 "inventory": "4996-11",
                 "item": "http://www.wikidata.org/entity/Q134980648",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "Məmməd Sadıq Əliyevin ticarət kontorunun binası"
+                "itemLabel": "Məmməd Sadıq Əliyevin ticarət kontorunun binası",
+                "lastModified": "2025-09-18T18:43:11Z"
             }
         },
         {
@@ -5379,7 +5673,8 @@
                 "inventory": "4996-15",
                 "item": "http://www.wikidata.org/entity/Q135514846",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "Təcridxananın birinci binası"
+                "itemLabel": "Təcridxananın birinci binası",
+                "lastModified": "2025-07-30T19:12:17Z"
             }
         },
         {
@@ -5397,7 +5692,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Side%20view%20of%20the%20Sheki%20Craftsmen%27s%20House.jpg",
                 "inventory": "4996-16",
                 "item": "http://www.wikidata.org/entity/Q129260179",
-                "itemLabel": "Şəki Sənətkarlar Evi"
+                "itemLabel": "Şəki Sənətkarlar Evi",
+                "lastModified": "2025-04-04T17:49:27Z"
             }
         },
         {
@@ -5417,7 +5713,8 @@
                 "inventory": "4996-18",
                 "item": "http://www.wikidata.org/entity/Q134987039",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "İsmayıl Hüseynbəyovun evi"
+                "itemLabel": "İsmayıl Hüseynbəyovun evi",
+                "lastModified": "2025-08-22T22:17:10Z"
             }
         },
         {
@@ -5436,7 +5733,8 @@
                 "inventory": "4996-19",
                 "item": "http://www.wikidata.org/entity/Q134992068",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "İsmayıl Hüseynbəyovun evi 2"
+                "itemLabel": "İsmayıl Hüseynbəyovun evi 2",
+                "lastModified": "2025-07-21T06:57:41Z"
             }
         },
         {
@@ -5455,7 +5753,8 @@
                 "inventory": "4996-28",
                 "item": "http://www.wikidata.org/entity/Q135513392",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "Mülkədar Şirin bəyin evi 2"
+                "itemLabel": "Mülkədar Şirin bəyin evi 2",
+                "lastModified": "2025-08-02T06:11:20Z"
             }
         },
         {
@@ -5474,7 +5773,8 @@
                 "inventory": "4996-29",
                 "item": "http://www.wikidata.org/entity/Q135513254",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "Hacıağa Məhərrəmin evi"
+                "itemLabel": "Hacıağa Məhərrəmin evi",
+                "lastModified": "2025-08-02T06:10:56Z"
             }
         },
         {
@@ -5493,7 +5793,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/B%C9%99xtiyar%20Vahabzad%C9%99nin%20ev%20muzeyi%202025-ci%20il%20%281%29.jpg",
                 "inventory": "4996-30",
                 "item": "http://www.wikidata.org/entity/Q56758708",
-                "itemLabel": "Bəxtiyar Vahabzadənin ev-muzeyi"
+                "itemLabel": "Bəxtiyar Vahabzadənin ev-muzeyi",
+                "lastModified": "2025-07-21T21:51:07Z"
             }
         },
         {
@@ -5512,7 +5813,8 @@
                 "inventory": "4996-35",
                 "item": "http://www.wikidata.org/entity/Q135103459",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "Abdulla bəy Əfəndizadənin evi"
+                "itemLabel": "Abdulla bəy Əfəndizadənin evi",
+                "lastModified": "2025-07-21T06:49:21Z"
             }
         },
         {
@@ -5531,7 +5833,8 @@
                 "inventory": "4996-43",
                 "item": "http://www.wikidata.org/entity/Q135042934",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "Tacir İsmayıl bəyin evi"
+                "itemLabel": "Tacir İsmayıl bəyin evi",
+                "lastModified": "2025-07-21T06:46:25Z"
             }
         },
         {
@@ -5550,7 +5853,8 @@
                 "inventory": "4996-46",
                 "item": "http://www.wikidata.org/entity/Q134899544",
                 "itemDescription": "1911-ci ildə Şəkidə tikilmiş tarixi abidə.",
-                "itemLabel": "Səmədovların evi"
+                "itemLabel": "Səmədovların evi",
+                "lastModified": "2025-06-17T06:12:01Z"
             }
         },
         {
@@ -5569,7 +5873,8 @@
                 "inventory": "4996-55",
                 "item": "http://www.wikidata.org/entity/Q135513281",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidəsi",
-                "itemLabel": "Əhmədiyyə Cəbrayılov küçəsi 9 ünvanındakı bina"
+                "itemLabel": "Əhmədiyyə Cəbrayılov küçəsi 9 ünvanındakı bina",
+                "lastModified": "2025-08-03T04:16:46Z"
             }
         },
         {
@@ -5590,7 +5895,8 @@
                 "item": "http://www.wikidata.org/entity/Q12835673",
                 "itemAltLabel": "Alman lüteran kilsəsi ( Şəmkir)",
                 "itemDescription": "Azərbaycanın Şəmkir şəhərində yerləşən tarixi-memarlıq abidəsi və kilsə.",
-                "itemLabel": "Alman lüteran kilsəsi (Şəmkir)"
+                "itemLabel": "Alman lüteran kilsəsi (Şəmkir)",
+                "lastModified": "2025-05-25T15:35:03Z"
             }
         },
         {
@@ -5611,7 +5917,8 @@
                 "item": "http://www.wikidata.org/entity/Q31304640",
                 "itemAltLabel": "Müqəddəs Qevorq kilsəsi",
                 "itemDescription": "Zaqatala şəhərində yerləşən kilsə",
-                "itemLabel": "Zaqatala kilsəsi"
+                "itemLabel": "Zaqatala kilsəsi",
+                "lastModified": "2025-12-02T22:36:12Z"
             }
         },
         {
@@ -5631,7 +5938,8 @@
                 "inventory": "5218",
                 "item": "http://www.wikidata.org/entity/Q12848260",
                 "itemDescription": "Zaqatalada yerləşən müdafiə tikilisi",
-                "itemLabel": "Zaqatala qalası"
+                "itemLabel": "Zaqatala qalası",
+                "lastModified": "2025-05-23T02:37:30Z"
             }
         },
         {
@@ -5651,7 +5959,8 @@
                 "inventory": "5221",
                 "item": "http://www.wikidata.org/entity/Q16413635",
                 "itemDescription": "tower in Zagatala, Azerbaijan",
-                "itemLabel": "Çingizqala"
+                "itemLabel": "Çingizqala",
+                "lastModified": "2025-05-23T02:39:05Z"
             }
         },
         {
@@ -5671,7 +5980,8 @@
                 "inventory": "5253",
                 "item": "http://www.wikidata.org/entity/Q130350127",
                 "itemDescription": "Zaqatalanın Çobankol kəndində yerləşən məscid",
-                "itemLabel": "Çobankol kənd məscidi"
+                "itemLabel": "Çobankol kənd məscidi",
+                "lastModified": "2025-09-29T01:23:22Z"
             }
         },
         {
@@ -5689,7 +5999,8 @@
                 "inventory": "5300",
                 "item": "http://www.wikidata.org/entity/Q16418664",
                 "itemAltLabel": "Zaviyə mədrəsəsi",
-                "itemLabel": "Zəviyyə məscidi"
+                "itemLabel": "Zəviyyə məscidi",
+                "lastModified": "2025-08-03T14:42:34Z"
             }
         },
         {
@@ -5708,7 +6019,8 @@
                 "item": "http://www.wikidata.org/entity/Q12835739",
                 "itemAltLabel": "Mir Cəfər Ağa məscidi, Yuxarı Ambaras məscidi",
                 "itemDescription": "Azərbaycanda Ordubad şəhərində yerləşən XVII əsrə aid məscid və tarix-memarlıq abidəsi",
-                "itemLabel": "Ambaras məscidi"
+                "itemLabel": "Ambaras məscidi",
+                "lastModified": "2025-10-06T07:03:08Z"
             }
         },
         {
@@ -5728,7 +6040,8 @@
                 "inventory": "5329",
                 "item": "http://www.wikidata.org/entity/Q16417366",
                 "itemDescription": "Azərbaycanın Ordubad şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Sərşəhər məscidi"
+                "itemLabel": "Sərşəhər məscidi",
+                "lastModified": "2025-05-03T14:59:12Z"
             }
         },
         {
@@ -5745,7 +6058,8 @@
                 "inventory": "5332",
                 "item": "http://www.wikidata.org/entity/Q25540814",
                 "itemDescription": "Azərbaycanın Ordubad şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Mingis məscidi"
+                "itemLabel": "Mingis məscidi",
+                "lastModified": "2025-05-01T13:23:07Z"
             }
         },
         {
@@ -5762,7 +6076,8 @@
                 "inventory": "5345",
                 "item": "http://www.wikidata.org/entity/Q55700598",
                 "itemDescription": "Azərbaycanda Ordubad rayonunun, Dəstə kəndində yerləşən XIX əsrə aid məscid və tarix-memarlıq abidəsi.",
-                "itemLabel": "Şingiley məscidi"
+                "itemLabel": "Şingiley məscidi",
+                "lastModified": "2025-10-06T06:17:27Z"
             }
         },
         {
@@ -5781,7 +6096,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/S%C9%99m%C9%99d%20Vur%C4%9Funun%20poeziya%20evi.jpg",
                 "inventory": "5652",
                 "item": "http://www.wikidata.org/entity/Q16417290",
-                "itemLabel": "Səməd Vurğunun Poeziya Evi"
+                "itemLabel": "Səməd Vurğunun Poeziya Evi",
+                "lastModified": "2025-07-10T10:16:44Z"
             }
         },
         {
@@ -5801,7 +6117,8 @@
                 "inventory": "5689",
                 "item": "http://www.wikidata.org/entity/Q110109898",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi abidə və ev muzeyi.",
-                "itemLabel": "Rəşid bəy Əfəndiyevin Ev-Muzeyi"
+                "itemLabel": "Rəşid bəy Əfəndiyevin Ev-Muzeyi",
+                "lastModified": "2025-07-21T06:51:00Z"
             }
         },
         {
@@ -5821,7 +6138,8 @@
                 "inventory": "5716-1",
                 "item": "http://www.wikidata.org/entity/Q20404595",
                 "itemDescription": "İçərişəhərdə mövcud olmuş kilsə",
-                "itemLabel": "Müqəddəs Varfolomey kilsəsi (Bakı)"
+                "itemLabel": "Müqəddəs Varfolomey kilsəsi (Bakı)",
+                "lastModified": "2025-05-01T10:19:26Z"
             }
         },
         {
@@ -5838,7 +6156,8 @@
                 "inventory": "5756",
                 "item": "http://www.wikidata.org/entity/Q31310721",
                 "itemDescription": "Ağcabədi rayonunun Hacılar kəndinin mərkəzində yerləşən arxeoloji abidə.",
-                "itemLabel": "Hacılar"
+                "itemLabel": "Hacılar",
+                "lastModified": "2025-05-25T15:57:42Z"
             }
         },
         {
@@ -5858,7 +6177,8 @@
                 "item": "http://www.wikidata.org/entity/Q16417167",
                 "itemAltLabel": "Qırxqız, Sulut qalası, Xirəki qala divarları, Qırxotaq",
                 "itemDescription": "Sulut kəndində yerləşmiş qala",
-                "itemLabel": "Haram qalası"
+                "itemLabel": "Haram qalası",
+                "lastModified": "2025-11-10T16:52:06Z"
             }
         },
         {
@@ -5878,7 +6198,8 @@
                 "inventory": "5854",
                 "item": "http://www.wikidata.org/entity/Q16417651",
                 "itemDescription": "habitation in Qakh, Azerbaijan",
-                "itemLabel": "Torpaqqala"
+                "itemLabel": "Torpaqqala",
+                "lastModified": "2025-06-24T14:52:48Z"
             }
         },
         {
@@ -5898,7 +6219,8 @@
                 "inventory": "6036",
                 "item": "http://www.wikidata.org/entity/Q16416289",
                 "itemDescription": "Azərbaycanın Şəki rayonunda yerləşən qüllə və tarix memarlıq abidəsi.",
-                "itemLabel": "Aydınbulaq qülləsi"
+                "itemLabel": "Aydınbulaq qülləsi",
+                "lastModified": "2025-06-24T20:08:39Z"
             }
         },
         {
@@ -5917,25 +6239,8 @@
                 "inventory": "6139",
                 "item": "http://www.wikidata.org/entity/Q107100914",
                 "itemDescription": "Yardımlı rayonun Allar kəndi yaxınlığında yerləşən daş kompleksi",
-                "itemLabel": "Dəvə fiqurlarından karvan daş kompleksi"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    45.6381,
-                    39.2833
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/B%C3%BCl%C3%B6vqaya_ya%C5%9Fay%C4%B1%C5%9F_yeri",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/B%C3%BCl%C3%B6vqaya.jpg",
-                "inventory": "ATAMQ — world-significant archaeological monument",
-                "item": "http://www.wikidata.org/entity/Q109253621",
-                "itemDescription": "Chalcolithic archaeological settlement in Nakhchivan, Azerbaijan",
-                "itemLabel": "Bülövqaya"
+                "itemLabel": "Dəvə fiqurlarından karvan daş kompleksi",
+                "lastModified": "2025-05-23T03:07:49Z"
             }
         }
     ]

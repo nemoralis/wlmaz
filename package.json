@@ -22,6 +22,10 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
+    "@unhead/vue": "^2.0.19",
+    "@vueuse/head": "^2.0.0",
+    "@wikimedia/codex": "^2.3.3",
+    "@wikimedia/codex-icons": "^2.3.3",
     "chart.js": "^4.5.1",
     "compression": "^1.8.1",
     "connect-redis": "^9.0.0",
@@ -50,7 +54,6 @@
     "pinia": "^3.0.3",
     "redis": "^5.10.0",
     "sharp": "^0.34.5",
-    "tsx": "^4.19.2",
     "vue": "^3.5.13",
     "vue-chartjs": "^5.3.3",
     "vue-router": "^4.6.3",
@@ -91,12 +94,14 @@
     "svgo": "^4.0.0",
     "tailwindcss": "^4.1.14",
     "terser": "^5.44.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.7.3",
     "vite": "^7.1.9",
     "vite-bundle-visualizer": "^1.2.1",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-image-optimizer": "^2.0.3",
     "vite-plugin-pwa": "^1.1.0",
+    "vite-plugin-sitemap": "^0.8.2",
     "vue-tsc": "^3.0.0"
   },
   "pnpm": {

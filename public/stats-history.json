@@ -57,5 +57,16 @@
       "added": 4,
       "removed": 0
     }
+  },
+  {
+    "date": "2025-12-14",
+    "timestamp": 1765715756815,
+    "total": 303,
+    "withImage": 265,
+    "withoutImage": 38,
+    "diff": {
+      "added": 1,
+      "removed": 1
+    }
   }
 ]

@@ -173,9 +173,6 @@
                      <i class="fa fa-upload"></i>
                      Şəkil yüklə
                   </button>
-                  <p class="mt-2 text-center text-xs text-gray-500">
-                     Uploads are licensed under CC BY-SA 4.0
-                  </p>
                </div>
 
                <div v-else class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
@@ -241,11 +238,7 @@
                   <!-- Wikidata -->
                   <div v-if="monument.item" class="flex items-center justify-between p-2">
                      <span class="flex items-center gap-2 text-gray-500">
-                        <img
-                           src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Wikidata.svg/330px-Wikidata.svg.png"
-                           class="h-auto w-5 opacity-60"
-                           alt="Wikidata"
-                        />
+                        <CdxIcon :icon="cdxIconLogoWikidata" class="w-5 h-5 opacity-60" />
                         Vikidata
                      </span>
                      <a
@@ -265,7 +258,7 @@
                      class="flex items-center justify-between border-t border-gray-200 p-2"
                   >
                      <span class="flex items-center gap-2 text-gray-500">
-                        <i class="fa-brands fa-wikipedia-w opacity-60"></i>
+                        <CdxIcon :icon="cdxIconLogoWikipedia" class="w-5 h-5 opacity-60" />
                         Vikipediya
                      </span>
                      <a
@@ -297,6 +290,8 @@
 <script lang="ts" setup>
 import { ref, watch } from "vue";
 import type { MonumentProps } from "@/types";
+import { CdxIcon } from '@wikimedia/codex';
+import { cdxIconLogoWikipedia, cdxIconLogoWikidata } from '@wikimedia/codex-icons';
 import {
    getOptimizedImage,
    getSrcSet,
