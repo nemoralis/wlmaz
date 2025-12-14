@@ -119,10 +119,28 @@
    </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { useHead } from "@unhead/vue";
+import { useBreadcrumbSchema, schemaToJsonLd } from "../composables/useSchemaOrg";
 
-export default defineComponent({
-   name: "AboutPage",
+const breadcrumbSchema = useBreadcrumbSchema([
+   { name: "Ana Səhifə", url: "https://wikilovesmonuments.az/" },
+   { name: "Haqqında", url: "https://wikilovesmonuments.az/about" },
+]);
+
+useHead({
+   title: "Haqqında | Viki Abidələri Sevir Azərbaycan",
+   meta: [
+      {
+         name: "description",
+         content: "Wiki Loves Monuments Azərbaycan layihəsi haqqında. Azərbaycandakı mədəni irs abidələrinin fotoşəkillərini toplayın və paylaşın.",
+      },
+   ],
+   script: [
+      {
+         type: "application/ld+json",
+         innerHTML: schemaToJsonLd(breadcrumbSchema),
+      },
+   ],
 });
 </script>

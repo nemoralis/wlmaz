@@ -116,7 +116,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useHead } from '@unhead/vue';
 import type { MonumentProps } from '../types';
@@ -127,6 +127,7 @@ import geobuf from 'geobuf';
 import Pbf from 'pbf';
 import { getOptimizedImage } from '../utils/monumentFormatters';
 import { useWikiCredits } from '../composables/useWikiCredits';
+import { useMonumentSchema, useBreadcrumbSchema, schemaToJsonLd } from '../composables/useSchemaOrg';
 
 const route = useRoute();
 const loading = ref(true);
@@ -135,6 +136,7 @@ const monument = ref<MonumentProps | null>(null);
 const isUploadModalOpen = ref(false);
 const { imageCredit, fetchImageMetadata } = useWikiCredits();
 
+
 const showUploadInfo = () => {
     isUploadModalOpen.value = true;
 };
@@ -142,6 +144,23 @@ const showUploadInfo = () => {
 const getCategoryLink = (category: string) => {
     return `https://commons.wikimedia.org/wiki/Category:${category}`;
 };
+
+// Computed Schema.org structured data
+const monumentSchema = computed(() => {
+    if (!monument.value) return null;
+    return useMonumentSchema(monument.value);
+});
+
+const breadcrumbSchema = computed(() => {
+    if (!monument.value) return null;
+    return useBreadcrumbSchema([
+        { name: 'Ana Səhifə', url: 'https://wikilovesmonuments.az/' },
+        { 
+            name: monument.value.itemLabel || 'Abidə', 
+            url: `https://wikilovesmonuments.az/monument/${monument.value.inventory}` 
+        },
+    ]);
+});
 
 useHead({
     title: () => monument.value ? `${monument.value.itemLabel} | Viki Abidələri Sevir Azərbaycan` : 'Abidə Detalları',
@@ -162,7 +181,17 @@ useHead({
         property: 'og:image',
         content: () => monument.value?.image ? getOptimizedImage(monument.value.image) : '/wlm-az.png'
     }
-    ]
+    ],
+    script: [
+        {
+            type: 'application/ld+json',
+            innerHTML: () => monumentSchema.value ? schemaToJsonLd(monumentSchema.value) : '',
+        },
+        {
+            type: 'application/ld+json',
+            innerHTML: () => breadcrumbSchema.value ? schemaToJsonLd(breadcrumbSchema.value) : '',
+        },
+    ],
 });
 
 onMounted(async () => {
