@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   redis:
-    image: redis:8-alpine
+    image: redis:7-alpine
     container_name: wlmaz_redis
     command: redis-server /usr/local/etc/redis/redis.conf
     volumes:
