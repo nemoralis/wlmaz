@@ -140,26 +140,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
-import { useRoute } from "vue-router";
-import { useHead } from "@unhead/vue";
-import type { MonumentProps } from "../types";
-import { CdxIcon } from "@wikimedia/codex";
-import {
-   cdxIconLogoWikipedia,
-   cdxIconLogoWikimediaCommons,
-   cdxIconLogoWikidata,
-} from "@wikimedia/codex-icons";
-import UploadModal from "../components/UploadModal.vue";
 import geobuf from "geobuf";
 import Pbf from "pbf";
-import { getOptimizedImage } from "../utils/monumentFormatters";
-import { useWikiCredits } from "../composables/useWikiCredits";
+import { computed, onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+import { useHead } from "@unhead/vue";
+import { CdxIcon } from "@wikimedia/codex";
 import {
-   useMonumentSchema,
-   useBreadcrumbSchema,
+   cdxIconLogoWikidata,
+   cdxIconLogoWikimediaCommons,
+   cdxIconLogoWikipedia,
+} from "@wikimedia/codex-icons";
+import UploadModal from "../components/UploadModal.vue";
+import {
    schemaToJsonLd,
+   useBreadcrumbSchema,
+   useMonumentSchema,
 } from "../composables/useSchemaOrg";
+import { useWikiCredits } from "../composables/useWikiCredits";
+import type { MonumentProps } from "../types";
+import { getOptimizedImage } from "../utils/monumentFormatters";
 
 const route = useRoute();
 const loading = ref(true);

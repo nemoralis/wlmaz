@@ -1,6 +1,7 @@
-import OAuth from "oauth-1.0a";
 import crypto from "crypto";
+import OAuth from "oauth-1.0a";
 import type { WikiUser } from "../types";
+
 const IS_PROD = process.env.NODE_ENV === "production";
 
 const API_CONFIG = {

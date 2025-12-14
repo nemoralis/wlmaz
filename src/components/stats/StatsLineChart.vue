@@ -11,18 +11,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
 import {
-   Chart as ChartJS,
    CategoryScale,
+   Chart as ChartJS,
+   Legend,
    LinearScale,
-   PointElement,
    LineElement,
+   PointElement,
    Title,
    Tooltip,
-   Legend,
 } from "chart.js";
 import { Line as LineChart } from "vue-chartjs";
+import { computed, defineComponent } from "vue";
 import type { StatHistoryItem } from "../../composables/useStats";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);

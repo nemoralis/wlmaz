@@ -82,9 +82,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from "vue";
 import Fuse from "fuse.js";
 import type { Feature } from "geojson";
+import { computed, ref, watch } from "vue";
 
 interface Props {
    monuments: Feature[];

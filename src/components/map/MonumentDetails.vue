@@ -299,14 +299,14 @@
 
 <script lang="ts" setup>
 import { ref, watch } from "vue";
-import type { MonumentProps } from "@/types";
 import { CdxIcon } from "@wikimedia/codex";
-import { cdxIconLogoWikipedia, cdxIconLogoWikidata } from "@wikimedia/codex-icons";
+import { cdxIconLogoWikidata, cdxIconLogoWikipedia } from "@wikimedia/codex-icons";
+import type { MonumentProps } from "@/types";
 import {
+   getCategoryUrl,
+   getDescriptionPage,
    getOptimizedImage,
    getSrcSet,
-   getDescriptionPage,
-   getCategoryUrl,
 } from "@/utils/monumentFormatters";
 
 interface Props {

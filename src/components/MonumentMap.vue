@@ -79,14 +79,14 @@
 
 <script lang="ts">
 import {
+   defineAsyncComponent,
    defineComponent,
+   nextTick,
    onMounted,
    onUnmounted,
    ref,
    shallowRef,
-   nextTick,
    watch,
-   defineAsyncComponent,
 } from "vue";
 import L from "leaflet";
 import "leaflet.markercluster";
@@ -94,29 +94,28 @@ import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
 import type { MonumentProps } from "../types";
 import DataWorker from "../workers/data.worker?worker";
-const UploadModal = defineAsyncComponent(() => import("./UploadModal.vue"));
 import MonumentSidebarHome from "./map/MonumentSidebarHome.vue";
-const MonumentDetails = defineAsyncComponent(() => import("./map/MonumentDetails.vue"));
-
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
 import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
-
+import { useClipboard } from "../composables/useClipboard";
+import { useWikiCredits } from "../composables/useWikiCredits";
 // Utils
 import {
+   getCategoryUrl,
+   getDescriptionPage,
    getMonumentIcon,
    getOptimizedImage,
    getSrcSet,
-   getDescriptionPage,
-   getCategoryUrl,
 } from "../utils/monumentFormatters";
-import { useWikiCredits } from "../composables/useWikiCredits";
-import { useClipboard } from "../composables/useClipboard";
-
 // CSS
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
+
+const UploadModal = defineAsyncComponent(() => import("./UploadModal.vue"));
+
+const MonumentDetails = defineAsyncComponent(() => import("./map/MonumentDetails.vue"));
 
 export default defineComponent({
    name: "MonumentMap",
