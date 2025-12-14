@@ -3,6 +3,16 @@ import tsParser from "@typescript-eslint/parser";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import eslintConfigPrettier from "eslint-config-prettier";
 
+// Browser globals shared across all configs
+const browserGlobals = {
+  process: "readonly",
+  window: "readonly",
+  document: "readonly",
+  console: "readonly",
+  module: "readonly",
+  navigator: "readonly",
+};
+
 export default [
   {
     ignores: ["dist/**", "node_modules/**", "public/**", "coverage/**", ".husky/**"]
@@ -20,14 +30,7 @@ export default [
         sourceType: "module",
         ecmaVersion: "latest"
       },
-      globals: {
-        process: "readonly",
-        window: "readonly",
-        document: "readonly",
-        console: "readonly",
-        module: "readonly",
-        navigator: "readonly",
-      }
+      globals: browserGlobals
     },
     plugins: {
       "@typescript-eslint": tsPlugin
@@ -51,14 +54,7 @@ export default [
         sourceType: "module",
         extraFileExtensions: [".vue"],
       },
-      globals: {
-        process: "readonly",
-        window: "readonly",
-        document: "readonly",
-        console: "readonly",
-        module: "readonly",
-        navigator: "readonly",
-      }
+      globals: browserGlobals
     },
     plugins: {
       "@typescript-eslint": tsPlugin
@@ -66,6 +62,8 @@ export default [
     rules: {
       ...tsPlugin.configs.recommended.rules,
       "vue/multi-word-component-names": "off",
+      "vue/no-v-html": "warn", // Prevent XSS attacks
+      "vue/require-default-prop": "warn", // Better prop validation
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
       "no-undef": "off"
