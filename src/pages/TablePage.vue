@@ -194,7 +194,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, computed } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 import UploadModal from "../components/UploadModal.vue";
 
 interface Monument {

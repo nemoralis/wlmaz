@@ -1,6 +1,6 @@
+import Fuse from "fuse.js";
 import geobuf from "geobuf";
 import Pbf from "pbf";
-import Fuse from "fuse.js";
 
 self.onmessage = async (e) => {
    if (e.data.type === "INIT") {

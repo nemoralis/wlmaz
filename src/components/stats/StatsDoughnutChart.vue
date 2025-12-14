@@ -8,9 +8,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import { Doughnut } from "vue-chartjs";
+import { computed, defineComponent } from "vue";
 import type { StatHistoryItem } from "../../composables/useStats";
 
 ChartJS.register(ArcElement, Tooltip, Legend);

@@ -276,7 +276,8 @@
                      >
                         <i class="fa fa-exclamation-triangle mr-1"></i>
                         HEIC fayllarını Vikianbara yükləmək mümkün olmadığı üçün onlar avtomatik
-                        olaraq <strong>JPG</strong> formatına çevriləcək.
+                        olaraq
+                        <strong>JPG</strong> formatına çevriləcək.
                      </div>
                   </div>
 
@@ -477,8 +478,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, computed, watch, toRef } from "vue";
+import { computed, defineComponent, reactive, ref, toRef, watch } from "vue";
 import { useFocusTrap } from "../composables/useFocusTrap";
+
 // Remove static imports to save bundle size
 // import exifr from "exifr";
 // import heic2any from "heic2any";

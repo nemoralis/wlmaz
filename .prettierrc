@@ -1,12 +1,25 @@
 {
-    "semi": true,
-    "singleQuote": false,
-    "tabWidth": 3,
-    "useTabs": false,
-    "printWidth": 100,
-    "trailingComma": "all",
-    "endOfLine": "auto",
-    "plugins": [
-        "prettier-plugin-tailwindcss"
-    ]
+   "semi": true,
+   "singleQuote": false,
+   "tabWidth": 3,
+   "useTabs": false,
+   "printWidth": 100,
+   "trailingComma": "all",
+   "endOfLine": "lf",
+   "arrowParens": "always",
+   "bracketSpacing": true,
+   "plugins": ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+   "importOrder": [
+      "^vue$",
+      "^vue-router$",
+      "^pinia$",
+      "^@vueuse/(.*)$",
+      "^@unhead/(.*)$",
+      "^@wikimedia/(.*)$",
+      "^leaflet(.*)$",
+      "^@/(.*)$",
+      "^[./]"
+   ],
+   "importOrderParserPlugins": ["typescript", "decorators-legacy"],
+   "importOrderTypeScriptVersion": "5.0.0"
 }

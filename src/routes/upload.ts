@@ -1,11 +1,11 @@
-import express from "express";
-import multer from "multer";
-import { optimizeImage } from "@/utils/image";
-import { uploadFile as uploadToCommons } from "@/utils/mediawiki";
-import type { WikiUser } from "@/types";
-import rateLimit from "express-rate-limit";
 import fs from "fs/promises";
 import path from "path";
+import express from "express";
+import rateLimit from "express-rate-limit";
+import multer from "multer";
+import type { WikiUser } from "@/types";
+import { optimizeImage } from "@/utils/image";
+import { uploadFile as uploadToCommons } from "@/utils/mediawiki";
 
 const router = express.Router();
 

@@ -121,7 +121,7 @@
 
 <script lang="ts" setup>
 import { useHead } from "@unhead/vue";
-import { useBreadcrumbSchema, schemaToJsonLd } from "../composables/useSchemaOrg";
+import { schemaToJsonLd, useBreadcrumbSchema } from "../composables/useSchemaOrg";
 
 const breadcrumbSchema = useBreadcrumbSchema([
    { name: "Ana Səhifə", url: "https://wikilovesmonuments.az/" },

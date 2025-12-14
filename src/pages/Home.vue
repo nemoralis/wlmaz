@@ -28,13 +28,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onErrorCaptured } from "vue";
+import { onErrorCaptured, ref } from "vue";
 import { useHead } from "@unhead/vue";
 import MonumentMap from "../components/MonumentMap.vue";
 import {
+   schemaToJsonLd,
    useOrganizationSchema,
    useWebSiteSchema,
-   schemaToJsonLd,
 } from "../composables/useSchemaOrg";
 
 const error = ref<Error | null>(null);

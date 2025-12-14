@@ -1,6 +1,7 @@
-import type { WikiUser } from "@/types";
 import passport from "passport";
 import { Strategy as MediaWikiStrategy } from "passport-mediawiki-oauth";
+import type { WikiUser } from "@/types";
+
 if (!process.env.WM_CONSUMER_KEY || !process.env.WM_CONSUMER_SECRET) {
    throw new Error("WM_CONSUMER_KEY and WM_CONSUMER_SECRET must be set");
 }

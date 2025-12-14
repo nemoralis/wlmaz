@@ -77,10 +77,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
 import type { Feature } from "geojson";
-import SearchBar from "./SearchBar.vue";
+import { computed } from "vue";
 import MonumentLegend from "./MonumentLegend.vue";
+import SearchBar from "./SearchBar.vue";
 
 interface Props {
    stats: { total: number; withImage: number };

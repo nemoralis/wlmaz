@@ -44,10 +44,10 @@
 
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
-import { useStats } from "../composables/useStats";
 import StatsCard from "../components/stats/StatsCard.vue";
-import StatsLineChart from "../components/stats/StatsLineChart.vue";
 import StatsDoughnutChart from "../components/stats/StatsDoughnutChart.vue";
+import StatsLineChart from "../components/stats/StatsLineChart.vue";
+import { useStats } from "../composables/useStats";
 
 export default defineComponent({
    name: "StatsPage",
