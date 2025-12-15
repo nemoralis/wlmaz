@@ -487,11 +487,16 @@ export default defineComponent({
 /* 1. LAYOUT & Z-INDEX (CRITICAL FIXES) */
 :deep(.leaflet-sidebar) {
    position: absolute !important;
-   /* Anchor top and bottom to fill parent exactly */
-   top: 0;
-   bottom: 0;
-   height: 100% !important;
+   /* Floating Sidebar */
+   top: 12px !important;
+   bottom: 12px !important;
+   left: 12px !important;
+   height: calc(100% - 24px) !important;
    z-index: 2000 !important;
+   border-radius: 16px !important;
+   overflow: hidden !important;
+   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 :deep(.leaflet-sidebar-tabs li.disabled) {
    opacity: 0.5;
@@ -522,6 +527,15 @@ img {
 /* 2. MOBILE */
 @media (max-width: 768px) {
    :deep(.leaflet-sidebar) {
+      /* Reset floating for mobile */
+      top: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      height: 100% !important;
+      border-radius: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+
       width: 40px !important;
       max-width: 40px !important;
    }

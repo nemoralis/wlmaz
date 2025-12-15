@@ -10,15 +10,15 @@
             aria-controls="search-results"
             aria-label="Abidə axtar"
             type="text"
-            placeholder="Abidə axtar (Ad, İnventar)..."
-            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+            placeholder="Abidə axtar..."
+            class="w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 pl-11 text-sm shadow-sm transition-all hover:border-blue-300 hover:shadow-md focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
             @keydown="handleSearchKeydown"
          />
-         <i class="fa fa-search absolute top-2.5 left-3 text-gray-400" aria-hidden="true"></i>
+         <i class="fa fa-search absolute top-3 left-4 text-gray-400" aria-hidden="true"></i>
          <button
             v-if="searchQuery"
             aria-label="Axtarışı təmizlə"
-            class="absolute top-2.5 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
+            class="absolute top-3 right-4 cursor-pointer text-gray-400 hover:text-red-500 transition-colors"
             @click="clearSearch"
          >
             <i class="fa fa-times" aria-hidden="true"></i>
