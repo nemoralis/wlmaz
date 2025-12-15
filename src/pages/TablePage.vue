@@ -195,6 +195,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from "vue";
+import { useHead } from "@unhead/vue";
 import UploadModal from "../components/UploadModal.vue";
 
 interface Monument {
@@ -211,6 +212,22 @@ export default defineComponent({
    name: "TablePage",
    components: { UploadModal },
    setup() {
+      useHead({
+         title: "Abidələr Siyahısı - Azərbaycan Tarixi Abidələri | Viki Abidələri Sevir",
+         link: [
+            {
+               rel: "canonical",
+               href: "https://wikilovesmonuments.az/table",
+            },
+         ],
+         meta: [
+            {
+               name: "description",
+               content: "Azərbaycanın bütün tarixi abidələrinin tam siyahısı. Bakı, Şəki, Qəbələ və digər bölgələrdəki məscid, qala, məqbərə və digər mədəni irs abidələri haqqında məlumat.",
+            },
+         ],
+      });
+
       const monuments = ref<Monument[]>([]);
       const loading = ref(true);
       const sortKey = ref("inventory");

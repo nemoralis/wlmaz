@@ -42,27 +42,31 @@
    </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted } from "vue";
+<script lang="ts" setup>
+import { onMounted } from "vue";
+import { useHead } from "@unhead/vue";
 import StatsCard from "../components/stats/StatsCard.vue";
 import StatsDoughnutChart from "../components/stats/StatsDoughnutChart.vue";
 import StatsLineChart from "../components/stats/StatsLineChart.vue";
 import { useStats } from "../composables/useStats";
 
-export default defineComponent({
-   name: "StatsPage",
-   components: { StatsCard, StatsLineChart, StatsDoughnutChart },
-   setup() {
-      const { history, currentStats, imagePercentage, lastUpdateDate, fetchData } = useStats();
+const { history, currentStats, imagePercentage, lastUpdateDate, fetchData } = useStats();
 
-      onMounted(fetchData);
+onMounted(fetchData);
 
-      return {
-         history,
-         currentStats,
-         imagePercentage,
-         lastUpdateDate,
-      };
-   },
+useHead({
+   title: "Statistika - Azərbaycan Abidələri | Viki Abidələri Sevir",
+   link: [
+      {
+         rel: "canonical",
+         href: "https://wikilovesmonuments.az/stats",
+      },
+   ],
+   meta: [
+      {
+         name: "description",
+         content: "Azərbaycanın tarixi abidələri haqqında statistika. 300+ abidə, fotoşəkillər və əhatə dərəcəsi məlumatları.",
+      },
+   ],
 });
 </script>

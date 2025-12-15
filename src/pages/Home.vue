@@ -44,12 +44,18 @@ const organizationSchema = useOrganizationSchema();
 const websiteSchema = useWebSiteSchema();
 
 useHead({
-   title: "Viki Abidələri Sevir Azərbaycan - İnteraktiv Xəritə",
+   title: "Viki Abidələri Sevir Azərbaycan - Abidələrin İnteraktiv Xəritəsi",
+   link: [
+      {
+         rel: "canonical",
+         href: "https://wikilovesmonuments.az/",
+      },
+   ],
    meta: [
       {
          name: "description",
          content:
-            "Azərbaycandakı abidələrin interaktiv xəritəsi. Viki Abidələri Sevir müsabiqəsi üçün fotoşəkillər yükləyin.",
+            "Azərbaycanın tarixi abidələri və mədəni irs xəritəsi. Bakı, Şəki, Qəbələ və digər bölgələrdəki 300+ abidəni kəşf edin. Viki Abidələri Sevir müsabiqəsinə şəkil yükləyin.",
       },
    ],
    script: [
