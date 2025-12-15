@@ -66,6 +66,7 @@ const startServer = async () => {
          saveUninitialized: false,
 
          cookie: {
+            domain: process.env.NODE_ENV === "production" ? ".wikilovesmonuments.az" : undefined,
             secure: process.env.NODE_ENV === "production",
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
