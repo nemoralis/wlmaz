@@ -1,85 +1,97 @@
 <template>
-   <div class="animate-fade-in-up">
-      <h1 class="mt-4 mb-4 text-2xl font-bold text-gray-800">Viki Abidələri Sevir Azərbaycan</h1>
+   <div class="animate-fade-in-up space-y-8">
+      <!-- 1. Header with Gradient -->
+      <div class="mt-4 text-center">
+         <h1
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-2xl font-extrabold text-transparent"
+         >
+            Viki Abidələri Sevir
+         </h1>
+         <p class="text-sm font-medium text-gray-400 uppercase tracking-widest">Azərbaycan</p>
+      </div>
 
-      <!-- Search Component -->
+      <!-- 2. Search Component -->
       <SearchBar
          :monuments="monuments"
          :fuse-index="fuseIndex"
          @select-monument="$emit('select-monument', $event)"
       />
 
-      <!-- Statistics Cards -->
-      <div class="mb-6 grid grid-cols-3 gap-2 text-center">
-         <div class="rounded-lg border border-blue-100 bg-blue-50 p-2">
-            <div class="text-xl font-bold text-blue-700">{{ stats.total }}</div>
-            <div class="text-[10px] font-bold tracking-wider text-blue-600 uppercase">Cəmi</div>
-         </div>
-         <div class="rounded-lg border border-green-100 bg-green-50 p-2">
-            <div class="text-xl font-bold text-green-700">{{ stats.withImage }}</div>
-            <div class="text-[10px] font-bold tracking-wider text-green-600 uppercase">Şəkilli</div>
-         </div>
-         <div class="rounded-lg border border-red-100 bg-red-50 p-2">
-            <div class="text-xl font-bold text-red-700">
-               {{ stats.total - stats.withImage }}
-            </div>
-            <div class="text-[10px] font-bold tracking-wider text-red-600 uppercase">Şəkilsiz</div>
-         </div>
-      </div>
-
-      <!-- Filter Toggle -->
-      <div
-         class="mb-6 flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-4"
-      >
-         <span id="filter-label" class="text-sm font-medium text-gray-700"
-            >Yalnız şəkilsizləri göstər</span
-         >
-         <button
-            role="switch"
-            :aria-checked="needsPhotoOnly"
-            aria-labelledby="filter-label"
-            class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:outline-none"
-            :class="needsPhotoOnly ? 'bg-blue-600' : 'bg-gray-200'"
-            @click="$emit('toggle-filter')"
-            @keydown.enter.prevent="$emit('toggle-filter')"
-            @keydown.space.prevent="$emit('toggle-filter')"
-         >
-            <span
-               class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-               :class="needsPhotoOnly ? 'translate-x-5' : 'translate-x-0'"
-            ></span>
-         </button>
-      </div>
-
-      <!-- Progress Bar -->
-      <div class="mb-6">
-         <div class="mb-1 flex justify-between text-xs font-medium text-gray-500">
-            <span>Gedişat</span>
-            <span :aria-label="`${progressPercent} faiz tamamlandı`">{{ progressPercent }}%</span>
-         </div>
+      <!-- 3. Glassy Stats Cards -->
+      <div class="grid grid-cols-3 gap-3">
+         <!-- Total -->
          <div
-            class="h-2.5 w-full overflow-hidden rounded-full bg-gray-200"
-            role="progressbar"
-            :aria-valuenow="progressPercent"
-            aria-valuemin="0"
-            aria-valuemax="100"
+            class="group flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white py-4 shadow-sm transition-all hover:border-blue-100 hover:shadow-md"
          >
             <div
-               class="h-2.5 rounded-full bg-green-500 transition-all duration-1000 ease-out"
-               :style="{ width: `${progressPercent}%` }"
-            ></div>
+               class="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white"
+            >
+               <i class="fa-solid fa-layer-group text-xs"></i>
+            </div>
+            <div class="text-xl font-bold text-gray-800">{{ stats.total }}</div>
+            <div class="text-[10px] font-bold tracking-wider text-gray-400 uppercase">Cəmi</div>
+         </div>
+
+         <!-- With Image -->
+         <div
+            class="group flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white py-4 shadow-sm transition-all hover:border-green-100 hover:shadow-md"
+         >
+            <div
+               class="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-green-50 text-green-600 transition-colors group-hover:bg-green-600 group-hover:text-white"
+            >
+               <i class="fa-solid fa-image text-xs"></i>
+            </div>
+            <div class="text-xl font-bold text-gray-800">{{ stats.withImage }}</div>
+            <div class="text-[10px] font-bold tracking-wider text-gray-400 uppercase">Şəkilli</div>
+         </div>
+
+         <!-- No Image -->
+         <div
+            class="group flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white py-4 shadow-sm transition-all hover:border-red-100 hover:shadow-md"
+         >
+            <div
+               class="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-red-50 text-red-600 transition-colors group-hover:bg-red-600 group-hover:text-white"
+            >
+               <i class="fa-solid fa-camera text-xs"></i>
+            </div>
+            <div class="text-xl font-bold text-gray-800">
+               {{ stats.total - stats.withImage }}
+            </div>
+            <div class="text-[10px] font-bold tracking-wider text-gray-400 uppercase">Şəkilsiz</div>
          </div>
       </div>
 
-      <!-- Map Legend -->
-      <MonumentLegend />
+      <!-- 4. Filter Toggle (Modern Switch) -->
+      <div
+         class="flex cursor-pointer items-center justify-between rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-all hover:border-blue-200 active:scale-[0.99]"
+         @click="$emit('toggle-filter')"
+      >
+         <div class="flex items-center gap-3">
+            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-50 text-orange-500">
+               <i class="fa-solid fa-filter text-sm"></i>
+            </div>
+            <div class="flex flex-col">
+               <span class="text-sm font-bold text-gray-700">Filterlə</span>
+               <span class="text-[10px] font-medium text-gray-400">Yalnız şəkilsizləri göstər</span>
+            </div>
+         </div>
+
+         <div
+            class="relative h-6 w-10 transition-all duration-300"
+            :class="needsPhotoOnly ? 'opacity-100' : 'opacity-60 grayscale'"
+         >
+             <div class="absolute inset-0 rounded-full transition-colors duration-300" :class="needsPhotoOnly ? 'bg-blue-600' : 'bg-gray-200'"></div>
+             <div class="absolute top-1 left-1 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-300" :class="needsPhotoOnly ? 'translate-x-4' : 'translate-x-0'"></div>
+         </div>
+      </div>
+
+
    </div>
 </template>
 
 <script lang="ts" setup>
 import type { Feature } from "geojson";
-import { computed } from "vue";
-import MonumentLegend from "./MonumentLegend.vue";
+
 import SearchBar from "./SearchBar.vue";
 
 interface Props {
@@ -96,9 +108,7 @@ defineEmits<{
    "select-monument": [feature: Feature];
 }>();
 
-const progressPercent = computed(() => {
-   return Math.round((props.stats.withImage / props.stats.total) * 100) || 0;
-});
+
 </script>
 
 <style scoped>

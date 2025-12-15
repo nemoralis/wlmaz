@@ -1,298 +1,263 @@
 <template>
-   <div class="animate-slide-in">
-      <h1 class="leaflet-sidebar-header">
-         {{ monument ? "Abidə detalları" : "Abidə seç" }}
-         <div class="flex items-center">
-            <button
-               v-if="monument"
-               aria-label="Abidə linkini paylaş"
-               class="mr-4 text-white/80 transition-colors hover:text-white"
-               title="Paylaş"
-               @click="$emit('share')"
-            >
-               <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
-            </button>
+   <div class="animate-slide-in relative">
+      <!-- 1. HERO IMAGE or HEADER -->
+      <div v-if="monument" class="-mx-4 -mt-4 mb-6">
+         <!-- Case A: Hero Image -->
+         <div v-if="monument.image" class="group relative h-64 w-full overflow-hidden bg-gray-100">
+            <a :href="getDescriptionPage(monument.image)" target="_blank" rel="noopener">
+               <div
+                  v-if="imageLoading"
+                  class="absolute inset-0 z-10 flex animate-pulse items-center justify-center bg-gray-200"
+               >
+                  <i class="fa-regular fa-image text-4xl text-gray-300"></i>
+               </div>
+               <img
+                  :src="getOptimizedImage(monument.image)"
+                  :srcset="getSrcSet(monument.image, [320, 500, 800])"
+                  alt="Monument Hero"
+                  class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  :class="{ 'opacity-0': imageLoading, 'opacity-100': !imageLoading }"
+                  @load="onImageLoad"
+               />
+               <!-- Gradient Overlay -->
+               <div
+                  class="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-90 transition-opacity group-hover:opacity-100"
+               ></div>
+            </a>
 
-            <div class="leaflet-sidebar-close" @click="$emit('close')">
-               <i class="fa-solid fa-times"></i>
-            </div>
-         </div>
-      </h1>
+            <!-- Top Actions Overlay -->
+            <div class="absolute top-0 right-0 left-0 flex items-start justify-end p-4">
 
-      <div class="mt-4">
-         <div v-if="monument">
-            <!-- Monument Header -->
-            <div class="mb-1 flex items-start justify-between gap-3">
-               <h2 class="text-xl leading-tight font-bold text-gray-900">
-                  {{ monument.itemLabel }}
-               </h2>
-
-               <div class="flex shrink-0 items-center gap-1">
-                  <a
-                     v-if="monument.item"
-                     :href="monument.item"
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     aria-label="Wikidatada redaktə et"
-                     class="mt1 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-blue-50 hover:text-blue-600"
-                     title="Edit this item on Wikidata"
-                  >
-                     <i class="fa-solid fa-pen text-xs" aria-hidden="true"></i>
-                  </a>
+               <div class="flex gap-2">
                   <button
-                     aria-label="Abidə linkini paylaş"
-                     class="mt-1 rounded-full p-1.5 transition-colors hover:bg-blue-50 hover:text-blue-600"
-                     :class="linkCopied ? 'bg-green-50 text-green-600' : 'text-gray-400'"
-                     title="Paylaş"
+                     class="flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-md transition-all"
+                     :class="linkCopied ? 'bg-green-500 text-white scale-110' : 'bg-black/40 text-white hover:bg-white hover:text-black'"
+                     title="Share"
                      @click="$emit('share')"
                   >
-                     <i
-                        class="fa-solid text-xs"
-                        :class="linkCopied ? 'fa-check' : 'fa-share-nodes'"
-                        aria-hidden="true"
-                     ></i>
+                     <i class="fa-solid text-sm" :class="linkCopied ? 'fa-check' : 'fa-share-nodes'"></i>
+                  </button>
+                  <button
+                     class="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-all hover:bg-red-500 hover:text-white"
+                     title="Close"
+                     @click="$emit('close')"
+                  >
+                     <i class="fa-solid fa-times text-sm"></i>
                   </button>
                </div>
             </div>
 
-            <p v-if="monument.itemAltLabel" class="mt-1 text-sm text-gray-500 italic">
+            <!-- Image Credits (Bottom Right) -->
+            <div class="absolute right-0 bottom-0 left-0 p-4 text-right">
+               <transition name="fade">
+                  <span v-if="imageCredit" class="block truncate text-[10px] text-white/80">
+                     <i class="fa-regular fa-copyright mr-1"></i>
+                     {{ imageCredit.author }}
+                  </span>
+               </transition>
+            </div>
+         </div>
+
+         <!-- Case B: No Image Header -->
+         <div v-else class="relative flex h-64 w-full flex-col items-center justify-center bg-gray-200">
+            <!-- Top Actions Overlay -->
+            <div class="absolute top-0 right-0 left-0 flex items-start justify-end p-4">
+               <div class="flex gap-2">
+                  <button
+                     class="flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-md transition-all"
+                     :class="linkCopied ? 'bg-green-500 text-white scale-110' : 'bg-black/10 text-gray-600 hover:bg-white hover:text-black'"
+                     title="Share"
+                     @click="$emit('share')"
+                  >
+                     <i class="fa-solid text-sm" :class="linkCopied ? 'fa-check' : 'fa-share-nodes'"></i>
+                  </button>
+                  <button
+                     class="flex h-8 w-8 items-center justify-center rounded-full bg-black/10 text-gray-600 backdrop-blur-md transition-all hover:bg-red-500 hover:text-white"
+                     title="Close"
+                     @click="$emit('close')"
+                  >
+                     <i class="fa-solid fa-times text-sm"></i>
+                  </button>
+               </div>
+            </div>
+
+            <!-- Placeholder Content -->
+            <div class="flex flex-col items-center text-gray-400">
+               <i class="fa-solid fa-camera-slash mb-2 text-4xl"></i>
+               <span class="font-medium text-gray-500">Şəkil yoxdur</span>
+            </div>
+         </div>
+      </div>
+
+      <!-- Header with Close Button for Empty State -->
+      <div v-else class="mb-4 flex items-center justify-between text-gray-400">
+         <span class="text-xs font-semibold uppercase tracking-wider">Məlumat paneli</span>
+         <button class="hover:text-gray-600" @click="$emit('close')">
+            <i class="fa-solid fa-times text-lg"></i>
+         </button>
+      </div>
+
+      <!-- 2. CONTENT BODY -->
+      <div v-if="monument">
+         <!-- Title Section -->
+         <div class="mb-6">
+            <h2 class="mb-2 text-2xl font-bold leading-tight text-gray-900">
+               {{ monument.itemLabel }}
+            </h2>
+            <p v-if="monument.itemAltLabel" class="text-sm text-gray-500 italic">
                {{ monument.itemAltLabel }}
             </p>
 
             <!-- Inventory Badge -->
-            <div v-if="monument.inventory" class="mt-2 mb-3">
+            <div v-if="monument.inventory" class="mt-3 flex items-center gap-3">
                <button
-                  aria-label="İnventar nömrəsini kopyala"
-                  class="group inline-flex cursor-pointer items-center rounded border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800 transition-all duration-200 hover:border-gray-300 hover:bg-gray-200"
-                  :class="inventoryCopied ? 'border-green-200 bg-green-100 text-green-700' : ''"
-                  title="Click to copy ID"
+                  class="group flex cursor-pointer items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-xs font-semibold text-gray-700 transition-all hover:bg-gray-200"
+                  :class="{ '!bg-green-100 !text-green-700': inventoryCopied }"
+                  title="Copy Inventory ID"
                   @click="$emit('copy-inventory', monument.inventory)"
                >
-                  <span v-if="!inventoryCopied" class="flex items-center">
-                     İnventar: {{ monument.inventory }}
-                     <i
-                        class="fa fa-copy ml-1.5 hidden text-[10px] text-gray-500 group-hover:inline-block"
-                     ></i>
-                  </span>
-                  <span v-else class="flex items-center gap-1">
-                     <i class="fa fa-check"></i> Kopiyalandı!
-                  </span>
+                  <span>#{{ monument.inventory }}</span>
+                  <i
+                     class="fa-solid text-[10px] opacity-40 transition-opacity group-hover:opacity-100"
+                     :class="inventoryCopied ? 'fa-check opacity-100' : 'fa-copy'"
+                  ></i>
                </button>
-            </div>
 
-            <p
-               v-if="monument.itemDescription"
-               class="mb-4 border-l-4 border-blue-100 pl-3 text-sm leading-relaxed text-gray-700"
-            >
-               {{ monument.itemDescription }}
-            </p>
-
-            <!-- Monument Image -->
-            <div
-               class="relative mb-4 h-64 w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-100"
-            >
-               <div v-if="monument.image" class="h-full w-full">
-                  <a :href="getDescriptionPage(monument.image)" target="_blank" rel="noopener">
-                     <div
-                        v-if="imageLoading"
-                        class="absolute inset-0 z-10 flex animate-pulse items-center justify-center bg-gray-200"
-                        aria-hidden="true"
-                     >
-                        <i class="fa-regular fa-image text-4xl text-gray-300"></i>
-                     </div>
-
-                     <img
-                        :src="getOptimizedImage(monument.image)"
-                        :srcset="getSrcSet(monument.image, [320, 500, 800, 1024])"
-                        sizes="(max-width: 768px) 100vw, 400px"
-                        class="h-full w-full object-cover transition-opacity duration-500"
-                        :class="{
-                           'opacity-0': imageLoading,
-                           'opacity-100': !imageLoading,
-                        }"
-                        alt="Monument"
-                        loading="lazy"
-                        @load="onImageLoad"
-                     />
+               <!-- Action Links Row -->
+               <div class="flex items-center gap-1">
+                  <a
+                     v-if="monument.item"
+                     :href="monument.item"
+                     target="_blank"
+                     class="flex h-7 w-7 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-blue-50 hover:text-blue-600"
+                     title="Edit on Wikidata"
+                  >
+                     <CdxIcon :icon="cdxIconLogoWikidata" class="h-4.5 w-3.5 opacity-60" />
                   </a>
-
-                  <div
-                     v-if="!imageLoading"
-                     class="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/70 to-transparent p-2 text-right"
-                  >
-                     <transition name="fade">
-                        <span v-if="imageCredit" class="block truncate text-[10px] text-white/90">
-                           <i class="fa-regular fa-copyright mr-0.5 text-[9px]"></i>
-                           {{ imageCredit.author }}
-                           <span class="mx-1 opacity-50">|</span>
-                           {{ imageCredit.license }}
-                        </span>
-                     </transition>
-                  </div>
                </div>
+            </div>
+         </div>
 
+         <!-- Description -->
+         <div v-if="monument.itemDescription" class="mb-8 text-sm leading-relaxed text-gray-600">
+            {{ monument.itemDescription }}
+         </div>
+
+         <!-- 3. ACTION GRID (Modern Buttons) -->
+         <div class="mb-8 grid grid-cols-2 gap-3">
+            <a
+               v-if="monument.image"
+               :href="getDescriptionPage(monument.image)"
+               target="_blank"
+               :class="(monument.commonsLink || monument.commonsCategory) ? 'col-span-1' : 'col-span-2'"
+               class="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md active:translate-y-0"
+            >
+               <i class="fa-solid fa-expand text-gray-400"></i>
+               Fayla bax
+            </a>
+            <a
+               v-if="monument.commonsLink || monument.commonsCategory"
+               :href="getCategoryUrl(monument)"
+               target="_blank"
+               :class="monument.image ? 'col-span-1' : 'col-span-2'"
+               class="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md active:translate-y-0"
+            >
+               <i class="fa-regular fa-images text-gray-400"></i>
+               Qalereya
+            </a>
+
+            <!-- Primary Action -->
+            <button
+               v-if="isAuthenticated"
+               class="col-span-2 flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3.5 text-sm font-bold text-white shadow-blue-200 transition-all hover:bg-blue-700 hover:shadow-lg active:scale-[0.98]"
+               @click="$emit('open-upload')"
+            >
+               <i class="fa-solid fa-camera"></i>
+               Yeni Şəkil Yüklə
+            </button>
+            <button
+               v-else
+               class="col-span-2 flex items-center justify-center gap-2 rounded-xl border-dashed border-2 border-blue-200 bg-blue-50 py-3 text-sm font-bold text-blue-600 transition-colors hover:border-blue-300 hover:bg-blue-100"
+               @click="$emit('login')"
+            >
+               <i class="fa-solid fa-right-to-bracket"></i>
+               Şəkil Yükləmək üçün Daxil Ol
+            </button>
+         </div>
+
+         <!-- 4. INFO CHIPS (Metadata) -->
+         <div>
+            <h3 class="mb-3 text-xs font-bold tracking-wider text-gray-400 uppercase">
+               Məlumat & Linklər
+            </h3>
+
+            <div class="flex flex-wrap gap-2">
+               <!-- GPS Chip -->
                <div
-                  v-else
-                  class="flex h-full w-full flex-col items-center justify-center gap-2 text-gray-400"
+                  v-if="monument.lat && monument.lon"
+                  class="flex items-center rounded-full border border-gray-200 bg-white pr-1 pl-1 py-1 shadow-xs transition-colors"
+                  :class="{ '!border-green-200 !bg-green-50': coordsCopied }"
                >
-                  <i class="fa fa-camera text-3xl opacity-50"></i>
-                  <span class="text-sm font-medium">Şəkil yoxdur</span>
-               </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="mb-4 flex gap-2">
-               <a
-                  v-if="monument.image"
-                  :href="getDescriptionPage(monument.image)"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Fayl detallarına bax"
-                  class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-xs font-semibold text-gray-700 shadow-sm transition-all hover:border-blue-300 hover:bg-gray-50 hover:text-blue-600"
-                  title="Fayl detallarına bax"
-               >
-                  <i class="fa-solid fa-file-image text-sm" aria-hidden="true"></i>
-                  <span>Fayla bax</span>
-               </a>
-
-               <a
-                  v-if="monument.commonsLink || monument.commonsCategory"
-                  :href="getCategoryUrl(monument)"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Bütün şəkillərinə bax"
-                  class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-xs font-semibold text-gray-700 shadow-sm transition-all hover:border-blue-300 hover:bg-gray-50 hover:text-blue-600"
-                  title="Bu abidənin bütün şəkillərinə bax"
-               >
-                  <i class="fa-solid fa-images text-sm" aria-hidden="true"></i>
-                  <span>Bütün şəkillər</span>
-               </a>
-            </div>
-
-            <!-- Upload Section -->
-            <div class="border-t border-gray-100 pt-4">
-               <div v-if="isAuthenticated">
                   <button
-                     aria-label="Şəkil yüklə"
-                     class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white shadow-sm transition-all hover:bg-blue-700 active:scale-[0.98]"
-                     @click="$emit('open-upload')"
+                     class="flex cursor-pointer items-center gap-2 rounded-full px-2 py-0.5 text-xs font-medium text-gray-600 transition-all hover:bg-gray-100"
+                     :class="{ '!bg-green-100 !text-green-700': coordsCopied }"
+                     title="Kliklə və kopyala"
+                     @click="$emit('copy-coords', monument.lat, monument.lon)"
                   >
-                     <i class="fa fa-upload" aria-hidden="true"></i>
-                     Şəkil yüklə
+                     <i
+                        class="fa-solid transition-colors"
+                        :class="coordsCopied ? 'fa-check text-green-600' : 'fa-location-dot text-red-500'"
+                     ></i>
+                     <span>{{ monument.lat.toFixed(4) }}, {{ monument.lon.toFixed(4) }}</span>
                   </button>
-               </div>
-
-               <div v-else class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
-                  <p class="mb-2 font-medium text-blue-800">Şəkil yükləmək istəyirsiniz?</p>
-                  <button
-                     aria-label="Daxil ol"
-                     class="w-full rounded-md border border-blue-200 bg-white px-4 py-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50"
-                     @click="$emit('login')"
-                  >
-                     Daxil ol
-                  </button>
-               </div>
-            </div>
-
-            <!-- Metadata Section -->
-            <div class="mt-8">
-               <h3 class="mb-2 text-sm font-bold tracking-wide text-gray-900 uppercase">
-                  Metadata
-               </h3>
-               <div class="rounded border border-gray-200 bg-gray-50 text-sm">
-                  <!-- Coordinates -->
-                  <div
-                     v-if="monument.lat && monument.lon"
-                     class="flex h-9 items-center justify-between border-b border-gray-200 p-2"
-                  >
-                     <span class="text-gray-500">Coordinates</span>
-                     <div class="flex items-center gap-2">
-                        <button
-                           class="group flex cursor-pointer items-center gap-1.5 rounded px-1.5 py-0.5 font-mono text-xs text-gray-700 transition-all hover:bg-blue-50 hover:text-blue-600"
-                           title="Click to copy coordinates"
-                           @click="$emit('copy-coords', monument.lat!, monument.lon!)"
-                        >
-                           <span v-if="!coordsCopied" class="flex items-center gap-1">
-                              {{ monument.lat?.toFixed(4) }}, {{ monument.lon?.toFixed(4) }}
-                              <i
-                                 class="fa-regular fa-copy text-[10px] text-gray-400 opacity-0 transition-opacity group-hover:opacity-100"
-                              ></i>
-                           </span>
-                           <span v-else class="flex items-center gap-1 text-green-600">
-                              <i class="fa fa-check"></i> Copied!
-                           </span>
-                        </button>
-                        <a
-                           :href="`https://www.google.com/maps?q=${monument.lat},${monument.lon}`"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           aria-label="Google Maps-da aç"
-                           class="text-gray-400 transition-colors hover:text-green-600"
-                           title="Open in Google Maps"
-                        >
-                           <i class="fa-solid fa-map-location-dot text-sm" aria-hidden="true"></i>
-                        </a>
-                        <a
-                           :href="`https://www.google.com/maps/dir/?api=1&destination=${monument.lat},${monument.lon}`"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           aria-label="Yol tarifi al"
-                           class="text-gray-400 transition-colors hover:text-blue-600"
-                           title="Get Directions on Google Maps"
-                        >
-                           <i class="fa-solid fa-diamond-turn-right text-sm" aria-hidden="true"></i>
-                        </a>
-                     </div>
-                  </div>
-
-                  <!-- Wikidata -->
-                  <div v-if="monument.item" class="flex items-center justify-between p-2">
-                     <span class="flex items-center gap-2 text-gray-500">
-                        <CdxIcon :icon="cdxIconLogoWikidata" class="h-5 w-5 opacity-60" />
-                        Vikidata
-                     </span>
+                  
+                  <div class="flex items-center gap-0.5 border-l border-gray-200 pl-1">
                      <a
-                        :href="monument.item"
+                        :href="`https://www.google.com/maps?q=${monument.lat},${monument.lon}`"
                         target="_blank"
-                        rel="noopener noreferrer"
-                        class="flex items-center gap-1 text-xs font-semibold text-blue-600 transition-colors hover:text-blue-800 hover:underline"
+                        class="flex h-6 w-6 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-blue-500 transition-colors"
+                        title="Google Maps"
                      >
-                        Elementə bax
-                        <i class="fa fa-external-link-alt"></i>
+                        <i class="fa-solid fa-map"></i>
                      </a>
-                  </div>
 
-                  <!-- Wikipedia -->
-                  <div
-                     v-if="monument.azLink"
-                     class="flex items-center justify-between border-t border-gray-200 p-2"
-                  >
-                     <span class="flex items-center gap-2 text-gray-500">
-                        <CdxIcon :icon="cdxIconLogoWikipedia" class="h-5 w-5 opacity-60" />
-                        Vikipediya
-                     </span>
                      <a
-                        :href="monument.azLink"
+                        :href="`https://www.google.com/maps/dir/?api=1&destination=${monument.lat},${monument.lon}`"
                         target="_blank"
-                        rel="noopener noreferrer"
-                        class="flex items-center gap-1 text-xs font-semibold text-blue-600 hover:underline"
+                        class="flex h-6 w-6 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-blue-500 transition-colors"
+                        title="Yol tərifi"
                      >
-                        Məqaləni oxu
-                        <i class="fa fa-external-link-alt"></i>
+                        <i class="fa-solid fa-diamond-turn-right"></i>
                      </a>
                   </div>
                </div>
+
+
+
+               <!-- Wikipedia Chip -->
+               <a
+                  v-if="monument.azLink"
+                  :href="monument.azLink"
+                  target="_blank"
+                  class="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-xs transition-colors hover:border-gray-300 hover:shadow-sm"
+               >
+                  <i class="fa-brands fa-wikipedia-w text-sm opacity-75"></i>
+                  <span class="text-xs font-semibold text-gray-700">Wikipedia</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-gray-400"></i>
+               </a>
             </div>
          </div>
+      </div>
 
-         <!-- Empty State -->
-         <div
-            v-else
-            class="flex h-64 flex-col items-center justify-center px-4 text-center text-gray-400"
-         >
-            <i class="fa fa-map-marker-alt mb-4 text-4xl text-gray-300"></i>
-            <p>Click on a blue or green marker on the map to see details here.</p>
+      <!-- Empty State -->
+      <div v-else class="flex h-96 flex-col items-center justify-center text-center">
+         <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
+            <i class="fa-solid fa-map-location-dot text-2xl text-blue-500"></i>
          </div>
+         <h3 class="mb-2 text-lg font-bold text-gray-800">Abidə Seçin</h3>
+         <p class="max-w-[200px] text-sm text-gray-500">
+            Detalları görmək üçün xəritədəki işarələrdən birinə klikləyin.
+         </p>
       </div>
    </div>
 </template>
@@ -300,7 +265,7 @@
 <script lang="ts" setup>
 import { ref, watch } from "vue";
 import { CdxIcon } from "@wikimedia/codex";
-import { cdxIconLogoWikidata, cdxIconLogoWikipedia } from "@wikimedia/codex-icons";
+import { cdxIconLogoWikidata } from "@wikimedia/codex-icons";
 import type { MonumentProps } from "@/types";
 import {
    getCategoryUrl,
