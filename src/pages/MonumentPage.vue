@@ -94,6 +94,8 @@
                         :src="getOptimizedImage(monument.image)"
                         :alt="monument.itemLabel"
                         class="h-auto w-full object-cover"
+                        width="800"
+                        height="600"
                      />
                      <div
                         v-if="imageCredit"
@@ -209,6 +211,14 @@ useHead({
       monument.value
          ? `${monument.value.itemLabel} | Viki Abidələri Sevir Azərbaycan`
          : "Abidə Detalları",
+   link: [
+      {
+         rel: "canonical",
+         href: () => monument.value 
+            ? `https://wikilovesmonuments.az/monument/${monument.value.inventory}`
+            : "https://wikilovesmonuments.az/",
+      },
+   ],
    meta: [
       {
          name: "description",

@@ -4,7 +4,7 @@
       <meta charset="UTF-8" />
       <meta
          name="viewport"
-         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+         content="width=device-width, initial-scale=1.0"
       />
 
       <meta name="theme-color" content="#2a7ae2" />
@@ -23,8 +23,19 @@
       <title>Viki Abidələri Sevir Azərbaycan</title>
       <meta
          name="description"
-         content="Azərbaycandakı abidələrin interaktiv xəritəsi. Viki Abidələri Sevir müsabiqəsi üçün fotoşəkillər yükləyin."
+         content="Azərbaycanın tarixi abidələri və mədəni irs xəritəsi. Bakı, Şəki, Qəbələ və digər bölgələrdəki 300+ abidəni kəşf edin. Viki Abidələri Sevir müsabiqəsinə şəkil yükləyin."
       />
+
+      <!-- Preload critical assets -->
+      <link rel="modulepreload" href="/src/main.ts" />
+      <link rel="preload" href="/wlm-az.svg" as="image" type="image/svg+xml" />
+
+      <!-- Canonical URL -->
+      <link rel="canonical" href="https://wikilovesmonuments.az/" />
+
+      <!-- Hreflang Tags -->
+      <link rel="alternate" hreflang="az" href="https://wikilovesmonuments.az/" />
+      <link rel="alternate" hreflang="x-default" href="https://wikilovesmonuments.az/" />
 
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://wikilovesmonuments.az/" />
@@ -39,6 +50,23 @@
          content="Abidələri kəşf edin və fotoşəkillər yükləyin."
       />
       <meta property="twitter:image" content="/wlm-az.png" />
+
+      <!-- Organization Schema -->
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Wiki Loves Monuments Azerbaijan",
+        "alternateName": "Viki Abidələri Sevir Azərbaycan",
+        "url": "https://wikilovesmonuments.az",
+        "logo": "https://wikilovesmonuments.az/wlm-az.svg",
+        "description": "Azərbaycanın tarixi abidələri və mədəni irsinin interaktiv xəritəsi",
+        "sameAs": [
+          "https://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2025_in_Azerbaijan",
+          "https://az.wikipedia.org/"
+        ]
+      }
+      </script>
    </head>
 
    <body>

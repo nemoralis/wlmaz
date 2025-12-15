@@ -129,12 +129,18 @@ const breadcrumbSchema = useBreadcrumbSchema([
 ]);
 
 useHead({
-   title: "Haqqında | Viki Abidələri Sevir Azərbaycan",
+   title: "Haqqında - Wiki Loves Monuments Azərbaycan | Viki Abidələri Sevir",
+   link: [
+      {
+         rel: "canonical",
+         href: "https://wikilovesmonuments.az/about",
+      },
+   ],
    meta: [
       {
          name: "description",
          content:
-            "Wiki Loves Monuments Azərbaycan layihəsi haqqında. Azərbaycandakı mədəni irs abidələrinin fotoşəkillərini toplayın və paylaşın.",
+            "Wiki Loves Monuments Azərbaycan - beynəlxalq foto müsabiqəsi. Azərbaycanın mədəni irs abidələrinin fotoşəkillərini toplayın, Wikimedia Commons-a yükləyin və müsabiqədə iştirak edin.",
       },
    ],
    script: [

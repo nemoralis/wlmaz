@@ -54,7 +54,10 @@ export default defineConfig({
    plugins: [
       vue(),
       tailwindcss(),
-      viteCompression({ algorithm: "brotliCompress" }),
+      viteCompression({ 
+         algorithm: "brotliCompress",
+         threshold: 10240, // Only compress files > 10KB
+      }),
       ViteImageOptimizer({
          png: { quality: 80 },
          jpeg: { quality: 80 },
@@ -219,6 +222,41 @@ export default defineConfig({
       chunkSizeWarningLimit: 600,
       // Better CSS code splitting
       cssCodeSplit: true,
+      // Enable tree-shaking
+      rollupOptions: {
+         output: {
+            // Improved manual chunks for better code splitting
+            manualChunks: (id) => {
+               // Heavy libraries - lazy load separately
+               if (id.includes('heic2any')) {
+                  return 'heic-converter'; // Load only when needed for HEIC uploads
+               }
+               
+               // Core vendors
+               if (id.includes('node_modules')) {
+                  if (id.includes('leaflet')) {
+                     return 'leaflet-vendor';
+                  }
+                  if (id.includes('chart.js') || id.includes('vue-chartjs')) {
+                     return 'chart-vendor'; // Only loaded on stats page
+                  }
+                  if (id.includes('vue') || id.includes('pinia')) {
+                     return 'vue-vendor';
+                  }
+                  if (id.includes('fuse.js') || id.includes('geobuf') || id.includes('pbf')) {
+                     return 'utils-vendor';
+                  }
+                  // All other node_modules
+                  return 'vendor';
+               }
+            },
+            // Better file naming for caching
+            chunkFileNames: 'assets/[name]-[hash].js',
+            entryFileNames: 'assets/[name]-[hash].js',
+            assetFileNames: 'assets/[name]-[hash][extname]',
+         },
+         external: ["sharp"],
+      },
       terserOptions: {
          format: { comments: false },
          compress: {
@@ -226,23 +264,6 @@ export default defineConfig({
             drop_debugger: true,
             pure_funcs: ["console.log"], // Remove console.log specifically
          },
-      },
-      rollupOptions: {
-         output: {
-            manualChunks: {
-               "leaflet-vendor": [
-                  "leaflet",
-                  "leaflet.markercluster",
-                  "leaflet.locatecontrol",
-                  "leaflet-sidebar-v2",
-               ],
-               "vue-vendor": ["vue", "vue-router", "pinia"],
-               "utils-vendor": ["fuse.js", "geobuf", "pbf"],
-               // Separate Chart.js (only loaded on stats page)
-               "chart-vendor": ["chart.js", "vue-chartjs"],
-            }
-         },
-         external: ["sharp"],
       },
    },
 });

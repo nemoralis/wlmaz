@@ -4,10 +4,10 @@
          <div class="leaflet-sidebar-tabs">
             <ul role="tablist">
                <li>
-                  <a href="#home" role="tab"><i class="fa fa-info"></i></a>
+                  <a href="#home" role="tab" aria-label="Axtarış və Filtrlər"><i class="fa fa-info"></i></a>
                </li>
                <li :class="{ disabled: !selectedMonument }">
-                  <a href="#details" role="tab"><i class="fa fa-landmark"></i></a>
+                  <a href="#details" role="tab" aria-label="Abidə Detalları"><i class="fa fa-landmark"></i></a>
                </li>
             </ul>
 
@@ -17,6 +17,7 @@
                      href="https://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2025_in_Azerbaijan"
                      target="_blank"
                      title="WLM Azerbaijan Page"
+                     aria-label="Wiki Loves Monuments Azerbaijan Page"
                   >
                      <i class="fa fa-external-link-alt"></i>
                   </a>
@@ -27,6 +28,7 @@
                      target="_blank"
                      rel="noopener noreferrer"
                      title="View Source on GitHub"
+                     aria-label="GitHub Repository"
                   >
                      <i class="fa-brands fa-github"></i>
                   </a>
