@@ -74,7 +74,7 @@ function getSigningToken(user?: WikiUser) {
  * Fetches a CSRF (Edit) Token.
  * Uses POST x-www-form-urlencoded to avoid query string signing issues.
  */
-export async function fetchCsrfToken(user: WikiUser): Promise<string> {
+export async function fetchCsrfToken(user: WikiUser, userIp?: string): Promise<string> {
    const oauth = getOAuthClient();
    const token = getSigningToken(user);
 
@@ -102,6 +102,7 @@ export async function fetchCsrfToken(user: WikiUser): Promise<string> {
          ...headers,
          "Content-Type": "application/x-www-form-urlencoded",
          "User-Agent": "WLMAZ-Tool/1.0",
+         ...(userIp ? { "X-Forwarded-For": userIp } : {}),
       },
       body: new URLSearchParams(params as any).toString(),
    });
@@ -137,11 +138,12 @@ export async function uploadFile(
    user: WikiUser,
    fileData: { name: string; buffer: Buffer; mimetype: string },
    metadata: { text: string; comment?: string },
+   userIp?: string,
 ): Promise<any> {
    console.log(`[MediaWiki] Starting upload for: ${fileData.name}`);
 
    // 1. Get Token
-   const csrfToken = await fetchCsrfToken(user);
+   const csrfToken = await fetchCsrfToken(user, userIp);
 
    // 2. Setup Request
    const oauth = getOAuthClient();
@@ -188,6 +190,7 @@ export async function uploadFile(
       headers: {
          ...headers,
          "User-Agent": "WLMAZ-Tool/1.0",
+         ...(userIp ? { "X-Forwarded-For": userIp } : {}),
          // Do not set Content-Type (FormData handles boundary)
       },
       body: formData,

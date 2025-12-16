@@ -62,6 +62,10 @@ router.post("/upload", uploadLimiter, upload.single("file"), async (req, res) =>
    const filePath = req.file.path;
 
    try {
+      // Extract user's real IP (Express handles X-Forwarded-For when trust proxy is enabled)
+      const userIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
+      console.log(`[Upload] User IP: ${userIp}`);
+
       const { title, description, license, lat, lon, categories } = req.body;
 
       if (!title || !description) {
@@ -134,6 +138,7 @@ ${categoryText}
             text: wikitext,
             comment: `Uploaded via wikilovesmonuments.az`,
          },
+         userIp, // Pass user's real IP to avoid Hetzner IP block
       );
 
       res.json({
