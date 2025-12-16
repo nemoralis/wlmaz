@@ -41,7 +41,7 @@ router.get("/status", (_req, res) => {
    res.json({ enabled: process.env.ENABLE_UPLOADS === "true" });
 });
 
-router.post("/upload", uploadLimiter, upload.single("file"), async (req, res) => {
+router.post("/", uploadLimiter, upload.single("file"), async (req, res) => {
    // Feature Flag Check
    if (process.env.ENABLE_UPLOADS !== "true") {
       res.status(403).json({ error: "Uploads are currently disabled." });
