@@ -74,7 +74,7 @@ function getSigningToken(user?: WikiUser) {
  * Fetches a CSRF (Edit) Token.
  * Uses POST x-www-form-urlencoded to avoid query string signing issues.
  */
-export async function fetchCsrfToken(user: WikiUser, userIp?: string): Promise<string> {
+export async function fetchCsrfToken(user: WikiUser): Promise<string> {
    const oauth = getOAuthClient();
    const token = getSigningToken(user);
 
@@ -96,13 +96,14 @@ export async function fetchCsrfToken(user: WikiUser, userIp?: string): Promise<s
 
    const headers = oauth.toHeader(oauth.authorize(requestData, token));
 
+   console.log("[MediaWiki] Token Request Headers:", headers);
+
    const response = await fetch(API_CONFIG.url, {
       method: "POST",
       headers: {
          ...headers,
          "Content-Type": "application/x-www-form-urlencoded",
          "User-Agent": "WLMAZ-Tool/1.0",
-         ...(userIp ? { "X-Forwarded-For": userIp } : {}),
       },
       body: new URLSearchParams(params as any).toString(),
    });
@@ -138,12 +139,16 @@ export async function uploadFile(
    user: WikiUser,
    fileData: { name: string; buffer: Buffer; mimetype: string },
    metadata: { text: string; comment?: string },
-   userIp?: string,
 ): Promise<any> {
    console.log(`[MediaWiki] Starting upload for: ${fileData.name}`);
 
    // 1. Get Token
-   const csrfToken = await fetchCsrfToken(user, userIp);
+   console.log("[MediaWiki] User authenticated:", {
+      username: user.username,
+      hasToken: !!user.token,
+      hasSecret: !!user.tokenSecret,
+   });
+   const csrfToken = await fetchCsrfToken(user);
 
    // 2. Setup Request
    const oauth = getOAuthClient();
@@ -184,13 +189,13 @@ export async function uploadFile(
    const fetchUrl = `${API_CONFIG.url}?${queryString}`;
 
    console.log(`[MediaWiki] Posting to: ${fetchUrl}`);
+   console.log("[MediaWiki] Upload Request Headers:", headers);
 
    const response = await fetch(fetchUrl, {
       method: "POST",
       headers: {
          ...headers,
          "User-Agent": "WLMAZ-Tool/1.0",
-         ...(userIp ? { "X-Forwarded-For": userIp } : {}),
          // Do not set Content-Type (FormData handles boundary)
       },
       body: formData,

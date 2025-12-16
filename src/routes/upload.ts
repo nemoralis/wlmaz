@@ -62,9 +62,12 @@ router.post("/", uploadLimiter, upload.single("file"), async (req, res) => {
    const filePath = req.file.path;
 
    try {
-      // Extract user's real IP (Express handles X-Forwarded-For when trust proxy is enabled)
-      const userIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
-      console.log(`[Upload] User IP: ${userIp}`);
+      console.log("[Upload] Request details:", {
+         ip: req.ip,
+         forwardedFor: req.headers["x-forwarded-for"],
+         isAuthenticated: req.isAuthenticated(),
+         username: req.user?.username,
+      });
 
       const { title, description, license, lat, lon, categories } = req.body;
 
@@ -138,7 +141,6 @@ ${categoryText}
             text: wikitext,
             comment: `Uploaded via wikilovesmonuments.az`,
          },
-         userIp, // Pass user's real IP to avoid Hetzner IP block
       );
 
       res.json({
