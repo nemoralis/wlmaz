@@ -119,16 +119,20 @@ export async function fetchCsrfToken(user: WikiUser): Promise<string> {
       throw new Error(`MediaWiki API Error: ${data.error.code} - ${data.error.info}`);
    }
 
+   console.log("[MediaWiki] Full Response:", JSON.stringify(data, null, 2));
+
    if (!data.query?.tokens?.csrftoken) {
       console.error("[MediaWiki] Unexpected Response:", data);
       throw new Error("Missing csrftoken in response");
    }
 
+   const actualToken = data.query.tokens.csrftoken;
+   console.log("[MediaWiki] Actual CSRF Token value:", actualToken);
    console.log(
-      "[MediaWiki] Got CSRF Token:",
-      data.query.tokens.csrftoken === "+\\" ? "Anonymous (BAD)" : "Valid",
+      "[MediaWiki] Token Status:",
+      actualToken === "+\\" ? "❌ ANONYMOUS - OAuth authentication FAILED!" : "✅ Authenticated",
    );
-   return data.query.tokens.csrftoken;
+   return actualToken;
 }
 
 /**
