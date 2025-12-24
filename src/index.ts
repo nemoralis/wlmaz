@@ -83,10 +83,8 @@ const startServer = async () => {
 
    if (process.env.NODE_ENV === "production" || process.env.SERVE_STATIC) {
       const path = await import("path");
-      const distPath =
-         process.env.NODE_ENV === "production"
-            ? "/var/www/wlmaz/dist"
-            : path.resolve(__dirname, "../dist");
+            const distPath = path.resolve(__dirname, "../dist");
+;
       console.log("Serving static files from:", distPath);
 
       app.use(express.static(distPath));

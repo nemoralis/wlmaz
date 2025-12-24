@@ -1,6 +1,20 @@
 version: "3.8"
 
 services:
+  app:
+    build: .
+    container_name: wlmaz_app
+    ports:
+      - "3000:3000"
+    env_file: .env
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://wlmaz_app:WlmazProdSec2025@redis:6379
+      - COOKIE_SECURE=false
+    depends_on:
+      - redis
+    restart: always
+
   redis:
     image: redis:7-alpine
     container_name: wlmaz_redis
@@ -8,12 +22,7 @@ services:
     volumes:
       - ./redis.conf:/usr/local/etc/redis/redis.conf:ro
       - redis_data:/data
-    
-    ports:
-      - "127.0.0.1:6379:6379"
-    
     restart: always
-    
     deploy:
       resources:
         limits:
