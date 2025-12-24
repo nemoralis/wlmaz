@@ -66,7 +66,6 @@ const startServer = async () => {
          saveUninitialized: false,
 
          cookie: {
-            domain: process.env.NODE_ENV === "production" ? ".wikilovesmonuments.az" : undefined,
             secure: process.env.NODE_ENV === "production",
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
@@ -83,8 +82,7 @@ const startServer = async () => {
 
    if (process.env.NODE_ENV === "production" || process.env.SERVE_STATIC) {
       const path = await import("path");
-            const distPath = path.resolve(__dirname, "../dist");
-;
+      const distPath = path.resolve(__dirname, "../dist");
       console.log("Serving static files from:", distPath);
 
       app.use(express.static(distPath));
