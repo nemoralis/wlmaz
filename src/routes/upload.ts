@@ -1,7 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
 import express from "express";
-import rateLimit from "express-rate-limit";
 import multer from "multer";
 import type { WikiUser } from "@/types";
 import { optimizeImage } from "@/utils/image";
@@ -9,12 +8,6 @@ import { uploadFile as uploadToCommons } from "@/utils/mediawiki";
 
 const router = express.Router();
 
-// Rate Limiting: 20 uploads per 15 minutes
-const uploadLimiter = rateLimit({
-   windowMs: 15 * 60 * 1000,
-   max: 20,
-   message: { error: "Upload limit reached. Please try again later." },
-});
 
 // Disk Storage Configuration
 const uploadDir = "/tmp/wlmaz-uploads";
@@ -41,7 +34,7 @@ router.get("/status", (_req, res) => {
    res.json({ enabled: process.env.ENABLE_UPLOADS === "true" });
 });
 
-router.post("/", uploadLimiter, upload.single("file"), async (req, res) => {
+router.post("/", upload.single("file"), async (req, res) => {
    // Feature Flag Check
    if (process.env.ENABLE_UPLOADS !== "true") {
       res.status(403).json({ error: "Uploads are currently disabled." });
