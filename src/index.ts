@@ -2,7 +2,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { RedisStore } from "connect-redis";
 import express, { type NextFunction, type Request, type Response } from "express";
-import rateLimit from "express-rate-limit";
 import session from "express-session";
 import hpp from "hpp";
 import morgan from "morgan";
@@ -25,14 +24,6 @@ const redisClient = createClient({
 redisClient.on("error", (err) => console.log("Redis Client Error", err));
 redisClient.on("connect", () => console.log("Connected to Redis"));
 
-const limiter = rateLimit({
-   windowMs: 15 * 60 * 1000,
-   max: 100,
-   standardHeaders: true,
-   legacyHeaders: false,
-   message: "Too many requests from this IP, please try again later.",
-});
-
 const startServer = async () => {
    await redisClient.connect();
 
@@ -45,7 +36,6 @@ const startServer = async () => {
          stream: process.stdout,
       }),
    );
-   app.use(limiter);
    app.use(hpp()); // Prevent HTTP Parameter Pollution
 
    app.use(express.json({ limit: "10kb" }));
