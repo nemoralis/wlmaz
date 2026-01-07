@@ -10,11 +10,14 @@ git pull
 
 echo "📦 Installing dependencies..."
 # Use --prod=false to ensure we get devDependencies needed for build (like vite, typescript)
-# But verify if we need them. Actually pnpm install includes devDependencies by default unless config changes.
-# pnpm install
+# npm install includes devDependencies by default unless config changes.
+npm install
+
+echo "🐳 Starting Redis..."
+docker-compose up -d redis
 
 echo "🏗️ Building application..."
-pnpm run build
+npm run build
 
 echo "🔄 Restarting application..."
 pm2 restart wlmaz
