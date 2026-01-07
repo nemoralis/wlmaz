@@ -5,12 +5,12 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"pnpm run dev:frontend\" \"pnpm run dev:backend\"",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "vite --host",
     "dev:backend": "tsx watch --env-file=.env src/index.ts",
-    "update-data": "tsx scripts/update-monuments.ts && pnpm run convert-data",
+    "update-data": "tsx scripts/update-monuments.ts && npm run convert-data",
     "convert-data": "json2geobuf < public/monuments.geojson > public/monuments.pbf",
-    "build": "pnpm run convert-data && vue-tsc -b && vite build",
+    "build": "npm run convert-data && vue-tsc -b && vite build",
     "preview": "vite preview --host",
     "format": "prettier --write --list-different src/",
     "lint": "eslint src/ --ext .ts,.vue --fix",
@@ -99,13 +99,7 @@
     "vite-plugin-sitemap": "^0.8.2",
     "vue-tsc": "^3.0.0"
   },
-  "pnpm": {
-    "overrides": {
-      "passport": "0.7.0"
-    },
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp"
-    ]
+  "overrides": {
+    "passport": "0.7.0"
   }
 }
