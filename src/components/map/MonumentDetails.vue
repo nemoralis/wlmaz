@@ -173,7 +173,7 @@
                @click="$emit('open-upload')"
             >
                <i class="fa-solid fa-camera"></i>
-               Yeni Şəkil Yüklə
+               Yeni şəkil yüklə
             </button>
             <button
                v-else
@@ -181,14 +181,14 @@
                @click="$emit('login')"
             >
                <i class="fa-solid fa-right-to-bracket"></i>
-               Şəkil Yükləmək üçün Daxil Ol
+               Şəkil yükləmək üçün daxil ol
             </button>
          </div>
 
          <!-- 4. INFO CHIPS (Metadata) -->
          <div>
             <h3 class="mb-3 text-xs font-bold tracking-wider text-gray-400 uppercase">
-               Məlumat & Linklər
+               Məlumat & Keçidlər
             </h3>
 
             <div class="flex flex-wrap gap-2">
