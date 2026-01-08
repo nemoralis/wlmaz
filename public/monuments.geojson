@@ -831,7 +831,7 @@
                 "item": "http://www.wikidata.org/entity/Q12849537",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Şeyx İbrahim məscidi",
-                "lastModified": "2025-06-30T04:45:34Z"
+                "lastModified": "2026-01-08T10:38:20Z"
             }
         },
         {
@@ -981,10 +981,10 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20evi%2C%20B%C3%B6y%C3%BCk%20Qala%20k%C3%BC%C3%A7.%2042.jpg",
                 "inventory": "93-4",
                 "item": "http://www.wikidata.org/entity/Q119954175",
-                "itemAltLabel": "Arxeologiya və Etnoqrafiya Muzeyi, Azərbaycan Dövlət Arxeologiya və Etnoqrafiya Muzeyi, Məlikov Qardaşlarının Evi",
+                "itemAltLabel": "Arxeologiya və Etnoqrafiya Muzeyi, Azərbaycan Dövlət Arxeologiya və Etnoqrafiya Muzeyi, Məlikov Qardaşlarının Evi, Ütü ev, Zəncirli mülk",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
                 "itemLabel": "Zəncirli ev",
-                "lastModified": "2025-05-02T11:35:55Z"
+                "lastModified": "2026-01-08T15:50:36Z"
             }
         },
         {
@@ -1751,7 +1751,7 @@
                 "itemAltLabel": "Sisərnəvəng monastırı",
                 "itemDescription": "Laçın rayonunda kilsə",
                 "itemLabel": "Ağoğlan monastırı",
-                "lastModified": "2026-01-03T10:59:24Z"
+                "lastModified": "2026-01-08T14:15:54Z"
             }
         },
         {
@@ -2230,7 +2230,7 @@
                 "item": "http://www.wikidata.org/entity/Q20573552",
                 "itemDescription": "A mosque and historical architectural monument located in Baku, Azerbaijan.",
                 "itemLabel": "Baba Kuhi Bakuvi məscidi",
-                "lastModified": "2025-05-01T10:15:39Z"
+                "lastModified": "2026-01-08T14:32:46Z"
             }
         },
         {
@@ -3406,7 +3406,7 @@
                 "itemAltLabel": "Tatlar məscidi",
                 "itemDescription": "mosque in Ganja, Azerbaijan",
                 "itemLabel": "Hüseyniyyə məscidi",
-                "lastModified": "2026-01-07T10:00:39Z"
+                "lastModified": "2026-01-08T14:12:53Z"
             }
         },
         {
@@ -6122,6 +6122,28 @@
                 "itemDescription": "Azərbaycanda Ordubad rayonunun, Dəstə kəndində yerləşən XIX əsrə aid məscid və tarix-memarlıq abidəsi.",
                 "itemLabel": "Şingiley məscidi",
                 "lastModified": "2025-12-29T20:00:33Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829918156,
+                    40.377480667
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C3%9Czeyir_Hac%C4%B1b%C9%99ylinin_ev-muzeyi_(Bak%C4%B1)",
+                "commonsCategory": "House-museum of Uzeyir Hajibeyov (Baku)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House-museum_of_Uzeyir_Hajibeyov_(Baku)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/House-museum%20of%20Uzeyir%20Hajibeyov.jpg",
+                "inventory": "5589",
+                "item": "http://www.wikidata.org/entity/Q31301023",
+                "itemAltLabel": "Baku House-museum of Uzeyir Hajibeyli, House-museum of Uzeyir Hajibeyli, House-museum of Uzeyir Hajibeyov",
+                "itemDescription": "museum in Baku, Azerbaijan",
+                "itemLabel": "Üzeyir Hacıbəylinin ev-muzeyi (Bakı)",
+                "lastModified": "2026-01-08T18:27:01Z"
             }
         },
         {
