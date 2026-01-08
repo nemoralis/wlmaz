@@ -1,19 +1,12 @@
-import { Router, type Request, type Response, type NextFunction } from "express";
+import { Router } from "express";
 import passport from "./passport.ts";
 
 const router = Router();
 
-router.get("/login", (req, _res, next) => {
-   console.log("[DEBUG] /auth/login session before auth:", Object.keys(req.session));
-   next();
-}, passport.authenticate("mediawiki"));
+router.get("/login", passport.authenticate("mediawiki"));
 
 router.get(
    "/callback",
-   (req: Request, _res: Response, next: NextFunction) => {
-      console.log("[DEBUG] /auth/callback session:", req.sessionID, Object.keys(req.session || {}));
-      next();
-   },
    passport.authenticate("mediawiki", {
       failureRedirect: "/auth/login",
       successRedirect: process.env.CLIENT_URL || "/",
