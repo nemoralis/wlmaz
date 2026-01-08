@@ -60,6 +60,7 @@ const startServer = async () => {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
             sameSite: "lax",
+          //  proxy: true, // Crucial for Express to trust the proxy for secure cookies
          },
       }),
    );
@@ -71,6 +72,7 @@ const startServer = async () => {
    app.use("/upload", uploadRoutes);
 
    if (process.env.NODE_ENV === "production" || process.env.SERVE_STATIC) {
+      console.log(process.env.NODE_ENV)
       const path = await import("path");
       const distPath = path.resolve(__dirname, "../dist");
       console.log("Serving static files from:", distPath);
@@ -97,7 +99,7 @@ const startServer = async () => {
    });
 
    const server = app.listen(PORT, () => {
-      console.log(`Backend server is running on http://localhost:${PORT}`);
+      console.log(`Backend server is running on ${PORT}`);
    });
 
    const gracefulShutdown = async (signal: string) => {
