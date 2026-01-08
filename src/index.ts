@@ -27,7 +27,7 @@ redisClient.on("connect", () => console.log("Connected to Redis"));
 const startServer = async () => {
    await redisClient.connect();
 
-   app.set("trust proxy", 1); // Trust first proxy (required for secure cookies behind Nginx)
+   app.set("trust proxy", process.env.TRUST_PROXY || 1); // Trust first proxy (required for secure cookies behind Nginx)
    const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
 
    app.use(
@@ -40,6 +40,14 @@ const startServer = async () => {
 
    app.use(express.json({ limit: "10kb" }));
    app.use(express.urlencoded({ extended: true, limit: "10kb" }));
+
+   // Debug Middleware for Sessions
+   app.use((req, _res, next) => {
+      if (req.path.startsWith("/auth")) {
+         console.log(`[DEBUG] ${req.method} ${req.url} - SID: ${req.sessionID} - Secure: ${req.secure}`);
+      }
+      next();
+   });
 
    app.use(
       session({
@@ -56,10 +64,10 @@ const startServer = async () => {
          saveUninitialized: false,
 
          cookie: {
-            secure: process.env.NODE_ENV === "production",
+            secure: process.env.COOKIE_SECURE !== undefined ? process.env.COOKIE_SECURE === "true" : process.env.NODE_ENV === "production",
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-            sameSite: "lax",
+            sameSite: (process.env.COOKIE_SAMESITE as "lax" | "strict" | "none") || "lax",
           //  proxy: true, // Crucial for Express to trust the proxy for secure cookies
          },
       }),
