@@ -41,13 +41,6 @@ const startServer = async () => {
    app.use(express.json({ limit: "10kb" }));
    app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
-   // Debug Middleware for Sessions
-   app.use((req, _res, next) => {
-      if (req.path.startsWith("/auth")) {
-         console.log(`[DEBUG] ${req.method} ${req.url} - SID: ${req.sessionID} - Secure: ${req.secure}`);
-      }
-      next();
-   });
 
    app.use(
       session({
@@ -72,6 +65,20 @@ const startServer = async () => {
          },
       }),
    );
+
+   // Debug Middleware for Sessions (After Session Middleware)
+   app.use((req, _res, next) => {
+      if (req.path.startsWith("/auth")) {
+         console.log(`[DEBUG] ${req.method} ${req.url} - SID: ${req.sessionID} - Secure: ${req.secure}`);
+         console.log(`[DEBUG] Headers:`, JSON.stringify({
+            host: req.headers.host,
+            "x-forwarded-proto": req.headers["x-forwarded-proto"],
+            "x-forwarded-for": req.headers["x-forwarded-for"],
+         }));
+      }
+      next();
+   });
+
 
    app.use(passport.initialize());
    app.use(passport.session());
