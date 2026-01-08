@@ -810,7 +810,7 @@
                 "item": "http://www.wikidata.org/entity/Q16417538",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Həzrəti Əli məscidi",
-                "lastModified": "2025-05-21T22:31:54Z"
+                "lastModified": "2026-01-07T20:08:37Z"
             }
         },
         {
@@ -896,7 +896,7 @@
                 "item": "http://www.wikidata.org/entity/Q12847518",
                 "itemDescription": "XIX əsrdə İçərişəhərdə Məşədi Mirzə Qafar İsmayılov tərəfindən tikilmiş məscid.",
                 "itemLabel": "Xanlar məscidi",
-                "lastModified": "2025-05-01T10:12:03Z"
+                "lastModified": "2026-01-07T12:44:59Z"
             }
         },
         {
@@ -904,8 +904,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.836311,
-                    40.365761
+                    49.836174723,
+                    40.365577083
                 ]
             },
             "properties": {
@@ -918,7 +918,7 @@
                 "itemAltLabel": "Ashur Mosque",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Aşur məscidi",
-                "lastModified": "2025-05-01T10:13:38Z"
+                "lastModified": "2026-01-07T16:37:24Z"
             }
         },
         {
@@ -1027,7 +1027,7 @@
                 "itemAltLabel": "Beyler Mosque",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Bəylər məscidi",
-                "lastModified": "2026-01-02T09:30:48Z"
+                "lastModified": "2026-01-07T19:41:13Z"
             }
         },
         {
@@ -2377,7 +2377,7 @@
                 "item": "http://www.wikidata.org/entity/Q12842223",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Molla Əhməd Məscidi",
-                "lastModified": "2026-01-02T14:44:04Z"
+                "lastModified": "2026-01-07T19:41:13Z"
             }
         },
         {
@@ -2478,7 +2478,7 @@
                 "item": "http://www.wikidata.org/entity/Q4526087",
                 "itemAltLabel": "Şomutəpə",
                 "itemLabel": "Şomulutəpə yaşayış yeri",
-                "lastModified": "2025-05-07T07:05:23Z"
+                "lastModified": "2026-01-07T17:31:28Z"
             }
         },
         {
@@ -2616,12 +2616,12 @@
                 "azLink": "https://az.wikipedia.org/wiki/Mirz%C9%99_%C6%8Fhm%C9%99d_m%C9%99scidi",
                 "commonsCategory": "Mirza Ahmed Mosque",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Mirza_Ahmed_Mosque",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mirz%C9%99%20%C6%8Fhm%C9%99d%20m%C9%99scidi%20%282%29.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Baku%20MirzaAhmedMosque%20004%207910.jpg",
                 "inventory": "2182",
                 "item": "http://www.wikidata.org/entity/Q19798499",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Mirzə Əhməd məscidi",
-                "lastModified": "2025-05-01T10:19:03Z"
+                "lastModified": "2026-01-07T01:58:12Z"
             }
         },
         {
@@ -2640,7 +2640,7 @@
                 "item": "http://www.wikidata.org/entity/Q31299040",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Hacı Qayıb məscidi",
-                "lastModified": "2025-05-01T10:19:12Z"
+                "lastModified": "2026-01-07T13:07:47Z"
             }
         },
         {
@@ -3406,7 +3406,7 @@
                 "itemAltLabel": "Tatlar məscidi",
                 "itemDescription": "mosque in Ganja, Azerbaijan",
                 "itemLabel": "Hüseyniyyə məscidi",
-                "lastModified": "2025-12-29T01:03:09Z"
+                "lastModified": "2026-01-07T10:00:39Z"
             }
         },
         {
