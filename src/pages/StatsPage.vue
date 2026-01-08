@@ -65,7 +65,8 @@ useHead({
    meta: [
       {
          name: "description",
-         content: "Azərbaycanın tarixi abidələri haqqında statistika. 300+ abidə, fotoşəkillər və əhatə dərəcəsi məlumatları.",
+         content:
+            "Azərbaycanın tarixi abidələri haqqında statistika. 300+ abidə, fotoşəkillər və əhatə dərəcəsi məlumatları.",
       },
    ],
 });

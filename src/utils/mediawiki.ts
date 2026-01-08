@@ -15,11 +15,6 @@ const API_CONFIG = {
    },
 };
 
-// Log configuration on startup (masked)
-console.log(`[MediaWiki] Initialized in ${IS_PROD ? "PRODUCTION" : "TEST"} mode.`);
-console.log(`[MediaWiki] Target URL: ${API_CONFIG.url}`);
-console.log(`[MediaWiki] Consumer Key: ${API_CONFIG.consumer.key.substring(0, 4)}...`);
-
 // Ensure keys are trimmed
 API_CONFIG.consumer.key = API_CONFIG.consumer.key.trim();
 API_CONFIG.consumer.secret = API_CONFIG.consumer.secret.trim();
@@ -41,14 +36,10 @@ function getOAuthClient() {
  * Helper to get the correct token for signing.
  * In Test Mode, ignores the passed user and uses Environment variables.
  */
-/**
- * Helper to get the correct token for signing.
- * In Test Mode (non-prod), if user auth is missing, check/use Env variables fallback.
- */
+
 function getSigningToken(user?: WikiUser) {
    if (!IS_PROD && process.env.WM_TEST_ACCESS && process.env.WM_TEST_ACCESSSC) {
       if (!user) {
-         // Fallback for owner-only testing without login
          return {
             key: process.env.WM_TEST_ACCESS.trim(),
             secret: process.env.WM_TEST_ACCESSSC.trim(),
@@ -78,8 +69,6 @@ export async function fetchCsrfToken(user: WikiUser): Promise<string> {
    const oauth = getOAuthClient();
    const token = getSigningToken(user);
 
-   console.log("[MediaWiki] Fetching CSRF Token...");
-
    const params = {
       action: "query",
       meta: "tokens",
@@ -95,8 +84,6 @@ export async function fetchCsrfToken(user: WikiUser): Promise<string> {
    };
 
    const headers = oauth.toHeader(oauth.authorize(requestData, token));
-
-   console.log("[MediaWiki] Token Request Headers:", headers);
 
    const response = await fetch(API_CONFIG.url, {
       method: "POST",
@@ -118,21 +105,7 @@ export async function fetchCsrfToken(user: WikiUser): Promise<string> {
       console.error("[MediaWiki] Token Error:", data.error);
       throw new Error(`MediaWiki API Error: ${data.error.code} - ${data.error.info}`);
    }
-
-   console.log("[MediaWiki] Full Response:", JSON.stringify(data, null, 2));
-
-   if (!data.query?.tokens?.csrftoken) {
-      console.error("[MediaWiki] Unexpected Response:", data);
-      throw new Error("Missing csrftoken in response");
-   }
-
-   const actualToken = data.query.tokens.csrftoken;
-   console.log("[MediaWiki] Actual CSRF Token value:", actualToken);
-   console.log(
-      "[MediaWiki] Token Status:",
-      actualToken === "+\\" ? "❌ ANONYMOUS - OAuth authentication FAILED!" : "✅ Authenticated",
-   );
-   return actualToken;
+   return data.query.tokens.csrftoken;
 }
 
 /**
@@ -144,14 +117,7 @@ export async function uploadFile(
    fileData: { name: string; buffer: Buffer; mimetype: string },
    metadata: { text: string; comment?: string },
 ): Promise<any> {
-   console.log(`[MediaWiki] Starting upload for: ${fileData.name}`);
-
    // 1. Get Token
-   console.log("[MediaWiki] User authenticated:", {
-      username: user.username,
-      hasToken: !!user.token,
-      hasSecret: !!user.tokenSecret,
-   });
    const csrfToken = await fetchCsrfToken(user);
 
    // 2. Setup Request
@@ -192,9 +158,6 @@ export async function uploadFile(
    const queryString = new URLSearchParams(queryParams).toString();
    const fetchUrl = `${API_CONFIG.url}?${queryString}`;
 
-   console.log(`[MediaWiki] Posting to: ${fetchUrl}`);
-   console.log("[MediaWiki] Upload Request Headers:", headers);
-
    const response = await fetch(fetchUrl, {
       method: "POST",
       headers: {
@@ -216,6 +179,5 @@ export async function uploadFile(
       throw new Error(`Upload Failed: ${result.error.code} - ${result.error.info}`);
    }
 
-   console.log("[MediaWiki] Upload Success:", result.upload?.filename);
    return result;
 }

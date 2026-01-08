@@ -18,7 +18,7 @@
          <button
             v-if="searchQuery"
             aria-label="Axtarışı təmizlə"
-            class="absolute top-3 right-4 cursor-pointer text-gray-400 hover:text-red-500 transition-colors"
+            class="absolute top-3 right-4 cursor-pointer text-gray-400 transition-colors hover:text-red-500"
             @click="clearSearch"
          >
             <i class="fa fa-times" aria-hidden="true"></i>

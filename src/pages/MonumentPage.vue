@@ -162,13 +162,13 @@ import {
    cdxIconLogoWikipedia,
 } from "@wikimedia/codex-icons";
 import UploadModal from "../components/UploadModal.vue";
-import { useAuthStore } from "../stores/auth";
 import {
    schemaToJsonLd,
    useBreadcrumbSchema,
    useMonumentSchema,
 } from "../composables/useSchemaOrg";
 import { useWikiCredits } from "../composables/useWikiCredits";
+import { useAuthStore } from "../stores/auth";
 import type { MonumentProps } from "../types";
 import { getOptimizedImage } from "../utils/monumentFormatters";
 
@@ -214,9 +214,10 @@ useHead({
    link: [
       {
          rel: "canonical",
-         href: () => monument.value 
-            ? `https://wikilovesmonuments.az/monument/${monument.value.inventory}`
-            : "https://wikilovesmonuments.az/",
+         href: () =>
+            monument.value
+               ? `https://wikilovesmonuments.az/monument/${monument.value.inventory}`
+               : "https://wikilovesmonuments.az/",
       },
    ],
    meta: [

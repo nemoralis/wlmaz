@@ -7,7 +7,7 @@
          >
             Viki Abidələri Sevir
          </h1>
-         <p class="text-sm font-medium text-gray-400 uppercase tracking-widest">Azərbaycan</p>
+         <p class="text-sm font-medium tracking-widest text-gray-400 uppercase">Azərbaycan</p>
       </div>
 
       <!-- 2. Search Component -->
@@ -67,7 +67,9 @@
          @click="$emit('toggle-filter')"
       >
          <div class="flex items-center gap-3">
-            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-50 text-orange-500">
+            <div
+               class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-50 text-orange-500"
+            >
                <i class="fa-solid fa-filter text-sm"></i>
             </div>
             <div class="flex flex-col">
@@ -80,18 +82,21 @@
             class="relative h-6 w-10 transition-all duration-300"
             :class="needsPhotoOnly ? 'opacity-100' : 'opacity-60 grayscale'"
          >
-             <div class="absolute inset-0 rounded-full transition-colors duration-300" :class="needsPhotoOnly ? 'bg-blue-600' : 'bg-gray-200'"></div>
-             <div class="absolute top-1 left-1 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-300" :class="needsPhotoOnly ? 'translate-x-4' : 'translate-x-0'"></div>
+            <div
+               class="absolute inset-0 rounded-full transition-colors duration-300"
+               :class="needsPhotoOnly ? 'bg-blue-600' : 'bg-gray-200'"
+            ></div>
+            <div
+               class="absolute top-1 left-1 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-300"
+               :class="needsPhotoOnly ? 'translate-x-4' : 'translate-x-0'"
+            ></div>
          </div>
       </div>
-
-
    </div>
 </template>
 
 <script lang="ts" setup>
 import type { Feature } from "geojson";
-
 import SearchBar from "./SearchBar.vue";
 
 interface Props {
@@ -107,8 +112,6 @@ defineEmits<{
    "toggle-filter": [];
    "select-monument": [feature: Feature];
 }>();
-
-
 </script>
 
 <style scoped>
