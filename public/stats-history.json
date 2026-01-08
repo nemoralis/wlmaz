@@ -82,12 +82,12 @@
   },
   {
     "date": "2026-01-08",
-    "timestamp": 1767834903109,
-    "total": 305,
-    "withImage": 266,
+    "timestamp": 1767897332107,
+    "total": 306,
+    "withImage": 267,
     "withoutImage": 39,
     "diff": {
-      "added": 0,
+      "added": 1,
       "removed": 0
     }
   }
