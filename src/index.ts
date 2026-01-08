@@ -27,7 +27,7 @@ redisClient.on("connect", () => console.log("Connected to Redis"));
 const startServer = async () => {
    await redisClient.connect();
 
-   app.set("trust proxy", process.env.TRUST_PROXY || 1); // Trust first proxy (required for secure cookies behind Nginx)
+   app.set("trust proxy", 1);
    const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
 
    app.use(
@@ -36,7 +36,7 @@ const startServer = async () => {
          stream: process.stdout,
       }),
    );
-   app.use(hpp()); // Prevent HTTP Parameter Pollution
+   app.use(hpp());
 
    app.use(express.json({ limit: "10kb" }));
    app.use(express.urlencoded({ extended: true, limit: "10kb" }));
@@ -55,30 +55,14 @@ const startServer = async () => {
          secret: process.env.SESSION_SECRET!,
          resave: false,
          saveUninitialized: false,
-
          cookie: {
-            secure: process.env.COOKIE_SECURE !== undefined ? process.env.COOKIE_SECURE === "true" : process.env.NODE_ENV === "production",
+            secure: process.env.NODE_ENV === "production",
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-            sameSite: (process.env.COOKIE_SAMESITE as "lax" | "strict" | "none") || "lax",
-          //  proxy: true, // Crucial for Express to trust the proxy for secure cookies
+            sameSite: "lax",
          },
       }),
    );
-
-   // Debug Middleware for Sessions (After Session Middleware)
-   app.use((req, _res, next) => {
-      if (req.path.startsWith("/auth")) {
-         console.log(`[DEBUG] ${req.method} ${req.url} - SID: ${req.sessionID} - Secure: ${req.secure}`);
-         console.log(`[DEBUG] Headers:`, JSON.stringify({
-            host: req.headers.host,
-            "x-forwarded-proto": req.headers["x-forwarded-proto"],
-            "x-forwarded-for": req.headers["x-forwarded-for"],
-         }));
-      }
-      next();
-   });
-
 
    app.use(passport.initialize());
    app.use(passport.session());
@@ -86,8 +70,7 @@ const startServer = async () => {
    app.use("/auth", authRoutes);
    app.use("/upload", uploadRoutes);
 
-   if (process.env.NODE_ENV === "production" || process.env.SERVE_STATIC) {
-      console.log(process.env.NODE_ENV)
+   if (process.env.NODE_ENV === "production") {
       const path = await import("path");
       const distPath = path.resolve(__dirname, "../dist");
       console.log("Serving static files from:", distPath);
