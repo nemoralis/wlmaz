@@ -836,27 +836,25 @@ export default defineComponent({
                   body: formData, // Browser handles Content-Type boundaries
                });
 
-               if (!response.ok) {
-                  const errData = await response.json();
-                  throw new Error(errData.error || `Upload failed for ${fileItem.file.name}`);
+               // Read response as text first to handle non-JSON errors (like Nginx 413)
+               const responseText = await response.text();
+               let responseData;
+               try {
+                  responseData = JSON.parse(responseText);
+               } catch (_e) {
+                  throw new Error(
+                     "Server returned an invalid response. This often happens if the file is too large for the server's Nginx configuration (client_max_body_size).",
+                  );
                }
 
-               const responseData = await response.json();
-               // responseData = { success: true, result: { upload: { filename: "...", ... } } }
+               if (!response.ok) {
+                  throw new Error(responseData.error || `Upload failed for ${fileItem.file.name}`);
+               }
 
-               const mwUpload = responseData.result?.upload;
-
-               // Use filename from MW if available (it has extension), otherwise fallback to title + guess
-               const filename = mwUpload?.filename || `${fileItem.title}.jpg`;
-
-               // Use descriptionurl from MW if available
-               const url =
-                  mwUpload?.imageinfo?.descriptionurl ||
-                  `https://test.wikipedia.org/wiki/File:${filename}`;
-
+               // The backend now returns { filename: "...", url: "..." }
                uploadResults.value.push({
-                  filename: filename,
-                  url: url,
+                  filename: responseData.filename,
+                  url: responseData.url,
                });
 
                // Update progress

@@ -18,7 +18,13 @@
             class="flex h-full flex-none shrink-0 items-center"
             aria-label="Ana səhifəyə qayıt"
          >
-            <img src="/wlm-az.svg" alt="Wiki Loves Monuments Azerbaijan" class="h-10 w-auto" width="40" height="40" />
+            <img
+               src="/wlm-az.svg"
+               alt="Wiki Loves Monuments Azerbaijan"
+               class="h-10 w-auto"
+               width="40"
+               height="40"
+            />
          </a>
 
          <!-- Desktop Nav -->

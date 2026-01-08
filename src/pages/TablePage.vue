@@ -223,7 +223,8 @@ export default defineComponent({
          meta: [
             {
                name: "description",
-               content: "Azərbaycanın bütün tarixi abidələrinin tam siyahısı. Bakı, Şəki, Qəbələ və digər bölgələrdəki məscid, qala, məqbərə və digər mədəni irs abidələri haqqında məlumat.",
+               content:
+                  "Azərbaycanın bütün tarixi abidələrinin tam siyahısı. Bakı, Şəki, Qəbələ və digər bölgələrdəki məscid, qala, məqbərə və digər mədəni irs abidələri haqqında məlumat.",
             },
          ],
       });

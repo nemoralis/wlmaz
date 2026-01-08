@@ -4,10 +4,14 @@
          <div class="leaflet-sidebar-tabs">
             <ul role="tablist">
                <li>
-                  <a href="#home" role="tab" aria-label="Axtarış və Filtrlər"><i class="fa fa-info"></i></a>
+                  <a href="#home" role="tab" aria-label="Axtarış və Filtrlər"
+                     ><i class="fa fa-info"></i
+                  ></a>
                </li>
                <li :class="{ disabled: !selectedMonument }">
-                  <a href="#details" role="tab" aria-label="Abidə Detalları"><i class="fa fa-landmark"></i></a>
+                  <a href="#details" role="tab" aria-label="Abidə Detalları"
+                     ><i class="fa fa-landmark"></i
+                  ></a>
                </li>
             </ul>
 
@@ -495,7 +499,9 @@ export default defineComponent({
    z-index: 2000 !important;
    border-radius: 16px !important;
    overflow: hidden !important;
-   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+   box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 :deep(.leaflet-sidebar-tabs li.disabled) {

@@ -53,7 +53,10 @@ export async function optimizeImage(buffer: Buffer): Promise<OptimizedImage> {
          extension: ".jpg",
       };
    } catch (error) {
-      console.error("Image optimization failed, falling back to original:", error);
+      console.error(
+         "Image optimization failed, falling back to original:",
+         error instanceof Error ? error.message : error,
+      );
       // Let's rely on the caller to handle fallback if this throws, OR return a "failed" object?
 
       // Current contract was returning buffer. Now returning object.

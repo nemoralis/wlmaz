@@ -8,7 +8,6 @@ import { uploadFile as uploadToCommons } from "@/utils/mediawiki";
 
 const router = express.Router();
 
-
 // Disk Storage Configuration
 const uploadDir = "/tmp/wlmaz-uploads";
 // Ensure dir exists (async check/create could be done on startup, but mkdir recursive is safe)
@@ -55,13 +54,6 @@ router.post("/", upload.single("file"), async (req, res) => {
    const filePath = req.file.path;
 
    try {
-      console.log("[Upload] Request details:", {
-         ip: req.ip,
-         forwardedFor: req.headers["x-forwarded-for"],
-         isAuthenticated: req.isAuthenticated(),
-         username: req.user?.username,
-      });
-
       const { title, description, license, lat, lon, categories } = req.body;
 
       if (!title || !description) {
@@ -114,12 +106,17 @@ ${categoryText}
       // Determine final properties
       let finalBuffer = optimized.buffer;
       let finalMime = optimized.mimetype;
-      let finalExt = optimized.extension;
+      let finalExt = optimized.extension || path.extname(req.file.originalname);
+
+      // Ensure extension starts with a dot for consistent check
+      if (finalExt && !finalExt.startsWith(".")) {
+         finalExt = "." + finalExt;
+      }
 
       // Ensure extension matches
       let finalFilename = title;
-      if (!finalFilename.toLowerCase().endsWith("." + finalExt)) {
-         finalFilename += "." + finalExt;
+      if (finalExt && !finalFilename.toLowerCase().endsWith(finalExt.toLowerCase())) {
+         finalFilename += finalExt;
       }
 
       // Upload to Commons (using the optimized buffer)
@@ -137,8 +134,10 @@ ${categoryText}
       );
 
       res.json({
-         filename: result.filename,
-         url: result.url,
+         filename: result.upload?.filename,
+         url:
+            result.upload?.imageinfo?.descriptionurl ||
+            `https://commons.wikimedia.org/wiki/File:${result.upload?.filename}`,
       });
    } catch (error: any) {
       console.error("Upload error:", error);
