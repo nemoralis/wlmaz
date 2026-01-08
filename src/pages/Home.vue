@@ -29,6 +29,7 @@
 
 <script lang="ts" setup>
 import { onErrorCaptured, ref } from "vue";
+import { useRoute } from "vue-router";
 import { useHead } from "@unhead/vue";
 import MonumentMap from "../components/MonumentMap.vue";
 import {
@@ -37,6 +38,7 @@ import {
    useWebSiteSchema,
 } from "../composables/useSchemaOrg";
 
+const route = useRoute();
 const error = ref<Error | null>(null);
 
 // Schema.org markup for homepage
@@ -48,7 +50,13 @@ useHead({
    link: [
       {
          rel: "canonical",
-         href: "https://wikilovesmonuments.az/",
+         href: () => {
+            const inventory = route.query.inventory;
+            if (inventory) {
+               return `https://wikilovesmonuments.az/monument/${inventory}`;
+            }
+            return "https://wikilovesmonuments.az/";
+         },
       },
    ],
    meta: [
