@@ -52,8 +52,7 @@
     "sharp": "^0.34.5",
     "vue": "^3.5.13",
     "vue-chartjs": "^5.3.3",
-    "vue-router": "^4.6.3",
-    "workbox-window": "^7.4.0"
+    "vue-router": "^4.6.3"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
@@ -95,7 +94,6 @@
     "vite-bundle-visualizer": "^1.2.1",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-image-optimizer": "^2.0.3",
-    "vite-plugin-pwa": "^1.1.0",
     "vite-plugin-sitemap": "^0.8.2",
     "vue-tsc": "^3.0.0"
   },
