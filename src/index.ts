@@ -76,7 +76,11 @@ const startServer = async () => {
 
       app.use(express.static(distPath));
 
-      app.get(/.*/, (_req, res) => {
+      app.get(/.*/, (req, res, next) => {
+         // Don't catch API/Auth routes
+         if (req.url.startsWith("/auth") || req.url.startsWith("/upload")) {
+            return next();
+         }
          res.sendFile(path.join(distPath, "index.html"));
       });
    }
