@@ -87,12 +87,10 @@
     "prettier-plugin-tailwindcss": "^0.7.1",
     "svgo": "^4.0.0",
     "tailwindcss": "^4.1.14",
-    "terser": "^5.44.1",
     "tsx": "^4.21.0",
     "typescript": "^5.7.3",
     "vite": "^7.1.9",
     "vite-bundle-visualizer": "^1.2.1",
-    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-image-optimizer": "^2.0.3",
     "vite-plugin-sitemap": "^0.8.2",
     "vue-tsc": "^3.0.0"

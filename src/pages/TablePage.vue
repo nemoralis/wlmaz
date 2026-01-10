@@ -1,187 +1,120 @@
 <template>
-   <div class="flex h-full flex-col bg-gray-50">
+   <div class="flex h-full flex-col bg-[#f8f9fa]">
       <div class="border-b border-gray-200 bg-white">
          <div class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
                <h1 class="text-2xl font-bold text-gray-900">Abidələr Siyahısı</h1>
                <router-link
                   to="/"
-                  class="flex items-center gap-2 font-medium text-blue-600 hover:text-blue-800"
+                  class="flex items-center gap-2 font-medium text-[#3366cc] hover:text-[#2a4b8d]"
                >
-                  <i class="fa-solid fa-map"></i> Xəritə
+                  <CdxIcon :icon="cdxIconMap" /> Xəritə
                </router-link>
             </div>
          </div>
       </div>
 
-      <div class="container mx-auto flex flex-1 flex-col overflow-hidden px-4 py-6">
+      <div class="container mx-auto flex flex-1 flex-col px-4 py-6">
          <div
-            class="flex flex-1 flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
+            class="flex flex-1 flex-col border border-gray-200 bg-white"
          >
             <!-- Search / Filter -->
-            <div class="border-b border-gray-200 bg-gray-50 p-4">
-               <div class="relative max-w-md">
-                  <label for="monument-search" class="sr-only">Abidə axtar</label>
-                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                     <i class="fa-solid fa-search text-gray-400" aria-hidden="true"></i>
-                  </div>
-                  <input
-                     id="monument-search"
+            <div class="border-b border-gray-200 bg-[#f8f9fa] p-4">
+               <div class="max-w-md">
+                  <CdxSearchInput
                      v-model="searchQuery"
-                     type="text"
-                     class="block w-full rounded-lg border border-gray-300 bg-white p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                      placeholder="Axtarış (Ad və ya İnventar nömrəsi)..."
+                     aria-label="Abidə axtar"
                   />
                </div>
             </div>
 
-            <div class="flex-1 overflow-auto overflow-x-auto">
-               <table class="min-w-full divide-y divide-gray-200">
-                  <thead class="sticky top-0 z-10 bg-gray-50">
-                     <tr>
-                        <th
-                           scope="col"
-                           role="button"
-                           tabindex="0"
-                           :aria-sort="
-                              sortKey === 'inventory'
-                                 ? sortOrder === 1
-                                    ? 'ascending'
-                                    : 'descending'
-                                 : 'none'
-                           "
-                           class="w-1 cursor-pointer px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase hover:bg-gray-100"
-                           @click="sortBy('inventory')"
-                           @keydown.enter="sortBy('inventory')"
-                           @keydown.space.prevent="sortBy('inventory')"
-                        >
-                           İnventar
-                           <i
-                              v-if="sortKey === 'inventory'"
-                              :class="
-                                 sortOrder === 1 ? 'fa-solid fa-sort-up' : 'fa-solid fa-sort-down'
-                              "
-                              class="ml-1"
-                              aria-hidden="true"
-                           ></i>
-                        </th>
-                        <th
-                           scope="col"
-                           role="button"
-                           tabindex="0"
-                           :aria-sort="
-                              sortKey === 'itemLabel'
-                                 ? sortOrder === 1
-                                    ? 'ascending'
-                                    : 'descending'
-                                 : 'none'
-                           "
-                           class="cursor-pointer px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase hover:bg-gray-100"
-                           @click="sortBy('itemLabel')"
-                           @keydown.enter="sortBy('itemLabel')"
-                           @keydown.space.prevent="sortBy('itemLabel')"
-                        >
-                           Ad
-                           <i
-                              v-if="sortKey === 'itemLabel'"
-                              :class="
-                                 sortOrder === 1 ? 'fa-solid fa-sort-up' : 'fa-solid fa-sort-down'
-                              "
-                              class="ml-1"
-                              aria-hidden="true"
-                           ></i>
-                        </th>
-                        <th
-                           scope="col"
-                           class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
-                        >
-                           Status
-                        </th>
-                        <th
-                           scope="col"
-                           class="px-6 py-3 text-right text-xs font-medium tracking-wider text-gray-500 uppercase"
-                        >
-                           Əməliyyat
-                        </th>
-                     </tr>
-                  </thead>
-                  <tbody class="divide-y divide-gray-200 bg-white">
-                     <tr v-if="loading">
-                        <td colspan="4" class="px-6 py-4 text-center text-gray-500">Yüklənir...</td>
-                     </tr>
-                     <tr
-                        v-for="monument in sortedMonuments"
-                        :key="monument.item"
-                        class="transition-colors hover:bg-gray-50"
+            <div class="flex-1">
+               <CdxTable
+                  v-model:sort="sortState"
+                  :columns="columns"
+                  :data="sortedMonuments"
+                  caption="Abidələr Siyahısı"
+                  :hide-caption="true"
+                  :paginate="true"
+                  :pagination-size-default="50"
+               >
+                  <!-- Custom Slot for Ad (Label + Description + AltLabel) -->
+                  <template #item-itemLabel="{ row }">
+                     <div class="font-medium text-gray-900">{{ row.itemLabel }}</div>
+                     <div
+                        v-if="row.itemDescription"
+                        class="mt-0.5 text-xs text-gray-500"
                      >
-                        <td
-                           class="w-1 px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900"
-                        >
-                           {{ monument.inventory || "-" }}
-                        </td>
-                        <td class="px-6 py-4 text-sm text-gray-500">
-                           <div class="font-medium text-gray-900">{{ monument.itemLabel }}</div>
-                           <div
-                              v-if="monument.itemDescription"
-                              class="mt-0.5 text-xs text-gray-500"
-                           >
-                              {{ monument.itemDescription }}
-                           </div>
-                           <div v-if="monument.itemAltLabel" class="mt-0.5 text-xs text-gray-400">
-                              {{ monument.itemAltLabel }}
-                           </div>
-                        </td>
-                        <td class="px-6 py-4 text-sm whitespace-nowrap">
-                           <span
-                              class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold"
-                              :class="
-                                 monument.image
-                                    ? 'bg-green-100 text-green-800'
-                                    : 'bg-red-100 text-red-800'
-                              "
-                           >
-                              {{ monument.image ? "Şəkilli" : "Şəkilsiz" }}
-                           </span>
-                        </td>
-                        <td class="px-6 py-4 text-right text-sm font-medium whitespace-nowrap">
-                           <!-- Upload Button -->
-                           <button
-                              aria-label="Şəkil yüklə"
-                              class="mr-3 text-gray-600 hover:text-blue-600"
-                              title="Şəkil Yüklə"
-                              @click="openUploadModal(monument)"
-                           >
-                              <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
-                           </button>
+                        {{ row.itemDescription }}
+                     </div>
+                     <div v-if="row.itemAltLabel" class="mt-0.5 text-xs text-gray-400 italic">
+                        {{ row.itemAltLabel }}
+                     </div>
+                  </template>
 
-                           <a
-                              v-if="monument.article"
-                              :href="monument.article"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label="Vikipediyada oxu"
-                              class="mr-3 text-gray-600 hover:text-gray-900"
-                              title="Wikipedia"
-                           >
-                              <i class="fa-brands fa-wikipedia-w" aria-hidden="true"></i>
-                           </a>
-                           <router-link
-                              :to="'/?inventory=' + monument.inventory"
-                              aria-label="Xəritədə göstər"
-                              class="mr-3 text-blue-600 hover:text-blue-900"
-                              title="Xəritədə göstər"
-                           >
-                              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                           </router-link>
-                        </td>
-                     </tr>
-                  </tbody>
-               </table>
+                  <!-- Custom Slot for Status -->
+                  <template #item-status="{ row }">
+                     <span
+                        class="inline-flex px-2 text-xs leading-5 font-semibold"
+                        :class="
+                           row.image
+                              ? 'text-[#14866d]'
+                              : 'text-[#d73333]'
+                        "
+                     >
+                        {{ row.image ? "Şəkilli" : "Şəkilsiz" }}
+                     </span>
+                  </template>
+
+                  <!-- Custom Slot for Actions -->
+                  <template #item-actions="{ row }">
+                     <div class="flex justify-end gap-3">
+                        <!-- Upload Button -->
+                        <CdxButton
+                           v-if="auth.isAuthenticated"
+                           weight="quiet"
+                           aria-label="Şəkil yüklə"
+                           title="Şəkil yüklə"
+                           @click="openUploadModal(row)"
+                        >
+                           <CdxIcon :icon="cdxIconUpload" />
+                        </CdxButton>
+
+                        <CdxButton
+                           v-if="row.article"
+                           weight="quiet"
+                           aria-label="Vikipediyada oxu"
+                           title="Wikipedia"
+                           @click="openExternalLink(row.article)"
+                        >
+                           <CdxIcon :icon="cdxIconLogoWikipedia" />
+                        </CdxButton>
+
+                        <CdxButton
+                           weight="quiet"
+                           aria-label="Xəritədə göstər"
+                           title="Xəritədə göstər"
+                           @click="$router.push('/?inventory=' + row.inventory)"
+                        >
+                           <CdxIcon :icon="cdxIconMapPin" />
+                        </CdxButton>
+                     </div>
+                  </template>
+
+                  <template #footer>
+                     <div v-if="loading" class="p-4 text-center text-gray-500">Yüklənir...</div>
+                     <div v-else-if="sortedMonuments.length === 0" class="p-8 text-center text-gray-500">
+                        Nəticə tapılmadı
+                     </div>
+                  </template>
+               </CdxTable>
             </div>
             <div
-               class="flex justify-between border-t border-gray-200 bg-gray-50 px-6 py-3 text-sm text-gray-500"
+               class="flex justify-between border-t border-gray-200 bg-[#f8f9fa] px-6 py-3 text-sm text-gray-500"
             >
                <span>Cəmi: {{ monuments.length }} abidə</span>
+               <span v-if="searchQuery">Filtrlənmiş: {{ sortedMonuments.length }}</span>
             </div>
          </div>
       </div>
@@ -196,6 +129,19 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from "vue";
 import { useHead } from "@unhead/vue";
+import {
+   CdxTable,
+   CdxButton,
+   CdxIcon,
+   CdxSearchInput,
+} from "@wikimedia/codex";
+import {
+   cdxIconMap,
+   cdxIconMapPin,
+   cdxIconUpload,
+   cdxIconLogoWikipedia,
+} from "@wikimedia/codex-icons";
+import { useAuthStore } from "../stores/auth";
 import UploadModal from "../components/UploadModal.vue";
 
 interface Monument {
@@ -210,41 +156,52 @@ interface Monument {
 
 export default defineComponent({
    name: "TablePage",
-   components: { UploadModal },
+   components: {
+      UploadModal,
+      CdxTable,
+      CdxButton,
+      CdxIcon,
+      CdxSearchInput,
+   },
    setup() {
+      const auth = useAuthStore();
       useHead({
          title: "Abidələr Siyahısı - Azərbaycan Tarixi Abidələri | Viki Abidələri Sevir",
-         link: [
-            {
-               rel: "canonical",
-               href: "https://wikilovesmonuments.az/table",
-            },
-         ],
+         link: [{ rel: "canonical", href: "https://wikilovesmonuments.az/table" }],
          meta: [
             {
                name: "description",
-               content:
-                  "Azərbaycanın bütün tarixi abidələrinin tam siyahısı. Bakı, Şəki, Qəbələ və digər bölgələrdəki məscid, qala, məqbərə və digər mədəni irs abidələri haqqında məlumat.",
+               content: "Azərbaycanın bütün tarixi abidələrinin tam siyahısı. Bakı, Şəki, Qəbələ və digər bölgələrdəki məscid, qala, məqbərə və digər mədəni irs abidələri haqqında məlumat.",
             },
          ],
       });
 
       const monuments = ref<Monument[]>([]);
       const loading = ref(true);
-      const sortKey = ref("inventory");
-      const sortOrder = ref(1); // 1 asc, -1 desc
       const isUploadModalOpen = ref(false);
       const selectedMonumentForUpload = ref<Monument | null>(null);
+      const searchQuery = ref("");
+
+      const sortState = ref<Record<string, "asc" | "desc">>({ inventory: "asc" });
+
+      const columns = [
+         { id: "inventory", label: "İnventar", allowSort: true, width: "100px" },
+         { id: "itemLabel", label: "Ad", allowSort: true },
+         { id: "status", label: "Status" },
+         { id: "actions", label: "" },
+      ];
 
       const openUploadModal = (monument: Monument) => {
          selectedMonumentForUpload.value = monument;
          isUploadModalOpen.value = true;
       };
 
+      const openExternalLink = (url: string) => {
+         window.open(url, "_blank", "noopener,noreferrer");
+      };
+
       onMounted(async () => {
          try {
-            // Initial load strategy: fetch geojson.
-            // We assume monuments.geojson exists in public.
             const res = await fetch("/monuments.geojson");
             if (res.ok) {
                const data = await res.json();
@@ -256,8 +213,6 @@ export default defineComponent({
             loading.value = false;
          }
       });
-
-      const searchQuery = ref("");
 
       const sortedMonuments = computed(() => {
          let data = [...monuments.value];
@@ -274,46 +229,49 @@ export default defineComponent({
             });
          }
 
-         return data.sort((a, b) => {
-            let valA = a[sortKey.value] || "";
-            let valB = b[sortKey.value] || "";
+         // Sort
+         const sortKey = Object.keys(sortState.value)[0];
+         const sortDir = sortState.value[sortKey];
 
-            // Numeric sort for inventory if possible
-            if (sortKey.value === "inventory") {
-               // Clean strings for numeric sort attempt
-               const numA = parseFloat(valA.toString().replace(/[^0-9.]/g, ""));
-               const numB = parseFloat(valB.toString().replace(/[^0-9.]/g, ""));
-               if (!isNaN(numA) && !isNaN(numB) && valA !== valB) {
-                  return (numA - numB) * sortOrder.value;
+         if (sortKey) {
+            const order = sortDir === "asc" ? 1 : -1;
+            data.sort((a, b) => {
+               let valA = a[sortKey] || "";
+               let valB = b[sortKey] || "";
+
+               if (sortKey === "inventory") {
+                  const numA = parseFloat(valA.toString().replace(/[^0-9.]/g, ""));
+                  const numB = parseFloat(valB.toString().replace(/[^0-9.]/g, ""));
+                  if (!isNaN(numA) && !isNaN(numB) && valA !== valB) {
+                     return (numA - numB) * order;
+                  }
                }
-            }
 
-            if (valA < valB) return -1 * sortOrder.value;
-            if (valA > valB) return 1 * sortOrder.value;
-            return 0;
-         });
+               if (valA < valB) return - order;
+               if (valA > valB) return order;
+               return 0;
+            });
+         }
+
+         return data;
       });
 
-      const sortBy = (key: string) => {
-         if (sortKey.value === key) {
-            sortOrder.value *= -1;
-         } else {
-            sortKey.value = key;
-            sortOrder.value = 1;
-         }
-      };
-
       return {
+         auth,
          monuments,
          sortedMonuments,
          loading,
-         sortBy,
-         sortKey,
-         sortOrder,
+         sortState,
+         columns,
          isUploadModalOpen,
          selectedMonumentForUpload,
          openUploadModal,
          searchQuery,
+         openExternalLink,
+         cdxIconMap,
+         cdxIconMapPin,
+         cdxIconUpload,
+         cdxIconLogoWikipedia,
       };
    },
 });

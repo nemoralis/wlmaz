@@ -10,6 +10,7 @@ export function useWikiCredits() {
          return;
       }
 
+      imageCredit.value = null;
       creditLoading.value = true;
 
       let filename = decodeURIComponent(imageUrl).split("Special:FilePath/").pop() || "";

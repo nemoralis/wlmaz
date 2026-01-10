@@ -50,7 +50,7 @@ body {
 
 /* Focus Visible Styles - High contrast focus indicators */
 *:focus-visible {
-   outline: 3px solid #2563eb;
+   outline: 3px solid #3366cc;
    outline-offset: 2px;
    border-radius: 4px;
 }
@@ -60,7 +60,7 @@ button:focus-visible,
 a:focus-visible,
 [role="button"]:focus-visible,
 [role="menuitem"]:focus-visible {
-   outline: 3px solid #2563eb;
+   outline: 3px solid #3366cc;
    outline-offset: 2px;
 }
 
@@ -68,9 +68,9 @@ a:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-   outline: 2px solid #2563eb;
+   outline: 2px solid #3366cc;
    outline-offset: 0;
-   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+   box-shadow: 0 0 0 3px rgba(51, 102, 204, 0.1);
 }
 
 /* Remove default focus outline (we're using focus-visible instead) */
@@ -118,13 +118,13 @@ select:focus-visible {
 .marker-cluster-small,
 .marker-cluster-medium,
 .marker-cluster-large {
-   background-color: rgba(37, 99, 235, 0.4) !important;
+   background-color: rgba(51, 102, 204, 0.4) !important;
 }
 
 .marker-cluster-small div,
 .marker-cluster-medium div,
 .marker-cluster-large div {
-   background-color: rgba(37, 99, 235, 0.9) !important;
+   background-color: rgba(51, 102, 204, 0.9) !important;
    color: white !important;
    font-weight: bold;
 }
@@ -180,9 +180,9 @@ select:focus-visible {
 button:focus-visible,
 a:focus-visible,
 [role="button"]:focus-visible {
-   outline: 3px solid #2563eb !important;
+   outline: 3px solid #3366cc !important;
    outline-offset: 3px !important;
-   box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.2) !important;
+   box-shadow: 0 0 0 6px rgba(51, 102, 204, 0.2) !important;
 }
 
 /* Skip link visible state enhancement */
