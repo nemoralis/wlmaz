@@ -31,21 +31,21 @@
          <nav role="navigation" aria-label="Əsas naviqasiya" class="ml-6 hidden gap-4 md:flex">
             <router-link
                to="/stats"
-               class="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
+               class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
                aria-label="Statistika səhifəsinə get"
             >
                Statistika
             </router-link>
             <router-link
                to="/table"
-               class="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
+               class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
                aria-label="Siyahı səhifəsinə get"
             >
                Siyahı
             </router-link>
             <router-link
                to="/about"
-               class="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
+               class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
                aria-label="Haqqında səhifəsinə get"
             >
                Haqqında
@@ -60,7 +60,7 @@
                      :aria-expanded="menuOpen"
                      aria-haspopup="true"
                      aria-label="İstifadəçi menyusu"
-                     class="flex items-center gap-2 font-medium text-gray-800 transition-colors hover:text-blue-600 focus:outline-none"
+                     class="flex items-center gap-2 font-medium text-gray-800 transition-colors hover:text-[#3366cc] focus:outline-none"
                      @click="toggleMenu"
                      @keydown="handleDropdownKeydown"
                   >

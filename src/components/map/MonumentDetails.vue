@@ -1,295 +1,230 @@
 <template>
-   <div class="animate-slide-in relative">
-      <!-- 1. HERO IMAGE or HEADER -->
-      <div v-if="monument" class="-mx-4 -mt-4 mb-6">
-         <!-- Case A: Hero Image -->
-         <div v-if="monument.image" class="group relative h-64 w-full overflow-hidden bg-gray-100">
-            <a :href="getDescriptionPage(monument.image)" target="_blank" rel="noopener">
-               <div
-                  v-if="imageLoading"
-                  class="absolute inset-0 z-10 flex animate-pulse items-center justify-center bg-gray-200"
-               >
-                  <i class="fa-regular fa-image text-4xl text-gray-300"></i>
-               </div>
-               <img
-                  :src="getOptimizedImage(monument.image)"
-                  :srcset="getSrcSet(monument.image, [320, 500, 800])"
-                  alt="Monument Hero"
-                  class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  :class="{ 'opacity-0': imageLoading, 'opacity-100': !imageLoading }"
-                  @load="onImageLoad"
-               />
-               <!-- Gradient Overlay -->
-               <div
-                  class="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-90 transition-opacity group-hover:opacity-100"
-               ></div>
-            </a>
-
-            <!-- Top Actions Overlay -->
-            <div class="absolute top-0 right-0 left-0 flex items-start justify-end p-4">
-               <div class="flex gap-2">
-                  <button
-                     class="flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-md transition-all"
-                     :class="
-                        linkCopied
-                           ? 'scale-110 bg-green-500 text-white'
-                           : 'bg-black/40 text-white hover:bg-white hover:text-black'
-                     "
-                     title="Share"
-                     @click="$emit('share')"
-                  >
-                     <i
-                        class="fa-solid text-sm"
-                        :class="linkCopied ? 'fa-check' : 'fa-share-nodes'"
-                     ></i>
-                  </button>
-                  <button
-                     class="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-all hover:bg-red-500 hover:text-white"
-                     title="Close"
-                     @click="$emit('close')"
-                  >
-                     <i class="fa-solid fa-times text-sm"></i>
-                  </button>
-               </div>
-            </div>
-
-            <!-- Image Credits (Bottom Right) -->
-            <div class="absolute right-0 bottom-0 left-0 p-4 text-right">
-               <transition name="fade">
-                  <span v-if="imageCredit" class="block truncate text-[10px] text-white/80">
-                     <i class="fa-regular fa-copyright mr-1"></i>
-                     {{ imageCredit.author }}
-                  </span>
-               </transition>
-            </div>
-         </div>
-
-         <!-- Case B: No Image Header -->
-         <div
-            v-else
-            class="relative flex h-64 w-full flex-col items-center justify-center bg-gray-200"
-         >
-            <!-- Top Actions Overlay -->
-            <div class="absolute top-0 right-0 left-0 flex items-start justify-end p-4">
-               <div class="flex gap-2">
-                  <button
-                     class="flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-md transition-all"
-                     :class="
-                        linkCopied
-                           ? 'scale-110 bg-green-500 text-white'
-                           : 'bg-black/10 text-gray-600 hover:bg-white hover:text-black'
-                     "
-                     title="Share"
-                     @click="$emit('share')"
-                  >
-                     <i
-                        class="fa-solid text-sm"
-                        :class="linkCopied ? 'fa-check' : 'fa-share-nodes'"
-                     ></i>
-                  </button>
-                  <button
-                     class="flex h-8 w-8 items-center justify-center rounded-full bg-black/10 text-gray-600 backdrop-blur-md transition-all hover:bg-red-500 hover:text-white"
-                     title="Close"
-                     @click="$emit('close')"
-                  >
-                     <i class="fa-solid fa-times text-sm"></i>
-                  </button>
-               </div>
-            </div>
-
-            <!-- Placeholder Content -->
-            <div class="flex flex-col items-center text-gray-400">
-               <i class="fa-solid fa-camera-slash mb-2 text-4xl"></i>
-               <span class="font-medium text-gray-500">Şəkil yoxdur</span>
-            </div>
-         </div>
+   <div class="monument-details">
+      <!-- Header for Empty State -->
+      <div v-if="!monument" class="empty-header">
+         <span>Məlumat paneli</span>
+         <CdxButton weight="quiet" @click="$emit('close')">
+            <CdxIcon :icon="cdxIconClose" />
+         </CdxButton>
       </div>
 
-      <!-- Header with Close Button for Empty State -->
-      <div v-else class="mb-4 flex items-center justify-between text-gray-400">
-         <span class="text-xs font-semibold tracking-wider uppercase">Məlumat paneli</span>
-         <button class="hover:text-gray-600" @click="$emit('close')">
-            <i class="fa-solid fa-times text-lg"></i>
-         </button>
-      </div>
-
-      <!-- 2. CONTENT BODY -->
-      <div v-if="monument">
-         <!-- Title Section -->
-         <div class="mb-6">
-            <h2 class="mb-2 text-2xl leading-tight font-bold text-gray-900">
-               {{ monument.itemLabel }}
-            </h2>
-            <p v-if="monument.itemAltLabel" class="text-sm text-gray-500 italic">
-               {{ monument.itemAltLabel }}
-            </p>
-
-            <!-- Inventory Badge -->
-            <div v-if="monument.inventory" class="mt-3 flex items-center gap-3">
-               <button
-                  class="group flex cursor-pointer items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-xs font-semibold text-gray-700 transition-all hover:bg-gray-200"
-                  :class="{ '!bg-green-100 !text-green-700': inventoryCopied }"
-                  title="Copy Inventory ID"
-                  @click="$emit('copy-inventory', monument.inventory)"
-               >
-                  <span>#{{ monument.inventory }}</span>
-                  <i
-                     class="fa-solid text-[10px] opacity-40 transition-opacity group-hover:opacity-100"
-                     :class="inventoryCopied ? 'fa-check opacity-100' : 'fa-copy'"
-                  ></i>
-               </button>
-
-               <!-- Action Links Row -->
-               <div class="flex items-center gap-1">
-                  <a
-                     v-if="monument.item"
-                     :href="monument.item"
-                     target="_blank"
-                     class="flex h-7 w-7 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-blue-50 hover:text-blue-600"
-                     title="Edit on Wikidata"
-                  >
-                     <CdxIcon :icon="cdxIconLogoWikidata" class="h-4.5 w-3.5 opacity-60" />
-                  </a>
-               </div>
-            </div>
-         </div>
-
-         <!-- Description -->
-         <div v-if="monument.itemDescription" class="mb-8 text-sm leading-relaxed text-gray-600">
-            {{ monument.itemDescription }}
-         </div>
-
-         <!-- 3. ACTION GRID (Modern Buttons) -->
-         <div class="mb-8 grid grid-cols-2 gap-3">
-            <a
-               v-if="monument.image"
-               :href="getDescriptionPage(monument.image)"
-               target="_blank"
-               :class="
-                  monument.commonsLink || monument.commonsCategory ? 'col-span-1' : 'col-span-2'
-               "
-               class="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md active:translate-y-0"
-            >
-               <i class="fa-solid fa-expand text-gray-400"></i>
-               Fayla bax
-            </a>
-            <a
-               v-if="monument.commonsLink || monument.commonsCategory"
-               :href="getCategoryUrl(monument)"
-               target="_blank"
-               :class="monument.image ? 'col-span-1' : 'col-span-2'"
-               class="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md active:translate-y-0"
-            >
-               <i class="fa-regular fa-images text-gray-400"></i>
-               Qalereya
-            </a>
-
-            <!-- Primary Action -->
-            <button
-               v-if="isAuthenticated"
-               class="col-span-2 flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3.5 text-sm font-bold text-white shadow-blue-200 transition-all hover:bg-blue-700 hover:shadow-lg active:scale-[0.98]"
-               @click="$emit('open-upload')"
-            >
-               <i class="fa-solid fa-camera"></i>
-               Yeni şəkil yüklə
-            </button>
-            <button
-               v-else
-               class="col-span-2 flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-blue-200 bg-blue-50 py-3 text-sm font-bold text-blue-600 transition-colors hover:border-blue-300 hover:bg-blue-100"
-               @click="$emit('login')"
-            >
-               <i class="fa-solid fa-right-to-bracket"></i>
-               Şəkil yükləmək üçün daxil ol
-            </button>
-         </div>
-
-         <!-- 4. INFO CHIPS (Metadata) -->
-         <div>
-            <h3 class="mb-3 text-xs font-bold tracking-wider text-gray-400 uppercase">
-               Məlumat & Keçidlər
-            </h3>
-
-            <div class="flex flex-wrap gap-2">
-               <!-- GPS Chip -->
-               <div
-                  v-if="monument.lat && monument.lon"
-                  class="flex items-center rounded-full border border-gray-200 bg-white py-1 pr-1 pl-1 shadow-xs transition-colors"
-                  :class="{ '!border-green-200 !bg-green-50': coordsCopied }"
-               >
-                  <button
-                     class="flex cursor-pointer items-center gap-2 rounded-full px-2 py-0.5 text-xs font-medium text-gray-600 transition-all hover:bg-gray-100"
-                     :class="{ '!bg-green-100 !text-green-700': coordsCopied }"
-                     title="Kliklə və kopyala"
-                     @click="$emit('copy-coords', monument.lat, monument.lon)"
-                  >
-                     <i
-                        class="fa-solid transition-colors"
-                        :class="
-                           coordsCopied ? 'fa-check text-green-600' : 'fa-location-dot text-red-500'
-                        "
-                     ></i>
-                     <span>{{ monument.lat.toFixed(4) }}, {{ monument.lon.toFixed(4) }}</span>
-                  </button>
-
-                  <div class="flex items-center gap-0.5 border-l border-gray-200 pl-1">
-                     <a
-                        :href="`https://www.google.com/maps?q=${monument.lat},${monument.lon}`"
-                        target="_blank"
-                        class="flex h-6 w-6 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-blue-500"
-                        title="Google Maps"
+      <!-- Content when monument is selected -->
+      <template v-if="monument">
+         <!-- 1. Monument Info Card (Title + Description) -->
+         <CdxCard class="info-card">
+            <template #title>
+               <div class="info-card-header">
+                  <span class="info-card-title">{{ monument.itemLabel }}</span>
+                  <div class="info-card-actions">
+                     <CdxButton
+                        weight="quiet"
+                        :class="{ 'action-button--success': linkCopied }"
+                        title="Linki kopyala"
+                        @click="$emit('share')"
                      >
-                        <i class="fa-solid fa-map"></i>
-                     </a>
-
-                     <a
-                        :href="`https://www.google.com/maps/dir/?api=1&destination=${monument.lat},${monument.lon}`"
-                        target="_blank"
-                        class="flex h-6 w-6 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-blue-500"
-                        title="Yol tərifi"
+                        <CdxIcon :icon="linkCopied ? cdxIconCheck : cdxIconShare" />
+                     </CdxButton>
+                     <CdxButton
+                        weight="quiet"
+                        title="Bağla"
+                        @click="$emit('close')"
                      >
-                        <i class="fa-solid fa-diamond-turn-right"></i>
-                     </a>
+                        <CdxIcon :icon="cdxIconClose" />
+                     </CdxButton>
                   </div>
                </div>
+            </template>
+            <template v-if="monument.itemDescription" #description>
+               <div class="info-card-description">{{ monument.itemDescription }}</div>
+            </template>
+            <template #supporting-text>
+               <p v-if="monument.itemAltLabel" class="alt-label">
+                     {{ monument.itemAltLabel }}
+               </p>
+               <div v-if="monument.inventory || monument.itemAltLabel" class="title-metadata">
+                  <CdxInfoChip
+                     v-if="monument.inventory"
+                     class="inventory-chip"
+                     title="Kopyalamaq üçün klikləyin"
+                     @click="$emit('copy-inventory', monument.inventory)"
+                  >
+                     <template #icon>
+                        <CdxIcon
+                           :icon="inventoryCopied ? cdxIconCheck : cdxIconCopy"
+                           :class="{ 'icon-success': inventoryCopied }"
+                           size="small"
+                        />
+                     </template>
+                     #{{ monument.inventory }}
+                  </CdxInfoChip>
+               </div>
+            </template>
+         </CdxCard>
 
-               <!-- Wikipedia Chip -->
-               <a
-                  v-if="monument.azLink"
-                  :href="monument.azLink"
-                  target="_blank"
-                  class="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-xs transition-colors hover:border-gray-300 hover:shadow-sm"
-               >
-                  <i class="fa-brands fa-wikipedia-w text-sm opacity-75"></i>
-                  <span class="text-xs font-semibold text-gray-700">Wikipedia</span>
-                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-gray-400"></i>
-               </a>
-            </div>
+         <!-- 2. HERO IMAGE -->
+         <div class="hero-card">
+            <!-- Case A: Hero Image -->
+            <template v-if="monument.image">
+               <div class="hero-image-container">
+                  <a :href="getDescriptionPage(monument.image)" target="_blank" rel="noopener">
+                     <CdxImage
+                        :key="monument.image"
+                        :src="getOptimizedImage(monument.image)"
+                        alt="Abidənin şəkli"
+                        class="hero-image"
+                     />
+                  </a>
+               </div>
+
+               <!-- Image Credits -->
+               <div v-if="imageCredit" class="hero-credits">
+                  <span>© {{ imageCredit.author }}</span>
+               </div>
+            </template>
+
+            <!-- Case B: No Image -->
+            <template v-else>
+               <div class="no-image-container">
+                  <div class="no-image-placeholder">
+                     <CdxIcon :icon="cdxIconCamera" class="no-image-icon" />
+                     <span>Şəkil yoxdur</span>
+                  </div>
+               </div>
+            </template>
          </div>
-      </div>
+
+         <!-- 3. CONTENT BODY (Actions) -->
+         <div class="content-body">
+         <div class="action-grid">
+
+            <CdxButton
+               v-if="monument.commonsLink || monument.commonsCategory"
+               weight="normal"
+               class="action-link"
+               @click="openExternalLink(getCategoryUrl(monument))"
+            >
+               <CdxIcon :icon="cdxIconLogoWikimediaCommons" />
+               Qalereyaya bax
+            </CdxButton>
+
+            <!-- Primary Action -->
+            <CdxButton
+               v-if="isAuthenticated"
+               action="progressive"
+               weight="primary"
+               class="primary-action"
+               @click="$emit('open-upload')"
+            >
+               <CdxIcon :icon="cdxIconUpload" />
+               Yeni şəkil yüklə
+            </CdxButton>
+            <CdxButton
+               v-else
+               action="progressive"
+               weight="normal"
+               class="primary-action"
+               @click="$emit('login')"
+            >
+               <CdxIcon :icon="cdxIconLogIn" />
+               Şəkil yükləmək üçün daxil ol
+            </CdxButton>
+         </div>
+
+         <!-- 4. INFO CARD (Metadata) -->
+         <CdxCard class="info-card">
+            <template #title>Metadata</template>
+            <template #supporting-text>
+               <div class="info-section">
+                  <!-- GPS Section -->
+                  <div v-if="monument.lat && monument.lon" class="info-group">
+                     <span class="info-group-label">Koordinatlar</span>
+                     <div class="gps-actions">
+                        <CdxButton
+                           weight="quiet"
+                           class="gps-copy-btn"
+                           title="Koordinatları kopyala"
+                           @click="$emit('copy-coords', monument.lat, monument.lon)"
+                        >
+                           <CdxIcon
+                              :icon="coordsCopied ? cdxIconCheck : cdxIconMapPin"
+                              :class="{ 'icon-success': coordsCopied }"
+                           />
+                           {{ monument.lat.toFixed(4) }}, {{ monument.lon.toFixed(4) }}
+                        </CdxButton>
+                        <CdxButton
+                           weight="quiet"
+                           class="gps-link-btn"
+                           title="Xəritə tətbiqində aç"
+                           @click="openExternalLink(`geo:${monument.lat},${monument.lon}`)"
+                        >
+                           <CdxIcon :icon="cdxIconMap" />
+                        </CdxButton>
+                     </div>
+                  </div>
+
+                  <!-- Links Section -->
+                  <div class="info-group">
+                     <span class="info-group-label">Xarici keçidlər</span>
+                     <div class="links-row">
+                        <CdxButton
+                           v-if="monument.azLink"
+                           weight="quiet"
+                           class="link-chip"
+                           @click="openExternalLink(monument.azLink)"
+                        >
+                           <CdxIcon :icon="cdxIconLogoWikipedia" />
+                           Vikipediya
+                        </CdxButton>
+                        <CdxButton
+                           v-if="monument.item"
+                           weight="quiet"
+                           class="link-chip"
+                           @click="openExternalLink(monument.item)"
+                        >
+                           <CdxIcon :icon="cdxIconLogoWikidata" />
+                           Vikidata
+                        </CdxButton>
+                     </div>
+                  </div>
+               </div>
+            </template>
+         </CdxCard>
+         </div>
+      </template>
 
       <!-- Empty State -->
-      <div v-else class="flex h-96 flex-col items-center justify-center text-center">
-         <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
-            <i class="fa-solid fa-map-location-dot text-2xl text-blue-500"></i>
+      <CdxCard v-if="!monument" class="empty-state-card">
+         <div class="empty-state">
+            <CdxIcon :icon="cdxIconMapPin" class="empty-icon" />
+            <h3>Abidə Seçin</h3>
+            <p>Detalları görmək üçün xəritədəki işarələrdən birinə klikləyin.</p>
          </div>
-         <h3 class="mb-2 text-lg font-bold text-gray-800">Abidə Seçin</h3>
-         <p class="max-w-[200px] text-sm text-gray-500">
-            Detalları görmək üçün xəritədəki işarələrdən birinə klikləyin.
-         </p>
-      </div>
+      </CdxCard>
    </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from "vue";
-import { CdxIcon } from "@wikimedia/codex";
-import { cdxIconLogoWikidata } from "@wikimedia/codex-icons";
+
+import { CdxCard, CdxButton, CdxIcon, CdxImage, CdxInfoChip } from "@wikimedia/codex";
+import {
+   cdxIconLogoWikidata,
+   cdxIconLogoWikipedia,
+   cdxIconUpload,
+   cdxIconCamera,
+   cdxIconClose,
+   cdxIconShare,
+   cdxIconCheck,
+   cdxIconCopy,
+   cdxIconLogoWikimediaCommons,
+   cdxIconLogIn,
+   cdxIconMapPin,
+   cdxIconMap,
+} from "@wikimedia/codex-icons";
 import type { MonumentProps } from "@/types";
 import {
    getCategoryUrl,
    getDescriptionPage,
    getOptimizedImage,
-   getSrcSet,
 } from "@/utils/monumentFormatters";
 
 interface Props {
@@ -312,34 +247,284 @@ defineEmits<{
    close: [];
 }>();
 
-const imageLoading = ref(true);
-
-const onImageLoad = () => {
-   imageLoading.value = false;
+const openExternalLink = (url: string) => {
+   if (url) {
+      window.open(url, "_blank", "noopener");
+   }
 };
-
-// Reset image loading state when monument changes
-watch(
-   () => props.monument,
-   () => {
-      imageLoading.value = true;
-   },
-);
 </script>
 
 <style scoped>
-@keyframes slideIn {
-   from {
-      opacity: 0;
-      transform: translateX(20px);
-   }
-   to {
-      opacity: 1;
-      transform: translateX(0);
-   }
+.monument-details {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+   padding: 0 1rem 1rem; /* Horizontal padding for consistent alignment */
 }
 
-.animate-slide-in {
-   animation: slideIn 0.3s ease-out forwards;
+/* Hero Card */
+.hero-card {
+   border-radius: 0;
+   overflow: hidden;
+   padding: 0;
+}
+
+.hero-card :deep(.cdx-card__text) {
+   padding: 0;
+}
+
+.hero-image-container {
+   position: relative;
+   height: 16rem;
+   background: var(--background-color-disabled-subtle, #eaecf0);
+}
+
+.image-loading {
+   position: absolute;
+   inset: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: var(--background-color-disabled-subtle, #eaecf0);
+   z-index: 1;
+}
+
+.loading-icon {
+   width: 3rem;
+   height: 3rem;
+   color: var(--color-placeholder, #72777d);
+}
+
+.hero-image {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   transition: opacity 0.3s ease;
+}
+
+.hero-image--loading {
+   opacity: 0;
+}
+
+.action-button--success {
+   color: var(--color-success, #14866d);
+}
+
+.action-button--success {
+   color: var(--color-success, #14866d);
+}
+
+.hero-credits {
+   margin-top: 0.5rem;
+   font-size: 0.75rem;
+   color: var(--color-subtle, #54595d);
+   text-align: right;
+}
+
+.no-image-container {
+   position: relative;
+   height: 16rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: var(--background-color-disabled-subtle, #eaecf0);
+}
+
+.no-image-placeholder {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 0.5rem;
+   color: var(--color-placeholder, #72777d);
+}
+
+.no-image-icon {
+   width: 3rem;
+   height: 3rem;
+}
+
+/* Content Body */
+.content-body {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+}
+
+.title-card,
+.info-card {
+   position: relative;
+   border-radius: 0;
+   border: none !important;
+   box-shadow: none !important;
+}
+
+/* Remove default internal padding to align with container padding */
+.info-card :deep(.cdx-card__text) {
+   padding: 0 !important;
+}
+
+.info-card-header {
+   /* No flex needed if button is absolute */
+   margin-bottom: 0.5rem;
+}
+
+.info-card-title {
+   display: block;
+   font-size: 1.5rem !important;
+   line-height: 1.25 !important;
+   font-weight: 700 !important;
+   padding-right: 5rem; /* Space for two buttons */
+}
+
+.info-card-actions {
+   position: absolute;
+   top: 0.5rem;
+   right: 0.5rem;
+   display: flex;
+   gap: 0.25rem;
+   z-index: 2;
+}
+
+
+
+.info-card-description {
+   font-size: 0.875rem;
+   line-height: 1.6;
+   color: var(--color-base, #202122);
+}
+
+.alt-label {
+   margin: 0.25rem 0 0;
+   font-size: 0.875rem;
+   font-style: italic;
+   color: var(--color-subtle, #54595d);
+}
+
+.title-metadata {
+   margin-top: 0.75rem;
+}
+
+.inventory-chip {
+   cursor: copy;
+}
+
+/* Action Grid */
+.action-grid {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 0.75rem;
+}
+
+.action-link {
+   grid-column: span 2;
+   justify-content: center;
+   width: 100%;
+}
+
+.primary-action {
+   grid-column: span 2;
+   justify-content: center;
+   width: 100%;
+}
+
+/* Info Card Refinement */
+.info-section {
+   display: flex;
+   flex-direction: column;
+   gap: 1.5rem;
+}
+
+.info-group {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+}
+
+.info-group-label {
+   font-size: 0.75rem;
+   font-weight: 700;
+   text-transform: uppercase;
+   letter-spacing: 0.05em;
+   color: var(--color-subtle, #54595d);
+}
+
+.gps-actions {
+   display: flex;
+   gap: 4px;
+   background: var(--background-color-disabled-subtle, #eaecf0);
+   padding: 2px;
+   width: fit-content;
+}
+
+.gps-copy-btn {
+   justify-content: flex-start !important;
+   font-family: monospace;
+   font-size: 0.875rem;
+}
+
+.gps-link-btn {
+   min-width: 32px !important;
+}
+
+.icon-success {
+   color: var(--color-success, #14866d) !important;
+}
+
+.links-row {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.5rem;
+}
+
+.link-chip {
+   border: 1px solid var(--border-color-base, #a2a9b1) !important;
+   background-color: #fff !important;
+}
+
+/* Empty States */
+.empty-header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   font-size: 0.75rem;
+   font-weight: 600;
+   text-transform: uppercase;
+   letter-spacing: 0.05em;
+   color: var(--color-subtle, #54595d);
+   margin-bottom: 0.5rem;
+}
+
+.empty-state-card {
+   border-radius: 0;
+}
+
+.empty-state {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+   padding: 3rem 1rem;
+   color: var(--color-subtle, #54595d);
+}
+
+.empty-icon {
+   width: 3rem;
+   height: 3rem;
+   color: var(--color-progressive, #3366cc);
+   margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+   margin: 0 0 0.5rem;
+   font-size: 1.125rem;
+   color: var(--color-base, #202122);
+}
+
+.empty-state p {
+   margin: 0;
+   max-width: 200px;
+   font-size: 0.875rem;
 }
 </style>
+

@@ -1,13 +1,14 @@
 <template>
-   <div class="animate-fade-in-up space-y-8">
-      <!-- 1. Header with Gradient -->
-      <div class="mt-4 text-center">
-         <h1
-            class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-2xl font-extrabold text-transparent"
-         >
-            Viki Abidələri Sevir
-         </h1>
-         <p class="text-sm font-medium tracking-widest text-gray-400 uppercase">Azərbaycan</p>
+   <div class="sidebar-home">
+      <!-- 1. Header -->
+      <div class="sidebar-header">
+         <div class="header-logo-container">
+            <img src="/wlm-az.svg" alt="WLM Azerbaijan" class="header-logo" />
+         </div>
+         <div class="header-titles">
+            <h1 class="sidebar-title">Viki Abidələri Sevir</h1>
+            <p class="sidebar-subtitle">Azərbaycan</p>
+         </div>
       </div>
 
       <!-- 2. Search Component -->
@@ -17,79 +18,32 @@
          @select-monument="$emit('select-monument', $event)"
       />
 
-      <!-- 3. Glassy Stats Cards -->
-      <div class="grid grid-cols-3 gap-3">
-         <!-- Total -->
-         <div
-            class="group flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white py-4 shadow-sm transition-all hover:border-blue-100 hover:shadow-md"
-         >
-            <div
-               class="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white"
-            >
-               <i class="fa-solid fa-layer-group text-xs"></i>
+      <!-- 3. Dashboard Section -->
+      <div class="dashboard-section">
+         <div class="stats-dashboard">
+            <div class="stat-item total">
+               <span class="stat-label">Cəmi</span>
+               <span class="stat-value">{{ stats.total }}</span>
             </div>
-            <div class="text-xl font-bold text-gray-800">{{ stats.total }}</div>
-            <div class="text-[10px] font-bold tracking-wider text-gray-400 uppercase">Cəmi</div>
-         </div>
-
-         <!-- With Image -->
-         <div
-            class="group flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white py-4 shadow-sm transition-all hover:border-green-100 hover:shadow-md"
-         >
-            <div
-               class="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-green-50 text-green-600 transition-colors group-hover:bg-green-600 group-hover:text-white"
-            >
-               <i class="fa-solid fa-image text-xs"></i>
+            <div class="stat-item with-image">
+               <span class="stat-label">Şəkilli</span>
+               <span class="stat-value">{{ stats.withImage }}</span>
             </div>
-            <div class="text-xl font-bold text-gray-800">{{ stats.withImage }}</div>
-            <div class="text-[10px] font-bold tracking-wider text-gray-400 uppercase">Şəkilli</div>
-         </div>
-
-         <!-- No Image -->
-         <div
-            class="group flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white py-4 shadow-sm transition-all hover:border-red-100 hover:shadow-md"
-         >
-            <div
-               class="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-red-50 text-red-600 transition-colors group-hover:bg-red-600 group-hover:text-white"
-            >
-               <i class="fa-solid fa-camera text-xs"></i>
-            </div>
-            <div class="text-xl font-bold text-gray-800">
-               {{ stats.total - stats.withImage }}
-            </div>
-            <div class="text-[10px] font-bold tracking-wider text-gray-400 uppercase">Şəkilsiz</div>
-         </div>
-      </div>
-
-      <!-- 4. Filter Toggle (Modern Switch) -->
-      <div
-         class="flex cursor-pointer items-center justify-between rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-all hover:border-blue-200 active:scale-[0.99]"
-         @click="$emit('toggle-filter')"
-      >
-         <div class="flex items-center gap-3">
-            <div
-               class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-50 text-orange-500"
-            >
-               <i class="fa-solid fa-filter text-sm"></i>
-            </div>
-            <div class="flex flex-col">
-               <span class="text-sm font-bold text-gray-700">Filterlə</span>
-               <span class="text-[10px] font-medium text-gray-400">Yalnız şəkilsizləri göstər</span>
+            <div class="stat-item no-image">
+               <span class="stat-label">Şəkilsiz</span>
+               <span class="stat-value">{{ stats.total - stats.withImage }}</span>
             </div>
          </div>
 
-         <div
-            class="relative h-6 w-10 transition-all duration-300"
-            :class="needsPhotoOnly ? 'opacity-100' : 'opacity-60 grayscale'"
-         >
-            <div
-               class="absolute inset-0 rounded-full transition-colors duration-300"
-               :class="needsPhotoOnly ? 'bg-blue-600' : 'bg-gray-200'"
-            ></div>
-            <div
-               class="absolute top-1 left-1 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-300"
-               :class="needsPhotoOnly ? 'translate-x-4' : 'translate-x-0'"
-            ></div>
+         <!-- 4. Filter Toggle -->
+         <div class="view-settings">
+            <div class="filter-toggle" @click="$emit('toggle-filter')">
+               <div class="filter-info">
+                  <CdxIcon :icon="cdxIconFunnel" size="small" class="filter-icon" />
+                  <span class="filter-label">Yalnız şəkilsizləri göstər</span>
+               </div>
+               <CdxToggleSwitch v-model="filterEnabled" @click.stop />
+            </div>
          </div>
       </div>
    </div>
@@ -97,6 +51,11 @@
 
 <script lang="ts" setup>
 import type { Feature } from "geojson";
+import { computed } from "vue";
+import { CdxIcon, CdxToggleSwitch } from "@wikimedia/codex";
+import {
+   cdxIconFunnel,
+} from "@wikimedia/codex-icons";
 import SearchBar from "./SearchBar.vue";
 
 interface Props {
@@ -108,28 +67,129 @@ interface Props {
 
 const props = defineProps<Props>();
 
-defineEmits<{
+const emit = defineEmits<{
    "toggle-filter": [];
    "select-monument": [feature: Feature];
 }>();
+
+// Computed to sync with parent's needsPhotoOnly prop
+const filterEnabled = computed({
+   get: () => props.needsPhotoOnly,
+   set: () => emit("toggle-filter"),
+});
 </script>
 
 <style scoped>
-@keyframes fadeInUp {
-   from {
-      opacity: 0;
-      transform: translateY(10px);
-   }
-   to {
-      opacity: 1;
-      transform: translateY(0);
-   }
+.sidebar-home {
+   display: flex;
+   flex-direction: column;
+   gap: 1.5rem;
+   padding: 1rem;
 }
 
-.animate-fade-in-up {
-   animation: fadeInUp 0.4s ease-out forwards;
+.sidebar-header {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   padding-bottom: 0.5rem;
+   border-bottom: 1px solid var(--border-color-subtle, #eaecf0);
 }
 
-/* Staggered animation for children could be added here if needed,
-   but a simple fade-up for the whole container is a good start. */
+.header-logo {
+   width: 48px;
+   height: 48px;
+}
+
+.sidebar-title {
+   font-size: 1.25rem;
+   font-weight: 700;
+   color: var(--color-base, #202122);
+   margin: 0;
+   line-height: 1.2;
+}
+
+.sidebar-subtitle {
+   font-size: 0.75rem;
+   color: var(--color-subtle, #54595d);
+   text-transform: uppercase;
+   letter-spacing: 0.1em;
+   margin: 2px 0 0;
+}
+
+.dashboard-section {
+   display: flex;
+   flex-direction: column;
+   gap: 1.5rem;
+}
+
+.stats-dashboard {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   background-color: var(--background-color-disabled-subtle, #eaecf0);
+   padding: 1px;
+   gap: 1px;
+}
+
+.stat-item {
+   background-color: #fff;
+   padding: 1rem 0.5rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 4px;
+}
+
+.stat-label {
+   font-size: 0.6875rem;
+   font-weight: 700;
+   text-transform: uppercase;
+   letter-spacing: 0.05em;
+   color: var(--color-subtle, #54595d);
+}
+
+.stat-value {
+   font-size: 1.5rem;
+   font-weight: 700;
+   color: var(--color-base, #202122);
+   font-family: var(--font-family-serif, Georgia, serif);
+}
+
+.stat-item.total .stat-value { color: var(--color-progressive, #3366cc); }
+.stat-item.with-image .stat-value { color: var(--color-success, #14866d); }
+.stat-item.no-image .stat-value { color: var(--color-destructive, #d73333); }
+
+.view-settings {
+   border-top: 1px solid var(--border-color-subtle, #eaecf0);
+   padding-top: 1rem;
+}
+
+.filter-toggle {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 12px;
+   background-color: var(--background-color-interactive-subtle, #f8f9fa);
+   cursor: pointer;
+   transition: background-color 0.2s;
+}
+
+.filter-toggle:hover {
+   background-color: var(--background-color-disabled-subtle, #eaecf0);
+}
+
+.filter-info {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+}
+
+.filter-icon {
+   color: var(--color-progressive, #3366cc);
+}
+
+.filter-label {
+   font-size: 0.875rem;
+   font-weight: 600;
+   color: var(--color-base, #202122);
+}
 </style>

@@ -217,8 +217,14 @@ export default defineComponent({
 
       const flyToMonument = (feature: unknown) => {
          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-         const { inventory } = (feature as any).properties;
+         const { inventory, image } = (feature as any).properties;
          if (inventory && markerLookup.has(inventory)) {
+            // BUG FIX: If the monument has an image and the "needs photo" filter is ON,
+            // we must turn off the filter so the marker becomes visible.
+            if (image && needsPhotoOnly.value) {
+               applyFilter(false);
+            }
+
             const marker = markerLookup.get(inventory)!;
 
             const visibleParent = (markersGroup.value as any)?.getVisibleParent(marker);
@@ -240,18 +246,20 @@ export default defineComponent({
          }
       };
 
-      const toggleNeedsPhoto = () => {
-         needsPhotoOnly.value = !needsPhotoOnly.value;
+      const applyFilter = (enabled: boolean) => {
+         needsPhotoOnly.value = enabled;
          if (!markersGroup.value) return;
 
          markersGroup.value.clearLayers();
-         if (needsPhotoOnly.value) {
+         if (enabled) {
             const filtered = allMarkers.filter((m: any) => !m.feature.properties.image);
             markersGroup.value.addLayers(filtered);
          } else {
             markersGroup.value.addLayers(allMarkers);
          }
       };
+
+      const toggleNeedsPhoto = () => applyFilter(!needsPhotoOnly.value);
 
       const openUploadModal = () => (showUploadModal.value = true);
 
@@ -284,10 +292,12 @@ export default defineComponent({
             document.title = `${newVal.itemLabel} | Viki Abidələri Sevir`;
             if (newVal.inventory) url.searchParams.set("inventory", newVal.inventory);
             imageLoading.value = true;
-            if (newVal.image) fetchImageMetadata(newVal.image);
+            // Always call fetchImageMetadata to ensure credits are either updated or cleared
+            fetchImageMetadata(newVal.image || "");
          } else {
             document.title = "Viki Abidələri Sevir Azərbaycan";
             url.searchParams.delete("inventory");
+            fetchImageMetadata("");
          }
          window.history.replaceState({}, "", url);
       });
@@ -491,18 +501,15 @@ export default defineComponent({
 /* 1. LAYOUT & Z-INDEX (CRITICAL FIXES) */
 :deep(.leaflet-sidebar) {
    position: absolute !important;
-   /* Floating Sidebar */
-   top: 12px !important;
-   bottom: 12px !important;
-   left: 12px !important;
-   height: calc(100% - 24px) !important;
+   top: 0 !important;
+   bottom: 0 !important;
+   left: 0 !important;
+   height: 100% !important;
    z-index: 2000 !important;
-   border-radius: 16px !important;
+   border-radius: 0 !important;
    overflow: hidden !important;
-   box-shadow:
-      0 10px 15px -3px rgba(0, 0, 0, 0.1),
-      0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
-   border: 1px solid rgba(255, 255, 255, 0.2);
+   border: none !important;
+   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1) !important;
 }
 :deep(.leaflet-sidebar-tabs li.disabled) {
    opacity: 0.5;
@@ -510,20 +517,17 @@ export default defineComponent({
 }
 
 :deep(.leaflet-sidebar-tabs) {
-   background-color: rgba(255, 255, 255, 0.8) !important;
-   backdrop-filter: blur(12px) !important;
-   -webkit-backdrop-filter: blur(12px) !important;
-   border-right: 1px solid rgba(255, 255, 255, 0.3);
+   background-color: #fff !important;
+   border-right: 1px solid #ddd;
 }
 
 :deep(.leaflet-sidebar-content) {
-   background-color: rgba(255, 255, 255, 0.85) !important; /* Semi-transparent */
-   backdrop-filter: blur(12px) !important;
-   -webkit-backdrop-filter: blur(12px) !important;
+   background-color: #fff !important;
 }
 
 :deep(.leaflet-sidebar-pane) {
-   background-color: transparent !important; /* Allow blur to show through */
+   background-color: #fff !important;
+   padding: 0 !important;
 }
 
 img {
@@ -538,7 +542,6 @@ img {
       bottom: 0 !important;
       left: 0 !important;
       height: 100% !important;
-      border-radius: 0 !important;
       border: none !important;
       box-shadow: none !important;
 
@@ -588,9 +591,9 @@ img {
    z-index: 9999 !important;
 }
 
-/* 4. THEME (Red) */
+/* 4. THEME */
 :deep(.leaflet-sidebar-header) {
-   background-color: #8f0000 !important;
+   background-color: #3366cc !important;
    color: white !important;
 }
 :deep(.leaflet-sidebar-close) {
@@ -600,7 +603,7 @@ img {
    justify-content: center;
 }
 :deep(.leaflet-sidebar-tabs > ul > li.active > a) {
-   background-color: #8f0000 !important;
+   background-color: #3366cc !important;
    color: white;
 }
 
@@ -639,10 +642,10 @@ img {
    color: #374151;
 }
 :deep(.leaflet-control-layers label:hover) {
-   color: #2563eb;
+   color: #3366cc;
 }
 :deep(.leaflet-control-layers input[type="radio"]) {
-   accent-color: #2563eb;
+   accent-color: #3366cc;
    width: 15px;
    height: 15px;
    margin-right: 10px;

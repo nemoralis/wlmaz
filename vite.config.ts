@@ -4,7 +4,6 @@ import tailwindcss from "@tailwindcss/vite";
 import vue from "@vitejs/plugin-vue";
 import type { FeatureCollection } from "geojson";
 import { defineConfig } from "vite";
-import viteCompression from "vite-plugin-compression";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import Sitemap from "vite-plugin-sitemap";
 
@@ -55,10 +54,6 @@ export default defineConfig({
    plugins: [
       vue(),
       tailwindcss(),
-      viteCompression({
-         algorithm: "brotliCompress",
-         threshold: 10240, // Only compress files > 10KB
-      }),
       ViteImageOptimizer({
          png: { quality: 80 },
          jpeg: { quality: 80 },
@@ -93,11 +88,11 @@ export default defineConfig({
    server: {
       proxy: {
          "/auth": {
-            target: "http://localhost:3000",
+            target: "http://localhost:3001",
             changeOrigin: true,
          },
          "/upload": {
-            target: "http://localhost:3000",
+            target: "http://localhost:3001",
             changeOrigin: true,
          },
       },
@@ -107,7 +102,6 @@ export default defineConfig({
    },
    build: {
       target: "esnext",
-      minify: "terser",
       // Increase chunk size warning limit for map tiles
       chunkSizeWarningLimit: 600,
       // Better CSS code splitting
@@ -134,14 +128,6 @@ export default defineConfig({
             assetFileNames: "assets/[name]-[hash][extname]",
          },
          external: ["sharp"],
-      },
-      terserOptions: {
-         format: { comments: false },
-         compress: {
-            drop_console: true,
-            drop_debugger: true,
-            pure_funcs: ["console.log"], // Remove console.log specifically
-         },
-      },
+      }
    },
 });

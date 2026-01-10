@@ -1,29 +1,14 @@
 <template>
-   <div class="mb-6">
-      <div class="relative">
-         <input
-            ref="searchInput"
-            v-model="searchQuery"
-            role="combobox"
-            aria-autocomplete="list"
-            :aria-expanded="searchQuery && searchResults.length > 0 ? 'true' : 'false'"
-            aria-controls="search-results"
-            aria-label="Abidə axtar"
-            type="text"
-            placeholder="Abidə axtar..."
-            class="w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 pl-11 text-sm shadow-sm transition-all hover:border-blue-300 hover:shadow-md focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
-            @keydown="handleSearchKeydown"
-         />
-         <i class="fa fa-search absolute top-3 left-4 text-gray-400" aria-hidden="true"></i>
-         <button
-            v-if="searchQuery"
-            aria-label="Axtarışı təmizlə"
-            class="absolute top-3 right-4 cursor-pointer text-gray-400 transition-colors hover:text-red-500"
-            @click="clearSearch"
-         >
-            <i class="fa fa-times" aria-hidden="true"></i>
-         </button>
-      </div>
+   <div class="search-container">
+      <CdxSearchInput
+         ref="searchInput"
+         v-model="searchQuery"
+         aria-label="Abidə axtar"
+         placeholder="Abidə axtar..."
+         :clearable="true"
+         @keydown="handleSearchKeydown"
+      />
+
 
       <!-- Search Results -->
       <div
@@ -31,8 +16,7 @@
          id="search-results"
          role="listbox"
          aria-label="Axtarış nəticələri"
-         class="absolute right-0 left-0 z-50 mt-1 max-h-[60vh] overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-xl"
-         style="margin: 0 10px"
+         class="search-results-overlay"
       >
          <div
             v-if="searchResults.length === 0"
@@ -42,7 +26,7 @@
          >
             Nəticə tapılmadı
          </div>
-         <ul v-else class="divide-y divide-gray-100">
+         <ul v-else class="results-list">
             <li
                v-for="(result, index) in searchResults"
                :key="result.item.properties?.id"
@@ -50,24 +34,24 @@
                role="option"
                :aria-selected="selectedIndex === index"
                tabindex="0"
-               class="cursor-pointer px-4 py-3 transition-colors hover:bg-blue-50"
-               :class="{ 'bg-blue-50': selectedIndex === index }"
+               class="result-item"
+               :class="{ 'result-item--selected': selectedIndex === index }"
                @click="selectResult(result.item)"
                @keydown.enter="selectResult(result.item)"
                @keydown.space.prevent="selectResult(result.item)"
             >
-               <div class="font-medium text-gray-800">
+               <div class="result-label">
                   {{ result.item.properties?.itemLabel }}
                </div>
-               <div class="mt-0.5 flex items-center gap-2 text-xs text-gray-500">
+               <div class="result-meta">
                   <span
                      v-if="result.item.properties?.inventory"
-                     class="rounded bg-gray-100 px-1.5 py-0.5 font-mono"
+                     class="inventory-tag"
                   >
                      {{ result.item.properties?.inventory }}
                   </span>
-                  <span v-if="result.item.properties?.image" class="text-green-600">
-                     <i class="fa fa-image" aria-hidden="true"></i> Şəkilli
+                  <span v-if="result.item.properties?.image" class="image-tag">
+                     <CdxIcon :icon="cdxIconImage" size="x-small" /> Şəkilli
                   </span>
                </div>
             </li>
@@ -85,6 +69,8 @@
 import Fuse from "fuse.js";
 import type { Feature } from "geojson";
 import { computed, ref, watch } from "vue";
+import { CdxSearchInput } from "@wikimedia/codex";
+import { cdxIconImage } from "@wikimedia/codex-icons";
 
 interface Props {
    monuments: Feature[];
@@ -140,6 +126,11 @@ watch(searchQuery, (newVal) => {
    }, 300);
 });
 
+const clearSearch = () => {
+   searchQuery.value = "";
+   selectedIndex.value = -1;
+};
+
 // Computed search results
 const searchResults = computed(() => {
    if (!debouncedSearchQuery.value || !fuse) return [];
@@ -147,11 +138,6 @@ const searchResults = computed(() => {
 });
 
 // Methods
-const clearSearch = () => {
-   searchQuery.value = "";
-   selectedIndex.value = -1;
-};
-
 const selectResult = (feature: Feature) => {
    emit("select-monument", feature);
    clearSearch();
@@ -200,3 +186,78 @@ const handleSearchKeydown = (event: KeyboardEvent) => {
    }
 };
 </script>
+
+<style scoped>
+.search-container {
+   margin-bottom: 1.5rem;
+   position: relative;
+}
+
+.search-results-overlay {
+   position: absolute;
+   top: 100%;
+   left: 0;
+   right: 0;
+   z-index: 100;
+   margin-top: 4px;
+   background-color: #fff;
+   border: 1px solid var(--border-color-base, #a2a9b1);
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+   max-height: 60vh;
+   overflow-y: auto;
+}
+
+.results-list {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+
+.result-item {
+   padding: 12px 16px;
+   cursor: pointer;
+   transition: background-color 0.1s;
+   border-bottom: 1px solid var(--border-color-subtle, #eaecf0);
+}
+
+.result-item:last-child {
+   border-bottom: none;
+}
+
+.result-item:hover,
+.result-item--selected {
+   background-color: var(--background-color-interactive-subtle, #f8f9fa);
+}
+
+.result-label {
+   font-weight: 600;
+   color: var(--color-base, #202122);
+   font-size: 0.9375rem;
+}
+
+.result-meta {
+   margin-top: 4px;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   font-size: 0.75rem;
+}
+
+.inventory-tag {
+   background-color: var(--background-color-disabled-subtle, #eaecf0);
+   padding: 2px 6px;
+   font-family: monospace;
+   color: var(--color-subtle, #54595d);
+}
+
+.image-tag {
+   color: var(--color-success, #14866d);
+   display: flex;
+   align-items: center;
+   gap: 4px;
+}
+
+.image-tag i {
+   font-size: 0.75rem;
+}
+</style>
