@@ -38,21 +38,15 @@
             </template>
             <template #supporting-text>
                <div v-if="monument.inventory || monument.itemAltLabel" class="title-metadata">
-                  <CdxInfoChip
-                     v-if="monument.inventory"
-                     class="inventory-chip"
-                     title="Kopyalamaq üçün klikləyin"
-                     @click="$emit('copy-inventory', monument.inventory)"
-                  >
-                     <template #icon>
-                        <CdxIcon
-                           :icon="inventoryCopied ? cdxIconCheck : cdxIconCopy"
-                           :class="{ 'icon-success': inventoryCopied }"
-                           size="small"
-                        />
-                     </template>
-                     #{{ monument.inventory }}
-                  </CdxInfoChip>
+                  <div v-if="monument.inventory" class="inventory-chips">
+                     <CdxInfoChip
+                        v-for="inv in monument.inventory.split(',').map((s: string) => s.trim()).sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true }))"
+                        :key="inv"
+                        class="inventory-chip"
+                     >
+                        #{{ inv }}
+                     </CdxInfoChip>
+                  </div>
                </div>
             </template>
          </CdxCard>
@@ -389,6 +383,12 @@ const openExternalLink = (url: string) => {
 
 .title-metadata {
    margin-top: 0.75rem;
+}
+
+.inventory-chips {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.5rem;
 }
 
 .inventory-chip {
