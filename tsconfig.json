@@ -20,8 +20,6 @@
     "types": [
       "vite/client",
       "node",
-      "vite-plugin-pwa/client",
-      "vite-plugin-pwa/info"
     ],
     "baseUrl": ".",
     "paths": {
