@@ -53,9 +53,7 @@
 import type { Feature } from "geojson";
 import { computed } from "vue";
 import { CdxIcon, CdxToggleSwitch } from "@wikimedia/codex";
-import {
-   cdxIconFunnel,
-} from "@wikimedia/codex-icons";
+import { cdxIconFunnel } from "@wikimedia/codex-icons";
 import SearchBar from "./SearchBar.vue";
 
 interface Props {
@@ -154,9 +152,15 @@ const filterEnabled = computed({
    font-family: var(--font-family-serif, Georgia, serif);
 }
 
-.stat-item.total .stat-value { color: var(--color-progressive, #3366cc); }
-.stat-item.with-image .stat-value { color: var(--color-success, #14866d); }
-.stat-item.no-image .stat-value { color: var(--color-destructive, #d73333); }
+.stat-item.total .stat-value {
+   color: var(--color-progressive, #3366cc);
+}
+.stat-item.with-image .stat-value {
+   color: var(--color-success, #14866d);
+}
+.stat-item.no-image .stat-value {
+   color: var(--color-destructive, #d73333);
+}
 
 .view-settings {
    border-top: 1px solid var(--border-color-subtle, #eaecf0);
