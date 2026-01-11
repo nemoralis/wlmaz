@@ -141,23 +141,23 @@
                      <div class="gps-actions">
                         <CdxButton
                            weight="quiet"
+                           class="gps-link-btn"
+                           title="Xəritə tətbiqində aç"
+                           @click="openExternalLink(`geo:${monument.lat},${monument.lon}`)"
+                        >
+                           <CdxIcon :icon="cdxIconMapPin" />
+                           {{ monument.lat.toFixed(4) }}, {{ monument.lon.toFixed(4) }}
+                        </CdxButton>
+                        <CdxButton
+                           weight="quiet"
                            class="gps-copy-btn"
                            title="Koordinatları kopyala"
                            @click="$emit('copy-coords', monument.lat, monument.lon)"
                         >
                            <CdxIcon
-                              :icon="coordsCopied ? cdxIconCheck : cdxIconMapPin"
+                              :icon="coordsCopied ? cdxIconCheck : cdxIconCopy"
                               :class="{ 'icon-success': coordsCopied }"
                            />
-                           {{ monument.lat.toFixed(4) }}, {{ monument.lon.toFixed(4) }}
-                        </CdxButton>
-                        <CdxButton
-                           weight="quiet"
-                           class="gps-link-btn"
-                           title="Xəritə tətbiqində aç"
-                           @click="openExternalLink(`geo:${monument.lat},${monument.lon}`)"
-                        >
-                           <CdxIcon :icon="cdxIconMap" />
                         </CdxButton>
                      </div>
                   </div>
@@ -218,7 +218,6 @@ import {
    cdxIconLogoWikimediaCommons,
    cdxIconLogIn,
    cdxIconMapPin,
-   cdxIconMap,
 } from "@wikimedia/codex-icons";
 import type { MonumentProps } from "@/types";
 import {
@@ -456,13 +455,13 @@ const openExternalLink = (url: string) => {
    width: fit-content;
 }
 
-.gps-copy-btn {
+.gps-link-btn {
    justify-content: flex-start !important;
    font-family: monospace;
    font-size: 0.875rem;
 }
 
-.gps-link-btn {
+.gps-copy-btn {
    min-width: 32px !important;
 }
 
