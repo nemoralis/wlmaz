@@ -42,6 +42,10 @@
                <div class="w-full space-y-4 md:w-1/2">
                   <h1 class="text-3xl font-bold text-gray-900">{{ monument.itemLabel }}</h1>
 
+                  <div v-if="monument.itemAltLabel" class="text-sm italic text-gray-500">
+                     {{ monument.itemAltLabel }}
+                  </div>
+
                   <div class="flex items-center gap-2 text-sm text-gray-500">
                      <span class="rounded bg-gray-100 px-2 py-1">#{{ monument.inventory }}</span>
                   </div>
