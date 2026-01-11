@@ -15,7 +15,7 @@ SELECT
   ?itemLabel 
   ?itemDescription 
   ?itemAltLabel 
-  ?inventory 
+  ?inventory
   ?coordinate 
   ?image
   ?commonsCategory 
@@ -26,27 +26,24 @@ WHERE {
   {
     SELECT 
       ?item 
-      ?inventory 
-      (SAMPLE(?img) AS ?image)               # Sample image
-      (SAMPLE(?coord) AS ?coordinate)         # Sample coordinate
-      (SAMPLE(?cat) AS ?commonsCategory)      # Sample category
-      (SAMPLE(?az) AS ?azLink)                # Sample Azerbaijani Wikipedia link
-      (SAMPLE(?cLink) AS ?commonsLink)        # Sample Wikimedia Commons link
-      (MAX(?mod) AS ?lastModified)            # Get latest edit date
+      (GROUP_CONCAT(DISTINCT ?heritageID; separator=", ") AS ?inventory)  # Combine all IDs
+      (SAMPLE(?img) AS ?image)
+      (SAMPLE(?coord) AS ?coordinate)
+      (SAMPLE(?cat) AS ?commonsCategory)
+      (SAMPLE(?az) AS ?azLink)
+      (SAMPLE(?cLink) AS ?commonsLink)
+      (MAX(?mod) AS ?lastModified)
     WHERE {
-      ?item wdt:P13410 ?inventory.
+      ?item wdt:P13410 ?heritageID.
       
       ?item schema:dateModified ?mod .
-
       OPTIONAL { ?item wdt:P625 ?coord. }
       OPTIONAL { ?item wdt:P18 ?img. }
       OPTIONAL { ?item wdt:P373 ?cat. }
-
-      # Sitelinks
       OPTIONAL { ?az schema:about ?item ; schema:isPartOf <https://az.wikipedia.org/> . }
       OPTIONAL { ?cLink schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> . }
     }
-    GROUP BY ?item ?inventory
+    GROUP BY ?item
   }.
   SERVICE wikibase:label { 
     bd:serviceParam wikibase:language "az,en". 
