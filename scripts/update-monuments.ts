@@ -197,6 +197,15 @@ async function main() {
       console.log(`Added: ${added}`);
       console.log(`Removed: ${removed}`);
       console.log('-------------------------');
+
+      // Check if data has actually changed
+      const hasChanges = added > 0 || removed > 0 || 
+         JSON.stringify(existingData) !== JSON.stringify(newData);
+
+      if (!hasChanges) {
+         console.log('No changes detected. Skipping file update.');
+         process.exit(0);
+      }
     } else {
       console.log(`Fetched ${newData.features.length} monuments.`);
     }
