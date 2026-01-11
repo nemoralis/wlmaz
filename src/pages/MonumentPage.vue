@@ -42,7 +42,7 @@
                <div class="w-full space-y-4 md:w-1/2">
                   <h1 class="text-3xl font-bold text-gray-900">{{ monument.itemLabel }}</h1>
 
-                  <div v-if="monument.itemAltLabel" class="text-sm italic text-gray-500">
+                  <div v-if="monument.itemAltLabel" class="text-sm text-gray-500 italic">
                      {{ monument.itemAltLabel }}
                   </div>
 

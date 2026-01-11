@@ -27,11 +27,7 @@
                      >
                         <CdxIcon :icon="linkCopied ? cdxIconCheck : cdxIconShare" />
                      </CdxButton>
-                     <CdxButton
-                        weight="quiet"
-                        title="Bağla"
-                        @click="$emit('close')"
-                     >
+                     <CdxButton weight="quiet" title="Bağla" @click="$emit('close')">
                         <CdxIcon :icon="cdxIconClose" />
                      </CdxButton>
                   </div>
@@ -95,100 +91,99 @@
 
          <!-- 3. CONTENT BODY (Actions) -->
          <div class="content-body">
-         <div class="action-grid">
+            <div class="action-grid">
+               <CdxButton
+                  v-if="monument.commonsLink || monument.commonsCategory"
+                  weight="normal"
+                  class="action-link"
+                  @click="openExternalLink(getCategoryUrl(monument))"
+               >
+                  <CdxIcon :icon="cdxIconLogoWikimediaCommons" />
+                  Qalereyaya bax
+               </CdxButton>
 
-            <CdxButton
-               v-if="monument.commonsLink || monument.commonsCategory"
-               weight="normal"
-               class="action-link"
-               @click="openExternalLink(getCategoryUrl(monument))"
-            >
-               <CdxIcon :icon="cdxIconLogoWikimediaCommons" />
-               Qalereyaya bax
-            </CdxButton>
+               <!-- Primary Action -->
+               <CdxButton
+                  v-if="isAuthenticated"
+                  action="progressive"
+                  weight="primary"
+                  class="primary-action"
+                  @click="$emit('open-upload')"
+               >
+                  <CdxIcon :icon="cdxIconUpload" />
+                  Yeni şəkil yüklə
+               </CdxButton>
+               <CdxButton
+                  v-else
+                  action="progressive"
+                  weight="normal"
+                  class="primary-action"
+                  @click="$emit('login')"
+               >
+                  <CdxIcon :icon="cdxIconLogIn" />
+                  Şəkil yükləmək üçün daxil ol
+               </CdxButton>
+            </div>
 
-            <!-- Primary Action -->
-            <CdxButton
-               v-if="isAuthenticated"
-               action="progressive"
-               weight="primary"
-               class="primary-action"
-               @click="$emit('open-upload')"
-            >
-               <CdxIcon :icon="cdxIconUpload" />
-               Yeni şəkil yüklə
-            </CdxButton>
-            <CdxButton
-               v-else
-               action="progressive"
-               weight="normal"
-               class="primary-action"
-               @click="$emit('login')"
-            >
-               <CdxIcon :icon="cdxIconLogIn" />
-               Şəkil yükləmək üçün daxil ol
-            </CdxButton>
-         </div>
+            <!-- 4. INFO CARD (Metadata) -->
+            <CdxCard class="info-card">
+               <template #title>Metadata</template>
+               <template #supporting-text>
+                  <div class="info-section">
+                     <!-- GPS Section -->
+                     <div v-if="monument.lat && monument.lon" class="info-group">
+                        <span class="info-group-label">Koordinatlar</span>
+                        <div class="gps-actions">
+                           <CdxButton
+                              weight="quiet"
+                              class="gps-link-btn"
+                              title="Xəritə tətbiqində aç"
+                              @click="openExternalLink(`geo:${monument.lat},${monument.lon}`)"
+                           >
+                              <CdxIcon :icon="cdxIconMapPin" />
+                              {{ monument.lat.toFixed(4) }}, {{ monument.lon.toFixed(4) }}
+                           </CdxButton>
+                           <CdxButton
+                              weight="quiet"
+                              class="gps-copy-btn"
+                              title="Koordinatları kopyala"
+                              @click="$emit('copy-coords', monument.lat, monument.lon)"
+                           >
+                              <CdxIcon
+                                 :icon="coordsCopied ? cdxIconCheck : cdxIconCopy"
+                                 :class="{ 'icon-success': coordsCopied }"
+                              />
+                           </CdxButton>
+                        </div>
+                     </div>
 
-         <!-- 4. INFO CARD (Metadata) -->
-         <CdxCard class="info-card">
-            <template #title>Metadata</template>
-            <template #supporting-text>
-               <div class="info-section">
-                  <!-- GPS Section -->
-                  <div v-if="monument.lat && monument.lon" class="info-group">
-                     <span class="info-group-label">Koordinatlar</span>
-                     <div class="gps-actions">
-                        <CdxButton
-                           weight="quiet"
-                           class="gps-link-btn"
-                           title="Xəritə tətbiqində aç"
-                           @click="openExternalLink(`geo:${monument.lat},${monument.lon}`)"
-                        >
-                           <CdxIcon :icon="cdxIconMapPin" />
-                           {{ monument.lat.toFixed(4) }}, {{ monument.lon.toFixed(4) }}
-                        </CdxButton>
-                        <CdxButton
-                           weight="quiet"
-                           class="gps-copy-btn"
-                           title="Koordinatları kopyala"
-                           @click="$emit('copy-coords', monument.lat, monument.lon)"
-                        >
-                           <CdxIcon
-                              :icon="coordsCopied ? cdxIconCheck : cdxIconCopy"
-                              :class="{ 'icon-success': coordsCopied }"
-                           />
-                        </CdxButton>
+                     <!-- Links Section -->
+                     <div class="info-group">
+                        <span class="info-group-label">Xarici keçidlər</span>
+                        <div class="links-row">
+                           <CdxButton
+                              v-if="monument.azLink"
+                              weight="quiet"
+                              class="link-chip"
+                              @click="openExternalLink(monument.azLink)"
+                           >
+                              <CdxIcon :icon="cdxIconLogoWikipedia" />
+                              Vikipediya
+                           </CdxButton>
+                           <CdxButton
+                              v-if="monument.item"
+                              weight="quiet"
+                              class="link-chip"
+                              @click="openExternalLink(monument.item)"
+                           >
+                              <CdxIcon :icon="cdxIconLogoWikidata" />
+                              Vikidata
+                           </CdxButton>
+                        </div>
                      </div>
                   </div>
-
-                  <!-- Links Section -->
-                  <div class="info-group">
-                     <span class="info-group-label">Xarici keçidlər</span>
-                     <div class="links-row">
-                        <CdxButton
-                           v-if="monument.azLink"
-                           weight="quiet"
-                           class="link-chip"
-                           @click="openExternalLink(monument.azLink)"
-                        >
-                           <CdxIcon :icon="cdxIconLogoWikipedia" />
-                           Vikipediya
-                        </CdxButton>
-                        <CdxButton
-                           v-if="monument.item"
-                           weight="quiet"
-                           class="link-chip"
-                           @click="openExternalLink(monument.item)"
-                        >
-                           <CdxIcon :icon="cdxIconLogoWikidata" />
-                           Vikidata
-                        </CdxButton>
-                     </div>
-                  </div>
-               </div>
-            </template>
-         </CdxCard>
+               </template>
+            </CdxCard>
          </div>
       </template>
 
@@ -204,27 +199,22 @@
 </template>
 
 <script lang="ts" setup>
-
-import { CdxCard, CdxButton, CdxIcon, CdxImage, CdxInfoChip } from "@wikimedia/codex";
+import { CdxButton, CdxCard, CdxIcon, CdxImage, CdxInfoChip } from "@wikimedia/codex";
 import {
-   cdxIconLogoWikidata,
-   cdxIconLogoWikipedia,
-   cdxIconUpload,
    cdxIconCamera,
-   cdxIconClose,
-   cdxIconShare,
    cdxIconCheck,
+   cdxIconClose,
    cdxIconCopy,
-   cdxIconLogoWikimediaCommons,
    cdxIconLogIn,
+   cdxIconLogoWikidata,
+   cdxIconLogoWikimediaCommons,
+   cdxIconLogoWikipedia,
    cdxIconMapPin,
+   cdxIconShare,
+   cdxIconUpload,
 } from "@wikimedia/codex-icons";
 import type { MonumentProps } from "@/types";
-import {
-   getCategoryUrl,
-   getDescriptionPage,
-   getOptimizedImage,
-} from "@/utils/monumentFormatters";
+import { getCategoryUrl, getDescriptionPage, getOptimizedImage } from "@/utils/monumentFormatters";
 
 interface Props {
    monument: MonumentProps | null;
@@ -384,8 +374,6 @@ const openExternalLink = (url: string) => {
    z-index: 2;
 }
 
-
-
 .info-card-description {
    font-size: 0.875rem;
    line-height: 1.6;
@@ -526,4 +514,3 @@ const openExternalLink = (url: string) => {
    font-size: 0.875rem;
 }
 </style>
-

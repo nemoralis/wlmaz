@@ -15,9 +15,7 @@
       </div>
 
       <div class="container mx-auto flex flex-1 flex-col px-4 py-6">
-         <div
-            class="flex flex-1 flex-col border border-gray-200 bg-white"
-         >
+         <div class="flex flex-1 flex-col border border-gray-200 bg-white">
             <!-- Search / Filter -->
             <div class="border-b border-gray-200 bg-[#f8f9fa] p-4">
                <div class="max-w-md">
@@ -42,10 +40,7 @@
                   <!-- Custom Slot for Ad (Label + Description + AltLabel) -->
                   <template #item-itemLabel="{ row }">
                      <div class="font-medium text-gray-900">{{ row.itemLabel }}</div>
-                     <div
-                        v-if="row.itemDescription"
-                        class="mt-0.5 text-xs text-gray-500"
-                     >
+                     <div v-if="row.itemDescription" class="mt-0.5 text-xs text-gray-500">
                         {{ row.itemDescription }}
                      </div>
                      <div v-if="row.itemAltLabel" class="mt-0.5 text-xs text-gray-400 italic">
@@ -57,11 +52,7 @@
                   <template #item-status="{ row }">
                      <span
                         class="inline-flex px-2 text-xs leading-5 font-semibold"
-                        :class="
-                           row.image
-                              ? 'text-[#14866d]'
-                              : 'text-[#d73333]'
-                        "
+                        :class="row.image ? 'text-[#14866d]' : 'text-[#d73333]'"
                      >
                         {{ row.image ? "Şəkilli" : "Şəkilsiz" }}
                      </span>
@@ -104,7 +95,10 @@
 
                   <template #footer>
                      <div v-if="loading" class="p-4 text-center text-gray-500">Yüklənir...</div>
-                     <div v-else-if="sortedMonuments.length === 0" class="p-8 text-center text-gray-500">
+                     <div
+                        v-else-if="sortedMonuments.length === 0"
+                        class="p-8 text-center text-gray-500"
+                     >
                         Nəticə tapılmadı
                      </div>
                   </template>
@@ -129,20 +123,15 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from "vue";
 import { useHead } from "@unhead/vue";
+import { CdxButton, CdxIcon, CdxSearchInput, CdxTable } from "@wikimedia/codex";
 import {
-   CdxTable,
-   CdxButton,
-   CdxIcon,
-   CdxSearchInput,
-} from "@wikimedia/codex";
-import {
+   cdxIconLogoWikipedia,
    cdxIconMap,
    cdxIconMapPin,
    cdxIconUpload,
-   cdxIconLogoWikipedia,
 } from "@wikimedia/codex-icons";
-import { useAuthStore } from "../stores/auth";
 import UploadModal from "../components/UploadModal.vue";
+import { useAuthStore } from "../stores/auth";
 
 interface Monument {
    item: string;
@@ -171,7 +160,8 @@ export default defineComponent({
          meta: [
             {
                name: "description",
-               content: "Azərbaycanın bütün tarixi abidələrinin tam siyahısı. Bakı, Şəki, Qəbələ və digər bölgələrdəki məscid, qala, məqbərə və digər mədəni irs abidələri haqqında məlumat.",
+               content:
+                  "Azərbaycanın bütün tarixi abidələrinin tam siyahısı. Bakı, Şəki, Qəbələ və digər bölgələrdəki məscid, qala, məqbərə və digər mədəni irs abidələri haqqında məlumat.",
             },
          ],
       });
@@ -247,7 +237,7 @@ export default defineComponent({
                   }
                }
 
-               if (valA < valB) return - order;
+               if (valA < valB) return -order;
                if (valA > valB) return order;
                return 0;
             });

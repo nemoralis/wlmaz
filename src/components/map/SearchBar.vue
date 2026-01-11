@@ -9,7 +9,6 @@
          @keydown="handleSearchKeydown"
       />
 
-
       <!-- Search Results -->
       <div
          v-if="searchQuery"
@@ -44,10 +43,7 @@
                   {{ result.item.properties?.itemLabel }}
                </div>
                <div class="result-meta">
-                  <span
-                     v-if="result.item.properties?.inventory"
-                     class="inventory-tag"
-                  >
+                  <span v-if="result.item.properties?.inventory" class="inventory-tag">
                      {{ result.item.properties?.inventory }}
                   </span>
                   <span v-if="result.item.properties?.image" class="image-tag">
