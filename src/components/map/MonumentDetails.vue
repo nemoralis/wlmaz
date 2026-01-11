@@ -15,6 +15,9 @@
             <template #title>
                <div class="info-card-header">
                   <span class="info-card-title">{{ monument.itemLabel }}</span>
+                  <div v-if="monument.itemAltLabel" class="alt-label">
+                     {{ monument.itemAltLabel }}
+                  </div>
                   <div class="info-card-actions">
                      <CdxButton
                         weight="quiet"
@@ -38,9 +41,6 @@
                <div class="info-card-description">{{ monument.itemDescription }}</div>
             </template>
             <template #supporting-text>
-               <p v-if="monument.itemAltLabel" class="alt-label">
-                     {{ monument.itemAltLabel }}
-               </p>
                <div v-if="monument.inventory || monument.itemAltLabel" class="title-metadata">
                   <CdxInfoChip
                      v-if="monument.inventory"
