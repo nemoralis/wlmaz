@@ -65,7 +65,7 @@
     "@types/geojson": "^7946.0.16",
     "@types/hpp": "^0.2.7",
     "@types/leaflet": "^1.9.21",
-    "@types/leaflet.locatecontrol": "^0.82.1",
+    "@types/leaflet.locatecontrol": "^0.85.0",
     "@types/leaflet.markercluster": "^1.5.6",
     "@types/morgan": "^1.9.10",
     "@types/multer": "^2.0.0",
