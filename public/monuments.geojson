@@ -319,7 +319,7 @@
                 "item": "http://www.wikidata.org/entity/Q1014729",
                 "itemDescription": "fortress in Azerbaijan",
                 "itemLabel": "Ramana qalası",
-                "lastModified": "2025-07-14T05:36:40Z"
+                "lastModified": "2026-01-17T00:14:47Z"
             }
         },
         {
@@ -1133,7 +1133,7 @@
                 "item": "http://www.wikidata.org/entity/Q65276232",
                 "itemDescription": "historical and religious monument in Mardakan",
                 "itemLabel": "Pir Həsən türbəsi",
-                "lastModified": "2025-08-10T02:57:10Z"
+                "lastModified": "2026-01-15T11:12:33Z"
             }
         },
         {
@@ -1339,7 +1339,7 @@
                 "itemAltLabel": "Pirsəid məscidi, Rəhimə xanım ziyarətgahı, Rəhimə xanım məscidi",
                 "itemDescription": "Nardaranda məscid",
                 "itemLabel": "Nardaran məscidi",
-                "lastModified": "2025-12-11T00:28:18Z"
+                "lastModified": "2026-01-15T15:35:16Z"
             }
         },
         {
@@ -2087,7 +2087,7 @@
                 "itemAltLabel": "Ordubad Cümə məscidi",
                 "itemDescription": "Azərbaycanın Ordubad şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Cümə məscidi",
-                "lastModified": "2025-05-01T13:22:07Z"
+                "lastModified": "2026-01-16T16:10:44Z"
             }
         },
         {
@@ -2500,7 +2500,7 @@
                 "itemAltLabel": "Kala Gergets",
                 "itemDescription": "Oğuz rayonunda yerləşən alban məbədi.",
                 "itemLabel": "Müqəddəs Yelisey kompleksi",
-                "lastModified": "2025-06-24T20:31:43Z"
+                "lastModified": "2026-01-14T19:34:53Z"
             }
         },
         {
@@ -3446,7 +3446,7 @@
                 "itemAltLabel": "Gəncədə Xalq Cümhuriyyəti binası, Xalq Cumhuriyyətinin Binası",
                 "itemDescription": "Gəncədə yerləşən tarixi bina.",
                 "itemLabel": "Xalq Cümhuriyyəti binası",
-                "lastModified": "2025-05-25T15:40:38Z"
+                "lastModified": "2026-01-17T11:13:58Z"
             }
         },
         {
@@ -3878,7 +3878,7 @@
                 "item": "http://www.wikidata.org/entity/Q124428661",
                 "itemDescription": "Cəbrayıl rayonunda yerləşən məscid",
                 "itemLabel": "Çələbilər məscidi",
-                "lastModified": "2025-12-29T13:30:29Z"
+                "lastModified": "2026-01-15T16:05:12Z"
             }
         },
         {
@@ -5223,6 +5223,27 @@
                 "item": "http://www.wikidata.org/entity/Q16418294",
                 "itemLabel": "Muxas qülləsi",
                 "lastModified": "2025-06-24T20:12:04Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.552748975,
+                    40.072093735
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Baba_Samid_m%C9%99qb%C9%99r%C9%99si",
+                "commonsCategory": "Baba Samid Mausoleum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Baba_Samid_Mausoleum",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Baba%20Samid%20minb%C9%99ri1.jpg",
+                "inventory": "4954",
+                "item": "http://www.wikidata.org/entity/Q55698579",
+                "itemDescription": "Safavid Empire burial site in Azerbaijan",
+                "itemLabel": "Baba Samid məqbərəsi",
+                "lastModified": "2026-01-16T22:29:07Z"
             }
         },
         {
