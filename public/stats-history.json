@@ -123,5 +123,16 @@
       "added": 1,
       "removed": 0
     }
+  },
+  {
+    "date": "2026-01-19",
+    "timestamp": 1768782398062,
+    "total": 303,
+    "withImage": 264,
+    "withoutImage": 39,
+    "diff": {
+      "added": 0,
+      "removed": 0
+    }
   }
 ]
