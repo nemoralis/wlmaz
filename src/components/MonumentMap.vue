@@ -320,15 +320,15 @@ export default defineComponent({
 
          // 2. Controls
          const baseMaps = {
-            Xəritə: osmLayer,
+            "OpenStreetMap": osmLayer,
+            "Gomap.az": L.tileLayer("https://tiles.gomap.az/smoothtiles/maptile.do?lng=az&x={x}&y={y}&z={z}&f=png&dp=0", {
+               maxZoom: 19,
+               attribution: "© Gomap.az",
+            }),
             "Peyk (Google)": L.tileLayer("https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
                maxZoom: 20,
                attribution: "© Google",
-            }),
-            "Hibrid (Google)": L.tileLayer("https://mt0.google.com/vt/lyrs=y&x={x}&y={y}&z={z}", {
-               maxZoom: 20,
-               attribution: "© Google",
-            }),
+            })
          };
 
          const layerControl = L.control
