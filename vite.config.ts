@@ -97,9 +97,10 @@ export default defineConfig({
          },
       },
    },
-   esbuild: {
-      drop: ["console", "debugger"],
+   css: {
+      devSourcemap: false, // Suppress leaflet.locatecontrol missing sourcemap warning
    },
+   esbuild: process.env.NODE_ENV === 'production' ? { drop: ["console", "debugger"] } : {},
    build: {
       target: "esnext",
       // Increase chunk size warning limit for map tiles
@@ -118,7 +119,7 @@ export default defineConfig({
                         "leaflet-sidebar-v2",
                      ],
                      "vue-vendor": ["vue", "vue-router", "pinia"],
-                     "utils-vendor": ["fuse.js", "geobuf", "pbf", "heic2any"],
+                     "utils-vendor": ["fuse.js", "geobuf", "pbf"],
                      "chart-vendor": ["chart.js", "vue-chartjs"],
                   },
 
