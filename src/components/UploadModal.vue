@@ -481,10 +481,6 @@
 import { computed, defineComponent, reactive, ref, toRef, watch } from "vue";
 import { useFocusTrap } from "../composables/useFocusTrap";
 
-// Remove static imports to save bundle size
-// import exifr from "exifr";
-// import heic2any from "heic2any";
-
 interface FileItem {
    id: string;
    file: File;
@@ -650,95 +646,55 @@ export default defineComponent({
       };
 
       const processFiles = (newFiles: FileList | File[]) => {
-         Array.from(newFiles).forEach(async (file) => {
-            // Allow image/* AND specific HEIC types (sometimes they don't have image/ prefix in some browsers?)
-            // Actually usually image/heic.
-            // If checking extension, strict type check might fail.
+         const incoming = Array.from(newFiles);
+         
+         const validFiles = incoming.filter((file) => {
             const isHeic =
                file.name.toLowerCase().endsWith(".heic") ||
                file.type === "image/heic" ||
                file.type === "image/heif";
-
-            if (!file.type.startsWith("image/") && !isHeic) return;
-
-            // Create placeholder item
-            const item: FileItem = {
-               id: Math.random().toString(36).substring(7),
-               file,
-               preview: "", // Will be filled below
-               title: "",
-               description: "",
-            };
-
-            // Add immediately to list
-            files.value.push(item);
-
-            // Generate Preview
-            if (isHeic) {
-               try {
-                  // Dynamic Import heic2any
-                  const heic2any = (await import("heic2any")).default;
-
-                  const resultBlob = await heic2any({
-                     blob: file,
-                     toType: "image/jpeg",
-                     quality: 0.7, // Preview quality
-                  });
-
-                  // heic2any can return Blob or Blob[]
-                  const blob = Array.isArray(resultBlob) ? resultBlob[0] : resultBlob;
-                  item.preview = URL.createObjectURL(blob);
-               } catch (e) {
-                  console.error("HEIC Preview failed", e);
-                  // Fallback to generic icon or keep empty
-                  item.preview = "";
-               }
-            } else {
-               // Standard image
-               item.preview = URL.createObjectURL(file);
-            }
+            return file.type.startsWith("image/") || isHeic;
          });
 
-         // Async processing for EXIF (unchanged logic, just ensuring it runs)
-         // Note: We need to wait for items to be pushed. The forEach above is passing async callback but `files.value.push` is sync.
-         // However, the `preview` generation is async for HEIC.
-         // The EXIF parsing uses the original `file` object so it's fine running in parallel.
+         if (validFiles.length === 0) return;
 
-         Promise.all(
-            Array.from(newFiles).map(async (file, index) => {
-               if (!file.type.startsWith("image/")) return;
+         const newItems: FileItem[] = validFiles.map((file) => ({
+            id: Math.random().toString(36).substring(7),
+            file,
+            // HEIC files won't have previews (browsers can't display them)
+            // Backend handles conversion to JPEG
+            preview: file.type.startsWith("image/") ? URL.createObjectURL(file) : "",
+            title: "",
+            description: "",
+         }));
 
-               // Note: This logic assumes sequential append.
-               // For robustness, we could return items from the map above.
-               const item = files.value[files.value.length - newFiles.length + index];
+         files.value = [...files.value, ...newItems];
 
-               try {
-                  // Dynamic Import exifr
-                  const exifr = (await import("exifr")).default;
+         // Async EXIF processing for the new items
+         newItems.forEach(async (item) => {
+            try {
+               const exifr = (await import("exifr")).default;
+               const data = await exifr.parse(item.file, [
+                  "DateTimeOriginal",
+                  "latitude",
+                  "longitude",
+               ]);
 
-                  const data = await exifr.parse(file, [
-                     "DateTimeOriginal",
-                     "latitude",
-                     "longitude",
-                  ]);
-                  if (data) {
-                     if (data.DateTimeOriginal) {
-                        const date = new Date(data.DateTimeOriginal);
-                        item.year = date.getFullYear();
-                     }
-                     if (data.latitude && data.longitude) {
-                        item.latitude = data.latitude;
-                        item.longitude = data.longitude;
-                     }
+               if (data) {
+                  if (data.DateTimeOriginal) {
+                     const date = new Date(data.DateTimeOriginal);
+                     item.year = date.getFullYear();
                   }
-               } catch (e) {
-                  console.warn("Could not parse EXIF", e);
+                  if (data.latitude && data.longitude) {
+                     item.latitude = data.latitude;
+                     item.longitude = data.longitude;
+                  }
                }
-               return item;
-            }),
-         ).then(() => {
-            // After EXIF is loaded, update valid bulk title if needed
-            updateBulkTitleWithYear();
+            } catch (e) {
+               console.warn(`Could not parse EXIF for ${item.file.name}`, e);
+            } finally {
+               updateBulkTitleWithYear();
+            }
          });
       };
 
