@@ -660,7 +660,7 @@
                 "item": "http://www.wikidata.org/entity/Q25536644",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən karvansara və tarix memarlıq abidəsi.",
                 "itemLabel": "Buxara karvansarayı",
-                "lastModified": "2026-01-10T15:11:32Z"
+                "lastModified": "2026-01-19T12:45:57Z"
             }
         },
         {
@@ -703,7 +703,7 @@
                 "itemAltLabel": "Xan karvansarası",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən karavansara və tarix memarlıq abidəsi",
                 "itemLabel": "Kiçik Karvansaray",
-                "lastModified": "2026-01-09T09:34:32Z"
+                "lastModified": "2026-01-19T10:17:55Z"
             }
         },
         {
@@ -810,7 +810,7 @@
                 "item": "http://www.wikidata.org/entity/Q16417538",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Həzrəti Əli məscidi",
-                "lastModified": "2026-01-07T20:08:37Z"
+                "lastModified": "2026-01-19T06:58:08Z"
             }
         },
         {
@@ -896,7 +896,7 @@
                 "item": "http://www.wikidata.org/entity/Q12847518",
                 "itemDescription": "XIX əsrdə İçərişəhərdə Məşədi Mirzə Qafar İsmayılov tərəfindən tikilmiş məscid.",
                 "itemLabel": "Xanlar məscidi",
-                "lastModified": "2026-01-07T12:44:59Z"
+                "lastModified": "2026-01-19T06:10:20Z"
             }
         },
         {
@@ -984,7 +984,7 @@
                 "itemAltLabel": "Arxeologiya və Etnoqrafiya Muzeyi, Azərbaycan Dövlət Arxeologiya və Etnoqrafiya Muzeyi, Məlikov Qardaşlarının Evi, Ütü ev, Zəncirli mülk",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
                 "itemLabel": "Zəncirli ev",
-                "lastModified": "2026-01-09T16:02:01Z"
+                "lastModified": "2026-01-19T11:01:04Z"
             }
         },
         {
@@ -1503,7 +1503,7 @@
                 "itemAltLabel": "Qız qalası",
                 "itemDescription": "Gədəbəydə yerləşən qala",
                 "itemLabel": "Namərdqala",
-                "lastModified": "2025-10-17T22:49:20Z"
+                "lastModified": "2026-01-19T15:31:15Z"
             }
         },
         {
@@ -1669,7 +1669,7 @@
                 "itemAltLabel": "Qum məbədi",
                 "itemDescription": "church building in Qakh District, Azerbaijan",
                 "itemLabel": "Qum bazilikası",
-                "lastModified": "2026-01-11T19:53:45Z"
+                "lastModified": "2026-01-19T15:22:08Z"
             }
         },
         {
@@ -1833,7 +1833,7 @@
                 "itemAltLabel": "Şəki kilsəsi, Şəki xanlarının ailə məscidi, Üç-Müqəddəs kilsəsi (Şəki)",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən məbəd və tarix memarlıq abidəsi.",
                 "itemLabel": "Dairəvi məbəd",
-                "lastModified": "2025-06-27T16:03:53Z"
+                "lastModified": "2026-01-19T10:08:49Z"
             }
         },
         {
@@ -1876,7 +1876,7 @@
                 "itemAltLabel": "Nuxa qalası",
                 "itemDescription": "fortress in Shaki, Azerbaijan",
                 "itemLabel": "Şəki qalası",
-                "lastModified": "2025-06-27T15:42:36Z"
+                "lastModified": "2026-01-19T08:59:52Z"
             }
         },
         {
@@ -2230,7 +2230,7 @@
                 "item": "http://www.wikidata.org/entity/Q20573552",
                 "itemDescription": "A mosque and historical architectural monument located in Baku, Azerbaijan.",
                 "itemLabel": "Baba Kuhi Bakuvi məscidi",
-                "lastModified": "2026-01-08T14:32:46Z"
+                "lastModified": "2026-01-19T08:45:20Z"
             }
         },
         {
@@ -2478,7 +2478,7 @@
                 "item": "http://www.wikidata.org/entity/Q4526087",
                 "itemAltLabel": "Şomutəpə",
                 "itemLabel": "Şomulutəpə yaşayış yeri",
-                "lastModified": "2026-01-07T17:31:28Z"
+                "lastModified": "2026-01-19T06:42:55Z"
             }
         },
         {
@@ -2621,7 +2621,7 @@
                 "item": "http://www.wikidata.org/entity/Q19798499",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Mirzə Əhməd məscidi",
-                "lastModified": "2026-01-09T13:25:06Z"
+                "lastModified": "2026-01-19T10:41:31Z"
             }
         },
         {
@@ -2640,7 +2640,7 @@
                 "item": "http://www.wikidata.org/entity/Q31299040",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Hacı Qayıb məscidi",
-                "lastModified": "2026-01-07T13:07:47Z"
+                "lastModified": "2026-01-19T06:12:54Z"
             }
         },
         {
@@ -3865,6 +3865,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    47.037659,
+                    39.184755
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Q%C4%B1z_qalas%C4%B1_(C%C9%99bray%C4%B1l)",
+                "inventory": "4168",
+                "item": "http://www.wikidata.org/entity/Q12844652",
+                "itemDescription": "architectural monument on Diridag Mount, Jabrayil Rayon, Azerbaijan",
+                "itemLabel": "Qız qalası (Cəbrayıl)",
+                "lastModified": "2026-01-19T11:06:36Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.82712,
                     39.38852
                 ]
@@ -3960,7 +3978,7 @@
                 "itemAltLabel": "Əhmədalılar türbəsi",
                 "itemDescription": "Füzuli rayonunun Əhmədalılar kəndi yaxınlığında yerləşən XIII əsrə aid türbə.",
                 "itemLabel": "Arğalı türbəsi",
-                "lastModified": "2025-05-25T15:36:31Z"
+                "lastModified": "2026-01-18T10:25:23Z"
             }
         },
         {
@@ -4002,7 +4020,7 @@
                 "item": "http://www.wikidata.org/entity/Q97513340",
                 "itemDescription": "ruin of a church in Azerbaijan",
                 "itemLabel": "Əyrivəng kilsəsi",
-                "lastModified": "2026-01-11T20:08:50Z"
+                "lastModified": "2026-01-19T15:23:52Z"
             }
         },
         {
@@ -4203,7 +4221,7 @@
                 "itemAltLabel": "Agh khach, White Cross church",
                 "itemDescription": "Armenian church in Çinarlı, Azerbaijan",
                 "itemLabel": "Ağ xaç kilsəsi",
-                "lastModified": "2026-01-11T20:27:51Z"
+                "lastModified": "2026-01-19T15:25:46Z"
             }
         },
         {
@@ -5106,7 +5124,7 @@
                 "itemAltLabel": "Dairəvi qala",
                 "itemDescription": "XVIII əsrdə tikilmiş Lənkəran qalasının bir hissəsi",
                 "itemLabel": "Zindan qalası",
-                "lastModified": "2025-05-05T08:51:41Z"
+                "lastModified": "2026-01-19T10:33:36Z"
             }
         },
         {
@@ -6202,7 +6220,7 @@
                 "item": "http://www.wikidata.org/entity/Q16417651",
                 "itemDescription": "habitation in Qakh, Azerbaijan",
                 "itemLabel": "Torpaqqala",
-                "lastModified": "2026-01-05T16:02:46Z"
+                "lastModified": "2026-01-19T02:09:34Z"
             }
         },
         {
