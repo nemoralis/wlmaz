@@ -1,6 +1,6 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faCopyright, faImage } from "@fortawesome/free-regular-svg-icons";
 /* import specific icons */
 import {
    faArrowLeft,
@@ -32,10 +32,7 @@ import {
    faUser,
    faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
-
-import { faCopyright, faImage } from "@fortawesome/free-regular-svg-icons";
-
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* add icons to the library */
 library.add(

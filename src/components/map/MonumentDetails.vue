@@ -40,7 +40,12 @@
                <div v-if="monument.inventory || monument.itemAltLabel" class="title-metadata">
                   <div v-if="monument.inventory" class="inventory-chips">
                      <CdxInfoChip
-                        v-for="inv in monument.inventory.split(',').map((s: string) => s.trim()).sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true }))"
+                        v-for="inv in monument.inventory
+                           .split(',')
+                           .map((s: string) => s.trim())
+                           .sort((a: string, b: string) =>
+                              a.localeCompare(b, undefined, { numeric: true }),
+                           )"
                         :key="inv"
                         class="inventory-chip"
                      >
@@ -212,7 +217,12 @@ import {
    cdxIconUpload,
 } from "@wikimedia/codex-icons";
 import type { MonumentProps } from "@/types";
-import { getCategoryUrl, getDescriptionPage, getOptimizedImage, getSrcSet } from "@/utils/monumentFormatters";
+import {
+   getCategoryUrl,
+   getDescriptionPage,
+   getOptimizedImage,
+   getSrcSet,
+} from "@/utils/monumentFormatters";
 
 interface Props {
    monument: MonumentProps | null;
