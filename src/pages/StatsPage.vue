@@ -3,13 +3,13 @@
       <div class="bg-white p-4 shadow-sm">
          <div class="container mx-auto flex items-center justify-between">
             <h1 class="text-xl font-bold text-gray-800">
-               <i class="fa-solid fa-chart-line mr-2 text-blue-600"></i>Statistika
+               <font-awesome-icon :icon="['fas', 'chart-line']" class="mr-2 text-blue-600" />Statistika
             </h1>
             <router-link
                to="/"
                class="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-200"
             >
-               <i class="fa-solid fa-arrow-left"></i> Xəritəyə qayıt
+               <font-awesome-icon :icon="['fas', 'arrow-left']" /> Xəritəyə qayıt
             </router-link>
          </div>
       </div>

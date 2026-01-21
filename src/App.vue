@@ -64,9 +64,9 @@
                      @click="toggleMenu"
                      @keydown="handleDropdownKeydown"
                   >
-                     <i class="fa-solid fa-user-circle text-lg"></i>
+                     <font-awesome-icon :icon="['fas', 'user-circle']" class="text-lg" />
                      <span class="hidden sm:inline">{{ auth.user.username || "İstifadəçi" }}</span>
-                     <span class="sm:hidden"><i class="fa-solid fa-user"></i></span>
+                     <span class="sm:hidden"><font-awesome-icon :icon="['fas', 'user']" /></span>
                      <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-4 w-4 transition-transform duration-200"
@@ -142,7 +142,7 @@
                @click="mobileNavOpen = !mobileNavOpen"
                @keydown.escape="mobileNavOpen = false"
             >
-               <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
+               <font-awesome-icon :icon="['fas', 'bars']" class="text-xl" aria-hidden="true" />
             </button>
          </div>
       </header>
@@ -169,7 +169,11 @@
                aria-label="Statistika səhifəsinə get"
                @click="mobileNavOpen = false"
             >
-               <i class="fa-solid fa-chart-pie w-5 text-gray-400" aria-hidden="true"></i> Statistika
+               <font-awesome-icon
+                  :icon="['fas', 'chart-pie']"
+                  class="w-5 text-gray-400"
+                  aria-hidden="true"
+               /> Statistika
             </router-link>
             <router-link
                to="/table"
@@ -177,7 +181,11 @@
                aria-label="Siyahı səhifəsinə get"
                @click="mobileNavOpen = false"
             >
-               <i class="fa-solid fa-list w-5 text-gray-400" aria-hidden="true"></i> Siyahı
+               <font-awesome-icon
+                  :icon="['fas', 'list']"
+                  class="w-5 text-gray-400"
+                  aria-hidden="true"
+               /> Siyahı
             </router-link>
             <router-link
                to="/about"
@@ -185,7 +193,11 @@
                aria-label="Haqqında səhifəsinə get"
                @click="mobileNavOpen = false"
             >
-               <i class="fa-solid fa-circle-info w-5 text-gray-400" aria-hidden="true"></i> Haqqında
+               <font-awesome-icon
+                  :icon="['fas', 'circle-info']"
+                  class="w-5 text-gray-400"
+                  aria-hidden="true"
+               /> Haqqında
             </router-link>
          </div>
       </transition>

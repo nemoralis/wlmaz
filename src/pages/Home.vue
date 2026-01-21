@@ -8,7 +8,7 @@
             <div
                class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-red-600"
             >
-               <i class="fa fa-exclamation-triangle text-2xl"></i>
+               <font-awesome-icon :icon="['fas', 'exclamation-triangle']" class="text-2xl" />
             </div>
             <h2 class="mb-2 text-xl font-bold text-gray-900">Map could not be loaded</h2>
             <p class="mb-6 text-gray-600">

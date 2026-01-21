@@ -82,37 +82,7 @@ select:focus-visible {
    CUSTOM MARKER STYLES
    ============================================ */
 
-/* Custom Marker Container */
-.marker-pin {
-   width: 30px;
-   height: 30px;
-   border-radius: 50%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   border: 2px solid white;
-   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
-   transition: transform 0.2s ease;
-}
-
-/* Hover effect for markers */
-.marker-pin:hover {
-   transform: scale(1.2);
-   z-index: 1000 !important;
-   /* Bring to front */
-   cursor: pointer;
-}
-
-/* Colors corresponding to your Green/Blue logic */
-.marker-has-image {
-   background-color: #10b981;
-   /* Tailwind emerald-500 */
-}
-
-.marker-needs-image {
-   background-color: #fd0000;
-   /* Your custom blue */
-}
+/* Marker styles removed as we switched to L.circleMarker (Canvas/SVG) */
 
 /* Override Leaflet Marker Cluster Default Colors */
 .marker-cluster-small,

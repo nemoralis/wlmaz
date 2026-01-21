@@ -6,7 +6,7 @@
             <div class="flex items-center justify-between">
                <h1 class="text-3xl font-bold text-gray-900">Layihə haqqında</h1>
                <router-link to="/" class="text-blue-600 hover:underline">
-                  <i class="fa-solid fa-arrow-left mr-1"></i> Xəritəyə qayıt
+                  <font-awesome-icon :icon="['fas', 'arrow-left']" class="mr-1" /> Xəritəyə qayıt
                </router-link>
             </div>
          </div>
@@ -46,7 +46,7 @@
                      <div
                         class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-xl text-red-600"
                      >
-                        <i class="fa-solid fa-map-location-dot"></i>
+                        <font-awesome-icon :icon="['fas', 'map-location-dot']" />
                      </div>
                      <h3 class="mb-2 font-bold text-gray-900">Abidəni tap</h3>
                      <p class="text-sm text-gray-600">
@@ -59,7 +59,7 @@
                      <div
                         class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-xl text-blue-600"
                      >
-                        <i class="fa-solid fa-camera"></i>
+                        <font-awesome-icon :icon="['fas', 'camera']" />
                      </div>
                      <h3 class="mb-2 font-bold text-gray-900">Şəklini çək</h3>
                      <p class="text-sm text-gray-600">
@@ -71,7 +71,7 @@
                      <div
                         class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-xl text-green-600"
                      >
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <font-awesome-icon :icon="['fas', 'cloud-arrow-up']" />
                      </div>
                      <h3 class="mb-2 font-bold text-gray-900">Yüklə</h3>
                      <p class="text-sm text-gray-600">
@@ -110,7 +110,7 @@
                   href="https://github.com/nemoralis/wlmaz"
                   target="_blank"
                   class="text-blue-600 hover:underline"
-                  ><i class="fa-brands fa-github"></i> GitHub</a
+                  ><font-awesome-icon :icon="['fab', 'github']" /> GitHub</a
                >
             </p>
             <p class="mt-4 text-xs text-gray-400">&copy; 2025 Viki Abidələri Sevir Azərbaycan</p>

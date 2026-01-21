@@ -22,13 +22,13 @@
          <!-- Header / Navigation -->
          <div class="flex items-center justify-between bg-blue-600 px-6 py-4">
             <router-link to="/" class="flex items-center gap-2 text-white hover:text-blue-100">
-               <i class="fas fa-arrow-left"></i> Xəritə
+               <font-awesome-icon :icon="['fas', 'arrow-left']" /> Xəritə
             </router-link>
             <router-link
                :to="`/?inventory=${monument.inventory}`"
                class="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-gray-100"
             >
-               <i class="fas fa-map-marked-alt mr-2"></i> Xəritədə göstər
+               <font-awesome-icon :icon="['fas', 'map-marked-alt']" class="mr-2" /> Xəritədə göstər
             </router-link>
          </div>
 
@@ -105,7 +105,7 @@
                         v-if="imageCredit"
                         class="absolute right-0 bottom-0 left-0 bg-black/60 p-2 text-xs text-white"
                      >
-                        <i class="fa-regular fa-copyright mr-0.5 text-[9px]"></i>
+                        <font-awesome-icon :icon="['far', 'copyright']" class="mr-0.5 text-[9px]" />
                         {{ imageCredit.author }}
                         <span class="mx-1 opacity-50">|</span>
                         {{ imageCredit.license }}
@@ -116,7 +116,7 @@
                      class="flex aspect-video items-center justify-center rounded-lg bg-gray-100 text-gray-400"
                   >
                      <div class="text-center">
-                        <i class="fas fa-image mb-2 text-4xl"></i>
+                        <font-awesome-icon :icon="['fas', 'image']" class="mb-2 text-4xl" />
                         <p>Şəkil yoxdur</p>
                      </div>
                   </div>
@@ -129,14 +129,14 @@
                         class="w-full rounded-lg bg-green-600 px-4 py-2 text-white transition hover:bg-green-700"
                         @click="showUploadInfo"
                      >
-                        <i class="fas fa-camera mr-2"></i> Şəkil Yüklə
+                        <font-awesome-icon :icon="['fas', 'camera']" class="mr-2" /> Şəkil Yüklə
                      </button>
                      <button
                         v-else
                         class="w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
                         @click="auth.login"
                      >
-                        <i class="fas fa-sign-in-alt mr-2"></i> Yükləmək üçün daxil ol
+                        <font-awesome-icon :icon="['fas', 'sign-in-alt']" class="mr-2" /> Yükləmək üçün daxil ol
                      </button>
                   </div>
                </div>
