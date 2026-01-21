@@ -415,7 +415,11 @@ export default defineComponent({
                            weight: 2,
                            opacity: 1,
                            fillOpacity: 0.8,
+                           interactive: true,
                         });
+
+                        // Ensure feature is attached for click handler
+                        (marker as any).feature = feature;
 
                         if (props.inventory) markerLookup.set(props.inventory, marker);
                         return marker;
@@ -424,6 +428,17 @@ export default defineComponent({
 
                   allMarkers = geoJsonLayer.getLayers() as L.Layer[];
                   clusterGroup.addLayers(allMarkers);
+
+                  // Group Event delegation for performance
+                  clusterGroup.on("click", (evt: L.LeafletMouseEvent) => {
+                     // Stop propagation to prevent map click from firing
+                     L.DomEvent.stopPropagation(evt.originalEvent);
+                     L.DomEvent.preventDefault(evt.originalEvent);
+                     if (evt.layer instanceof L.CircleMarker) {
+                        selectMonument(evt.layer);
+                     }
+                  });
+
                   map.addLayer(clusterGroup);
 
                   // Locate Control

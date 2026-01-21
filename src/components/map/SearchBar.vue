@@ -64,7 +64,7 @@
 <script lang="ts" setup>
 import type { Feature } from "geojson";
 import { ref, watch, computed } from "vue";
-import { CdxSearchInput } from "@wikimedia/codex";
+import { CdxIcon, CdxSearchInput } from "@wikimedia/codex";
 import { cdxIconImage } from "@wikimedia/codex-icons";
 import { useMonumentStore } from "../../stores/monuments";
 

@@ -96,10 +96,11 @@
                   >
                      <img
                         :src="getOptimizedImage(monument.image)"
+                        :srcset="getSrcSet(monument.image, [320, 640, 800, 1024, 1280])"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         :alt="monument.itemLabel"
                         class="h-auto w-full object-cover"
-                        width="800"
-                        height="600"
+                        loading="lazy"
                      />
                      <div
                         v-if="imageCredit"
@@ -154,9 +155,7 @@
 </template>
 
 <script setup lang="ts">
-import geobuf from "geobuf";
-import Pbf from "pbf";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useHead } from "@unhead/vue";
 import { CdxIcon } from "@wikimedia/codex";
@@ -172,10 +171,12 @@ import {
    useMonumentSchema,
 } from "../composables/useSchemaOrg";
 import { useWikiCredits } from "../composables/useWikiCredits";
-import { useAuthStore } from "../stores/auth";
+import { useMonumentStore } from "../stores/monuments";
+import { useAuthStore } from "../stores/auth"; // Assuming useAuthStore is defined elsewhere
 import type { MonumentProps } from "../types";
-import { getOptimizedImage } from "../utils/monumentFormatters";
+import { getOptimizedImage, getSrcSet } from "../utils/monumentFormatters";
 
+const monumentStore = useMonumentStore();
 const auth = useAuthStore();
 
 const route = useRoute();
@@ -255,34 +256,29 @@ useHead({
    ],
 });
 
-onMounted(async () => {
-   try {
-      const id = route.params.id as string;
-      if (!id) throw new Error("Abidə ID-si tapılmadı");
-
-      // For now, fresh fetch to ensure validity. Browser caches the PBF anyway.
-
-      const response = await fetch("/monuments.pbf");
-      if (!response.ok) throw new Error("Məlumatları yükləmək mümkün olmadı");
-
-      const buffer = await response.arrayBuffer();
-      const geoData = geobuf.decode(new Pbf(buffer)) as any;
-
-      const feature = geoData.features.find((f: any) => f.properties.inventory === id);
-
-      if (!feature) {
-         throw new Error("Abidə tapılmadı");
-      }
-
-      monument.value = feature.properties;
-
-      if (monument.value?.image) {
-         fetchImageMetadata(monument.value.image);
-      }
-   } catch (e: any) {
-      error.value = e.message || "Xəta baş verdi";
-   } finally {
-      loading.value = false;
-   }
+onMounted(() => {
+   monumentStore.init();
 });
+
+watch(
+   [() => monumentStore.isDataReady, () => route.params.id],
+   ([ready, id]) => {
+      if (ready && id) {
+         const found = monumentStore.geoData?.features.find(
+            (f: any) => f.properties.inventory === id,
+         );
+         if (found) {
+            monument.value = found.properties;
+            error.value = null;
+            if (monument.value?.image) {
+               fetchImageMetadata(monument.value.image);
+            }
+         } else {
+            error.value = "Abidə tapılmadı";
+         }
+         loading.value = false;
+      }
+   },
+   { immediate: true },
+);
 </script>
