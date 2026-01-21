@@ -143,6 +143,7 @@
                            <CdxButton
                               weight="quiet"
                               class="gps-copy-btn"
+                              aria-label="Koordinatları kopyala"
                               title="Koordinatları kopyala"
                               @click="$emit('copy-coords', monument.lat, monument.lon)"
                            >

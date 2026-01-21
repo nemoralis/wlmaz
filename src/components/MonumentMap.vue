@@ -235,14 +235,7 @@ export default defineComponent({
                });
             } else {
                mapInstance.value?.flyTo(marker.getLatLng(), 16, { duration: 1.5 });
-
-               const props = (marker as unknown as { feature: { properties: MonumentProps } }).feature
-                  .properties;
-               selectedMonument.value = props;
-               (sidebarInstance.value as L.Control & { open: (id: string) => void })?.open(
-                  "details",
-               );
-               activeMarkerLayer.value = marker;
+               selectMonument(marker);
             }
          }
       };
