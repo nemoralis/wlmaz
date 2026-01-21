@@ -12,11 +12,7 @@
       </div>
 
       <!-- 2. Search Component -->
-      <SearchBar
-         :monuments="monuments"
-         :fuse-index="fuseIndex"
-         @select-monument="$emit('select-monument', $event)"
-      />
+      <SearchBar @select-monument="$emit('select-monument', $event)" />
 
       <!-- 3. Dashboard Section -->
       <div class="dashboard-section">
@@ -59,8 +55,6 @@ import SearchBar from "./SearchBar.vue";
 interface Props {
    stats: { total: number; withImage: number };
    needsPhotoOnly: boolean;
-   monuments: Feature[];
-   fuseIndex?: any;
 }
 
 const props = defineProps<Props>();

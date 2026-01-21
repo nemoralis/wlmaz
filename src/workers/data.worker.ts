@@ -2,6 +2,9 @@ import Fuse from "fuse.js";
 import geobuf from "geobuf";
 import Pbf from "pbf";
 
+let fuse: Fuse<any> | null = null;
+let allFeatures: any[] = [];
+
 self.onmessage = async (e) => {
    if (e.data.type === "INIT") {
       try {
@@ -16,25 +19,18 @@ self.onmessage = async (e) => {
             throw new Error("Data is not a FeatureCollection");
          }
 
-         const allFeatures = geoData.features;
+         allFeatures = geoData.features;
 
-         // Initialize Fuse Index
-         const fuseIndex = Fuse.createIndex(
-            ["properties.itemLabel", "properties.inventory", "properties.itemAltLabel"],
-            allFeatures,
-         );
-
-         // We can't transfer the full Fuse instance, but we can transfer the index
-         // and the data, then reconstruct Fuse on the main thread lightly.
-         // OR better: we can run search IN the worker.
-         // For now, let's just offload the decoding and maybe search later.
-         // Actually, passing the huge JSON back to main thread is also costly (Structured Clone).
-         // But it's better than blocking the UI during decode.
+         // Initialize Fuse
+         fuse = new Fuse(allFeatures, {
+            keys: ["properties.itemLabel", "properties.inventory", "properties.itemAltLabel"],
+            threshold: 0.3,
+            ignoreLocation: true,
+         });
 
          self.postMessage({
             type: "DATA_READY",
             geoData,
-            fuseIndex: fuseIndex.toJSON(),
          });
       } catch (err) {
          self.postMessage({
@@ -43,6 +39,15 @@ self.onmessage = async (e) => {
          });
       }
    } else if (e.data.type === "SEARCH") {
-      // Future optimization: Run search here
+      const { query } = e.data;
+      if (!fuse) return;
+
+      if (!query || query.trim() === "") {
+         self.postMessage({ type: "SEARCH_RESULTS", results: allFeatures, query });
+         return;
+      }
+
+      const results = fuse.search(query).map((r) => r.item);
+      self.postMessage({ type: "SEARCH_RESULTS", results, query });
    }
 };

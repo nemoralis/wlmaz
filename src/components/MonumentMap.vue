@@ -46,8 +46,6 @@
                <MonumentSidebarHome
                   :stats="stats"
                   :needs-photo-only="needsPhotoOnly"
-                  :monuments="allMonuments"
-                  :fuse-index="searchIndex"
                   @toggle-filter="toggleNeedsPhoto"
                   @select-monument="flyToMonument"
                />
@@ -98,8 +96,8 @@ import L from "leaflet";
 import "leaflet.markercluster";
 import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
+import { useMonumentStore } from "../stores/monuments";
 import type { MonumentProps } from "../types";
-import DataWorker from "../workers/data.worker?worker";
 import MonumentSidebarHome from "./map/MonumentSidebarHome.vue";
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
@@ -133,6 +131,7 @@ export default defineComponent({
    setup() {
       // --- Stores & Composables ---
       const auth = useAuthStore();
+      const monumentStore = useMonumentStore();
       const { imageCredit, fetchImageMetadata } = useWikiCredits();
       const { copied: inventoryCopied, copy: copyInventory } = useClipboard();
       const { copied: coordsCopied, copy: copyRawCoords } = useClipboard();
@@ -150,8 +149,6 @@ export default defineComponent({
 
       // Data
       const stats = ref({ total: 0, withImage: 0 });
-      const allMonuments = ref<any[]>([]); // Using any[] to match prop expectation
-      const searchIndex = shallowRef<unknown>(null);
       const imageLoading = ref(true);
       const markerLookup = new Map<string, L.CircleMarker>();
       let allMarkers: L.Layer[] = [];
@@ -310,16 +307,17 @@ export default defineComponent({
       onMounted(() => {
          if (!mapContainer.value) return;
 
-         // 1. Map Setup
          const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             maxZoom: 19,
             attribution: "© OpenStreetMap",
          });
-         const map = L.map(mapContainer.value, { zoomControl: false, layers: [osmLayer] }).setView(
-            [40.4093, 49.8671],
-            7,
-         );
-
+         const map = L.map(mapContainer.value, {
+            center: [40.1431, 47.5769],
+            zoom: 7,
+            maxZoom: 20,
+            preferCanvas: true,
+            layers: [osmLayer],
+         });
          mapInstance.value = map;
 
          // 2. Controls
@@ -377,94 +375,81 @@ export default defineComponent({
             }
          });
 
-         // 4. Data Loading
-         const worker = new DataWorker();
-         worker.postMessage({ type: "INIT" });
+         // 4. Data Loading via Store
+         monumentStore.init();
 
-         worker.onmessage = (e) => {
-            if (e.data.type === "DATA_READY") {
-               const { geoData, fuseIndex } = e.data;
+         watch(
+            () => monumentStore.isDataReady,
+            (ready) => {
+               if (ready && monumentStore.geoData) {
+                  const geoData = monumentStore.geoData;
 
-               // Store pre-computed index
-               searchIndex.value = fuseIndex;
+                  // Update Stats
+                  stats.value.total = geoData.features.length;
+                  stats.value.withImage = geoData.features.filter(
+                     (f: any) => f.properties.image,
+                  ).length;
 
-               // Populate allMonuments for SearchBar component
-               allMonuments.value = geoData.features;
+                  // Create Cluster Group
+                  const clusterGroup = L.markerClusterGroup({
+                     showCoverageOnHover: false,
+                     chunkedLoading: true,
+                     spiderfyOnMaxZoom: true,
+                     zoomToBoundsOnClick: true,
+                  });
+                  markersGroup.value = clusterGroup;
 
-               // Update Stats
-               stats.value.total = geoData.features.length;
-               stats.value.withImage = geoData.features.filter(
-                  (f: any) => f.properties.image,
-               ).length;
+                  // Create Layers
+                  const geoJsonLayer = L.geoJSON(geoData, {
+                     pointToLayer: (feature, latlng) => {
+                        const props = feature.properties as MonumentProps;
+                        props.lat = latlng.lat;
+                        props.lon = latlng.lng;
 
-               // Create Cluster Group
-               const clusterGroup = L.markerClusterGroup({
-                  showCoverageOnHover: false,
-                  chunkedLoading: true,
-                  spiderfyOnMaxZoom: true,
-                  zoomToBoundsOnClick: true,
-               });
-               markersGroup.value = clusterGroup;
+                        const hasImage = !!props.image;
 
-               // Create Layers
-               const geoJsonLayer = L.geoJSON(geoData, {
-                  pointToLayer: (feature, latlng) => {
-                     const props = feature.properties as MonumentProps;
-                     // Add coordinates from geometry to properties
-                     props.lat = latlng.lat;
-                     props.lon = latlng.lng;
+                        const marker = L.circleMarker(latlng, {
+                           radius: 8,
+                           fillColor: hasImage ? "#2e7d32" : "#d32f2f",
+                           color: "#fff",
+                           weight: 2,
+                           opacity: 1,
+                           fillOpacity: 0.8,
+                        });
 
-                     const hasImage = !!props.image;
-                     
-                     const marker = L.circleMarker(latlng, {
-                        radius: 8,
-                        fillColor: hasImage ? "#2e7d32" : "#d32f2f", // Green for image, Red for no image
-                        color: "#fff",
-                        weight: 2,
-                        opacity: 1,
-                        fillOpacity: 0.8,
-                     });
+                        if (props.inventory) markerLookup.set(props.inventory, marker);
+                        return marker;
+                     },
+                  });
 
-                     // Store ID
-                     if (props.inventory) markerLookup.set(props.inventory, marker);
-                     return marker;
-                  },
-               });
+                  allMarkers = geoJsonLayer.getLayers() as L.Layer[];
+                  clusterGroup.addLayers(allMarkers);
+                  map.addLayer(clusterGroup);
 
-               allMarkers = geoJsonLayer.getLayers() as L.Layer[];
-               clusterGroup.addLayers(allMarkers);
+                  // Locate Control
+                  const locateIcon = icon({ prefix: "fas", iconName: "location-arrow" });
+                  const loadingIcon = icon({ prefix: "fas", iconName: "spinner" });
+                  new LocateControl({
+                     position: "topright",
+                     flyTo: true,
+                     icon: locateIcon.html[0],
+                     iconLoading: loadingIcon.html[0] + " animate-spin",
+                  }).addTo(map);
 
-               // Group Event delegation
-               clusterGroup.on("click", (evt: L.LeafletMouseEvent) => {
-                  L.DomEvent.stopPropagation(evt.originalEvent);
-                  L.DomEvent.preventDefault(evt.originalEvent);
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  selectMonument((evt as any).layer);
-               });
-
-               map.addLayer(clusterGroup);
-
-                const locateIcon = icon({ prefix: "fas", iconName: "location-arrow" });
-                const loadingIcon = icon({ prefix: "fas", iconName: "spinner" });
-                new LocateControl({
-                   position: "topright",
-                   flyTo: true,
-                   icon: locateIcon.html[0],
-                   iconLoading: loadingIcon.html[0] + " animate-spin",
-                }).addTo(map);
-
-               // Initial URL Navigation
-               const urlParams = new URLSearchParams(window.location.search);
-               const inventory = urlParams.get("inventory");
-               if (inventory && markerLookup.has(inventory)) {
-                  selectMonument(markerLookup.get(inventory)!);
-               } else {
-                  if (window.innerWidth > 768) {
-                     sidebar.open("home");
+                  // Deep link check after markers are ready
+                  const urlParams = new URLSearchParams(window.location.search);
+                  const inv = urlParams.get("inventory");
+                  if (inv && markerLookup.has(inv)) {
+                     flyToMonument({ properties: { inventory: inv } });
+                  } else {
+                     if (window.innerWidth > 768) {
+                        sidebar.open("home");
+                     }
                   }
                }
-            }
-         };
+            },
+            { immediate: true },
+         );
       });
 
       onUnmounted(() => {
@@ -473,15 +458,11 @@ export default defineComponent({
 
       return {
          auth,
-         mapContainer,
-         // State
-         selectedMonument,
-         imageLoading,
          stats,
+         monumentStore,
+         selectedMonument,
          showUploadModal,
          needsPhotoOnly,
-         allMonuments,
-         searchIndex,
          // Actions
          openUploadModal,
          toggleNeedsPhoto,
@@ -499,7 +480,11 @@ export default defineComponent({
          linkCopied,
          copyInventory,
          copyCoords,
+         copyLink,
          closeSidebar,
+         // State
+         mapContainer,
+         imageLoading,
       };
    },
 });

@@ -28,25 +28,25 @@
          <ul v-else class="results-list">
             <li
                v-for="(result, index) in searchResults"
-               :key="result.item.properties?.id"
+               :key="result.properties?.inventory || index"
                :ref="(el) => setResultRef(el, index)"
                role="option"
                :aria-selected="selectedIndex === index"
                tabindex="0"
                class="result-item"
                :class="{ 'result-item--selected': selectedIndex === index }"
-               @click="selectResult(result.item)"
-               @keydown.enter="selectResult(result.item)"
-               @keydown.space.prevent="selectResult(result.item)"
+               @click="selectResult(result)"
+               @keydown.enter="selectResult(result)"
+               @keydown.space.prevent="selectResult(result)"
             >
                <div class="result-label">
-                  {{ result.item.properties?.itemLabel }}
+                  {{ result.properties?.itemLabel }}
                </div>
                <div class="result-meta">
-                  <span v-if="result.item.properties?.inventory" class="inventory-tag">
-                     {{ result.item.properties?.inventory }}
+                  <span v-if="result.properties?.inventory" class="inventory-tag">
+                     {{ result.properties?.inventory }}
                   </span>
-                  <span v-if="result.item.properties?.image" class="image-tag">
+                  <span v-if="result.properties?.image" class="image-tag">
                      <CdxIcon :icon="cdxIconImage" size="x-small" /> Şəkilli
                   </span>
                </div>
@@ -62,18 +62,13 @@
 </template>
 
 <script lang="ts" setup>
-import Fuse from "fuse.js";
 import type { Feature } from "geojson";
-import { computed, ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { CdxSearchInput } from "@wikimedia/codex";
 import { cdxIconImage } from "@wikimedia/codex-icons";
+import { useMonumentStore } from "../../stores/monuments";
 
-interface Props {
-   monuments: Feature[];
-   fuseIndex?: any;
-}
-
-const props = defineProps<Props>();
+const monumentStore = useMonumentStore();
 
 const emit = defineEmits<{
    "select-monument": [feature: Feature];
@@ -82,55 +77,27 @@ const emit = defineEmits<{
 // Search state
 const searchInput = ref<HTMLInputElement | null>(null);
 const searchQuery = ref("");
-const debouncedSearchQuery = ref("");
 const selectedIndex = ref(-1);
 const resultRefs: (HTMLElement | null)[] = [];
 
-let fuse: Fuse<Feature> | null = null;
 let searchTimeout: ReturnType<typeof setTimeout>;
-
-// Initialize Fuse search
-watch(
-   [() => props.monuments, () => props.fuseIndex],
-   ([monuments, fuseIndex]) => {
-      if (!monuments || monuments.length === 0) return;
-
-      const options = {
-         keys: ["properties.itemLabel", "properties.inventory", "properties.itemAltLabel"],
-         threshold: 0.3,
-         ignoreLocation: true,
-      };
-
-      if (fuseIndex) {
-         // Load pre-computed index from worker
-         const myIndex = Fuse.parseIndex(fuseIndex);
-         fuse = new Fuse<Feature>(monuments, options, myIndex);
-      } else {
-         // Fallback if index not ready
-         fuse = new Fuse(monuments, options);
-      }
-   },
-   { immediate: true },
-);
-
-// Debounced search
-watch(searchQuery, (newVal) => {
-   clearTimeout(searchTimeout);
-   searchTimeout = setTimeout(() => {
-      debouncedSearchQuery.value = newVal;
-      selectedIndex.value = -1; // Reset selection on new search
-   }, 300);
-});
 
 const clearSearch = () => {
    searchQuery.value = "";
    selectedIndex.value = -1;
 };
 
-// Computed search results
+// 1. Internal search logic removed. We now use the store.
+watch(searchQuery, (newVal) => {
+   clearTimeout(searchTimeout);
+   searchTimeout = setTimeout(() => {
+      monumentStore.search(newVal);
+      selectedIndex.value = -1;
+   }, 300);
+});
+
 const searchResults = computed(() => {
-   if (!debouncedSearchQuery.value || !fuse) return [];
-   return fuse.search(debouncedSearchQuery.value).slice(0, 50);
+   return monumentStore.searchResults.slice(0, 50);
 });
 
 // Methods
@@ -170,7 +137,7 @@ const handleSearchKeydown = (event: KeyboardEvent) => {
       case "Enter":
          event.preventDefault();
          if (selectedIndex.value >= 0) {
-            selectResult(searchResults.value[selectedIndex.value].item);
+            selectResult(searchResults.value[selectedIndex.value]);
          }
          break;
 

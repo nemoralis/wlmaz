@@ -107,7 +107,7 @@
             <div
                class="flex justify-between border-t border-gray-200 bg-[#f8f9fa] px-6 py-3 text-sm text-gray-500"
             >
-               <span>Cəmi: {{ monuments.length }} abidə</span>
+                <span>Cəmi: {{ monuments.length }} abidə</span>
                <span v-if="searchQuery">Filtrlənmiş: {{ sortedMonuments.length }}</span>
             </div>
          </div>
@@ -132,6 +132,7 @@ import {
 } from "@wikimedia/codex-icons";
 import UploadModal from "../components/UploadModal.vue";
 import { useAuthStore } from "../stores/auth";
+import { useMonumentStore } from "../stores/monuments";
 
 interface Monument {
    item: string;
@@ -154,6 +155,7 @@ export default defineComponent({
    },
    setup() {
       const auth = useAuthStore();
+      const monumentStore = useMonumentStore();
       useHead({
          title: "Abidələr Siyahısı - Azərbaycan Tarixi Abidələri | Viki Abidələri Sevir",
          link: [{ rel: "canonical", href: "https://wikilovesmonuments.az/table" }],
@@ -166,11 +168,11 @@ export default defineComponent({
          ],
       });
 
-      const monuments = ref<Monument[]>([]);
-      const loading = ref(true);
+      const loading = computed(() => monumentStore.isLoading);
       const isUploadModalOpen = ref(false);
       const selectedMonumentForUpload = ref<Monument | null>(null);
       const searchQuery = ref("");
+      const monuments = computed(() => monumentStore.monuments);
 
       const sortState = ref<Record<string, "asc" | "desc">>({ inventory: "asc" });
 
@@ -190,18 +192,8 @@ export default defineComponent({
          window.open(url, "_blank", "noopener,noreferrer");
       };
 
-      onMounted(async () => {
-         try {
-            const res = await fetch("/monuments.geojson");
-            if (res.ok) {
-               const data = await res.json();
-               monuments.value = data.features.map((f: any) => f.properties);
-            }
-         } catch (e) {
-            console.error("Failed to load table data", e);
-         } finally {
-            loading.value = false;
-         }
+      onMounted(() => {
+         monumentStore.init();
       });
 
       const sortedMonuments = computed(() => {
