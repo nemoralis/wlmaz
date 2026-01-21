@@ -89,22 +89,20 @@ import {
    onMounted,
    onUnmounted,
    ref,
-   shallowRef,
    watch,
 } from "vue";
 import L from "leaflet";
 import "leaflet.markercluster";
-import { LocateControl } from "leaflet.locatecontrol";
 import { useAuthStore } from "../stores/auth";
 import { useMonumentStore } from "../stores/monuments";
 import type { MonumentProps } from "../types";
 import MonumentSidebarHome from "./map/MonumentSidebarHome.vue";
 // Sidebar & Plugins
-import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
 import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 import { useClipboard } from "../composables/useClipboard";
 import { useWikiCredits } from "../composables/useWikiCredits";
-import { icon } from "@fortawesome/fontawesome-svg-core";
+import { useLeafletMap, type MonumentMarker } from "../composables/useLeafletMap";
+import type { Feature } from "geojson";
 // CSS
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
@@ -131,13 +129,20 @@ export default defineComponent({
       const { copied: linkCopied, copy: copyLink } = useClipboard();
       const copyCoords = (lat: number, lon: number) => copyRawCoords(`${lat}, ${lon}`);
 
+      const {
+         mapInstance,
+         sidebarInstance,
+         markersGroup,
+         initialize,
+         highlightMarker,
+         setupClusterGroup,
+         flyToMarker,
+         getVisibleParent,
+         zoomToShowLayer,
+      } = useLeafletMap();
+
       // --- Refs & State ---
       const mapContainer = ref<HTMLElement | null>(null);
-      const mapInstance = shallowRef<L.Map | null>(null);
-      const sidebarInstance = shallowRef<L.Control | null>(null);
-      const markersGroup = shallowRef<L.MarkerClusterGroup | null>(null);
-
-      const activeMarkerLayer = shallowRef<L.CircleMarker | null>(null);
 
       // Data
       const stats = ref({ total: 0, withImage: 0 });
@@ -151,84 +156,43 @@ export default defineComponent({
 
       // --- Methods ---
 
-      const highlightMarker = (marker: L.CircleMarker | null) => {
-         // 1. Remove highlight from previous
-         if (activeMarkerLayer.value) {
-            (activeMarkerLayer.value as unknown as L.CircleMarker).setStyle({
-               color: "#fff",
-               weight: 2,
-               radius: 8,
-            });
-         }
-
-         // 2. Add highlight to new
-         if (marker) {
-            marker.setStyle({
-               color: "#ffd700", // Yellow border for selection
-               weight: 4,
-               radius: 10, // Slightly larger
-            });
-            activeMarkerLayer.value = marker;
-         } else {
-            activeMarkerLayer.value = null;
-         }
-      };
-
-      const selectMonument = async (marker: L.CircleMarker) => {
+      const selectMonument = async (marker: MonumentMarker) => {
          if (!marker || !markersGroup.value) return;
 
          const performSelection = async () => {
             highlightMarker(marker);
 
-            const props = (marker as unknown as { feature: { properties: MonumentProps } }).feature
-               .properties;
+            const props = marker.feature.properties;
             monumentStore.selectedMonument = props;
 
             await nextTick();
-            (sidebarInstance.value as L.Control & { open: (id: string) => void })?.open("details");
+            sidebarInstance.value?.open("details");
          };
 
-         // Check if marker is visible (not clustered)
-         // Leaflet.markercluster provides getVisibleParent.
-         const cluster = markersGroup.value as L.MarkerClusterGroup & {
-            getVisibleParent: (m: L.Marker) => L.Marker | null;
-            zoomToShowLayer: (m: L.Marker, cb: () => void) => void;
-         };
-         const visibleParent = cluster.getVisibleParent(marker as unknown as L.Marker);
+         const visibleParent = getVisibleParent(marker);
 
-         if (visibleParent && visibleParent !== (marker as unknown as L.Layer)) {
+         if (visibleParent && visibleParent !== marker) {
             // It is clustered. Use zoomToShowLayer to reveal it.
-            cluster.zoomToShowLayer(marker as unknown as L.Marker, () => {
+            zoomToShowLayer(marker, () => {
                performSelection();
             });
          } else {
             // It is already visible (or spiderfied). Just select it.
-            // IMPORTANT: Do NOT flyTo/panTo here to avoid closing spiderfied clusters.
             performSelection();
          }
       };
 
-      const flyToMonument = (feature: unknown) => {
-         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-         const { inventory, image } = (feature as any).properties;
+      const flyToMonument = (feature: Feature | { properties: { inventory: string; image?: string } }) => {
+         const props = feature.properties as MonumentProps;
+         const { inventory, image } = props;
          if (inventory && markerLookup.has(inventory)) {
-            // BUG FIX: If the monument has an image and the "needs photo" filter is ON,
-            // we must turn off the filter so the marker becomes visible.
             if (image && needsPhotoOnly.value) {
                applyFilter(false);
             }
 
-            const marker = markerLookup.get(inventory)!;
-
-            const visibleParent = (markersGroup.value as any)?.getVisibleParent(marker);
-            if (visibleParent && visibleParent !== marker) {
-               (markersGroup.value as any).zoomToShowLayer(marker, () => {
-                  selectMonument(marker);
-               });
-            } else {
-               mapInstance.value?.flyTo(marker.getLatLng(), 16, { duration: 1.5 });
-               selectMonument(marker);
-            }
+            const marker = markerLookup.get(inventory) as MonumentMarker;
+            flyToMarker(marker);
+            selectMonument(marker);
          }
       };
 
@@ -238,7 +202,7 @@ export default defineComponent({
 
          markersGroup.value.clearLayers();
          if (enabled) {
-            const filtered = allMarkers.filter((m: any) => !m.feature.properties.image);
+            const filtered = allMarkers.filter((m) => !(m as MonumentMarker).feature.properties.image);
             markersGroup.value.addLayers(filtered);
          } else {
             markersGroup.value.addLayers(allMarkers);
@@ -292,72 +256,21 @@ export default defineComponent({
       onMounted(() => {
          if (!mapContainer.value) return;
 
-         const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            attribution: "© OpenStreetMap",
-         });
-         const map = L.map(mapContainer.value, {
-            center: [40.1431, 47.5769],
-            zoom: 7,
-            maxZoom: 20,
-            preferCanvas: true,
-            layers: [osmLayer],
-         });
-         mapInstance.value = map;
-
-         // 2. Controls
-         const baseMaps = {
-            "OpenStreetMap": osmLayer,
-            "Gomap.az": L.tileLayer("https://tiles.gomap.az/smoothtiles/maptile.do?lng=az&x={x}&y={y}&z={z}&f=png&dp=0", {
-               maxZoom: 19,
-               attribution: "© Gomap.az",
-            }),
-            "Peyk (Google)": L.tileLayer("https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
-               maxZoom: 20,
-               attribution: "© Google",
-            })
-         };
-
-         const layerControl = L.control
-            .layers(baseMaps, undefined, { position: "topright" })
-            .addTo(map);
-
-         // Custom icon for layer control
-         const toggleBtn = layerControl
-            .getContainer()
-            ?.querySelector(".leaflet-control-layers-toggle");
-         if (toggleBtn) {
-            const layerGroupIcon = icon({ prefix: "fas", iconName: "layer-group" });
-            toggleBtn.innerHTML = layerGroupIcon.html[0];
-            toggleBtn.classList.add("text-gray-600", "text-sm");
-         }
-
-         L.control.zoom({ position: "topright" }).addTo(map);
-
-         const sidebar = (L.control as any)
-            .sidebar({ container: "sidebar", position: "left", autopan: true })
-            .addTo(map);
-         sidebarInstance.value = sidebar;
-
-         // Listen for sidebar closing event to clear selected monument
-         sidebar.on("closing", () => {
-            monumentStore.selectedMonument = null;
-            highlightMarker(null);
-         });
-
-         // 3. Global Map Events
-         map.on("click", (e: L.LeafletMouseEvent) => {
-            if (e.originalEvent.defaultPrevented) return;
-            sidebar.close();
-            highlightMarker(null);
-         });
-
-
-         sidebar.on("content", (e: any) => {
-            if (e.id !== "details") {
+         initialize(mapContainer.value, {
+            onMapClick: () => {
+               sidebarInstance.value?.close();
                highlightMarker(null);
+            },
+            onSidebarClosing: () => {
                monumentStore.selectedMonument = null;
-            }
+               highlightMarker(null);
+            },
+            onSidebarContentChange: (id) => {
+               if (id !== "details") {
+                  highlightMarker(null);
+                  monumentStore.selectedMonument = null;
+               }
+            },
          });
 
          // 4. Data Loading via Store
@@ -376,13 +289,8 @@ export default defineComponent({
                   ).length;
 
                   // Create Cluster Group
-                  const clusterGroup = L.markerClusterGroup({
-                     showCoverageOnHover: false,
-                     chunkedLoading: true,
-                     spiderfyOnMaxZoom: true,
-                     zoomToBoundsOnClick: true,
-                  });
-                  markersGroup.value = clusterGroup;
+                  const clusterGroup = setupClusterGroup();
+                  if (!clusterGroup) return;
 
                   // Create Layers
                   const geoJsonLayer = L.geoJSON(geoData, {
@@ -415,26 +323,16 @@ export default defineComponent({
                   clusterGroup.addLayers(allMarkers);
 
                   // Group Event delegation for performance
-                  clusterGroup.on("click", (evt: L.LeafletMouseEvent) => {
-                     // Stop propagation to prevent map click from firing
-                     L.DomEvent.stopPropagation(evt.originalEvent);
-                     L.DomEvent.preventDefault(evt.originalEvent);
-                     if (evt.layer instanceof L.CircleMarker) {
-                        selectMonument(evt.layer);
-                     }
-                  });
+                   clusterGroup.on("click", (evt: L.LeafletMouseEvent) => {
+                      // Stop propagation to prevent map click from firing
+                      L.DomEvent.stopPropagation(evt.originalEvent);
+                      L.DomEvent.preventDefault(evt.originalEvent);
+                      if (evt.layer instanceof L.CircleMarker) {
+                         selectMonument(evt.layer as unknown as MonumentMarker);
+                      }
+                   });
 
-                  map.addLayer(clusterGroup);
-
-                  // Locate Control
-                  const locateIcon = icon({ prefix: "fas", iconName: "location-arrow" });
-                  const loadingIcon = icon({ prefix: "fas", iconName: "spinner" });
-                  new LocateControl({
-                     position: "topright",
-                     flyTo: true,
-                     icon: locateIcon.html[0],
-                     iconLoading: loadingIcon.html[0] + " animate-spin",
-                  }).addTo(map);
+                  mapInstance.value?.addLayer(clusterGroup);
 
                   // Deep link check after markers are ready
                   const urlParams = new URLSearchParams(window.location.search);
@@ -443,7 +341,7 @@ export default defineComponent({
                      flyToMonument({ properties: { inventory: inv } });
                   } else {
                      if (window.innerWidth > 768) {
-                        sidebar.open("home");
+                        sidebarInstance.value?.open("home");
                      }
                   }
                }
