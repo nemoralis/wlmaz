@@ -3,7 +3,7 @@
       <!-- Header for Empty State -->
       <div v-if="!monument" class="empty-header">
          <span>Məlumat paneli</span>
-         <CdxButton weight="quiet" @click="$emit('close')">
+         <CdxButton weight="quiet" aria-label="Bağla" @click="$emit('close')">
             <CdxIcon :icon="cdxIconClose" />
          </CdxButton>
       </div>
@@ -22,12 +22,12 @@
                      <CdxButton
                         weight="quiet"
                         :class="{ 'action-button--success': linkCopied }"
-                        title="Linki kopyala"
+                        aria-label="Linki kopyala"
                         @click="$emit('share')"
                      >
                         <CdxIcon :icon="linkCopied ? cdxIconCheck : cdxIconShare" />
                      </CdxButton>
-                     <CdxButton weight="quiet" title="Bağla" @click="$emit('close')">
+                     <CdxButton weight="quiet" aria-label="Bağla" @click="$emit('close')">
                         <CdxIcon :icon="cdxIconClose" />
                      </CdxButton>
                   </div>
@@ -57,12 +57,14 @@
             <template v-if="monument.image">
                <div class="hero-image-container">
                   <a :href="getDescriptionPage(monument.image)" target="_blank" rel="noopener">
-                     <CdxImage
+                     <img
                         :key="monument.image"
                         :src="getOptimizedImage(monument.image)"
-                        object-fit="contain"
+                        :srcset="getSrcSet(monument.image, [320, 640, 800])"
+                        sizes="(max-width: 768px) 100vw, 400px"
                         alt="Abidənin şəkli"
                         class="hero-image"
+                        loading="lazy"
                      />
                   </a>
                </div>
@@ -194,7 +196,7 @@
 </template>
 
 <script lang="ts" setup>
-import { CdxButton, CdxCard, CdxIcon, CdxImage, CdxInfoChip } from "@wikimedia/codex";
+import { CdxButton, CdxCard, CdxIcon, CdxInfoChip } from "@wikimedia/codex";
 import {
    cdxIconCamera,
    cdxIconCheck,
@@ -209,7 +211,7 @@ import {
    cdxIconUpload,
 } from "@wikimedia/codex-icons";
 import type { MonumentProps } from "@/types";
-import { getCategoryUrl, getDescriptionPage, getOptimizedImage } from "@/utils/monumentFormatters";
+import { getCategoryUrl, getDescriptionPage, getOptimizedImage, getSrcSet } from "@/utils/monumentFormatters";
 
 interface Props {
    monument: MonumentProps | null;

@@ -119,7 +119,6 @@ export default defineConfig({
                         "leaflet-sidebar-v2",
                      ],
                      "vue-vendor": ["vue", "vue-router", "pinia"],
-                     "utils-vendor": ["fuse.js", "geobuf", "pbf"],
                      "chart-vendor": ["chart.js", "vue-chartjs"],
                   },
 

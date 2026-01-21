@@ -38,7 +38,11 @@
                   <CdxIcon :icon="cdxIconFunnel" size="small" class="filter-icon" />
                   <span class="filter-label">Yalnız şəkilsizləri göstər</span>
                </div>
-               <CdxToggleSwitch v-model="filterEnabled" @click.stop />
+               <CdxToggleSwitch
+                  v-model="filterEnabled"
+                  aria-label="Yalnız şəkilsizləri göstər"
+                  @click.stop
+               />
             </div>
          </div>
       </div>
