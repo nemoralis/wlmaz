@@ -250,12 +250,95 @@ async function main() {
        
        await fs.writeFile(HISTORY_PATH, JSON.stringify(history, null, 2));
        console.log(`Saved update stats to ${HISTORY_PATH}`);
-    }
 
+       // 6. Notify IndexNow
+       await notifyIndexNow(existingData, newData);
+    }
   } catch (error) {
     console.error('Error updating monuments:', error);
     process.exit(1);
   }
+}
+
+// IndexNow Configuration
+const INDEXNOW_HOST = 'wikilovesmonuments.az';
+const INDEXNOW_KEY = '883777591e1d4511855a43256080287e';
+const INDEXNOW_KEY_LOCATION = `https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt`;
+
+async function notifyIndexNow(oldData: GeoJSON, newData: GeoJSON) {
+   console.log('--- IndexNow Notification ---');
+   const changedUrls: string[] = [];
+   const oldMap = new Map(oldData.features.map(f => [f.properties.inventory, f]));
+   const forceIndex = process.argv.includes('--force-index');
+
+   if (forceIndex) {
+      console.log('Force index enabled: Submitting ALL monuments.');
+   }
+
+   // Find added and modified
+   for (const feature of newData.features) {
+      const inv = feature.properties.inventory;
+      const oldFeature = oldMap.get(inv);
+      
+      const url = `https://${INDEXNOW_HOST}/monument/${inv.replace(/\./g, "%2E")}`;
+
+      if (forceIndex) {
+         changedUrls.push(url);
+      } else if (!oldFeature) {
+         // Added
+         changedUrls.push(url);
+      } else if (JSON.stringify(oldFeature.properties) !== JSON.stringify(feature.properties)) {
+         // Modified
+         changedUrls.push(url);
+      }
+   }
+
+   // Always add homepage and table page if there are changes
+   if (changedUrls.length > 0) {
+      changedUrls.push(`https://${INDEXNOW_HOST}/`);
+      changedUrls.push(`https://${INDEXNOW_HOST}/table`);
+   }
+
+   if (changedUrls.length === 0) {
+      console.log('No URLs to index.');
+      return;
+   }
+
+   console.log(`Notifying IndexNow for ${changedUrls.length} URLs...`);
+   
+   // IndexNow allows up to 10,000 URLs per request. 
+   // We'll slice if necessary, but unlikely for this use case.
+   const batches = [];
+   while (changedUrls.length > 0) {
+      batches.push(changedUrls.splice(0, 10000));
+   }
+
+   for (const batch of batches) {
+      try {
+         const response = await fetch('https://api.indexnow.org/indexnow', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: JSON.stringify({
+               host: INDEXNOW_HOST,
+               key: INDEXNOW_KEY,
+               keyLocation: INDEXNOW_KEY_LOCATION,
+               urlList: batch,
+            }),
+         });
+
+         if (response.ok) {
+            console.log(`✅ IndexNow success: Sent ${batch.length} URLs`);
+         } else {
+            console.error(`❌ IndexNow failed: ${response.status} ${response.statusText}`);
+            const text = await response.text();
+            console.error('Response:', text);
+         }
+      } catch (error) {
+         console.error('❌ IndexNow error:', error);
+      }
+   }
 }
 
 main();
