@@ -482,6 +482,7 @@
 <script lang="ts">
 import { computed, defineComponent, reactive, ref, toRef, watch } from "vue";
 import { useFocusTrap } from "../composables/useFocusTrap";
+import type { MonumentProps } from "../types";
 
 interface FileItem {
    id: string;
@@ -499,14 +500,6 @@ interface UploadResult {
    url: string;
 }
 
-interface MonumentInfo {
-   itemLabel?: string;
-   inventory?: string;
-   lat?: number;
-   lon?: number;
-   commonsCategory?: string;
-}
-
 export default defineComponent({
    name: "UploadModal",
    props: {
@@ -515,7 +508,7 @@ export default defineComponent({
          required: true,
       },
       monument: {
-         type: Object as () => MonumentInfo | null,
+         type: Object as () => MonumentProps | null,
          default: null,
       },
    },

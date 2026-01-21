@@ -1,17 +1,18 @@
 import { defineStore } from "pinia";
 import { ref, shallowRef } from "vue";
-import type { FeatureCollection } from "geojson";
+import type { Feature, FeatureCollection } from "geojson";
 import type { MonumentProps } from "../types";
 import DataWorker from "../workers/data.worker?worker";
 
 export const useMonumentStore = defineStore("monuments", () => {
    const geoData = shallowRef<FeatureCollection | null>(null);
    const monuments = shallowRef<MonumentProps[]>([]);
-   const searchResults = shallowRef<any[]>([]);
+   const searchResults = shallowRef<Feature[]>([]);
    const isLoading = ref(false);
    const error = ref<string | null>(null);
    const isDataReady = ref(false);
    const lastSearchQuery = ref("");
+   const selectedMonument = ref<MonumentProps | null>(null);
 
    let worker: Worker | null = null;
 
@@ -56,6 +57,7 @@ export const useMonumentStore = defineStore("monuments", () => {
       error,
       isDataReady,
       lastSearchQuery,
+      selectedMonument,
       init,
       search,
    };

@@ -8,7 +8,7 @@
                      ><font-awesome-icon :icon="['fas', 'info']" />
                   </a>
                </li>
-               <li :class="{ disabled: !selectedMonument }">
+               <li :class="{ disabled: !monumentStore.selectedMonument }">
                   <a href="#details" role="tab" aria-label="Abidə Detalları"
                      ><font-awesome-icon :icon="['fas', 'landmark']" />
                   </a>
@@ -54,7 +54,7 @@
             <!-- Details Pane -->
             <div id="details" class="leaflet-sidebar-pane">
                <MonumentDetails
-                  :monument="selectedMonument"
+                  :monument="monumentStore.selectedMonument"
                   :image-credit="imageCredit"
                   :is-authenticated="auth.isAuthenticated"
                   :inventory-copied="inventoryCopied"
@@ -75,7 +75,7 @@
 
       <UploadModal
          :is-open="showUploadModal"
-         :monument="selectedMonument"
+         :monument="monumentStore.selectedMonument"
          @close="showUploadModal = false"
       />
    </div>
@@ -105,13 +105,6 @@ import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 import { useClipboard } from "../composables/useClipboard";
 import { useWikiCredits } from "../composables/useWikiCredits";
 import { icon } from "@fortawesome/fontawesome-svg-core";
-// Utils
-import {
-   getCategoryUrl,
-   getDescriptionPage,
-   getOptimizedImage,
-   getSrcSet,
-} from "../utils/monumentFormatters";
 // CSS
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
@@ -144,7 +137,6 @@ export default defineComponent({
       const sidebarInstance = shallowRef<L.Control | null>(null);
       const markersGroup = shallowRef<L.MarkerClusterGroup | null>(null);
 
-      const selectedMonument = ref<MonumentProps | null>(null);
       const activeMarkerLayer = shallowRef<L.CircleMarker | null>(null);
 
       // Data
@@ -190,7 +182,7 @@ export default defineComponent({
 
             const props = (marker as unknown as { feature: { properties: MonumentProps } }).feature
                .properties;
-            selectedMonument.value = props;
+            monumentStore.selectedMonument = props;
 
             await nextTick();
             (sidebarInstance.value as L.Control & { open: (id: string) => void })?.open("details");
@@ -258,9 +250,9 @@ export default defineComponent({
       const openUploadModal = () => (showUploadModal.value = true);
 
       const shareMonument = async () => {
-         if (!selectedMonument.value) return;
+         if (!monumentStore.selectedMonument) return;
          const url = window.location.href;
-         const title = selectedMonument.value.itemLabel || "Abidə";
+         const title = monumentStore.selectedMonument.itemLabel || "Abidə";
          const text = `Viki Abidələri Sevir: ${title}`;
 
          if (navigator.share) {
@@ -280,7 +272,7 @@ export default defineComponent({
 
       // --- Watchers ---
 
-      watch(selectedMonument, (newVal) => {
+      watch(() => monumentStore.selectedMonument, (newVal) => {
          const url = new URL(window.location.href);
          if (newVal && newVal.itemLabel) {
             document.title = `${newVal.itemLabel} | Viki Abidələri Sevir`;
@@ -349,7 +341,7 @@ export default defineComponent({
 
          // Listen for sidebar closing event to clear selected monument
          sidebar.on("closing", () => {
-            selectedMonument.value = null;
+            monumentStore.selectedMonument = null;
             highlightMarker(null);
          });
 
@@ -364,7 +356,7 @@ export default defineComponent({
          sidebar.on("content", (e: any) => {
             if (e.id !== "details") {
                highlightMarker(null);
-               selectedMonument.value = null;
+               monumentStore.selectedMonument = null;
             }
          });
 
@@ -468,7 +460,6 @@ export default defineComponent({
          auth,
          stats,
          monumentStore,
-         selectedMonument,
          showUploadModal,
          needsPhotoOnly,
          // Actions
@@ -476,11 +467,6 @@ export default defineComponent({
          toggleNeedsPhoto,
          flyToMonument,
          shareMonument,
-         // Utils
-         getOptimizedImage,
-         getSrcSet,
-         getDescriptionPage,
-         getCategoryUrl,
          imageCredit,
          // Clipboard
          inventoryCopied,

@@ -172,9 +172,9 @@ import {
 } from "../composables/useSchemaOrg";
 import { useWikiCredits } from "../composables/useWikiCredits";
 import { useMonumentStore } from "../stores/monuments";
-import { useAuthStore } from "../stores/auth"; // Assuming useAuthStore is defined elsewhere
+import { useAuthStore } from "../stores/auth";
 import type { MonumentProps } from "../types";
-import { getOptimizedImage, getSrcSet } from "../utils/monumentFormatters";
+import { getCategoryUrl, getOptimizedImage, getSrcSet } from "../utils/monumentFormatters";
 
 const monumentStore = useMonumentStore();
 const auth = useAuthStore();
@@ -191,7 +191,7 @@ const showUploadInfo = () => {
 };
 
 const getCategoryLink = (category: string) => {
-   return `https://commons.wikimedia.org/wiki/Category:${category}`;
+   return getCategoryUrl({ commonsCategory: category });
 };
 
 // Computed Schema.org structured data

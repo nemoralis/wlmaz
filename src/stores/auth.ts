@@ -1,10 +1,5 @@
 import { defineStore } from "pinia";
-
-interface User {
-   id: string;
-   username: string;
-   token?: string;
-}
+import type { WikiUser as User } from "../types";
 
 interface AuthState {
    user: User | null;
