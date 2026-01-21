@@ -7,12 +7,10 @@ import { defineConfig } from "vite";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import Sitemap from "vite-plugin-sitemap";
 
-// Read monuments data for sitemap generation
 const monumentsPath = path.resolve(process.cwd(), "public/monuments.geojson");
 let monumentRoutes: string[] = [];
 let lastmodMap: Record<string, Date> = {};
 
-// Static routes for SPA
 const staticRoutes = ["/", "/stats", "/table", "/about"];
 const buildTime = new Date();
 
@@ -28,19 +26,15 @@ try {
          const route = `/monument/${encodedInventory}`;
          monumentRoutes.push(route);
 
-         // Store Wikidata's last modified date
          if (f.properties.lastModified) {
             lastmodMap[route] = new Date(f.properties.lastModified);
          }
       }
    });
 
-   // Add build timestamp for static routes
    staticRoutes.forEach((route) => {
       lastmodMap[route] = buildTime;
    });
-
-   // Combine static and dynamic routes, removing duplicates
    monumentRoutes = Array.from(new Set([...staticRoutes, ...monumentRoutes]));
 
    console.log(
@@ -75,7 +69,6 @@ export default defineConfig({
       }),
    ],
 
-   // Optimize dependency pre-bundling
    optimizeDeps: {
       include: ["leaflet", "leaflet.markercluster", "geobuf", "pbf"],
    },
@@ -97,20 +90,12 @@ export default defineConfig({
          },
       },
    },
-   css: {
-      devSourcemap: false, // Suppress leaflet.locatecontrol missing sourcemap warning
-   },
-   esbuild: process.env.NODE_ENV === 'production' ? { drop: ["console", "debugger"] } : {},
    build: {
-      target: "esnext",
-      // Increase chunk size warning limit for map tiles
+      target: "es2020",
       chunkSizeWarningLimit: 600,
-      // Better CSS code splitting
       cssCodeSplit: true,
-      // Enable tree-shaking
       rollupOptions: {
          output: {
-            // Improved manual chunks for better code splitting
             manualChunks: {
                      "leaflet-vendor": [
                         "leaflet",
