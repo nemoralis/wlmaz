@@ -19,7 +19,7 @@
                   class="absolute top-4 right-4 z-10 rounded-full bg-white/80 p-2 text-gray-500 hover:bg-gray-100 md:hidden"
                   @click="closeModal"
                >
-                  <i class="fa fa-times text-xl" aria-hidden="true"></i>
+                  <font-awesome-icon :icon="['fas', 'times']" class="text-xl" aria-hidden="true" />
                </button>
 
                <!-- Hidden title for screen readers -->
@@ -36,10 +36,12 @@
                   <div class="w-full max-w-sm px-6 text-center">
                      <!-- Spinner -->
                      <div class="mb-6 inline-block">
-                        <i
-                           class="fa fa-circle-notch fa-spin text-4xl text-blue-600"
+                        <font-awesome-icon
+                           :icon="['fas', 'circle-notch']"
+                           spin
+                           class="text-4xl text-blue-600"
                            aria-hidden="true"
-                        ></i>
+                        />
                      </div>
 
                      <h3 class="mb-2 text-xl font-bold text-gray-900">Yüklənir...</h3>
@@ -73,7 +75,7 @@
                   <div
                      class="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-green-100"
                   >
-                     <i class="fa fa-check text-4xl text-green-600"></i>
+                     <font-awesome-icon :icon="['fas', 'check']" class="text-4xl text-green-600" />
                   </div>
                   <h3 class="mb-2 text-2xl font-bold text-gray-900">Uğurla yükləndi!</h3>
                   <p class="mb-8 text-gray-500">
@@ -90,7 +92,7 @@
                            class="flex items-center justify-between border-b border-gray-100 bg-white px-4 py-3 last:border-0 hover:bg-gray-50"
                         >
                            <div class="flex items-center truncate">
-                              <i class="fa-regular fa-image mr-3 text-gray-400"></i>
+                              <font-awesome-icon :icon="['far', 'image']" class="mr-3 text-gray-400" />
                               <span
                                  class="truncate text-sm font-medium text-gray-700"
                                  :title="res.filename"
@@ -103,7 +105,7 @@
                               target="_blank"
                               class="ml-4 flex items-center text-sm font-medium text-blue-600 hover:text-blue-800"
                            >
-                              Bax <i class="fa fa-external-link-alt ml-1 text-xs"></i>
+                              Bax <font-awesome-icon :icon="['fas', 'external-link-alt']" class="ml-1 text-xs" />
                            </a>
                         </div>
                      </div>
@@ -131,7 +133,7 @@
                   class="flex h-full w-full flex-col items-center justify-center p-8 text-center"
                >
                   <div class="mb-6 rounded-full bg-red-100 p-6">
-                     <i class="fa fa-ban text-5xl text-red-600"></i>
+                     <font-awesome-icon :icon="['fas', 'ban']" class="text-5xl text-red-600" />
                   </div>
                   <h3 class="mb-3 text-2xl font-bold text-gray-900">Yükləmələr dayandırılıb</h3>
                   <p class="mb-8 max-w-md text-gray-600">
@@ -173,7 +175,7 @@
                         ]"
                         @click="triggerFileInput"
                      >
-                        <i class="fa-solid fa-cloud-arrow-up mb-4 text-4xl text-blue-500"></i>
+                        <font-awesome-icon :icon="['fas', 'cloud-arrow-up']" class="mb-4 text-4xl text-blue-500" />
                         <p class="text-sm font-medium">Şəkilləri buraya atın</p>
                         <p class="my-2 text-xs text-gray-400">- və ya -</p>
                         <button class="text-sm font-semibold text-blue-600 hover:underline">
@@ -194,7 +196,7 @@
                                  v-if="!file.preview"
                                  class="flex h-full w-full items-center justify-center bg-gray-100 text-gray-400"
                               >
-                                 <i class="fa fa-circle-notch fa-spin text-2xl"></i>
+                                 <font-awesome-icon :icon="['fas', 'circle-notch']" spin class="text-2xl" />
                               </div>
                               <img
                                  v-else
@@ -209,7 +211,7 @@
                                     class="absolute top-1 right-1 rounded-full bg-red-500 p-1.5 text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100 hover:bg-red-600"
                                     @click="removeFile(index)"
                                  >
-                                    <i class="fa fa-times text-xs"></i>
+                                    <font-awesome-icon :icon="['fas', 'times']" class="text-xs" />
                                  </button>
                               </div>
                               <div
@@ -224,7 +226,7 @@
                               class="flex aspect-square flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 hover:border-blue-400 hover:bg-blue-50"
                               @click="triggerFileInput"
                            >
-                              <i class="fa fa-plus mb-1 text-2xl text-gray-400"></i>
+                              <font-awesome-icon :icon="['fas', 'plus']" class="mb-1 text-2xl text-gray-400" />
                               <span class="text-xs text-gray-500">Əlavə et</span>
                            </button>
                         </div>
@@ -265,7 +267,7 @@
                         class="hidden rounded-full text-gray-400 hover:text-gray-600 md:block"
                         @click="closeModal"
                      >
-                        <i class="fa fa-times text-xl" aria-hidden="true"></i>
+                        <font-awesome-icon :icon="['fas', 'times']" class="text-xl" aria-hidden="true" />
                      </button>
                   </div>
 
@@ -274,7 +276,7 @@
                      <div
                         class="rounded-lg border border-yellow-200 bg-yellow-50 p-3 text-sm text-yellow-700"
                      >
-                        <i class="fa fa-exclamation-triangle mr-1"></i>
+                        <font-awesome-icon :icon="['fas', 'exclamation-triangle']" class="mr-1" />
                         HEIC fayllarını Vikianbara yükləmək mümkün olmadığı üçün onlar avtomatik
                         olaraq
                         <strong>JPG</strong> formatına çevriləcək.
@@ -316,7 +318,7 @@
                         v-if="files.length === 0"
                         class="flex h-full flex-col items-center justify-center text-gray-400"
                      >
-                        <i class="fa-solid fa-pen-to-square mb-3 text-3xl opacity-20"></i>
+                        <font-awesome-icon :icon="['fas', 'pen-to-square']" class="mb-3 text-3xl opacity-20" />
                         <p>Şəkil seçdikdən sonra məlumatları burada doldurun.</p>
                      </div>
 
@@ -327,7 +329,7 @@
                               v-if="files.length > 1"
                               class="rounded-lg bg-blue-50 p-3 text-sm text-blue-700"
                            >
-                              <i class="fa fa-info-circle mr-1"></i>
+                              <font-awesome-icon :icon="['fas', 'info-circle']" class="mr-1" />
                               Bu məlumatlar <strong>{{ files.length }}</strong> şəkilin hamısına
                               tətbiq olunacaq.
                            </div>
@@ -345,14 +347,14 @@
                                  placeholder="Məs: Qız Qalası ümumi görünüş"
                               />
                               <p v-if="files.length > 1" class="mt-1 text-xs text-gray-500">
-                                 <i class="fa fa-sort-numeric-down mr-1"></i>
+                                 <font-awesome-icon :icon="['fas', 'sort-numeric-down']" class="mr-1" />
                                  Fayl adları avtomatik nömrələnəcək (Məs: "{{
                                     bulkForm.title || "Başlıq"
                                  }}
                                  1", "{{ bulkForm.title || "Başlıq" }} 2")
                               </p>
                               <p v-else class="mt-1 text-xs text-gray-500">
-                                 <i class="fa fa-file-signature mr-1"></i>
+                                 <font-awesome-icon :icon="['fas', 'file-signature']" class="mr-1" />
                                  Bu başlıq fayl adı kimi istifadə olunacaq.
                               </p>
                            </div>
@@ -369,7 +371,7 @@
                                  <option value="cc0">CC0 (İctimai varidat)</option>
                               </select>
                               <p class="mt-1 text-xs text-gray-500">
-                                 <i class="fa fa-info-circle mr-1"></i>
+                                 <font-awesome-icon :icon="['fas', 'info-circle']" class="mr-1" />
                                  {{ licenseDescription }}
                                  <a
                                     :href="licenseUrl"
@@ -463,7 +465,7 @@
                            @click="handleUpload"
                         >
                            <template v-if="isUploading">
-                              <i class="fa fa-circle-notch fa-spin mr-2"></i>
+                              <font-awesome-icon :icon="['fas', 'circle-notch']" spin class="mr-2" />
                               Yüklənir...
                            </template>
                            <span v-else>Yüklə ({{ files.length }})</span>

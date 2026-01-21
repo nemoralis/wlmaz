@@ -60,6 +60,7 @@
                      <CdxImage
                         :key="monument.image"
                         :src="getOptimizedImage(monument.image)"
+                        object-fit="contain"
                         alt="Abidənin şəkli"
                         class="hero-image"
                      />
@@ -258,35 +259,19 @@ const openExternalLink = (url: string) => {
 
 .hero-image-container {
    position: relative;
-   height: 16rem;
-   background: var(--background-color-disabled-subtle, #eaecf0);
-}
-
-.image-loading {
-   position: absolute;
-   inset: 0;
+   min-height: 12rem;
+   max-height: 25rem;
    display: flex;
    align-items: center;
    justify-content: center;
-   background: var(--background-color-disabled-subtle, #eaecf0);
-   z-index: 1;
-}
-
-.loading-icon {
-   width: 3rem;
-   height: 3rem;
-   color: var(--color-placeholder, #72777d);
 }
 
 .hero-image {
    width: 100%;
-   height: 100%;
-   object-fit: cover;
+   height: auto;
+   max-height: 25rem;
+   object-fit: contain;
    transition: opacity 0.3s ease;
-}
-
-.hero-image--loading {
-   opacity: 0;
 }
 
 .action-button--success {

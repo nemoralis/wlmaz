@@ -5,13 +5,13 @@
             <ul role="tablist">
                <li>
                   <a href="#home" role="tab" aria-label="Axtarış və Filtrlər"
-                     ><i class="fa fa-info"></i
-                  ></a>
+                     ><font-awesome-icon :icon="['fas', 'info']" />
+                  </a>
                </li>
                <li :class="{ disabled: !selectedMonument }">
                   <a href="#details" role="tab" aria-label="Abidə Detalları"
-                     ><i class="fa fa-landmark"></i
-                  ></a>
+                     ><font-awesome-icon :icon="['fas', 'landmark']" />
+                  </a>
                </li>
             </ul>
 
@@ -23,7 +23,7 @@
                      title="WLM Azerbaijan Page"
                      aria-label="Wiki Loves Monuments Azerbaijan Page"
                   >
-                     <i class="fa fa-external-link-alt"></i>
+                     <font-awesome-icon :icon="['fas', 'external-link-alt']" />
                   </a>
                </li>
                <li>
@@ -34,7 +34,7 @@
                      title="View Source on GitHub"
                      aria-label="GitHub Repository"
                   >
-                     <i class="fa-brands fa-github"></i>
+                     <font-awesome-icon :icon="['fab', 'github']" />
                   </a>
                </li>
             </ul>
@@ -106,11 +106,11 @@ import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
 import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 import { useClipboard } from "../composables/useClipboard";
 import { useWikiCredits } from "../composables/useWikiCredits";
+import { icon } from "@fortawesome/fontawesome-svg-core";
 // Utils
 import {
    getCategoryUrl,
    getDescriptionPage,
-   getMonumentIcon,
    getOptimizedImage,
    getSrcSet,
 } from "../utils/monumentFormatters";
@@ -146,15 +146,15 @@ export default defineComponent({
       const markersGroup = shallowRef<L.MarkerClusterGroup | null>(null);
 
       const selectedMonument = ref<MonumentProps | null>(null);
-      const activeMarkerLayer = shallowRef<L.Marker | null>(null);
+      const activeMarkerLayer = shallowRef<L.CircleMarker | null>(null);
 
       // Data
       const stats = ref({ total: 0, withImage: 0 });
       const allMonuments = ref<any[]>([]); // Using any[] to match prop expectation
       const searchIndex = shallowRef<unknown>(null);
       const imageLoading = ref(true);
-      const markerLookup = new Map<string, L.Marker>();
-      let allMarkers: L.Marker[] = [];
+      const markerLookup = new Map<string, L.CircleMarker>();
+      let allMarkers: L.Layer[] = [];
 
       // UI
       const showUploadModal = ref(false);
@@ -162,32 +162,36 @@ export default defineComponent({
 
       // --- Methods ---
 
-      const highlightMarker = (marker: L.Marker | null) => {
+      const highlightMarker = (marker: L.CircleMarker | null) => {
          // 1. Remove highlight from previous
          if (activeMarkerLayer.value) {
-            const el = activeMarkerLayer.value.getElement();
-            el?.querySelector(".marker-pin")?.classList.remove("selected-highlight");
+            (activeMarkerLayer.value as unknown as L.CircleMarker).setStyle({
+               color: "#fff",
+               weight: 2,
+               radius: 8,
+            });
          }
 
          // 2. Add highlight to new
          if (marker) {
-            const el = marker.getElement();
-            if (el) {
-               el.querySelector(".marker-pin")?.classList.add("selected-highlight");
-            }
+            marker.setStyle({
+               color: "#ffd700", // Yellow border for selection
+               weight: 4,
+               radius: 10, // Slightly larger
+            });
             activeMarkerLayer.value = marker;
          } else {
             activeMarkerLayer.value = null;
          }
       };
 
-      const selectMonument = async (marker: L.Marker) => {
+      const selectMonument = async (marker: L.CircleMarker) => {
          if (!marker || !markersGroup.value) return;
 
          const performSelection = async () => {
             highlightMarker(marker);
 
-            const props = (marker as L.Marker & { feature: { properties: MonumentProps } }).feature
+            const props = (marker as unknown as { feature: { properties: MonumentProps } }).feature
                .properties;
             selectedMonument.value = props;
 
@@ -201,11 +205,11 @@ export default defineComponent({
             getVisibleParent: (m: L.Marker) => L.Marker | null;
             zoomToShowLayer: (m: L.Marker, cb: () => void) => void;
          };
-         const visibleParent = cluster.getVisibleParent(marker);
+         const visibleParent = cluster.getVisibleParent(marker as unknown as L.Marker);
 
-         if (visibleParent && visibleParent !== marker) {
+         if (visibleParent && visibleParent !== (marker as unknown as L.Layer)) {
             // It is clustered. Use zoomToShowLayer to reveal it.
-            cluster.zoomToShowLayer(marker, () => {
+            cluster.zoomToShowLayer(marker as unknown as L.Marker, () => {
                performSelection();
             });
          } else {
@@ -235,8 +239,8 @@ export default defineComponent({
             } else {
                mapInstance.value?.flyTo(marker.getLatLng(), 16, { duration: 1.5 });
 
-               const props = (marker as L.Marker & { feature: { properties: MonumentProps } })
-                  .feature.properties;
+               const props = (marker as unknown as { feature: { properties: MonumentProps } }).feature
+                  .properties;
                selectedMonument.value = props;
                (sidebarInstance.value as L.Control & { open: (id: string) => void })?.open(
                   "details",
@@ -339,8 +343,11 @@ export default defineComponent({
          const toggleBtn = layerControl
             .getContainer()
             ?.querySelector(".leaflet-control-layers-toggle");
-         if (toggleBtn)
-            toggleBtn.innerHTML = '<i class="fa-solid fa-layer-group text-gray-600 text-sm"></i>';
+         if (toggleBtn) {
+            const layerGroupIcon = icon({ prefix: "fas", iconName: "layer-group" });
+            toggleBtn.innerHTML = layerGroupIcon.html[0];
+            toggleBtn.classList.add("text-gray-600", "text-sm");
+         }
 
          L.control.zoom({ position: "topright" }).addTo(map);
 
@@ -356,18 +363,12 @@ export default defineComponent({
          });
 
          // 3. Global Map Events
-         map.on("click", () => {
+         map.on("click", (e: L.LeafletMouseEvent) => {
+            if (e.originalEvent.defaultPrevented) return;
             sidebar.close();
             highlightMarker(null);
          });
 
-         // Robust highlight: Apply class when layer is added (virtualization support)
-         map.on("layeradd", (e) => {
-            if (activeMarkerLayer.value && e.layer === activeMarkerLayer.value) {
-               const el = (e.layer as L.Marker).getElement();
-               el?.querySelector(".marker-pin")?.classList.add("selected-highlight");
-            }
-         });
 
          sidebar.on("content", (e: any) => {
             if (e.id !== "details") {
@@ -414,36 +415,43 @@ export default defineComponent({
                      props.lon = latlng.lng;
 
                      const hasImage = !!props.image;
-                     const faIcon = getMonumentIcon(props.itemLabel);
-                     const bgClass = hasImage ? "marker-has-image" : "marker-needs-image";
-
-                     const icon = L.divIcon({
-                        className: "custom-div-icon",
-                        html: `<div class="marker-pin ${bgClass}"><i class="fa-solid ${faIcon} text-white text-[14px]"></i></div>`,
-                        iconSize: [30, 30],
-                        iconAnchor: [15, 15],
+                     
+                     const marker = L.circleMarker(latlng, {
+                        radius: 8,
+                        fillColor: hasImage ? "#2e7d32" : "#d32f2f", // Green for image, Red for no image
+                        color: "#fff",
+                        weight: 2,
+                        opacity: 1,
+                        fillOpacity: 0.8,
                      });
 
-                     const marker = L.marker(latlng, { icon });
                      // Store ID
                      if (props.inventory) markerLookup.set(props.inventory, marker);
                      return marker;
                   },
                });
 
-               allMarkers = geoJsonLayer.getLayers() as L.Marker[];
+               allMarkers = geoJsonLayer.getLayers() as L.Layer[];
                clusterGroup.addLayers(allMarkers);
 
                // Group Event delegation
                clusterGroup.on("click", (evt: L.LeafletMouseEvent) => {
                   L.DomEvent.stopPropagation(evt.originalEvent);
+                  L.DomEvent.preventDefault(evt.originalEvent);
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   selectMonument((evt as any).layer);
                });
 
                map.addLayer(clusterGroup);
 
-               new LocateControl({ position: "topright", flyTo: true }).addTo(map);
+                const locateIcon = icon({ prefix: "fas", iconName: "location-arrow" });
+                const loadingIcon = icon({ prefix: "fas", iconName: "spinner" });
+                new LocateControl({
+                   position: "topright",
+                   flyTo: true,
+                   icon: locateIcon.html[0],
+                   iconLoading: loadingIcon.html[0] + " animate-spin",
+                }).addTo(map);
 
                // Initial URL Navigation
                const urlParams = new URLSearchParams(window.location.search);

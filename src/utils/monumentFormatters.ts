@@ -1,39 +1,5 @@
 import type { MonumentProps } from "../types";
 
-export const getMonumentIcon = (name: string = ""): string => {
-   const n = name.toLowerCase();
-
-   switch (true) {
-      case n.includes("məscid"):
-         return "fa-mosque";
-      case n.includes("kilsə"):
-      case n.includes("monastır"):
-         return "fa-church";
-      case n.includes("qala"):
-      case n.includes("bürc"):
-      case n.includes("qüllə"):
-         return "fa-chess-rook";
-      case n.includes("körpü"):
-         return "fa-archway";
-      case n.includes("hamam"):
-         return "fa-soap";
-      case n.includes("türbə"):
-      case n.includes("mavzoley"):
-      case n.includes("saray"):
-         return "fa-place-of-worship";
-      case n.includes("ev"):
-      case n.includes("mülk"):
-      case n.includes("bina"):
-         return "fa-home";
-      case n.includes("sinaqoq"):
-         return "fa-synagogue";
-      case n.includes("nekropol"):
-         return "fa-skull";
-      default:
-         return "fa-landmark";
-   }
-};
-
 export const getOptimizedImage = (url: string): string => {
    if (!url) return "";
    // Force HTTPS
