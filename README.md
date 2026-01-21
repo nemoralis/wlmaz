@@ -1,45 +1,40 @@
 ![WLMAZ Project Banner](./public/wlm-az.png)
-🇦🇿 Wiki Loves Monuments Azerbaijan - Interactive Map
+
+# Wiki Loves Monuments Azerbaijan - Interactive Map
+
 ![GitHub License](https://img.shields.io/github/license/nemoralis/wlmaz)
 ![Contributors](https://img.shields.io/github/contributors/nemoralis/wlmaz?color=dark-green) ![Stargazers](https://img.shields.io/github/stars/nemoralis/wlmaz?style=social)
 ![Issues](https://img.shields.io/github/issues/nemoralis/wlmaz)
-![GitHub Sponsors](https://img.shields.io/github/sponsors/nemoralis)
 
-**WLMAZ** is a full-stack mapping application designed to help contributors discover heritage monuments in Azerbaijan and upload photos directly to Wikimedia Commons.
+**wlmaz** is a full-stack mapping application designed to help contributors discover heritage monuments in Azerbaijan and upload photos directly to Wikimedia Commons. 
 
 It features a responsive, clustered map interface powered by Vue 3 and Leaflet, backed by a secure Node.js proxy that handles MediaWiki OAuth authentication and uploads.
 
-## ✨ Features
+## Features
 
-### 🗺️ Interactive Map
+- **Interactive Map:** High-performance markers and clustering powered by `Leaflet.markercluster` with canvas rendering.
+- **Fuzzy Search:** Fast, client-side search across thousands of monuments with fuzzy matching capabilities.
+- **MediaWiki OAuth:** Secure authentication using existing Wikimedia accounts.
+- **Direct Uploads:** Seamless photo uploads to Wikimedia Commons directly from the interface.
+- **Deep Linking:** Share specific monuments via unique inventory URLs (e.g., `?inventory=4810`).
+- **Rich Metadata:** Automatic image credits, Wikidata integration, and Schema.org structured data.
+- **Mobile Optimized:** Fully responsive sidebar and map controls designed for field use.
+- **Persistence:** Redis-backed session management for stable authentication in production.
 
-- **High-Performance Clustering:** Handles thousands of monument points using `Leaflet.markercluster` with chunked loading.
-- **Visual Status:** Markers are color-coded (Green = Has Image, Blue = Needs Image).
-- **Deep Linking:** Share specific monuments via URL parameters (e.g., `?inventory=4810`).
-- **Responsive Sidebar:** Detailed view of monuments using `leaflet-sidebar-v2`, fully optimized for mobile devices.
-- **Rich Metadata:** Displays Wikidata IDs, Wikipedia links, and automatic image credits.
-- **SEO Optimized:** Integrated Schema.org structured data for better search engine visibility.
-
-### 🔐 Authentication & Uploads
-
-- **MediaWiki OAuth 1.0a:** Secure login using existing Wikimedia accounts.
-- **Direct Uploads:** Upload photos to Wikimedia Commons directly from the interface.
-- **Session Management:** Supports both Memory (Dev) and Redis (Production) session stores.
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- **Node.js:** v20.6.0 or higher (Required for `--env-file` support).
-- **pnpm:** Recommended package manager.
-- **Docker:** For running Redis locally.
+- **Node.js:** v20.6.0 or higher.
+- **npm:** Use npm for package management.
+- **Redis:** Required for session management in production.
 
 ### 1. Clone & Install
 
 ```bash
 git clone https://github.com/nemoralis/wlmaz.git
 cd wlmaz
-pnpm install
+npm install
 ```
 
 ### 2. Environment Setup
@@ -47,79 +42,36 @@ pnpm install
 Create a `.env` file in the root directory:
 
 ```bash
+WM_CONSUMER_KEY=
+WM_CONSUMER_SECRET=
+
+NODE_ENV=
 PORT=3000
-NODE_ENV=development
 CLIENT_URL=http://localhost:5173
-
-# Authentication (Get these from Special:OAuthConsumerRegistration on Commons)
-WM_CONSUMER_KEY=your_consumer_key
-WM_CONSUMER_SECRET=your_consumer_secret
-SESSION_SECRET=your_complex_random_string
-
-REDIS_URL=redis://localhost:6379
+SESSION_SECRET=SessionSecret
+REDIS_URL=redis://:redispassword@localhost:6379
 ```
 
-### 3. Run Development Server
+### 3. Start Redis (Docker)
+
+If you don't have Redis installed locally, you can start it using Docker:
+
+```bash
+docker run -d --name wlmaz-redis -p 6379:6379 redis:alpine
+```
+
+### 4. Run Development Server
 
 This command runs both the Vite Frontend and the Express Backend concurrently.
 
 ```bash
-pnpm run dev
+npm run dev
 ```
 
 - Frontend: http://localhost:5173
 - Backend: http://localhost:3000
 
-## 🐳 Deployment (Docker)
 
-The application is containerized and can be deployed as a single unit.
+## License
 
-```bash
-# Build and run with Docker
-docker build -t wlmaz .
-docker run -p 3000:3000 -e REDIS_URL=redis://host.docker.internal:6379 wlmaz
-```
-
-## 🛠️ Tech Stack
-
-- **Frontend:** [Vue 3](https://vuejs.org/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/), [Pinia](https://pinia.vuejs.org/), [TailwindCSS](https://tailwindcss.com/)
-- **Map:** [Leaflet](https://leafletjs.com/), [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster), [geobuf](https://github.com/mapbox/geobuf)
-- **Backend:** [Node.js](https://nodejs.org/), [Express](https://expressjs.com/)
-- **Database/Cache:** [Redis](https://redis.io/)
-- **Authentication:** [Passport.js](https://www.passportjs.org/) (MediaWiki OAuth)
-- **SEO:** [Schema.org](https://schema.org/) structured data (JSON-LD) for monuments, organization, and navigation
-
-## 🏗️ Architecture
-
-The project is a Monorepo-style structure where Frontend and Backend live together but are served separately.
-
-```
-wlmaz/
-├── public/             # Static assets (GeoJSON, Logos)
-├── src/
-│   ├── auth/           # Passport.js & OAuth Logic
-│   ├── components/     # Vue Components (MonumentMap, UploadModal)
-│   ├── composables/    # Vue Composables (useAuth, useMap)
-│   ├── pages/          # Views (Home, About)
-│   ├── routes/         # Express API Routes
-│   ├── stores/         # Pinia State (Auth)
-│   ├── types/          # Shared TypeScript Interfaces
-│   ├── utils/          # Helper functions
-│   ├── workers/        # Web Workers for heavy processing
-│   ├── index.ts        # Backend Entry Point
-│   └── main.ts         # Frontend Entry Point
-└── vite.config.ts      # Vite Configuration
-```
-
-## 📜 Scripts
-
-- `pnpm run dev`: Run both frontend and backend in development mode.
-- `pnpm run build`: Type-check and build the frontend for production.
-- `pnpm run preview`: Preview the production build locally.
-- `pnpm run convert-data`: Convert `monuments.geojson` to `monuments.pbf` (Protocol Buffers) for faster loading.
-- `pnpm run lint`: Lint and fix files.
-- `pnpm run format`: Format files with Prettier.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a PR.
+This project is licensed under the MIT License.
