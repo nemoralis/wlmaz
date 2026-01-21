@@ -121,7 +121,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { computed, defineAsyncComponent, defineComponent, onMounted, ref } from "vue";
 import { useHead } from "@unhead/vue";
 import { CdxButton, CdxIcon, CdxSearchInput, CdxTable } from "@wikimedia/codex";
 import {
@@ -130,7 +130,7 @@ import {
    cdxIconMapPin,
    cdxIconUpload,
 } from "@wikimedia/codex-icons";
-import UploadModal from "../components/UploadModal.vue";
+const UploadModal = defineAsyncComponent(() => import("../components/UploadModal.vue"));
 import { useAuthStore } from "../stores/auth";
 import { useMonumentStore } from "../stores/monuments";
 
