@@ -133,16 +133,7 @@ import {
 const UploadModal = defineAsyncComponent(() => import("../components/UploadModal.vue"));
 import { useAuthStore } from "../stores/auth";
 import { useMonumentStore } from "../stores/monuments";
-
-interface Monument {
-   item: string;
-   itemLabel: string;
-   itemAltLabel?: string;
-   inventory?: string;
-   image?: string;
-   article?: string;
-   [key: string]: any;
-}
+import type { MonumentProps as Monument } from "../types";
 
 export default defineComponent({
    name: "TablePage",
