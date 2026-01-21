@@ -92,7 +92,10 @@
                            class="flex items-center justify-between border-b border-gray-100 bg-white px-4 py-3 last:border-0 hover:bg-gray-50"
                         >
                            <div class="flex items-center truncate">
-                              <font-awesome-icon :icon="['far', 'image']" class="mr-3 text-gray-400" />
+                              <font-awesome-icon
+                                 :icon="['far', 'image']"
+                                 class="mr-3 text-gray-400"
+                              />
                               <span
                                  class="truncate text-sm font-medium text-gray-700"
                                  :title="res.filename"
@@ -105,7 +108,11 @@
                               target="_blank"
                               class="ml-4 flex items-center text-sm font-medium text-blue-600 hover:text-blue-800"
                            >
-                              Bax <font-awesome-icon :icon="['fas', 'external-link-alt']" class="ml-1 text-xs" />
+                              Bax
+                              <font-awesome-icon
+                                 :icon="['fas', 'external-link-alt']"
+                                 class="ml-1 text-xs"
+                              />
                            </a>
                         </div>
                      </div>
@@ -175,7 +182,10 @@
                         ]"
                         @click="triggerFileInput"
                      >
-                        <font-awesome-icon :icon="['fas', 'cloud-arrow-up']" class="mb-4 text-4xl text-blue-500" />
+                        <font-awesome-icon
+                           :icon="['fas', 'cloud-arrow-up']"
+                           class="mb-4 text-4xl text-blue-500"
+                        />
                         <p class="text-sm font-medium">Şəkilləri buraya atın</p>
                         <p class="my-2 text-xs text-gray-400">- və ya -</p>
                         <button class="text-sm font-semibold text-blue-600 hover:underline">
@@ -196,7 +206,11 @@
                                  v-if="!file.preview"
                                  class="flex h-full w-full items-center justify-center bg-gray-100 text-gray-400"
                               >
-                                 <font-awesome-icon :icon="['fas', 'circle-notch']" spin class="text-2xl" />
+                                 <font-awesome-icon
+                                    :icon="['fas', 'circle-notch']"
+                                    spin
+                                    class="text-2xl"
+                                 />
                               </div>
                               <img
                                  v-else
@@ -226,7 +240,10 @@
                               class="flex aspect-square flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 hover:border-blue-400 hover:bg-blue-50"
                               @click="triggerFileInput"
                            >
-                              <font-awesome-icon :icon="['fas', 'plus']" class="mb-1 text-2xl text-gray-400" />
+                              <font-awesome-icon
+                                 :icon="['fas', 'plus']"
+                                 class="mb-1 text-2xl text-gray-400"
+                              />
                               <span class="text-xs text-gray-500">Əlavə et</span>
                            </button>
                         </div>
@@ -267,7 +284,11 @@
                         class="hidden rounded-full text-gray-400 hover:text-gray-600 md:block"
                         @click="closeModal"
                      >
-                        <font-awesome-icon :icon="['fas', 'times']" class="text-xl" aria-hidden="true" />
+                        <font-awesome-icon
+                           :icon="['fas', 'times']"
+                           class="text-xl"
+                           aria-hidden="true"
+                        />
                      </button>
                   </div>
 
@@ -318,7 +339,10 @@
                         v-if="files.length === 0"
                         class="flex h-full flex-col items-center justify-center text-gray-400"
                      >
-                        <font-awesome-icon :icon="['fas', 'pen-to-square']" class="mb-3 text-3xl opacity-20" />
+                        <font-awesome-icon
+                           :icon="['fas', 'pen-to-square']"
+                           class="mb-3 text-3xl opacity-20"
+                        />
                         <p>Şəkil seçdikdən sonra məlumatları burada doldurun.</p>
                      </div>
 
@@ -347,14 +371,20 @@
                                  placeholder="Məs: Qız Qalası ümumi görünüş"
                               />
                               <p v-if="files.length > 1" class="mt-1 text-xs text-gray-500">
-                                 <font-awesome-icon :icon="['fas', 'sort-numeric-down']" class="mr-1" />
+                                 <font-awesome-icon
+                                    :icon="['fas', 'sort-numeric-down']"
+                                    class="mr-1"
+                                 />
                                  Fayl adları avtomatik nömrələnəcək (Məs: "{{
                                     bulkForm.title || "Başlıq"
                                  }}
                                  1", "{{ bulkForm.title || "Başlıq" }} 2")
                               </p>
                               <p v-else class="mt-1 text-xs text-gray-500">
-                                 <font-awesome-icon :icon="['fas', 'file-signature']" class="mr-1" />
+                                 <font-awesome-icon
+                                    :icon="['fas', 'file-signature']"
+                                    class="mr-1"
+                                 />
                                  Bu başlıq fayl adı kimi istifadə olunacaq.
                               </p>
                            </div>
@@ -465,7 +495,11 @@
                            @click="handleUpload"
                         >
                            <template v-if="isUploading">
-                              <font-awesome-icon :icon="['fas', 'circle-notch']" spin class="mr-2" />
+                              <font-awesome-icon
+                                 :icon="['fas', 'circle-notch']"
+                                 spin
+                                 class="mr-2"
+                              />
                               Yüklənir...
                            </template>
                            <span v-else>Yüklə ({{ files.length }})</span>
@@ -642,7 +676,7 @@ export default defineComponent({
 
       const processFiles = (newFiles: FileList | File[]) => {
          const incoming = Array.from(newFiles);
-         
+
          const validFiles = incoming.filter((file) => {
             const isHeic =
                file.name.toLowerCase().endsWith(".heic") ||

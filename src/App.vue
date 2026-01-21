@@ -173,7 +173,8 @@
                   :icon="['fas', 'chart-pie']"
                   class="w-5 text-gray-400"
                   aria-hidden="true"
-               /> Statistika
+               />
+               Statistika
             </router-link>
             <router-link
                to="/table"
@@ -185,7 +186,8 @@
                   :icon="['fas', 'list']"
                   class="w-5 text-gray-400"
                   aria-hidden="true"
-               /> Siyahı
+               />
+               Siyahı
             </router-link>
             <router-link
                to="/about"
@@ -197,7 +199,8 @@
                   :icon="['fas', 'circle-info']"
                   class="w-5 text-gray-400"
                   aria-hidden="true"
-               /> Haqqında
+               />
+               Haqqında
             </router-link>
          </div>
       </transition>

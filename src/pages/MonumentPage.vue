@@ -137,7 +137,8 @@
                         class="w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
                         @click="auth.login"
                      >
-                        <font-awesome-icon :icon="['fas', 'sign-in-alt']" class="mr-2" /> Yükləmək üçün daxil ol
+                        <font-awesome-icon :icon="['fas', 'sign-in-alt']" class="mr-2" /> Yükləmək
+                        üçün daxil ol
                      </button>
                   </div>
                </div>
@@ -171,8 +172,8 @@ import {
    useMonumentSchema,
 } from "../composables/useSchemaOrg";
 import { useWikiCredits } from "../composables/useWikiCredits";
-import { useMonumentStore } from "../stores/monuments";
 import { useAuthStore } from "../stores/auth";
+import { useMonumentStore } from "../stores/monuments";
 import type { MonumentProps } from "../types";
 import { getCategoryUrl, getOptimizedImage, getSrcSet } from "../utils/monumentFormatters";
 

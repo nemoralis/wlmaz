@@ -107,7 +107,7 @@
             <div
                class="flex justify-between border-t border-gray-200 bg-[#f8f9fa] px-6 py-3 text-sm text-gray-500"
             >
-                <span>Cəmi: {{ monuments.length }} abidə</span>
+               <span>Cəmi: {{ monuments.length }} abidə</span>
                <span v-if="searchQuery">Filtrlənmiş: {{ sortedMonuments.length }}</span>
             </div>
          </div>
@@ -130,10 +130,11 @@ import {
    cdxIconMapPin,
    cdxIconUpload,
 } from "@wikimedia/codex-icons";
-const UploadModal = defineAsyncComponent(() => import("../components/UploadModal.vue"));
 import { useAuthStore } from "../stores/auth";
 import { useMonumentStore } from "../stores/monuments";
 import type { MonumentProps as Monument } from "../types";
+
+const UploadModal = defineAsyncComponent(() => import("../components/UploadModal.vue"));
 
 export default defineComponent({
    name: "TablePage",

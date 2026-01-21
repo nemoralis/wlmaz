@@ -99,10 +99,10 @@ import type { MonumentProps } from "../types";
 import MonumentSidebarHome from "./map/MonumentSidebarHome.vue";
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
-import { useClipboard } from "../composables/useClipboard";
-import { useWikiCredits } from "../composables/useWikiCredits";
-import { useLeafletMap, type MonumentMarker } from "../composables/useLeafletMap";
 import type { Feature } from "geojson";
+import { useClipboard } from "../composables/useClipboard";
+import { useLeafletMap, type MonumentMarker } from "../composables/useLeafletMap";
+import { useWikiCredits } from "../composables/useWikiCredits";
 // CSS
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
@@ -182,7 +182,9 @@ export default defineComponent({
          }
       };
 
-      const flyToMonument = (feature: Feature | { properties: { inventory: string; image?: string } }) => {
+      const flyToMonument = (
+         feature: Feature | { properties: { inventory: string; image?: string } },
+      ) => {
          const props = feature.properties as MonumentProps;
          const { inventory, image } = props;
          if (inventory && markerLookup.has(inventory)) {
@@ -202,7 +204,9 @@ export default defineComponent({
 
          markersGroup.value.clearLayers();
          if (enabled) {
-            const filtered = allMarkers.filter((m) => !(m as MonumentMarker).feature.properties.image);
+            const filtered = allMarkers.filter(
+               (m) => !(m as MonumentMarker).feature.properties.image,
+            );
             markersGroup.value.addLayers(filtered);
          } else {
             markersGroup.value.addLayers(allMarkers);
@@ -236,21 +240,24 @@ export default defineComponent({
 
       // --- Watchers ---
 
-      watch(() => monumentStore.selectedMonument, (newVal) => {
-         const url = new URL(window.location.href);
-         if (newVal && newVal.itemLabel) {
-            document.title = `${newVal.itemLabel} | Viki Abidələri Sevir`;
-            if (newVal.inventory) url.searchParams.set("inventory", newVal.inventory);
-            imageLoading.value = true;
-            // Always call fetchImageMetadata to ensure credits are either updated or cleared
-            fetchImageMetadata(newVal.image || "");
-         } else {
-            document.title = "Viki Abidələri Sevir Azərbaycan";
-            url.searchParams.delete("inventory");
-            fetchImageMetadata("");
-         }
-         window.history.replaceState({}, "", url);
-      });
+      watch(
+         () => monumentStore.selectedMonument,
+         (newVal) => {
+            const url = new URL(window.location.href);
+            if (newVal && newVal.itemLabel) {
+               document.title = `${newVal.itemLabel} | Viki Abidələri Sevir`;
+               if (newVal.inventory) url.searchParams.set("inventory", newVal.inventory);
+               imageLoading.value = true;
+               // Always call fetchImageMetadata to ensure credits are either updated or cleared
+               fetchImageMetadata(newVal.image || "");
+            } else {
+               document.title = "Viki Abidələri Sevir Azərbaycan";
+               url.searchParams.delete("inventory");
+               fetchImageMetadata("");
+            }
+            window.history.replaceState({}, "", url);
+         },
+      );
 
       // --- Initialize ---
       onMounted(() => {
@@ -323,14 +330,14 @@ export default defineComponent({
                   clusterGroup.addLayers(allMarkers);
 
                   // Group Event delegation for performance
-                   clusterGroup.on("click", (evt: L.LeafletMouseEvent) => {
-                      // Stop propagation to prevent map click from firing
-                      L.DomEvent.stopPropagation(evt.originalEvent);
-                      L.DomEvent.preventDefault(evt.originalEvent);
-                      if (evt.layer instanceof L.CircleMarker) {
-                         selectMonument(evt.layer as unknown as MonumentMarker);
-                      }
-                   });
+                  clusterGroup.on("click", (evt: L.LeafletMouseEvent) => {
+                     // Stop propagation to prevent map click from firing
+                     L.DomEvent.stopPropagation(evt.originalEvent);
+                     L.DomEvent.preventDefault(evt.originalEvent);
+                     if (evt.layer instanceof L.CircleMarker) {
+                        selectMonument(evt.layer as unknown as MonumentMarker);
+                     }
+                  });
 
                   mapInstance.value?.addLayer(clusterGroup);
 

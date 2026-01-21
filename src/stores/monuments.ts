@@ -1,6 +1,6 @@
-import { defineStore } from "pinia";
-import { ref, shallowRef } from "vue";
 import type { Feature, FeatureCollection } from "geojson";
+import { ref, shallowRef } from "vue";
+import { defineStore } from "pinia";
 import type { MonumentProps } from "../types";
 import DataWorker from "../workers/data.worker?worker";
 

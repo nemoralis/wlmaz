@@ -3,7 +3,10 @@
       <div class="bg-white p-4 shadow-sm">
          <div class="container mx-auto flex items-center justify-between">
             <h1 class="text-xl font-bold text-gray-800">
-               <font-awesome-icon :icon="['fas', 'chart-line']" class="mr-2 text-blue-600" />Statistika
+               <font-awesome-icon
+                  :icon="['fas', 'chart-line']"
+                  class="mr-2 text-blue-600"
+               />Statistika
             </h1>
             <router-link
                to="/"

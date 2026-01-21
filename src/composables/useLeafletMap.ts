@@ -2,8 +2,8 @@ import L from "leaflet";
 import "leaflet.markercluster";
 import { LocateControl } from "leaflet.locatecontrol";
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
-import { shallowRef } from "vue";
 import { icon } from "@fortawesome/fontawesome-svg-core";
+import { shallowRef } from "vue";
 import type { MonumentProps } from "../types";
 
 export interface SidebarControl extends L.Control {
@@ -48,7 +48,7 @@ export function useLeafletMap() {
          {
             maxZoom: 19,
             attribution: "© Gomap.az",
-         }
+         },
       );
 
       const googleSatelliteLayer = L.tileLayer(
@@ -56,7 +56,7 @@ export function useLeafletMap() {
          {
             maxZoom: 20,
             attribution: "© Google",
-         }
+         },
       );
 
       // 2. Map Instance
@@ -87,7 +87,13 @@ export function useLeafletMap() {
       if (toggleBtn) {
          const layerGroupIcon = icon({ prefix: "fas", iconName: "layer-group" });
          toggleBtn.innerHTML = layerGroupIcon.html[0];
-         toggleBtn.classList.add("text-gray-600", "text-sm", "flex", "items-center", "justify-center");
+         toggleBtn.classList.add(
+            "text-gray-600",
+            "text-sm",
+            "flex",
+            "items-center",
+            "justify-center",
+         );
       }
 
       L.control.zoom({ position: "topright" }).addTo(map);
