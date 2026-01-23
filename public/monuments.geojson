@@ -1626,7 +1626,7 @@
                 "item": "http://www.wikidata.org/entity/Q12846988",
                 "itemDescription": "mosque in İlisu, Azerbaijan",
                 "itemLabel": "Ulu məscid",
-                "lastModified": "2025-06-24T19:50:50Z"
+                "lastModified": "2026-01-21T15:31:23Z"
             }
         },
         {
@@ -3322,7 +3322,7 @@
                 "item": "http://www.wikidata.org/entity/Q20587468",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən məscid və memarlıq abidəsi.",
                 "itemLabel": "Şərəfxanlı məscidi",
-                "lastModified": "2025-09-09T06:25:56Z"
+                "lastModified": "2026-01-22T15:53:38Z"
             }
         },
         {
@@ -3817,7 +3817,7 @@
                 "item": "http://www.wikidata.org/entity/Q124987047",
                 "itemDescription": "historic site in Astara District, Erchivan settlement",
                 "itemLabel": "Kərbəlayi Həmid Abdulla hamamı",
-                "lastModified": "2025-11-03T02:47:38Z"
+                "lastModified": "2026-01-22T14:22:47Z"
             }
         },
         {
@@ -4379,7 +4379,7 @@
                 "item": "http://www.wikidata.org/entity/Q133853870",
                 "itemDescription": "Azərbaycanda İsmayıllı rayonunun Diyallı kəndində yerləşən 1866-cı ilə aid məscid və tarix-memarlıq abidəsi.",
                 "itemLabel": "Hacı Məcid Əfəndi məscidi",
-                "lastModified": "2025-12-30T00:28:04Z"
+                "lastModified": "2026-01-21T15:41:48Z"
             }
         },
         {
@@ -4400,7 +4400,7 @@
                 "item": "http://www.wikidata.org/entity/Q129175814",
                 "itemDescription": "Lahıc qəsəbəsində yerləşən 18-ci əsrə aid məscid.",
                 "itemLabel": "Bədöyün məscidi",
-                "lastModified": "2025-10-15T11:23:51Z"
+                "lastModified": "2026-01-21T19:02:24Z"
             }
         },
         {
@@ -4790,7 +4790,7 @@
                 "itemAltLabel": "Kürmüx kilsəsi, Kürmüx məbədi",
                 "itemDescription": "Georgian church in the Qakh District of Azerbaijan",
                 "itemLabel": "Kürmük kilsəsi",
-                "lastModified": "2025-06-24T14:39:27Z"
+                "lastModified": "2026-01-21T13:16:44Z"
             }
         },
         {
@@ -4812,7 +4812,7 @@
                 "itemAltLabel": "domed bath in Guba",
                 "itemDescription": "Qubada tarixi hamam",
                 "itemLabel": "Gümbəzli hamam",
-                "lastModified": "2026-01-11T20:23:51Z"
+                "lastModified": "2026-01-21T12:50:56Z"
             }
         },
         {
@@ -4834,7 +4834,7 @@
                 "itemAltLabel": "Quba cümə məscidi",
                 "itemDescription": "Qubada yerləşən ibadətgah",
                 "itemLabel": "Cümə məscidi",
-                "lastModified": "2025-10-22T15:38:32Z"
+                "lastModified": "2026-01-21T12:16:33Z"
             }
         },
         {
@@ -4961,7 +4961,7 @@
                 "item": "http://www.wikidata.org/entity/Q135442082",
                 "itemDescription": "Quba rayonunun Hacıhüsenli kəndində yerləşən kilsə.",
                 "itemLabel": "Müqəddəs Məryəmin Himayəsi kilsəsi",
-                "lastModified": "2025-08-05T06:33:35Z"
+                "lastModified": "2026-01-21T14:20:33Z"
             }
         },
         {
@@ -4982,7 +4982,28 @@
                 "item": "http://www.wikidata.org/entity/Q125522857",
                 "itemDescription": "mosque in Azerbaijan",
                 "itemLabel": "Xanəgah məscidi (Quba)",
-                "lastModified": "2025-12-29T09:07:42Z"
+                "lastModified": "2026-01-21T13:39:33Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.441302,
+                    41.299377
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/S%C9%99kkizgu%C5%9F%C9%99li_t%C3%BCrb%C9%99_(Quba)",
+                "commonsCategory": "Eight-sided mausoleum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Eight-sided_mausoleum",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/S%C9%99kkizgu%C5%9F%C9%99li%20t%C3%BCrb%C9%99%20M%C3%B6h%C3%BCc%202024%20%2812%29.jpg",
+                "inventory": "4674",
+                "item": "http://www.wikidata.org/entity/Q137838572",
+                "itemDescription": "Möhüc kəndində yerləşən tarix memarlıq abidəsi, türbə.",
+                "itemLabel": "Səkkizguşəli türbə (Quba)",
+                "lastModified": "2026-01-21T13:22:44Z"
             }
         },
         {
@@ -5063,7 +5084,7 @@
                 "item": "http://www.wikidata.org/entity/Q16414761",
                 "itemDescription": "Lənkəran şəhərinin Böyük Bazar məhəlləsində tarixi məscid",
                 "itemLabel": "Böyük Bazar məscidi",
-                "lastModified": "2025-05-25T15:56:25Z"
+                "lastModified": "2026-01-20T20:40:14Z"
             }
         },
         {
@@ -5203,7 +5224,7 @@
                 "itemAltLabel": "Oğuz Tarix-Diyarşünaslıq Muzeyi",
                 "itemDescription": "1822-ci ildə tikilmiş ortodoks kilsəsi",
                 "itemLabel": "Müqəddəs Yelisey kilsəsi",
-                "lastModified": "2025-06-24T20:20:23Z"
+                "lastModified": "2026-01-20T20:16:26Z"
             }
         },
         {
@@ -5889,13 +5910,13 @@
                 "azLink": "https://az.wikipedia.org/wiki/Alman_l%C3%BCteran_kils%C9%99si_(%C5%9E%C9%99mkir)",
                 "commonsCategory": "Lutheran church in Shamkir",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Lutheran_church_in_Shamkir",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Deutsche%20Lutherische%20Kirche%20in%20Shamkir.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Lutheran%20church%20in%20Shamkir%202025%20%2844%29.jpg",
                 "inventory": "4999",
                 "item": "http://www.wikidata.org/entity/Q12835673",
                 "itemAltLabel": "Alman lüteran kilsəsi ( Şəmkir)",
                 "itemDescription": "Azərbaycanın Şəmkir şəhərində yerləşən tarixi-memarlıq abidəsi və kilsə.",
                 "itemLabel": "Alman lüteran kilsəsi (Şəmkir)",
-                "lastModified": "2025-05-25T15:35:03Z"
+                "lastModified": "2026-01-22T19:34:52Z"
             }
         },
         {
