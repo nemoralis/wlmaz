@@ -452,6 +452,19 @@ img {
       touch-action: pan-y !important;
       pointer-events: auto !important;
    }
+
+   /* Ensure bottom tabs are not covered by safe areas */
+   :deep(.leaflet-sidebar-tabs > ul:last-child) {
+      padding-bottom: env(safe-area-inset-bottom) !important;
+      background-color: #fff !important;
+   }
+
+   /* Fix for Leaflet attribution on narrow screens */
+   :deep(.leaflet-control-attribution) {
+      font-size: 9px !important;
+      background-color: rgba(255, 255, 255, 0.8) !important;
+      margin-bottom: env(safe-area-inset-bottom) !important;
+   }
 }
 /* 3. MARKERS */
 :deep(.marker-pin) {

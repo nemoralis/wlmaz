@@ -4,12 +4,14 @@ html,
 body {
    margin: 0;
    padding: 0;
-   height: 100vh;
+   height: 100dvh;
+   height: 100%; /* Fallback */
    overflow: hidden;
 }
 
 #app {
-   height: 100vh;
+   height: 100dvh;
+   height: 100%; /* Fallback */
    display: flex;
    flex-direction: column;
 }
