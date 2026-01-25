@@ -208,7 +208,7 @@
       <main
          id="main-content"
          role="main"
-         class="relative w-full flex-1 overflow-y-auto"
+         class="relative w-full min-h-0 flex-1 overflow-y-auto"
          tabindex="-1"
       >
          <router-view />
