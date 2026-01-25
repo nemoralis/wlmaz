@@ -3322,7 +3322,7 @@
                 "item": "http://www.wikidata.org/entity/Q20587468",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən məscid və memarlıq abidəsi.",
                 "itemLabel": "Şərəfxanlı məscidi",
-                "lastModified": "2026-01-22T15:53:38Z"
+                "lastModified": "2026-01-23T09:17:54Z"
             }
         },
         {
@@ -3385,6 +3385,28 @@
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən məscid və tarix-memarlıq abidəsi.",
                 "itemLabel": "Mollacəlilli məscidi",
                 "lastModified": "2025-12-06T21:14:56Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.366439747,
+                    40.679503732
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C3%BCrs%C9%99l_oca%C4%9F%C4%B1_t%C3%BCrb%C9%99si",
+                "commonsCategory": "Mürsel Ocağı Tomb",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:M%C3%BCrsel_Oca%C4%9F%C4%B1_Tomb",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/M%C3%BCrs%C9%99l%20oca%C4%9F%C4%B1%20t%C3%BCrb%C9%99si.jpg",
+                "inventory": "3910",
+                "item": "http://www.wikidata.org/entity/Q12842461",
+                "itemAltLabel": "Mürsəl Ocağı Türbəsi",
+                "itemDescription": "tomb in Gence, Azerbaycan",
+                "itemLabel": "Mürsəl ocağı türbəsi",
+                "lastModified": "2026-01-23T09:18:09Z"
             }
         },
         {
@@ -3490,7 +3512,7 @@
                 "itemAltLabel": "Ozan Mosque",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən 1884-cü ildə tikilmiş məscid və tarix-memarlıq abidəsi.",
                 "itemLabel": "Ozan məscidi",
-                "lastModified": "2025-12-15T04:30:33Z"
+                "lastModified": "2026-01-23T17:46:18Z"
             }
         },
         {
@@ -3964,6 +3986,26 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    47.157177,
+                    39.538966
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eah_Abbas_m%C9%99scidi_(F%C3%BCzuli)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qar%C4%9Fabazar%20m%C9%99scidinin%20plan%C4%B1-001.jpg",
+                "inventory": "4212",
+                "item": "http://www.wikidata.org/entity/Q4292330",
+                "itemAltLabel": "Hacı Qiyasəddin məscidi",
+                "itemDescription": "mosque in Qarğabazar, Fuzuli, Azerbaijan",
+                "itemLabel": "Qarğabazar məscidi",
+                "lastModified": "2026-01-23T16:46:24Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.334638,
                     39.422959
                 ]
@@ -4122,7 +4164,7 @@
                 "item": "http://www.wikidata.org/entity/Q12835773",
                 "itemAltLabel": "Anahaid məbədi, Anahid kilsəsi, Anahid məbədi, Anaid məbədi, Anhaid məbədi",
                 "itemLabel": "Anahit kilsəsi",
-                "lastModified": "2025-12-23T06:45:09Z"
+                "lastModified": "2026-01-23T15:59:56Z"
             }
         },
         {
@@ -5001,9 +5043,10 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/S%C9%99kkizgu%C5%9F%C9%99li%20t%C3%BCrb%C9%99%20M%C3%B6h%C3%BCc%202024%20%2812%29.jpg",
                 "inventory": "4674",
                 "item": "http://www.wikidata.org/entity/Q137838572",
-                "itemDescription": "Möhüc kəndində yerləşən tarix memarlıq abidəsi, türbə.",
+                "itemAltLabel": "Pir Əbdül Cabbar türbəsi, Seyid Əbdül Cabbar türbəsi",
+                "itemDescription": "Möhüc kəndində yerləşən XIX əsrə aid tarix memarlıq abidəsi, türbə.",
                 "itemLabel": "Səkkizguşəli türbə (Quba)",
-                "lastModified": "2026-01-21T13:22:44Z"
+                "lastModified": "2026-01-23T05:55:15Z"
             }
         },
         {
@@ -6120,6 +6163,27 @@
                 "itemDescription": "museum in Baku, Azerbaijan",
                 "itemLabel": "Üzeyir Hacıbəylinin ev-muzeyi (Bakı)",
                 "lastModified": "2026-01-08T18:27:01Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.681036791,
+                    40.591588786
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/S%C3%BClh_g%C3%B6y%C9%99r%C3%A7ini_abid%C9%99si",
+                "commonsCategory": "Peace Dove (Sumgait)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Peace_Dove_(Sumgait)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Goyerchin%20Parki%2Csymbol%20of%20Sumgayit%20an%20amazing%20place%20to%20walk%20by%20and%20enjoy.jpg",
+                "inventory": "5605",
+                "item": "http://www.wikidata.org/entity/Q7157363",
+                "itemDescription": "Sumqayıt şəhərində memarlıq abidəsi, şəhərin əsas rəmzlərindən biri",
+                "itemLabel": "\"Sülh göyərçini\" abidəsi",
+                "lastModified": "2026-01-25T04:32:46Z"
             }
         },
         {
