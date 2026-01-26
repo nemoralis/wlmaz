@@ -6183,7 +6183,28 @@
                 "item": "http://www.wikidata.org/entity/Q7157363",
                 "itemDescription": "Sumqayıt şəhərində memarlıq abidəsi, şəhərin əsas rəmzlərindən biri",
                 "itemLabel": "\"Sülh göyərçini\" abidəsi",
-                "lastModified": "2026-01-25T04:32:46Z"
+                "lastModified": "2026-01-25T10:50:55Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.631472222,
+                    40.568583333
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Qa%C4%9Fay%C4%B1_abid%C9%99si",
+                "commonsCategory": "Kagay monument",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Kagay_monument",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qa%C4%9Fay%C4%B1%20abid%C9%99si.jpg",
+                "inventory": "5606",
+                "item": "http://www.wikidata.org/entity/Q31295771",
+                "itemDescription": "Monument in Sumgait",
+                "itemLabel": "Qağayı abidəsi",
+                "lastModified": "2026-01-25T05:00:19Z"
             }
         },
         {
