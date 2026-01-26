@@ -65,6 +65,14 @@ useHead({
          content:
             "Azərbaycanın tarixi abidələri və mədəni irs xəritəsi. Bakı, Şəki, Qəbələ və digər bölgələrdəki 300+ abidəni kəşf edin. Viki Abidələri Sevir müsabiqəsinə şəkil yükləyin.",
       },
+      {
+         property: "og:site_name",
+         content: "Viki Abidələri Sevir Azərbaycan",
+      },
+      {
+         property: "og:title",
+         content: "Viki Abidələri Sevir Azərbaycan - Abidələrin interaktiv xəritəsi",
+      },
    ],
    script: [
       {
