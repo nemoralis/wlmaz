@@ -390,6 +390,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    47.127777777,
+                    40.383055555
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/B%C9%99rd%C9%99_t%C3%BCrb%C9%99si",
+                "commonsCategory": "Barda Mausoleum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Barda_Mausoleum",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Barda%20TowerMausoleum%20004%206814.jpg",
+                "inventory": "6",
+                "item": "http://www.wikidata.org/entity/Q5103512",
+                "itemDescription": "historical monument of the XIV century in Azerbaijan",
+                "itemLabel": "Bərdə türbəsi",
+                "lastModified": "2026-01-28T13:13:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.073111111,
                     41.329222222
                 ]
@@ -510,6 +531,27 @@
                 "itemDescription": "Qobustandakı latın kitabəsi",
                 "itemLabel": "Qədim Roma yazısı",
                 "lastModified": "2025-12-07T22:49:07Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.4275,
+                    39.336944444
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C6%8Flik%C3%B6m%C9%99kt%C9%99p%C9%99_ya%C5%9Fay%C4%B1%C5%9F_yeri",
+                "commonsCategory": "Elikomektepe",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Elikomektepe",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Elikomektepesi%20kup.jpg",
+                "inventory": "27",
+                "item": "http://www.wikidata.org/entity/Q7310439",
+                "itemDescription": "archaeological site in Jalilabad District, Azerbaijan",
+                "itemLabel": "Əliköməktəpə",
+                "lastModified": "2026-01-28T13:20:57Z"
             }
         },
         {
@@ -1970,6 +2012,70 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    47.128811,
+                    40.380488
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/B%C9%99hm%C9%99n_Mirz%C9%99_Qacar_t%C3%BCrb%C9%99si",
+                "commonsCategory": "Bahman Mirza Qajar Mausoleum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Bahman_Mirza_Qajar_Mausoleum",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Barda%20BahmanMirzaTomb%20004%206863.jpg",
+                "inventory": "208",
+                "item": "http://www.wikidata.org/entity/Q12837944",
+                "itemDescription": "Burial place in Barda, Azerbaijan",
+                "itemLabel": "Bəhmən Mirzə Qacar türbəsi",
+                "lastModified": "2026-01-28T13:13:34Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.12884,
+                    40.380238
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C4%B0mamzad%C9%99_t%C3%BCrb%C9%99si_(B%C9%99rd%C9%99)",
+                "commonsCategory": "Shrine of Imamzadeh (Barda)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Shrine_of_Imamzadeh_(Barda)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/B%C9%99rd%C9%99%20%C4%B0mamzad%C9%99.jpg",
+                "inventory": "210",
+                "item": "http://www.wikidata.org/entity/Q12849002",
+                "itemAltLabel": "Bərdə İmamzadə türbəsi, İmamzadə türbəsi",
+                "itemDescription": "building in Barda, Azerbaijan",
+                "itemLabel": "İmamzadə türbəsi (Bərdə)",
+                "lastModified": "2026-01-28T13:12:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.128676,
+                    40.374569
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/T%C9%99rt%C9%99r_%C3%A7ay%C4%B1_%C3%BCz%C9%99rind%C9%99_q%C9%99dim_k%C3%B6rp%C3%BC",
+                "commonsCategory": "Bridge over Tartar River in Barda",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Bridge_over_Tartar_River_in_Barda",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/B%C9%99rd%C9%99d%C9%99%20T%C9%99rt%C9%99r%20%C3%A7ay%C4%B1%20%C3%BCz%C9%99rind%C9%99%20q%C9%99dim%20k%C3%B6rp%C3%BC.jpg",
+                "inventory": "210-1",
+                "item": "http://www.wikidata.org/entity/Q25540516",
+                "itemDescription": "Bərdə şəhərində körpü",
+                "itemLabel": "Tərtər çayı üzərində qədim körpü",
+                "lastModified": "2026-01-28T13:12:13Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.75666667,
                     40.49111111
                 ]
@@ -2006,6 +2112,28 @@
                 "itemDescription": "Gədəbəydə yerləşən qala",
                 "itemLabel": "Namərdqala",
                 "lastModified": "2026-01-19T15:31:15Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.007893052,
+                    40.153590799
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Pir_H%C3%BCseyn_xan%C9%99gah%C4%B1",
+                "commonsCategory": "Khanagah of Pir Huseyn",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Khanagah_of_Pir_Huseyn",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Pirsaat%C3%A7ay%20xan%C9%99gah%C4%B1%2C%20XIII%20%C9%99sr.jpg",
+                "inventory": "221",
+                "item": "http://www.wikidata.org/entity/Q1408889",
+                "itemAltLabel": "Pir Hüseyn xanəgahı, Pirsaatçay xanəgahı",
+                "itemDescription": "fortress",
+                "itemLabel": "Pir Hüseyin xanəgahı",
+                "lastModified": "2026-01-28T13:31:17Z"
             }
         },
         {
@@ -2215,23 +2343,6 @@
                 "itemDescription": "mosque in Quba, Azerbaijan",
                 "itemLabel": "Səkinəxanım məscidi",
                 "lastModified": "2025-04-03T05:35:22Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    48.223251961,
-                    41.337832799
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/%C6%8Fniq_qalas%C4%B1",
-                "inventory": "303",
-                "item": "http://www.wikidata.org/entity/Q19716707",
-                "itemLabel": "Əniq qalası",
-                "lastModified": "2025-11-09T15:38:32Z"
             }
         },
         {
@@ -3234,6 +3345,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.223251961,
+                    41.337832799
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C6%8Fniq_qalas%C4%B1",
+                "inventory": "1425",
+                "item": "http://www.wikidata.org/entity/Q19716707",
+                "itemLabel": "Əniq qalası",
+                "lastModified": "2026-01-28T13:37:33Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.45833333,
                     41.07083333
                 ]
@@ -3310,6 +3438,24 @@
                 "itemDescription": "Archaeological site in Shaki, Azerbaijan",
                 "itemLabel": "Təpəbaşı nekropolu",
                 "lastModified": "2025-07-11T13:12:11Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.947,
+                    40.4775
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/B%C9%99yimsarov_kurqan%C4%B1",
+                "inventory": "1776",
+                "item": "http://www.wikidata.org/entity/Q136437024",
+                "itemDescription": "Qarabağın Tərtər rayonu, Bəyimsarov kəndində yerləşən son tunc-ilk dəmir dövrünə aid arxeoloji abidə, kurqan.",
+                "itemLabel": "Bəyimsarov kurqanı",
+                "lastModified": "2026-01-28T13:15:43Z"
             }
         },
         {
@@ -4912,7 +5058,7 @@
                 "itemAltLabel": "Gizil Hajili mosque, Gyzyl Hajli mosque, Qizil Hajili mosque",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən 1877-ci ildə tikilmiş məscid və tarix-memarlıq abidəsi.",
                 "itemLabel": "Qızıl Hacılı Məscidi",
-                "lastModified": "2025-12-15T00:57:28Z"
+                "lastModified": "2026-01-28T13:25:40Z"
             }
         },
         {
@@ -5363,6 +5509,25 @@
                 "itemDescription": "Monastır kompleksi.",
                 "itemLabel": "Arılıqbinə monastır kompleksi",
                 "lastModified": "2025-05-25T15:39:10Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.542222,
+                    41.644444
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Katex_kils%C9%99si",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Balak%C9%99n%20-%20Katex%20k%C9%99ndind%C9%99%20q%C9%99dim%20kils%C9%99.jpg",
+                "inventory": "4148",
+                "item": "http://www.wikidata.org/entity/Q12840836",
+                "itemDescription": "Georgian Orthodox Church, in Azerbaijan",
+                "itemLabel": "Katex kilsəsi",
+                "lastModified": "2026-01-28T13:34:56Z"
             }
         },
         {
@@ -6414,7 +6579,7 @@
                 "item": "http://www.wikidata.org/entity/Q31310734",
                 "itemDescription": "Azərbaycanın Qəbələ şəhərində yerləşən, XIX–XX əsrə aid tarixi-memarlıq abidəsi, məscid.",
                 "itemLabel": "Cümə məscidi",
-                "lastModified": "2026-01-28T12:08:41Z"
+                "lastModified": "2026-01-28T13:02:54Z"
             }
         },
         {
@@ -6951,6 +7116,26 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.7508,
+                    39.0244
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Qas%C4%B1ml%C4%B1_k%C9%99nd_m%C9%99scidi_(Masall%C4%B1)",
+                "commonsCategory": "Qasımlı kənd məscidi (Masallı)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Qas%C4%B1ml%C4%B1_k%C9%99nd_m%C9%99scidi_(Masall%C4%B1)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Masall%C4%B1%20rayonu%2C%20Qas%C4%B1ml%C4%B1%20k%C9%99nd%20m%C9%99scidi.jpg",
+                "inventory": "4894",
+                "item": "http://www.wikidata.org/entity/Q31311531",
+                "itemLabel": "Qasımlı kənd məscidi",
+                "lastModified": "2026-01-28T13:18:44Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.947940625,
                     40.386059469
                 ]
@@ -7050,6 +7235,26 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.471299,
+                    40.012732
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/K%C3%B6hn%C9%99_hamam",
+                "commonsCategory": "Köhnə hamam (Sabirabad)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:K%C3%B6hn%C9%99_hamam_(Sabirabad)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/K%C3%B6hn%C9%99%20hamam1.jpg",
+                "inventory": "4951",
+                "item": "http://www.wikidata.org/entity/Q65279155",
+                "itemLabel": "Köhnə hamam",
+                "lastModified": "2026-01-28T13:24:48Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.552748975,
                     40.072093735
                 ]
@@ -7064,6 +7269,26 @@
                 "itemDescription": "Safavid Empire burial site in Azerbaijan",
                 "itemLabel": "Baba Samid məqbərəsi",
                 "lastModified": "2026-01-16T22:29:07Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.460222222,
+                    39.988583333
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Qalaqay%C4%B1n_m%C9%99scidi",
+                "commonsCategory": "Galagayin Mosque",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Galagayin_Mosque",
+                "inventory": "4955",
+                "item": "http://www.wikidata.org/entity/Q65279297",
+                "itemDescription": "Mosque in Qalaqayın, Sabirabad, Azerbaijan",
+                "itemLabel": "Qalaqayın məscidi",
+                "lastModified": "2026-01-28T13:25:38Z"
             }
         },
         {
@@ -7777,6 +8002,23 @@
                 "itemDescription": "historical fresh water spring",
                 "itemLabel": "Xoca Mərcanlı bulağı",
                 "lastModified": "2026-01-28T12:47:16Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.930444444,
+                    40.343416666
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/C%C3%BCm%C9%99_m%C9%99scidi_(T%C9%99rt%C9%99r)",
+                "inventory": "5172",
+                "item": "http://www.wikidata.org/entity/Q31310958",
+                "itemLabel": "Tərtər Cümə məscidi",
+                "lastModified": "2026-01-28T13:16:30Z"
             }
         },
         {
