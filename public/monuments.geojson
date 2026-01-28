@@ -348,6 +348,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.840722222,
+                    40.353
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Bay%C4%B1l_qalas%C4%B1",
+                "commonsCategory": "Sabayil Fortress",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Sabayil_Fortress",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Sabayil%20Fortress.jpg",
+                "inventory": "4.5",
+                "item": "http://www.wikidata.org/entity/Q4403409",
+                "itemDescription": "Xəzər dənizində suyun altında qalmış XV əsrə aid qala və yaxud qəsr",
+                "itemLabel": "Bayıl qalası",
+                "lastModified": "2026-01-28T00:08:07Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.945291,
                     41.080384
                 ]
@@ -455,6 +476,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.38888889,
+                    40.10555556
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Qobustan_Milli_Tarix-B%C9%99dii_Qoru%C4%9Fu",
+                "commonsCategory": "Gobustan State Reserve",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qobustan.jpg",
+                "inventory": "26",
+                "item": "http://www.wikidata.org/entity/Q318181",
+                "itemAltLabel": "Qobustan dövlət tarixi-bədii qoruğu, Qobustan Dövlət Təbiət və Mədəniyyət Qoruğu, Qobustan Qayaüstü Təsvirləri, Qobustan qoruğu",
+                "itemDescription": "Dövlət qoruğu",
+                "itemLabel": "Qobustan Milli Tarix və Bədii Qoruğu",
+                "lastModified": "2026-01-27T23:12:14Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.38736778,
                     40.102395302
                 ]
@@ -519,27 +561,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.8367,
-                    40.3681
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_xan_saray%C4%B1",
-                "commonsCategory": "Palace of Baku Khans",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Baku_Khans",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20xan%20saray%C4%B1n%C4%B1n%20%C9%99sas%20giri%C5%9Finin%20Xan%20ba%C4%9F%C4%B1%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
-                "inventory": "71, 70, 73, 69",
-                "item": "http://www.wikidata.org/entity/Q12837306",
-                "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
-                "itemLabel": "Bakı xan sarayı",
-                "lastModified": "2026-01-10T00:44:39Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     49.836944444,
                     40.368611111
                 ]
@@ -555,6 +576,27 @@
                 "itemDescription": "hammam in Baku, Azerbaijan",
                 "itemLabel": "Yeraltı hamam",
                 "lastModified": "2025-06-23T20:33:50Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8367,
+                    40.3681
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_xan_saray%C4%B1",
+                "commonsCategory": "Palace of Baku Khans",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Baku_Khans",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20xan%20saray%C4%B1n%C4%B1n%20%C9%99sas%20giri%C5%9Finin%20Xan%20ba%C4%9F%C4%B1%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
+                "inventory": "73, 69, 71, 70",
+                "item": "http://www.wikidata.org/entity/Q12837306",
+                "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
+                "itemLabel": "Bakı xan sarayı",
+                "lastModified": "2026-01-10T00:44:39Z"
             }
         },
         {
@@ -1162,6 +1204,66 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.439864,
+                    40.276813
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Qara%C3%A7%C4%B1_karvansaras%C4%B1",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qara%C3%A7%C4%B1%20karvansaras%C4%B1.jpg",
+                "inventory": "106",
+                "item": "http://www.wikidata.org/entity/Q12844290",
+                "itemLabel": "Qaraçı karvansarası",
+                "lastModified": "2026-01-27T23:12:38Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.420920727,
+                    40.223431305
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Sofi_H%C9%99mid_t%C3%BCrb%C9%99si",
+                "commonsCategory": "Sofi Hamid Shrine and Cemetery",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Sofi_Hamid_Shrine_and_Cemetery",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Sofi%20H%C9%99mid%20piri%202024%20%28127%29.jpg",
+                "inventory": "107",
+                "item": "http://www.wikidata.org/entity/Q20584335",
+                "itemDescription": "Səngəçalda türbə",
+                "itemLabel": "Sofi Həmid türbəsi",
+                "lastModified": "2026-01-27T23:13:15Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.477305,
+                    40.181372
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/S%C9%99ng%C9%99%C3%A7al_karvansaras%C4%B1",
+                "commonsCategory": "Sangachal Caravansarai",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Sangachal_Caravansarai",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/S%C9%99ng%C9%99%C3%A7al%20karvansaras%C4%B1%20202409%20%2839%29.jpg",
+                "inventory": "108",
+                "item": "http://www.wikidata.org/entity/Q39885034",
+                "itemDescription": "Azərbaycanda karvansaray",
+                "itemLabel": "Səngəçal karvansarası",
+                "lastModified": "2026-01-27T18:22:10Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.852417,
                     40.397333
                 ]
@@ -1199,6 +1301,71 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.845397,
+                    40.374701
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Az%C9%99rbaycan_D%C3%B6vl%C9%99t_Akademik_Opera_v%C9%99_Balet_Teatr%C4%B1",
+                "commonsCategory": "Azerbaijan State Academic Opera and Ballet Theater",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Azerbaijan_State_Academic_Opera_and_Ballet_Theater",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Azerbaijan%20State%20Academic%20Opera%20and%20Ballet%20Theatre%20main%20fa%C3%A7ade%2C%202015.jpg",
+                "inventory": "111",
+                "item": "http://www.wikidata.org/entity/Q48623",
+                "itemAltLabel": "Azərbaycan Dövlət Оpera və Balet Teatrı, Opera və Balet Teatrı",
+                "itemDescription": "opera house in Baku, Azerbaijan",
+                "itemLabel": "Azərbaycan Dövlət Akademik Opera və Balet Teatrı",
+                "lastModified": "2026-01-27T23:05:28Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.847784,
+                    40.377004
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Xilaskar_kils%C9%99si_(Bak%C4%B1)",
+                "commonsCategory": "Lutheran Church in Baku",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Lutheran_Church_in_Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Xilaskar%20Kils%C9%99si.JPG",
+                "inventory": "112",
+                "item": "http://www.wikidata.org/entity/Q2029345",
+                "itemDescription": "building in Baku, Azerbaijan",
+                "itemLabel": "Alman lüteran kilsəsi",
+                "lastModified": "2026-01-27T23:03:54Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.840683613,
+                    40.378237922
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ki%C5%9Fi_gimnaziyas%C4%B1n%C4%B1n_binas%C4%B1",
+                "commonsCategory": "Building of Hospital № 4 in Baku",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_Hospital_%E2%84%96_4_in_Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/4%20n%C3%B6mr%C9%99li%20x%C9%99ct%C9%99xana.JPG",
+                "inventory": "113",
+                "item": "http://www.wikidata.org/entity/Q99472102",
+                "itemAltLabel": "4 nömrəli xəstəxananın binası",
+                "itemDescription": "building in Azerbaijan",
+                "itemLabel": "Kişi gimnaziyasının binası",
+                "lastModified": "2026-01-27T23:05:48Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.837801,
                     40.385913
                 ]
@@ -1214,6 +1381,28 @@
                 "itemDescription": "1912-ci ildə Bakıda tikilmiş məscid.",
                 "itemLabel": "Əjdərbəy məscidi",
                 "lastModified": "2026-01-03T16:10:50Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.853333333,
+                    40.383055555
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_D%C9%99miryol_Va%C4%9Fzal%C4%B1",
+                "commonsCategory": "Baku railway station",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Baku_railway_station",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%D0%91%D0%B0%D0%BA%D0%B8%D0%BD%D1%81%D0%BA%D0%B8%D0%B9%20%D0%B6%D0%B5%D0%BB%D0%B5%D0%B7%D0%BD%D0%BE%D0%B4%D0%BE%D1%80%D0%BE%D0%B6%D0%BD%D1%8B%D0%B9%20%D0%B2%D0%BE%D0%BA%D0%B7%D0%B0%D0%BB%20%D0%9D%D0%BE%D1%8F%D0%B1%D1%80%D1%8C%202024.jpg",
+                "inventory": "122",
+                "item": "http://www.wikidata.org/entity/Q4076080",
+                "itemAltLabel": "Tiflis vağzalı",
+                "itemDescription": "Bakı şəhərində sərnişin qatarlarını qəbul edən dalan tipli dəmiryolu stansiyası",
+                "itemLabel": "Bakı Dəmiryolu vağzalı",
+                "lastModified": "2026-01-27T23:06:39Z"
             }
         },
         {
@@ -1384,6 +1573,217 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.831641,
+                    40.364085
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Az%C9%99rbaycan_D%C3%B6vl%C9%99t_Akademik_Filarmoniyas%C4%B1",
+                "commonsCategory": "Azerbaijan State Philharmonic Hall",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Azerbaijan_State_Philharmonic_Hall",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/FilarmonaSide.JPG",
+                "inventory": "143",
+                "item": "http://www.wikidata.org/entity/Q58823",
+                "itemAltLabel": "Azərbaycan Dövlət Filarmoniyası, M. Maqomayev adına Azərbaycan Dövlət Filarmoniyası, Müslüm Maqomayev adına Azərbaycan Dövlət Filarmoniyası",
+                "itemDescription": "Bakıda konsert zalı",
+                "itemLabel": "Azərbaycan Dövlət Akademik Filarmoniyası",
+                "lastModified": "2026-01-27T23:27:06Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8309985,
+                    40.3671314
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_%C5%9E%C9%99h%C9%99r_%C4%B0cra_Hakimiyy%C9%99tinin_binas%C4%B1",
+                "commonsCategory": "Building of Baku City Executive Power",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_Baku_City_Executive_Power",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mayoralty%20of%20Baku%20main%20fa%C3%A7ade%2C%202015.jpg",
+                "inventory": "144",
+                "item": "http://www.wikidata.org/entity/Q25540504",
+                "itemAltLabel": "Building of Baku City Executive Power",
+                "itemDescription": "Bakıda inzibati bina",
+                "itemLabel": "Bakı Şəhər İcra Hakimiyyətinin binası",
+                "lastModified": "2026-01-27T23:20:51Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833065,
+                    40.368236
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/AMEA_%C6%8Flyazmalar_%C4%B0nstitutu",
+                "commonsCategory": "Institute of Manuscripts, Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C6%8Flyazmalar%20%C4%B0nstitutunun%20binas%C4%B1%202020-ci%20ild%C9%99.jpg",
+                "inventory": "146",
+                "item": "http://www.wikidata.org/entity/Q4201721",
+                "itemAltLabel": "AMEA Məhəmməd Füzuli adına Əlyazmalar İnstitutu, Əlyazmalar İnstitutu, Məhəmməd Füzuli adına Əlyazmalar İnstitutu",
+                "itemDescription": "Azerbaijan University",
+                "itemLabel": "AMEA Əlyazmalar İnstitutu",
+                "lastModified": "2026-01-27T23:27:27Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833684,
+                    40.368574
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C4%B0smailiyy%C9%99_Saray%C4%B1",
+                "commonsCategory": "İsmailiyye palace",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Ismailiyye_Palace",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ismailiyye%20palace%20main%20fa%C3%A7ade%2C%20Baku%2C%202015.jpg",
+                "inventory": "147",
+                "item": "http://www.wikidata.org/entity/Q4189918",
+                "itemAltLabel": "İsmailiyyə, Azərbaycan Milli Elmlər Akademiyasının Rəyasət Heyətinin binası, Rəyasət Heyətinin binası",
+                "itemDescription": "Bakıda yerləşən saray",
+                "itemLabel": "İsmailiyyə Sarayı",
+                "lastModified": "2026-01-27T23:20:24Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831664,
+                    40.368554
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/S%C9%99ad%C9%99t_Saray%C4%B1",
+                "commonsCategory": "Palace of Happiness",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Happiness",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Palace%20of%20Happiness.JPG",
+                "inventory": "149",
+                "item": "http://www.wikidata.org/entity/Q4155891",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Səadət Sarayı",
+                "lastModified": "2026-01-27T23:21:24Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8311965,
+                    40.3619089
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Seyid_Mirbabayevin_saray%C4%B1",
+                "commonsCategory": "Palace of Seyid Mirbabayev",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Seyid_Mirbabayev",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Palace%20of%20Mirtaghi%20Babayev%20common.JPG",
+                "inventory": "152",
+                "item": "http://www.wikidata.org/entity/Q20580851",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Mirtağı Babayevin sarayı",
+                "lastModified": "2026-01-27T23:24:07Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831251,
+                    40.363505
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/De_Burun_saray%C4%B1",
+                "commonsCategory": "First building of the National Art Museum of Azerbaijan",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:First_building_of_the_National_Art_Museum_of_Azerbaijan",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/National%20Art%20Museum%20of%20Azerbaijan%20%28de%20Burs%20House%29%20edited.jpg",
+                "inventory": "154",
+                "item": "http://www.wikidata.org/entity/Q16366447",
+                "itemDescription": "Azərbaycanın Bakı şəhərində bina",
+                "itemLabel": "De Burun sarayı",
+                "lastModified": "2026-01-27T23:27:45Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831667,
+                    40.363056
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Az%C9%99rbaycan_Milli_%C4%B0nc%C9%99s%C9%99n%C9%99t_Muzeyi",
+                "commonsCategory": "National Art Museum of Azerbaijan",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:National_Art_Museum_of_Azerbaijan",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Palace%20of%20De%20Bur.JPG",
+                "inventory": "155",
+                "item": "http://www.wikidata.org/entity/Q2559128",
+                "itemAltLabel": "Azərbaycan Dövlət İncəsənət Muzeyi, Rüstam Mustafayev adına Azərbaycan Dövlət İncəsənət Muzeyi",
+                "itemDescription": "аrt museum in Baku",
+                "itemLabel": "Azərbaycan Milli İncəsənət Muzeyi",
+                "lastModified": "2026-01-27T23:28:10Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8483,
+                    40.3729
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_Kommersiya_M%C9%99kt%C9%99bi",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Commercial%20school%20in%20Baku.png",
+                "inventory": "162",
+                "item": "http://www.wikidata.org/entity/Q20573987",
+                "itemLabel": "Bakı Kommersiya Məktəbi",
+                "lastModified": "2026-01-27T23:28:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8363876,
+                    40.3699226
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Nizami_G%C9%99nc%C9%99vi_ad%C4%B1na_Milli_Az%C9%99rbaycan_%C6%8Fd%C9%99biyyat%C4%B1_Muzeyi",
+                "commonsCategory": "Nizami Museum of Azerbaijan Literature",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Nizami%20G%C9%99nc%C9%99vi%20ad%C4%B1na%20Az%C9%99rbaycan%20%C6%8Fd%C9%99biyyat%20Muzeyi%202015.jpg",
+                "inventory": "164",
+                "item": "http://www.wikidata.org/entity/Q2500152",
+                "itemAltLabel": "Nizami Gəncəvi adına Azərbaycan Ədəbiyyatı Muzeyi",
+                "itemDescription": "Bakıda muzey",
+                "itemLabel": "Nizami Gəncəvi adına Milli Azərbaycan Ədəbiyyatı Muzeyi",
+                "lastModified": "2026-01-27T23:30:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.840027777,
                     40.369027777
                 ]
@@ -1395,9 +1795,53 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20of%20the%20bank%20on%203%20Zeynalabdin%20Taghiyev%20Street.jpg",
                 "inventory": "165",
                 "item": "http://www.wikidata.org/entity/Q95951669",
-                "itemDescription": "Bank building in Azerbaijan",
+                "itemDescription": "Bakıda bank binası",
                 "itemLabel": "Peterburq Şimal bankının binası",
-                "lastModified": "2025-07-22T15:55:31Z"
+                "lastModified": "2026-01-27T23:30:58Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.840122222,
+                    40.369477777
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Hac%C4%B1_Zeynalabdin_Ta%C4%9F%C4%B1yevin_saray%C4%B1",
+                "commonsCategory": "Palace of Zeynalabdin Taghiyev",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Zeynalabdin_Taghiyev",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ta%C4%9F%C4%B1yevin%20saray%C4%B1%202020.jpg",
+                "inventory": "166",
+                "item": "http://www.wikidata.org/entity/Q20578458",
+                "itemAltLabel": "Azərbaycan Tarix Muzeyinin binası",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Hacı Zeynalabdin Tağıyevin sarayı",
+                "lastModified": "2026-01-27T23:31:45Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8470613,
+                    40.3747117
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Az%C9%99rbaycan_D%C3%B6vl%C9%99t_Mahn%C4%B1_Teatr%C4%B1",
+                "commonsCategory": "Azerbaijan State Song Theatre",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Azerbaijan_State_Song_Theatre",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/R%C9%99%C5%9Fid%20Behbudov%20ad%C4%B1na%20Mahn%C4%B1%20Teatr%C4%B1.jpg",
+                "inventory": "167",
+                "item": "http://www.wikidata.org/entity/Q7294887",
+                "itemAltLabel": "Böyük xor sinaqoqu",
+                "itemDescription": "Bakıda teatr",
+                "itemLabel": "Azərbaycan Dövlət Mahnı Teatrı",
+                "lastModified": "2026-01-27T23:34:07Z"
             }
         },
         {
@@ -1816,6 +2260,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.599842139,
+                    40.782095999
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eamax%C4%B1_Astrofizika_R%C9%99s%C9%99dxanas%C4%B1",
+                "commonsCategory": "Shamakhi Astrophysical Observatory",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Shamakhi_Astrophysical_Observatory",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Shamakhi%20observatory.jpg",
+                "inventory": "321",
+                "item": "http://www.wikidata.org/entity/Q752128",
+                "itemAltLabel": "Shamakhi Astrophysical Observatory, Shamakhi Astrophysical Observatory named after Nasraddin Tusi, Shamakhy Astrophysical Observatory named after Nasraddin Tusi",
+                "itemDescription": "astrophysical facility in Şamaxı, Azerbaijan",
+                "itemLabel": "Şamaxı Astrofizika Rəsədxanası",
+                "lastModified": "2026-01-27T18:24:19Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.307670015,
                     41.128641702
                 ]
@@ -1911,9 +2377,9 @@
                 "inventory": "330",
                 "item": "http://www.wikidata.org/entity/Q12843453",
                 "itemAltLabel": "Nuxa qalası",
-                "itemDescription": "fortress in Shaki, Azerbaijan",
+                "itemDescription": "Şəkidə qala",
                 "itemLabel": "Şəki qalası",
-                "lastModified": "2026-01-19T08:59:52Z"
+                "lastModified": "2026-01-27T18:28:51Z"
             }
         },
         {
@@ -2140,12 +2606,13 @@
                 "azLink": "https://az.wikipedia.org/wiki/Aza_k%C3%B6rp%C3%BCs%C3%BC",
                 "commonsCategory": "Aza körpüsü",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Aza_k%C3%B6rp%C3%BCs%C3%BC",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Aza%20k%C3%B6rp%C3%BCs%C3%BC%20%282%29.jpg",
                 "inventory": "416",
                 "item": "http://www.wikidata.org/entity/Q16416335",
                 "itemAltLabel": "Aza, Şah Abbas körpüsü",
                 "itemDescription": "Azərbaycanda yerləşən, Səfəvilər dövrünə aid körpü.",
                 "itemLabel": "Aza körpüsü",
-                "lastModified": "2025-12-21T04:17:30Z"
+                "lastModified": "2026-01-27T01:47:13Z"
             }
         },
         {
@@ -2179,11 +2646,12 @@
                 ]
             },
             "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%D0%9F%D0%B0%D0%BC%D1%8F%D1%82%D0%BD%D0%B8%D0%BA%20%C2%AB%D0%9A%D0%B8%D1%82%D0%B0%D0%B1%D0%B8-%D0%94%D0%B5%D0%B4%D0%B5%20%D0%93%D0%BE%D1%80%D0%B3%D1%83%D0%B4%C2%BB.jpg",
                 "inventory": "429",
                 "item": "http://www.wikidata.org/entity/Q108934612",
                 "itemDescription": "Bakıda abidə",
                 "itemLabel": "Kitabi Dədə Qorqud abidəsi",
-                "lastModified": "2026-01-27T00:22:34Z"
+                "lastModified": "2026-01-27T01:34:21Z"
             }
         },
         {
@@ -2607,10 +3075,10 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Kala%20m%C9%99b%C9%99di%20%2819%29.jpg",
                 "inventory": "1637",
                 "item": "http://www.wikidata.org/entity/Q12842452",
-                "itemAltLabel": "Kala Gergets",
+                "itemAltLabel": "Kala Gergets, Kala bazilikası, Kala kilsəsi, Kala məbədi, Müqəddəs Yelisey kompleksi (Oğuz), Qala piri",
                 "itemDescription": "Oğuz rayonunda yerləşən alban məbədi.",
                 "itemLabel": "Müqəddəs Yelisey kompleksi",
-                "lastModified": "2026-01-26T06:44:19Z"
+                "lastModified": "2026-01-27T04:04:17Z"
             }
         },
         {
@@ -2802,6 +3270,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.837860907,
+                    40.3663828
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C4%B0sa_b%C9%99y_Hac%C4%B1nskinin_evi_(%C4%B0%C3%A7%C9%99ri%C5%9F%C9%99h%C9%99r)",
+                "commonsCategory": "House of Hajinsky",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House_of_Hajinsky",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Edificio%20en%20Baku%2C%20Azerbaiy%C3%A1n%2C%202016-09-26%2C%20DD%2007.jpg",
+                "inventory": "2490",
+                "item": "http://www.wikidata.org/entity/Q41692531",
+                "itemAltLabel": "Isa bek Gadjinski’s House, Isa bek Hajinski’s House",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "İsa bəy Hacınskinin evi",
+                "lastModified": "2026-01-27T23:25:33Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.822561102,
                     40.47424794
                 ]
@@ -2920,6 +3410,25 @@
                 "itemDescription": "Buzovna qəsəbəsində məscid",
                 "itemLabel": "Cümə məscidi",
                 "lastModified": "2025-12-29T20:13:29Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.894722222,
+                    40.3975
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eah_Abbas_m%C9%99scidi_(Ke%C5%9Fl%C9%99)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ke%C5%9Fl%C9%99%20m%C9%99scidinin%20plan%C4%B1.jpg",
+                "inventory": "2860",
+                "item": "http://www.wikidata.org/entity/Q60673825",
+                "itemDescription": "mosque in Azerbaijan",
+                "itemLabel": "Şah Abbas məscidi (Keşlə)",
+                "lastModified": "2026-01-27T23:14:38Z"
             }
         },
         {
@@ -3110,6 +3619,68 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.839929646,
+                    40.373616908
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9E%C9%99msi_%C6%8Fs%C9%99dullayevin_evi",
+                "commonsCategory": "House of Asadullayev",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House_of_Asadullayev",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/House%20of%20Shamsi%20Asadullayev.jpg",
+                "inventory": "2946",
+                "item": "http://www.wikidata.org/entity/Q97224420",
+                "itemDescription": "historic site in Azerbaijan",
+                "itemLabel": "Şəmsi Əsədullayevin evi",
+                "lastModified": "2026-01-27T23:08:26Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8473,
+                    40.38201
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C3%BCq%C9%99dd%C9%99s_M%C9%99ry%C9%99m_Anan%C4%B1n_Milad%C4%B1_kils%C9%99si_(Bak%C4%B1)",
+                "commonsCategory": "Orthodox church of the Nativity of Our Lady in Baku",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Orthodox_church_of_the_Nativity_of_Our_Lady_in_Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bakir%C9%99%20M%C9%99ry%C9%99min%20M%C9%99sum%20Hamil%C9%99l%C9%99yi%20kils%C9%99si%20%28Bak%C4%B1%2C%20pravoslav%29.jpg",
+                "inventory": "3023",
+                "item": "http://www.wikidata.org/entity/Q16414058",
+                "itemLabel": "Müqəddəs Məryəm Ananın Miladı kilsəsi",
+                "lastModified": "2026-01-27T23:06:56Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.847986908,
+                    40.379692231
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Az%C9%99rbaycan_D%C9%99miryol_Muzeyi",
+                "commonsCategory": "Azerbaijan Railway Museum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Azerbaijan_Railway_Museum",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Railway%20Museum%20in%20Baku.jpg",
+                "inventory": "3030",
+                "item": "http://www.wikidata.org/entity/Q123753947",
+                "itemDescription": "Azərbaycanda muzey",
+                "itemLabel": "Dəmiryol Muzeyi",
+                "lastModified": "2026-01-27T23:05:02Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.8458,
                     40.3819
                 ]
@@ -3125,6 +3696,27 @@
                 "itemDescription": "Bakıda yerləşən teatr",
                 "itemLabel": "Azərbaycan Dövlət Pantomim Teatrı",
                 "lastModified": "2025-08-01T14:05:51Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.84137,
+                    40.375267
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Meylamovlar%C4%B1n_evi",
+                "commonsCategory": "Building on Bashir Safaroglu Street 174",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Bashir_Safaroglu_Street_174",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Meylamovlar%C4%B1n%20evi%20%282%29.jpg",
+                "inventory": "3161",
+                "item": "http://www.wikidata.org/entity/Q111974946",
+                "itemDescription": "Bakıda Bəşir Səfəroğlu küçəsi, 174 ünvanında, 1899-cu ildə inşa edilmiş üç mərtəbəli yaşayış evi. Binanın sahibi Xələf Meylamov olub.",
+                "itemLabel": "Meylamovların evi",
+                "lastModified": "2026-01-27T23:09:06Z"
             }
         },
         {
@@ -3376,6 +3968,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.834005,
+                    40.369259
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Monolit_(bina)",
+                "commonsCategory": "Monolith (building)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Monolith_(building)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Monolit%20building%20in%20Baku.jpg",
+                "inventory": "3259",
+                "item": "http://www.wikidata.org/entity/Q97170891",
+                "itemDescription": "Bakıda tarixi yaşayış binası",
+                "itemLabel": "Monolit binası",
+                "lastModified": "2026-01-27T23:54:43Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.834179714,
                     40.371031301
                 ]
@@ -3388,6 +4001,285 @@
                 "itemDescription": "Bakıda yerləşən univermaq",
                 "itemLabel": "Mərkəzi Univermaq (Bakı)",
                 "lastModified": "2025-07-23T17:17:05Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.838539277,
+                    40.371776336
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C9%99l%C9%99kli_ev",
+                "commonsCategory": "Building on Nigar Rafibeyli Street 26",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Nigar_Rafibeyli_Street_26",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Nigar%20R%C9%99fib%C9%99yli%2026.JPG",
+                "inventory": "3270",
+                "item": "http://www.wikidata.org/entity/Q25384080",
+                "itemDescription": "building in Baku, Azerbaijan",
+                "itemLabel": "Mələkli ev",
+                "lastModified": "2026-01-28T00:24:33Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836466,
+                    40.371623
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C3%BCq%C9%99dd%C9%99s_Qriqori_kils%C9%99si_(Bak%C4%B1)",
+                "commonsCategory": "Armenian church of Saint Gregory the Illuminator in Baku",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Armenian_church_of_Saint_Gregory_the_Illuminator_in_Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Armenian%20church%20of%20Saint%20Gregory%20the%20Illuminator%20in%20Baku%205.JPG",
+                "inventory": "3272",
+                "item": "http://www.wikidata.org/entity/Q2503332",
+                "itemAltLabel": "Bakı Erməni Kilsəsi, Bakı erməni kilsəsi, Müqəddəs Maarifləndirici Qriqori kilsəsi",
+                "itemDescription": "Bakıda kilsə",
+                "itemLabel": "Müqəddəs Qriqori kilsəsi",
+                "lastModified": "2026-01-27T23:23:15Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830749,
+                    40.364198
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Sad%C4%B1qov_qarda%C5%9Flar%C4%B1n%C4%B1n_m%C9%99daxil_evi",
+                "commonsCategory": "House of Sadikhov brothers",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House_of_Sadikhov_brothers",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Sad%C4%B1qov%20qarda%C5%9Flar%C4%B1n%C4%B1n%20evi%202.JPG",
+                "inventory": "3288",
+                "item": "http://www.wikidata.org/entity/Q25543409",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Sadıqov qardaşlarının mədaxil evi",
+                "lastModified": "2026-01-27T23:55:36Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830456,
+                    40.365361
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Mirz%C9%99b%C9%99yovun_m%C9%99daxil_evi",
+                "commonsCategory": "House of brothers of Mirzabekov",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House_of_brothers_of_Mirzabekov",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/House%20of%20brothers%20of%20Mirzabekovs.jpg",
+                "inventory": "3291",
+                "item": "http://www.wikidata.org/entity/Q24034380",
+                "itemAltLabel": "Mirzəbekyanın mədaxil mülkü, Mirzəbekyanın yeddimərtəbəli mülkü",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Mirzəbəyovun mədaxil evi",
+                "lastModified": "2026-01-27T23:56:12Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830914,
+                    40.366619
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C3%BCq%C9%99dd%C9%99s_Nina_q%C4%B1z_gimnaziyas%C4%B1n%C4%B1n_binas%C4%B1_(Bak%C4%B1)",
+                "commonsCategory": "Building of 132-134 Education complex",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_132-134_Education_complex",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/132-134%20sayl%C4%B1%20T%C9%99hsil%20kompleksi.jpg",
+                "inventory": "3292",
+                "item": "http://www.wikidata.org/entity/Q55699998",
+                "itemAltLabel": "132-134 nömrəli məktəbin binası",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Müqəddəs Nina qız gimnaziyası",
+                "lastModified": "2026-01-27T23:53:26Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829166666,
+                    40.368333333
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Mitrofanovun_evi",
+                "commonsCategory": "Building on Said Rustamov Street 3",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Said_Rustamov_Street_3",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20binas%C4%B1%2C%20S%C9%99id%20R%C3%BCst%C9%99mov%203.jpg",
+                "inventory": "3298",
+                "item": "http://www.wikidata.org/entity/Q97222958",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Mitrofanovun evi",
+                "lastModified": "2026-01-27T23:57:14Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.838938,
+                    40.36987
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Yeni_Avropa_(mehmanxana)",
+                "commonsCategory": "Building of Lukoil in Baku",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_Lukoil_in_Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Yeni%20Avropa%20otelinin%20binas%C4%B1.jpg",
+                "inventory": "3327",
+                "item": "http://www.wikidata.org/entity/Q25394143",
+                "itemAltLabel": "Lukoylun binası, Yeni Avropa otelinin binası, Göygöl mehmanxanasının binası",
+                "itemDescription": "Bakıda yerləşən otel binası",
+                "itemLabel": "Yeni Avropa",
+                "lastModified": "2026-01-28T00:06:08Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.839340778,
+                    40.370518205
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/R%C4%B1lski_qarda%C5%9Flar%C4%B1n%C4%B1n_ya%C5%9Fay%C4%B1%C5%9F_evi",
+                "commonsCategory": "Building on Yusif Mammadaliyev Street 11",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Yusif_Mammadaliyev_Street_11",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Yusif%20Mammadaliyev%20Street%2011%202020.jpg",
+                "inventory": "3341",
+                "item": "http://www.wikidata.org/entity/Q85997415",
+                "itemAltLabel": "Azərittifaqın binası",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Rılski qardaşlarının yaşayış evi",
+                "lastModified": "2026-01-28T00:04:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.838888888,
+                    40.371388888
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Qrifonlu_ev",
+                "commonsCategory": "House with Griffins",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House_with_Griffins",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qrifonlu%20ev%20%2817%29.jpg",
+                "inventory": "3349",
+                "item": "http://www.wikidata.org/entity/Q21946191",
+                "itemDescription": "building in Yusif Mammadaliyev Street Baku, Azerbaijan",
+                "itemLabel": "Qrifonlu ev",
+                "lastModified": "2026-01-28T00:05:35Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.850195391,
+                    40.375427347
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Skobelev_qarda%C5%9Flar%C4%B1n%C4%B1n_d%C9%99yirman%C4%B1",
+                "commonsCategory": "Skobelev Brothers' Mill",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Skobelev_Brothers%27_Mill",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/D%C9%99yirman%20binas%C4%B1%2C%20Nizami%20k%C3%BC%C3%A7%C9%99si%2C%2080.jpg",
+                "inventory": "3407",
+                "item": "http://www.wikidata.org/entity/Q111972869",
+                "itemAltLabel": "Landmark",
+                "itemDescription": "Bakıda dəyirman binası",
+                "itemLabel": "Skobelev qardaşlarının dəyirmanı",
+                "lastModified": "2026-01-27T23:52:04Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.843864762,
+                    40.373133314
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Az%C9%99rbaycan_R%C9%99ssamlar_%C4%B0ttifaq%C4%B1",
+                "commonsCategory": "Building of the Union of Artists of Azerbaijan",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_the_Union_of_Artists_of_Azerbaijan",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ressamlar%20ittifaqi.jpg",
+                "inventory": "3451",
+                "item": "http://www.wikidata.org/entity/Q4430590",
+                "itemDescription": "Azərbaycan Respublikasının peşəkar rəssamları və sənətşünaslarının ictimai yaradıcılıq təşkilatı",
+                "itemLabel": "Azərbaycan Rəssamlar İttifaqı",
+                "lastModified": "2026-01-28T00:03:37Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.845678333,
+                    40.373783673
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Az%C9%99rbaycan_B%C9%99st%C9%99karlar_%C4%B0ttifaq%C4%B1n%C4%B1n_binas%C4%B1",
+                "commonsCategory": "Building of the Union of Composers of Azerbaijan",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_the_Union_of_Composers_of_Azerbaijan",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Khagani%20Street%2027%202020.jpg",
+                "inventory": "3455",
+                "item": "http://www.wikidata.org/entity/Q105539450",
+                "itemAltLabel": "Türkiyə səfirliyinin keçmiş binası",
+                "itemDescription": "Xaqani küçəsində 3 mərtəbəli yaşayış binası.",
+                "itemLabel": "Azərbaycan Bəstəkarlar İttifaqının binası",
+                "lastModified": "2026-01-28T00:03:12Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.83858186,
+                    40.368254118
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ta%C4%9F%C4%B1yev_pasaj%C4%B1",
+                "commonsCategory": "Tagiyev's Passage",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Tagiyev%27s_Passage",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Baku%20MammadAminRasulzadeStreet6%20004%202123.jpg",
+                "inventory": "3459",
+                "item": "http://www.wikidata.org/entity/Q16417516",
+                "itemLabel": "Tağıyev pasajı",
+                "lastModified": "2026-01-27T23:51:14Z"
             }
         },
         {
@@ -4326,6 +5218,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.83722925,
+                    40.563624389
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Alman_l%C3%BCteran_kils%C9%99si_(G%C9%99d%C9%99b%C9%99y)",
+                "inventory": "4242",
+                "item": "http://www.wikidata.org/entity/Q16415867",
+                "itemLabel": "Alman lüteran kilsəsi",
+                "lastModified": "2026-01-28T00:21:59Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.837222,
                     40.563611
                 ]
@@ -4961,6 +5870,26 @@
                 "item": "http://www.wikidata.org/entity/Q12846983",
                 "itemLabel": "Ulu körpü",
                 "lastModified": "2025-06-24T14:51:25Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.055600144,
+                    41.468022213
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C4%B0lisu_qalas%C4%B1",
+                "commonsCategory": "Fortress ruins in Ilisu",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Fortress_ruins_in_Ilisu",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qala%20kompleksi.jpg",
+                "inventory": "4553",
+                "item": "http://www.wikidata.org/entity/Q11299300",
+                "itemLabel": "Qala kompleksi (İlisu kəndi)",
+                "lastModified": "2026-01-28T00:18:55Z"
             }
         },
         {
@@ -5827,7 +6756,7 @@
                 "item": "http://www.wikidata.org/entity/Q97225446",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
                 "itemLabel": "Dərə hamamı",
-                "lastModified": "2025-05-05T08:55:11Z"
+                "lastModified": "2026-01-27T14:13:50Z"
             }
         },
         {
@@ -6467,6 +7396,84 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.8331,
+                    40.368261
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/H%C3%BCseyn_Cavidin_ev-muzeyi",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Institute%20of%20Manuscripts%2C%20Baku%2C%202010.jpg",
+                "inventory": "5583",
+                "item": "http://www.wikidata.org/entity/Q12840429",
+                "itemAltLabel": "Hüseyn Cavidin ev muzeyi",
+                "itemLabel": "Hüseyn Cavidin ev muzeyi (Bakı)",
+                "lastModified": "2026-01-28T00:09:20Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831046,
+                    40.367533
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/N%C9%99riman_N%C9%99rimanovun_xatir%C9%99_muzeyi",
+                "commonsCategory": "House-museum of Nariman Narimanov",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House-museum_of_Nariman_Narimanov",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Buildings%20in%20Istiglaliyyat%20Street%20of%20Baku%2C%2035.jpg",
+                "inventory": "5584",
+                "item": "http://www.wikidata.org/entity/Q12843520",
+                "itemLabel": "Nəriman Nərimanovun ev-muzeyi",
+                "lastModified": "2026-01-28T00:08:46Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.84386589,
+                    40.373192766
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/B%C3%BClb%C3%BCl%C3%BCn_ev-muzeyi_(Bak%C4%B1)",
+                "commonsCategory": "House-museum of Bulbul",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House-museum_of_Bulbul",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bulbul%201.jpg",
+                "inventory": "5585",
+                "item": "http://www.wikidata.org/entity/Q37926509",
+                "itemDescription": "museum in Baku, Azerbaijan",
+                "itemLabel": "Bülbülün ev-muzeyi",
+                "lastModified": "2026-01-28T00:10:43Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.843059263,
+                    40.372842494
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C9%99mm%C9%99d_S%C9%99id_Ordubadinin_ev-muzeyi_(Bak%C4%B1)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20in%20Baku%20where%20Ordubadi%20lived.jpg",
+                "inventory": "5586",
+                "item": "http://www.wikidata.org/entity/Q16371075",
+                "itemLabel": "Məmməd Səid Ordubadinin ev muzeyi",
+                "lastModified": "2026-01-28T00:10:14Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.829918156,
                     40.377480667
                 ]
@@ -6482,6 +7489,26 @@
                 "itemDescription": "museum in Baku, Azerbaijan",
                 "itemLabel": "Üzeyir Hacıbəylinin ev-muzeyi (Bakı)",
                 "lastModified": "2026-01-08T18:27:01Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.837644444,
+                    40.368155555
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/S%C9%99m%C9%99d_Vur%C4%9Funun_ev-muzeyi",
+                "commonsCategory": "House-museum of Samad Vurgun",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House-museum_of_Samad_Vurgun",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%206%20Tarlan%20Aliyarbayov%20Street.jpg",
+                "inventory": "5590",
+                "item": "http://www.wikidata.org/entity/Q16374671",
+                "itemLabel": "Səməd Vurğunun ev-muzeyi",
+                "lastModified": "2026-01-28T00:19:26Z"
             }
         },
         {
