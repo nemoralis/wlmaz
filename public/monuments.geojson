@@ -1615,6 +1615,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.833483164,
+                    40.363809309
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Seyid_S%C9%99dullan%C4%B1n_xeyriyy%C9%99_idar%C9%99sinin_portal%C4%B1",
+                "commonsCategory": "Sufi khangah in Baku",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Sufi_khangah_in_Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Portal%20of%20Sufi%20Khangah%20in%20Baku.jpg",
+                "inventory": "137-1",
+                "item": "http://www.wikidata.org/entity/Q130427628",
+                "itemAltLabel": "Seyid Cəmaləddinin oğlu Seyid Sədullanın xeyriyyə idarəsinin portalı",
+                "itemDescription": "İçərişəhərdə tarixi bina",
+                "itemLabel": "Seyid Sədullanın xeyriyyə idarəsinin portalı",
+                "lastModified": "2026-01-29T02:19:41Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.831641,
                     40.364085
                 ]
@@ -2069,6 +2091,27 @@
                 "itemDescription": "Bərdə şəhərində körpü",
                 "itemLabel": "Tərtər çayı üzərində qədim körpü",
                 "lastModified": "2026-01-28T13:12:13Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.378749,
+                    39.479581
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eeyx_Bab%C4%B1_t%C3%BCrb%C9%99si",
+                "commonsCategory": "Sheykh Babi Yagub Mausoleum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Sheykh_Babi_Yagub_Mausoleum",
+                "inventory": "213",
+                "item": "http://www.wikidata.org/entity/Q4273799",
+                "itemAltLabel": "Şeyx Babı Yaqub türbəsi",
+                "itemDescription": "Füzuli rayonunun Babı kəndində türbə",
+                "itemLabel": "Şeyx Babı türbəsi",
+                "lastModified": "2026-01-29T02:27:30Z"
             }
         },
         {
