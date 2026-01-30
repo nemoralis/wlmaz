@@ -1,5 +1,10 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { library, config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+
+// Prevent FontAwesome from dynamically adding its CSS since we did it above
+config.autoAddCss = false;
+
 import { faCopyright, faImage } from "@fortawesome/free-regular-svg-icons";
 /* import specific icons */
 import {
@@ -13,9 +18,11 @@ import {
    faCircleInfo,
    faCircleNotch,
    faCloudArrowUp,
+   faExclamationCircle,
    faExclamationTriangle,
    faExternalLinkAlt,
    faFileSignature,
+   faImage as faImageSolid,
    faInfo,
    faInfoCircle,
    faLandmark,
@@ -29,8 +36,10 @@ import {
    faSignInAlt,
    faSortNumericDown,
    faSpinner,
+   faTrophy,
    faUser,
    faUserCircle,
+   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -46,6 +55,7 @@ library.add(
    faCircleInfo,
    faCircleNotch,
    faCloudArrowUp,
+   faExclamationCircle,
    faExclamationTriangle,
    faExternalLinkAlt,
    faFileSignature,
@@ -62,8 +72,11 @@ library.add(
    faSignInAlt,
    faSortNumericDown,
    faSpinner,
+   faTrophy,
    faUser,
    faUserCircle,
+   faUsers,
+   faImageSolid,
    faCopyright,
    faImage,
    faGithub,

@@ -11,7 +11,7 @@ const monumentsPath = path.resolve(process.cwd(), "public/monuments.geojson");
 let monumentRoutes: string[] = [];
 let lastmodMap: Record<string, Date> = {};
 
-const staticRoutes = ["/", "/stats", "/table", "/about"];
+const staticRoutes = ["/", "/stats", "/leaderboard", "/table", "/about"];
 const buildTime = new Date();
 
 try {
@@ -60,6 +60,7 @@ export default defineConfig({
          priority: {
             "/": 1.0, // Homepage - highest priority
             "/stats": 0.8, // Main sections
+            "/leaderboard": 0.8,
             "/table": 0.8,
             "/about": 0.5,
             "*": 0.6, // Default for monument pages
@@ -81,11 +82,15 @@ export default defineConfig({
    server: {
       proxy: {
          "/auth": {
-            target: "http://localhost:3001",
+            target: "http://localhost:3000",
             changeOrigin: true,
          },
          "/upload": {
-            target: "http://localhost:3001",
+            target: "http://localhost:3000",
+            changeOrigin: true,
+         },
+         "/api": {
+            target: "http://localhost:3000",
             changeOrigin: true,
          },
       },
@@ -97,15 +102,15 @@ export default defineConfig({
       rollupOptions: {
          output: {
             manualChunks: {
-                     "leaflet-vendor": [
-                        "leaflet",
-                        "leaflet.markercluster",
-                        "leaflet.locatecontrol",
-                        "leaflet-sidebar-v2",
-                     ],
-                     "vue-vendor": ["vue", "vue-router", "pinia"],
-                     "chart-vendor": ["chart.js", "vue-chartjs"],
-                  },
+               "leaflet-vendor": [
+                  "leaflet",
+                  "leaflet.markercluster",
+                  "leaflet.locatecontrol",
+                  "leaflet-sidebar-v2",
+               ],
+               "vue-vendor": ["vue", "vue-router", "pinia"],
+               "chart-vendor": ["chart.js", "vue-chartjs"],
+            },
 
             // Better file naming for caching
             chunkFileNames: "assets/[name]-[hash].js",

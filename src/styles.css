@@ -5,13 +5,15 @@ body {
    margin: 0;
    padding: 0;
    height: 100dvh;
-   height: 100%; /* Fallback */
+   height: 100%;
+   /* Fallback */
    overflow: hidden;
 }
 
 #app {
    height: 100dvh;
-   height: 100%; /* Fallback */
+   height: 100%;
+   /* Fallback */
    display: flex;
    flex-direction: column;
 }
@@ -128,6 +130,7 @@ select:focus-visible {
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
+
    *,
    *::before,
    *::after {
@@ -158,4 +161,57 @@ a:focus-visible,
    box-shadow:
       0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================
+   MAP CONTROL FIXES
+   ============================================ */
+.leaflet-control-locate a,
+.leaflet-control-layers-toggle {
+   display: flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+   color: #4b5563 !important;
+   background-image: none !important;
+}
+
+.leaflet-control-locate a::before,
+.leaflet-control-layers-toggle::before {
+   display: none !important;
+}
+
+.leaflet-control-locate a .svg-inline--fa,
+.leaflet-control-layers-toggle .svg-inline--fa {
+   width: 1.1em !important;
+   height: 1.1em !important;
+}
+
+.leaflet-control-locate.active a {
+   color: #3366cc !important;
+}
+
+.leaflet-control-locate-spinner-wrapper .locate-icon-main {
+   display: none !important;
+}
+
+.leaflet-control-locate-spinner-wrapper .locate-icon-loading {
+   display: block !important;
+   animation: fa-spin 2s infinite linear;
+}
+
+.locate-icon-main,
+.locate-icon-loading {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+@keyframes fa-spin {
+   0% {
+      transform: rotate(0deg);
+   }
+
+   100% {
+      transform: rotate(359deg);
+   }
 }

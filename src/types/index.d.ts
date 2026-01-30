@@ -40,6 +40,42 @@ export interface MonumentProps {
    [key: string]: any;
 }
 
+/**
+ * Represents a user entry in the leaderboard.
+ */
+export interface LeaderboardUser {
+   username: string;
+   count: number; // Photos uploaded
+   usage: number; // Photos used in Wikipedia articles
+   reg: Date; // Registration date
+   rank: number;
+}
+
+/**
+ * API response structure for a single country from wikiloves.toolforge.org
+ */
+export interface WikiLovesCountryData {
+   category: string;
+   count: number;
+   usercount: number;
+   userreg: number;
+   usage: number;
+   start: number;
+   end: number;
+   data: Record<string, { images: number; joiners: number; newbie_joiners: number }>;
+   users: Record<string, { count: number; usage: number; reg: number }>;
+}
+
+export interface UserStats {
+   username: string;
+   total: {
+      count: number;
+      usage: number;
+      reg: number;
+   };
+   country: string;
+}
+
 // ========================================================
 // 2. MODULE DECLARATIONS (SHIMS)
 // ========================================================
@@ -88,6 +124,6 @@ declare module "leaflet-sidebar-v2" {
 declare global {
    namespace Express {
       // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-      interface User extends WikiUser {}
+      interface User extends WikiUser { }
    }
 }
