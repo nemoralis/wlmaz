@@ -125,13 +125,26 @@
                   <!-- Upload Button -->
                   <div class="mt-6 rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
                      <p class="mb-3 text-gray-700">Bu abidənin şəklini çəkmisiniz?</p>
-                     <button
-                        v-if="auth.user"
-                        class="w-full rounded-lg bg-green-600 px-4 py-2 text-white transition hover:bg-green-700"
-                        @click="showUploadInfo"
-                     >
-                        <font-awesome-icon :icon="['fas', 'camera']" class="mr-2" /> Şəkil Yüklə
-                     </button>
+                     
+                     <template v-if="auth.user">
+                        <button
+                           :disabled="auth.isBlocked"
+                           :class="[
+                              'w-full rounded-lg px-4 py-2 text-white transition',
+                              auth.isBlocked 
+                                 ? 'bg-gray-400 cursor-not-allowed' 
+                                 : 'bg-green-600 hover:bg-green-700'
+                           ]"
+                           @click="showUploadInfo"
+                        >
+                           <font-awesome-icon :icon="['fas', 'camera']" class="mr-2" /> Şəkil Yüklə
+                        </button>
+                        <p v-if="auth.isBlocked" class="mt-3 text-xs text-red-600 font-medium">
+                           <font-awesome-icon :icon="['fas', 'ban']" class="mr-1" />
+                           Hesabınız bloklandığı üçün şəkil yükləyə bilməzsiniz.
+                        </p>
+                     </template>
+
                      <button
                         v-else
                         class="w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"

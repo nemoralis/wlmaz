@@ -15,6 +15,8 @@ export const useAuthStore = defineStore("auth", {
    getters: {
       displayName: (state) => state.user?.username || "İstifadəçi",
       isAuthenticated: (state) => !!state.user,
+      isBlocked: (state) => !!state.user?.blocked,
+      blockReason: (state) => state.user?.blockreason || "",
    },
 
    actions: {
@@ -26,6 +28,24 @@ export const useAuthStore = defineStore("auth", {
             if (res.ok) {
                const data = await res.json();
                this.user = data;
+
+               // After getting basic user info, fetch block status/extra stats
+               if (this.user?.username) {
+                  try {
+                     const statsRes = await fetch(
+                        `/api/leaderboard/user/${encodeURIComponent(this.user.username)}`,
+                     );
+                     if (statsRes.ok) {
+                        const statsData = await statsRes.json();
+                        if (statsData.commons) {
+                           this.user.blocked = !!statsData.commons.blocked;
+                           this.user.blockreason = statsData.commons.blockreason;
+                        }
+                     }
+                  } catch (e) {
+                     console.error("Failed to fetch extended user stats:", e);
+                  }
+               }
             } else {
                this.user = null;
             }
