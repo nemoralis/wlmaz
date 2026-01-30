@@ -37,6 +37,13 @@
                Statistika
             </router-link>
             <router-link
+               to="/leaderboard"
+               class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
+               aria-label="Liderlik cədvəlinə get"
+            >
+               Liderlər
+            </router-link>
+            <router-link
                to="/table"
                class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
                aria-label="Siyahı səhifəsinə get"
@@ -102,15 +109,23 @@
                         <div class="block px-4 py-2 text-xs font-semibold text-gray-500 sm:hidden">
                            {{ auth.user.username }}
                         </div>
-                        <a
-                           :href="commonsUrl"
-                           target="_blank"
-                           rel="noopener"
-                           role="menuitem"
-                           class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
-                        >
-                           Mənim yükləmələrim ↗
-                        </a>
+                         <router-link
+                            to="/profile"
+                            role="menuitem"
+                            class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                            @click="menuOpen = false"
+                         >
+                            Mənim profilim
+                         </router-link>
+                         <a
+                            :href="commonsUrl"
+                            target="_blank"
+                            rel="noopener"
+                            role="menuitem"
+                            class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                         >
+                            Mənim yükləmələrim ↗
+                         </a>
                         <div class="my-1 border-t border-gray-100" role="separator"></div>
                         <button
                            role="menuitem"
@@ -175,6 +190,19 @@
                   aria-hidden="true"
                />
                Statistika
+            </router-link>
+            <router-link
+               to="/leaderboard"
+               class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
+               aria-label="Liderlik cədvəlinə get"
+               @click="mobileNavOpen = false"
+            >
+               <font-awesome-icon
+                  :icon="['fas', 'trophy']"
+                  class="w-5 text-amber-500"
+                  aria-hidden="true"
+               />
+               Liderlər
             </router-link>
             <router-link
                to="/table"

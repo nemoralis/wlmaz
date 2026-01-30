@@ -6,6 +6,8 @@ import { router } from "./routes/index";
 import "./styles.css";
 // Leaflet Core CSS
 import "leaflet/dist/leaflet.css";
+import "leaflet.locatecontrol/dist/L.Control.Locate.css";
+import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 // FontAwesome configuration
 import { FontAwesomeIcon } from "./plugins/fontawesome";
 // Wikimedia Codex Design System

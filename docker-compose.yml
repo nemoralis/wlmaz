@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   redis:
     image: redis:8-alpine
@@ -8,7 +6,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - ./redis.conf:/usr/local/etc/redis/redis.conf:ro
+      - ./redis.conf:/usr/local/etc/redis/redis.conf:z,ro
       - redis_data:/data
     restart: always
     deploy:

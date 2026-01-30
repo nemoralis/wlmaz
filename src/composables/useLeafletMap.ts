@@ -108,14 +108,24 @@ export function useLeafletMap() {
       sidebar.on("closing", () => options.onSidebarClosing?.());
 
       // 5. Locate Control
-      const locateIcon = icon({ prefix: "fas", iconName: "location-arrow" });
-      const loadingIcon = icon({ prefix: "fas", iconName: "spinner" });
-      new LocateControl({
+      const locateControl = new LocateControl({
          position: "topright",
          flyTo: true,
-         icon: locateIcon.html[0],
-         iconLoading: loadingIcon.html[0] + " animate-spin",
+         // We'll set the icons manually after adding to map to ensure they render as SVGs
+         icon: "leaflet-control-locate-icon-wrapper",
+         iconLoading: "leaflet-control-locate-spinner-wrapper",
       }).addTo(map);
+
+      const locateBtn = locateControl.getContainer()?.querySelector(".leaflet-bar-part");
+      if (locateBtn) {
+         const locateIcon = icon({ prefix: "fas", iconName: "location-arrow" });
+         const spinnerIcon = icon({ prefix: "fas", iconName: "spinner" });
+         locateBtn.innerHTML = `
+            <span class="locate-icon-main">${locateIcon.html[0]}</span>
+            <span class="locate-icon-loading" style="display:none">${spinnerIcon.html[0]}</span>
+         `;
+      }
+
 
       // 6. Global Map Events
       map.on("click", (e: L.LeafletMouseEvent) => {

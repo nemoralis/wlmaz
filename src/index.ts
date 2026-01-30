@@ -5,10 +5,12 @@ import express, { type NextFunction, type Request, type Response } from "express
 import session from "express-session";
 import hpp from "hpp";
 import morgan from "morgan";
-import { createClient } from "redis";
+import redisClient from "./utils/redis.ts";
 import passport from "./auth/passport.ts";
 import authRoutes from "./auth/routes.ts";
 import uploadRoutes from "./routes/upload.ts";
+import leaderboardRoutes from "./routes/leaderboard.ts";
+
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -17,15 +19,11 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const redisClient = createClient({
-   url: process.env.REDIS_URL || "redis://localhost:6379",
-});
 
-redisClient.on("error", (err) => console.log("Redis Client Error", err));
-redisClient.on("connect", () => console.log("Connected to Redis"));
 
 const startServer = async () => {
-   await redisClient.connect();
+   // redisClient handles its own connection in utils/redis.ts
+
 
    app.set("trust proxy", 1);
    const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
@@ -68,6 +66,7 @@ const startServer = async () => {
 
    app.use("/auth", authRoutes);
    app.use("/upload", uploadRoutes);
+   app.use("/api/leaderboard", leaderboardRoutes);
 
    if (process.env.NODE_ENV === "production") {
       const path = await import("path");
@@ -78,7 +77,7 @@ const startServer = async () => {
 
       app.get(/.*/, (req, res, next) => {
          // Don't catch API/Auth routes
-         if (req.url.startsWith("/auth") || req.url.startsWith("/upload")) {
+         if (req.url.startsWith("/auth") || req.url.startsWith("/upload") || req.url.startsWith("/api/leaderboard")) {
             return next();
          }
          res.sendFile(path.join(distPath, "index.html"));

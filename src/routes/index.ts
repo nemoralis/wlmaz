@@ -18,6 +18,16 @@ const routes: Array<RouteRecordRaw> = [
       component: () => import("../pages/StatsPage.vue"),
    },
    {
+      path: "/leaderboard",
+      name: "Leaderboard",
+      component: () => import("../pages/LeaderboardPage.vue"),
+   },
+   {
+      path: "/profile",
+      name: "Profile",
+      component: () => import("../pages/ProfilePage.vue"),
+   },
+   {
       path: "/table",
       name: "Table",
       component: () => import("../pages/TablePage.vue"),
