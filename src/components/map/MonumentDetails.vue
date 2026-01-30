@@ -105,16 +105,21 @@
                </CdxButton>
 
                <!-- Primary Action -->
-               <CdxButton
-                  v-if="isAuthenticated"
-                  action="progressive"
-                  weight="primary"
-                  class="primary-action"
-                  @click="$emit('open-upload')"
-               >
-                  <CdxIcon :icon="cdxIconUpload" />
-                  Yeni şəkil yüklə
-               </CdxButton>
+               <template v-if="isAuthenticated">
+                  <CdxButton
+                     :disabled="auth.isBlocked"
+                     action="progressive"
+                     :weight="auth.isBlocked ? 'normal' : 'primary'"
+                     class="primary-action"
+                     @click="$emit('open-upload')"
+                  >
+                     <CdxIcon :icon="auth.isBlocked ? cdxIconBlock : cdxIconUpload" />
+                     {{ auth.isBlocked ? 'Yükləmə qadağandır' : 'Yeni şəkil yüklə' }}
+                  </CdxButton>
+                  <p v-if="auth.isBlocked" class="block-notice">
+                     Hesabınız bloklandığı üçün şəkil yükləyə bilməzsiniz.
+                  </p>
+               </template>
                <CdxButton
                   v-else
                   action="progressive"
@@ -215,7 +220,9 @@ import {
    cdxIconMapPin,
    cdxIconShare,
    cdxIconUpload,
+   cdxIconBlock,
 } from "@wikimedia/codex-icons";
+import { useAuthStore } from "@/stores/auth";
 import type { MonumentProps } from "@/types";
 import {
    getCategoryUrl,
@@ -234,6 +241,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+const auth = useAuthStore();
 
 defineEmits<{
    "open-upload": [];
@@ -410,6 +418,15 @@ const openExternalLink = (url: string) => {
    grid-column: span 2;
    justify-content: center;
    width: 100%;
+}
+
+.block-notice {
+   grid-column: span 2;
+   margin-top: -0.25rem;
+   font-size: 0.75rem;
+   color: #d33;
+   text-align: center;
+   font-weight: 500;
 }
 
 /* Info Card Refinement */

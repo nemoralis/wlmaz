@@ -114,9 +114,18 @@ router.get("/total", async (_req, res) => {
 router.get("/user/:username", async (req, res) => {
     try {
         const { username } = req.params;
+        const cacheKey = `userstats:${username}`;
+
+        if (redisClient.isOpen) {
+            const cached = await redisClient.get(cacheKey);
+            if (cached) {
+                res.json(JSON.parse(cached));
+                return;
+            }
+        }
+
         const data = await getAggregateData();
         const countryData = data[COUNTRY];
-
         const userStats = countryData.users[username];
 
         if (!userStats) {
@@ -124,11 +133,42 @@ router.get("/user/:username", async (req, res) => {
             return;
         }
 
-        res.json({
+        // Fetch additional data from Commons API
+        let commonsData = null;
+        try {
+            const commonsResp = await fetch(
+                `https://commons.wikimedia.org/w/api.php?action=query&format=json&list=users&usprop=editcount|registration|groups|blockinfo&ususers=${encodeURIComponent(username)}&formatversion=2`
+            );
+            if (commonsResp.ok) {
+                const commonsJson = await commonsResp.json();
+                if (commonsJson.query?.users?.[0]) {
+                    const u = commonsJson.query.users[0];
+                    commonsData = {
+                        editcount: u.editcount,
+                        registration: u.registration,
+                        groups: u.groups || [],
+                        blocked: !!u.blockid,
+                        blockreason: u.blockreason,
+                        blockexpiry: u.blockexpiryrelative,
+                    };
+                }
+            }
+        } catch (e) {
+            console.error("Failed to fetch from Commons API:", e);
+        }
+
+        const result = {
             username,
             total: userStats,
+            commons: commonsData,
             country: COUNTRY,
-        });
+        };
+
+        if (redisClient.isOpen) {
+            await redisClient.setEx(cacheKey, CACHE_TTL, JSON.stringify(result));
+        }
+
+        res.json(result);
     } catch (error: any) {
         console.error("User stats proxy error:", error);
         res.status(500).json({ error: "Failed to fetch user statistics" });

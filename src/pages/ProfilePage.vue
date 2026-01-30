@@ -10,10 +10,30 @@
             </div>
             <div>
               <h1 class="text-2xl font-bold text-gray-900 tracking-tight">{{ auth.user?.username }}</h1>
-              <p class="text-sm text-gray-500">Şəxsi profil və statistika</p>
+              <div class="flex flex-wrap items-center gap-2 mt-1">
+                <p class="text-sm text-gray-500">Şəxsi profil və statistika</p>
+                <span v-if="stats?.commons?.registration" class="text-xs text-gray-400">•</span>
+                <p v-if="stats?.commons?.registration" class="text-xs text-gray-400">
+                  Vikianbarda {{ formattedCommonsRegDate }} tarixində qeydiyyatdan keçib
+                </p>
+              </div>
+              <!-- User Groups -->
+              <div v-if="stats?.commons?.groups" class="flex flex-wrap gap-1 mt-2">
+                <span 
+                  v-for="group in filteredGroups" 
+                  :key="group"
+                  class="px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded-full tracking-wider border border-blue-100"
+                >
+                  {{ group }}
+                </span>
+              </div>
             </div>
           </div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-3">
+            <div v-if="stats?.commons?.editcount" class="hidden sm:flex flex-col items-end">
+              <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Redaktə sayı</span>
+              <span class="text-lg font-bold text-gray-900">{{ stats.commons.editcount.toLocaleString() }}</span>
+            </div>
             <a 
               :href="commonsProfileUrl" 
               target="_blank" 
@@ -21,7 +41,7 @@
               class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all shadow-sm"
             >
               <font-awesome-icon :icon="['fas', 'external-link-alt']" class="text-xs" />
-              Wikimedia Commons Profili
+              Vikianbar profili
             </a>
           </div>
         </div>
@@ -50,8 +70,29 @@
 
       <!-- Content -->
       <div v-else-if="stats" class="space-y-8 animate-in fade-in duration-500">
+        <!-- Block Warning -->
+        <div v-if="stats.commons?.blocked" class="bg-red-50 border border-red-200 rounded-2xl p-6 flex flex-col md:flex-row gap-6 shadow-sm">
+          <div class="h-12 w-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center flex-shrink-0">
+            <font-awesome-icon :icon="['fas', 'ban']" class="text-xl" />
+          </div>
+          <div class="space-y-2">
+            <h2 class="text-lg font-bold text-red-900">Hesabınız Vikianbarda bloklanıb</h2>
+            <p class="text-red-700 leading-relaxed">
+              Vikianbardakı bloklanmısınız. Bu səbəbdən yeni fotoşəkillər yükləyə bilməzsiniz.
+            </p>
+            <div class="mt-4 pt-4 border-t border-red-200/50 space-y-2">
+              <p v-if="stats.commons.blockreason" class="text-sm font-medium text-red-800">
+                <span class="font-bold opacity-60">Səbəb:</span> 
+                <span class="italic" v-html="stats.commons.blockreason"></span>
+              </p>
+              <p v-if="stats.commons.blockexpiry" class="text-sm font-medium text-red-800">
+                <span class="font-bold opacity-60">Müddət:</span> {{ stats.commons.blockexpiry }}
+              </p>
+            </div>
+          </div>
+        </div>
         <!-- Stats Summary Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
             <div class="flex items-center justify-between mb-4">
               <div class="h-10 w-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
@@ -63,7 +104,7 @@
               <span class="text-3xl font-bold text-gray-900">{{ stats.total.count }}</span>
               <span class="text-sm text-gray-500 font-medium">ədəd</span>
             </div>
-            <p class="mt-2 text-sm text-gray-500">Bütün illər ərzində yüklənən abidə fotoları</p>
+            <p class="mt-2 text-sm text-gray-500">Müsabiqə çərçivəsində yüklənən şəkil</p>
           </div>
 
           <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
@@ -77,7 +118,7 @@
               <span class="text-3xl font-bold text-gray-900">{{ stats.total.usage }}</span>
               <span class="text-sm text-gray-500 font-medium">məqalə</span>
             </div>
-            <p class="mt-2 text-sm text-gray-500">Vikipediyada istifadə olunan fotoların sayı</p>
+            <p class="mt-2 text-sm text-gray-500">Vikipediyada istifadə olunan fotolar</p>
           </div>
 
           <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
@@ -92,6 +133,19 @@
             </div>
             <p class="mt-2 text-sm text-gray-500">Yüklənmiş şəkillərin məqalələrdə istifadə faizi</p>
           </div>
+
+          <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-4">
+              <div class="h-10 w-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center">
+                <font-awesome-icon :icon="['fas', 'pen-to-square']" />
+              </div>
+              <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Redaktə sayı</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold text-gray-900">{{ stats.commons?.editcount?.toLocaleString() || '0' }}</span>
+            </div>
+            <p class="mt-2 text-sm text-gray-500">Vikimedia Commons layihəsində ümumi fəaliyyət</p>
+          </div>
         </div>
 
         <!-- Detail Cards -->
@@ -99,7 +153,7 @@
           <!-- Timeline / Archive Link -->
           <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-              <h3 class="font-bold text-gray-900">Müsabiqə Tarixçəsi</h3>
+              <h3 class="font-bold text-gray-900">Müsabiqə tarixçəsi</h3>
             </div>
             <div class="p-6">
               <div class="flex items-center gap-4 mb-6">
@@ -107,15 +161,15 @@
                   <font-awesome-icon :icon="['fas', 'trophy']" />
                 </div>
                 <div>
-                  <p class="font-bold text-gray-900">Azərbaycan üzrə İlk Qeydiyyat</p>
+                  <p class="font-bold text-gray-900">Azərbaycan üzrə ilk qeydiyyat</p>
                   <p class="text-sm text-gray-500">{{ formattedRegDate }}</p>
                 </div>
               </div>
               
               <div class="space-y-4">
                  <p class="text-sm text-gray-600 leading-relaxed">
-                   WLM Azərbaycan müsabiqəsindəki iştirakınız ölkəmizin mədəni irsinin sənədləşdirilməsində mühüm rol oynayır. 
-                   Sizin tərəfinizdən yüklənən {{ stats.total.count }} foto gələcək nəsillər üçün dəyərli arxivdir.
+                   Viki Abidələri Sevir Azərbaycan müsabiqəsindəki iştirakınız ölkəmizin mədəni irsinin sənədləşdirilməsində mühüm rol oynayır. 
+                   Yüklədiyiniz {{ stats.total.count }} foto gələcək nəsillər üçün dəyərli arxivdir.
                  </p>
                  <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
                     <span class="text-sm font-medium text-gray-700">WLM Azərbaycan Səhifəsi</span>
@@ -126,18 +180,36 @@
           </div>
 
           <!-- Actions & Tips -->
-          <div class="bg-[#3366cc] rounded-2xl p-8 text-white shadow-lg relative overflow-hidden group">
+          <div
+:class="[
+            'rounded-2xl p-8 text-white shadow-lg relative overflow-hidden group transition-all',
+            stats.commons?.blocked ? 'bg-gray-800' : 'bg-[#3366cc]'
+          ]">
             <div class="relative z-10 flex flex-col h-full">
-              <h3 class="text-xl font-bold mb-4">Daha çox töhfə vermək istəyirsiniz?</h3>
-              <p class="text-blue-100 mb-8 max-w-sm">
-                Xəritədə şəkli olmayan abidələri taparaq onları çəkə və Azərbaycanın mədəni irsini dünyaya tanıda bilərsiniz.
-              </p>
-              <div class="mt-auto">
-                <router-link to="/" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#3366cc] rounded-xl font-bold hover:bg-blue-50 transition-all transform group-hover:translate-x-1">
-                  Xəritəni araşdırın
-                  <font-awesome-icon :icon="['fas', 'location-arrow']" />
-                </router-link>
-              </div>
+              <template v-if="!stats.commons?.blocked">
+                <h3 class="text-xl font-bold mb-4">Daha çox töhfə vermək istəyirsiniz?</h3>
+                <p class="text-blue-100 mb-8 max-w-sm">
+                  Xəritədə şəkli olmayan abidələri taparaq onları çəkə və Azərbaycanın mədəni irsini dünyaya tanıda bilərsiniz.
+                </p>
+                <div class="mt-auto">
+                  <router-link to="/" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#3366cc] rounded-xl font-bold hover:bg-blue-50 transition-all transform group-hover:translate-x-1">
+                    Xəritəni araşdırın
+                    <font-awesome-icon :icon="['fas', 'location-arrow']" />
+                  </router-link>
+                </div>
+              </template>
+              <template v-else>
+                <h3 class="text-xl font-bold mb-4">Yükləmə fəallığı dayandırılıb</h3>
+                <p class="text-gray-300 mb-8 max-w-sm">
+                  Hesabınız bloklandığı üçün hazırda yeni fotoşəkillər yükləyə bilməzsiniz. Blok müddəti bitdikdən sonra töhfə verməyə davam edə bilərsiniz.
+                </p>
+                <div class="mt-auto">
+                  <router-link to="/" class="inline-flex items-center gap-2 px-6 py-3 bg-white/10 text-white rounded-xl font-bold hover:bg-white/20 transition-all">
+                    Xəritəni araşdırın
+                    <font-awesome-icon :icon="['fas', 'location-arrow']" />
+                  </router-link>
+                </div>
+              </template>
             </div>
             <!-- Decorative SVG circles -->
             <div class="absolute -right-10 -bottom-10 h-64 w-64 bg-white/10 rounded-full blur-3xl group-hover:bg-white/15 transition-all"></div>
@@ -171,7 +243,6 @@ const usageRate = computed(() => {
 
 const formattedRegDate = computed(() => {
   if (!stats.value?.total.reg) return 'N/A';
-  // Example data format from toolforge: 20130912123456
   const regStr = stats.value.total.reg.toString();
   if (regStr.length >= 8) {
     const year = regStr.substring(0, 4);
@@ -182,11 +253,20 @@ const formattedRegDate = computed(() => {
   return regStr;
 });
 
+const formattedCommonsRegDate = computed(() => {
+  if (!stats.value?.commons?.registration) return '';
+  const date = new Date(stats.value.commons.registration);
+  return date.toLocaleDateString('az-AZ', { year: 'numeric', month: 'long', day: 'numeric' });
+});
+
+const filteredGroups = computed(() => {
+  return (stats.value?.commons?.groups || []).filter(g => g !== '*');
+});
+
 onMounted(() => {
   if (auth.user?.username) {
     fetchUserStats(auth.user.username);
   } else {
-    // If not logged in redirect (handled by router guard technically but added here for safety)
     error.value = "İstifadəçi məlumatları tapılmadı. Zəhmət olmasa daxil olun.";
   }
 });

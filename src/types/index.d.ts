@@ -17,6 +17,8 @@ export interface WikiUser {
    token: string; // OAuth Access Token
    tokenSecret: string; // OAuth Secret (Backend only ideally, but needed for types)
    profile?: any; // Raw profile data from MediaWiki
+   blocked?: boolean;
+   blockreason?: string;
 }
 
 /**
@@ -72,6 +74,14 @@ export interface UserStats {
       count: number;
       usage: number;
       reg: number;
+   };
+   commons?: {
+      editcount: number;
+      registration: string;
+      groups: string[];
+      blocked?: boolean;
+      blockreason?: string;
+      blockexpiry?: string;
    };
    country: string;
 }
