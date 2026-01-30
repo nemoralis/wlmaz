@@ -2282,7 +2282,7 @@
                 "itemAltLabel": "Surb Stepanos",
                 "itemDescription": "Tuğ kəndində kilsə",
                 "itemLabel": "Müqəddəs Stefan kilsəsi",
-                "lastModified": "2026-01-30T01:25:34Z"
+                "lastModified": "2026-01-30T12:50:25Z"
             }
         },
         {
@@ -5681,6 +5681,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.822465099,
+                    38.608084773
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Hac%C4%B1_Cahanbax%C4%B1%C5%9F_m%C9%99scidi",
+                "inventory": "4122",
+                "item": "http://www.wikidata.org/entity/Q137939380",
+                "itemDescription": "Pensər kəndində yerləşən tarixi məscid",
+                "itemLabel": "Hacı Cahanbaxış məscidi",
+                "lastModified": "2026-01-30T07:13:04Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.820428755,
                     38.607821949
                 ]
@@ -5712,6 +5730,78 @@
                 "itemDescription": "Artupa kəndində yerləşən məscid.",
                 "itemLabel": "Artupa kənd məscidi",
                 "lastModified": "2026-01-29T14:07:51Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.845506457,
+                    38.609700356
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Kakalos_k%C9%99nd_m%C9%99scidi",
+                "inventory": "4129",
+                "item": "http://www.wikidata.org/entity/Q137940207",
+                "itemDescription": "Kakalos kəndində yerləşən məscid, tarixi abidə.",
+                "itemLabel": "Kakalos kənd məscidi",
+                "lastModified": "2026-01-30T11:00:27Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.820488806,
+                    38.551279421
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ma%C5%9Fxan_k%C9%99nd_m%C9%99scidi",
+                "inventory": "4130",
+                "item": "http://www.wikidata.org/entity/Q137939505",
+                "itemDescription": "Maşxan kəndində yerləşən məscid, tarixi abidə.",
+                "itemLabel": "Maşxan kənd məscidi",
+                "lastModified": "2026-01-30T07:12:10Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.843624156,
+                    38.452480445
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C9%99scidm%C9%99h%C9%99ll%C9%99_k%C9%99nd_m%C9%99scidi",
+                "inventory": "4132",
+                "item": "http://www.wikidata.org/entity/Q137939693",
+                "itemDescription": "Məscidməhəllə kəndində yerləşən məscid, tarixi abidə.",
+                "itemLabel": "Məscidməhəllə kənd məscidi",
+                "lastModified": "2026-01-30T08:43:50Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.786551293,
+                    38.591263855
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Siyaku_k%C9%99nd_m%C9%99scidi",
+                "inventory": "4138",
+                "item": "http://www.wikidata.org/entity/Q137940531",
+                "itemDescription": "Siyaku kəndində yerləşən məscid, tarixi abidə.",
+                "itemLabel": "Siyaku kənd məscidi",
+                "lastModified": "2026-01-30T11:38:02Z"
             }
         },
         {
@@ -6970,13 +7060,13 @@
                 ]
             },
             "properties": {
-                "commonsCategory": "Category:Əliqulu Əhmədovun yaşayış evi",
+                "commonsCategory": "Əliqulu Əhmədovun yaşayış evi",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:%C6%8Fliqulu_%C6%8Fhm%C9%99dovun_ya%C5%9Fay%C4%B1%C5%9F_evi",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Quba%20evl%C9%99ri%20%2830%29.jpg",
                 "inventory": "4602",
                 "item": "http://www.wikidata.org/entity/Q137917869",
                 "itemLabel": "Əliqulu Əhmədovun yaşayış evi",
-                "lastModified": "2026-01-28T11:35:30Z"
+                "lastModified": "2026-01-30T09:58:18Z"
             }
         },
         {
@@ -6984,8 +7074,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    48.507222222,
-                    41.361944444
+                    48.507440723,
+                    41.362388354
                 ]
             },
             "properties": {
@@ -6998,7 +7088,7 @@
                 "itemAltLabel": "domed bath in Guba",
                 "itemDescription": "Qubada tarixi hamam",
                 "itemLabel": "Gümbəzli hamam",
-                "lastModified": "2026-01-21T12:50:56Z"
+                "lastModified": "2026-01-30T11:11:18Z"
             }
         },
         {
@@ -7006,21 +7096,21 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    48.512194444,
-                    41.363611111
+                    48.51214508,
+                    41.363206012
                 ]
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/C%C3%BCm%C9%99_m%C9%99scidi_(Quba)",
                 "commonsCategory": "Juma Mosque (Quba)",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Juma_Mosque_(Quba)",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Juma%20Mosque%20Quba.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Juma%20Mosque%20of%20Quba.jpg",
                 "inventory": "4615",
                 "item": "http://www.wikidata.org/entity/Q16415181",
                 "itemAltLabel": "Quba cümə məscidi",
                 "itemDescription": "Qubada yerləşən ibadətgah",
                 "itemLabel": "Cümə məscidi",
-                "lastModified": "2026-01-21T12:16:33Z"
+                "lastModified": "2026-01-30T11:06:16Z"
             }
         },
         {

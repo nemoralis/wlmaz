@@ -27,31 +27,32 @@
                </div>
             </div>
 
-            <div class="flex-1">
-               <CdxTable
-                  v-model:sort="sortState"
+            <div class="flex-1 overflow-hidden flex flex-col">
+               <MonumentVirtualTable
+                  ref="virtualTable"
                   :columns="columns"
                   :data="sortedMonuments"
-                  caption="Abidələr Siyahısı"
-                  :hide-caption="true"
-                  :paginate="true"
-                  :pagination-size-default="50"
+                  :row-height="75"
+                  :sort-state="sortState"
+                  @sort="handleSort"
                >
                   <!-- Custom Slot for Ad (Label + Description + AltLabel) -->
                   <template #item-itemLabel="{ row }">
-                     <div class="font-medium text-gray-900">{{ row.itemLabel }}</div>
-                     <div v-if="row.itemDescription" class="mt-0.5 text-xs text-gray-500">
-                        {{ row.itemDescription }}
-                     </div>
-                     <div v-if="row.itemAltLabel" class="mt-0.5 text-xs text-gray-400 italic">
-                        {{ row.itemAltLabel }}
+                     <div class="flex flex-col justify-center h-full">
+                        <div class="font-medium text-gray-900 truncate">{{ row.itemLabel }}</div>
+                        <div v-if="row.itemDescription" class="mt-0.5 text-xs text-gray-500 truncate">
+                           {{ row.itemDescription }}
+                        </div>
+                        <div v-if="row.itemAltLabel" class="mt-0.5 text-xs text-gray-400 italic truncate">
+                           {{ row.itemAltLabel }}
+                        </div>
                      </div>
                   </template>
 
                   <!-- Custom Slot for Status -->
                   <template #item-status="{ row }">
                      <span
-                        class="inline-flex px-2 text-xs leading-5 font-semibold"
+                        class="inline-flex px-2 text-xs font-semibold"
                         :class="row.image ? 'text-[#14866d]' : 'text-[#d73333]'"
                      >
                         {{ row.image ? "Şəkilli" : "Şəkilsiz" }}
@@ -60,7 +61,7 @@
 
                   <!-- Custom Slot for Actions -->
                   <template #item-actions="{ row }">
-                     <div class="flex justify-end gap-3">
+                     <div class="flex justify-end gap-1 sm:gap-3">
                         <!-- Upload Button -->
                         <CdxButton
                            v-if="auth.isAuthenticated"
@@ -93,16 +94,16 @@
                      </div>
                   </template>
 
-                  <template #footer>
+                  <template #empty>
                      <div v-if="loading" class="p-4 text-center text-gray-500">Yüklənir...</div>
                      <div
-                        v-else-if="sortedMonuments.length === 0"
+                        v-else
                         class="p-8 text-center text-gray-500"
                      >
                         Nəticə tapılmadı
                      </div>
                   </template>
-               </CdxTable>
+               </MonumentVirtualTable>
             </div>
             <div
                class="flex justify-between border-t border-gray-200 bg-[#f8f9fa] px-6 py-3 text-sm text-gray-500"
@@ -121,9 +122,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineAsyncComponent, defineComponent, onMounted, ref } from "vue";
+import { computed, defineAsyncComponent, defineComponent, onMounted, ref, watch } from "vue";
 import { useHead } from "@unhead/vue";
-import { CdxButton, CdxIcon, CdxSearchInput, CdxTable } from "@wikimedia/codex";
+import { CdxButton, CdxIcon, CdxSearchInput } from "@wikimedia/codex";
+import MonumentVirtualTable from "../components/MonumentVirtualTable.vue";
 import {
    cdxIconLogoWikipedia,
    cdxIconMap,
@@ -140,7 +142,7 @@ export default defineComponent({
    name: "TablePage",
    components: {
       UploadModal,
-      CdxTable,
+      MonumentVirtualTable,
       CdxButton,
       CdxIcon,
       CdxSearchInput,
@@ -160,11 +162,16 @@ export default defineComponent({
          ],
       });
 
+      const virtualTable = ref<any>(null);
       const loading = computed(() => monumentStore.isLoading);
       const isUploadModalOpen = ref(false);
       const selectedMonumentForUpload = ref<Monument | null>(null);
       const searchQuery = ref("");
       const monuments = computed(() => monumentStore.monuments);
+
+      watch(searchQuery, () => {
+         virtualTable.value?.scrollToTop();
+      });
 
       const sortState = ref<Record<string, "asc" | "desc">>({ inventory: "asc" });
 
@@ -178,6 +185,13 @@ export default defineComponent({
       const openUploadModal = (monument: Monument) => {
          selectedMonumentForUpload.value = monument;
          isUploadModalOpen.value = true;
+      };
+
+      const handleSort = (colId: string) => {
+         const current = sortState.value[colId];
+         const next = current === "asc" ? "desc" : "asc";
+         sortState.value = { [colId]: next };
+         virtualTable.value?.scrollToTop();
       };
 
       const openExternalLink = (url: string) => {
@@ -240,8 +254,10 @@ export default defineComponent({
          isUploadModalOpen,
          selectedMonumentForUpload,
          openUploadModal,
-         searchQuery,
          openExternalLink,
+         handleSort,
+         searchQuery,
+         virtualTable,
          cdxIconMap,
          cdxIconMapPin,
          cdxIconUpload,

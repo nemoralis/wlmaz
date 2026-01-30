@@ -203,12 +203,12 @@
   },
   {
     "date": "2026-01-30",
-    "timestamp": 1769737689622,
-    "total": 435,
+    "timestamp": 1769816832149,
+    "total": 440,
     "withImage": 375,
-    "withoutImage": 60,
+    "withoutImage": 65,
     "diff": {
-      "added": 8,
+      "added": 5,
       "removed": 0
     }
   }
