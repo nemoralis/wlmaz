@@ -1978,6 +1978,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.8874,
+                    40.0721
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Be%C5%9Fikda%C4%9F_kils%C9%99si",
+                "commonsCategory": "Vankasar Church",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Vankasar_Church",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%D5%8F%D5%AB%D5%A3%D6%80%D5%A1%D5%B6%D5%A1%D5%AF%D5%A5%D6%80%D5%BF25.JPG",
+                "inventory": "203",
+                "item": "http://www.wikidata.org/entity/Q3860570",
+                "itemDescription": "Ağdam rayonunda kilsə",
+                "itemLabel": "Beşikdağ kilsəsi",
+                "lastModified": "2026-01-30T01:11:02Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.433955,
                     40.600423
                 ]
@@ -2162,6 +2183,25 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.578611111,
+                    40.358333333
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/G%C3%BCl%C3%BCstan_qalas%C4%B1_(Goranboy)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/G%C3%BCl%C3%BCstan%20m%C9%99lik%20saray%C4%B1n%C4%B1n%20plan%C4%B1.jpg",
+                "inventory": "218",
+                "item": "http://www.wikidata.org/entity/Q4153254",
+                "itemDescription": "qədim Azərbaycan qalası",
+                "itemLabel": "Gülüstan qalası",
+                "lastModified": "2026-01-30T00:49:33Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.007893052,
                     40.153590799
                 ]
@@ -2184,6 +2224,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    47.091197213,
+                    39.60616972
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Kavakav%C9%99ng",
+                "commonsCategory": "Kavakavank",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Kavakavank",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Varanda%20%28Fizuli%29%2C%20Kavakavanq%2C%202014.05.10%20-%20panoramio.jpg",
+                "inventory": "228",
+                "item": "http://www.wikidata.org/entity/Q110104303",
+                "itemAltLabel": "Kavakavang",
+                "itemDescription": "church in the Khojavend District of Azerbaijan",
+                "itemLabel": "Kavakavəng",
+                "lastModified": "2026-01-30T01:37:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.057222222,
                     39.68375
                 ]
@@ -2199,6 +2261,28 @@
                 "itemDescription": "Xocavənd rayonunda monastır",
                 "itemLabel": "Amaras monastırı",
                 "lastModified": "2025-09-29T07:53:04Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.964095,
+                    39.584594
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C3%BCq%C9%99dd%C9%99s_Stefan_kils%C9%99si_(Tu%C4%9F)",
+                "commonsCategory": "St. Stepanos Church of Tugh",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:St._Stepanos_Church_of_Tugh",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%D4%B5%D5%AF%D5%A5%D5%B2%D5%A5%D6%81%D5%AB%20%C2%AB%D5%8D%D5%A2.%20%D5%8D%D5%BF%D5%A5%D6%83%D5%A1%D5%B6%D5%B8%D5%BD%C2%BB%20%28%D5%8F%D5%B8%D5%B2%29.jpg",
+                "inventory": "250-1",
+                "item": "http://www.wikidata.org/entity/Q13054837",
+                "itemAltLabel": "Surb Stepanos",
+                "itemDescription": "Tuğ kəndində kilsə",
+                "itemLabel": "Müqəddəs Stefan kilsəsi",
+                "lastModified": "2026-01-30T01:25:34Z"
             }
         },
         {
@@ -5893,6 +5977,63 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.778021635,
+                    40.533391959
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Xudu_Baba_t%C3%BCrb%C9%99si",
+                "inventory": "4261",
+                "item": "http://www.wikidata.org/entity/Q16418620",
+                "itemLabel": "Xudu Baba türbəsi",
+                "lastModified": "2026-01-30T00:43:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.738563,
+                    40.577425
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9E%C9%99t%C9%99l_qalas%C4%B1",
+                "inventory": "4264",
+                "item": "http://www.wikidata.org/entity/Q12849805",
+                "itemAltLabel": "Şatal",
+                "itemDescription": "Goranboyda qala",
+                "itemLabel": "Şətəl qalası",
+                "lastModified": "2026-01-30T00:52:27Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.742246,
+                    40.580726
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Mirz%C9%99_Ad%C4%B1g%C3%B6z%C9%99l_b%C9%99y_ail%C9%99sinin_t%C3%BCrb%C9%99l%C9%99ri",
+                "commonsCategory": "Mirza Adigozal bek family Mausoleum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Mirza_Adigozal_bek_family_Mausoleum",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mirza%20Adigozal%20bek%20family%20Mausoleums.jpg",
+                "inventory": "4265",
+                "item": "http://www.wikidata.org/entity/Q65276107",
+                "itemDescription": "mausoleum in Rahimli",
+                "itemLabel": "Mirzə Adıgözəl bəy ailəsinin türbələri",
+                "lastModified": "2026-01-30T00:46:04Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.738793829,
                     40.651973335
                 ]
@@ -6211,6 +6352,24 @@
                 "itemDescription": "Xocavənd rayonunda monastır",
                 "itemLabel": "Ktişvəng monastırı",
                 "lastModified": "2026-01-26T04:21:24Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.962658059,
+                    39.584745291
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C3%BCq%C9%99dd%C9%99s_M%C9%99ry%C9%99m_kils%C9%99si_(Tu%C4%9F)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%D4%B5%D5%AF%D5%A5%D5%B2%D5%A5%D6%81%D5%AB%20%D4%B1%D5%B6%D5%A1%D5%BA%D5%A1%D5%BF.jpg",
+                "inventory": "4354-2",
+                "item": "http://www.wikidata.org/entity/Q110212979",
+                "itemLabel": "Müqəddəs Məryəm kilsəsi",
+                "lastModified": "2026-01-30T01:35:46Z"
             }
         },
         {
