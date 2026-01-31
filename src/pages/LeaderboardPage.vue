@@ -51,6 +51,14 @@
             </div>
          </div>
 
+         <!-- Yearly Breakdown Chart -->
+         <div v-if="selectedYear === 'total' && yearlyBreakdown && !isLoading" class="mb-8 animate-in fade-in duration-700">
+            <YearlyBreakdownChart 
+               :yearly-data="yearlyBreakdown" 
+               title="Müsabiqədə illər üzrə iştirak" 
+            />
+         </div>
+
          <!-- Loading State -->
          <div v-if="isLoading" class="flex flex-col items-center justify-center py-16">
             <div class="h-10 w-10 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
@@ -171,12 +179,22 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
+import { onMounted, defineAsyncComponent } from "vue";
 import { useHead } from "@unhead/vue";
 import { useLeaderboard } from "../composables/useLeaderboard";
 
-const { users, isLoading, error, selectedYear, availableYears, eventStats, fetchLeaderboard } =
-   useLeaderboard();
+const YearlyBreakdownChart = defineAsyncComponent(() => import("../components/stats/YearlyBreakdownChart.vue"));
+
+const {
+   users,
+   isLoading,
+   error,
+   selectedYear,
+   availableYears,
+   eventStats,
+   yearlyBreakdown,
+   fetchLeaderboard,
+} = useLeaderboard();
 
 const onYearChange = () => {
    fetchLeaderboard(selectedYear.value);

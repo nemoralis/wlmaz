@@ -27,13 +27,17 @@ export const useLeaderboard = () => {
     // WLM typically happens in September, so Jan 2026 shouldn't default to 2026
     const currentMonth = new Date().getMonth(); // 0-indexed, 8 is September
     const defaultYear = currentMonth < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
-    const selectedYear = ref(defaultYear);
+    const selectedYear = ref<number | "total">(defaultYear);
 
     // Available years for WLM Azerbaijan
     const availableYears = computed(() => {
-        const currentYear = new Date().getFullYear();
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        // Only show current year if we are in or after September (Month index 8)
+        const latestAvailableYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
+
         const years: number[] = [];
-        for (let year = currentYear; year >= START_YEAR; year--) {
+        for (let year = latestAvailableYear; year >= START_YEAR; year--) {
             years.push(year);
         }
         return years;
@@ -46,14 +50,33 @@ export const useLeaderboard = () => {
         photosUsed: number;
     } | null>(null);
 
+    const yearlyBreakdown = ref<Record<number, { count: number; usage: number }> | null>(null);
+
     const fetchLeaderboard = async (year?: number | "total") => {
         const target = year ?? selectedYear.value;
         if (typeof target === "number") selectedYear.value = target;
 
-        isLoading.value = true;
+        const cacheKey = `leaderboard_data_${target}`;
+
+        // SWR: Load from local storage
+        const cached = localStorage.getItem(cacheKey);
+        if (cached) {
+            try {
+                const parsed = JSON.parse(cached);
+                users.value = parsed.users;
+                eventStats.value = parsed.eventStats;
+                yearlyBreakdown.value = parsed.yearlyBreakdown;
+            } catch (e) {
+                console.warn("Failed to parse cached leaderboard", e);
+            }
+        }
+
+        // Only show loading if we have no data
+        if (users.value.length === 0) {
+            isLoading.value = true;
+        }
+
         error.value = null;
-        users.value = [];
-        eventStats.value = null;
 
         try {
             const eventSlug = target === "total" ? "total" : `monuments${target}`;
@@ -96,9 +119,23 @@ export const useLeaderboard = () => {
                 totalUsers: countryData.usercount,
                 photosUsed: countryData.usage,
             };
+
+            // Set yearly breakdown if available (for "total" view)
+            if (countryData.years) {
+                yearlyBreakdown.value = countryData.years;
+            }
+
+            // Cache everything
+            localStorage.setItem(cacheKey, JSON.stringify({
+                users: users.value,
+                eventStats: eventStats.value,
+                yearlyBreakdown: yearlyBreakdown.value
+            }));
         } catch (e: unknown) {
             console.error("Failed to fetch leaderboard:", e);
-            error.value = e instanceof Error ? e.message : "Məlumat yüklənərkən xəta baş verdi";
+            if (users.value.length === 0) {
+                error.value = e instanceof Error ? e.message : "Məlumat yüklənərkən xəta baş verdi";
+            }
         } finally {
             isLoading.value = false;
         }
@@ -111,6 +148,7 @@ export const useLeaderboard = () => {
         selectedYear,
         availableYears,
         eventStats,
+        yearlyBreakdown,
         fetchLeaderboard,
     };
 };

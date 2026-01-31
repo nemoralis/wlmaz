@@ -148,6 +148,13 @@
           </div>
         </div>
 
+        <div v-if="stats.total.yearly && Object.keys(stats.total.yearly).length > 0" class="animate-in fade-in duration-700">
+           <YearlyBreakdownChart 
+            :yearly-data="stats.total.yearly" 
+            title="Müsabiqə illəri üzrə fəaliyyət" 
+           />
+        </div>
+
         <!-- Detail Cards -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <!-- Timeline / Archive Link -->
@@ -225,9 +232,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, defineAsyncComponent } from 'vue';
 import { useAuthStore } from '../stores/auth';
 import { useUserStats } from '../composables/useUserStats';
+
+const YearlyBreakdownChart = defineAsyncComponent(() => import('../components/stats/YearlyBreakdownChart.vue'));
 
 const auth = useAuthStore();
 const { stats, isLoading, error, fetchUserStats } = useUserStats();
