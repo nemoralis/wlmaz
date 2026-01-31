@@ -93,7 +93,7 @@
                            weight="quiet"
                            aria-label="Xəritədə göstər"
                            title="Xəritədə göstər"
-                           @click="$router.push('/?inventory=' + row.inventory)"
+                           @click="$router.push('/?inventory=' + getCanonicalId(row.inventory))"
                         >
                            <CdxIcon :icon="cdxIconMapPin" />
                         </CdxButton>
@@ -136,6 +136,7 @@ import MonumentVirtualTable from "../components/MonumentVirtualTable.vue";
 import { useAuthStore } from "../stores/auth";
 import { useMonumentStore } from "../stores/monuments";
 import type { MonumentProps as Monument } from "../types";
+import { getCanonicalId } from "../utils/monumentFormatters";
 
 const UploadModal = defineAsyncComponent(() => import("../components/UploadModal.vue"));
 
@@ -263,6 +264,7 @@ export default defineComponent({
          cdxIconMapPin,
          cdxIconUpload,
          cdxIconLogoWikipedia,
+         getCanonicalId,
       };
    },
 });

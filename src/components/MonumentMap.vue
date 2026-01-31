@@ -103,6 +103,7 @@ import type { Feature } from "geojson";
 import { useClipboard } from "../composables/useClipboard";
 import { useLeafletMap, type MonumentMarker } from "../composables/useLeafletMap";
 import { useWikiCredits } from "../composables/useWikiCredits";
+import { getCanonicalId } from "../utils/monumentFormatters";
 // CSS
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
@@ -188,14 +189,20 @@ export default defineComponent({
       ) => {
          const props = feature.properties as MonumentProps;
          const { inventory, image } = props;
-         if (inventory && markerLookup.has(inventory)) {
-            if (image && needsPhotoOnly.value) {
-               applyFilter(false);
-            }
+         if (inventory) {
+            // Inventory might be a comma-separated list. Try to find any match in the lookup.
+            const ids = inventory.split(",").map((s) => s.trim());
+            const foundId = ids.find((id) => markerLookup.has(id));
 
-            const marker = markerLookup.get(inventory) as MonumentMarker;
-            flyToMarker(marker);
-            selectMonument(marker);
+            if (foundId) {
+               if (image && needsPhotoOnly.value) {
+                  applyFilter(false);
+               }
+
+               const marker = markerLookup.get(foundId) as MonumentMarker;
+               flyToMarker(marker);
+               selectMonument(marker);
+            }
          }
       };
 
@@ -247,7 +254,9 @@ export default defineComponent({
             const url = new URL(window.location.href);
             if (newVal && newVal.itemLabel) {
                document.title = `${newVal.itemLabel} | Viki Abidələri Sevir`;
-               if (newVal.inventory) url.searchParams.set("inventory", newVal.inventory);
+               if (newVal.inventory) {
+                  url.searchParams.set("inventory", getCanonicalId(newVal.inventory));
+               }
                imageLoading.value = true;
                // Always call fetchImageMetadata to ensure credits are either updated or cleared
                fetchImageMetadata(newVal.image || "");
@@ -322,7 +331,11 @@ export default defineComponent({
                         // Ensure feature is attached for click handler
                         (marker as any).feature = feature;
 
-                        if (props.inventory) markerLookup.set(props.inventory, marker);
+                        if (props.inventory) {
+                           props.inventory.split(",").forEach((id) => {
+                              markerLookup.set(id.trim(), marker);
+                           });
+                        }
                         return marker;
                      },
                   });
