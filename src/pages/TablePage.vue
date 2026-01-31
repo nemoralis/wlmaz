@@ -27,7 +27,7 @@
                </div>
             </div>
 
-            <div class="flex-1 overflow-hidden flex flex-col">
+            <div class="flex flex-1 flex-col overflow-hidden">
                <MonumentVirtualTable
                   ref="virtualTable"
                   :columns="columns"
@@ -38,12 +38,18 @@
                >
                   <!-- Custom Slot for Ad (Label + Description + AltLabel) -->
                   <template #item-itemLabel="{ row }">
-                     <div class="flex flex-col justify-center h-full">
-                        <div class="font-medium text-gray-900 truncate">{{ row.itemLabel }}</div>
-                        <div v-if="row.itemDescription" class="mt-0.5 text-xs text-gray-500 truncate">
+                     <div class="flex h-full flex-col justify-center">
+                        <div class="truncate font-medium text-gray-900">{{ row.itemLabel }}</div>
+                        <div
+                           v-if="row.itemDescription"
+                           class="mt-0.5 truncate text-xs text-gray-500"
+                        >
                            {{ row.itemDescription }}
                         </div>
-                        <div v-if="row.itemAltLabel" class="mt-0.5 text-xs text-gray-400 italic truncate">
+                        <div
+                           v-if="row.itemAltLabel"
+                           class="mt-0.5 truncate text-xs text-gray-400 italic"
+                        >
                            {{ row.itemAltLabel }}
                         </div>
                      </div>
@@ -96,12 +102,7 @@
 
                   <template #empty>
                      <div v-if="loading" class="p-4 text-center text-gray-500">Yüklənir...</div>
-                     <div
-                        v-else
-                        class="p-8 text-center text-gray-500"
-                     >
-                        Nəticə tapılmadı
-                     </div>
+                     <div v-else class="p-8 text-center text-gray-500">Nəticə tapılmadı</div>
                   </template>
                </MonumentVirtualTable>
             </div>
@@ -125,13 +126,13 @@
 import { computed, defineAsyncComponent, defineComponent, onMounted, ref, watch } from "vue";
 import { useHead } from "@unhead/vue";
 import { CdxButton, CdxIcon, CdxSearchInput } from "@wikimedia/codex";
-import MonumentVirtualTable from "../components/MonumentVirtualTable.vue";
 import {
    cdxIconLogoWikipedia,
    cdxIconMap,
    cdxIconMapPin,
    cdxIconUpload,
 } from "@wikimedia/codex-icons";
+import MonumentVirtualTable from "../components/MonumentVirtualTable.vue";
 import { useAuthStore } from "../stores/auth";
 import { useMonumentStore } from "../stores/monuments";
 import type { MonumentProps as Monument } from "../types";

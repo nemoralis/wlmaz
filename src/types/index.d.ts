@@ -136,6 +136,6 @@ declare module "leaflet-sidebar-v2" {
 declare global {
    namespace Express {
       // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-      interface User extends WikiUser { }
+      interface User extends WikiUser {}
    }
 }

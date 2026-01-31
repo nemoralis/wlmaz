@@ -108,23 +108,23 @@
                         <div class="block px-4 py-2 text-xs font-semibold text-gray-500 sm:hidden">
                            {{ auth.user.username }}
                         </div>
-                         <router-link
-                            to="/profile"
-                            role="menuitem"
-                            class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
-                            @click="menuOpen = false"
-                         >
-                            Mənim profilim
-                         </router-link>
-                         <a
-                            :href="commonsUrl"
-                            target="_blank"
-                            rel="noopener"
-                            role="menuitem"
-                            class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
-                         >
-                            Mənim yükləmələrim ↗
-                         </a>
+                        <router-link
+                           to="/profile"
+                           role="menuitem"
+                           class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                           @click="menuOpen = false"
+                        >
+                           Mənim profilim
+                        </router-link>
+                        <a
+                           :href="commonsUrl"
+                           target="_blank"
+                           rel="noopener"
+                           role="menuitem"
+                           class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                        >
+                           Mənim yükləmələrim ↗
+                        </a>
                         <div class="my-1 border-t border-gray-100" role="separator"></div>
                         <button
                            role="menuitem"
@@ -235,7 +235,7 @@
       <main
          id="main-content"
          role="main"
-         class="relative w-full min-h-0 flex-1 overflow-y-auto"
+         class="relative min-h-0 w-full flex-1 overflow-y-auto"
          tabindex="-1"
       >
          <router-view />

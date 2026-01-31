@@ -5,12 +5,11 @@ import express, { type NextFunction, type Request, type Response } from "express
 import session from "express-session";
 import hpp from "hpp";
 import morgan from "morgan";
-import redisClient from "./utils/redis.ts";
 import passport from "./auth/passport.ts";
 import authRoutes from "./auth/routes.ts";
-import uploadRoutes from "./routes/upload.ts";
 import leaderboardRoutes from "./routes/leaderboard.ts";
-
+import uploadRoutes from "./routes/upload.ts";
+import redisClient from "./utils/redis.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -19,11 +18,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
-
 const startServer = async () => {
    // redisClient handles its own connection in utils/redis.ts
-
 
    app.set("trust proxy", 1);
    const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
@@ -77,7 +73,11 @@ const startServer = async () => {
 
       app.get(/.*/, (req, res, next) => {
          // Don't catch API/Auth routes
-         if (req.url.startsWith("/auth") || req.url.startsWith("/upload") || req.url.startsWith("/api/leaderboard")) {
+         if (
+            req.url.startsWith("/auth") ||
+            req.url.startsWith("/upload") ||
+            req.url.startsWith("/api/leaderboard")
+         ) {
             return next();
          }
          res.sendFile(path.join(distPath, "index.html"));

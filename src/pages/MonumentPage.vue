@@ -125,21 +125,21 @@
                   <!-- Upload Button -->
                   <div class="mt-6 rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
                      <p class="mb-3 text-gray-700">Bu abidənin şəklini çəkmisiniz?</p>
-                     
+
                      <template v-if="auth.user">
                         <button
                            :disabled="auth.isBlocked"
                            :class="[
                               'w-full rounded-lg px-4 py-2 text-white transition',
-                              auth.isBlocked 
-                                 ? 'bg-gray-400 cursor-not-allowed' 
-                                 : 'bg-green-600 hover:bg-green-700'
+                              auth.isBlocked
+                                 ? 'cursor-not-allowed bg-gray-400'
+                                 : 'bg-green-600 hover:bg-green-700',
                            ]"
                            @click="showUploadInfo"
                         >
                            <font-awesome-icon :icon="['fas', 'camera']" class="mr-2" /> Şəkil Yüklə
                         </button>
-                        <p v-if="auth.isBlocked" class="mt-3 text-xs text-red-600 font-medium">
+                        <p v-if="auth.isBlocked" class="mt-3 text-xs font-medium text-red-600">
                            <font-awesome-icon :icon="['fas', 'ban']" class="mr-1" />
                            Hesabınız bloklandığı üçün şəkil yükləyə bilməzsiniz.
                         </p>
@@ -230,15 +230,27 @@ useHead({
       monument.value
          ? `${monument.value.itemLabel} | Viki Abidələri Sevir Azərbaycan`
          : "Abidə Detalları",
-   link: [
-      {
-         rel: "canonical",
-         href: () =>
-            monument.value
+   link: computed(() => {
+      const links = [
+         {
+            rel: "canonical",
+            href: monument.value
                ? `https://wikilovesmonuments.az/monument/${monument.value.inventory}`
                : "https://wikilovesmonuments.az/",
-      },
-   ],
+         },
+      ];
+
+      if (monument.value?.image) {
+         links.push({
+            rel: "preload",
+            as: "image",
+            href: getOptimizedImage(monument.value.image),
+            imagesrcset: getSrcSet(monument.value.image, [320, 640, 800, 1024, 1280]),
+            imagesizes: "(max-width: 768px) 100vw, 50vw",
+         } as any);
+      }
+      return links;
+   }),
    meta: [
       {
          name: "description",

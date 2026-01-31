@@ -8,6 +8,15 @@ body {
    height: 100%;
    /* Fallback */
    overflow: hidden;
+   font-family:
+      "Outfit",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif;
 }
 
 #app {
@@ -130,7 +139,6 @@ select:focus-visible {
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
-
    *,
    *::before,
    *::after {

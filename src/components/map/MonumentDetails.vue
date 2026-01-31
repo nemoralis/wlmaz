@@ -114,7 +114,7 @@
                      @click="$emit('open-upload')"
                   >
                      <CdxIcon :icon="auth.isBlocked ? cdxIconBlock : cdxIconUpload" />
-                     {{ auth.isBlocked ? 'Yükləmə qadağandır' : 'Yeni şəkil yüklə' }}
+                     {{ auth.isBlocked ? "Yükləmə qadağandır" : "Yeni şəkil yüklə" }}
                   </CdxButton>
                   <p v-if="auth.isBlocked" class="block-notice">
                      Hesabınız bloklandığı üçün şəkil yükləyə bilməzsiniz.
@@ -209,6 +209,7 @@
 <script lang="ts" setup>
 import { CdxButton, CdxCard, CdxIcon, CdxInfoChip } from "@wikimedia/codex";
 import {
+   cdxIconBlock,
    cdxIconCamera,
    cdxIconCheck,
    cdxIconClose,
@@ -220,7 +221,6 @@ import {
    cdxIconMapPin,
    cdxIconShare,
    cdxIconUpload,
-   cdxIconBlock,
 } from "@wikimedia/codex-icons";
 import { useAuthStore } from "@/stores/auth";
 import type { MonumentProps } from "@/types";
