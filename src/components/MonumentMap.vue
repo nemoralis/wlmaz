@@ -290,6 +290,40 @@ export default defineComponent({
             },
          });
 
+         // 2. URL State Management (Lat/Long/Zoom)
+         const urlParams = new URLSearchParams(window.location.search);
+         const latParam = parseFloat(urlParams.get("lat") || "");
+         const longParam = parseFloat(urlParams.get("long") || "");
+         const zoomParam = parseInt(urlParams.get("zoom") || "");
+         const hasInventory = !!urlParams.get("inventory");
+
+         // Only set view from URL if we have valid coords AND no specific monument selected (precedence)
+         if (!hasInventory && !isNaN(latParam) && !isNaN(longParam) && !isNaN(zoomParam)) {
+            mapInstance.value?.setView([latParam, longParam], zoomParam);
+         }
+
+         // 3. Debounce utility for URL updates
+         let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+         const updateUrl = () => {
+            if (debounceTimer) clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+               if (!mapInstance.value) return;
+               const center = mapInstance.value.getCenter();
+               const zoom = mapInstance.value.getZoom();
+               const url = new URL(window.location.href);
+
+               // Update params
+               url.searchParams.set("lat", center.lat.toFixed(4));
+               url.searchParams.set("long", center.lng.toFixed(4));
+               url.searchParams.set("zoom", zoom.toString());
+
+               window.history.replaceState({}, "", url);
+            }, 500); // 500ms debounce
+         };
+
+         // Listen for moveend
+         mapInstance.value?.on("moveend", updateUrl);
+
          // 4. Data Loading via Store
          monumentStore.init();
 
