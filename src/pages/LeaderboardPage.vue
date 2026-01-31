@@ -21,17 +21,22 @@
          <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div class="flex items-center gap-3">
                <label for="year-select" class="text-sm font-medium text-gray-700">İl seçin:</label>
-               <select
-                  id="year-select"
-                  v-model="selectedYear"
-                  class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                  @change="onYearChange"
-               >
-                  <option value="total">Bütün illər</option>
-                  <option v-for="year in availableYears" :key="year" :value="year">
-                     {{ year }}
-                  </option>
-               </select>
+               <div class="flex items-center gap-2">
+                 <select
+                    id="year-select"
+                    v-model="selectedYear"
+                    class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                    @change="onYearChange"
+                 >
+                    <option value="total">Bütün illər</option>
+                    <option v-for="year in availableYears" :key="year" :value="year">
+                       {{ year }}
+                    </option>
+                 </select>
+                 <div v-if="isValidating" class="h-4 w-4 flex-shrink-0">
+                    <div class="h-4 w-4 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600"></div>
+                 </div>
+               </div>
             </div>
 
             <!-- Event Stats Cards (Compact) -->
@@ -188,6 +193,7 @@ const YearlyBreakdownChart = defineAsyncComponent(() => import("../components/st
 const {
    users,
    isLoading,
+   isValidating,
    error,
    selectedYear,
    availableYears,

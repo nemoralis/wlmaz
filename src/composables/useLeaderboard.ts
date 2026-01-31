@@ -21,6 +21,7 @@ function parseWikiDate(timestamp: number): Date {
 export const useLeaderboard = () => {
     const users = ref<LeaderboardUser[]>([]);
     const isLoading = ref(false);
+    const isValidating = ref(false);
     const error = ref<string | null>(null);
 
     // Default to the previous year if we're early in the current year
@@ -69,13 +70,17 @@ export const useLeaderboard = () => {
             } catch (e) {
                 console.warn("Failed to parse cached leaderboard", e);
             }
+        } else {
+            users.value = [];
+            eventStats.value = null;
+            yearlyBreakdown.value = null;
         }
 
-        // Only show loading if we have no data
         if (users.value.length === 0) {
             isLoading.value = true;
         }
 
+        isValidating.value = true;
         error.value = null;
 
         try {
@@ -138,12 +143,14 @@ export const useLeaderboard = () => {
             }
         } finally {
             isLoading.value = false;
+            isValidating.value = false;
         }
     };
 
     return {
         users,
         isLoading,
+        isValidating,
         error,
         selectedYear,
         availableYears,
