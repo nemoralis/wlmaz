@@ -5,7 +5,7 @@
          <div class="container mx-auto flex items-center justify-between">
             <h1 class="text-xl font-bold text-gray-800">
                <font-awesome-icon :icon="['fas', 'trophy']" class="mr-2 text-amber-500" />
-               Liderlik Cədvəli
+               Liderlik cədvəli
             </h1>
             <router-link
                to="/"
@@ -42,20 +42,29 @@
             </div>
 
             <!-- Event Stats Cards (Compact) -->
-            <div v-if="eventStats && !isLoading" class="flex gap-3 text-sm">
-               <div class="rounded-lg bg-white px-4 py-2 shadow-sm">
-                  <span class="text-gray-500">Ümumi şəkil:</span>
-                  <span class="ml-2 font-bold text-gray-800">{{
+            <div
+               v-if="eventStats && !isLoading"
+               class="grid grid-cols-3 gap-1.5 text-[10px] sm:flex sm:flex-wrap sm:gap-3 sm:text-sm"
+            >
+               <div
+                  class="flex flex-col items-center justify-center rounded-lg bg-white p-2 text-center shadow-sm sm:flex-row sm:px-4 sm:py-2"
+               >
+                  <span class="text-gray-500 sm:mr-2">Şəkil:</span>
+                  <span class="font-bold text-gray-800">{{
                      eventStats.totalPhotos.toLocaleString()
                   }}</span>
                </div>
-               <div class="rounded-lg bg-white px-4 py-2 shadow-sm">
-                  <span class="text-gray-500">İştirakçı:</span>
-                  <span class="ml-2 font-bold text-gray-800">{{ eventStats.totalUsers }}</span>
+               <div
+                  class="flex flex-col items-center justify-center rounded-lg bg-white p-2 text-center shadow-sm sm:flex-row sm:px-4 sm:py-2"
+               >
+                  <span class="text-gray-500 sm:mr-2">İştirakçı:</span>
+                  <span class="font-bold text-gray-800">{{ eventStats.totalUsers }}</span>
                </div>
-               <div class="rounded-lg bg-white px-4 py-2 shadow-sm">
-                  <span class="text-gray-500">İstifadə edilən:</span>
-                  <span class="ml-2 font-bold text-green-600">{{
+               <div
+                  class="flex flex-col items-center justify-center rounded-lg bg-white p-2 text-center shadow-sm sm:flex-row sm:px-4 sm:py-2"
+               >
+                  <span class="text-gray-500 sm:mr-2">İstifadə:</span>
+                  <span class="font-bold text-green-600">{{
                      eventStats.photosUsed.toLocaleString()
                   }}</span>
                </div>
@@ -100,8 +109,8 @@
          </div>
 
          <!-- Leaderboard Table -->
-         <div v-else-if="users.length > 0" class="overflow-hidden rounded-xl bg-white shadow-sm">
-            <table class="w-full">
+         <div v-else-if="users.length > 0" class="overflow-x-auto rounded-xl bg-white shadow-sm">
+            <table class="w-full min-w-[600px] sm:min-w-full">
                <thead class="bg-gray-50">
                   <tr>
                      <th
@@ -247,7 +256,7 @@ onMounted(() => {
 });
 
 useHead({
-   title: "Liderlik Cədvəli - Viki Abidələri Sevir Azərbaycan",
+   title: "Liderlik cədvəli - Viki Abidələri Sevir Azərbaycan",
    link: [
       {
          rel: "canonical",

@@ -1,5 +1,6 @@
 import L from "leaflet";
 import "leaflet.markercluster";
+import "leaflet-minimap";
 import { LocateControl } from "leaflet.locatecontrol";
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
 import { icon } from "@fortawesome/fontawesome-svg-core";
@@ -130,6 +131,32 @@ export function useLeafletMap() {
       map.on("click", (e: L.LeafletMouseEvent) => {
          if (e.originalEvent.defaultPrevented) return;
          options.onMapClick?.(e);
+      });
+
+      // 7. MiniMap
+      const miniMapLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+         maxZoom: 18,
+      });
+
+      const miniMapControl = new (L.Control as any).MiniMap(miniMapLayer, {
+         toggleDisplay: true,
+         minimized: false,
+         position: "bottomright",
+         width: 150,
+         height: 150,
+         strings: { hideText: "Gizlə", showText: "Göstər" },
+      }).addTo(map);
+
+      map.on("baselayerchange", (e: any) => {
+         const layer = e.layer as L.TileLayer;
+         if (layer && (layer as any)._url) {
+            const newMiniLayer = L.tileLayer((layer as any)._url, {
+               ...layer.options,
+               maxZoom: 18,
+               attribution: "",
+            });
+            miniMapControl.changeLayer(newMiniLayer);
+         }
       });
 
       return { map, sidebar, layerControl };

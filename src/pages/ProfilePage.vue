@@ -215,98 +215,6 @@
                   title="Müsabiqə illəri üzrə fəaliyyət"
                />
             </div>
-
-            <!-- Detail Cards -->
-            <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-               <!-- Timeline / Archive Link -->
-               <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-                  <div class="border-b border-gray-100 bg-gray-50/50 px-6 py-4">
-                     <h3 class="font-bold text-gray-900">Müsabiqə tarixçəsi</h3>
-                  </div>
-                  <div class="p-6">
-                     <div class="mb-6 flex items-center gap-4">
-                        <div
-                           class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-600"
-                        >
-                           <font-awesome-icon :icon="['fas', 'trophy']" />
-                        </div>
-                        <div>
-                           <p class="font-bold text-gray-900">Azərbaycan üzrə ilk qeydiyyat</p>
-                           <p class="text-sm text-gray-500">{{ formattedRegDate }}</p>
-                        </div>
-                     </div>
-
-                     <div class="space-y-4">
-                        <p class="text-sm leading-relaxed text-gray-600">
-                           Viki Abidələri Sevir Azərbaycan müsabiqəsindəki iştirakınız ölkəmizin
-                           mədəni irsinin sənədləşdirilməsində mühüm rol oynayır. Yüklədiyiniz
-                           {{ stats.total.count }} foto gələcək nəsillər üçün dəyərli arxivdir.
-                        </p>
-                        <div
-                           class="flex items-center justify-between border-t border-gray-100 pt-4"
-                        >
-                           <span class="text-sm font-medium text-gray-700"
-                              >WLM Azərbaycan Səhifəsi</span
-                           >
-                           <a
-                              href="https://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2025_in_Azerbaijan"
-                              target="_blank"
-                              class="text-sm font-bold text-blue-600 hover:underline"
-                              >Keçid et ↗</a
-                           >
-                        </div>
-                     </div>
-                  </div>
-               </div>
-
-               <!-- Actions & Tips -->
-               <div
-                  :class="[
-                     'group relative overflow-hidden rounded-2xl p-8 text-white shadow-lg transition-all',
-                     stats.commons?.blocked ? 'bg-gray-800' : 'bg-[#3366cc]',
-                  ]"
-               >
-                  <div class="relative z-10 flex h-full flex-col">
-                     <template v-if="!stats.commons?.blocked">
-                        <h3 class="mb-4 text-xl font-bold">Daha çox töhfə vermək istəyirsiniz?</h3>
-                        <p class="mb-8 max-w-sm text-blue-100">
-                           Xəritədə şəkli olmayan abidələri taparaq onları çəkə və Azərbaycanın
-                           mədəni irsini dünyaya tanıda bilərsiniz.
-                        </p>
-                        <div class="mt-auto">
-                           <router-link
-                              to="/"
-                              class="inline-flex transform items-center gap-2 rounded-xl bg-white px-6 py-3 font-bold text-[#3366cc] transition-all group-hover:translate-x-1 hover:bg-blue-50"
-                           >
-                              Xəritəni araşdırın
-                              <font-awesome-icon :icon="['fas', 'location-arrow']" />
-                           </router-link>
-                        </div>
-                     </template>
-                     <template v-else>
-                        <h3 class="mb-4 text-xl font-bold">Yükləmə fəallığı dayandırılıb</h3>
-                        <p class="mb-8 max-w-sm text-gray-300">
-                           Hesabınız bloklandığı üçün hazırda yeni fotoşəkillər yükləyə bilməzsiniz.
-                           Blok müddəti bitdikdən sonra töhfə verməyə davam edə bilərsiniz.
-                        </p>
-                        <div class="mt-auto">
-                           <router-link
-                              to="/"
-                              class="inline-flex items-center gap-2 rounded-xl bg-white/10 px-6 py-3 font-bold text-white transition-all hover:bg-white/20"
-                           >
-                              Xəritəni araşdırın
-                              <font-awesome-icon :icon="['fas', 'location-arrow']" />
-                           </router-link>
-                        </div>
-                     </template>
-                  </div>
-                  <!-- Decorative SVG circles -->
-                  <div
-                     class="absolute -right-10 -bottom-10 h-64 w-64 rounded-full bg-white/10 blur-3xl transition-all group-hover:bg-white/15"
-                  ></div>
-                  <div class="absolute -top-5 -right-5 h-20 w-20 rounded-full bg-white/5"></div>
-               </div>
-            </div>
          </div>
       </main>
 
@@ -334,18 +242,6 @@ const commonsProfileUrl = computed(() => {
 const usageRate = computed(() => {
    if (!stats.value || stats.value.total.count === 0) return 0;
    return Math.round((stats.value.total.usage / stats.value.total.count) * 100);
-});
-
-const formattedRegDate = computed(() => {
-   if (!stats.value?.total.reg) return "N/A";
-   const regStr = stats.value.total.reg.toString();
-   if (regStr.length >= 8) {
-      const year = regStr.substring(0, 4);
-      const month = regStr.substring(4, 6);
-      const day = regStr.substring(6, 8);
-      return `${day}.${month}.${year}`;
-   }
-   return regStr;
 });
 
 const formattedCommonsRegDate = computed(() => {
@@ -377,6 +273,7 @@ onMounted(() => {
       opacity: 0;
       transform: translateY(10px);
    }
+
    to {
       opacity: 1;
       transform: translateY(0);
