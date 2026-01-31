@@ -22,6 +22,11 @@ const startServer = async () => {
    // redisClient handles its own connection in utils/redis.ts
 
    app.set("trust proxy", 1);
+
+   morgan.token("remote-addr", (req: any) => {
+      return req.ip || req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+   });
+
    const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
 
    app.use(
