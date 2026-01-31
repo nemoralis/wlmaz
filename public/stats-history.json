@@ -211,5 +211,16 @@
       "added": 5,
       "removed": 0
     }
+  },
+  {
+    "date": "2026-01-31",
+    "timestamp": 1769819272752,
+    "total": 440,
+    "withImage": 375,
+    "withoutImage": 65,
+    "diff": {
+      "added": 0,
+      "removed": 0
+    }
   }
 ]
