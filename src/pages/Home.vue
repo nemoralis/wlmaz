@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onErrorCaptured, ref } from "vue";
+import { computed, onErrorCaptured, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useHead } from "@unhead/vue";
 import MonumentMap from "../components/MonumentMap.vue";
@@ -37,6 +37,10 @@ import {
    useOrganizationSchema,
    useWebSiteSchema,
 } from "../composables/useSchemaOrg";
+import { useMonumentStore } from "../stores/monuments";
+import { getOptimizedImage, getSrcSet } from "../utils/monumentFormatters";
+
+const monumentStore = useMonumentStore();
 
 const route = useRoute();
 const error = ref<Error | null>(null);
@@ -47,18 +51,27 @@ const websiteSchema = useWebSiteSchema();
 
 useHead({
    title: "Viki Abidələri Sevir Azərbaycan - Abidələrin İnteraktiv Xəritəsi",
-   link: [
-      {
-         rel: "canonical",
-         href: () => {
-            const inventory = route.query.inventory;
-            if (inventory) {
-               return `https://wikilovesmonuments.az/monument/${inventory}`;
-            }
-            return "https://wikilovesmonuments.az/";
+   link: computed(() => {
+      const links = [
+         {
+            rel: "canonical",
+            href: route.query.inventory
+               ? `https://wikilovesmonuments.az/monument/${route.query.inventory}`
+               : "https://wikilovesmonuments.az/",
          },
-      },
-   ],
+      ];
+
+      if (monumentStore.selectedMonument?.image) {
+         links.push({
+            rel: "preload",
+            as: "image",
+            href: getOptimizedImage(monumentStore.selectedMonument.image),
+            imagesrcset: getSrcSet(monumentStore.selectedMonument.image, [320, 640, 800]),
+            imagesizes: "(max-width: 768px) 100vw, 400px",
+         } as any);
+      }
+      return links;
+   }),
    meta: [
       {
          name: "description",

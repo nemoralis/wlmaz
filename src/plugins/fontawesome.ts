@@ -1,10 +1,6 @@
-import { library, config } from "@fortawesome/fontawesome-svg-core";
+import { config, library } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-
-// Prevent FontAwesome from dynamically adding its CSS since we did it above
-config.autoAddCss = false;
-
 import { faCopyright, faImage } from "@fortawesome/free-regular-svg-icons";
 /* import specific icons */
 import {
@@ -12,11 +8,11 @@ import {
    faBan,
    faBars,
    faCamera,
-   faChevronDown,
-   faChevronUp,
    faChartLine,
    faChartPie,
    faCheck,
+   faChevronDown,
+   faChevronUp,
    faCircleInfo,
    faCircleNotch,
    faCloudArrowUp,
@@ -44,6 +40,9 @@ import {
    faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+// Prevent FontAwesome from dynamically adding its CSS since we did it above
+config.autoAddCss = false;
 
 /* add icons to the library */
 library.add(

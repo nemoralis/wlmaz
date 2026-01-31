@@ -22,20 +22,22 @@
             <div class="flex items-center gap-3">
                <label for="year-select" class="text-sm font-medium text-gray-700">İl seçin:</label>
                <div class="flex items-center gap-2">
-                 <select
-                    id="year-select"
-                    v-model="selectedYear"
-                    class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                    @change="onYearChange"
-                 >
-                    <option value="total">Bütün illər</option>
-                    <option v-for="year in availableYears" :key="year" :value="year">
-                       {{ year }}
-                    </option>
-                 </select>
-                 <div v-if="isValidating" class="h-4 w-4 flex-shrink-0">
-                    <div class="h-4 w-4 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600"></div>
-                 </div>
+                  <select
+                     id="year-select"
+                     v-model="selectedYear"
+                     class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                     @change="onYearChange"
+                  >
+                     <option value="total">Bütün illər</option>
+                     <option v-for="year in availableYears" :key="year" :value="year">
+                        {{ year }}
+                     </option>
+                  </select>
+                  <div v-if="isValidating" class="h-4 w-4 flex-shrink-0">
+                     <div
+                        class="h-4 w-4 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600"
+                     ></div>
+                  </div>
                </div>
             </div>
 
@@ -43,7 +45,9 @@
             <div v-if="eventStats && !isLoading" class="flex gap-3 text-sm">
                <div class="rounded-lg bg-white px-4 py-2 shadow-sm">
                   <span class="text-gray-500">Ümumi şəkil:</span>
-                  <span class="ml-2 font-bold text-gray-800">{{ eventStats.totalPhotos.toLocaleString() }}</span>
+                  <span class="ml-2 font-bold text-gray-800">{{
+                     eventStats.totalPhotos.toLocaleString()
+                  }}</span>
                </div>
                <div class="rounded-lg bg-white px-4 py-2 shadow-sm">
                   <span class="text-gray-500">İştirakçı:</span>
@@ -51,22 +55,29 @@
                </div>
                <div class="rounded-lg bg-white px-4 py-2 shadow-sm">
                   <span class="text-gray-500">İstifadə edilən:</span>
-                  <span class="ml-2 font-bold text-green-600">{{ eventStats.photosUsed.toLocaleString() }}</span>
+                  <span class="ml-2 font-bold text-green-600">{{
+                     eventStats.photosUsed.toLocaleString()
+                  }}</span>
                </div>
             </div>
          </div>
 
          <!-- Yearly Breakdown Chart -->
-         <div v-if="selectedYear === 'total' && yearlyBreakdown && !isLoading" class="mb-8 animate-in fade-in duration-700">
-            <YearlyBreakdownChart 
-               :yearly-data="yearlyBreakdown" 
-               title="Müsabiqədə illər üzrə iştirak" 
+         <div
+            v-if="selectedYear === 'total' && yearlyBreakdown && !isLoading"
+            class="animate-in fade-in mb-8 duration-700"
+         >
+            <YearlyBreakdownChart
+               :yearly-data="yearlyBreakdown"
+               title="Müsabiqədə illər üzrə iştirak"
             />
          </div>
 
          <!-- Loading State -->
          <div v-if="isLoading" class="flex flex-col items-center justify-center py-16">
-            <div class="h-10 w-10 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+            <div
+               class="h-10 w-10 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"
+            ></div>
             <p class="mt-4 text-gray-500">Məlumat yüklənir...</p>
          </div>
 
@@ -75,7 +86,10 @@
             v-else-if="error"
             class="flex flex-col items-center justify-center rounded-xl bg-white p-8 text-center shadow-sm"
          >
-            <font-awesome-icon :icon="['fas', 'exclamation-circle']" class="mb-4 text-4xl text-red-400" />
+            <font-awesome-icon
+               :icon="['fas', 'exclamation-circle']"
+               class="mb-4 text-4xl text-red-400"
+            />
             <p class="mb-4 text-gray-600">{{ error }}</p>
             <button
                class="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
@@ -90,16 +104,24 @@
             <table class="w-full">
                <thead class="bg-gray-50">
                   <tr>
-                     <th class="px-6 py-4 text-left text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                     <th
+                        class="px-6 py-4 text-left text-xs font-semibold tracking-wider text-gray-500 uppercase"
+                     >
                         Sıra
                      </th>
-                     <th class="px-6 py-4 text-left text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                     <th
+                        class="px-6 py-4 text-left text-xs font-semibold tracking-wider text-gray-500 uppercase"
+                     >
                         İstifadəçi
                      </th>
-                     <th class="px-6 py-4 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                     <th
+                        class="px-6 py-4 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase"
+                     >
                         Şəkil sayı
                      </th>
-                     <th class="px-6 py-4 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                     <th
+                        class="px-6 py-4 text-right text-xs font-semibold tracking-wider text-gray-500 uppercase"
+                     >
                         İstifadə edilən
                      </th>
                      <th
@@ -149,7 +171,9 @@
 
                      <!-- Photo Count -->
                      <td class="px-6 py-4 text-right whitespace-nowrap">
-                        <span class="font-semibold text-gray-900">{{ user.count.toLocaleString() }}</span>
+                        <span class="font-semibold text-gray-900">{{
+                           user.count.toLocaleString()
+                        }}</span>
                      </td>
 
                      <!-- Usage Count -->
@@ -158,7 +182,9 @@
                      </td>
 
                      <!-- Registration Date -->
-                     <td class="hidden px-6 py-4 text-right text-sm text-gray-500 whitespace-nowrap sm:table-cell">
+                     <td
+                        class="hidden px-6 py-4 text-right text-sm whitespace-nowrap text-gray-500 sm:table-cell"
+                     >
                         {{ formatDate(user.reg) }}
                      </td>
                   </tr>
@@ -184,11 +210,13 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, defineAsyncComponent } from "vue";
+import { defineAsyncComponent, onMounted } from "vue";
 import { useHead } from "@unhead/vue";
 import { useLeaderboard } from "../composables/useLeaderboard";
 
-const YearlyBreakdownChart = defineAsyncComponent(() => import("../components/stats/YearlyBreakdownChart.vue"));
+const YearlyBreakdownChart = defineAsyncComponent(
+   () => import("../components/stats/YearlyBreakdownChart.vue"),
+);
 
 const {
    users,

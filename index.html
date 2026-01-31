@@ -1,54 +1,52 @@
 <!doctype html>
 <html lang="az">
-   <head>
-      <meta charset="UTF-8" />
-      <meta
-         name="viewport"
-         content="width=device-width, initial-scale=1.0"
-      />
 
-      <!-- Resource Hints for Performance -->
-      <link rel="preconnect" href="https://tile.openstreetmap.org" />
-      <link rel="preconnect" href="https://commons.wikimedia.org" />
-      <link rel="dns-prefetch" href="https://mt0.google.com" />
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <link rel="icon" href="https://wikilovesmonuments.az/favicon.ico" sizes="any" />
-      <link rel="icon" type="image/png" sizes="32x32" href="https://wikilovesmonuments.az/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="https://wikilovesmonuments.az/favicon-16x16.png" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
-      <title>Viki Abidələri Sevir Azərbaycan</title>
-      <meta
-         name="description"
-         content="Azərbaycanın tarixi abidələri və mədəni irs xəritəsi. Bakı, Şəki, Qəbələ və digər bölgələrdəki 300+ abidəni kəşf edin. Viki Abidələri Sevir müsabiqəsinə şəkil yükləyin."
-      />
+   <!-- Resource Hints for Performance -->
+   <link rel="preconnect" href="https://tile.openstreetmap.org" />
+   <link rel="preconnect" href="https://commons.wikimedia.org" />
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet" />
+   <link rel="dns-prefetch" href="https://mt0.google.com" />
+   <link rel="preload" href="/monuments.pbf" as="fetch" crossorigin="anonymous" />
 
-      <!-- Preload critical assets -->
-      <link rel="modulepreload" href="/src/main.ts" />
-      <link rel="preload" href="/wlm-az.svg" as="image" type="image/svg+xml" />
+   <link rel="icon" href="https://wikilovesmonuments.az/favicon.ico" sizes="any" />
+   <link rel="icon" type="image/png" sizes="32x32" href="https://wikilovesmonuments.az/favicon-32x32.png" />
+   <link rel="icon" type="image/png" sizes="16x16" href="https://wikilovesmonuments.az/favicon-16x16.png" />
+   <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+   <title>Viki Abidələri Sevir Azərbaycan</title>
+   <meta name="description"
+      content="Azərbaycanın tarixi abidələri və mədəni irs xəritəsi. Bakı, Şəki, Qəbələ və digər bölgələrdəki 300+ abidəni kəşf edin. Viki Abidələri Sevir müsabiqəsinə şəkil yükləyin." />
 
-      <!-- Canonical URL -->
-      <link rel="canonical" href="https://wikilovesmonuments.az/" />
+   <!-- Preload critical assets -->
+   <link rel="modulepreload" href="/src/main.ts" />
+   <link rel="preload" href="/wlm-az.svg" as="image" type="image/svg+xml" />
 
-      <!-- Hreflang Tags -->
-      <link rel="alternate" hreflang="az" href="https://wikilovesmonuments.az/" />
-      <link rel="alternate" hreflang="x-default" href="https://wikilovesmonuments.az/" />
+   <!-- Canonical URL -->
+   <link rel="canonical" href="https://wikilovesmonuments.az/" />
 
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://wikilovesmonuments.az/" />
-      <meta property="og:site_name" content="Wiki Loves Monuments Azerbaijan" />
-      <meta property="og:title" content="Viki Abidələri Sevir Azərbaycan" />
-      <meta property="og:description" content="Abidələri kəşf edin və fotoşəkillər yükləyin." />
-      <meta property="og:image" content="/wlm-az.png" />
+   <!-- Hreflang Tags -->
+   <link rel="alternate" hreflang="az" href="https://wikilovesmonuments.az/" />
+   <link rel="alternate" hreflang="x-default" href="https://wikilovesmonuments.az/" />
 
-      <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:title" content="Viki Abidələri Sevir Azərbaycan" />
-      <meta
-         property="twitter:description"
-         content="Abidələri kəşf edin və fotoşəkillər yükləyin."
-      />
-      <meta property="twitter:image" content="/wlm-az.png" />
+   <meta property="og:type" content="website" />
+   <meta property="og:url" content="https://wikilovesmonuments.az/" />
+   <meta property="og:site_name" content="Wiki Loves Monuments Azerbaijan" />
+   <meta property="og:title" content="Viki Abidələri Sevir Azərbaycan" />
+   <meta property="og:description" content="Abidələri kəşf edin və fotoşəkillər yükləyin." />
+   <meta property="og:image" content="/wlm-az.png" />
 
-      <script type="application/ld+json">
+   <meta property="twitter:card" content="summary_large_image" />
+   <meta property="twitter:title" content="Viki Abidələri Sevir Azərbaycan" />
+   <meta property="twitter:description" content="Abidələri kəşf edin və fotoşəkillər yükləyin." />
+   <meta property="twitter:image" content="/wlm-az.png" />
+
+   <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
@@ -56,8 +54,8 @@
         "url": "https://wikilovesmonuments.az/"
       }
       </script>
-      <!-- Organization Schema -->
-      <script type="application/ld+json">
+   <!-- Organization Schema -->
+   <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
@@ -72,101 +70,125 @@
         ]
       }
       </script>
-      </script>
-      <style>
-         :root {
-            --wlm-blue: #3366cc;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-         }
-         html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #f9fafb;
-            overflow: hidden;
-         }
-         #app-loading-skeleton {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            width: 100vw;
-         }
-         .skeleton-header {
-            height: 56px;
-            background: white;
-            border-bottom: 1px solid var(--gray-200);
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            z-index: 100;
-         }
-         .skeleton-logo {
-            height: 40px;
-            width: 40px;
-            background: var(--gray-100);
-            border-radius: 4px;
-         }
-         .skeleton-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #f9fafb;
-         }
-         .loading-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            animation: fadeIn 0.5s ease-out;
-         }
-         .loading-logo {
-            height: 80px;
-            width: auto;
-            opacity: 0.8;
-         }
-         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--gray-200);
-            border-top: 3px solid var(--wlm-blue);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-         }
-         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-         }
-         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-         }
-      </style>
-   </head>
+   </script>
+   <style>
+      :root {
+         --wlm-blue: #3366cc;
+         --gray-100: #f3f4f6;
+         --gray-200: #e5e7eb;
+      }
 
-   <body>
-      <div id="app">
-         <div id="app-loading-skeleton">
-            <div class="skeleton-header">
-               <img src="/wlm-az.svg" alt="" class="skeleton-logo" style="background: transparent;">
-               <div style="margin-left: 24px; display: flex; gap: 16px;">
-                  <div style="width: 60px; height: 12px; background: #f3f4f6; border-radius: 2px;"></div>
-                  <div style="width: 60px; height: 12px; background: #f3f4f6; border-radius: 2px;"></div>
-               </div>
+      html,
+      body {
+         margin: 0;
+         padding: 0;
+         height: 100%;
+         width: 100%;
+         font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         background: #f9fafb;
+         overflow: hidden;
+      }
+
+      #app-loading-skeleton {
+         display: flex;
+         flex-direction: column;
+         height: 100vh;
+         width: 100vw;
+      }
+
+      .skeleton-header {
+         height: 56px;
+         background: white;
+         border-bottom: 1px solid var(--gray-200);
+         display: flex;
+         align-items: center;
+         padding: 0 16px;
+         z-index: 100;
+      }
+
+      .skeleton-logo {
+         height: 40px;
+         width: 40px;
+         background: var(--gray-100);
+         border-radius: 4px;
+      }
+
+      .skeleton-content {
+         flex: 1;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         background: #f9fafb;
+      }
+
+      .loading-box {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         gap: 20px;
+         animation: fadeIn 0.5s ease-out;
+      }
+
+      .loading-logo {
+         height: 80px;
+         width: auto;
+         opacity: 0.8;
+      }
+
+      .spinner {
+         width: 40px;
+         height: 40px;
+         border: 3px solid var(--gray-200);
+         border-top: 3px solid var(--wlm-blue);
+         border-radius: 50%;
+         animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+         0% {
+            transform: rotate(0deg);
+         }
+
+         100% {
+            transform: rotate(360deg);
+         }
+      }
+
+      @keyframes fadeIn {
+         from {
+            opacity: 0;
+            transform: translateY(10px);
+         }
+
+         to {
+            opacity: 1;
+            transform: translateY(0);
+         }
+      }
+   </style>
+</head>
+
+<body>
+   <div id="app">
+      <div id="app-loading-skeleton">
+         <div class="skeleton-header">
+            <img src="/wlm-az.svg" alt="" class="skeleton-logo" style="background: transparent;">
+            <div style="margin-left: 24px; display: flex; gap: 16px;">
+               <div style="width: 60px; height: 12px; background: #f3f4f6; border-radius: 2px;"></div>
+               <div style="width: 60px; height: 12px; background: #f3f4f6; border-radius: 2px;"></div>
             </div>
-            <div class="skeleton-content">
-               <div class="loading-box">
-                  <img src="/wlm-az.svg" alt="WLM AZ" class="loading-logo">
-                  <div class="spinner"></div>
-                  <p style="color: #6b7280; font-weight: 500; font-size: 14px; margin-top: 8px;">Yüklənir...</p>
-               </div>
+         </div>
+         <div class="skeleton-content">
+            <div class="loading-box">
+               <img src="/wlm-az.svg" alt="WLM AZ" class="loading-logo">
+               <div class="spinner"></div>
+               <p style="color: #6b7280; font-weight: 500; font-size: 14px; margin-top: 8px;">Yüklənir...</p>
             </div>
          </div>
       </div>
-      <script type="module" src="/src/main.ts"></script>
-   </body>
+   </div>
+   <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

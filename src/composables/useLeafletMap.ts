@@ -126,7 +126,6 @@ export function useLeafletMap() {
          `;
       }
 
-
       // 6. Global Map Events
       map.on("click", (e: L.LeafletMouseEvent) => {
          if (e.originalEvent.defaultPrevented) return;
