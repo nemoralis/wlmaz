@@ -32,3 +32,22 @@ export const getCategoryUrl = (props: MonumentProps): string => {
    }
    return "";
 };
+
+/**
+ * Returns the first ID from a comma-separated inventory string.
+ */
+export const getCanonicalId = (inventory: string | undefined): string => {
+   if (!inventory) return "";
+   return inventory.split(",")[0].trim();
+};
+
+/**
+ * Checks if a specific ID is part of a comma-separated inventory string.
+ */
+export const isIdMatch = (inventory: string | undefined, searchId: string): boolean => {
+   if (!inventory || !searchId) return false;
+   return inventory
+      .split(",")
+      .map((s) => s.trim())
+      .includes(searchId.trim());
+};

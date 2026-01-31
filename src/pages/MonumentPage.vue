@@ -170,7 +170,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useHead } from "@unhead/vue";
 import { CdxIcon } from "@wikimedia/codex";
 import {
@@ -188,10 +188,17 @@ import { useWikiCredits } from "../composables/useWikiCredits";
 import { useAuthStore } from "../stores/auth";
 import { useMonumentStore } from "../stores/monuments";
 import type { MonumentProps } from "../types";
-import { getCategoryUrl, getOptimizedImage, getSrcSet } from "../utils/monumentFormatters";
+import {
+   getCanonicalId,
+   getCategoryUrl,
+   getOptimizedImage,
+   getSrcSet,
+   isIdMatch,
+} from "../utils/monumentFormatters";
 
 const monumentStore = useMonumentStore();
 const auth = useAuthStore();
+const router = useRouter();
 
 const route = useRoute();
 const loading = ref(true);
@@ -220,7 +227,7 @@ const breadcrumbSchema = computed(() => {
       { name: "Ana Səhifə", url: "https://wikilovesmonuments.az/" },
       {
          name: monument.value.itemLabel || "Abidə",
-         url: `https://wikilovesmonuments.az/monument/${monument.value.inventory}`,
+         url: `https://wikilovesmonuments.az/monument/${getCanonicalId(monument.value.inventory)}`,
       },
    ]);
 });
@@ -235,7 +242,7 @@ useHead({
          {
             rel: "canonical",
             href: monument.value
-               ? `https://wikilovesmonuments.az/monument/${monument.value.inventory}`
+               ? `https://wikilovesmonuments.az/monument/${getCanonicalId(monument.value.inventory)}`
                : "https://wikilovesmonuments.az/",
          },
       ];
@@ -290,10 +297,17 @@ watch(
    [() => monumentStore.isDataReady, () => route.params.id],
    ([ready, id]) => {
       if (ready && id) {
-         const found = monumentStore.geoData?.features.find(
-            (f: any) => f.properties.inventory === id,
+         const found = monumentStore.geoData?.features.find((f: any) =>
+            isIdMatch(f.properties.inventory, id as string),
          );
          if (found) {
+            const canonicalId = getCanonicalId(found.properties?.inventory);
+
+            // Redirect to canonical ID if needed
+            if (id !== canonicalId) {
+               router.replace({ name: "Monument", params: { id: canonicalId } });
+            }
+
             monument.value = found.properties;
             error.value = null;
             if (monument.value?.image) {
