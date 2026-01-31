@@ -107,6 +107,7 @@ import { useWikiCredits } from "../composables/useWikiCredits";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
+import "leaflet-minimap/dist/Control.MiniMap.min.css";
 
 const UploadModal = defineAsyncComponent(() => import("./UploadModal.vue"));
 
@@ -403,6 +404,7 @@ export default defineComponent({
    border: none !important;
    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1) !important;
 }
+
 :deep(.leaflet-sidebar-tabs li.disabled) {
    opacity: 0.5;
    pointer-events: none;
@@ -440,6 +442,7 @@ img {
       width: 40px !important;
       max-width: 40px !important;
    }
+
    :deep(.leaflet-sidebar:not(.collapsed)) {
       width: 100% !important;
       max-width: 100% !important;
@@ -466,6 +469,7 @@ img {
       margin-bottom: env(safe-area-inset-bottom) !important;
    }
 }
+
 /* 3. MARKERS */
 :deep(.marker-pin) {
    width: 30px;
@@ -478,17 +482,21 @@ img {
    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
    transition: all 0.2s ease;
 }
+
 :deep(.marker-pin:hover) {
    transform: scale(1.15);
    z-index: 1000 !important;
    cursor: pointer;
 }
+
 :deep(.marker-has-image) {
    background-color: #10b981;
 }
+
 :deep(.marker-needs-image) {
    background-color: #ef4444;
 }
+
 :deep(.marker-pin.selected-highlight) {
    border-color: #fbbf24 !important;
    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.5) !important;
@@ -501,12 +509,14 @@ img {
    background-color: #3366cc !important;
    color: white !important;
 }
+
 :deep(.leaflet-sidebar-close) {
    color: white !important;
    display: flex;
    align-items: center;
    justify-content: center;
 }
+
 :deep(.leaflet-sidebar-tabs > ul > li.active > a) {
    background-color: #3366cc !important;
    color: white;
@@ -524,6 +534,7 @@ img {
    justify-content: center;
    transition: background-color 0.1s;
 }
+
 :deep(.leaflet-control-layers-toggle:hover) {
    background-color: #f4f4f4;
 }
@@ -546,9 +557,11 @@ img {
    font-size: 13px;
    color: #374151;
 }
+
 :deep(.leaflet-control-layers label:hover) {
    color: #3366cc;
 }
+
 :deep(.leaflet-control-layers input[type="radio"]) {
    accent-color: #3366cc;
    width: 15px;
@@ -565,6 +578,7 @@ img {
    margin-right: 10px !important;
    margin-top: 10px !important;
 }
+
 :deep(.leaflet-control-layers.leaflet-control-layers-expanded) {
    border: none !important;
 }
@@ -574,8 +588,32 @@ img {
 .fade-leave-active {
    transition: opacity 0.3s ease;
 }
+
 .fade-enter-from,
 .fade-leave-to {
    opacity: 0;
+}
+
+/* 6. MINIMAP */
+:deep(.leaflet-control-minimap) {
+   border: 4px solid #fff !important;
+   border-radius: 12px !important;
+   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+   overflow: hidden;
+   margin-bottom: 20px !important;
+}
+
+:deep(.leaflet-control-minimap-toggle-display) {
+   border-radius: 0 !important;
+   background-color: #fff !important;
+}
+
+@media (max-width: 768px) {
+   :deep(.leaflet-control-minimap) {
+      width: 100px !important;
+      height: 100px !important;
+      margin-bottom: 80px !important;
+      /* Above mobile navigation if any, or just safe area */
+   }
 }
 </style>

@@ -41,7 +41,7 @@
                class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
                aria-label="Liderlik cədvəlinə get"
             >
-               Liderlər
+               İştirakçılar
             </router-link>
             <router-link
                to="/table"
@@ -201,7 +201,7 @@
                   class="w-5 text-amber-500"
                   aria-hidden="true"
                />
-               Liderlər
+               İştirakçılar
             </router-link>
             <router-link
                to="/table"

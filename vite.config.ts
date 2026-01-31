@@ -71,7 +71,7 @@ export default defineConfig({
    ],
 
    optimizeDeps: {
-      include: ["leaflet", "leaflet.markercluster", "geobuf", "pbf"],
+      include: ["leaflet", "leaflet.markercluster", "leaflet-minimap", "geobuf", "pbf"],
    },
 
    resolve: {
@@ -107,6 +107,7 @@ export default defineConfig({
                   "leaflet.markercluster",
                   "leaflet.locatecontrol",
                   "leaflet-sidebar-v2",
+                  "leaflet-minimap",
                ],
                "vue-vendor": ["vue", "vue-router", "pinia"],
                "chart-vendor": ["chart.js", "vue-chartjs"],

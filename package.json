@@ -39,6 +39,7 @@
     "geobuf": "^3.0.2",
     "hpp": "^0.2.3",
     "leaflet": "^1.9.4",
+    "leaflet-minimap": "^3.6.1",
     "leaflet-sidebar-v2": "^3.2.3",
     "leaflet.locatecontrol": "^0.86.0",
     "leaflet.markercluster": "^1.5.3",
