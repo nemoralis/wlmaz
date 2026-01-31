@@ -5541,8 +5541,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    46.9061,
-                    40.0655
+                    46.905767191,
+                    40.068758535
                 ]
             },
             "properties": {
@@ -5555,7 +5555,7 @@
                 "itemAltLabel": "Şahbulağı qalası",
                 "itemDescription": "Ağdam rayonunda qala",
                 "itemLabel": "Şahbulaq qalası",
-                "lastModified": "2026-01-03T21:51:43Z"
+                "lastModified": "2026-01-30T23:53:44Z"
             }
         },
         {
@@ -5563,8 +5563,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    46.91964,
-                    40.01847
+                    46.916036311,
+                    40.020933117
                 ]
             },
             "properties": {
@@ -5577,7 +5577,7 @@
                 "itemAltLabel": "Giyasli Mosque, Giyasly Mosque",
                 "itemDescription": "Mosque in Azerbaijan",
                 "itemLabel": "Qiyaslı məscidi",
-                "lastModified": "2026-01-28T12:05:31Z"
+                "lastModified": "2026-01-30T23:54:59Z"
             }
         },
         {
