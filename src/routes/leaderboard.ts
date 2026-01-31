@@ -24,13 +24,31 @@ async function getAggregateData() {
         console.error("Redis read error:", e);
     }
 
-    const currentYear = new Date().getFullYear();
-    const years = Array.from({ length: currentYear - START_YEAR + 1 }, (_, i) => START_YEAR + i);
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
+    const years = Array.from({ length: latestYear - START_YEAR + 1 }, (_, i) => START_YEAR + i);
 
     const fetchPromises = years.map(async (year) => {
+        const yearCacheKey = `leaderboard:raw:${year}`;
+        const isPastYear = year < currentYear;
+
         try {
+            if (redisClient.isOpen) {
+                const cached = await redisClient.get(yearCacheKey);
+                if (cached) return JSON.parse(cached);
+            }
+
             const resp = await fetch(`${API_BASE}/monuments${year}`);
-            if (resp.ok) return await resp.json();
+            if (resp.ok) {
+                const data = await resp.json();
+                if (redisClient.isOpen) {
+                    // Cache past years for 24h, current year for 1h
+                    const ttl = isPastYear ? 86400 : 3600;
+                    await redisClient.setEx(yearCacheKey, ttl, JSON.stringify(data));
+                }
+                return data;
+            }
             return null;
         } catch (e) {
             console.error(`Failed to fetch monuments${year}:`, e);
@@ -50,7 +68,7 @@ async function getAggregateData() {
         },
     };
 
-    const userMap: Record<string, { count: number; usage: number; reg: number }> = {};
+    const userMap: Record<string, { count: number; usage: number; reg: number; yearly: Record<number, { count: number; usage: number }> }> = {};
     const uniqueUsers = new Set<string>();
 
     results.forEach((data, index) => {
@@ -70,10 +88,14 @@ async function getAggregateData() {
             Object.entries(countryData.users).forEach(([username, userData]: [string, any]) => {
                 uniqueUsers.add(username);
                 if (!userMap[username]) {
-                    userMap[username] = { count: 0, usage: 0, reg: userData.reg };
+                    userMap[username] = { count: 0, usage: 0, reg: userData.reg, yearly: {} };
                 }
-                userMap[username].count += userData.count || 0;
-                userMap[username].usage += userData.usage || 0;
+                const count = userData.count || 0;
+                const usage = userData.usage || 0;
+                userMap[username].count += count;
+                userMap[username].usage += usage;
+                userMap[username].yearly[year] = { count, usage };
+
                 if (userData.reg < userMap[username].reg) {
                     userMap[username].reg = userData.reg;
                 }

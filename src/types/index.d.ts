@@ -66,6 +66,7 @@ export interface WikiLovesCountryData {
    end: number;
    data: Record<string, { images: number; joiners: number; newbie_joiners: number }>;
    users: Record<string, { count: number; usage: number; reg: number }>;
+   years?: Record<number, { count: number; usercount: number; usage: number }>;
 }
 
 export interface UserStats {
@@ -74,6 +75,7 @@ export interface UserStats {
       count: number;
       usage: number;
       reg: number;
+      yearly?: Record<number, { count: number; usage: number }>;
    };
    commons?: {
       editcount: number;
