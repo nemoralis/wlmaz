@@ -1779,7 +1779,7 @@
                 "item": "http://www.wikidata.org/entity/Q16366447",
                 "itemDescription": "Azərbaycanın Bakı şəhərində bina",
                 "itemLabel": "De Burun sarayı",
-                "lastModified": "2026-01-27T23:27:45Z"
+                "lastModified": "2026-01-31T20:32:23Z"
             }
         },
         {
@@ -1928,6 +1928,90 @@
                 "itemDescription": "mosque in Baku, Azerbaijan",
                 "itemLabel": "Nizaməddin məscidi",
                 "lastModified": "2025-12-15T04:28:43Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829722222,
+                    40.379444444
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Nizami_metrostansiyas%C4%B1",
+                "commonsCategory": "Nizami (Baku Metro)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Nizami_(Baku_Metro)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%2C%20Nizami%20metrostansiyas%C4%B1.jpg",
+                "inventory": "170",
+                "item": "http://www.wikidata.org/entity/Q3025411",
+                "itemDescription": "Bakıda metro stansiyası",
+                "itemLabel": "Nizami metrostansiyası",
+                "lastModified": "2026-02-01T03:11:44Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830384813,
+                    40.380503795
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/K%C9%99rb%C9%99layi_%C4%B0srafil_Hac%C4%B1yevin_evi",
+                "commonsCategory": "Building on Jafar Jabbarly Street 12",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Jafar_Jabbarly_Street_12",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Art%20Nouveau%20building%20in%20Baku.JPG",
+                "inventory": "171",
+                "item": "http://www.wikidata.org/entity/Q85997101",
+                "itemDescription": "building in Baku, Azerbaijan",
+                "itemLabel": "Kərbəlayi İsrafil Hacıyevin evi",
+                "lastModified": "2026-02-01T03:10:33Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8302,
+                    40.3744
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/A%C4%9Fabala_Quliyevin_evi",
+                "commonsCategory": "Building of the Union of Architects of Azerbaijan",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_the_Union_of_Architects_of_Azerbaijan",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Memarlar%20%C4%B0ttifaq%C4%B1n%C4%B1n%20binas%C4%B1%202018.jpg",
+                "inventory": "172",
+                "item": "http://www.wikidata.org/entity/Q25542993",
+                "itemDescription": "building in Baku, Azerbaijan",
+                "itemLabel": "Ağabala Quliyevin evi",
+                "lastModified": "2026-02-01T03:11:19Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.828671,
+                    40.372097
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/T%C9%99z%C9%99pir_m%C9%99scidi",
+                "commonsCategory": "Taza Pir Mosque",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Taza_Pir_Mosque",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/T%C9%99z%C9%99pir%20m%C9%99scidinin%20M%C9%99rk%C9%99zi%20parkdan%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
+                "inventory": "173",
+                "item": "http://www.wikidata.org/entity/Q2096562",
+                "itemDescription": "mosque in Baku, Azerbaijan",
+                "itemLabel": "Təzəpir məscidi",
+                "lastModified": "2026-02-01T03:09:50Z"
             }
         },
         {
@@ -4771,6 +4855,68 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.835354636,
+                    40.371783734
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ambarsum_M%C9%99likovun_evi_(%C4%B0slam_S%C9%99f%C9%99rli_k%C3%BC%C3%A7%C9%99si)",
+                "commonsCategory": "Building on Islam Safarli Street 13",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Islam_Safarli_Street_13",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ambarsum%20M%C9%99likovun%20%C4%B0slam%20S%C9%99f%C9%99rli%20k%C3%BC%C3%A7%C9%99sind%C9%99ki%20evi.jpg",
+                "inventory": "3494",
+                "item": "http://www.wikidata.org/entity/Q55705317",
+                "itemLabel": "Ambarsum Məlikovun evi (İslam Səfərli küçəsi)",
+                "lastModified": "2026-02-01T03:13:35Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834831,
+                    40.37304
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Tiqran_M%C9%99likovun_evi",
+                "commonsCategory": "Building on Islam Safarli Street 19",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Islam_Safarli_Street_19",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20evi%2C%20%C4%B0.S%C9%99f%C9%99rli%20k%C3%BC%C3%A7%C9%99si%2C%2019.jpg",
+                "inventory": "3495",
+                "item": "http://www.wikidata.org/entity/Q47497452",
+                "itemDescription": "historic mansion of the 19th century in Baku, Azerbaijan",
+                "itemLabel": "Tiqran Məlikovun evi",
+                "lastModified": "2026-02-01T03:14:00Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.83256,
+                    40.3725
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Qas%C4%B1mb%C9%99y_m%C9%99scidi",
+                "commonsCategory": "Gasim Bey Mosque",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gasim_Bey_Mosque",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qas%C4%B1mb%C9%99y%20m%C9%99scidi%202024%20%281%29.jpg",
+                "inventory": "3509",
+                "item": "http://www.wikidata.org/entity/Q124359066",
+                "itemDescription": "XIX əsrə aid tarix-memarlıq abidəsi. Azərbaycanın Bakı şəhərində yerləşir.",
+                "itemLabel": "Qasımbəy məscidi",
+                "lastModified": "2026-02-01T03:13:12Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.831087493,
                     40.382792165
                 ]
@@ -4807,6 +4953,27 @@
                 "itemDescription": "mosque in Baku, Azerbaijan",
                 "itemLabel": "\"İmam Hüseyn\" məscidi",
                 "lastModified": "2026-01-28T12:32:21Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831944444,
+                    40.373611111
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Mixail_Arxangel_kils%C9%99si",
+                "commonsCategory": "Saint Michael church, Baku",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Saint_Michael_church,_Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Orthodox%20church%20of%20the%20Saint%20Michael%20in%20Baku.jpg",
+                "inventory": "3570",
+                "item": "http://www.wikidata.org/entity/Q4135908",
+                "itemDescription": "church in Azerbaijan, Azerbaijan",
+                "itemLabel": "Mixail Arxangel kilsəsi",
+                "lastModified": "2026-02-01T03:14:28Z"
             }
         },
         {
@@ -6191,14 +6358,14 @@
                 ]
             },
             "properties": {
-                "commonsCategory": "Category:Gottlob Vohrer house",
+                "commonsCategory": "Gottlob Vohrer house",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gottlob_Vohrer_house",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Gottlob%20Vohrer%20haus%20%281%29.jpg",
                 "inventory": "4281",
                 "item": "http://www.wikidata.org/entity/Q137926380",
                 "itemAltLabel": "Musiqi məktəbinin binası",
                 "itemLabel": "Qottlob Kristof Forerin evi",
-                "lastModified": "2026-01-29T22:15:47Z"
+                "lastModified": "2026-02-01T10:12:42Z"
             }
         },
         {
@@ -8830,7 +8997,7 @@
                 "item": "http://www.wikidata.org/entity/Q31295771",
                 "itemDescription": "Sumqayıtda abidə",
                 "itemLabel": "Qağayı abidəsi",
-                "lastModified": "2026-01-29T05:06:17Z"
+                "lastModified": "2026-02-01T19:47:08Z"
             }
         },
         {
