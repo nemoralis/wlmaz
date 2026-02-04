@@ -1256,7 +1256,7 @@
                 "inventory": "106",
                 "item": "http://www.wikidata.org/entity/Q12844290",
                 "itemLabel": "Qaraçı karvansarası",
-                "lastModified": "2026-01-27T23:12:38Z"
+                "lastModified": "2026-02-02T06:01:02Z"
             }
         },
         {
@@ -1659,8 +1659,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.8309985,
-                    40.3671314
+                    49.831455638,
+                    40.366853367
                 ]
             },
             "properties": {
@@ -1673,7 +1673,7 @@
                 "itemAltLabel": "Building of Baku City Executive Power",
                 "itemDescription": "Bakıda inzibati bina",
                 "itemLabel": "Bakı Şəhər İcra Hakimiyyətinin binası",
-                "lastModified": "2026-01-27T23:20:51Z"
+                "lastModified": "2026-02-02T11:35:10Z"
             }
         },
         {
@@ -2131,7 +2131,7 @@
                 "item": "http://www.wikidata.org/entity/Q55698960",
                 "itemDescription": "mosque in Balakən, Azerbaijan",
                 "itemLabel": "Cümə məscidi (Balakən)",
-                "lastModified": "2026-01-28T12:10:49Z"
+                "lastModified": "2026-02-02T21:57:28Z"
             }
         },
         {
@@ -2259,7 +2259,7 @@
                 "itemAltLabel": "Qız qalası",
                 "itemDescription": "Gədəbəydə yerləşən qala",
                 "itemLabel": "Namərdqala",
-                "lastModified": "2026-01-19T15:31:15Z"
+                "lastModified": "2026-02-02T01:44:52Z"
             }
         },
         {
@@ -2322,7 +2322,7 @@
                 "itemAltLabel": "Kavakavang",
                 "itemDescription": "church in the Khojavend District of Azerbaijan",
                 "itemLabel": "Kavakavəng",
-                "lastModified": "2026-01-30T01:37:18Z"
+                "lastModified": "2026-02-03T09:07:53Z"
             }
         },
         {
@@ -2467,7 +2467,7 @@
                 "item": "http://www.wikidata.org/entity/Q12846988",
                 "itemDescription": "mosque in İlisu, Azerbaijan",
                 "itemLabel": "Ulu məscid",
-                "lastModified": "2026-01-21T15:31:23Z"
+                "lastModified": "2026-02-02T05:39:35Z"
             }
         },
         {
@@ -2721,7 +2721,7 @@
                 "itemAltLabel": "Şəki kilsəsi, Şəki xanlarının ailə məscidi, Üç-Müqəddəs kilsəsi (Şəki)",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən məbəd və tarix memarlıq abidəsi.",
                 "itemLabel": "Dairəvi məbəd",
-                "lastModified": "2026-01-19T10:08:49Z"
+                "lastModified": "2026-02-02T01:12:24Z"
             }
         },
         {
@@ -2786,7 +2786,7 @@
                 "itemAltLabel": "Nuxa qalası",
                 "itemDescription": "Şəkidə qala",
                 "itemLabel": "Şəki qalası",
-                "lastModified": "2026-01-27T18:28:51Z"
+                "lastModified": "2026-02-03T07:15:33Z"
             }
         },
         {
@@ -5800,7 +5800,7 @@
                 "item": "http://www.wikidata.org/entity/Q124987047",
                 "itemDescription": "historic site in Astara District, Erchivan settlement",
                 "itemLabel": "Kərbəlayi Həmid Abdulla hamamı",
-                "lastModified": "2026-01-22T14:22:47Z"
+                "lastModified": "2026-02-02T21:46:01Z"
             }
         },
         {
@@ -5886,6 +5886,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.868454587,
+                    38.597523681
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eaha%C4%9Fac_k%C9%99nd_m%C9%99scidi",
+                "inventory": "4124",
+                "item": "http://www.wikidata.org/entity/Q138000145",
+                "itemDescription": "Şahağac kəndində yerləşən məscid, tarixi abidə.",
+                "itemLabel": "Şahağac kənd məscidi",
+                "lastModified": "2026-02-03T08:43:44Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.831965899,
                     38.467545465
                 ]
@@ -5897,6 +5915,24 @@
                 "itemDescription": "Artupa kəndində yerləşən məscid.",
                 "itemLabel": "Artupa kənd məscidi",
                 "lastModified": "2026-01-29T14:07:51Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.808299116,
+                    38.599538836
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Vaqo_k%C9%99nd_m%C9%99scidi",
+                "inventory": "4128",
+                "item": "http://www.wikidata.org/entity/Q138000731",
+                "itemDescription": "Vaqo kəndində yerləşən məscid, tarixi abidə.",
+                "itemLabel": "Vaqo kənd məscidi",
+                "lastModified": "2026-02-03T10:52:11Z"
             }
         },
         {
@@ -6065,7 +6101,7 @@
                 "itemAltLabel": "Göytəpə kilsəsi",
                 "itemDescription": "Göytəpə şəhərində yerləşən kilsə",
                 "itemLabel": "Müqəddəs Olqa kilsəsi",
-                "lastModified": "2026-01-28T11:47:31Z"
+                "lastModified": "2026-02-02T22:29:21Z"
             }
         },
         {
@@ -6205,7 +6241,7 @@
                 "item": "http://www.wikidata.org/entity/Q55699914",
                 "itemDescription": "Gədəbəydə kilsə",
                 "itemLabel": "Gədəbəy kilsəsi",
-                "lastModified": "2026-01-09T17:40:59Z"
+                "lastModified": "2026-02-03T13:55:56Z"
             }
         },
         {
@@ -6445,7 +6481,7 @@
                 "item": "http://www.wikidata.org/entity/Q12835773",
                 "itemAltLabel": "Anahaid məbədi, Anahid kilsəsi, Anahid məbədi, Anaid məbədi, Anhaid məbədi",
                 "itemLabel": "Anahit kilsəsi",
-                "lastModified": "2026-01-23T15:59:56Z"
+                "lastModified": "2026-02-03T08:49:01Z"
             }
         },
         {
@@ -6741,7 +6777,7 @@
                 "item": "http://www.wikidata.org/entity/Q129175814",
                 "itemDescription": "Lahıc qəsəbəsində yerləşən 18-ci əsrə aid məscid.",
                 "itemLabel": "Bədöyün məscidi",
-                "lastModified": "2026-01-21T19:02:24Z"
+                "lastModified": "2026-02-02T05:58:00Z"
             }
         },
         {
@@ -6816,11 +6852,14 @@
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/C%C3%BCm%C9%99_m%C9%99scidi_(Qazax)",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qazax%20mosque.jpg",
+                "commonsCategory": "Category:Gazakh Juma mosque",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gazakh_Juma_mosque",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qazax%20c%C3%BCm%C9%99%20m%C9%99scidi.jpg",
                 "inventory": "4513",
                 "item": "http://www.wikidata.org/entity/Q12838279",
+                "itemAltLabel": "Qazax Cümə məscidi",
                 "itemLabel": "Cümə məscidi (Qazax)",
-                "lastModified": "2025-05-30T17:34:06Z"
+                "lastModified": "2026-02-02T07:20:21Z"
             }
         },
         {
@@ -7172,7 +7211,7 @@
                 "itemAltLabel": "Kürmüx kilsəsi, Kürmüx məbədi",
                 "itemDescription": "Georgian church in the Qakh District of Azerbaijan",
                 "itemLabel": "Kürmük kilsəsi",
-                "lastModified": "2026-01-21T13:16:44Z"
+                "lastModified": "2026-02-02T05:23:16Z"
             }
         },
         {
@@ -7255,7 +7294,7 @@
                 "itemAltLabel": "domed bath in Guba",
                 "itemDescription": "Qubada tarixi hamam",
                 "itemLabel": "Gümbəzli hamam",
-                "lastModified": "2026-01-30T11:11:18Z"
+                "lastModified": "2026-02-02T05:20:24Z"
             }
         },
         {
@@ -7277,7 +7316,7 @@
                 "itemAltLabel": "Quba cümə məscidi",
                 "itemDescription": "Qubada yerləşən ibadətgah",
                 "itemLabel": "Cümə məscidi",
-                "lastModified": "2026-01-30T11:06:16Z"
+                "lastModified": "2026-02-02T05:15:50Z"
             }
         },
         {
@@ -7383,7 +7422,7 @@
                 "item": "http://www.wikidata.org/entity/Q125523096",
                 "itemDescription": "historic site in Alpan, Quba",
                 "itemLabel": "Subaba türbəsi",
-                "lastModified": "2026-01-28T11:40:39Z"
+                "lastModified": "2026-02-02T05:32:01Z"
             }
         },
         {
@@ -7460,7 +7499,7 @@
                 "item": "http://www.wikidata.org/entity/Q135442082",
                 "itemDescription": "Quba rayonunun Hacıhüsenli kəndində yerləşən kilsə.",
                 "itemLabel": "Müqəddəs Məryəmin Himayəsi kilsəsi",
-                "lastModified": "2026-01-21T14:20:33Z"
+                "lastModified": "2026-02-02T05:29:57Z"
             }
         },
         {
@@ -7481,7 +7520,7 @@
                 "item": "http://www.wikidata.org/entity/Q125522857",
                 "itemDescription": "mosque in Azerbaijan",
                 "itemLabel": "Xanəgah məscidi (Quba)",
-                "lastModified": "2026-01-21T13:39:33Z"
+                "lastModified": "2026-02-02T05:25:55Z"
             }
         },
         {
@@ -7546,6 +7585,23 @@
                 "itemDescription": "1912-ci ilə aid tarix-memarlıq abidəsi, məscid. Azərbaycanın Qusar rayonunun Gündüzqala kəndində yerləşir.",
                 "itemLabel": "Gündüzqala məscidi",
                 "lastModified": "2026-01-28T12:11:00Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.601024173,
+                    39.317187433
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/D%C9%99mir%C3%A7il%C9%99r_m%C9%99scidi",
+                "inventory": "4703",
+                "item": "http://www.wikidata.org/entity/Q110101381",
+                "itemLabel": "Dəmirçilər məscidi",
+                "lastModified": "2026-02-03T21:11:42Z"
             }
         },
         {
@@ -7730,6 +7786,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.709550406,
+                    38.929842606
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/C%C3%BCm%C9%99_m%C9%99scidi_(Boradigah)",
+                "commonsCategory": "Juma Mosque (Boradigah)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Juma_Mosque_(Boradigah)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/The%20Juma%20Mosque%20in%20Boradigah%20Azerbaijan.JPG",
+                "inventory": "4870",
+                "item": "http://www.wikidata.org/entity/Q12838280",
+                "itemAltLabel": "Boradigah Cümə məscidi",
+                "itemLabel": "Cümə məscidi (Boradigah)",
+                "lastModified": "2026-02-03T12:55:02Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.7508,
                     39.0244
                 ]
@@ -7804,7 +7881,7 @@
                 "itemAltLabel": "Oğuz Tarix-Diyarşünaslıq Muzeyi",
                 "itemDescription": "1822-ci ildə tikilmiş ortodoks kilsəsi",
                 "itemLabel": "Müqəddəs Yelisey kilsəsi",
-                "lastModified": "2026-01-20T20:16:26Z"
+                "lastModified": "2026-02-02T04:04:31Z"
             }
         },
         {
@@ -7922,7 +7999,7 @@
                 "inventory": "4956",
                 "item": "http://www.wikidata.org/entity/Q25546781",
                 "itemLabel": "Cümə məscidi",
-                "lastModified": "2026-01-28T12:08:26Z"
+                "lastModified": "2026-02-02T04:02:05Z"
             }
         },
         {
@@ -8610,12 +8687,13 @@
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/Xoca_M%C9%99rcanl%C4%B1_bula%C4%9F%C4%B1",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Khoja_Marjanly%27s_Spring",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Xoca%20M%C9%99rcanl%C4%B1%20bula%C4%9F%C4%B1.jpg",
                 "inventory": "5138",
                 "item": "http://www.wikidata.org/entity/Q55698751",
                 "itemDescription": "historical fresh water spring",
                 "itemLabel": "Xoca Mərcanlı bulağı",
-                "lastModified": "2026-01-28T12:47:16Z"
+                "lastModified": "2026-02-03T11:36:02Z"
             }
         },
         {
