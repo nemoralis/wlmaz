@@ -603,27 +603,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.8367,
-                    40.3681
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_xan_saray%C4%B1",
-                "commonsCategory": "Palace of Baku Khans",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Baku_Khans",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20xan%20saray%C4%B1n%C4%B1n%20%C9%99sas%20giri%C5%9Finin%20Xan%20ba%C4%9F%C4%B1%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
-                "inventory": "71, 70, 73, 69",
-                "item": "http://www.wikidata.org/entity/Q12837306",
-                "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
-                "itemLabel": "Bakı xan sarayı",
-                "lastModified": "2026-01-10T00:44:39Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     49.836944444,
                     40.368611111
                 ]
@@ -639,6 +618,27 @@
                 "itemDescription": "hammam in Baku, Azerbaijan",
                 "itemLabel": "Yeraltı hamam",
                 "lastModified": "2025-06-23T20:33:50Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8367,
+                    40.3681
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_xan_saray%C4%B1",
+                "commonsCategory": "Palace of Baku Khans",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Baku_Khans",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20xan%20saray%C4%B1n%C4%B1n%20%C9%99sas%20giri%C5%9Finin%20Xan%20ba%C4%9F%C4%B1%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
+                "inventory": "73, 69, 71, 70",
+                "item": "http://www.wikidata.org/entity/Q12837306",
+                "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
+                "itemLabel": "Bakı xan sarayı",
+                "lastModified": "2026-01-10T00:44:39Z"
             }
         },
         {
@@ -1607,7 +1607,7 @@
                 "itemAltLabel": "Pirsəid məscidi, Rəhimə xanım ziyarətgahı, Rəhimə xanım məscidi",
                 "itemDescription": "Nardaranda məscid",
                 "itemLabel": "Nardaran məscidi",
-                "lastModified": "2026-01-15T15:35:16Z"
+                "lastModified": "2026-02-04T06:29:51Z"
             }
         },
         {
@@ -1745,8 +1745,26 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.8311965,
-                    40.3619089
+                    49.831538392,
+                    40.360359601
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ulduz_saray%C4%B1_(Bak%C4%B1)",
+                "inventory": "150",
+                "item": "http://www.wikidata.org/entity/Q126878959",
+                "itemDescription": "Bakıda iqamətgah",
+                "itemLabel": "Ulduz sarayı",
+                "lastModified": "2026-02-04T08:35:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834908251,
+                    40.362140444
                 ]
             },
             "properties": {
@@ -1758,7 +1776,7 @@
                 "item": "http://www.wikidata.org/entity/Q20580851",
                 "itemDescription": "Bakıda tarixi bina",
                 "itemLabel": "Mirtağı Babayevin sarayı",
-                "lastModified": "2026-01-27T23:24:07Z"
+                "lastModified": "2026-02-04T08:31:46Z"
             }
         },
         {
@@ -3923,6 +3941,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    50.086064,
+                    40.5187546
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Sahib_%C9%99z-Zaman_m%C9%99scidi_(Buzovna)",
+                "commonsCategory": "Ashaghi Mosque in Buzovna",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Ashaghi_Mosque_in_Buzovna",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mescidbuzovna.jpg",
+                "inventory": "2583",
+                "item": "http://www.wikidata.org/entity/Q55706021",
+                "itemAltLabel": "Aşağı məscid",
+                "itemDescription": "Buzovnada məscid",
+                "itemLabel": "Sahibəz-Zaman məscidi",
+                "lastModified": "2026-02-04T09:44:54Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     50.1134,
                     40.5172
                 ]
@@ -3937,6 +3977,50 @@
                 "itemDescription": "Buzovna qəsəbəsində məscid",
                 "itemLabel": "Cümə məscidi",
                 "lastModified": "2025-12-29T20:13:29Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.090555555,
+                    40.542222222
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%22Zu%C4%9Fulba%22_iqam%C9%99tgah%C4%B1",
+                "commonsCategory": "Zughulba Residence",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Zughulba_Residence",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Zughulba%20Residence.jpg",
+                "inventory": "2589",
+                "item": "http://www.wikidata.org/entity/Q106678947",
+                "itemAltLabel": "Zuğulba iqamətgahı",
+                "itemDescription": "Azərbaycan Respublikası Prezidentinin rəsmi iqamətgahı",
+                "itemLabel": "\"Zuğulba\" iqamətgahı",
+                "lastModified": "2026-02-04T09:34:16Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.076169034,
+                    40.45468622
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/S%C9%99lim_m%C9%99scidi",
+                "commonsCategory": "Salim Mosque",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Salim_Mosque",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bina%20mescid.jpg",
+                "inventory": "2618",
+                "item": "http://www.wikidata.org/entity/Q20570876",
+                "itemAltLabel": "Səlim məscidi",
+                "itemDescription": "Binədə məscid",
+                "itemLabel": "\"Möhsin Səlim\" məscidi",
+                "lastModified": "2026-02-04T09:36:25Z"
             }
         },
         {
@@ -4160,6 +4244,26 @@
                 "itemDescription": "historic site in Azerbaijan",
                 "itemLabel": "Şəmsi Əsədullayevin evi",
                 "lastModified": "2026-01-27T23:08:26Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.843778977,
+                    40.374299322
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C6%8Fzim_%C6%8Fzimzad%C9%99_ad%C4%B1na_Az%C9%99rbaycan_D%C3%B6vl%C9%99t_R%C9%99ssaml%C4%B1q_M%C9%99kt%C9%99bi",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C6%8F.%20%C6%8Fzimzad%C9%99%20ad%C4%B1na%20Az%C9%99rbaycan%20D%C3%B6vl%C9%99t%20R%C9%99ssaml%C4%B1q%20Texnikumunun%20binas%C4%B1.jpg",
+                "inventory": "2983",
+                "item": "http://www.wikidata.org/entity/Q27491583",
+                "itemAltLabel": "Azərbaycan Dövlət Rəssamlıq Məktəbi, Ə. Əzimzadə adına Azərbaycan Dövlət Rəssamlıq məktəbi",
+                "itemDescription": "1920–2000-ci illərdə fəaliyyət göstərmiş təhsil müəssisəsi",
+                "itemLabel": "Əzim Əzimzadə adına Azərbaycan Dövlət Rəssamlıq Məktəbi",
+                "lastModified": "2026-02-04T15:30:21Z"
             }
         },
         {
@@ -4750,6 +4854,26 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.835,
+                    40.3586
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_%C4%B0dman_Saray%C4%B1",
+                "commonsCategory": "Baku Sports Hall",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Baku_Sports_Hall",
+                "inventory": "3380",
+                "item": "http://www.wikidata.org/entity/Q16642153",
+                "itemDescription": "sports venue",
+                "itemLabel": "Bakı İdman Sarayı",
+                "lastModified": "2026-02-04T08:37:58Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.850195391,
                     40.375427347
                 ]
@@ -4848,6 +4972,26 @@
                 "item": "http://www.wikidata.org/entity/Q16417516",
                 "itemLabel": "Tağıyev pasajı",
                 "lastModified": "2026-01-27T23:51:14Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.827392014,
+                    40.382504278
+                ]
+            },
+            "properties": {
+                "commonsCategory": "School № 31 in Baku",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:School_%E2%84%96_31_in_Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/My%20School%20-%20panoramio.jpg",
+                "inventory": "3488",
+                "item": "http://www.wikidata.org/entity/Q138006553",
+                "itemDescription": "Bakıda məktəb",
+                "itemLabel": "31 nömrəli məktəb",
+                "lastModified": "2026-02-04T10:20:27Z"
             }
         },
         {
