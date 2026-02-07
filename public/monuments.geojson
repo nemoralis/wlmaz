@@ -1332,10 +1332,11 @@
                 ]
             },
             "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Palace%2C%20Baku%20%28P1090198%29.jpg",
                 "inventory": "110",
                 "item": "http://www.wikidata.org/entity/Q137907764",
                 "itemLabel": "Gənclik qonaq evi",
-                "lastModified": "2026-01-27T00:22:14Z"
+                "lastModified": "2026-02-05T12:57:44Z"
             }
         },
         {
@@ -3001,6 +3002,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.676146481,
+                    40.836450495
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eah_Abbas_m%C9%99scidi_(Tovuz)",
+                "inventory": "382",
+                "item": "http://www.wikidata.org/entity/Q31310971",
+                "itemLabel": "Şah Abbas məscidi",
+                "lastModified": "2026-02-06T11:41:07Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.771412,
                     41.591405
                 ]
@@ -3692,6 +3710,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.545828197,
+                    40.998842431
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Ei%C5%9F_Quzey_ma%C4%9Faras%C4%B1",
+                "commonsCategory": "Şiş Quzey mağarası",
+                "inventory": "1790",
+                "item": "http://www.wikidata.org/entity/Q4524698",
+                "itemLabel": "Şiş Quzey mağarası",
+                "lastModified": "2026-02-06T11:43:43Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.6381,
                     39.2833
                 ]
@@ -3767,6 +3803,27 @@
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Mirzə Əhməd məscidi",
                 "lastModified": "2026-01-19T10:41:31Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834722222,
+                    40.364166666
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ramazanovlar%C4%B1n_evi",
+                "commonsCategory": "Building on Vali Mammadov Street 24",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Vali_Mammadov_Street_24",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Baku%20ValiMammadovStreet24%20004%207580.jpg",
+                "inventory": "2200",
+                "item": "http://www.wikidata.org/entity/Q97223556",
+                "itemDescription": "19th century building located in Old City Baku",
+                "itemLabel": "Ramazanovların evi",
+                "lastModified": "2026-02-05T12:38:15Z"
             }
         },
         {
@@ -4867,6 +4924,27 @@
                 "itemDescription": "sports venue",
                 "itemLabel": "Bakı İdman Sarayı",
                 "lastModified": "2026-02-04T08:37:58Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8336,
+                    40.3608
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Aliml%C9%99r_evi_(Bak%C4%B1)",
+                "commonsCategory": "House of scientists, Baku",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House_of_scientists,_Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Neft%C3%A7il%C9%99r%20pros.%20001.JPG",
+                "inventory": "3388",
+                "item": "http://www.wikidata.org/entity/Q21000431",
+                "itemDescription": "building in Baku, Azerbaijan",
+                "itemLabel": "Alimlər evi (Bakı)",
+                "lastModified": "2026-02-05T06:31:51Z"
             }
         },
         {
@@ -7298,6 +7376,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    47.074633915,
+                    41.523353977
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Sar%C4%B1ba%C5%9F_k%C9%99nd_m%C9%99scidi",
+                "inventory": "4567",
+                "item": "http://www.wikidata.org/entity/Q138012970",
+                "itemDescription": "Sarıbaş kəndində yerləşən məscid, tarixi abidə.",
+                "itemLabel": "Sarıbaş kənd məscidi",
+                "lastModified": "2026-02-05T13:11:14Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.943486,
                     41.425638
                 ]
@@ -7943,7 +8039,7 @@
                 "item": "http://www.wikidata.org/entity/Q12838280",
                 "itemAltLabel": "Boradigah Cümə məscidi",
                 "itemLabel": "Cümə məscidi (Boradigah)",
-                "lastModified": "2026-02-03T12:55:02Z"
+                "lastModified": "2026-02-05T23:52:39Z"
             }
         },
         {
@@ -8806,6 +8902,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.748715619,
+                    39.815643567
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Xank%C9%99ndi_D%C3%B6vl%C9%99t_Dram_Teatr%C4%B1",
+                "commonsCategory": "Maxim Gorky State Drama Theatre, Stepanakert",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Maxim_Gorky_State_Drama_Theatre,_Stepanakert",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/State%20Drama%20Theater%20%2836890824293%29.jpg",
+                "inventory": "5015",
+                "item": "http://www.wikidata.org/entity/Q10977619",
+                "itemDescription": "Xankəndidə yerləşən teatr",
+                "itemLabel": "Xankəndi Dövlət Dram Teatrı",
+                "lastModified": "2026-02-06T19:13:06Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.751,
                     39.7642
                 ]
@@ -8855,6 +8972,41 @@
                 "item": "http://www.wikidata.org/entity/Q31310958",
                 "itemLabel": "Tərtər Cümə məscidi",
                 "lastModified": "2026-01-28T13:16:30Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.670148739,
+                    40.840501174
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Yan%C4%B1ql%C4%B1_t%C3%BCrb%C9%99l%C9%99ri",
+                "inventory": "5193",
+                "item": "http://www.wikidata.org/entity/Q65276609",
+                "itemLabel": "Yanıqlı türbələri",
+                "lastModified": "2026-02-06T11:38:08Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.628888888,
+                    40.866388888
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C6%8Fsrik_C%C4%B1rdaxan_kils%C9%99si",
+                "inventory": "5196",
+                "item": "http://www.wikidata.org/entity/Q12850349",
+                "itemDescription": "church building in Tovuz District, Azerbaijan",
+                "itemLabel": "Əsrik Cırdaxan məbədi",
+                "lastModified": "2026-02-06T11:38:44Z"
             }
         },
         {
