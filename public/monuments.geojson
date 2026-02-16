@@ -433,6 +433,49 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.849888888,
+                    41.4785
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/L%C9%99kit_m%C9%99b%C9%99di",
+                "commonsCategory": "Lekit round temple",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Lekit_round_temple",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/L%C9%99kit%20dair%C9%99vi%20kils%C9%99si%20xarabal%C4%B1qlar%C4%B1n%C4%B1n%20giri%C5%9F%20qap%C4%B1s%C4%B1%20t%C9%99r%C9%99find%C9%99n%20%C3%BCmumi%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
+                "inventory": "8",
+                "item": "http://www.wikidata.org/entity/Q3652481",
+                "itemAltLabel": "Ləkit məbədi, Qax rayonunun Ləkit kəndindəki dairəvi məbəd",
+                "itemDescription": "Qax rayonunun Ləkit kəndində yerləşən qədim alban məbədi.",
+                "itemLabel": "Ləkit kilsəsi",
+                "lastModified": "2026-02-15T13:35:08Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.126944444,
+                    41.177777777
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/X%C4%B1nal%C4%B1q",
+                "commonsCategory": "Xınalıq",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/X%C4%B1nal%C4%B1q%20k%C9%99ndinin%20%C3%BCmumi%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
+                "inventory": "9",
+                "item": "http://www.wikidata.org/entity/Q2395313",
+                "itemAltLabel": "Kətiş",
+                "itemDescription": "Quba rayonunda kənd",
+                "itemLabel": "Xınalıq",
+                "lastModified": "2026-02-16T06:09:03Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.988603,
                     39.619189
                 ]
@@ -559,6 +602,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.92,
+                    39.16
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/G%C9%99miqaya_petroqlifl%C9%99ri",
+                "commonsCategory": "Gamigaya Petroglyphs",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gamigaya_Petroglyphs",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Rock%20art%20in%20Ordubad.jpg",
+                "inventory": "38",
+                "item": "http://www.wikidata.org/entity/Q4361430",
+                "itemAltLabel": "Gəmiqaya qayaüstü təsvirləri, Gəmiqaya rəsmləri",
+                "itemDescription": "monument",
+                "itemLabel": "Gəmiqaya petroqlifləri",
+                "lastModified": "2026-02-16T08:41:57Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.193066666,
                     41.248933333
                 ]
@@ -574,6 +639,49 @@
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən kilsə və tarix memarlıq abidəsi.",
                 "itemLabel": "Kiş kilsəsi",
                 "lastModified": "2026-02-07T18:12:16Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.715683,
+                    40.889639
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Kabalaka",
+                "commonsCategory": "Kabalaka",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Kabalaka",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ancient%20Gabala00.jpg",
+                "inventory": "54",
+                "item": "http://www.wikidata.org/entity/Q4206513",
+                "itemAltLabel": "Qəbələ (antik şəhər), Qəbələ şəhər xarabalıqları",
+                "itemDescription": "historic human settlement in Azerbaijan",
+                "itemLabel": "Kabalaka",
+                "lastModified": "2026-02-15T17:12:48Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.88138889,
+                    41.29555556
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eabran_(q%C9%99dim_%C5%9F%C9%99h%C9%99r)",
+                "commonsCategory": "Şabran (ancient city)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:%C5%9Eabran_(ancient_city)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Remains%20of%20ancient%20Shabran%20city%2C%20Azerbaijan.jpg",
+                "inventory": "63",
+                "item": "http://www.wikidata.org/entity/Q2643467",
+                "itemDescription": "former city in Azerbaijan (medieval and early modern period)",
+                "itemLabel": "Şabran",
+                "lastModified": "2026-02-16T10:06:18Z"
             }
         },
         {
@@ -612,7 +720,7 @@
                 "commonsCategory": "Palace of Baku Khans",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Baku_Khans",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20xan%20saray%C4%B1n%C4%B1n%20%C9%99sas%20giri%C5%9Finin%20Xan%20ba%C4%9F%C4%B1%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
-                "inventory": "71, 70, 73, 69",
+                "inventory": "69, 71, 70, 73",
                 "item": "http://www.wikidata.org/entity/Q12837306",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
                 "itemLabel": "Bakı xan sarayı",
@@ -3082,6 +3190,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.58917,
+                    39.22028
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C6%8Fshabi-K%C9%99hf_(ma%C4%9Fara)",
+                "commonsCategory": "Əshabi-Kəhf",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:%C6%8Fshabi-K%C9%99hf",
+                "inventory": "399",
+                "item": "http://www.wikidata.org/entity/Q22640880",
+                "itemAltLabel": "Əshabi-Kəhf",
+                "itemDescription": "sanctuary in a natural cave which is located in the eastern part of the city of Nakhchivan",
+                "itemLabel": "Əshabi-Kəhf",
+                "lastModified": "2026-02-16T08:21:01Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.703093616,
                     39.233764411
                 ]
@@ -3126,6 +3255,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.019592855,
+                    38.904894982
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ordubad_buzxanas%C4%B1",
+                "inventory": "415",
+                "item": "http://www.wikidata.org/entity/Q16414261",
+                "itemDescription": "ice house in Nakhchivan Autonomous Republic, Azerbaijan",
+                "itemLabel": "Ordubad buzxanası",
+                "lastModified": "2026-02-16T08:43:02Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.822445022,
                     38.929104246
                 ]
@@ -3141,6 +3288,27 @@
                 "itemDescription": "Azərbaycanda yerləşən, Səfəvilər dövrünə aid körpü.",
                 "itemLabel": "Aza körpüsü",
                 "lastModified": "2026-01-29T14:09:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.022128422,
+                    38.909936837
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Qeys%C9%99riyy%C9%99_(Ordubad)",
+                "commonsCategory": "Geysarriya",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Geysarriya",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ordubadda%20Qeys%C9%99riyy%C9%99%20abid%C9%99si%2003.JPG",
+                "inventory": "418",
+                "item": "http://www.wikidata.org/entity/Q12843173",
+                "itemDescription": "building",
+                "itemLabel": "Naxçıvanda Qeysəriyyə abidəsi",
+                "lastModified": "2026-02-16T08:44:20Z"
             }
         },
         {
@@ -3236,6 +3404,23 @@
                 "itemDescription": "Bakıda park",
                 "itemLabel": "Samir Xasıyev parkı",
                 "lastModified": "2026-01-27T01:20:36Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829722222,
+                    40.368055555
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Mirz%C9%99_F%C9%99t%C9%99li_Axundovun_heyk%C9%99li_(Bak%C4%B1)",
+                "inventory": "444",
+                "item": "http://www.wikidata.org/entity/Q16271026",
+                "itemLabel": "Mirzə Fətəli Axundovun heykəli",
+                "lastModified": "2026-02-15T17:14:05Z"
             }
         },
         {
@@ -4084,6 +4269,23 @@
                 "item": "http://www.wikidata.org/entity/Q4524698",
                 "itemLabel": "Şiş Quzey mağarası",
                 "lastModified": "2026-02-08T19:24:08Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.651891637,
+                    40.24275521
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Xanm%C9%99mm%C9%99dli_k%C3%BCp_q%C9%99birl%C9%99ri_nekropolu",
+                "inventory": "1827",
+                "item": "http://www.wikidata.org/entity/Q110104186",
+                "itemLabel": "Xanməmmədli küp qəbirləri nekropolu",
+                "lastModified": "2026-02-16T09:55:50Z"
             }
         },
         {
@@ -5345,11 +5547,11 @@
                 "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_%C5%9F%C9%99h%C9%99r_telefon_qov%C5%9Fa%C4%9F%C4%B1n%C4%B1n_binas%C4%B1",
                 "commonsCategory": "Building on Uzeyir Hajibeyov Street 24",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Uzeyir_Hajibeyov_Street_24",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C3%9Czeyir%20Hac%C4%B1b%C9%99yov%20k%C3%BC%C3%A7.%2048%20%C3%BCnvan%C4%B1nda%20yerl%C9%99%C5%9F%C9%99n%20bina%20%281%29.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C3%9Czeyir%20Hac%C4%B1b%C9%99yov%20k%C3%BC%C3%A7.%2048%20%C3%BCnvan%C4%B1nda%20yerl%C9%99%C5%9F%C9%99n%20bina%20%282%29.jpg",
                 "inventory": "3435",
                 "item": "http://www.wikidata.org/entity/Q121282209",
                 "itemLabel": "Bakı şəhər telefon qovşağının binası",
-                "lastModified": "2026-01-29T14:26:48Z"
+                "lastModified": "2026-02-15T13:08:18Z"
             }
         },
         {
@@ -5524,8 +5726,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.825833333,
-                    40.369166666
+                    49.826308094,
+                    40.36940762
                 ]
             },
             "properties": {
@@ -5537,7 +5739,7 @@
                 "item": "http://www.wikidata.org/entity/Q20570921",
                 "itemDescription": "mosque in Baku, Azerbaijan",
                 "itemLabel": "\"İmam Hüseyn\" məscidi",
-                "lastModified": "2026-01-28T12:32:21Z"
+                "lastModified": "2026-02-15T13:12:09Z"
             }
         },
         {
@@ -6772,6 +6974,70 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.117701183,
+                    41.077469293
+                ]
+            },
+            "properties": {
+                "inventory": "4190",
+                "item": "http://www.wikidata.org/entity/Q138314583",
+                "itemLabel": "Qızıl Burun dəmiryol stansiyası",
+                "lastModified": "2026-02-16T10:09:08Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.272496035,
+                    40.945199695
+                ]
+            },
+            "properties": {
+                "inventory": "4191",
+                "item": "http://www.wikidata.org/entity/Q138314594",
+                "itemLabel": "Zarat dəmiryolu stansiyası",
+                "lastModified": "2026-02-16T10:13:41Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.856851285,
+                    41.300427527
+                ]
+            },
+            "properties": {
+                "inventory": "4193",
+                "item": "http://www.wikidata.org/entity/Q138314598",
+                "itemLabel": "Aygünlü kənd məscidi",
+                "lastModified": "2026-02-16T10:14:54Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.861793307,
+                    41.226934784
+                ]
+            },
+            "properties": {
+                "inventory": "4196",
+                "item": "http://www.wikidata.org/entity/Q138314606",
+                "itemLabel": "Ləcədi kənd məscidi",
+                "lastModified": "2026-02-16T10:16:51Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.759440365,
                     41.206254613
                 ]
@@ -6785,26 +7051,6 @@
                 "itemDescription": "Şabranın Kilvar kəndində yerləşən kilsə",
                 "itemLabel": "Kilvar kilsəsi",
                 "lastModified": "2025-09-09T06:21:53Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    47.157177,
-                    39.538966
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eah_Abbas_m%C9%99scidi_(F%C3%BCzuli)",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qar%C4%9Fabazar%20m%C9%99scidinin%20plan%C4%B1-001.jpg",
-                "inventory": "4212",
-                "item": "http://www.wikidata.org/entity/Q4292330",
-                "itemAltLabel": "Hacı Qiyasəddin məscidi",
-                "itemDescription": "mosque in Qarğabazar, Fuzuli, Azerbaijan",
-                "itemLabel": "Qarğabazar məscidi",
-                "lastModified": "2026-01-23T16:46:24Z"
             }
         },
         {
@@ -6827,6 +7073,26 @@
                 "itemDescription": "Füzuli rayonunun Əhmədalılar kəndi yaxınlığında yerləşən XIII əsrə aid türbə.",
                 "itemLabel": "Arğalı türbəsi",
                 "lastModified": "2026-01-26T22:01:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.157177,
+                    39.538966
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eah_Abbas_m%C9%99scidi_(F%C3%BCzuli)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qar%C4%9Fabazar%20m%C9%99scidinin%20plan%C4%B1-001.jpg",
+                "inventory": "4212",
+                "item": "http://www.wikidata.org/entity/Q4292330",
+                "itemAltLabel": "Hacı Qiyasəddin məscidi",
+                "itemDescription": "mosque in Qarğabazar, Fuzuli, Azerbaijan",
+                "itemLabel": "Qarğabazar məscidi",
+                "lastModified": "2026-01-23T16:46:24Z"
             }
         },
         {
@@ -7152,6 +7418,38 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.584862903,
+                    41.68478134
+                ]
+            },
+            "properties": {
+                "inventory": "4306",
+                "item": "http://www.wikidata.org/entity/Q138314625",
+                "itemLabel": "Moruqoba kənd məscidi",
+                "lastModified": "2026-02-16T10:24:27Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.882478273,
+                    41.418053784
+                ]
+            },
+            "properties": {
+                "inventory": "4307",
+                "item": "http://www.wikidata.org/entity/Q138314634",
+                "itemLabel": "Qalağan kənd məscidi",
+                "lastModified": "2026-02-16T10:26:38Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.820589,
                     41.458075
                 ]
@@ -7162,6 +7460,38 @@
                 "item": "http://www.wikidata.org/entity/Q31310977",
                 "itemLabel": "Şah Abbas məscidi",
                 "lastModified": "2025-07-05T23:38:30Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.866367257,
+                    41.392154793
+                ]
+            },
+            "properties": {
+                "inventory": "4312",
+                "item": "http://www.wikidata.org/entity/Q138314650",
+                "itemLabel": "Çarxı dəmiryolu stansiyası",
+                "lastModified": "2026-02-16T10:32:29Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.623379874,
+                    41.692981163
+                ]
+            },
+            "properties": {
+                "inventory": "4313",
+                "item": "http://www.wikidata.org/entity/Q138314658",
+                "itemLabel": "Ləcət dəmiryolu stansiyası",
+                "lastModified": "2026-02-16T10:34:35Z"
             }
         },
         {
@@ -7903,6 +8233,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.509970838,
+                    41.36318304
+                ]
+            },
+            "properties": {
+                "inventory": "4600",
+                "item": "http://www.wikidata.org/entity/Q138314021",
+                "itemLabel": "Əlibaba Bağırovun yaşayış evi",
+                "lastModified": "2026-02-16T06:28:21Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.511939259,
                     41.362609367
                 ]
@@ -7959,6 +8305,42 @@
                 "itemDescription": "Qubada yerləşən ibadətgah",
                 "itemLabel": "Cümə məscidi",
                 "lastModified": "2026-02-02T05:15:50Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.510669456,
+                    41.356901011
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Mirmustafa Mausoleum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Mirmustafa_Mausoleum",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/T%C3%BCrb%C9%99%20%28Quba%29%20%289%29.jpg",
+                "inventory": "4616",
+                "item": "http://www.wikidata.org/entity/Q138314036",
+                "itemLabel": "Mirmustafa türbəsi",
+                "lastModified": "2026-02-16T06:37:03Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.511004386,
+                    41.356943822
+                ]
+            },
+            "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/T%C3%BCrb%C9%99%20%28Quba%29%20%2812%29.jpg",
+                "inventory": "4617",
+                "item": "http://www.wikidata.org/entity/Q138314032",
+                "itemLabel": "Baba Rüstəm türbəsi",
+                "lastModified": "2026-02-16T06:34:21Z"
             }
         },
         {
@@ -8093,6 +8475,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.574357195,
+                    41.39142702
+                ]
+            },
+            "properties": {
+                "inventory": "4627",
+                "item": "http://www.wikidata.org/entity/Q138314046",
+                "itemLabel": "Zizik kənd məscidi",
+                "lastModified": "2026-02-16T06:41:45Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.24489,
                     41.214871
                 ]
@@ -8121,6 +8519,38 @@
                 "item": "http://www.wikidata.org/entity/Q123747313",
                 "itemLabel": "Buduq məscidi",
                 "lastModified": "2026-01-28T11:41:31Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.563305792,
+                    41.052916899
+                ]
+            },
+            "properties": {
+                "inventory": "4635",
+                "item": "http://www.wikidata.org/entity/Q138314063",
+                "itemLabel": "Cimi kənd məscidi",
+                "lastModified": "2026-02-16T06:49:43Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.485154341,
+                    41.099047851
+                ]
+            },
+            "properties": {
+                "inventory": "4637",
+                "item": "http://www.wikidata.org/entity/Q138314073",
+                "itemLabel": "Yerfi kənd məscidi",
+                "lastModified": "2026-02-16T06:52:58Z"
             }
         },
         {
@@ -9520,6 +9950,86 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.462604676,
+                    39.114357519
+                ]
+            },
+            "properties": {
+                "inventory": "5308",
+                "item": "http://www.wikidata.org/entity/Q138314274",
+                "itemLabel": "Çaylaq məscidi",
+                "lastModified": "2026-02-16T08:23:52Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.460534054,
+                    39.113129979
+                ]
+            },
+            "properties": {
+                "inventory": "5309",
+                "item": "http://www.wikidata.org/entity/Q138314286",
+                "itemLabel": "Xəndək məscidi",
+                "lastModified": "2026-02-16T08:26:50Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.462001554,
+                    39.114638586
+                ]
+            },
+            "properties": {
+                "inventory": "5310",
+                "item": "http://www.wikidata.org/entity/Q138314281",
+                "itemLabel": "Güllü məscid",
+                "lastModified": "2026-02-16T08:25:20Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.730950016,
+                    38.937480158
+                ]
+            },
+            "properties": {
+                "inventory": "5315",
+                "item": "http://www.wikidata.org/entity/Q138314293",
+                "itemLabel": "Ağaməmməd məscidi",
+                "lastModified": "2026-02-16T08:35:19Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.733589161,
+                    38.935859016
+                ]
+            },
+            "properties": {
+                "inventory": "5316",
+                "item": "http://www.wikidata.org/entity/Q138314291",
+                "itemLabel": "Pirəli məscidi",
+                "lastModified": "2026-02-16T08:32:59Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.019819542,
                     38.913720827
                 ]
@@ -9579,6 +10089,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.984031918,
+                    39.01181476
+                ]
+            },
+            "properties": {
+                "inventory": "5334",
+                "item": "http://www.wikidata.org/entity/Q138314316",
+                "itemLabel": "Unus kənd məscidi",
+                "lastModified": "2026-02-16T08:47:08Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.908079236,
                     38.883910769
                 ]
@@ -9590,6 +10116,55 @@
                 "itemDescription": "Azərbaycanda Ordubad rayonunun, Dəstə kəndində yerləşən XIX əsrə aid məscid və tarix-memarlıq abidəsi.",
                 "itemLabel": "Şingiley məscidi",
                 "lastModified": "2025-12-29T20:00:33Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.022851576,
+                    38.90687532
+                ]
+            },
+            "properties": {
+                "inventory": "5359",
+                "item": "http://www.wikidata.org/entity/Q138314368",
+                "itemLabel": "Qırxayaq bulağı",
+                "lastModified": "2026-02-16T08:55:05Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.028496249,
+                    38.906644981
+                ]
+            },
+            "properties": {
+                "inventory": "5560",
+                "item": "http://www.wikidata.org/entity/Q138314369",
+                "itemLabel": "Peci bulağı",
+                "lastModified": "2026-02-16T08:56:26Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    44.880674385,
+                    39.708720006
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/S%C9%99d%C9%99r%C9%99k_m%C9%99scidi",
+                "inventory": "5568",
+                "item": "http://www.wikidata.org/entity/Q31306629",
+                "itemLabel": "Sədərək məscidi",
+                "lastModified": "2026-02-16T08:19:08Z"
             }
         },
         {
@@ -9822,6 +10397,40 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.412253489,
+                    39.206359869
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/C%C9%99lil_M%C9%99mm%C9%99dquluzad%C9%99nin_ev-muzeyi_(Nax%C3%A7%C4%B1van)",
+                "inventory": "5708",
+                "item": "http://www.wikidata.org/entity/Q16366286",
+                "itemDescription": "Historic house museum in Nakhchivan, Azerbaijan",
+                "itemLabel": "Cəlil Məmmədquluzadənin ev-muzeyi",
+                "lastModified": "2026-02-16T08:29:44Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.025096647,
+                    38.90936982
+                ]
+            },
+            "properties": {
+                "inventory": "5714",
+                "item": "http://www.wikidata.org/entity/Q138314373",
+                "itemLabel": "Məmməd Səid Ordubadinin ev muzeyi",
+                "lastModified": "2026-02-16T08:57:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.836882295,
                     40.366268847
                 ]
@@ -9896,6 +10505,26 @@
                 "itemDescription": "habitation in Qakh, Azerbaijan",
                 "itemLabel": "Torpaqqala",
                 "lastModified": "2026-01-19T02:09:34Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.510176546,
+                    41.357957088
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Category:Quba city cemetery",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Quba_city_cemetery",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Quba%20%C5%9F%C9%99h%C9%99r%20q%C9%99biristanl%C4%B1%C4%9F%C4%B1ndak%C4%B1%20q%C9%99birl%C9%99r%20%2818%29.jpg",
+                "inventory": "5885",
+                "item": "http://www.wikidata.org/entity/Q138314078",
+                "itemAltLabel": "Köhnə qəbiristanlıq",
+                "itemLabel": "Yuxarı qəbiristanlıq",
+                "lastModified": "2026-02-16T07:20:33Z"
             }
         },
         {
