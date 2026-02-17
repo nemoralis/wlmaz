@@ -114,6 +114,26 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.833445346,
+                    40.366228843
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eirvan%C5%9Fahlar%C4%B1n_saray_binas%C4%B1",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C5%9Eirvan%C5%9Fahlar%20saray%C4%B1n%C4%B1n%20Keyqubad%20m%C9%99scidi%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.JPG",
+                "inventory": "3.1",
+                "item": "http://www.wikidata.org/entity/Q55702338",
+                "itemAltLabel": "Şirvanşahların yaşayış binası",
+                "itemDescription": "Bakıda tikili",
+                "itemLabel": "Şirvanşahların saray binası",
+                "lastModified": "2026-02-17T06:53:33Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.833469444,
                     40.366227777
                 ]
@@ -1746,6 +1766,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.839036741,
+                    40.367182553
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Fenomen_sinematoqraf%C4%B1n%C4%B1n_binas%C4%B1",
+                "commonsCategory": "Baku Puppet Theatre",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Baku.%20Phenomen%20cinema.jpg",
+                "inventory": "140",
+                "item": "http://www.wikidata.org/entity/Q85997389",
+                "itemAltLabel": "Kukla Teatrının binası",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Fenomen sinematoqrafının binası",
+                "lastModified": "2026-02-17T06:55:39Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.831641,
                     40.364085
                 ]
@@ -1947,6 +1988,27 @@
                 "item": "http://www.wikidata.org/entity/Q20573987",
                 "itemLabel": "Bakı Kommersiya Məktəbi",
                 "lastModified": "2026-01-29T14:24:02Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831972222,
+                    40.368916666
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Hac%C4%B1nskinin_evi_(%C6%8F.Cavad_k.)",
+                "commonsCategory": "Building on Ahmad Javad Street 12",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Ahmad_Javad_Street_12",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Hac%C4%B1nskinin%20%C6%8Fhm%C9%99d%20Cavad%20k%C3%BC%C3%A7%C9%99sind%C9%99ki%20evinin%20%C9%99sas%20fasad%C4%B1.jpg",
+                "inventory": "163",
+                "item": "http://www.wikidata.org/entity/Q97222691",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Hacınskinin evi",
+                "lastModified": "2026-02-17T06:57:52Z"
             }
         },
         {
@@ -4913,6 +4975,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.848105172,
+                    40.37819372
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_Texniki_Pe%C5%9F%C9%99_M%C9%99kt%C9%99binin_binas%C4%B1",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/ASOA%2019%20-%20early%2020%20cc..jpg",
+                "inventory": "3028",
+                "item": "http://www.wikidata.org/entity/Q85997456",
+                "itemLabel": "Bakı texniki peşə məktəbinin binası",
+                "lastModified": "2026-02-17T06:56:46Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.847986908,
                     40.379692231
                 ]
@@ -4926,7 +5006,7 @@
                 "item": "http://www.wikidata.org/entity/Q123753947",
                 "itemDescription": "Azərbaycanda muzey",
                 "itemLabel": "Dəmiryol Muzeyi",
-                "lastModified": "2026-01-27T23:05:02Z"
+                "lastModified": "2026-02-17T10:33:47Z"
             }
         },
         {
@@ -4949,6 +5029,26 @@
                 "itemDescription": "Bakıda yerləşən teatr",
                 "itemLabel": "Azərbaycan Dövlət Pantomim Teatrı",
                 "lastModified": "2026-01-29T14:16:58Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831972222,
+                    40.368916666
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/V%C9%99t%C9%99n_(kinoteatr)",
+                "commonsCategory": "Building of Vatan Cinema",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_Vatan_Cinema",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/V%C9%99t%C9%99n%20kinoteatr%C4%B1n%C4%B1n%20binas%C4%B1.JPG",
+                "inventory": "3093",
+                "item": "http://www.wikidata.org/entity/Q97302130",
+                "itemLabel": "Vətən",
+                "lastModified": "2026-02-17T06:59:17Z"
             }
         },
         {
@@ -5242,6 +5342,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.851246218,
+                    40.37564319
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Musa_Na%C4%9F%C4%B1yevin_d%C3%B6rdm%C9%99rt%C9%99b%C9%99li_m%C9%99daxil_evi",
+                "commonsCategory": "Building on Khagani Street 47",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Khagani_Street_47",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Xaqani%2047%20ya%C5%9Fay%C4%B1%C5%9F%20evi.jpg",
+                "inventory": "3256",
+                "item": "http://www.wikidata.org/entity/Q110101221",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Musa Nağıyevin dördmərtəbəli mədaxil evi",
+                "lastModified": "2026-02-17T07:00:06Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.834005,
                     40.369259
                 ]
@@ -5390,6 +5511,25 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.832149,
+                    40.368293
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ya%C5%9Fay%C4%B1%C5%9F_binas%C4%B1_(%C4%B0stiqlaliyy%C9%99t_k%C3%BC%C3%A7%C9%99si,_41)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20evi%2C%20%C4%B0stiqlaliyy%C9%99t%20k%C3%BC%C3%A7%C9%99si%2C%2041.jpg",
+                "inventory": "3295",
+                "item": "http://www.wikidata.org/entity/Q110212962",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Yaşayış binası",
+                "lastModified": "2026-02-17T07:02:22Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.829166666,
                     40.368333333
                 ]
@@ -5496,6 +5636,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.8335,
+                    40.359972222
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Nuru_%C6%8Fmiraslanovun_ya%C5%9Fay%C4%B1%C5%9F_evi",
+                "commonsCategory": "Building on Neftchilar Avenue 65",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Neftchilar_Avenue_65",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Neftchilar%20Avenue%2065.jpg",
+                "inventory": "3386",
+                "item": "http://www.wikidata.org/entity/Q110105595",
+                "itemAltLabel": "Xarici Turizm Şurasının binası",
+                "itemDescription": "Bakıda tarixi bina",
+                "itemLabel": "Nuru Əmiraslanovun yaşayış evi",
+                "lastModified": "2026-02-17T07:01:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.8336,
                     40.3608
                 ]
@@ -5552,6 +5714,26 @@
                 "item": "http://www.wikidata.org/entity/Q121282209",
                 "itemLabel": "Bakı şəhər telefon qovşağının binası",
                 "lastModified": "2026-02-15T13:08:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.841317758,
+                    40.372501297
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ya%C5%9Fay%C4%B1%C5%9F_binas%C4%B1_(Xaqani_k%C3%BC%C3%A7%C9%99si,_9)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C4%B0nzibati%20bina%2C%20Xaqani%20k%C3%BC%C3%A7%C9%99si%2C%209.jpg",
+                "inventory": "3446",
+                "item": "http://www.wikidata.org/entity/Q110212964",
+                "itemAltLabel": "İraq səfirliyinin binası",
+                "itemDescription": "Bakıda tarixi inzibati bina",
+                "itemLabel": "İnzibati bina",
+                "lastModified": "2026-02-17T07:03:44Z"
             }
         },
         {
@@ -5846,6 +6028,28 @@
                 "itemDescription": "Azərbaycanda fəaliyyət göstərən ali təhsil müəssisəsi",
                 "itemLabel": "Azərbaycan Dövlət Mədəniyyət və İncəsənət Universiteti",
                 "lastModified": "2026-02-11T04:40:12Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.822199788,
+                    40.383455904
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/D%C3%B6vl%C9%99t_Statistika_Komit%C9%99si_(Az%C9%99rbaycan)",
+                "commonsCategory": "State Statistics Committee of Azerbaijan",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:State_Statistics_Committee_of_Azerbaijan",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/State%20Statistics%20Committee%20of%20Azerbaijan%20in%20January%202021%2006.jpg",
+                "inventory": "3743",
+                "item": "http://www.wikidata.org/entity/Q4146845",
+                "itemAltLabel": "Statistika Komitəsi, Dövlət Statistika Komitəsi",
+                "itemDescription": "Azərbaycanda mərkəzi icra hakimiyyəti orqanı",
+                "itemLabel": "Azərbaycan Respublikası Dövlət Statistika Komitəsi",
+                "lastModified": "2026-02-17T06:45:05Z"
             }
         },
         {
@@ -7058,28 +7262,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    47.334638,
-                    39.422959
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/Ar%C4%9Fal%C4%B1_t%C3%BCrb%C9%99si",
-                "commonsCategory": "Argali tomb",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Argali_tomb",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Argali%20tomb.jpg",
-                "inventory": "4212",
-                "item": "http://www.wikidata.org/entity/Q4073062",
-                "itemAltLabel": "Əhmədalılar türbəsi",
-                "itemDescription": "Füzuli rayonunun Əhmədalılar kəndi yaxınlığında yerləşən XIII əsrə aid türbə.",
-                "itemLabel": "Arğalı türbəsi",
-                "lastModified": "2026-01-26T22:01:42Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     47.157177,
                     39.538966
                 ]
@@ -7393,6 +7575,27 @@
                 "itemDescription": "Göygöldə kilsə",
                 "itemLabel": "Qabriyel kilsəsi",
                 "lastModified": "2025-09-29T04:12:24Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.806484,
+                    41.467653
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Xa%C3%A7maz_D%C9%99miryol_Stansiyas%C4%B1",
+                "commonsCategory": "Khachmaz train station",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Khachmaz_train_station",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Xa%C3%A7maz%20d%C9%99miryolu%20stansiyas%C4%B1%20%288%29.jpg",
+                "inventory": "4297",
+                "item": "http://www.wikidata.org/entity/Q20585601",
+                "itemDescription": "railway station in Azerbaijan",
+                "itemLabel": "Xaçmaz dəmiryol stansiyası",
+                "lastModified": "2026-02-16T22:07:16Z"
             }
         },
         {
@@ -8858,6 +9061,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.667653207,
+                    39.027623797
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/C%C3%BCm%C9%99_m%C9%99scidi_(Masall%C4%B1)",
+                "inventory": "4863",
+                "item": "http://www.wikidata.org/entity/Q16415172",
+                "itemLabel": "Masallı Cümə məscidi",
+                "lastModified": "2026-02-17T06:51:07Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.709550406,
                     38.929842606
                 ]
@@ -10105,6 +10325,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.923852168,
+                    38.945464592
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/V%C9%99n%C9%99nd_m%C9%99scidi",
+                "inventory": "5341",
+                "item": "http://www.wikidata.org/entity/Q12847393",
+                "itemDescription": "mosque in Azerbaijan",
+                "itemLabel": "Vənənd məscidi",
+                "lastModified": "2026-02-17T06:50:39Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.908079236,
                     38.883910769
                 ]
@@ -10525,6 +10763,26 @@
                 "itemAltLabel": "Köhnə qəbiristanlıq",
                 "itemLabel": "Yuxarı qəbiristanlıq",
                 "lastModified": "2026-02-16T07:20:33Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.414861692,
+                    39.701513898
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/B%C9%99ndovan_ya%C5%9Fay%C4%B1%C5%9F_yeri",
+                "commonsCategory": "Bandovan",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Bandovan",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Plate%20from%20Bandovan%20with%20lion%20image.jpg",
+                "inventory": "5982",
+                "item": "http://www.wikidata.org/entity/Q12837982",
+                "itemLabel": "Bəndovan",
+                "lastModified": "2026-02-17T06:45:45Z"
             }
         },
         {
