@@ -32,10 +32,7 @@ import { computed, onErrorCaptured, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useHead } from "@unhead/vue";
 import MonumentMap from "../components/MonumentMap.vue";
-import {
-   schemaToJsonLd,
-   useOrganizationSchema,
-} from "../composables/useSchemaOrg";
+import { schemaToJsonLd, useOrganizationSchema } from "../composables/useSchemaOrg";
 import { useMonumentStore } from "../stores/monuments";
 import { getOptimizedImage, getSrcSet } from "../utils/monumentFormatters";
 
