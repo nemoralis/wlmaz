@@ -8,9 +8,7 @@
             >
                404
             </span>
-            <div
-               class="absolute inset-0 flex items-center justify-center"
-            >
+            <div class="absolute inset-0 flex items-center justify-center">
                <div
                   class="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-blue-50 shadow-lg"
                >
@@ -23,9 +21,7 @@
             </div>
          </div>
 
-         <h1 class="mb-3 text-2xl font-bold tracking-tight text-gray-900">
-            Səhifə tapılmadı
-         </h1>
+         <h1 class="mb-3 text-2xl font-bold tracking-tight text-gray-900">Səhifə tapılmadı</h1>
          <p class="mb-8 text-gray-500">
             Axtardığınız səhifə mövcud deyil və ya köçürülmüş ola bilər.
          </p>
@@ -47,9 +43,7 @@
          </div>
       </div>
 
-      <p class="mt-16 text-xs text-gray-400">
-         Xəta kodu: 404 · {{ currentPath }}
-      </p>
+      <p class="mt-16 text-xs text-gray-400">Xəta kodu: 404 · {{ currentPath }}</p>
    </div>
 </template>
 

@@ -247,7 +247,8 @@ useHead({
    meta: [
       {
          name: "description",
-         content: "Şəxsi profil və Wiki Loves Monuments Azərbaycan müsabiqəsindəki statistikalarınız.",
+         content:
+            "Şəxsi profil və Wiki Loves Monuments Azərbaycan müsabiqəsindəki statistikalarınız.",
       },
       {
          name: "robots",
