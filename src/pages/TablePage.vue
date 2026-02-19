@@ -122,8 +122,8 @@
    </div>
 </template>
 
-<script lang="ts">
-import { computed, defineAsyncComponent, defineComponent, onMounted, ref, watch } from "vue";
+<script lang="ts" setup>
+import { computed, defineAsyncComponent, onMounted, ref, watch } from "vue";
 import { useHead } from "@unhead/vue";
 import { CdxButton, CdxIcon, CdxSearchInput } from "@wikimedia/codex";
 import {
@@ -140,132 +140,100 @@ import { getCanonicalId } from "../utils/monumentFormatters";
 
 const UploadModal = defineAsyncComponent(() => import("../components/UploadModal.vue"));
 
-export default defineComponent({
-   name: "TablePage",
-   components: {
-      UploadModal,
-      MonumentVirtualTable,
-      CdxButton,
-      CdxIcon,
-      CdxSearchInput,
-   },
-   setup() {
-      const auth = useAuthStore();
-      const monumentStore = useMonumentStore();
-      useHead({
-         title: "Abidələr Siyahısı - Azərbaycan Tarixi Abidələri | Viki Abidələri Sevir",
-         link: [{ rel: "canonical", href: "https://wikilovesmonuments.az/table" }],
-         meta: [
-            {
-               name: "description",
-               content:
-                  "Azərbaycanın bütün tarixi abidələrinin tam siyahısı. Bakı, Şəki, Qəbələ və digər bölgələrdəki məscid, qala, məqbərə və digər mədəni irs abidələri haqqında məlumat.",
-            },
-         ],
+const auth = useAuthStore();
+const monumentStore = useMonumentStore();
+
+useHead({
+   title: "Abidələr Siyahısı - Azərbaycan Tarixi Abidələri | Viki Abidələri Sevir",
+   link: [{ rel: "canonical", href: "https://wikilovesmonuments.az/table" }],
+   meta: [
+      {
+         name: "description",
+         content:
+            "Azərbaycanın bütün tarixi abidələrinin tam siyahısı. Bakı, Şəki, Qəbələ və digər bölgələrdəki məscid, qala, məqbərə və digər mədəni irs abidələri haqqında məlumat.",
+      },
+   ],
+});
+
+const virtualTable = ref<any>(null);
+const loading = computed(() => monumentStore.isLoading);
+const isUploadModalOpen = ref(false);
+const selectedMonumentForUpload = ref<Monument | null>(null);
+const searchQuery = ref("");
+const monuments = computed(() => monumentStore.monuments);
+
+watch(searchQuery, () => {
+   virtualTable.value?.scrollToTop();
+});
+
+const sortState = ref<Record<string, "asc" | "desc">>({ inventory: "asc" });
+
+const columns = [
+   { id: "inventory", label: "İnventar", allowSort: true, width: "100px" },
+   { id: "itemLabel", label: "Ad", allowSort: true },
+   { id: "status", label: "Status" },
+   { id: "actions", label: "" },
+];
+
+const openUploadModal = (monument: Monument) => {
+   selectedMonumentForUpload.value = monument;
+   isUploadModalOpen.value = true;
+};
+
+const handleSort = (colId: string) => {
+   const current = sortState.value[colId];
+   const next = current === "asc" ? "desc" : "asc";
+   sortState.value = { [colId]: next };
+   virtualTable.value?.scrollToTop();
+};
+
+const openExternalLink = (url: string) => {
+   window.open(url, "_blank", "noopener,noreferrer");
+};
+
+onMounted(() => {
+   monumentStore.init();
+});
+
+const sortedMonuments = computed(() => {
+   let data = [...monuments.value];
+
+   // Filter
+   if (searchQuery.value.trim()) {
+      const query = searchQuery.value.toLowerCase().trim();
+      data = data.filter((m) => {
+         return (
+            (m.itemLabel && m.itemLabel.toLowerCase().includes(query)) ||
+            (m.inventory && m.inventory.toLowerCase().includes(query)) ||
+            (m.itemAltLabel && m.itemAltLabel.toLowerCase().includes(query))
+         );
       });
+   }
 
-      const virtualTable = ref<any>(null);
-      const loading = computed(() => monumentStore.isLoading);
-      const isUploadModalOpen = ref(false);
-      const selectedMonumentForUpload = ref<Monument | null>(null);
-      const searchQuery = ref("");
-      const monuments = computed(() => monumentStore.monuments);
+   // Sort
+   const sortKey = Object.keys(sortState.value)[0];
+   const sortDir = sortState.value[sortKey];
 
-      watch(searchQuery, () => {
-         virtualTable.value?.scrollToTop();
-      });
+   if (sortKey) {
+      const order = sortDir === "asc" ? 1 : -1;
+      data.sort((a, b) => {
+         let valA = (a as any)[sortKey] || "";
+         let valB = (b as any)[sortKey] || "";
 
-      const sortState = ref<Record<string, "asc" | "desc">>({ inventory: "asc" });
-
-      const columns = [
-         { id: "inventory", label: "İnventar", allowSort: true, width: "100px" },
-         { id: "itemLabel", label: "Ad", allowSort: true },
-         { id: "status", label: "Status" },
-         { id: "actions", label: "" },
-      ];
-
-      const openUploadModal = (monument: Monument) => {
-         selectedMonumentForUpload.value = monument;
-         isUploadModalOpen.value = true;
-      };
-
-      const handleSort = (colId: string) => {
-         const current = sortState.value[colId];
-         const next = current === "asc" ? "desc" : "asc";
-         sortState.value = { [colId]: next };
-         virtualTable.value?.scrollToTop();
-      };
-
-      const openExternalLink = (url: string) => {
-         window.open(url, "_blank", "noopener,noreferrer");
-      };
-
-      onMounted(() => {
-         monumentStore.init();
-      });
-
-      const sortedMonuments = computed(() => {
-         let data = [...monuments.value];
-
-         // Filter
-         if (searchQuery.value.trim()) {
-            const query = searchQuery.value.toLowerCase().trim();
-            data = data.filter((m) => {
-               return (
-                  (m.itemLabel && m.itemLabel.toLowerCase().includes(query)) ||
-                  (m.inventory && m.inventory.toLowerCase().includes(query)) ||
-                  (m.itemAltLabel && m.itemAltLabel.toLowerCase().includes(query))
-               );
-            });
+         if (sortKey === "inventory") {
+            const numA = parseFloat(valA.toString().replace(/[^0-9.]/g, ""));
+            const numB = parseFloat(valB.toString().replace(/[^0-9.]/g, ""));
+            if (!isNaN(numA) && !isNaN(numB) && valA !== valB) {
+               return (numA - numB) * order;
+            }
          }
 
-         // Sort
-         const sortKey = Object.keys(sortState.value)[0];
-         const sortDir = sortState.value[sortKey];
-
-         if (sortKey) {
-            const order = sortDir === "asc" ? 1 : -1;
-            data.sort((a, b) => {
-               let valA = a[sortKey] || "";
-               let valB = b[sortKey] || "";
-
-               if (sortKey === "inventory") {
-                  const numA = parseFloat(valA.toString().replace(/[^0-9.]/g, ""));
-                  const numB = parseFloat(valB.toString().replace(/[^0-9.]/g, ""));
-                  if (!isNaN(numA) && !isNaN(numB) && valA !== valB) {
-                     return (numA - numB) * order;
-                  }
-               }
-
-               if (valA < valB) return -order;
-               if (valA > valB) return order;
-               return 0;
-            });
-         }
-
-         return data;
+         if (valA < valB) return -order;
+         if (valA > valB) return order;
+         return 0;
       });
+   }
 
-      return {
-         auth,
-         monuments,
-         sortedMonuments,
-         loading,
-         sortState,
-         columns,
-         isUploadModalOpen,
-         selectedMonumentForUpload,
-         openUploadModal,
-         openExternalLink,
-         handleSort,
-         searchQuery,
-         virtualTable,
-         cdxIconMap,
-         cdxIconMapPin,
-         cdxIconUpload,
-         cdxIconLogoWikipedia,
-         getCanonicalId,
-      };
-   },
+   return data;
 });
 </script>

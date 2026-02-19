@@ -56,6 +56,7 @@ export default defineConfig({
       Sitemap({
          hostname: "https://wikilovesmonuments.az",
          dynamicRoutes: monumentRoutes,
+         exclude: ["/profile"],
          changefreq: "monthly",
          priority: {
             "/": 1.0, // Homepage - highest priority

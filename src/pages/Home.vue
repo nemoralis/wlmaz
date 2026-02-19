@@ -28,14 +28,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onErrorCaptured, ref } from "vue";
-import { useRoute } from "vue-router";
+import { computed, onErrorCaptured, onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useHead } from "@unhead/vue";
 import MonumentMap from "../components/MonumentMap.vue";
 import {
    schemaToJsonLd,
    useOrganizationSchema,
-   useWebSiteSchema,
 } from "../composables/useSchemaOrg";
 import { useMonumentStore } from "../stores/monuments";
 import { getOptimizedImage, getSrcSet } from "../utils/monumentFormatters";
@@ -43,21 +42,26 @@ import { getOptimizedImage, getSrcSet } from "../utils/monumentFormatters";
 const monumentStore = useMonumentStore();
 
 const route = useRoute();
+const router = useRouter();
 const error = ref<Error | null>(null);
+
+// Redirect legacy /?inventory=X to /monument/X
+onMounted(() => {
+   if (route.query.inventory) {
+      router.replace(`/monument/${route.query.inventory}`);
+   }
+});
 
 // Schema.org markup for homepage
 const organizationSchema = useOrganizationSchema();
-const websiteSchema = useWebSiteSchema();
 
 useHead({
    title: "Viki Abidələri Sevir Azərbaycan - Abidələrin İnteraktiv Xəritəsi",
    link: computed(() => {
-      const links = [
+      const links: any[] = [
          {
             rel: "canonical",
-            href: route.query.inventory
-               ? `https://wikilovesmonuments.az/monument/${route.query.inventory}`
-               : "https://wikilovesmonuments.az/",
+            href: "https://wikilovesmonuments.az/",
          },
       ];
 
@@ -91,10 +95,6 @@ useHead({
       {
          type: "application/ld+json",
          innerHTML: schemaToJsonLd(organizationSchema),
-      },
-      {
-         type: "application/ld+json",
-         innerHTML: schemaToJsonLd(websiteSchema),
       },
    ],
 });
