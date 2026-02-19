@@ -39,7 +39,8 @@ const routes: Array<RouteRecordRaw> = [
    },
    {
       path: "/:pathMatch(.*)*",
-      redirect: "/",
+      name: "NotFound",
+      component: () => import("../pages/NotFound.vue"),
    },
 ];
 

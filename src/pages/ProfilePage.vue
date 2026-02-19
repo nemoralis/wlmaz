@@ -225,6 +225,7 @@
 
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, onMounted } from "vue";
+import { useHead } from "@unhead/vue";
 import { useUserStats } from "../composables/useUserStats";
 import { useAuthStore } from "../stores/auth";
 
@@ -234,6 +235,26 @@ const YearlyBreakdownChart = defineAsyncComponent(
 
 const auth = useAuthStore();
 const { stats, isLoading, error, fetchUserStats } = useUserStats();
+
+useHead({
+   title: "Profil - Wiki Loves Monuments Azərbaycan",
+   link: [
+      {
+         rel: "canonical",
+         href: "https://wikilovesmonuments.az/profile",
+      },
+   ],
+   meta: [
+      {
+         name: "description",
+         content: "Şəxsi profil və Wiki Loves Monuments Azərbaycan müsabiqəsindəki statistikalarınız.",
+      },
+      {
+         name: "robots",
+         content: "noindex, nofollow",
+      },
+   ],
+});
 
 const commonsProfileUrl = computed(() => {
    return `https://commons.wikimedia.org/wiki/User:${auth.user?.username}`;
