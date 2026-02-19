@@ -3779,7 +3779,7 @@
                 "item": "http://www.wikidata.org/entity/Q2671033",
                 "itemDescription": "cemetery in Baku",
                 "itemLabel": "Birinci Fəxri Xiyaban",
-                "lastModified": "2026-02-15T12:39:51Z"
+                "lastModified": "2026-02-18T01:02:03Z"
             }
         },
         {
@@ -10552,6 +10552,70 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.828772,
+                    40.370482
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/C%C9%99lil_M%C9%99mm%C9%99dquluzad%C9%99nin_ev-muzeyi_(Bak%C4%B1)",
+                "commonsCategory": "House-museum of Jalil Mammadguluzadeh",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House-museum_of_Jalil_Mammadguluzadeh",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/C%C9%99lil%20M%C9%99mm%C9%99dquluzad%C9%99nin%20Ev%20Muzeyi%20-%202.jpg",
+                "inventory": "5591",
+                "item": "http://www.wikidata.org/entity/Q12838332",
+                "itemAltLabel": "Cəlil Məmmədquluzadənin ev-muzeyi",
+                "itemDescription": "Bakıda muzey",
+                "itemLabel": "Cəlil Məmmədquluzadənin ev-muzeyi",
+                "lastModified": "2026-02-18T11:19:30Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.825277777,
+                    40.375
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Abdulla_%C5%9Eaiqin_ev-muzeyi",
+                "commonsCategory": "Building on Abdulla Shaig Street 21",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Abdulla_Shaig_Street_21",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Abdulla%20Shaig%20Street%2021.jpg",
+                "inventory": "5593",
+                "item": "http://www.wikidata.org/entity/Q16364172",
+                "itemDescription": "Bakıda muzey",
+                "itemLabel": "Abdulla Şaiqin ev-muzeyi",
+                "lastModified": "2026-02-18T11:20:58Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8274827,
+                    40.369676701
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Leopold_v%C9%99_Mstislav_Rostropovi%C3%A7l%C9%99rin_ev-muzeyi",
+                "commonsCategory": "House-museum of Leopold and Mstislav Rostropovichs",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House-museum_of_Leopold_and_Mstislav_Rostropovichs",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Rostropovichs%20Street%2019.jpg",
+                "inventory": "5595",
+                "item": "http://www.wikidata.org/entity/Q30133050",
+                "itemDescription": "Bakıda ev muzeyi",
+                "itemLabel": "Leopold və Mstislav Rostropoviçlərin ev-muzeyi",
+                "lastModified": "2026-02-18T11:20:13Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.681036791,
                     40.591588786
                 ]
@@ -10755,14 +10819,14 @@
                 ]
             },
             "properties": {
-                "commonsCategory": "Category:Quba city cemetery",
+                "commonsCategory": "Quba city cemetery",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Quba_city_cemetery",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Quba%20%C5%9F%C9%99h%C9%99r%20q%C9%99biristanl%C4%B1%C4%9F%C4%B1ndak%C4%B1%20q%C9%99birl%C9%99r%20%2818%29.jpg",
                 "inventory": "5885",
                 "item": "http://www.wikidata.org/entity/Q138314078",
                 "itemAltLabel": "Köhnə qəbiristanlıq",
                 "itemLabel": "Yuxarı qəbiristanlıq",
-                "lastModified": "2026-02-16T07:20:33Z"
+                "lastModified": "2026-02-18T12:30:13Z"
             }
         },
         {
