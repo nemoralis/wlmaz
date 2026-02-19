@@ -109,9 +109,9 @@ export function useWebSiteSchema() {
    const schema: SchemaOrgNode = {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      name: "Wiki Loves Monuments Azerbaijan",
-      alternateName: "Viki Abidələri Sevir Azərbaycan",
-      url: "https://wikilovesmonuments.az",
+      name: "Viki Abidələri Sevir Azərbaycan",
+      alternateName: "Wiki Loves Monuments Azerbaijan",
+      url: "https://wikilovesmonuments.az/",
       description:
          "Azərbaycandakı abidələrin interaktiv xəritəsi. Viki Abidələri Sevir müsabiqəsi üçün fotoşəkillər yükləyin.",
       inLanguage: "az",
