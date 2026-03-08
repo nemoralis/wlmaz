@@ -41,7 +41,7 @@
     "leaflet": "1.9.4",
     "leaflet-minimap": "3.6.1",
     "leaflet-sidebar-v2": "3.2.3",
-    "leaflet.locatecontrol": "0.88.0",
+    "leaflet.locatecontrol": "0.89.0",
     "leaflet.markercluster": "1.5.3",
     "morgan": "1.10.1",
     "multer": "2.1.1",
