@@ -238,11 +238,14 @@ useHead({
          ? `${monument.value.itemLabel} | Viki Abidələri Sevir Azərbaycan`
          : "Abidə Detalları",
    link: computed(() => {
+      const currentId = (monument.value?.inventory || route.params.id) as string;
+      const canonicalPathId = getCanonicalId(currentId).replace(/\./g, "%2E");
+      
       const links = [
          {
             rel: "canonical",
-            href: monument.value
-               ? `https://wikilovesmonuments.az/monument/${getCanonicalId(monument.value.inventory)}`
+            href: currentId
+               ? `https://wikilovesmonuments.az/monument/${canonicalPathId}`
                : "https://wikilovesmonuments.az/",
          },
       ];
