@@ -67,7 +67,7 @@ const startServer = async () => {
    app.use("/upload", uploadRoutes);
    app.use("/api/leaderboard", leaderboardRoutes);
 
-   app.use(["/api/*", "/auth/*", "/upload/*"], (_req, res) => {
+   app.use(["/api", "/auth", "/upload"], (_req, res) => {
       res.status(404).json({ error: true, message: "Endpoint not found" });
    });
 
