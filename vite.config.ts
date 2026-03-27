@@ -101,20 +101,8 @@ export default defineConfig({
       target: "es2020",
       chunkSizeWarningLimit: 600,
       cssCodeSplit: true,
-      rollupOptions: {
+      rolldownOptions: {
          output: {
-            manualChunks: {
-               "leaflet-vendor": [
-                  "leaflet",
-                  "leaflet.markercluster",
-                  "leaflet.locatecontrol",
-                  "leaflet-sidebar-v2",
-                  "leaflet-minimap",
-               ],
-               "vue-vendor": ["vue", "vue-router", "pinia"],
-               "chart-vendor": ["chart.js", "vue-chartjs"],
-            },
-
             // Better file naming for caching
             chunkFileNames: "assets/[name]-[hash].js",
             entryFileNames: "assets/[name]-[hash].js",
