@@ -28,8 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onErrorCaptured, onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { computed, onErrorCaptured, ref } from "vue";
 import { useHead } from "@unhead/vue";
 import MonumentMap from "../components/MonumentMap.vue";
 import { schemaToJsonLd, useOrganizationSchema } from "../composables/useSchemaOrg";
@@ -38,16 +37,7 @@ import { getOptimizedImage, getSrcSet } from "../utils/monumentFormatters";
 
 const monumentStore = useMonumentStore();
 
-const route = useRoute();
-const router = useRouter();
 const error = ref<Error | null>(null);
-
-// Redirect legacy /?inventory=X to /monument/X
-onMounted(() => {
-   if (route.query.inventory) {
-      router.replace(`/monument/${route.query.inventory}`);
-   }
-});
 
 // Schema.org markup for homepage
 const organizationSchema = useOrganizationSchema();
