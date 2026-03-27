@@ -20,9 +20,10 @@ try {
 
    geoData.features.forEach((f) => {
       if (f.properties?.inventory) {
+         const canonicalId = f.properties.inventory.split(",")[0].trim();
          // URL-encode dots in inventory IDs (e.g., "3.2" becomes "3%2E2")
          // This fixes sitemap generation which treats dots as file extensions
-         const encodedInventory = f.properties.inventory.replace(/\./g, "%2E");
+         const encodedInventory = canonicalId.replace(/\./g, "%2E");
          const route = `/monument/${encodedInventory}`;
          monumentRoutes.push(route);
 
