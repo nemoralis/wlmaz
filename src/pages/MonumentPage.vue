@@ -240,7 +240,7 @@ useHead({
    link: computed(() => {
       const currentId = (monument.value?.inventory || route.params.id) as string;
       const canonicalPathId = getCanonicalId(currentId).replace(/\./g, "%2E");
-      
+
       const links = [
          {
             rel: "canonical",
