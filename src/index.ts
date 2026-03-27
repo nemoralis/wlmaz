@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import { RedisStore } from "connect-redis";
 import express, { type NextFunction, type Request, type Response } from "express";
 import session from "express-session";
+import helmet from "helmet";
 import hpp from "hpp";
 import morgan from "morgan";
 import passport from "./auth/passport.ts";
@@ -23,10 +24,6 @@ const startServer = async () => {
 
    app.set("trust proxy", 1);
 
-   morgan.token("remote-addr", (req: any) => {
-      return req.ip || req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-   });
-
    const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
 
    app.use(
@@ -35,6 +32,7 @@ const startServer = async () => {
          stream: process.stdout,
       }),
    );
+   app.use(helmet({ contentSecurityPolicy: false }));
    app.use(hpp());
 
    app.use(express.json({ limit: "10kb" }));
@@ -69,6 +67,10 @@ const startServer = async () => {
    app.use("/upload", uploadRoutes);
    app.use("/api/leaderboard", leaderboardRoutes);
 
+   app.use(["/api/*", "/auth/*", "/upload/*"], (_req, res) => {
+      res.status(404).json({ error: true, message: "Endpoint not found" });
+   });
+
    if (process.env.NODE_ENV === "production") {
       const path = await import("path");
       const distPath = path.resolve(__dirname, "../dist");
@@ -81,7 +83,7 @@ const startServer = async () => {
          if (
             req.url.startsWith("/auth") ||
             req.url.startsWith("/upload") ||
-            req.url.startsWith("/api/leaderboard")
+            req.url.startsWith("/api")
          ) {
             return next();
          }
