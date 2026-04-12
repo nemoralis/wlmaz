@@ -259,7 +259,7 @@ useHead({
             imagesizes: "(max-width: 768px) 100vw, 50vw",
          } as any);
       }
-      return links;
+      return links as any;
    }),
    meta: [
       {

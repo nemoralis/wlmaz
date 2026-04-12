@@ -9,10 +9,16 @@ const COUNTRY = "Azerbaijan";
 const START_YEAR = 2013;
 const CACHE_TTL = 3600; // 1 hour
 
+let aggregatePromise: Promise<any> | null = null;
+
 /**
  * Fetches and aggregates data for all years
  */
 async function getAggregateData() {
+   if (aggregatePromise) return aggregatePromise;
+
+   aggregatePromise = (async () => {
+      try {
    const cacheKey = "leaderboard:aggregate";
 
    try {
@@ -123,6 +129,12 @@ async function getAggregateData() {
    }
 
    return aggregate;
+      } finally {
+         aggregatePromise = null;
+      }
+   })();
+
+   return aggregatePromise;
 }
 
 /**
