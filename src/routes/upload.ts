@@ -13,6 +13,24 @@ const uploadDir = "/tmp/wlmaz-uploads";
 // Ensure dir exists (async check/create could be done on startup, but mkdir recursive is safe)
 fs.mkdir(uploadDir, { recursive: true }).catch(console.error);
 
+// Background Cleanup for orphaned temp files
+setInterval(async () => {
+   try {
+      const files = await fs.readdir(uploadDir);
+      const now = Date.now();
+      for (const file of files) {
+         const filePath = path.join(uploadDir, file);
+         const stats = await fs.stat(filePath);
+         // 24 hours
+         if (now - stats.mtimeMs > 24 * 60 * 60 * 1000) {
+            await fs.unlink(filePath).catch(err => console.error("Failed to GC temp file:", err));
+         }
+      }
+   } catch (err) {
+      console.error("Temp file garbage collection error:", err);
+   }
+}, 60 * 60 * 1000); // Check every 1 hour
+
 const storage = multer.diskStorage({
    destination: (_req, _file, cb) => {
       cb(null, uploadDir);
@@ -26,6 +44,13 @@ const storage = multer.diskStorage({
 const upload = multer({
    storage: storage,
    limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
+   fileFilter: (_req, file, cb) => {
+      if (file.mimetype.startsWith("image/")) {
+         cb(null, true);
+      } else {
+         cb(new Error("Only image files are allowed"));
+      }
+   },
 });
 
 // Status Check Endpoint

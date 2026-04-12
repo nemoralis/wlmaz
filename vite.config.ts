@@ -107,6 +107,14 @@ export default defineConfig({
             chunkFileNames: "assets/[name]-[hash].js",
             entryFileNames: "assets/[name]-[hash].js",
             assetFileNames: "assets/[name]-[hash][extname]",
+            manualChunks(id) {
+               if (id.includes('node_modules/leaflet') || id.includes('node_modules/leaflet.markercluster') || id.includes('node_modules/leaflet-minimap')) {
+                  return 'vendor-map';
+               }
+               if (id.includes('node_modules/geobuf') || id.includes('node_modules/pbf') || id.includes('node_modules/fuse.js')) {
+                  return 'vendor-data';
+               }
+            }
          },
          external: ["sharp"],
       }
