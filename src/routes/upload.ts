@@ -53,23 +53,34 @@ const upload = multer({
    },
 });
 
+/**
+ * Middleware to ensure the user is authenticated before processing uploads.
+ * This prevents unauthenticated users from consuming server resources/disk space.
+ */
+const ensureAuthenticated = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+   if (req.isAuthenticated() && req.user) {
+      return next();
+   }
+   res.status(401).json({ error: "Unauthorized" });
+};
+
+/**
+ * Middleware to check if uploads are enabled globally.
+ */
+const checkUploadsEnabled = (_req: express.Request, res: express.Response, next: express.NextFunction) => {
+   if (process.env.ENABLE_UPLOADS !== "true") {
+      res.status(403).json({ error: "Uploads are currently disabled." });
+      return;
+   }
+   next();
+};
+
 // Status Check Endpoint
 router.get("/status", (_req, res) => {
    res.json({ enabled: process.env.ENABLE_UPLOADS === "true" });
 });
 
-router.post("/", upload.single("file"), async (req, res) => {
-   // Feature Flag Check
-   if (process.env.ENABLE_UPLOADS !== "true") {
-      res.status(403).json({ error: "Uploads are currently disabled." });
-      return;
-   }
-
-   if (!req.isAuthenticated() || !req.user) {
-      res.status(401).json({ error: "Unauthorized" });
-      return;
-   }
-
+router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file"), async (req, res) => {
    if (!req.file) {
       res.status(400).json({ error: "No file uploaded" });
       return;
@@ -111,7 +122,7 @@ router.post("/", upload.single("file"), async (req, res) => {
 |description={{en|1=${description}}}
 |date=${new Date().toISOString().split("T")[0]}
 |source={{own}}
-|author=[[User:${req.user.username}|${req.user.username}]]
+|author=[[User:${req.user!.username}|${req.user!.username}]]
 |permission=
 |other_versions=
 }}
@@ -146,7 +157,7 @@ ${categoryText}
 
       // Upload to Commons (using the optimized buffer)
       const result = await uploadToCommons(
-         req.user as WikiUser,
+         req.user! as WikiUser,
          {
             name: finalFilename,
             buffer: finalBuffer,
@@ -166,9 +177,14 @@ ${categoryText}
       });
    } catch (error: any) {
       console.error("Upload error:", error);
+      // Fail securely: do not leak internal error details or stack traces to the client
+      // We keep the 'details' key for compatibility but sanitize its content in production
       res.status(500).json({
-         error: error.message || "Upload failed",
-         details: error.toString(),
+         error: "Upload failed",
+         details:
+            process.env.NODE_ENV === "production"
+               ? "An internal error occurred during the upload process."
+               : (error.message || error.toString()),
       });
    } finally {
       // Clean up temp file
