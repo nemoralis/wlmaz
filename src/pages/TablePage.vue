@@ -123,7 +123,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, onMounted, ref, watch } from "vue";
+import { computed, defineAsyncComponent, onMounted, onUnmounted, ref, watch } from "vue";
 import { useHead } from "@unhead/vue";
 import { CdxButton, CdxIcon, CdxSearchInput } from "@wikimedia/codex";
 import {
@@ -159,11 +159,23 @@ const virtualTable = ref<any>(null);
 const loading = computed(() => monumentStore.isLoading);
 const isUploadModalOpen = ref(false);
 const selectedMonumentForUpload = ref<Monument | null>(null);
+
+// Search state with debounce to prevent expensive re-sorts on every keystroke
 const searchQuery = ref("");
+const debouncedSearchQuery = ref("");
 const monuments = computed(() => monumentStore.monuments);
 
-watch(searchQuery, () => {
-   virtualTable.value?.scrollToTop();
+let searchTimeout: ReturnType<typeof setTimeout>;
+watch(searchQuery, (newVal) => {
+   clearTimeout(searchTimeout);
+   searchTimeout = setTimeout(() => {
+      debouncedSearchQuery.value = newVal;
+      virtualTable.value?.scrollToTop();
+   }, 300);
+});
+
+onUnmounted(() => {
+   clearTimeout(searchTimeout);
 });
 
 const sortState = ref<Record<string, "asc" | "desc">>({ inventory: "asc" });
@@ -195,12 +207,15 @@ onMounted(() => {
    monumentStore.init();
 });
 
+// Pre-define regex for inventory sorting to avoid repeated instantiation
+const INVENTORY_NUM_REGEX = /[^0-9.]/g;
+
 const sortedMonuments = computed(() => {
    let data = [...monuments.value];
 
-   // Filter
-   if (searchQuery.value.trim()) {
-      const query = searchQuery.value.toLowerCase().trim();
+   // Filter using debounced query for better performance
+   const query = debouncedSearchQuery.value.toLowerCase().trim();
+   if (query) {
       data = data.filter((m) => {
          return (
             (m.itemLabel && m.itemLabel.toLowerCase().includes(query)) ||
@@ -217,12 +232,12 @@ const sortedMonuments = computed(() => {
    if (sortKey) {
       const order = sortDir === "asc" ? 1 : -1;
       data.sort((a, b) => {
-         let valA = (a as any)[sortKey] || "";
-         let valB = (b as any)[sortKey] || "";
+         const valA = (a as any)[sortKey] ?? "";
+         const valB = (b as any)[sortKey] ?? "";
 
          if (sortKey === "inventory") {
-            const numA = parseFloat(valA.toString().replace(/[^0-9.]/g, ""));
-            const numB = parseFloat(valB.toString().replace(/[^0-9.]/g, ""));
+            const numA = parseFloat(valA.toString().replace(INVENTORY_NUM_REGEX, ""));
+            const numB = parseFloat(valB.toString().replace(INVENTORY_NUM_REGEX, ""));
             if (!isNaN(numA) && !isNaN(numB) && valA !== valB) {
                return (numA - numB) * order;
             }
