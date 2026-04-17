@@ -110,7 +110,7 @@
                   <div class="mt-4 space-y-2 border-t border-red-200/50 pt-4">
                      <p v-if="stats.commons.blockreason" class="text-sm font-medium text-red-800">
                         <span class="font-bold opacity-60">Səbəb:</span>
-                        <span class="italic" v-html="stats.commons.blockreason"></span>
+                        <span class="italic">{{ stats.commons.blockreason }}</span>
                      </p>
                      <p v-if="stats.commons.blockexpiry" class="text-sm font-medium text-red-800">
                         <span class="font-bold opacity-60">Müddət:</span>
