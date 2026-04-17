@@ -1,0 +1,24 @@
+
+> wlmaz@1.0.0 dev:frontend
+> vite --host
+
+Loaded 549 total routes for sitemap (5 static, 544 monuments)
+
+  VITE v8.0.8  ready in 588 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.0.2:5173/
+10:00:29 AM [vite] (client) Failed to load source map for /app/node_modules/leaflet.locatecontrol/dist/L.Control.Locate.css.
+Error: An error occurred while trying to read the map file at dist/L.Control.Locate.css.map
+Error: ENOENT: no such file or directory, open '/app/node_modules/leaflet.locatecontrol/dist/dist/L.Control.Locate.css.map'
+    at Object.readFileSync (node:fs:440:20)
+    at file:///app/node_modules/vite/dist/node/chunks/node.js:20042:13
+    at readFromFileMap (file:///app/node_modules/vite/dist/node/chunks/node.js:19821:13)
+    at exports.fromMapFileComment (file:///app/node_modules/vite/dist/node/chunks/node.js:19915:12)
+    at exports.fromMapFileSource (file:///app/node_modules/vite/dist/node/chunks/node.js:19926:22)
+    at extractSourcemapFromFile (file:///app/node_modules/vite/dist/node/chunks/node.js:20028:87)
+    at loadAndTransform (file:///app/node_modules/vite/dist/node/chunks/node.js:24434:22)
+10:00:30 AM [vite] http proxy error: /auth/me
+AggregateError [ECONNREFUSED]:
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
