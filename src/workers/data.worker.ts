@@ -26,6 +26,7 @@ self.onmessage = async (e) => {
             keys: ["properties.itemLabel", "properties.inventory", "properties.itemAltLabel"],
             threshold: 0.3,
             ignoreLocation: true,
+            useTokenSearch: true,
          });
 
          self.postMessage({
