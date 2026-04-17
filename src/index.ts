@@ -93,7 +93,14 @@ const startServer = async () => {
 
    app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
       console.error(err);
-      res.status(500).json({ error: true, message: err.message });
+      // Fail securely: do not leak internal error details or stack traces to the client in production
+      res.status(500).json({
+         error: true,
+         message:
+            process.env.NODE_ENV === "production"
+               ? "An internal server error occurred."
+               : err.message,
+      });
    });
 
    app.get("/health", async (_req, res) => {
