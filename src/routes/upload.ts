@@ -90,11 +90,24 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
    const filePath = req.file.path;
 
    try {
-      const { title, description, license, lat, lon, categories } = req.body;
+      let { title, description, license, lat, lon, categories } = req.body;
 
       if (!title || !description) {
          res.status(400).json({ error: "Missing title or description" });
          return;
+      }
+
+      // Ensure inputs are strings
+      title = String(title);
+      description = String(description);
+      if (categories) categories = String(categories);
+
+      // Sanitize metadata to prevent wikitext injection and comply with Wikimedia filename rules
+      // Note: Escaped / in character class to avoid syntax error
+      title = title.replace(/[#<>\[\]|{}\/:]/g, "_").trim();
+      description = description.replace(/[\[\]{}]/g, "").trim();
+      if (categories) {
+         categories = categories.replace(/[\[\]{}]/g, "").trim();
       }
 
       // Map license to Wiki template
@@ -103,10 +116,19 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
       if (license === "cc-by-4.0") licenseTemplate = "{{self|cc-by-4.0}}";
       if (license === "cc0") licenseTemplate = "{{self|cc0}}";
 
-      // Format Location template if coordinates exist
+      // Format Location template if coordinates exist - validate as floats and range check
       let locationTemplate = "";
-      if (lat && lon) {
-         locationTemplate = `\n{{Location|${lat}|${lon}}}`;
+      const latF = parseFloat(lat);
+      const lonF = parseFloat(lon);
+      if (
+         !isNaN(latF) &&
+         !isNaN(lonF) &&
+         latF >= -90 &&
+         latF <= 90 &&
+         lonF >= -180 &&
+         lonF <= 180
+      ) {
+         locationTemplate = `\n{{Location|${latF}|${lonF}}}`;
       }
 
       // Format Categories
