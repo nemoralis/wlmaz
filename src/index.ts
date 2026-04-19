@@ -32,7 +32,32 @@ const startServer = async () => {
          stream: process.stdout,
       }),
    );
-   app.use(helmet({ contentSecurityPolicy: false }));
+   app.use(
+      helmet({
+         contentSecurityPolicy: {
+            directives: {
+               "default-src": ["'self'"],
+               "script-src": ["'self'"],
+               "style-src": ["'self'", "'unsafe-inline'"],
+               "img-src": [
+                  "'self'",
+                  "data:",
+                  "blob:",
+                  "*.openstreetmap.org",
+                  "*.wikimedia.org",
+                  "tiles.gomap.az",
+                  "mt0.google.com",
+                  "wikilovesmonuments.az",
+               ],
+               "connect-src": ["'self'", "*.wikimedia.org"],
+               "font-src": ["'self'"],
+               "frame-src": ["'none'"],
+               "object-src": ["'none'"],
+               "upgrade-insecure-requests": [],
+            },
+         },
+      }),
+   );
    app.use(hpp());
 
    app.use(express.json({ limit: "10kb" }));
