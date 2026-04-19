@@ -97,6 +97,14 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
          return;
       }
 
+      // Sanitize inputs to prevent wikitext injection and invalid filenames
+      const sanitizeWikitext = (text: string) => String(text || "").replace(/[\[\]\{\}]/g, "");
+      const sanitizeFilename = (name: string) => String(name || "").replace(/[#<>[\]|{}/:]/g, "_");
+
+      const safeTitle = sanitizeFilename(title);
+      const safeDescription = sanitizeWikitext(description);
+      const safeCategories = sanitizeWikitext(categories);
+
       // Map license to Wiki template
       // Default to cc-by-sa-4.0 if invalid or missing
       let licenseTemplate = "{{self|cc-by-sa-4.0}}";
@@ -112,14 +120,14 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
       // Format Categories
       // Base category + specific monument category
       let categoryText = "[[Category:Wiki Loves Monuments 2025 in Azerbaijan]]";
-      if (categories) {
-         categoryText += `\n[[Category:${categories}]]`;
+      if (safeCategories) {
+         categoryText += `\n[[Category:${safeCategories}]]`;
       }
 
       // Format wikitext description
       const wikitext = `== {{int:filedesc}} ==
 {{Information
-|description={{en|1=${description}}}
+|description={{en|1=${safeDescription}}}
 |date=${new Date().toISOString().split("T")[0]}
 |source={{own}}
 |author=[[User:${req.user!.username}|${req.user!.username}]]
@@ -150,7 +158,7 @@ ${categoryText}
       }
 
       // Ensure extension matches
-      let finalFilename = title;
+      let finalFilename = safeTitle;
       if (finalExt && !finalFilename.toLowerCase().endsWith(finalExt.toLowerCase())) {
          finalFilename += finalExt;
       }

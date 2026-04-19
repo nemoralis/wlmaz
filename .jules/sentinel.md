@@ -12,3 +12,8 @@
 **Vulnerability:** `v-html` was used to render `blockreason` from MediaWiki API, which could contain malicious scripts.
 **Learning:** Even "trusted" upstream APIs can be a source of XSS if the data they provide is not properly sanitized or if it's rendered as HTML.
 **Prevention:** Use standard text interpolation `{{ }}` instead of `v-html` unless HTML rendering is strictly required and properly sanitized.
+
+## 2025-05-16 - [Wikitext Injection in Upload Metadata]
+**Vulnerability:** User-provided `title`, `description`, and `categories` were used to construct wikitext for Wikimedia Commons without sanitization. This allowed injecting malicious wikitext (e.g., categories, templates) or breaking the file description structure.
+**Learning:** External APIs that consume formatted text (like Wikitext) are vulnerable to injection if the input isn't sanitized for that specific format's control characters.
+**Prevention:** Always sanitize inputs before embedding them into structured formats like Wikitext. For MediaWiki, stripping `[` and `]` prevents link/category injection, and stripping `{` and `}` prevents template injection. Additionally, sanitize filenames against target platform restrictions.
