@@ -17,3 +17,8 @@
 **Vulnerability:** User-provided `title`, `description`, and `categories` were used to construct wikitext for Wikimedia Commons without sanitization. This allowed injecting malicious wikitext (e.g., categories, templates) or breaking the file description structure.
 **Learning:** External APIs that consume formatted text (like Wikitext) are vulnerable to injection if the input isn't sanitized for that specific format's control characters.
 **Prevention:** Always sanitize inputs before embedding them into structured formats like Wikitext. For MediaWiki, stripping `[` and `]` prevents link/category injection, and stripping `{` and `}` prevents template injection. Additionally, sanitize filenames against target platform restrictions.
+
+## 2025-05-16 - [Disabled Content Security Policy]
+**Vulnerability:** Content Security Policy (CSP) was explicitly disabled, leaving the application without an important layer of defense against XSS and injection attacks.
+**Learning:** Security headers might be disabled during development for convenience and forgotten.
+**Prevention:** Always enable CSP, even with a permissive initial policy, and refine it by whitelisting specific trusted domains used for external assets like map tiles.
