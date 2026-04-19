@@ -97,18 +97,16 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
          return;
       }
 
-      // Ensure inputs are strings
-      title = String(title);
-      description = String(description);
-      if (categories) categories = String(categories);
+      // Ensure inputs are strings and sanitize to prevent wikitext injection and invalid filenames
+      const sanitizeWikitext = (text: string) => String(text || "").replace(/[\[\]{}]/g, "").trim();
+      const sanitizeFilename = (name: string) =>
+         String(name || "")
+            .replace(/[#<>\[\]|{}\/:]/g, "_")
+            .trim();
 
-      // Sanitize metadata to prevent wikitext injection and comply with Wikimedia filename rules
-      // Note: Escaped / in character class to avoid syntax error
-      title = title.replace(/[#<>\[\]|{}\/:]/g, "_").trim();
-      description = description.replace(/[\[\]{}]/g, "").trim();
-      if (categories) {
-         categories = categories.replace(/[\[\]{}]/g, "").trim();
-      }
+      const safeTitle = sanitizeFilename(title);
+      const safeDescription = sanitizeWikitext(description);
+      const safeCategories = sanitizeWikitext(categories);
 
       // Map license to Wiki template
       // Default to cc-by-sa-4.0 if invalid or missing
@@ -134,14 +132,14 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
       // Format Categories
       // Base category + specific monument category
       let categoryText = "[[Category:Wiki Loves Monuments 2025 in Azerbaijan]]";
-      if (categories) {
-         categoryText += `\n[[Category:${categories}]]`;
+      if (safeCategories) {
+         categoryText += `\n[[Category:${safeCategories}]]`;
       }
 
       // Format wikitext description
       const wikitext = `== {{int:filedesc}} ==
 {{Information
-|description={{en|1=${description}}}
+|description={{en|1=${safeDescription}}}
 |date=${new Date().toISOString().split("T")[0]}
 |source={{own}}
 |author=[[User:${req.user!.username}|${req.user!.username}]]
@@ -172,7 +170,7 @@ ${categoryText}
       }
 
       // Ensure extension matches
-      let finalFilename = title;
+      let finalFilename = safeTitle;
       if (finalExt && !finalFilename.toLowerCase().endsWith(finalExt.toLowerCase())) {
          finalFilename += finalExt;
       }
