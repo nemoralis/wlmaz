@@ -69,8 +69,8 @@ async function getAggregateData() {
          count: 0,
          usage: 0,
          usercount: 0,
-         users: {},
-         years: {}, // Breakdown per year
+         users: Object.create(null),
+         years: Object.create(null), // Breakdown per year
       },
    };
 
@@ -82,7 +82,7 @@ async function getAggregateData() {
          reg: number;
          yearly: Record<number, { count: number; usage: number }>;
       }
-   > = {};
+   > = Object.create(null);
    const uniqueUsers = new Set<string>();
 
    results.forEach((data, index) => {
@@ -100,9 +100,19 @@ async function getAggregateData() {
 
       if (countryData.users) {
          Object.entries(countryData.users).forEach(([username, userData]: [string, any]) => {
+            // Security: Prevent prototype pollution from upstream data
+            if (username === "__proto__" || username === "constructor" || username === "prototype") {
+               return;
+            }
+
             uniqueUsers.add(username);
             if (!userMap[username]) {
-               userMap[username] = { count: 0, usage: 0, reg: userData.reg, yearly: {} };
+               userMap[username] = {
+                  count: 0,
+                  usage: 0,
+                  reg: userData.reg,
+                  yearly: Object.create(null),
+               };
             }
             const count = userData.count || 0;
             const usage = userData.usage || 0;
@@ -156,6 +166,13 @@ router.get("/total", async (_req, res) => {
 router.get("/user/:username", async (req, res) => {
    try {
       const { username } = req.params;
+
+      // Security: Prevent prototype pollution or malicious queries
+      if (username === "__proto__" || username === "constructor" || username === "prototype") {
+         res.status(400).json({ error: "Invalid username" });
+         return;
+      }
+
       const cacheKey = `userstats:${username}`;
 
       if (redisClient.isOpen) {
