@@ -4,8 +4,10 @@ import { RedisStore } from "connect-redis";
 import express, { type NextFunction, type Request, type Response } from "express";
 import session from "express-session";
 import helmet from "helmet";
+import { rateLimit } from "express-rate-limit";
 import hpp from "hpp";
 import morgan from "morgan";
+import { RedisStore as RateLimitRedisStore } from "rate-limit-redis";
 import passport from "./auth/passport.ts";
 import authRoutes from "./auth/routes.ts";
 import leaderboardRoutes from "./routes/leaderboard.ts";
@@ -59,6 +61,32 @@ const startServer = async () => {
       }),
    );
    app.use(hpp());
+
+   // Rate limiting
+   const redisCall = (...args: string[]) => redisClient.sendCommand(args) as any;
+   const apiLimiter = rateLimit({
+      windowMs: 15 * 60 * 1000,
+      limit: 1000,
+      standardHeaders: "draft-8",
+      legacyHeaders: false,
+      store: new RateLimitRedisStore({ sendCommand: redisCall, prefix: "rl-api:" }),
+   });
+   const authLimiter = rateLimit({
+      windowMs: 60 * 60 * 1000,
+      limit: 15,
+      message: { error: "Too many login attempts, please try again later." },
+      store: new RateLimitRedisStore({ sendCommand: redisCall, prefix: "rl-auth:" }),
+   });
+   const uploadLimiter = rateLimit({
+      windowMs: 60 * 60 * 1000,
+      limit: 20,
+      message: { error: "Upload limit reached, please try again later." },
+      store: new RateLimitRedisStore({ sendCommand: redisCall, prefix: "rl-upload:" }),
+   });
+
+   app.use("/api", apiLimiter);
+   app.use("/auth", authLimiter);
+   app.use("/upload", uploadLimiter);
 
    app.use(express.json({ limit: "10kb" }));
    app.use(express.urlencoded({ extended: true, limit: "10kb" }));
