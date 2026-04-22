@@ -22,3 +22,8 @@
 **Vulnerability:** Content Security Policy (CSP) was explicitly disabled, leaving the application without an important layer of defense against XSS and injection attacks.
 **Learning:** Security headers might be disabled during development for convenience and forgotten.
 **Prevention:** Always enable CSP, even with a permissive initial policy, and refine it by whitelisting specific trusted domains used for external assets like map tiles.
+
+## 2025-05-22 - [Missing Rate Limiting on Sensitive Endpoints]
+**Vulnerability:** The application lacked rate limiting on critical endpoints such as `/auth` and `/upload`, making it susceptible to brute-force attacks and resource exhaustion.
+**Learning:** Even with authentication and CSP, an application can be vulnerable to automated abuse if request rates are not controlled at the infrastructure or application level.
+**Prevention:** Implement tiered rate limiting for all public and authenticated endpoints. Use a shared store like Redis to ensure limits are consistent across server restarts and multiple instances. In TypeScript projects, ensure the Redis command wrapper handles type casting correctly to avoid build failures.
