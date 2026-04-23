@@ -1,6 +1,15 @@
 import type { MonumentProps } from "../types";
 
-export const getOptimizedImage = (url: string): string => {
+const WIKIMEDIA_THUMB_WIDTHS = [20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840];
+
+/**
+ * Finds the closest Wikimedia-supported thumbnail width that is greater than or equal to the target.
+ */
+export const getClosestWikiWidth = (target: number): number => {
+   return WIKIMEDIA_THUMB_WIDTHS.find((w) => w >= target) || WIKIMEDIA_THUMB_WIDTHS[WIKIMEDIA_THUMB_WIDTHS.length - 1];
+};
+
+export const getOptimizedImage = (url: string, targetWidth = 500): string => {
    if (!url) return "";
    // Force HTTPS
    if (url.startsWith("http:")) {
@@ -9,15 +18,20 @@ export const getOptimizedImage = (url: string): string => {
 
    // If it's a Wikimedia Commons Special:FilePath URL, we can request a specific width
    if (url.includes("Special:FilePath/")) {
-      return `${url}?width=500`;
+      const width = getClosestWikiWidth(targetWidth);
+      return `${url}?width=${width}`;
    }
    return url;
 };
 
-export const getSrcSet = (url: string, widths: number[]): string => {
+export const getSrcSet = (url: string, widths: number[] = [330, 500, 960, 1280]): string => {
    if (!url || !url.includes("Special:FilePath/")) return "";
    const secureUrl = url.startsWith("http:") ? url.replace("http:", "https:") : url;
-   return widths.map((w) => `${secureUrl}?width=${w} ${w}w`).join(", ");
+   
+   // Filter and snap to valid Wikimedia widths
+   const validWidths = [...new Set(widths.map(getClosestWikiWidth))].sort((a, b) => a - b);
+   
+   return validWidths.map((w) => `${secureUrl}?width=${w} ${w}w`).join(", ");
 };
 
 export const getDescriptionPage = (url: string): string => {

@@ -56,8 +56,8 @@ useHead({
          links.push({
             rel: "preload",
             as: "image",
-            href: getOptimizedImage(monumentStore.selectedMonument.image),
-            imagesrcset: getSrcSet(monumentStore.selectedMonument.image, [320, 640, 800]),
+            href: getOptimizedImage(monumentStore.selectedMonument.image, 500),
+            imagesrcset: getSrcSet(monumentStore.selectedMonument.image, [330, 500, 960]),
             imagesizes: "(max-width: 768px) 100vw, 400px",
          } as any);
       }

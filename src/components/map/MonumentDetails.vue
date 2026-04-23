@@ -64,8 +64,8 @@
                   <a :href="getDescriptionPage(monument.image)" target="_blank" rel="noopener">
                      <img
                         :key="monument.image"
-                        :src="getOptimizedImage(monument.image)"
-                        :srcset="getSrcSet(monument.image, [320, 640, 800])"
+                        :src="getOptimizedImage(monument.image, 500)"
+                        :srcset="getSrcSet(monument.image, [250, 500, 960])"
                         sizes="(max-width: 768px) 100vw, 400px"
                         alt="Abidənin şəkli"
                         class="hero-image"

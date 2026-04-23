@@ -95,8 +95,8 @@
                      class="group relative overflow-hidden rounded-lg shadow-md"
                   >
                      <img
-                        :src="getOptimizedImage(monument.image)"
-                        :srcset="getSrcSet(monument.image, [320, 640, 800, 1024, 1280])"
+                        :src="getOptimizedImage(monument.image, 960)"
+                        :srcset="getSrcSet(monument.image, [500, 960, 1280, 1920])"
                         sizes="(max-width: 768px) 100vw, 50vw"
                         :alt="monument.itemLabel"
                         class="h-auto w-full object-cover"
@@ -254,8 +254,8 @@ useHead({
          links.push({
             rel: "preload",
             as: "image",
-            href: getOptimizedImage(monument.value.image),
-            imagesrcset: getSrcSet(monument.value.image, [320, 640, 800, 1024, 1280]),
+            href: getOptimizedImage(monument.value.image, 960),
+            imagesrcset: getSrcSet(monument.value.image, [500, 960, 1280, 1920]),
             imagesizes: "(max-width: 768px) 100vw, 50vw",
          } as any);
       }
@@ -277,7 +277,7 @@ useHead({
       {
          property: "og:image",
          content: () =>
-            monument.value?.image ? getOptimizedImage(monument.value.image) : "/wlm-az.png",
+            monument.value?.image ? getOptimizedImage(monument.value.image, 1280) : "/wlm-az.png",
       },
    ],
    script: [
