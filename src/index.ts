@@ -148,8 +148,10 @@ const startServer = async () => {
          return next();
       }
 
-      // All other routes with a mismatched or missing Origin are rejected
-      if (!origin || origin !== allowedOrigin) {
+      // All other routes with a mismatched Origin are rejected.
+      // If the Origin header is missing, it's either a same-origin request
+      // (e.g. proxied by Vite/Nginx) or a direct browser navigation.
+      if (origin && origin !== allowedOrigin) {
          res.status(403).json({ error: "Forbidden: cross-origin request rejected" });
          return;
       }
