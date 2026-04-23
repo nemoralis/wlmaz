@@ -496,6 +496,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    47.198333333,
+                    41.204444444
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9E%C9%99ki_xan_saray%C4%B1",
+                "commonsCategory": "Khan's Palace of Şəki",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Khan%27s_Palace_of_%C5%9E%C9%99ki",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Shaki%20KhanPalace%20004%203718.jpg",
+                "inventory": "20",
+                "item": "http://www.wikidata.org/entity/Q1740560",
+                "itemAltLabel": "Şəki Xan sarayı, Şəki xanlarının sarayı",
+                "itemDescription": "Şəki xan sarayı Azərbaycan",
+                "itemLabel": "Şəki xan sarayı",
+                "lastModified": "2026-04-17T10:31:54Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.988603,
                     39.619189
                 ]
@@ -757,7 +779,7 @@
                 "commonsCategory": "Palace of Baku Khans",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Baku_Khans",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20xan%20saray%C4%B1n%C4%B1n%20%C9%99sas%20giri%C5%9Finin%20Xan%20ba%C4%9F%C4%B1%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
-                "inventory": "71, 70, 73, 69",
+                "inventory": "69, 71, 70, 73",
                 "item": "http://www.wikidata.org/entity/Q12837306",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
                 "itemLabel": "Bakı xan sarayı",
@@ -1861,7 +1883,7 @@
                 "itemAltLabel": "AMEA Məhəmməd Füzuli adına Əlyazmalar İnstitutu, Əlyazmalar İnstitutu, Məhəmməd Füzuli adına Əlyazmalar İnstitutu",
                 "itemDescription": "research institute in Baku, Azerbaijan",
                 "itemLabel": "AMEA Əlyazmalar İnstitutu",
-                "lastModified": "2026-04-10T06:14:48Z"
+                "lastModified": "2026-04-20T19:11:41Z"
             }
         },
         {
