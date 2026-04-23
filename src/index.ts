@@ -21,6 +21,12 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Fail fast on startup if critical secrets are missing, before any middleware
+// or route handlers are registered.
+if (!process.env.SESSION_SECRET) {
+   throw new Error("SESSION_SECRET environment variable must be set");
+}
+
 const startServer = async () => {
    // redisClient handles its own connection in utils/redis.ts
 
@@ -53,6 +59,9 @@ const startServer = async () => {
                ],
                "connect-src": ["'self'", "*.wikimedia.org"],
                "font-src": ["'self'"],
+               // Explicit worker-src so tightening default-src never silently breaks
+               // the data.worker.ts Web Worker.
+               "worker-src": ["'self'"],
                "frame-src": ["'none'"],
                "object-src": ["'none'"],
                "upgrade-insecure-requests": [],
@@ -60,13 +69,26 @@ const startServer = async () => {
          },
       }),
    );
+
+   // Helmet 8.x removed its built-in permissionsPolicy handler, so we set
+   // the Permissions-Policy header manually.  This prevents the frontend from
+   // accessing browser features the app doesn't need.
+   app.use((_req, res, next) => {
+      res.setHeader(
+         "Permissions-Policy",
+         "camera=(), microphone=(), payment=(), usb=(), geolocation=(self)",
+      );
+      next();
+   });
    app.use(hpp());
 
    // Rate limiting
    const redisCall = (...args: string[]) => redisClient.sendCommand(args) as any;
    const apiLimiter = rateLimit({
       windowMs: 15 * 60 * 1000,
-      limit: 1000,
+      // 200 requests / 15 min is ample for the SPA; the original 1000 made
+      // scraping and enumeration trivially easy.
+      limit: 200,
       standardHeaders: "draft-8",
       legacyHeaders: false,
       store: new RateLimitRedisStore({ sendCommand: redisCall, prefix: "rl-api:" }),
@@ -204,7 +226,19 @@ const startServer = async () => {
       });
    });
 
-   app.get("/health", async (_req, res) => {
+   // Health check — restricted to localhost so infrastructure status is never
+   // leaked to external callers.  The endpoint returns 404 to non-local IPs so
+   // it appears not to exist at all.
+   app.get("/health", async (req, res) => {
+      const ip = req.ip ?? "";
+      const isLocal =
+         ip === "127.0.0.1" || ip === "::1" || ip === "::ffff:127.0.0.1";
+
+      if (!isLocal) {
+         res.status(404).end();
+         return;
+      }
+
       try {
          await redisClient.ping();
          res.json({ status: "ok", redis: "connected" });
