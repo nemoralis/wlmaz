@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import express from "express";
 import multer from "multer";
+import sharp from "sharp";
 import type { WikiUser } from "@/types";
 import { optimizeImage } from "@/utils/image";
 import { uploadFile as uploadToCommons } from "@/utils/mediawiki";
@@ -29,7 +30,7 @@ setInterval(async () => {
    } catch (err) {
       console.error("Temp file garbage collection error:", err);
    }
-}, 60 * 60 * 1000); // Check every 1 hour
+}, 60 * 60 * 1000).unref(); // Check every 1 hour; .unref() prevents the timer from keeping the process alive after graceful shutdown
 
 const storage = multer.diskStorage({
    destination: (_req, _file, cb) => {
@@ -107,6 +108,10 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
       const safeTitle = sanitizeFilename(title);
       const safeDescription = sanitizeWikitext(description);
       const safeCategories = sanitizeWikitext(categories);
+      // Sanitize the username even though it comes from a trusted OAuth session.
+      // Wikimedia usernames should never contain wikitext-special characters, but
+      // being defensive here prevents template corruption if that assumption breaks.
+      const safeUsername = sanitizeWikitext(req.user!.username).replace(/\|/g, "");
 
       // Map license to Wiki template
       // Default to cc-by-sa-4.0 if invalid or missing
@@ -142,7 +147,7 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
 |description={{en|1=${safeDescription}}}
 |date=${new Date().toISOString().split("T")[0]}
 |source={{own}}
-|author=[[User:${req.user!.username}|${req.user!.username}]]
+|author=[[User:${safeUsername}|${safeUsername}]]
 |permission=
 |other_versions=
 }}
@@ -154,9 +159,20 @@ ${licenseTemplate}
 ${categoryText}
 `;
 
-      // Optimize image before upload
       // Read file buffer from disk
       const fileBuffer = await fs.readFile(filePath);
+
+      // Content-based image validation: Sharp.metadata() throws for any buffer
+      // that is not a recognised image format.  This catches disguised uploads
+      // (e.g. a script sent with Content-Type: image/jpeg) that slip past
+      // multer's client-supplied MIME check.
+      try {
+         await sharp(fileBuffer).metadata();
+      } catch {
+         res.status(400).json({ error: "Invalid image: file content is not a recognised image format" });
+         return;
+      }
+
       const optimized = await optimizeImage(fileBuffer);
 
       // Determine final properties

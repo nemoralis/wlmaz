@@ -54,18 +54,12 @@ export async function optimizeImage(buffer: Buffer): Promise<OptimizedImage> {
       };
    } catch (error) {
       console.error(
-         "Image optimization failed, falling back to original:",
+         "Image optimization failed:",
          error instanceof Error ? error.message : error,
       );
-      // Let's rely on the caller to handle fallback if this throws, OR return a "failed" object?
-
-      // Current contract was returning buffer. Now returning object.
-      // Use a basic heuristic for fallback if absolute failure.
-
-      return {
-         buffer: buffer,
-         mimetype: "application/octet-stream", // Caller should likely inspect or use original file.mimetype
-         extension: "", // Caller should use original extension
-      };
+      // Re-throw so the upload route responds with a proper 500 rather than
+      // silently forwarding an application/octet-stream buffer to Commons,
+      // which would result in an opaque, hard-to-diagnose upload rejection.
+      throw error;
    }
 }
