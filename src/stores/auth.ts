@@ -23,7 +23,9 @@ export const useAuthStore = defineStore("auth", {
       async fetchUser() {
          this.loading = true;
          try {
-            const res = await fetch("/auth/me");
+            const res = await fetch("/auth/me", {
+               headers: { "X-Requested-With": "XMLHttpRequest" },
+            });
 
             if (res.ok) {
                const data = await res.json();
@@ -63,7 +65,10 @@ export const useAuthStore = defineStore("auth", {
 
       async logout() {
          try {
-            await fetch("/auth/logout", { method: "GET" });
+            await fetch("/auth/logout", {
+               method: "POST",
+               headers: { "X-Requested-With": "XMLHttpRequest" },
+            });
             this.user = null;
             window.location.reload();
          } catch (err) {

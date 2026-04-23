@@ -24,12 +24,14 @@ router.get("/me", (req, res) => {
    }
 });
 
-router.get("/logout", (req, res, next) => {
+router.post("/logout", (req, res, next) => {
    req.logout((err) => {
       if (err) return next(err);
       req.session.destroy((err) => {
          if (err) return next(err);
-         res.clearCookie("connect.sid");
+         // Clear the session cookie by its configured name ("wlmaz"), not the
+         // default connect.sid name that was here before.
+         res.clearCookie("wlmaz");
          res.json({ success: true });
       });
    });
