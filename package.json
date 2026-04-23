@@ -67,7 +67,7 @@
     "@tailwindcss/vite": "4.2.2",
     "@types/connect-redis": "0.0.23",
     "@types/express": "5.0.6",
-    "@types/express-session": "1.18.2",
+    "@types/express-session": "1.19.0",
     "@types/geobuf": "3.0.4",
     "@types/geojson": "7946.0.16",
     "@types/hpp": "0.2.7",
