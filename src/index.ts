@@ -91,6 +91,52 @@ const startServer = async () => {
    app.use(express.json({ limit: "10kb" }));
    app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
+   // ---------------------------------------------------------------------------
+   // CORS + Origin Validation
+   // Restrict all API / auth / upload routes to requests originating from our
+   // own frontend (CLIENT_URL).  OAuth redirect flows (/auth/login, /auth/callback)
+   // are browser navigations — they carry no Origin header — so they are allowed
+   // through to keep the OAuth handshake working.
+   // ---------------------------------------------------------------------------
+   const allowedOrigin = (process.env.CLIENT_URL || "http://localhost:5173").replace(/\/+$/, "");
+
+   const corsMiddleware = (req: Request, res: Response, next: NextFunction) => {
+      const origin = req.headers["origin"] as string | undefined;
+
+      // Set CORS headers for every response on these routes
+      if (origin) {
+         res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+         res.setHeader("Access-Control-Allow-Credentials", "true");
+         res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+         res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
+      }
+
+      // Answer preflight immediately
+      if (req.method === "OPTIONS") {
+         res.sendStatus(204);
+         return;
+      }
+
+      // OAuth redirect routes have no Origin — let them through
+      const isOAuthRoute =
+         req.path === "/auth/login" ||
+         req.path === "/auth/callback";
+
+      if (!origin && isOAuthRoute) {
+         return next();
+      }
+
+      // All other routes with a mismatched or missing Origin are rejected
+      if (!origin || origin !== allowedOrigin) {
+         res.status(403).json({ error: "Forbidden: cross-origin request rejected" });
+         return;
+      }
+
+      next();
+   };
+
+   app.use(["/api", "/auth", "/upload"], corsMiddleware);
+
    app.use(
       session({
          name: "wlmaz",
@@ -108,7 +154,9 @@ const startServer = async () => {
             secure: process.env.NODE_ENV === "production",
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-            sameSite: "lax",
+            // strict in production — prevents CSRF across all cookie-authenticated routes.
+            // lax in development so the OAuth callback redirect still works across ports.
+            sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
          },
       }),
    );
