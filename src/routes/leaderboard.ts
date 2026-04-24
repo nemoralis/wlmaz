@@ -45,7 +45,10 @@ async function getAggregateData() {
             if (cached) return JSON.parse(cached);
          }
 
-         const resp = await fetch(`${API_BASE}/monuments${year}`);
+         const resp = await fetch(`${API_BASE}/monuments${year}`, {
+            signal: AbortSignal.timeout(10000),
+            headers: { "User-Agent": "WLMAZ-Tool/1.0" },
+         });
          if (resp.ok) {
             const data = await resp.json();
             if (redisClient.isOpen) {
@@ -167,8 +170,14 @@ router.get("/user/:username", async (req, res) => {
    try {
       const { username } = req.params;
 
-      // Security: Prevent prototype pollution or malicious queries
-      if (username === "__proto__" || username === "constructor" || username === "prototype") {
+      // Security: Prevent prototype pollution, length exhaustion or malicious queries
+      if (
+         !username ||
+         username.length > 255 ||
+         username === "__proto__" ||
+         username === "constructor" ||
+         username === "prototype"
+      ) {
          res.status(400).json({ error: "Invalid username" });
          return;
       }
@@ -197,6 +206,10 @@ router.get("/user/:username", async (req, res) => {
       try {
          const commonsResp = await fetch(
             `https://commons.wikimedia.org/w/api.php?action=query&format=json&list=users&usprop=editcount|registration|groups|blockinfo&ususers=${encodeURIComponent(username)}&formatversion=2`,
+            {
+               signal: AbortSignal.timeout(10000),
+               headers: { "User-Agent": "WLMAZ-Tool/1.0" },
+            },
          );
          if (commonsResp.ok) {
             const commonsJson = await commonsResp.json();
@@ -241,7 +254,7 @@ router.get("/:eventSlug", async (req, res) => {
    try {
       const { eventSlug } = req.params;
 
-      if (!/^[a-z]+[0-9]{4}$/.test(eventSlug)) {
+      if (!eventSlug || eventSlug.length > 64 || !/^[a-z]+[0-9]{4}$/.test(eventSlug)) {
          res.status(400).json({ error: "Invalid event slug format" });
          return;
       }
@@ -255,7 +268,10 @@ router.get("/:eventSlug", async (req, res) => {
          }
       }
 
-      const response = await fetch(`${API_BASE}/${eventSlug}`);
+      const response = await fetch(`${API_BASE}/${eventSlug}`, {
+         signal: AbortSignal.timeout(10000),
+         headers: { "User-Agent": "WLMAZ-Tool/1.0" },
+      });
 
       if (!response.ok) {
          res.status(response.status).json({

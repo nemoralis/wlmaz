@@ -87,6 +87,7 @@ export async function fetchCsrfToken(user: WikiUser): Promise<string> {
 
    const response = await fetch(API_CONFIG.url, {
       method: "POST",
+      signal: AbortSignal.timeout(10000),
       headers: {
          ...headers,
          "Content-Type": "application/x-www-form-urlencoded",
@@ -160,6 +161,7 @@ export async function uploadFile(
 
    const response = await fetch(fetchUrl, {
       method: "POST",
+      signal: AbortSignal.timeout(30000), // Uploads might take longer than simple queries
       headers: {
          ...headers,
          "User-Agent": "WLMAZ-Tool/1.0",
