@@ -44,7 +44,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({
    storage: storage,
-   limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
+   limits: {
+      fileSize: 20 * 1024 * 1024, // 20MB
+      fields: 10,
+      fieldSize: 10 * 1024, // 10KB
+      files: 1,
+   },
    fileFilter: (_req, file, cb) => {
       if (file.mimetype.startsWith("image/")) {
          cb(null, true);
@@ -99,7 +104,7 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
       }
 
       // Ensure inputs are strings and sanitize to prevent wikitext injection and invalid filenames
-      const sanitizeWikitext = (text: string) => String(text || "").replace(/[\[\]{}]/g, "").trim();
+      const sanitizeWikitext = (text: string) => String(text || "").replace(/[\[\]{}|]/g, "").trim();
       const sanitizeFilename = (name: string) =>
          String(name || "")
             .replace(/[#<>\[\]|{}\/:]/g, "_")
