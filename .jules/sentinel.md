@@ -32,3 +32,8 @@
 **Vulnerability:** Usernames from external APIs (Toolforge/Wikimedia) were used as object keys without validation. This allowed an attacker to provide a malicious username like `__proto__` to pollute the global `Object.prototype`.
 **Learning:** Standard JavaScript objects are vulnerable to prototype pollution when using unsanitized external strings as keys. Even "read-only" aggregation can be dangerous if it modifies object properties based on user input.
 **Prevention:** Use `Object.create(null)` for all maps/dictionaries that use external data as keys. Additionally, explicitly filter out `__proto__`, `constructor`, and `prototype` before property assignment.
+
+## 2025-05-24 - [Outbound Request Resource Exhaustion]
+**Vulnerability:** External `fetch` calls lacked timeouts, allowing a slow or malicious upstream server to hang backend worker processes indefinitely by keeping connections open.
+**Learning:** Default `fetch` in Node.js does not have a timeout. In a proxy-like architecture, this can lead to resource exhaustion on the backend if multiple requests are waiting for unresponsive external APIs.
+**Prevention:** Always use `AbortSignal.timeout()` with `fetch` for all outbound requests. Additionally, validate the length of user-provided parameters that are used in external API calls to prevent resource abuse and comply with upstream policies.
