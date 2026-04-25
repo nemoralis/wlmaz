@@ -36,6 +36,7 @@ export const useAuthStore = defineStore("auth", {
                   try {
                      const statsRes = await fetch(
                         `/api/leaderboard/user/${encodeURIComponent(this.user.username)}`,
+                        { signal: AbortSignal.timeout(10000) },
                      );
                      if (statsRes.ok) {
                         const statsData = await statsRes.json();
