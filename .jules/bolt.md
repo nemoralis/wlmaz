@@ -4,3 +4,6 @@
 ## 2026-04-26 - Wikimedia metadata caching and fetch resilience
 **Learning:** Repetitive external API calls (like fetching image credits on every marker selection) can be eliminated by using a global in-memory Map as a cache. Additionally, browser `fetch` has restrictions: setting a `User-Agent` header is forbidden and will be ignored, and `AbortSignal.timeout` requires feature detection for compatibility with older browsers (e.g., Safari < 16).
 **Action:** Implement global Map-based caching for frequent external lookups and always use feature detection when using modern AbortSignal features in the frontend.
+## 2026-04-26 - Table metadata pre-calculation
+**Learning:** Even with debouncing, (N \log N)$ sorting and (N)$ filtering on 500+ items can cause jank if expensive operations (regex, string concat, toLowerCase) happen inside the loops.
+**Action:** Use a dedicated computed property to pre-calculate lowercase search strings and numeric sort keys once per data change, reducing inner loop overhead to O(1) property access.

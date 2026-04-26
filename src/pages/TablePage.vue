@@ -165,6 +165,21 @@ const searchQuery = ref("");
 const debouncedSearchQuery = ref("");
 const monuments = computed(() => monumentStore.monuments);
 
+// Pre-define regex for inventory sorting to avoid repeated instantiation
+const INVENTORY_NUM_REGEX = /[^0-9.]/g;
+
+// Performance: Pre-calculate searchable and sortable metadata once per monument
+// to avoid expensive string operations and regex replacements in the sort loop.
+const processedMonuments = computed(() => {
+   return monuments.value.map((m) => ({
+      ...m,
+      _searchStr: `${m.itemLabel || ""} ${m.inventory || ""} ${m.itemAltLabel || ""}`.toLowerCase(),
+      _invNum: m.inventory
+         ? parseFloat(m.inventory.toString().replace(INVENTORY_NUM_REGEX, ""))
+         : NaN,
+   }));
+});
+
 let searchTimeout: ReturnType<typeof setTimeout>;
 watch(searchQuery, (newVal) => {
    clearTimeout(searchTimeout);
@@ -207,22 +222,13 @@ onMounted(() => {
    monumentStore.init();
 });
 
-// Pre-define regex for inventory sorting to avoid repeated instantiation
-const INVENTORY_NUM_REGEX = /[^0-9.]/g;
-
 const sortedMonuments = computed(() => {
-   let data = [...monuments.value];
+   let data = [...processedMonuments.value];
 
    // Filter using debounced query for better performance
    const query = debouncedSearchQuery.value.toLowerCase().trim();
    if (query) {
-      data = data.filter((m) => {
-         return (
-            (m.itemLabel && m.itemLabel.toLowerCase().includes(query)) ||
-            (m.inventory && m.inventory.toLowerCase().includes(query)) ||
-            (m.itemAltLabel && m.itemAltLabel.toLowerCase().includes(query))
-         );
-      });
+      data = data.filter((m) => m._searchStr.includes(query));
    }
 
    // Sort
@@ -232,16 +238,16 @@ const sortedMonuments = computed(() => {
    if (sortKey) {
       const order = sortDir === "asc" ? 1 : -1;
       data.sort((a, b) => {
-         const valA = (a as any)[sortKey] ?? "";
-         const valB = (b as any)[sortKey] ?? "";
-
          if (sortKey === "inventory") {
-            const numA = parseFloat(valA.toString().replace(INVENTORY_NUM_REGEX, ""));
-            const numB = parseFloat(valB.toString().replace(INVENTORY_NUM_REGEX, ""));
-            if (!isNaN(numA) && !isNaN(numB) && valA !== valB) {
+            const numA = a._invNum;
+            const numB = b._invNum;
+            if (!isNaN(numA) && !isNaN(numB) && numA !== numB) {
                return (numA - numB) * order;
             }
          }
+
+         const valA = (a as any)[sortKey] ?? "";
+         const valB = (b as any)[sortKey] ?? "";
 
          if (valA < valB) return -order;
          if (valA > valB) return order;
