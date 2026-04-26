@@ -64,9 +64,12 @@ const startServer = async () => {
                "worker-src": ["'self'"],
                "frame-src": ["'none'"],
                "object-src": ["'none'"],
+               "base-uri": ["'self'"],
+               "form-action": ["'self'"],
                "upgrade-insecure-requests": [],
             },
          },
+         xPermittedCrossDomainPolicies: { permittedPolicies: "none" },
       }),
    );
 
@@ -111,7 +114,7 @@ const startServer = async () => {
    app.use("/upload", uploadLimiter);
 
    app.use(express.json({ limit: "10kb" }));
-   app.use(express.urlencoded({ extended: true, limit: "10kb" }));
+   app.use(express.urlencoded({ extended: false, limit: "10kb" }));
 
    // ---------------------------------------------------------------------------
    // CORS + Origin Validation
@@ -131,6 +134,7 @@ const startServer = async () => {
          res.setHeader("Access-Control-Allow-Credentials", "true");
          res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
          res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
+         res.setHeader("Vary", "Origin");
       }
 
       // Answer preflight immediately
