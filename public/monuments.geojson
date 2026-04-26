@@ -496,8 +496,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    47.198333333,
-                    41.204444444
+                    47.197604294,
+                    41.204408878
                 ]
             },
             "properties": {
@@ -510,7 +510,7 @@
                 "itemAltLabel": "Şəki Xan sarayı, Şəki xanlarının sarayı",
                 "itemDescription": "Şəki xan sarayı Azərbaycan",
                 "itemLabel": "Şəki xan sarayı",
-                "lastModified": "2026-04-17T10:31:54Z"
+                "lastModified": "2026-04-23T16:19:49Z"
             }
         },
         {
@@ -779,7 +779,7 @@
                 "commonsCategory": "Palace of Baku Khans",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Baku_Khans",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20xan%20saray%C4%B1n%C4%B1n%20%C9%99sas%20giri%C5%9Finin%20Xan%20ba%C4%9F%C4%B1%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
-                "inventory": "69, 71, 70, 73",
+                "inventory": "71, 70, 73, 69",
                 "item": "http://www.wikidata.org/entity/Q12837306",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
                 "itemLabel": "Bakı xan sarayı",
@@ -2321,7 +2321,7 @@
                 "item": "http://www.wikidata.org/entity/Q31299273",
                 "itemDescription": "mausoleum in Agsu, Azerbaijan",
                 "itemLabel": "Şeyx Dursun türbəsi",
-                "lastModified": "2026-02-09T09:59:14Z"
+                "lastModified": "2026-04-25T16:48:23Z"
             }
         },
         {
@@ -3139,7 +3139,7 @@
                 "item": "http://www.wikidata.org/entity/Q20586818",
                 "itemDescription": "Mosque in Sheki, Azerbaijan",
                 "itemLabel": "İmam Əli məscidi",
-                "lastModified": "2026-03-20T12:30:30Z"
+                "lastModified": "2026-04-24T12:55:14Z"
             }
         },
         {
@@ -3202,7 +3202,7 @@
                 "itemAltLabel": "Müqəddəs Xilaskar Kafedralı, Qazançetsotst kafedralı",
                 "itemDescription": "Müqəddəs Xilaskar Məsih kilsəsi",
                 "itemLabel": "Qazançı kilsəsi",
-                "lastModified": "2025-04-02T14:30:36Z"
+                "lastModified": "2026-04-23T22:59:12Z"
             }
         },
         {
@@ -3741,7 +3741,7 @@
                 "inventory": "457",
                 "item": "http://www.wikidata.org/entity/Q65276710",
                 "itemLabel": "İmadəddin Nəsiminin heykəli",
-                "lastModified": "2026-02-10T13:05:47Z"
+                "lastModified": "2026-04-25T20:56:30Z"
             }
         },
         {
@@ -4716,7 +4716,7 @@
                 "itemAltLabel": "Taghiyev' villa",
                 "itemDescription": "Hacı Zeynalabdin Tağıyevə məxsus olmuş villa",
                 "itemLabel": "Hacı Zeynalabdin Tağıyevin villası",
-                "lastModified": "2025-07-14T04:39:11Z"
+                "lastModified": "2026-04-25T16:38:27Z"
             }
         },
         {
@@ -8191,7 +8191,7 @@
                 "inventory": "4524",
                 "item": "http://www.wikidata.org/entity/Q31309985",
                 "itemLabel": "Dördkünclü qala",
-                "lastModified": "2026-02-20T01:10:43Z"
+                "lastModified": "2026-04-25T16:48:24Z"
             }
         },
         {
