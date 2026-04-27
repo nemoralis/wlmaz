@@ -210,18 +210,29 @@ onMounted(() => {
 // Pre-define regex for inventory sorting to avoid repeated instantiation
 const INVENTORY_NUM_REGEX = /[^0-9.]/g;
 
+/**
+ * Performance: Offload expensive operations like string lowercasing and regex replacements
+ * into a one-time pre-processing computed property. This ensures that filtering (O(N))
+ * and sorting (O(N log N)) loops use pre-calculated metadata, keeping interactions responsive.
+ */
+const processedMonuments = computed(() => {
+   return monuments.value.map((m) => ({
+      ...m,
+      _sLabel: (m.itemLabel || "").toLowerCase(),
+      _sInv: (m.inventory || "").toLowerCase(),
+      _sAlt: (m.itemAltLabel || "").toLowerCase(),
+      _invNum: m.inventory ? parseFloat(m.inventory.replace(INVENTORY_NUM_REGEX, "")) : NaN,
+   }));
+});
+
 const sortedMonuments = computed(() => {
-   let data = [...monuments.value];
+   let data = [...processedMonuments.value];
 
    // Filter using debounced query for better performance
    const query = debouncedSearchQuery.value.toLowerCase().trim();
    if (query) {
       data = data.filter((m) => {
-         return (
-            (m.itemLabel && m.itemLabel.toLowerCase().includes(query)) ||
-            (m.inventory && m.inventory.toLowerCase().includes(query)) ||
-            (m.itemAltLabel && m.itemAltLabel.toLowerCase().includes(query))
-         );
+         return m._sLabel.includes(query) || m._sInv.includes(query) || m._sAlt.includes(query);
       });
    }
 
@@ -232,16 +243,16 @@ const sortedMonuments = computed(() => {
    if (sortKey) {
       const order = sortDir === "asc" ? 1 : -1;
       data.sort((a, b) => {
-         const valA = (a as any)[sortKey] ?? "";
-         const valB = (b as any)[sortKey] ?? "";
-
          if (sortKey === "inventory") {
-            const numA = parseFloat(valA.toString().replace(INVENTORY_NUM_REGEX, ""));
-            const numB = parseFloat(valB.toString().replace(INVENTORY_NUM_REGEX, ""));
-            if (!isNaN(numA) && !isNaN(numB) && valA !== valB) {
+            const numA = a._invNum;
+            const numB = b._invNum;
+            if (!isNaN(numA) && !isNaN(numB) && numA !== numB) {
                return (numA - numB) * order;
             }
          }
+
+         const valA = (a as any)[sortKey] ?? "";
+         const valB = (b as any)[sortKey] ?? "";
 
          if (valA < valB) return -order;
          if (valA > valB) return order;
