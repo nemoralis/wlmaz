@@ -77,9 +77,13 @@ const startServer = async () => {
    // the Permissions-Policy header manually.  This prevents the frontend from
    // accessing browser features the app doesn't need.
    app.use((_req, res, next) => {
+      // Harden Permissions-Policy to restrict unused browser features (Defense in Depth)
       res.setHeader(
          "Permissions-Policy",
-         "camera=(), microphone=(), payment=(), usb=(), geolocation=(self)",
+         "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), " +
+            "fullscreen=(), geolocation=(self), gyroscope=(), interest-cohort=(), magnetometer=(), " +
+            "microphone=(), midi=(), payment=(), publickey-credentials-get=(), screen-wake-lock=(), " +
+            "sync-xhr=(), usb=(), xr-spatial-tracking=()",
       );
       next();
    });
