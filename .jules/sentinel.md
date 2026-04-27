@@ -37,3 +37,8 @@
 **Vulnerability:** External `fetch` calls lacked timeouts, allowing a slow or malicious upstream server to hang backend worker processes indefinitely by keeping connections open.
 **Learning:** Default `fetch` in Node.js does not have a timeout. In a proxy-like architecture, this can lead to resource exhaustion on the backend if multiple requests are waiting for unresponsive external APIs.
 **Prevention:** Always use `AbortSignal.timeout()` with `fetch` for all outbound requests. Additionally, validate the length of user-provided parameters that are used in external API calls to prevent resource abuse and comply with upstream policies.
+
+## 2026-04-26 - [Unsafe Input Length Validation]
+**Vulnerability:** Adding length checks like `title.length` on `req.body` fields without null-checks or casting can cause the server to crash with a `TypeError` if the field is missing.
+**Learning:** In Express, `req.body` properties are `undefined` if not provided. Accessing properties on them is a common source of stability regressions when implementing security validation.
+**Prevention:** Always cast user-provided inputs to `String()` or use optional chaining/null-checks before accessing properties like `length`.

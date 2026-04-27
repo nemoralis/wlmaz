@@ -103,11 +103,23 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
          return;
       }
 
+      // Security: Validate input lengths to prevent resource abuse and comply with upstream limits.
+      // We cast to String to handle unexpected types and avoid crashing on undefined/null.
+      if (
+         String(title).length > 255 ||
+         String(description).length > 2000 ||
+         (categories && String(categories).length > 255)
+      ) {
+         res.status(400).json({ error: "Input too long" });
+         return;
+      }
+
       // Ensure inputs are strings and sanitize to prevent wikitext injection and invalid filenames
       const sanitizeWikitext = (text: string) => String(text || "").replace(/[\[\]{}|]/g, "").trim();
       const sanitizeFilename = (name: string) =>
          String(name || "")
-            .replace(/[#<>\[\]|{}\/:]/g, "_")
+            .replace(/[#<>\[\]|{}\/:\?%\*\\\^]/g, "_") // More comprehensive forbidden char list
+            .replace(/^[\s\.]+/, "") // Cannot start with space or dot
             .trim();
 
       const safeTitle = sanitizeFilename(title);
