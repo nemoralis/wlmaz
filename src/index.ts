@@ -23,8 +23,8 @@ const PORT = process.env.PORT || 3000;
 
 // Fail fast on startup if critical secrets are missing, before any middleware
 // or route handlers are registered.
-if (!process.env.SESSION_SECRET) {
-   throw new Error("SESSION_SECRET environment variable must be set");
+if (!process.env.SESSION_SECRET || process.env.SESSION_SECRET.length < 32) {
+   throw new Error("SESSION_SECRET must be set and at least 32 characters long");
 }
 
 const startServer = async () => {
@@ -87,7 +87,6 @@ const startServer = async () => {
       );
       next();
    });
-   app.use(hpp());
 
    // Rate limiting
    const redisCall = (...args: string[]) => redisClient.sendCommand(args) as any;
@@ -119,6 +118,8 @@ const startServer = async () => {
 
    app.use(express.json({ limit: "10kb" }));
    app.use(express.urlencoded({ extended: false, limit: "10kb" }));
+   // HPP must be used after body-parsers to protect the request body
+   app.use(hpp());
 
    // ---------------------------------------------------------------------------
    // CORS + Origin Validation
@@ -132,13 +133,15 @@ const startServer = async () => {
    const corsMiddleware = (req: Request, res: Response, next: NextFunction) => {
       const origin = req.headers["origin"] as string | undefined;
 
-      // Set CORS headers for every response on these routes
-      if (origin) {
+      // Always set Vary: Origin to prevent cache poisoning.
+      res.setHeader("Vary", "Origin");
+
+      // Set CORS headers only if the origin matches our allowed domain.
+      if (origin === allowedOrigin) {
          res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
          res.setHeader("Access-Control-Allow-Credentials", "true");
          res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
          res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-         res.setHeader("Vary", "Origin");
       }
 
       // Answer preflight immediately
@@ -148,9 +151,7 @@ const startServer = async () => {
       }
 
       // OAuth redirect routes have no Origin — let them through
-      const isOAuthRoute =
-         req.path === "/auth/login" ||
-         req.path === "/auth/callback";
+      const isOAuthRoute = req.path === "/auth/login" || req.path === "/auth/callback";
 
       if (!origin && isOAuthRoute) {
          return next();
