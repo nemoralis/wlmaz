@@ -23,8 +23,8 @@ const PORT = process.env.PORT || 3000;
 
 // Fail fast on startup if critical secrets are missing, before any middleware
 // or route handlers are registered.
-if (!process.env.SESSION_SECRET) {
-   throw new Error("SESSION_SECRET environment variable must be set");
+if (!process.env.SESSION_SECRET || process.env.SESSION_SECRET.length < 32) {
+   throw new Error("SESSION_SECRET environment variable must be set and at least 32 characters long");
 }
 
 const startServer = async () => {
@@ -87,8 +87,6 @@ const startServer = async () => {
       );
       next();
    });
-   app.use(hpp());
-
    // Rate limiting
    const redisCall = (...args: string[]) => redisClient.sendCommand(args) as any;
    const apiLimiter = rateLimit({
@@ -119,6 +117,8 @@ const startServer = async () => {
 
    app.use(express.json({ limit: "10kb" }));
    app.use(express.urlencoded({ extended: false, limit: "10kb" }));
+   // hpp() must be registered after body parsers to protect req.body
+   app.use(hpp());
 
    // ---------------------------------------------------------------------------
    // CORS + Origin Validation
