@@ -42,3 +42,8 @@
 **Vulnerability:** Adding length checks like `title.length` on `req.body` fields without null-checks or casting can cause the server to crash with a `TypeError` if the field is missing.
 **Learning:** In Express, `req.body` properties are `undefined` if not provided. Accessing properties on them is a common source of stability regressions when implementing security validation.
 **Prevention:** Always cast user-provided inputs to `String()` or use optional chaining/null-checks before accessing properties like `length`.
+
+## 2024-05-27 - [Middleware Order and CORS Hardening]
+**Vulnerability:** The HTTP Parameter Pollution (HPP) middleware was placed before body-parsers, leaving POST/PUT bodies unprotected. Additionally, the CORS middleware only set the 'Vary: Origin' header when an origin was present, which could lead to cache poisoning.
+**Learning:** HPP requires a parsed body to function effectively. 'Vary: Origin' is essential for correct caching behavior across different origins and must be set consistently.
+**Prevention:** Always place HPP middleware after body-parsers. Consistently set 'Vary: Origin' for all CORS-affected routes. Enforce minimum length requirements for critical environment variables like 'SESSION_SECRET' at startup to prevent weak configuration.
