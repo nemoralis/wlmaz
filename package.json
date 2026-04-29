@@ -85,7 +85,7 @@
     "concurrently": "9.2.1",
     "eslint": "10.2.1",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-vue": "10.8.0",
+    "eslint-plugin-vue": "10.9.0",
     "geojson": "0.5.0",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
