@@ -387,5 +387,16 @@
       "added": 1,
       "removed": 1
     }
+  },
+  {
+    "date": "2026-04-29",
+    "timestamp": 1777423528906,
+    "total": 547,
+    "withImage": 436,
+    "withoutImage": 111,
+    "diff": {
+      "added": 1,
+      "removed": 0
+    }
   }
 ]
