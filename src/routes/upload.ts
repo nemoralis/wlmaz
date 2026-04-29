@@ -11,26 +11,39 @@ const router = express.Router();
 
 // Disk Storage Configuration
 const uploadDir = "/tmp/wlmaz-uploads";
-// Ensure dir exists (async check/create could be done on startup, but mkdir recursive is safe)
-fs.mkdir(uploadDir, { recursive: true }).catch(console.error);
 
-// Background Cleanup for orphaned temp files
-setInterval(async () => {
+/**
+ * Periodically cleans up orphaned temporary upload files.
+ * Security: Reduces risk of Disk Exhaustion (DoS) by ensuring temp files
+ * from failed/interrupted uploads don't accumulate indefinitely.
+ */
+const cleanupTempFiles = async () => {
    try {
+      // Ensure dir exists
+      await fs.mkdir(uploadDir, { recursive: true });
       const files = await fs.readdir(uploadDir);
       const now = Date.now();
+      const ONE_HOUR = 60 * 60 * 1000;
+
       for (const file of files) {
          const filePath = path.join(uploadDir, file);
          const stats = await fs.stat(filePath);
-         // 24 hours
-         if (now - stats.mtimeMs > 24 * 60 * 60 * 1000) {
-            await fs.unlink(filePath).catch(err => console.error("Failed to GC temp file:", err));
+         // Orphaned files older than 1 hour are deleted. 24h was too long
+         // given the potential for automated abuse.
+         if (now - stats.mtimeMs > ONE_HOUR) {
+            await fs.unlink(filePath).catch((err) => console.error("Failed to GC temp file:", err));
          }
       }
    } catch (err) {
       console.error("Temp file garbage collection error:", err);
    }
-}, 60 * 60 * 1000).unref(); // Check every 1 hour; .unref() prevents the timer from keeping the process alive after graceful shutdown
+};
+
+// Initial cleanup on startup to clear any leftovers from previous crashes
+cleanupTempFiles();
+// Background Cleanup for orphaned temp files - Check every 1 hour
+// .unref() prevents the timer from keeping the process alive after graceful shutdown
+setInterval(cleanupTempFiles, 60 * 60 * 1000).unref();
 
 const storage = multer.diskStorage({
    destination: (_req, _file, cb) => {
@@ -123,6 +136,16 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
             .trim();
 
       const safeTitle = sanitizeFilename(title);
+
+      // Security: Ensure filename is not empty after sanitization to prevent
+      // invalid upload requests to Wikimedia Commons.
+      if (!safeTitle) {
+         res.status(400).json({
+            error: "Invalid title: filename is empty or contains only forbidden characters",
+         });
+         return;
+      }
+
       const safeDescription = sanitizeWikitext(description);
       const safeCategories = sanitizeWikitext(categories);
       // Sanitize the username even though it comes from a trusted OAuth session.
