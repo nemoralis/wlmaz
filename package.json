@@ -29,7 +29,7 @@
     "@unhead/vue": "3.0.4",
     "@vueuse/head": "2.0.0",
     "@wikimedia/codex": "2.4.0",
-    "@wikimedia/codex-icons": "2.4.0",
+    "@wikimedia/codex-icons": "2.5.0",
     "chart.js": "4.5.1",
     "connect-redis": "9.0.0",
     "exifr": "7.1.3",
