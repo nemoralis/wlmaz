@@ -243,12 +243,15 @@ const onYearChange = () => {
    fetchLeaderboard(selectedYear.value);
 };
 
+// Hoist Intl.DateTimeFormat for performance: avoids redundant instantiation in v-for loops
+const DATE_FORMATTER = new Intl.DateTimeFormat("az-AZ", {
+   year: "numeric",
+   month: "short",
+   day: "numeric",
+});
+
 const formatDate = (date: Date): string => {
-   return date.toLocaleDateString("az-AZ", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-   });
+   return DATE_FORMATTER.format(date);
 };
 
 onMounted(() => {
