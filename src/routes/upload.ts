@@ -19,15 +19,16 @@ const uploadDir = "/tmp/wlmaz-uploads";
  */
 const cleanupTempFiles = async () => {
    try {
-      // Ensure dir exists
-      await fs.mkdir(uploadDir, { recursive: true });
+      // Ensure dir exists with restricted permissions (0700)
+      await fs.mkdir(uploadDir, { recursive: true, mode: 0o700 });
       const files = await fs.readdir(uploadDir);
       const now = Date.now();
       const ONE_HOUR = 60 * 60 * 1000;
 
       for (const file of files) {
          const filePath = path.join(uploadDir, file);
-         const stats = await fs.stat(filePath);
+         // Use lstat to avoid following symlinks during cleanup in /tmp
+         const stats = await fs.lstat(filePath);
          // Orphaned files older than 1 hour are deleted. 24h was too long
          // given the potential for automated abuse.
          if (now - stats.mtimeMs > ONE_HOUR) {
@@ -131,6 +132,8 @@ router.post("/", checkUploadsEnabled, ensureAuthenticated, upload.single("file")
       const sanitizeWikitext = (text: string) => String(text || "").replace(/[\[\]{}|]/g, "").trim();
       const sanitizeFilename = (name: string) =>
          String(name || "")
+            .substring(0, 128) // Truncate early to prevent excessive processing
+            .replace(/[\x00-\x1F\x7F]/g, "") // Strip control characters
             .replace(/[#<>\[\]|{}\/:\?%\*\\\^]/g, "_") // More comprehensive forbidden char list
             .replace(/^[\s\.]+/, "") // Cannot start with space or dot
             .trim();

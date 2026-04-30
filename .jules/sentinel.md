@@ -47,3 +47,8 @@
 **Vulnerability:** The HTTP Parameter Pollution (HPP) middleware was placed before body-parsers, leaving POST/PUT bodies unprotected. Additionally, the CORS middleware only set the 'Vary: Origin' header when an origin was present, which could lead to cache poisoning.
 **Learning:** HPP requires a parsed body to function effectively. 'Vary: Origin' is essential for correct caching behavior across different origins and must be set consistently.
 **Prevention:** Always place HPP middleware after body-parsers. Consistently set 'Vary: Origin' for all CORS-affected routes. Enforce minimum length requirements for critical environment variables like 'SESSION_SECRET' at startup to prevent weak configuration.
+
+## 2024-05-28 - [Insecure Temporary Directory Permissions]
+**Vulnerability:** Temporary upload directories in shared locations like `/tmp` could be accessed or manipulated by other local users if created with default permissions or if the cleanup routine followed malicious symbolic links.
+**Learning:** `fs.mkdir` without a mode uses default permissions, and `fs.stat` follows symlinks, which can be exploited in shared directories.
+**Prevention:** Always use restricted permissions (e.g., `0o700`) for sensitive temporary directories and use `fs.lstat` when traversing or cleaning up files in shared locations to avoid following symbolic links.

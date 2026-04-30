@@ -27,6 +27,21 @@ if (!process.env.SESSION_SECRET || process.env.SESSION_SECRET.length < 32) {
    throw new Error("SESSION_SECRET must be set and at least 32 characters long");
 }
 
+// Ensure critical OAuth credentials are present and not trivial
+if (!process.env.WM_CONSUMER_KEY || process.env.WM_CONSUMER_KEY.length < 16) {
+   throw new Error("WM_CONSUMER_KEY must be set and at least 16 characters long");
+}
+if (!process.env.WM_CONSUMER_SECRET || process.env.WM_CONSUMER_SECRET.length < 16) {
+   throw new Error("WM_CONSUMER_SECRET must be set and at least 16 characters long");
+}
+
+// In production, ensure CLIENT_URL is set and uses HTTPS
+if (process.env.NODE_ENV === "production") {
+   if (!process.env.CLIENT_URL || !process.env.CLIENT_URL.startsWith("https://")) {
+      throw new Error("CLIENT_URL must be set to an HTTPS origin in production");
+   }
+}
+
 const startServer = async () => {
    // redisClient handles its own connection in utils/redis.ts
 
