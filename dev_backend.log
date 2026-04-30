@@ -1,0 +1,5 @@
+
+> wlmaz@1.0.0 dev:backend
+> tsx watch --env-file=.env src/index.ts
+
+node: .env: not found

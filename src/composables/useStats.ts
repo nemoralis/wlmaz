@@ -53,13 +53,16 @@ export const useStats = () => {
       return ((currentStats.value.withImage / currentStats.value.total) * 100).toFixed(1);
    });
 
+   // Hoist Intl.DateTimeFormat for performance: avoids redundant instantiation in computed properties
+   const DATE_FORMATTER = new Intl.DateTimeFormat("az-AZ", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+   });
+
    const lastUpdateDate = computed(() => {
       if (!currentStats.value.date) return "-";
-      return new Date(currentStats.value.date).toLocaleDateString("az-AZ", {
-         year: "numeric",
-         month: "long",
-         day: "numeric",
-      });
+      return DATE_FORMATTER.format(new Date(currentStats.value.date));
    });
 
    return {
