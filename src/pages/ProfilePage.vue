@@ -266,10 +266,17 @@ const usageRate = computed(() => {
    return Math.round((stats.value.total.usage / stats.value.total.count) * 100);
 });
 
+// Hoist Intl.DateTimeFormat for performance: avoids redundant instantiation in computed properties
+const DATE_FORMATTER = new Intl.DateTimeFormat("az-AZ", {
+   year: "numeric",
+   month: "long",
+   day: "numeric",
+});
+
 const formattedCommonsRegDate = computed(() => {
    if (!stats.value?.commons?.registration) return "";
    const date = new Date(stats.value.commons.registration);
-   return date.toLocaleDateString("az-AZ", { year: "numeric", month: "long", day: "numeric" });
+   return DATE_FORMATTER.format(date);
 });
 
 const filteredGroups = computed(() => {

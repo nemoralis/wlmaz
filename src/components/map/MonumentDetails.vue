@@ -40,12 +40,7 @@
                <div v-if="monument.inventory || monument.itemAltLabel" class="title-metadata">
                   <div v-if="monument.inventory" class="inventory-chips">
                      <CdxInfoChip
-                        v-for="inv in monument.inventory
-                           .split(',')
-                           .map((s: string) => s.trim())
-                           .sort((a: string, b: string) =>
-                              a.localeCompare(b, undefined, { numeric: true }),
-                           )"
+                        v-for="inv in sortedInventory"
                         :key="inv"
                         class="inventory-chip"
                      >
@@ -61,11 +56,11 @@
             <!-- Case A: Hero Image -->
             <template v-if="monument.image">
                <div class="hero-image-container">
-                  <a :href="getDescriptionPage(monument.image)" target="_blank" rel="noopener">
+                  <a :href="descriptionPageUrl" target="_blank" rel="noopener">
                      <img
                         :key="monument.image"
-                        :src="getOptimizedImage(monument.image, 500)"
-                        :srcset="getSrcSet(monument.image, [250, 500, 960])"
+                        :src="optimizedImageUrl"
+                        :srcset="srcSetUrl"
                         sizes="(max-width: 768px) 100vw, 400px"
                         alt="Abidənin şəkli"
                         class="hero-image"
@@ -98,7 +93,7 @@
                   v-if="monument.commonsLink || monument.commonsCategory"
                   weight="normal"
                   class="action-link"
-                  @click="openExternalLink(getCategoryUrl(monument))"
+                  @click="openExternalLink(categoryUrl)"
                >
                   <CdxIcon :icon="cdxIconLogoWikimediaCommons" />
                   Qalereyaya bax
@@ -207,6 +202,7 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from "vue";
 import { CdxButton, CdxCard, CdxIcon, CdxInfoChip } from "@wikimedia/codex";
 import {
    cdxIconBlock,
@@ -242,6 +238,34 @@ interface Props {
 
 const props = defineProps<Props>();
 const auth = useAuthStore();
+
+/**
+ * Performance optimization: Extract template logic into computed properties.
+ * This prevents expensive string manipulations and URL formatting on every re-render.
+ */
+const sortedInventory = computed(() => {
+   if (!props.monument?.inventory) return [];
+   return props.monument.inventory
+      .split(",")
+      .map((s) => s.trim())
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+});
+
+const optimizedImageUrl = computed(() => {
+   return props.monument?.image ? getOptimizedImage(props.monument.image, 500) : "";
+});
+
+const srcSetUrl = computed(() => {
+   return props.monument?.image ? getSrcSet(props.monument.image, [250, 500, 960]) : "";
+});
+
+const descriptionPageUrl = computed(() => {
+   return props.monument?.image ? getDescriptionPage(props.monument.image) : "";
+});
+
+const categoryUrl = computed(() => {
+   return props.monument ? getCategoryUrl(props.monument) : "";
+});
 
 defineEmits<{
    "open-upload": [];
