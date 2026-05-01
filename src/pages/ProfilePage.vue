@@ -41,7 +41,7 @@
                         >Redaktə sayı</span
                      >
                      <span class="text-lg font-bold text-gray-900">{{
-                        stats.commons.editcount.toLocaleString()
+                        formatNumber(stats.commons.editcount)
                      }}</span>
                   </div>
                   <a
@@ -197,7 +197,7 @@
                   </div>
                   <div class="flex items-baseline gap-2">
                      <span class="text-3xl font-bold text-gray-900">{{
-                        stats.commons?.editcount?.toLocaleString() || "0"
+                        stats.commons?.editcount ? formatNumber(stats.commons.editcount) : "0"
                      }}</span>
                   </div>
                   <p class="mt-2 text-sm text-gray-500">
@@ -266,12 +266,18 @@ const usageRate = computed(() => {
    return Math.round((stats.value.total.usage / stats.value.total.count) * 100);
 });
 
-// Hoist Intl.DateTimeFormat for performance: avoids redundant instantiation in computed properties
+// Hoist Intl formatters for performance: avoids redundant instantiation in computed properties
 const DATE_FORMATTER = new Intl.DateTimeFormat("az-AZ", {
    year: "numeric",
    month: "long",
    day: "numeric",
 });
+
+const NUMBER_FORMATTER = new Intl.NumberFormat("az-AZ");
+
+const formatNumber = (num: number): string => {
+   return NUMBER_FORMATTER.format(num);
+};
 
 const formattedCommonsRegDate = computed(() => {
    if (!stats.value?.commons?.registration) return "";
