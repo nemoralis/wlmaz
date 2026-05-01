@@ -51,21 +51,21 @@
                >
                   <span class="text-gray-500 sm:mr-2">Şəkil:</span>
                   <span class="font-bold text-gray-800">{{
-                     eventStats.totalPhotos.toLocaleString()
+                     formatNumber(eventStats.totalPhotos)
                   }}</span>
                </div>
                <div
                   class="flex flex-col items-center justify-center rounded-lg bg-white p-2 text-center shadow-sm sm:flex-row sm:px-4 sm:py-2"
                >
                   <span class="text-gray-500 sm:mr-2">İştirakçı:</span>
-                  <span class="font-bold text-gray-800">{{ eventStats.totalUsers }}</span>
+                  <span class="font-bold text-gray-800">{{ formatNumber(eventStats.totalUsers) }}</span>
                </div>
                <div
                   class="flex flex-col items-center justify-center rounded-lg bg-white p-2 text-center shadow-sm sm:flex-row sm:px-4 sm:py-2"
                >
                   <span class="text-gray-500 sm:mr-2">İstifadə:</span>
                   <span class="font-bold text-green-600">{{
-                     eventStats.photosUsed.toLocaleString()
+                     formatNumber(eventStats.photosUsed)
                   }}</span>
                </div>
             </div>
@@ -181,13 +181,13 @@
                      <!-- Photo Count -->
                      <td class="px-6 py-4 text-right whitespace-nowrap">
                         <span class="font-semibold text-gray-900">{{
-                           user.count.toLocaleString()
+                           formatNumber(user.count)
                         }}</span>
                      </td>
 
                      <!-- Usage Count -->
                      <td class="px-6 py-4 text-right whitespace-nowrap">
-                        <span class="text-green-600">{{ user.usage.toLocaleString() }}</span>
+                        <span class="text-green-600">{{ formatNumber(user.usage) }}</span>
                      </td>
 
                      <!-- Registration Date -->
@@ -243,15 +243,21 @@ const onYearChange = () => {
    fetchLeaderboard(selectedYear.value);
 };
 
-// Hoist Intl.DateTimeFormat for performance: avoids redundant instantiation in v-for loops
+// Hoist Intl formatters for performance: avoids redundant instantiation in v-for loops
 const DATE_FORMATTER = new Intl.DateTimeFormat("az-AZ", {
    year: "numeric",
    month: "short",
    day: "numeric",
 });
 
+const NUMBER_FORMATTER = new Intl.NumberFormat("az-AZ");
+
 const formatDate = (date: Date): string => {
    return DATE_FORMATTER.format(date);
+};
+
+const formatNumber = (num: number): string => {
+   return NUMBER_FORMATTER.format(num);
 };
 
 onMounted(() => {
