@@ -8,3 +8,7 @@
 ## 2026-04-29 - Leaderboard date formatting optimization
 **Learning:** Using `toLocaleDateString` with an options object inside a `v-for` loop on a large dataset (e.g., 500+ items) causes significant performance overhead due to repeated instantiation of `Intl.DateTimeFormat`.
 **Action:** Always hoist `Intl.DateTimeFormat` instances out of loops and reusable functions to improve rendering performance.
+
+## 2026-05-01 - Number formatting performance in tables
+**Learning:** Similar to date formatting, calling `.toLocaleString()` on numbers inside large table loops or frequently updated components (like Leaderboard and Profile) triggers redundant `Intl.NumberFormat` instantiation.
+**Action:** Hoist `Intl.NumberFormat` instances alongside `Intl.DateTimeFormat` to minimize scripting overhead during render cycles.
