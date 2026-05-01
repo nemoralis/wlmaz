@@ -47,3 +47,8 @@
 **Vulnerability:** The HTTP Parameter Pollution (HPP) middleware was placed before body-parsers, leaving POST/PUT bodies unprotected. Additionally, the CORS middleware only set the 'Vary: Origin' header when an origin was present, which could lead to cache poisoning.
 **Learning:** HPP requires a parsed body to function effectively. 'Vary: Origin' is essential for correct caching behavior across different origins and must be set consistently.
 **Prevention:** Always place HPP middleware after body-parsers. Consistently set 'Vary: Origin' for all CORS-affected routes. Enforce minimum length requirements for critical environment variables like 'SESSION_SECRET' at startup to prevent weak configuration.
+
+## 2026-05-01 - [Secure Temporary File Lifecycle]
+**Vulnerability:** Use of `fs.stat` in shared temporary directories like `/tmp` is vulnerable to symbolic link attacks, where an attacker could link a temp file to a sensitive system file, causing the cleanup process to operate on the target file.
+**Learning:** In shared directories, `fs.lstat` must be used to ensure the cleanup logic interacts with the link itself, not the target.
+**Prevention:** Always use `fs.lstat` when auditing or cleaning up files in shared locations. Enforce restricted permissions (`0o700`) on application-specific subdirectories within `/tmp` to isolate files from other users on the system.
