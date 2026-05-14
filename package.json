@@ -37,7 +37,7 @@
     "express-rate-limit": "8.3.2",
     "express-session": "1.19.0",
     "fuse.js": "7.3.0",
-    "geobuf": "3.0.2",
+    "geobuf": "4.0.0",
     "helmet": "8.1.0",
     "hpp": "0.2.3",
     "leaflet": "1.9.4",
