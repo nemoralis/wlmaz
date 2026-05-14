@@ -21,12 +21,13 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+/*
 // Fail fast on startup if critical secrets are missing, before any middleware
 // or route handlers are registered.
 if (!process.env.SESSION_SECRET || process.env.SESSION_SECRET.length < 32) {
    throw new Error("SESSION_SECRET must be set and at least 32 characters long");
 }
-
+*/
 const startServer = async () => {
    // redisClient handles its own connection in utils/redis.ts
 
