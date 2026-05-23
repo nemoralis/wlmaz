@@ -57,18 +57,13 @@ export default defineConfig({
       Sitemap({
          hostname: "https://wikilovesmonuments.az",
          dynamicRoutes: monumentRoutes,
-         exclude: ["/profile"],
-         changefreq: "monthly",
-         priority: {
-            "/": 1.0, // Homepage - highest priority
-            "/stats": 0.8, // Main sections
-            "/leaderboard": 0.8,
-            "/table": 0.8,
-            "/about": 0.5,
-            "*": 0.6, // Default for monument pages
-         },
+         exclude: ["/profile", "/auth", "/api", "/upload"],
          lastmod: lastmodMap,
-         robots: [{ userAgent: "*", allow: "/" }],
+         robots: [
+            { userAgent: "*", allow: "/" },
+            // Prevent crawling of ?inventory= map-state URLs (not real pages)
+            { userAgent: "*", disallow: "/*?*inventory=" },
+         ],
       }),
    ],
 
