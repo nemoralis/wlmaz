@@ -1,5 +1,5 @@
 import Fuse from "fuse.js";
-import geobuf from "geobuf";
+import * as geobuf from "geobuf";
 import Pbf from "pbf";
 
 let fuse: Fuse<any> | null = null;
