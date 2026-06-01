@@ -38,7 +38,7 @@
     "express-session": "1.19.0",
     "fuse.js": "7.3.0",
     "geobuf": "4.0.0",
-    "helmet": "8.1.0",
+    "helmet": "8.2.0",
     "hpp": "0.2.3",
     "leaflet": "1.9.4",
     "leaflet-minimap": "3.6.1",
