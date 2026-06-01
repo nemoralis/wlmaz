@@ -20,7 +20,7 @@
                 "itemAltLabel": "Suraxanı atəşgahı",
                 "itemDescription": "Müxtəlif dövrlərdə zərdüştilər, hinduistlər və siqhlər tərəfindən ibadətgah alov məbədidir",
                 "itemLabel": "Atəşgah",
-                "lastModified": "2026-05-01T02:03:52Z"
+                "lastModified": "2026-05-20T09:55:20Z"
             }
         },
         {
@@ -231,8 +231,9 @@
                 "inventory": "3.6",
                 "item": "http://www.wikidata.org/entity/Q12842301",
                 "itemAltLabel": "Sultan Murad darvazası",
+                "itemDescription": "monument in Old City, Baku, Azerbaijan",
                 "itemLabel": "Murad darvazası",
-                "lastModified": "2026-02-23T05:55:41Z"
+                "lastModified": "2026-05-15T17:42:00Z"
             }
         },
         {
@@ -423,7 +424,7 @@
                 "item": "http://www.wikidata.org/entity/Q5103512",
                 "itemDescription": "Bərdə şəhərində yerləşən tarixi memarlıq abidəsi",
                 "itemLabel": "Bərdə türbəsi",
-                "lastModified": "2026-03-28T15:42:16Z"
+                "lastModified": "2026-05-29T16:09:39Z"
             }
         },
         {
@@ -675,7 +676,7 @@
                 "itemAltLabel": "Oxen Camp, Oxen Site",
                 "itemDescription": "Qobustan dövlət tarixi-bədii qoruğunun ərazisində yerləşən arxeoloji abidə.",
                 "itemLabel": "Öküzlər düşərgəsi",
-                "lastModified": "2026-05-04T06:40:47Z"
+                "lastModified": "2026-05-15T08:15:17Z"
             }
         },
         {
@@ -718,7 +719,7 @@
                 "itemAltLabel": "Gəmiqaya qayaüstü təsvirləri, Gəmiqaya rəsmləri",
                 "itemDescription": "monument",
                 "itemLabel": "Gəmiqaya petroqlifləri",
-                "lastModified": "2026-05-01T11:38:37Z"
+                "lastModified": "2026-05-31T10:57:15Z"
             }
         },
         {
@@ -839,7 +840,7 @@
                 "commonsCategory": "Palace of Baku Khans",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Baku_Khans",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20xan%20saray%C4%B1n%C4%B1n%20%C9%99sas%20giri%C5%9Finin%20Xan%20ba%C4%9F%C4%B1%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
-                "inventory": "71, 70, 73, 69",
+                "inventory": "69, 71, 70, 73",
                 "item": "http://www.wikidata.org/entity/Q12837306",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
                 "itemLabel": "Bakı xan sarayı",
@@ -1483,7 +1484,7 @@
                 "inventory": "106",
                 "item": "http://www.wikidata.org/entity/Q12844290",
                 "itemLabel": "Qaraçı karvansarası",
-                "lastModified": "2026-02-07T15:41:46Z"
+                "lastModified": "2026-05-30T19:31:13Z"
             }
         },
         {
@@ -1546,7 +1547,7 @@
                 "item": "http://www.wikidata.org/entity/Q1138958",
                 "itemDescription": "Bakı şəhərində futbol stadionu",
                 "itemLabel": "Tofiq Bəhramov adına Respublika Stadionu",
-                "lastModified": "2026-03-28T13:59:13Z"
+                "lastModified": "2026-05-17T07:39:12Z"
             }
         },
         {
@@ -1672,7 +1673,7 @@
                 "itemAltLabel": "Tiflis vağzalı",
                 "itemDescription": "Bakı şəhərində sərnişin qatarlarını qəbul edən dalan tipli dəmiryolu stansiyası",
                 "itemLabel": "Bakı Dəmiryolu vağzalı",
-                "lastModified": "2026-02-10T13:59:06Z"
+                "lastModified": "2026-05-19T09:52:29Z"
             }
         },
         {
@@ -2025,7 +2026,7 @@
                 "item": "http://www.wikidata.org/entity/Q20580851",
                 "itemDescription": "Bakıda tarixi bina",
                 "itemLabel": "Mirtağı Babayevin sarayı",
-                "lastModified": "2026-02-10T13:43:37Z"
+                "lastModified": "2026-05-18T19:11:57Z"
             }
         },
         {
@@ -2107,7 +2108,7 @@
                 "item": "http://www.wikidata.org/entity/Q97222691",
                 "itemDescription": "Bakıda tarixi bina",
                 "itemLabel": "Hacınskinin evi",
-                "lastModified": "2026-02-17T06:57:52Z"
+                "lastModified": "2026-05-30T09:45:27Z"
             }
         },
         {
@@ -2193,7 +2194,7 @@
                 "itemAltLabel": "Böyük xor sinaqoqu",
                 "itemDescription": "Bakıda teatr",
                 "itemLabel": "Azərbaycan Dövlət Mahnı Teatrı",
-                "lastModified": "2026-01-27T23:34:07Z"
+                "lastModified": "2026-05-29T15:12:04Z"
             }
         },
         {
@@ -2654,7 +2655,7 @@
                 "itemAltLabel": "Amaras",
                 "itemDescription": "Xocavənd rayonunda monastır",
                 "itemLabel": "Amaras monastırı",
-                "lastModified": "2026-05-01T02:02:30Z"
+                "lastModified": "2026-05-14T14:56:03Z"
             }
         },
         {
@@ -5084,9 +5085,9 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/House%20of%20Shamsi%20Asadullayev.jpg",
                 "inventory": "2946",
                 "item": "http://www.wikidata.org/entity/Q97224420",
-                "itemDescription": "historic site in Azerbaijan",
+                "itemDescription": "historic site in Baku, Azerbaijan",
                 "itemLabel": "Şəmsi Əsədullayevin evi",
-                "lastModified": "2026-01-27T23:08:26Z"
+                "lastModified": "2026-05-15T19:30:59Z"
             }
         },
         {
@@ -5955,7 +5956,7 @@
                 "inventory": "3459",
                 "item": "http://www.wikidata.org/entity/Q16417516",
                 "itemLabel": "Tağıyev pasajı",
-                "lastModified": "2026-01-27T23:51:14Z"
+                "lastModified": "2026-05-30T19:31:41Z"
             }
         },
         {
@@ -6039,7 +6040,7 @@
                 "item": "http://www.wikidata.org/entity/Q124359066",
                 "itemDescription": "XIX əsrə aid tarix-memarlıq abidəsi. Azərbaycanın Bakı şəhərində yerləşir.",
                 "itemLabel": "Qasımbəy məscidi",
-                "lastModified": "2026-03-02T15:49:18Z"
+                "lastModified": "2026-05-25T09:52:47Z"
             }
         },
         {
@@ -6273,7 +6274,7 @@
                 "item": "http://www.wikidata.org/entity/Q2511638",
                 "itemDescription": "Bakıda kilsə, Bakı yeparxiyasının mərkəzi",
                 "itemLabel": "Jen Mironosets Baş Kafedral kilsəsi",
-                "lastModified": "2026-02-07T18:24:00Z"
+                "lastModified": "2026-05-26T16:46:49Z"
             }
         },
         {
@@ -6333,9 +6334,9 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%D0%95%D0%BB%D0%B8%D0%B7%D0%B0%D0%B2%D0%B5%D1%82%D0%BF%D0%BE%D0%BB%D1%8C.%20%D0%93%D0%B8%D0%BC%D0%BD%D0%B0%D0%B7%D0%B8%D1%8F.jpg",
                 "inventory": "3838",
                 "item": "http://www.wikidata.org/entity/Q12840957",
-                "itemDescription": "Educational institution in Ganja, Azerbaijan",
+                "itemDescription": "Azərbaycanda orta məktəb",
                 "itemLabel": "Gəncə Kişi Gimnaziyası",
-                "lastModified": "2026-01-29T13:49:03Z"
+                "lastModified": "2026-05-25T20:57:08Z"
             }
         },
         {
@@ -6889,12 +6890,11 @@
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/Papr%C9%99v%C9%99nd_m%C9%99scidi",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Papravend%20mescidi.jpg",
                 "inventory": "4045",
                 "item": "http://www.wikidata.org/entity/Q31300769",
                 "itemDescription": "XVII əsrə aid tarix-memarlıq abidəsi, məscid. Azərbaycanın Ağdam rayonunun Paprəvənd kəndində yerləşir.",
                 "itemLabel": "Paprəvənd məscidi",
-                "lastModified": "2026-02-10T22:32:19Z"
+                "lastModified": "2026-05-26T10:11:44Z"
             }
         },
         {
@@ -7254,6 +7254,23 @@
                 "item": "http://www.wikidata.org/entity/Q28873052",
                 "itemLabel": "Mazımçay kilsəsi",
                 "lastModified": "2026-02-19T22:01:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.127486974,
+                    40.321493127
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eirvanl%C4%B1_k%C9%99nd_m%C9%99scidi_(B%C9%99rd%C9%99)",
+                "inventory": "4159",
+                "item": "http://www.wikidata.org/entity/Q31310963",
+                "itemLabel": "Şirvanlı məscidi",
+                "lastModified": "2026-05-26T23:17:47Z"
             }
         },
         {
@@ -7719,6 +7736,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.298014364,
+                    40.568526376
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/A%C4%9F_k%C3%B6rp%C3%BC_(G%C3%B6yg%C3%B6l)",
+                "inventory": "4289",
+                "item": "http://www.wikidata.org/entity/Q139911406",
+                "itemDescription": "Göygöl rayonunun Topalhəsənli kəndində Gəncəçayın üzərində yerləşən körpü",
+                "itemLabel": "Ağ körpü",
+                "lastModified": "2026-05-24T19:49:22Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.222897,
                     40.46386
                 ]
@@ -7794,7 +7829,7 @@
                 "item": "http://www.wikidata.org/entity/Q20585601",
                 "itemDescription": "railway station in Azerbaijan",
                 "itemLabel": "Xaçmaz dəmiryol stansiyası",
-                "lastModified": "2026-05-01T11:36:34Z"
+                "lastModified": "2026-05-19T09:52:21Z"
             }
         },
         {
@@ -9236,7 +9271,7 @@
                 "itemAltLabel": "Dairəvi qala",
                 "itemDescription": "XVIII əsrdə tikilmiş Lənkəran qalasının bir hissəsi",
                 "itemLabel": "Zindan qalası",
-                "lastModified": "2026-01-19T10:33:36Z"
+                "lastModified": "2026-05-23T04:52:56Z"
             }
         },
         {
@@ -10167,7 +10202,7 @@
                 "item": "http://www.wikidata.org/entity/Q10977619",
                 "itemDescription": "Xankəndidə yerləşən teatr",
                 "itemLabel": "Xankəndi Dövlət Dram Teatrı",
-                "lastModified": "2026-02-06T19:13:06Z"
+                "lastModified": "2026-05-21T05:34:48Z"
             }
         },
         {
@@ -10462,7 +10497,7 @@
                 "itemAltLabel": "Mir Cəfər Ağa məscidi, Yuxarı Ambaras məscidi",
                 "itemDescription": "Azərbaycanda Ordubad şəhərində yerləşən XVII əsrə aid məscid və tarix-memarlıq abidəsi",
                 "itemLabel": "Ambaras məscidi",
-                "lastModified": "2026-03-02T09:46:14Z"
+                "lastModified": "2026-05-25T09:54:40Z"
             }
         },
         {
