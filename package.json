@@ -59,7 +59,7 @@
     "sharp": "0.34.5",
     "vue": "3.5.34",
     "vue-chartjs": "5.3.3",
-    "vue-router": "5.0.7"
+    "vue-router": "5.1.0"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.7.1",
