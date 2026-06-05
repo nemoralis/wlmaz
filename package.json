@@ -52,7 +52,7 @@
     "oauth-1.0a": "2.2.6",
     "passport": "0.7.0",
     "passport-mediawiki-oauth": "0.1.0",
-    "pbf": "5.0.0",
+    "pbf": "5.1.0",
     "pinia": "3.0.4",
     "rate-limit-redis": "5.0.0",
     "redis": "5.12.1",
