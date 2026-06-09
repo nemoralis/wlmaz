@@ -719,7 +719,7 @@
                 "itemAltLabel": "Gəmiqaya qayaüstü təsvirləri, Gəmiqaya rəsmləri",
                 "itemDescription": "monument",
                 "itemLabel": "Gəmiqaya petroqlifləri",
-                "lastModified": "2026-05-31T10:57:15Z"
+                "lastModified": "2026-06-08T15:00:03Z"
             }
         },
         {
@@ -2026,7 +2026,7 @@
                 "item": "http://www.wikidata.org/entity/Q20580851",
                 "itemDescription": "Bakıda tarixi bina",
                 "itemLabel": "Mirtağı Babayevin sarayı",
-                "lastModified": "2026-05-18T19:11:57Z"
+                "lastModified": "2026-06-01T02:26:58Z"
             }
         },
         {
@@ -2108,7 +2108,7 @@
                 "item": "http://www.wikidata.org/entity/Q97222691",
                 "itemDescription": "Bakıda tarixi bina",
                 "itemLabel": "Hacınskinin evi",
-                "lastModified": "2026-05-30T09:45:27Z"
+                "lastModified": "2026-06-02T13:11:42Z"
             }
         },
         {
@@ -6040,7 +6040,7 @@
                 "item": "http://www.wikidata.org/entity/Q124359066",
                 "itemDescription": "XIX əsrə aid tarix-memarlıq abidəsi. Azərbaycanın Bakı şəhərində yerləşir.",
                 "itemLabel": "Qasımbəy məscidi",
-                "lastModified": "2026-05-25T09:52:47Z"
+                "lastModified": "2026-06-08T01:13:48Z"
             }
         },
         {
@@ -6274,7 +6274,7 @@
                 "item": "http://www.wikidata.org/entity/Q2511638",
                 "itemDescription": "Bakıda kilsə, Bakı yeparxiyasının mərkəzi",
                 "itemLabel": "Jen Mironosets Baş Kafedral kilsəsi",
-                "lastModified": "2026-05-26T16:46:49Z"
+                "lastModified": "2026-06-08T04:19:20Z"
             }
         },
         {
@@ -6610,7 +6610,7 @@
                 "itemAltLabel": "Gazakhlar Mosque",
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən 1886-cı ildə tikilmiş məscid və tarix-memarlıq abidəsi.",
                 "itemLabel": "Qazaxlar məscidi",
-                "lastModified": "2026-01-26T20:35:10Z"
+                "lastModified": "2026-06-01T17:22:47Z"
             }
         },
         {
@@ -6939,6 +6939,43 @@
                 "itemDescription": "Mosque in Azerbaijan",
                 "itemLabel": "Qiyaslı məscidi",
                 "lastModified": "2026-04-06T14:37:27Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.481877157,
+                    40.645532913
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Hac%C4%B1_M%C9%99h%C9%99mm%C9%99d_A%C4%9Fa_m%C9%99scidi",
+                "inventory": "4062",
+                "item": "http://www.wikidata.org/entity/Q140136196",
+                "itemAltLabel": "Üçqovaq məscidi",
+                "itemDescription": "Ağdaşda məscid",
+                "itemLabel": "Hacı Məhəmməd Ağa məscidi",
+                "lastModified": "2026-06-09T07:55:20Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.470152159,
+                    40.639702228
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/1910-cu_ild%C9%99_tikilmi%C5%9F_b%C9%99y_evi",
+                "inventory": "4063",
+                "item": "http://www.wikidata.org/entity/Q140136258",
+                "itemDescription": "Ağdaşda yerləşən tarixi ev",
+                "itemLabel": "1910-cu ildə tikilmiş bəy evi",
+                "lastModified": "2026-06-09T07:50:40Z"
             }
         },
         {
@@ -8268,7 +8305,7 @@
                 "inventory": "4514",
                 "item": "http://www.wikidata.org/entity/Q16414341",
                 "itemLabel": "İsrafil ağa hamamı",
-                "lastModified": "2026-02-07T16:45:12Z"
+                "lastModified": "2026-06-04T18:59:09Z"
             }
         },
         {
@@ -10497,7 +10534,7 @@
                 "itemAltLabel": "Mir Cəfər Ağa məscidi, Yuxarı Ambaras məscidi",
                 "itemDescription": "Azərbaycanda Ordubad şəhərində yerləşən XVII əsrə aid məscid və tarix-memarlıq abidəsi",
                 "itemLabel": "Ambaras məscidi",
-                "lastModified": "2026-05-25T09:54:40Z"
+                "lastModified": "2026-06-08T01:14:11Z"
             }
         },
         {
