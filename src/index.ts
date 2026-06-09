@@ -188,9 +188,8 @@ const startServer = async () => {
             secure: process.env.NODE_ENV === "production",
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-            // strict in production — prevents CSRF across all cookie-authenticated routes.
-            // lax in development so the OAuth callback redirect still works across ports.
-            sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+            // lax — required for OAuth callback redirects to send the session cookie
+            sameSite: "lax",
          },
       }),
    );
