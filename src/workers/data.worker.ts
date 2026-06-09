@@ -1,6 +1,6 @@
 import Fuse from "fuse.js";
 import * as geobuf from "geobuf";
-import Pbf from "pbf";
+import { PbfReader as Pbf } from "pbf";
 
 let fuse: Fuse<any> | null = null;
 let allFeatures: any[] = [];
