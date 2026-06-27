@@ -42,7 +42,7 @@
                 "itemAltLabel": "İçəri Şəhər, İçəri şəhər",
                 "itemDescription": "Bakı şəhərinin tarixi hissəsi",
                 "itemLabel": "İçərişəhər",
-                "lastModified": "2025-12-15T09:29:07Z"
+                "lastModified": "2026-06-27T21:24:19Z"
             }
         },
         {
@@ -511,7 +511,7 @@
                 "itemAltLabel": "Şəki Xan sarayı, Şəki xanlarının sarayı",
                 "itemDescription": "Şəki xan sarayı Azərbaycan",
                 "itemLabel": "Şəki xan sarayı",
-                "lastModified": "2026-05-10T05:10:01Z"
+                "lastModified": "2026-06-27T11:58:24Z"
             }
         },
         {
@@ -590,13 +590,13 @@
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/Qobustan_Milli_Tarix-B%C9%99dii_Qoru%C4%9Fu",
                 "commonsCategory": "Gobustan State Reserve",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qobustan.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qobustan%20giri%C5%9F%20qayas%C4%B1%202026%20%281%29.jpg",
                 "inventory": "26",
                 "item": "http://www.wikidata.org/entity/Q318181",
                 "itemAltLabel": "Qobustan dövlət tarixi-bədii qoruğu, Qobustan Dövlət Təbiət və Mədəniyyət Qoruğu, Qobustan Milli Tarix və Bədii Qoruğu, Qobustan Qayaüstü Təsvirləri, Qobustan qoruğu",
                 "itemDescription": "Dövlət qoruğu",
                 "itemLabel": "Qobustan Milli Tarix-Bədii Qoruğu",
-                "lastModified": "2026-05-04T06:09:01Z"
+                "lastModified": "2026-06-19T11:43:18Z"
             }
         },
         {
@@ -664,19 +664,62 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.396743,
+                    40.056185
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ceyranlar_d%C3%BC%C5%9F%C9%99rg%C9%99si",
+                "commonsCategory": "The Ceyranlar Archaeological Camp",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:The_Ceyranlar_Archaeological_Camp",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Jeyranlar%20camp%2020260426%20%281%29.jpg",
+                "inventory": "26—1037",
+                "item": "http://www.wikidata.org/entity/Q55700658",
+                "itemDescription": "Qobustan dövlət tarixi-bədii qoruğunun ərazisində yerləşən arxeoloji abidə.",
+                "itemLabel": "Ceyranlar düşərgəsi",
+                "lastModified": "2026-06-19T09:49:53Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.388888888,
+                    40.105555555
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ana_za%C4%9Fa_d%C3%BC%C5%9F%C9%99rg%C9%99si",
+                "commonsCategory": "Ana zağa cave",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Ana_za%C4%9Fa_cave",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ana%20za%C4%9Fa%2020260418%20%2833%29.jpg",
+                "inventory": "26—1039",
+                "item": "http://www.wikidata.org/entity/Q12835820",
+                "itemLabel": "Ana zağa düşərgəsi",
+                "lastModified": "2026-06-19T10:33:25Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.378111581,
                     40.112360816
                 ]
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/%C3%96k%C3%BCzl%C9%99r_d%C3%BC%C5%9F%C9%99rg%C9%99si",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qaya%C3%BCst%C3%BC%20t%C9%99svirl%C9%99r%20%2814%20%C9%99d%C9%99d%29%2C%20Ki%C3%A7ikda%C5%9F%20da%C4%9F%C4%B1n%C4%B1n%20oval%C4%B1q%20hiss%C9%99si%2C%2041%20n%C3%B6mr%C9%99li%20da%C5%9F.jpg",
+                "commonsCategory": "Okuzlar shelter",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Okuzlar_shelter",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C3%96k%C3%BCzl%C9%99r%20d%C3%BC%C5%9F%C9%99rg%C9%99siiii%202026.jpg",
                 "inventory": "26—1041",
                 "item": "http://www.wikidata.org/entity/Q139658851",
                 "itemAltLabel": "Oxen Camp, Oxen Site",
                 "itemDescription": "Qobustan dövlət tarixi-bədii qoruğunun ərazisində yerləşən arxeoloji abidə.",
                 "itemLabel": "Öküzlər düşərgəsi",
-                "lastModified": "2026-05-15T08:15:17Z"
+                "lastModified": "2026-06-19T13:39:37Z"
             }
         },
         {
@@ -840,7 +883,7 @@
                 "commonsCategory": "Palace of Baku Khans",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Baku_Khans",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20xan%20saray%C4%B1n%C4%B1n%20%C9%99sas%20giri%C5%9Finin%20Xan%20ba%C4%9F%C4%B1%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
-                "inventory": "69, 71, 70, 73",
+                "inventory": "71, 70, 73, 69",
                 "item": "http://www.wikidata.org/entity/Q12837306",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
                 "itemLabel": "Bakı xan sarayı",
@@ -1136,14 +1179,14 @@
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/%C5%9Eeyx_%C4%B0brahim_m%C9%99scidi",
-                "commonsCategory": "Sheikh İbrahim Mosque",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Sheikh_%C4%B0brahim_Mosque",
+                "commonsCategory": "Sheikh Ibrahim Mosque",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Sheikh_Ibrahim_Mosque",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Sheikh%20ibrahim%20mosque%20-Old%20City%20Baku%20Azerbaijan%20built%20in%201415.jpg",
                 "inventory": "87",
                 "item": "http://www.wikidata.org/entity/Q12849537",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Şeyx İbrahim məscidi",
-                "lastModified": "2026-01-08T10:38:20Z"
+                "lastModified": "2026-06-27T18:08:38Z"
             }
         },
         {
@@ -1275,6 +1318,27 @@
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
                 "itemLabel": "Bazar meydanı",
                 "lastModified": "2026-03-06T16:53:17Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836290488,
+                    40.366745396
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Maqsud_%C4%B0brahimb%C9%99yov_yarad%C4%B1c%C4%B1l%C4%B1q_m%C9%99rk%C9%99zi",
+                "commonsCategory": "Maksud Ibrahimbeyov Creativity Centre",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Maksud_Ibrahimbeyov_Creativity_Centre",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Maqsud%20%C4%B0brahimb%C9%99yov%20yarad%C4%B1c%C4%B1l%C4%B1q%20m%C9%99rk%C9%99zi.jpg",
+                "inventory": "93-2",
+                "item": "http://www.wikidata.org/entity/Q111987812",
+                "itemDescription": "İçərişəhərdə yerləşən muzey",
+                "itemLabel": "Maqsud İbrahimbəyov yaradıcılıq mərkəzi",
+                "lastModified": "2026-06-27T15:51:32Z"
             }
         },
         {
@@ -1547,7 +1611,7 @@
                 "item": "http://www.wikidata.org/entity/Q1138958",
                 "itemDescription": "Bakı şəhərində futbol stadionu",
                 "itemLabel": "Tofiq Bəhramov adına Respublika Stadionu",
-                "lastModified": "2026-05-17T07:39:12Z"
+                "lastModified": "2026-06-17T11:09:57Z"
             }
         },
         {
@@ -2194,7 +2258,7 @@
                 "itemAltLabel": "Böyük xor sinaqoqu",
                 "itemDescription": "Bakıda teatr",
                 "itemLabel": "Azərbaycan Dövlət Mahnı Teatrı",
-                "lastModified": "2026-05-29T15:12:04Z"
+                "lastModified": "2026-06-17T19:32:37Z"
             }
         },
         {
@@ -4335,8 +4399,9 @@
                 "inventory": "1273",
                 "item": "http://www.wikidata.org/entity/Q4526087",
                 "itemAltLabel": "Şomutəpə",
+                "itemDescription": "historic site in Azerbaijan",
                 "itemLabel": "Şomulutəpə yaşayış yeri",
-                "lastModified": "2026-05-01T12:42:08Z"
+                "lastModified": "2026-06-20T12:55:19Z"
             }
         },
         {
@@ -4373,6 +4438,25 @@
                 "itemDescription": "Lerikdə mağara",
                 "itemLabel": "Buzeyir mağarası",
                 "lastModified": "2026-03-29T22:58:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.688466801,
+                    38.911276776
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C4%B0mamzad%C9%99_t%C3%BCrb%C9%99si_(Masall%C4%B1)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Masall%C4%B1%20imamzad%C9%99.jpg",
+                "inventory": "1616",
+                "item": "http://www.wikidata.org/entity/Q140367320",
+                "itemDescription": "Masallıda türbə",
+                "itemLabel": "İmamzadə türbəsi",
+                "lastModified": "2026-06-27T12:05:44Z"
             }
         },
         {
@@ -5494,7 +5578,7 @@
                 "item": "http://www.wikidata.org/entity/Q55700594",
                 "itemDescription": "Balaxanıda yerləşən karvansaray",
                 "itemLabel": "Şah Səfi karvansarası",
-                "lastModified": "2025-07-09T09:13:54Z"
+                "lastModified": "2026-06-19T13:38:30Z"
             }
         },
         {
@@ -5914,7 +5998,7 @@
                 "item": "http://www.wikidata.org/entity/Q4430590",
                 "itemDescription": "Azərbaycan Respublikasının peşəkar rəssamları və sənətşünaslarının ictimai yaradıcılıq təşkilatı",
                 "itemLabel": "Azərbaycan Rəssamlar İttifaqı",
-                "lastModified": "2026-01-28T00:03:37Z"
+                "lastModified": "2026-06-24T09:13:28Z"
             }
         },
         {
@@ -6210,7 +6294,7 @@
                 "itemAltLabel": "ADMİU, Azərbaycan Dövlət İncəsənət İnstitutu, Azərbaycan Dövlət İncəsənət Universiteti, Azərbaycan Dövlət Mədəniyyət və İncəsənət İnstitutu, Azərbaycan İncəsənət İnstitutu, Azərbaycan Mədəniyyət və İncəsənət İnstitutu, Azərbaycan Mədəniyyət və İncəsənət Universiteti, Əli bəy Hüseynzadə adına Azərbaycan Dövlət Mədəniyyət və İncəsənət Universiteti, M.A.Əliyev adına Azərbaycan Dövlət İncəsənət İnstitutu, M.Əliyev adına Azərbaycan Dövlət İncəsənət İnstitutu",
                 "itemDescription": "Azərbaycanda fəaliyyət göstərən ali təhsil müəssisəsi",
                 "itemLabel": "Azərbaycan Dövlət Mədəniyyət və İncəsənət Universiteti",
-                "lastModified": "2026-05-01T11:36:04Z"
+                "lastModified": "2026-06-26T23:01:08Z"
             }
         },
         {
@@ -6894,7 +6978,7 @@
                 "item": "http://www.wikidata.org/entity/Q31300769",
                 "itemDescription": "XVII əsrə aid tarix-memarlıq abidəsi, məscid. Azərbaycanın Ağdam rayonunun Paprəvənd kəndində yerləşir.",
                 "itemLabel": "Paprəvənd məscidi",
-                "lastModified": "2026-05-26T10:11:44Z"
+                "lastModified": "2026-06-26T00:50:36Z"
             }
         },
         {
@@ -6975,7 +7059,7 @@
                 "item": "http://www.wikidata.org/entity/Q140136258",
                 "itemDescription": "Ağdaşda yerləşən tarixi ev",
                 "itemLabel": "1910-cu ildə tikilmiş bəy evi",
-                "lastModified": "2026-06-09T07:50:40Z"
+                "lastModified": "2026-06-09T13:44:49Z"
             }
         },
         {
@@ -7291,6 +7375,27 @@
                 "item": "http://www.wikidata.org/entity/Q28873052",
                 "itemLabel": "Mazımçay kilsəsi",
                 "lastModified": "2026-02-19T22:01:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.126952,
+                    40.41661
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/S%C9%99kkizgu%C5%9F%C9%99li_t%C3%BCrb%C9%99",
+                "commonsCategory": "Octagonal Mausoleum, Gyuloglylar",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Octagonal_Mausoleum,_Gyuloglylar",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/G%C3%BClo%C4%9Flular%20k%C9%99ndind%C9%99%20s%C9%99kkizgu%C5%9F%C9%99li%20t%C3%BCrb%C9%99.JPG",
+                "inventory": "4158",
+                "item": "http://www.wikidata.org/entity/Q25542126",
+                "itemDescription": "mausoleum in Azerbaijan",
+                "itemLabel": "Səkkizguşəli türbə",
+                "lastModified": "2026-06-27T12:24:15Z"
             }
         },
         {
@@ -8344,7 +8449,7 @@
                 "inventory": "4524",
                 "item": "http://www.wikidata.org/entity/Q31309985",
                 "itemLabel": "Dördkünclü qala",
-                "lastModified": "2026-04-25T16:48:24Z"
+                "lastModified": "2026-06-21T17:02:39Z"
             }
         },
         {
@@ -8657,7 +8762,7 @@
                 "itemAltLabel": "Kürmüx kilsəsi, Kürmüx məbədi",
                 "itemDescription": "Georgian church in the Qakh District of Azerbaijan",
                 "itemLabel": "Kürmük kilsəsi",
-                "lastModified": "2026-05-01T11:34:16Z"
+                "lastModified": "2026-06-27T13:56:00Z"
             }
         },
         {
@@ -8750,13 +8855,13 @@
                 "azLink": "https://az.wikipedia.org/wiki/G%C3%BCmb%C9%99zli_hamam_(Quba)",
                 "commonsCategory": "Domed bath in Guba",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Domed_bath_in_Guba",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Interior%20of%20the%20Domed%20bath%20in%20Guba%2003.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Quba%20%C3%87uxur%20hamam%C4%B1%202025.jpg",
                 "inventory": "4606",
                 "item": "http://www.wikidata.org/entity/Q16416672",
                 "itemAltLabel": "domed bath in Guba",
                 "itemDescription": "Qubada tarixi hamam",
                 "itemLabel": "Gümbəzli hamam",
-                "lastModified": "2026-02-07T17:06:35Z"
+                "lastModified": "2026-06-18T13:33:23Z"
             }
         },
         {
@@ -9383,7 +9488,7 @@
                 "inventory": "4894",
                 "item": "http://www.wikidata.org/entity/Q31311531",
                 "itemLabel": "Qasımlı kənd məscidi",
-                "lastModified": "2026-01-28T13:18:44Z"
+                "lastModified": "2026-06-25T12:48:03Z"
             }
         },
         {
