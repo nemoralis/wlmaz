@@ -618,7 +618,7 @@
                 "itemAltLabel": "Qobustan dövlət tarixi-bədii qoruğu, Qobustan Dövlət Təbiət və Mədəniyyət Qoruğu, Qobustan Milli Tarix və Bədii Qoruğu, Qobustan Qayaüstü Təsvirləri, Qobustan qoruğu",
                 "itemDescription": "Dövlət qoruğu",
                 "itemLabel": "Qobustan Milli Tarix-Bədii Qoruğu",
-                "lastModified": "2026-07-02T18:28:55Z"
+                "lastModified": "2026-07-22T16:56:28Z"
             }
         },
         {
@@ -2889,8 +2889,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    45.75666667,
-                    40.49111111
+                    45.752798174,
+                    40.488910956
                 ]
             },
             "properties": {
@@ -2902,7 +2902,7 @@
                 "item": "http://www.wikidata.org/entity/Q10986920",
                 "itemDescription": "fortress in Gadabay, Azerbaijan",
                 "itemLabel": "Koroğlu qalası (Gədəbəy)",
-                "lastModified": "2026-03-06T17:04:18Z"
+                "lastModified": "2026-07-22T18:06:54Z"
             }
         },
         {
@@ -3696,8 +3696,10 @@
                 "azLink": "https://az.wikipedia.org/wiki/%C5%9Eah_Abbas_m%C9%99scidi_(Tovuz)",
                 "inventory": "382",
                 "item": "http://www.wikidata.org/entity/Q31310971",
+                "itemAltLabel": "Yanıqlı məscidi",
+                "itemDescription": "Tovuzda məscid",
                 "itemLabel": "Şah Abbas məscidi",
-                "lastModified": "2026-02-09T11:34:55Z"
+                "lastModified": "2026-07-22T17:32:43Z"
             }
         },
         {
@@ -4811,6 +4813,89 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.77362673,
+                    40.492914245
+                ]
+            },
+            "properties": {
+                "inventory": "1007",
+                "item": "http://www.wikidata.org/entity/Q140658701",
+                "itemLabel": "Ağsu qalaçası",
+                "lastModified": "2026-07-22T18:10:27Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.672175694,
+                    40.540606311
+                ]
+            },
+            "properties": {
+                "inventory": "1012",
+                "item": "http://www.wikidata.org/entity/Q140658707",
+                "itemDescription": "Gədəbəydə qalaça",
+                "itemLabel": "Dəlmə qalaçası",
+                "lastModified": "2026-07-22T17:58:34Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.658182084,
+                    40.559099169
+                ]
+            },
+            "properties": {
+                "inventory": "1013",
+                "item": "http://www.wikidata.org/entity/Q140658709",
+                "itemLabel": "Sarıdaş qalaçası",
+                "lastModified": "2026-07-22T17:46:50Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.797760127,
+                    40.690703873
+                ]
+            },
+            "properties": {
+                "inventory": "1027",
+                "item": "http://www.wikidata.org/entity/Q140658734",
+                "itemAltLabel": "I—III Göydərə qalaçası",
+                "itemLabel": "Göydərə qalaçası",
+                "lastModified": "2026-07-22T17:39:26Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.761280017,
+                    40.490890728
+                ]
+            },
+            "properties": {
+                "inventory": "1038",
+                "item": "http://www.wikidata.org/entity/Q140658754",
+                "itemDescription": "Gədəbəydə qalaça",
+                "itemLabel": "Tülkütəpə qalaçası",
+                "lastModified": "2026-07-22T18:08:32Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.819299696,
                     40.709990072
                 ]
@@ -5183,6 +5268,54 @@
                 "item": "http://www.wikidata.org/entity/Q16418052",
                 "itemLabel": "Koroğlu qalası",
                 "lastModified": "2026-07-22T14:05:29Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.650711402,
+                    40.888694962
+                ]
+            },
+            "properties": {
+                "inventory": "1796",
+                "item": "http://www.wikidata.org/entity/Q140659944",
+                "itemLabel": "Daş qutusu nekropolu",
+                "lastModified": "2026-07-22T17:27:54Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.651446818,
+                    40.888272934
+                ]
+            },
+            "properties": {
+                "inventory": "1797",
+                "item": "http://www.wikidata.org/entity/Q140659945",
+                "itemLabel": "Küp qəbirləri nekropolu",
+                "lastModified": "2026-07-22T17:28:07Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.810032287,
+                    40.926666779
+                ]
+            },
+            "properties": {
+                "inventory": "1799",
+                "item": "http://www.wikidata.org/entity/Q140665130",
+                "itemLabel": "Töyrətəpə yaşayış yeri",
+                "lastModified": "2026-07-22T17:36:16Z"
             }
         },
         {
@@ -8326,6 +8459,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.815710711,
+                    40.566057521
+                ]
+            },
+            "properties": {
+                "inventory": "4241",
+                "item": "http://www.wikidata.org/entity/Q140662017",
+                "itemDescription": "Gədəbəydə körpü",
+                "itemLabel": "Gədəbəy şəhər körpüsü",
+                "lastModified": "2026-07-22T17:56:20Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.83722925,
                     40.563624389
                 ]
@@ -8365,6 +8515,115 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.751540801,
+                    40.530696858
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Sabatkechmaz Bridge",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Sabatkechmaz_Bridge",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/G%C9%99d%C9%99b%C9%99y%20-%20%28%20Qanl%C4%B1%20K%C3%B6rp%C3%BC%2C%20Siemens%20Bridge%20%28%201872%29.jpg",
+                "inventory": "4244",
+                "item": "http://www.wikidata.org/entity/Q140662020",
+                "itemAltLabel": "1 nömrəli körpü, Səbətkeçməz körpüsü",
+                "itemDescription": "Gədəbəydə körpü",
+                "itemLabel": "Qanlı körpü",
+                "lastModified": "2026-07-22T18:01:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.735423533,
+                    40.508582313
+                ]
+            },
+            "properties": {
+                "inventory": "4245",
+                "item": "http://www.wikidata.org/entity/Q140662021",
+                "itemLabel": "2 nömrəli körpü",
+                "lastModified": "2026-07-22T18:03:27Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.733664865,
+                    40.507722626
+                ]
+            },
+            "properties": {
+                "inventory": "4246",
+                "item": "http://www.wikidata.org/entity/Q140662022",
+                "itemLabel": "3 nömrəli körpü",
+                "lastModified": "2026-07-22T18:03:53Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.657077,
+                    40.562395
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/H%C9%99m%C5%9Fiv%C9%99ng_m%C9%99b%C9%99di",
+                "commonsCategory": "Böyük Qaramurad Vəngi",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:B%C3%B6y%C3%BCk_Qaramurad_V%C9%99ngi",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Hamshivang%20monastery%20%282%29.jpg",
+                "inventory": "4250",
+                "item": "http://www.wikidata.org/entity/Q10966721",
+                "itemDescription": "Gədəbəydə monastır",
+                "itemLabel": "Həmşivəng kompleksi",
+                "lastModified": "2026-07-22T17:43:38Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.791845929,
+                    40.555237184
+                ]
+            },
+            "properties": {
+                "inventory": "4251",
+                "item": "http://www.wikidata.org/entity/Q140662024",
+                "itemDescription": "Gədəbəydə körpü",
+                "itemLabel": "Qızılqaya körpüsü",
+                "lastModified": "2026-07-22T17:57:21Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.83611163,
+                    40.455918356
+                ]
+            },
+            "properties": {
+                "inventory": "4254",
+                "item": "http://www.wikidata.org/entity/Q140662027",
+                "itemAltLabel": "Zınqırovlu körpü",
+                "itemDescription": "Gədəbəydə körpü",
+                "itemLabel": "Çanaqçı körpüsü",
+                "lastModified": "2026-07-22T18:12:43Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.5905,
                     40.5179
                 ]
@@ -8379,6 +8638,40 @@
                 "itemDescription": "ruin of a church in Azerbaijan",
                 "itemLabel": "Əyrivəng kilsəsi",
                 "lastModified": "2026-05-01T11:34:59Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.596931895,
+                    40.598741825
+                ]
+            },
+            "properties": {
+                "inventory": "4256",
+                "item": "http://www.wikidata.org/entity/Q140665429",
+                "itemDescription": "Gədəbəydə məbəd",
+                "itemLabel": "Turşsu məbədi",
+                "lastModified": "2026-07-22T17:42:07Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.745277093,
+                    40.484961796
+                ]
+            },
+            "properties": {
+                "inventory": "4257",
+                "item": "http://www.wikidata.org/entity/Q140662028",
+                "itemDescription": "Gədəbəydə körpü",
+                "itemLabel": "Əlinağılar körpüsü",
+                "lastModified": "2026-07-22T18:04:54Z"
             }
         },
         {
@@ -11249,6 +11542,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.67381307,
+                    40.966824304
+                ]
+            },
+            "properties": {
+                "inventory": "5189",
+                "item": "http://www.wikidata.org/entity/Q140662665",
+                "itemDescription": "Tovuzda körpü",
+                "itemLabel": "Əsrikçay dəmiryol körpüsü",
+                "lastModified": "2026-07-22T17:25:45Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.545903774,
                     40.942095175
                 ]
@@ -11258,6 +11568,40 @@
                 "item": "http://www.wikidata.org/entity/Q140662666",
                 "itemLabel": "Nəsib bəyin yaşayış evi",
                 "lastModified": "2026-07-22T14:10:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.743411929,
+                    40.873647905
+                ]
+            },
+            "properties": {
+                "inventory": "5191",
+                "item": "http://www.wikidata.org/entity/Q140662667",
+                "itemDescription": "Tovuzda qala",
+                "itemLabel": "Yanıqlı qalası",
+                "lastModified": "2026-07-22T17:34:11Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.677746881,
+                    40.83317861
+                ]
+            },
+            "properties": {
+                "inventory": "5192",
+                "item": "http://www.wikidata.org/entity/Q140662668",
+                "itemDescription": "Tovuzda körpü",
+                "itemLabel": "Yanıqlı körpüsü",
+                "lastModified": "2026-07-22T17:33:23Z"
             }
         },
         {
@@ -11293,6 +11637,23 @@
                 "itemDescription": "church building in Tovuz District, Azerbaijan",
                 "itemLabel": "Əsrik Cırdaxan məbədi",
                 "lastModified": "2026-05-01T11:34:30Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.798008469,
+                    40.948039814
+                ]
+            },
+            "properties": {
+                "inventory": "5199",
+                "item": "http://www.wikidata.org/entity/Q140665756",
+                "itemDescription": "Tovuzda məscid",
+                "itemLabel": "Düz Qırıqlı məscidi",
+                "lastModified": "2026-07-22T17:35:47Z"
             }
         },
         {
@@ -11389,6 +11750,23 @@
                 "item": "http://www.wikidata.org/entity/Q140665760",
                 "itemLabel": "Yuxarı Öysüzlü məscidi",
                 "lastModified": "2026-07-22T14:09:51Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.806830578,
+                    40.914011499
+                ]
+            },
+            "properties": {
+                "inventory": "5208",
+                "item": "http://www.wikidata.org/entity/Q140665761",
+                "itemDescription": "Tovuzda məscid",
+                "itemLabel": "Əyyublu məscidi",
+                "lastModified": "2026-07-22T17:37:09Z"
             }
         },
         {
@@ -12040,6 +12418,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.812409103,
+                    40.595498735
+                ]
+            },
+            "properties": {
+                "inventory": "5638",
+                "item": "http://www.wikidata.org/entity/Q140663076",
+                "itemLabel": "Böyük Vətən Müharibəsində həlak olmuş həmvətənlərimizin xatirə abidəsi (Gədəbəy)",
+                "lastModified": "2026-07-22T17:47:51Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.264264709,
                     41.238932746
                 ]
@@ -12163,6 +12557,24 @@
                 "itemDescription": "Ağcabədi rayonunun Hacılar kəndinin mərkəzində yerləşən arxeoloji abidə.",
                 "itemLabel": "Hacılar",
                 "lastModified": "2025-05-25T15:57:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.599576533,
+                    40.599899673
+                ]
+            },
+            "properties": {
+                "inventory": "5810",
+                "item": "http://www.wikidata.org/entity/Q140665871",
+                "itemAltLabel": "Novosaratovka qəbiristanlığı",
+                "itemDescription": "Gədəbəydə qəbiristanlıq",
+                "itemLabel": "Novosaratovka köhnə qəbiristanlığı",
+                "lastModified": "2026-07-22T17:40:59Z"
             }
         },
         {
@@ -12348,6 +12760,38 @@
                 "item": "http://www.wikidata.org/entity/Q140665927",
                 "itemLabel": "Əlibəyli qəbiristanlığı",
                 "lastModified": "2026-07-22T14:06:31Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.67091232,
+                    40.840353753
+                ]
+            },
+            "properties": {
+                "inventory": "6052",
+                "item": "http://www.wikidata.org/entity/Q140665928",
+                "itemLabel": "Yanıqlı qəbiristanlığı",
+                "lastModified": "2026-07-22T17:31:35Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.650999618,
+                    40.932149599
+                ]
+            },
+            "properties": {
+                "inventory": "6054",
+                "item": "http://www.wikidata.org/entity/Q140665931",
+                "itemLabel": "Azaflı qəbiristanlığı",
+                "lastModified": "2026-07-22T17:26:27Z"
             }
         },
         {
