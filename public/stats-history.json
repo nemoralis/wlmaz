@@ -434,13 +434,13 @@
   },
   {
     "date": "2026-07-22",
-    "timestamp": 1784730731277,
-    "total": 621,
-    "withImage": 455,
-    "withoutImage": 166,
+    "timestamp": 1784744229176,
+    "total": 647,
+    "withImage": 457,
+    "withoutImage": 190,
     "diff": {
-      "added": 64,
-      "removed": 2
+      "added": 26,
+      "removed": 0
     }
   }
 ]
