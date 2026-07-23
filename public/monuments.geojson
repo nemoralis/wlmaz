@@ -519,6 +519,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.531233333,
+                    40.056838888
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/G%C9%99nc%C9%99s%C9%99r_monast%C4%B1r%C4%B1",
+                "commonsCategory": "Gandzasar",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gandzasar",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Gandzasar%20Monastery1.jpg",
+                "inventory": "10",
+                "item": "http://www.wikidata.org/entity/Q947593",
+                "itemAltLabel": "Ganjasar monastery",
+                "itemDescription": "Kəlbəcər rayonunda monastr",
+                "itemLabel": "Gəncəsər monastırı",
+                "lastModified": "2026-07-23T16:31:53Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.197604294,
                     41.204408878
                 ]
@@ -597,7 +619,26 @@
                 "itemAltLabel": "Damcılı mağara düşərgəsi",
                 "itemDescription": "Qazaxda yerləşən mağara",
                 "itemLabel": "Damcılı mağarası",
-                "lastModified": "2025-06-10T09:58:55Z"
+                "lastModified": "2026-07-23T19:09:10Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.179292101,
+                    39.5382928
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Qazma_ma%C4%9Faras%C4%B1",
+                "inventory": "25",
+                "item": "http://www.wikidata.org/entity/Q25536560",
+                "itemAltLabel": "Qazma mağara düşərgəsi",
+                "itemDescription": "archaeological site in Kangarli District, Azerbaijan",
+                "itemLabel": "Qazma mağarası",
+                "lastModified": "2026-07-23T16:11:52Z"
             }
         },
         {
@@ -902,6 +943,23 @@
                 "item": "http://www.wikidata.org/entity/Q110108714",
                 "itemLabel": "Borsunlu kurqanları",
                 "lastModified": "2026-07-03T11:56:27Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.782303644,
+                    39.904276794
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Xocal%C4%B1_kurqanlar%C4%B1",
+                "inventory": "43",
+                "item": "http://www.wikidata.org/entity/Q110108716",
+                "itemLabel": "Xocalı kurqanları",
+                "lastModified": "2026-07-23T18:22:20Z"
             }
         },
         {
@@ -2726,6 +2784,71 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.60055556,
+                    40.01555556
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/B%C3%B6y%C3%BCk_Arran_monast%C4%B1r%C4%B1",
+                "commonsCategory": "Church of Saint Jacob in Kolatağ",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Church_of_Saint_Jacob_in_Kolata%C4%9F",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Hakobavank%20Monastery%20Artsakh%201.JPG",
+                "inventory": "204-2",
+                "item": "http://www.wikidata.org/entity/Q25399549",
+                "itemAltLabel": "Müqəddəs Yaqub monastırı, Müqəddəs Yaqub kilsəsi",
+                "itemDescription": "Armenian Monastery",
+                "itemLabel": "Böyük Arran monastırı",
+                "lastModified": "2026-07-23T16:24:45Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.549722,
+                    39.991111
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Kolata%C4%9F_monast%C4%B1r%C4%B1",
+                "commonsCategory": "Kolatak Church",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Kolatak_Church",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C2%AB%D4%BF%D5%B8%D5%B7%D5%AB%D5%AF%20%D5%A1%D5%B6%D5%A1%D5%BA%D5%A1%D5%BF%C2%BB%20%D5%BE%D5%A1%D5%B6%D5%A1%D5%AF%D5%A1%D5%B6%20%D5%B0%D5%A1%D5%B4%D5%A1%D5%AC%D5%AB%D6%80.jpg",
+                "inventory": "204-3",
+                "item": "http://www.wikidata.org/entity/Q61105516",
+                "itemDescription": "Armenian 12th century monastery in the Martakert region of Artsakh",
+                "itemLabel": "Kolatağ monastırı",
+                "lastModified": "2026-07-23T16:30:57Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.4059,
+                    40.121375
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Xatir%C9%99v%C9%99ng_monast%C4%B1r%C4%B1",
+                "commonsCategory": "Khatravank",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Khatravank",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C2%AB%D4%BD%D5%A1%D5%A9%D6%80%D5%A1%D5%BE%D5%A1%D5%B6%D6%84%C2%BB%20%D5%BE%D5%A1%D5%B6%D5%A1%D5%AF%D5%A1%D5%B6%20%D5%B0%D5%A1%D5%B4%D5%A1%D5%AC%D5%AB%D6%80%202.jpg",
+                "inventory": "204-9",
+                "item": "http://www.wikidata.org/entity/Q16382827",
+                "itemAltLabel": "Xatırvank, Xatirvəng monastırı",
+                "itemDescription": "Kəlbəcər rayonunda monastır",
+                "itemLabel": "Xatirəvəng monastırı",
+                "lastModified": "2026-07-23T16:22:33Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.416968945,
                     40.574994944
                 ]
@@ -2973,6 +3096,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    47.026119948,
+                    39.51969643
+                ]
+            },
+            "properties": {
+                "inventory": "224",
+                "item": "http://www.wikidata.org/entity/Q140657559",
+                "itemLabel": "Alban məbədi",
+                "lastModified": "2026-07-23T18:04:10Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.091197213,
                     39.60616972
                 ]
@@ -2988,6 +3127,38 @@
                 "itemDescription": "church in the Khojavend District of Azerbaijan",
                 "itemLabel": "Kavakavəng",
                 "lastModified": "2026-05-01T11:35:02Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.022552731,
+                    39.513593554
+                ]
+            },
+            "properties": {
+                "inventory": "229",
+                "item": "http://www.wikidata.org/entity/Q140657562",
+                "itemLabel": "Çinarlı məbədi",
+                "lastModified": "2026-07-23T18:46:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.98672839,
+                    39.569630517
+                ]
+            },
+            "properties": {
+                "inventory": "230",
+                "item": "http://www.wikidata.org/entity/Q140657564",
+                "itemLabel": "Alban məbədi",
+                "lastModified": "2026-07-23T18:05:13Z"
             }
         },
         {
@@ -3050,7 +3221,112 @@
                 "item": "http://www.wikidata.org/entity/Q138517115",
                 "itemDescription": "Xocalıda türbə",
                 "itemLabel": "Xocalı türbəsi",
-                "lastModified": "2026-03-02T03:51:12Z"
+                "lastModified": "2026-07-23T17:52:14Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.831111111,
+                    39.701666666
+                ]
+            },
+            "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Raffikojian-avetaranots-131425476.jpg",
+                "inventory": "253",
+                "item": "http://www.wikidata.org/entity/Q123262057",
+                "itemLabel": "Çanaqçı kilsəsi",
+                "lastModified": "2026-07-23T18:19:20Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.831188157,
+                    39.701504068
+                ]
+            },
+            "properties": {
+                "inventory": "254",
+                "item": "http://www.wikidata.org/entity/Q140657596",
+                "itemLabel": "Alban məbədi",
+                "lastModified": "2026-07-23T17:53:09Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.785901484,
+                    39.774281893
+                ]
+            },
+            "properties": {
+                "inventory": "255",
+                "item": "http://www.wikidata.org/entity/Q140657598",
+                "itemLabel": "Şuşikənd kilsəsi",
+                "lastModified": "2026-07-23T18:37:32Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.680405144,
+                    39.936932124
+                ]
+            },
+            "properties": {
+                "inventory": "256",
+                "item": "http://www.wikidata.org/entity/Q140657599",
+                "itemLabel": "Xanyeri məbədi",
+                "lastModified": "2026-07-23T18:45:12Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.831088737,
+                    39.933847875
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C6%8Fsg%C9%99ran_qalas%C4%B1",
+                "commonsCategory": "Əsgəran Fortress",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:%C6%8Fsg%C9%99ran_Fortress",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C6%8Fsg%C9%99ran%20qalas%C4%B1%202023-c%C3%BC%20ilin%20oktyabr%20ay%C4%B1nda.jpg",
+                "inventory": "263",
+                "item": "http://www.wikidata.org/entity/Q58131",
+                "itemAltLabel": "Asgaran castle, Asgaran Fortress, Asgeran Fortress, Askeran Fortress, Əsgəran castle",
+                "itemDescription": "Xocalı rayonunda qala",
+                "itemLabel": "Əsgəran qalası",
+                "lastModified": "2026-07-23T18:21:01Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.812544444,
+                    39.97255
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C3%BCq%C9%99dd%C9%99s_Georgi_monast%C4%B1r%C4%B1_(Xanabad)",
+                "inventory": "265",
+                "item": "http://www.wikidata.org/entity/Q110212995",
+                "itemDescription": "Xocalıda yerləşən kilsə",
+                "itemLabel": "Müqəddəs Georgi monastırı",
+                "lastModified": "2026-07-23T18:27:14Z"
             }
         },
         {
@@ -3069,6 +3345,28 @@
                 "itemDescription": "İsmayıllıda yerləşən qala",
                 "itemLabel": "Qız qalası",
                 "lastModified": "2025-10-11T14:24:21Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.137832,
+                    40.22365
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Lex_qalas%C4%B1",
+                "commonsCategory": "Handaberd",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Handaberd",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Handaberd%20fortress2.jpg",
+                "inventory": "267",
+                "item": "http://www.wikidata.org/entity/Q4065231",
+                "itemAltLabel": "Ləv qalası, Löh qalası, Andaberd, Handaberd",
+                "itemDescription": "Kəlbəcər rayonunda qala",
+                "itemLabel": "Lex qalası",
+                "lastModified": "2026-07-23T16:18:02Z"
             }
         },
         {
@@ -3259,6 +3557,67 @@
                 "itemDescription": "16th century site in Qusar Region, Azerbaijan",
                 "itemLabel": "Şeyx Cüneyd türbəsi",
                 "lastModified": "2026-01-28T12:44:37Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.46274511,
+                    39.441052541
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Lal%C9%99zar_k%C3%B6rp%C3%BCs%C3%BC",
+                "commonsCategory": "Laləzar bridge",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Lal%C9%99zar_bridge",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Lal%C9%99zar%20k%C3%B6rp%C3%BCs%C3%BC%202023-c%C3%BC%20ild%C9%99.png",
+                "inventory": "306",
+                "item": "http://www.wikidata.org/entity/Q60830553",
+                "itemAltLabel": "Laləzar",
+                "itemDescription": "Qubadlı rayonunda körpü",
+                "itemLabel": "Laləzar körpüsü",
+                "lastModified": "2026-07-23T15:20:03Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.461934516,
+                    39.422391248
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/G%C3%BCrc%C3%BCl%C3%BC_t%C3%BCrb%C9%99si",
+                "inventory": "307",
+                "item": "http://www.wikidata.org/entity/Q31297079",
+                "itemDescription": "Historic site in Qubadli, Azerbaijan",
+                "itemLabel": "Gürcülü türbəsi",
+                "lastModified": "2026-07-23T15:30:44Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.600404613,
+                    39.315793103
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/D%C9%99mir%C3%A7il%C9%99r_t%C3%BCrb%C9%99l%C9%99ri",
+                "commonsCategory": "Mausoleums in Dəmirçilər (Qubadlı)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Mausoleums_in_D%C9%99mir%C3%A7il%C9%99r_(Qubadl%C4%B1)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mausoleum%20in%20Damirchilar%20village%20of%20Qubadli%20DIstrict%2C%20Azerbaijan.jpg",
+                "inventory": "309, 308",
+                "item": "http://www.wikidata.org/entity/Q115550333",
+                "itemAltLabel": "1 nömrəli türbə, 2 nömrəli türbə",
+                "itemLabel": "Dəmirçilər türbələri",
+                "lastModified": "2026-07-23T15:38:25Z"
             }
         },
         {
@@ -3806,6 +4165,23 @@
                 "itemDescription": "Azərbaycanda yerləşən Səfəvilər dövrünə aid körpü.",
                 "itemLabel": "Qazançı körpüsü",
                 "lastModified": "2026-05-01T11:34:05Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.5835,
+                    38.9729
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Cu%C4%9Fa_k%C3%B6rp%C3%BCs%C3%BC",
+                "inventory": "406",
+                "item": "http://www.wikidata.org/entity/Q31303398",
+                "itemLabel": "Cuğa körpüsü",
+                "lastModified": "2026-07-23T15:13:16Z"
             }
         },
         {
@@ -4912,6 +5288,54 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.797108569,
+                    40.568244475
+                ]
+            },
+            "properties": {
+                "inventory": "1057",
+                "item": "http://www.wikidata.org/entity/Q140658785",
+                "itemLabel": "Qoşatəpə yaşayış yeri (çoxtəbəqəli)",
+                "lastModified": "2026-07-23T18:19:17Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.605836757,
+                    40.424912906
+                ]
+            },
+            "properties": {
+                "inventory": "1058",
+                "item": "http://www.wikidata.org/entity/Q140658786",
+                "itemLabel": "Kurqanlar (3 ədəd)",
+                "lastModified": "2026-07-23T18:07:22Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.662794814,
+                    40.462537033
+                ]
+            },
+            "properties": {
+                "inventory": "1059",
+                "item": "http://www.wikidata.org/entity/Q140658788",
+                "itemLabel": "Kurqan",
+                "lastModified": "2026-07-23T18:19:51Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.517168018,
                     40.442162978
                 ]
@@ -4921,6 +5345,182 @@
                 "item": "http://www.wikidata.org/entity/Q140658789",
                 "itemLabel": "Aul yaşayış yeri",
                 "lastModified": "2026-07-22T11:23:35Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.639838787,
+                    40.448974975
+                ]
+            },
+            "properties": {
+                "inventory": "1061",
+                "item": "http://www.wikidata.org/entity/Q140658791",
+                "itemLabel": "Kurqan",
+                "lastModified": "2026-07-23T18:20:22Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.788610525,
+                    40.530347386
+                ]
+            },
+            "properties": {
+                "inventory": "1062",
+                "item": "http://www.wikidata.org/entity/Q140658792",
+                "itemLabel": "Səfikürd kurqanı",
+                "lastModified": "2026-07-23T18:20:54Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.784074526,
+                    40.543741111
+                ]
+            },
+            "properties": {
+                "inventory": "1063",
+                "item": "http://www.wikidata.org/entity/Q140658794",
+                "itemLabel": "Molla İsmayıl təpəsi yaşayış yeri",
+                "lastModified": "2026-07-23T18:16:04Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.78500074,
+                    40.544236447
+                ]
+            },
+            "properties": {
+                "inventory": "1064",
+                "item": "http://www.wikidata.org/entity/Q140658795",
+                "itemLabel": "Şortəpə yaşayış yeri",
+                "lastModified": "2026-07-23T18:21:23Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.728477261,
+                    40.485376839
+                ]
+            },
+            "properties": {
+                "inventory": "1065",
+                "item": "http://www.wikidata.org/entity/Q140658796",
+                "itemLabel": "Kurqanlar",
+                "lastModified": "2026-07-23T18:17:35Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.726691969,
+                    40.488541742
+                ]
+            },
+            "properties": {
+                "inventory": "1066",
+                "item": "http://www.wikidata.org/entity/Q140658797",
+                "itemLabel": "Kurqanlar",
+                "lastModified": "2026-07-23T18:18:12Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.754924323,
+                    40.462902816
+                ]
+            },
+            "properties": {
+                "inventory": "1067",
+                "item": "http://www.wikidata.org/entity/Q140658800",
+                "itemLabel": "Osmantəpə kurqanları",
+                "lastModified": "2026-07-23T18:17:01Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.74951902,
+                    40.456926879
+                ]
+            },
+            "properties": {
+                "inventory": "1068",
+                "item": "http://www.wikidata.org/entity/Q140658802",
+                "itemLabel": "Hacılı Qobusu kurqanları",
+                "lastModified": "2026-07-23T18:11:10Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.753366061,
+                    40.465507393
+                ]
+            },
+            "properties": {
+                "inventory": "1069",
+                "item": "http://www.wikidata.org/entity/Q140658803",
+                "itemLabel": "Çataltəpə kurqanı",
+                "lastModified": "2026-07-23T18:09:34Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.823845984,
+                    40.660499314
+                ]
+            },
+            "properties": {
+                "inventory": "1070",
+                "item": "http://www.wikidata.org/entity/Q140658805",
+                "itemLabel": "Geran yaşayış yeri və nekropolu",
+                "lastModified": "2026-07-23T18:10:29Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.652101825,
+                    40.728525767
+                ]
+            },
+            "properties": {
+                "inventory": "1072",
+                "item": "http://www.wikidata.org/entity/Q140665051",
+                "itemLabel": "Qəbiristanlıq",
+                "lastModified": "2026-07-23T18:13:20Z"
             }
         },
         {
@@ -5009,6 +5609,40 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.232045,
+                    41.141305
+                ]
+            },
+            "properties": {
+                "inventory": "1254",
+                "item": "http://www.wikidata.org/entity/Q140659094",
+                "itemDescription": "Qazaxda süni mağaralar",
+                "itemLabel": "Daş Salahlı mağaraları",
+                "lastModified": "2026-07-23T19:12:04Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.235824,
+                    41.143802
+                ]
+            },
+            "properties": {
+                "inventory": "1266",
+                "item": "http://www.wikidata.org/entity/Q140659115",
+                "itemDescription": "Qazaxda yerləşən süni mağara",
+                "itemLabel": "Damcılı məbədi",
+                "lastModified": "2026-07-23T19:08:52Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.236069721,
                     41.14455356
                 ]
@@ -5058,6 +5692,23 @@
                 "item": "http://www.wikidata.org/entity/Q19716707",
                 "itemLabel": "Əniq qalası",
                 "lastModified": "2026-01-29T14:17:03Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.446482,
+                    39.437431
+                ]
+            },
+            "properties": {
+                "inventory": "1453",
+                "item": "http://www.wikidata.org/entity/Q140659409",
+                "itemDescription": "Qubadlıda sığınacaq",
+                "itemLabel": "Qaraqaya sığınacağı",
+                "lastModified": "2026-07-23T15:53:00Z"
             }
         },
         {
@@ -5312,10 +5963,11 @@
                 ]
             },
             "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/T%C3%B6yr%C9%99t%C9%99p%C9%99_ya%C5%9Fay%C4%B1%C5%9F_yeri",
                 "inventory": "1799",
-                "item": "http://www.wikidata.org/entity/Q140665130",
+                "item": "http://www.wikidata.org/entity/Q16417744",
                 "itemLabel": "Töyrətəpə yaşayış yeri",
-                "lastModified": "2026-07-22T17:36:16Z"
+                "lastModified": "2026-07-23T19:13:59Z"
             }
         },
         {
@@ -5887,6 +6539,22 @@
                 "itemDescription": "historic site in Baku, Azerbaijan",
                 "itemLabel": "Şəmsi Əsədullayevin evi",
                 "lastModified": "2026-05-15T19:30:59Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834069444,
+                    40.377322222
+                ]
+            },
+            "properties": {
+                "inventory": "2977",
+                "item": "http://www.wikidata.org/entity/Q140660999",
+                "itemLabel": "Mikayıl Müşfiqin yaşayış evi",
+                "lastModified": "2026-07-23T19:24:48Z"
             }
         },
         {
@@ -7767,6 +8435,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.600139,
+                    40.057474
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Harva_kils%C9%99si",
+                "inventory": "4059-12",
+                "item": "http://www.wikidata.org/entity/Q110103856",
+                "itemLabel": "Harva kilsəsi",
+                "lastModified": "2026-07-23T16:28:30Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.481877157,
                     40.645532913
                 ]
@@ -7886,6 +8571,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.395073,
+                    41.142572
+                ]
+            },
+            "properties": {
+                "inventory": "4082",
+                "item": "http://www.wikidata.org/entity/Q140665350",
+                "itemLabel": "Qarahəsənli məscidi",
+                "lastModified": "2026-07-23T19:31:29Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.3960367,
                     41.097039465
                 ]
@@ -7898,6 +8599,22 @@
                 "itemDescription": "Ağstafa rayonun Dağ Kəsəmən kəndində yerləşən XIX əsrə aid məscid.",
                 "itemLabel": "Əyyub ağa məscidi",
                 "lastModified": "2026-02-09T11:00:56Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.386725,
+                    41.15445
+                ]
+            },
+            "properties": {
+                "inventory": "4084",
+                "item": "http://www.wikidata.org/entity/Q140665351",
+                "itemLabel": "Düzqışlaq məscidi",
+                "lastModified": "2026-07-23T19:34:47Z"
             }
         },
         {
@@ -8476,23 +9193,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    45.83722925,
-                    40.563624389
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/Alman_l%C3%BCteran_kils%C9%99si_(G%C9%99d%C9%99b%C9%99y)",
-                "inventory": "4242",
-                "item": "http://www.wikidata.org/entity/Q16415867",
-                "itemLabel": "Alman lüteran kilsəsi",
-                "lastModified": "2026-05-01T11:34:44Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     45.837222,
                     40.563611
                 ]
@@ -8576,12 +9276,12 @@
                 "azLink": "https://az.wikipedia.org/wiki/H%C9%99m%C5%9Fiv%C9%99ng_m%C9%99b%C9%99di",
                 "commonsCategory": "Böyük Qaramurad Vəngi",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:B%C3%B6y%C3%BCk_Qaramurad_V%C9%99ngi",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Hamshivang%20monastery%20%282%29.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/H%C9%99m%C5%9Fiv%C9%99ng%20monastery.jpg",
                 "inventory": "4250",
                 "item": "http://www.wikidata.org/entity/Q10966721",
                 "itemDescription": "Gədəbəydə monastır",
                 "itemLabel": "Həmşivəng kompleksi",
-                "lastModified": "2026-07-22T17:43:38Z"
+                "lastModified": "2026-07-22T18:20:37Z"
             }
         },
         {
@@ -8689,6 +9389,22 @@
                 "item": "http://www.wikidata.org/entity/Q16418620",
                 "itemLabel": "Xudu Baba türbəsi",
                 "lastModified": "2026-02-20T10:26:56Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.743563097,
+                    40.58015484
+                ]
+            },
+            "properties": {
+                "inventory": "4263",
+                "item": "http://www.wikidata.org/entity/Q140662032",
+                "itemLabel": "Türbə kompleksi",
+                "lastModified": "2026-07-23T18:21:53Z"
             }
         },
         {
@@ -9100,6 +9816,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.830856713,
+                    39.702347686
+                ]
+            },
+            "properties": {
+                "inventory": "4327",
+                "item": "http://www.wikidata.org/entity/Q140662059",
+                "itemLabel": "Çanaqçı qalası",
+                "lastModified": "2026-07-23T18:20:19Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.995781862,
                     39.442029394
                 ]
@@ -9115,6 +9847,55 @@
                 "itemDescription": "Xocavəndin Ərəkül kəndində yerləşən kilsə",
                 "itemLabel": "Müqəddəs Məryəm kilsəsi (Ərəkül)",
                 "lastModified": "2026-05-01T11:34:59Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.077734325,
+                    39.492428736
+                ]
+            },
+            "properties": {
+                "inventory": "4333",
+                "item": "http://www.wikidata.org/entity/Q140665455",
+                "itemLabel": "Məbəd",
+                "lastModified": "2026-07-23T18:03:36Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.021886944,
+                    39.540323991
+                ]
+            },
+            "properties": {
+                "inventory": "4335",
+                "item": "http://www.wikidata.org/entity/Q140665457",
+                "itemLabel": "Məbəd",
+                "lastModified": "2026-07-23T18:05:46Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.029324526,
+                    39.507129587
+                ]
+            },
+            "properties": {
+                "inventory": "4347",
+                "item": "http://www.wikidata.org/entity/Q140665472",
+                "itemAltLabel": "Tək kilsəsi",
+                "itemLabel": "Dağdöşü kilsəsi",
+                "lastModified": "2026-07-23T18:47:49Z"
             }
         },
         {
@@ -9358,6 +10139,59 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.615953,
+                    40.766608
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Qalaboynu_qalas%C4%B1",
+                "inventory": "4495",
+                "item": "http://www.wikidata.org/entity/Q12844144",
+                "itemAltLabel": "Qalaboyun qalası",
+                "itemDescription": "Kəlbəcərdə qala",
+                "itemLabel": "Qalaboynu qalası",
+                "lastModified": "2026-07-23T19:49:13Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.164874,
+                    41.229699
+                ]
+            },
+            "properties": {
+                "inventory": "4510",
+                "item": "http://www.wikidata.org/entity/Q140662201",
+                "itemLabel": "Hacı Əfəndinin yaşayış evi",
+                "lastModified": "2026-07-23T18:59:38Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.237207,
+                    41.143575
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Damc%C4%B1l%C4%B1_bula%C4%9F%C4%B1",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Damc%C4%B1l%C4%B1%20bula%C4%9F%C4%B1.jpg",
+                "inventory": "4511",
+                "item": "http://www.wikidata.org/entity/Q12838430",
+                "itemLabel": "Damcılı bulağı",
+                "lastModified": "2026-07-23T19:04:00Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.360759827,
                     41.09318669
                 ]
@@ -9389,8 +10223,9 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C4%B0srafil%20a%C4%9Fa%20hamam%C4%B1.jpg",
                 "inventory": "4514",
                 "item": "http://www.wikidata.org/entity/Q16414341",
+                "itemDescription": "Qazaxda hamam",
                 "itemLabel": "İsrafil ağa hamamı",
-                "lastModified": "2026-06-04T18:59:09Z"
+                "lastModified": "2026-07-23T19:06:58Z"
             }
         },
         {
@@ -9454,6 +10289,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.299204,
+                    41.056802
+                ]
+            },
+            "properties": {
+                "inventory": "4526",
+                "item": "http://www.wikidata.org/entity/Q140662208",
+                "itemDescription": "Qazaxda türbə",
+                "itemLabel": "Xanlıqlar türbəsi",
+                "lastModified": "2026-07-23T18:53:23Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.184686111,
                     41.088705555
                 ]
@@ -9476,6 +10328,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.165156,
+                    41.229
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Aslanb%C9%99yli_m%C9%99scidi",
+                "inventory": "4535",
+                "item": "http://www.wikidata.org/entity/Q25540207",
+                "itemDescription": "Qazaxda məscid",
+                "itemLabel": "Aslanbəyli məscidi",
+                "lastModified": "2026-07-23T19:18:14Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.175054686,
                     41.231349351
                 ]
@@ -9491,6 +10361,25 @@
                 "itemDescription": "Qazaxın Aslanbəyli kəndində yerləşən türbə",
                 "itemLabel": "Hacı Mahmud Əfəndi türbəsi",
                 "lastModified": "2025-10-14T12:54:01Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.164856,
+                    41.229661
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Aslanb%C9%99yli_karvansaras%C4%B1",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/HadjiMahmudEfendiGuestHouse%20FN.jpg",
+                "inventory": "4538",
+                "item": "http://www.wikidata.org/entity/Q139915826",
+                "itemDescription": "Qazax rayonunun Aslanbəyli kəndində yerləşən 19-cu əsrə aid memarlıq abidəsi",
+                "itemLabel": "Aslanbəyli karvansarası",
+                "lastModified": "2026-07-23T18:54:03Z"
             }
         },
         {
@@ -10261,6 +11150,40 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.664837,
+                    39.475047
+                ]
+            },
+            "properties": {
+                "inventory": "4699",
+                "item": "http://www.wikidata.org/entity/Q140662285",
+                "itemLabel": "\"Qalalı\" qalası (yeraltı keçidlə)",
+                "lastModified": "2026-07-23T15:57:01Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.596352777,
+                    39.372877777
+                ]
+            },
+            "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Artcakh%2C%20Sanasar%20%28Kubatli%29%2C%20Memorial%20spring%2C%202014.05.09%20-%20panoramio.jpg",
+                "inventory": "4702",
+                "item": "http://www.wikidata.org/entity/Q140662289",
+                "itemDescription": "Qubadlıda bulaq",
+                "itemLabel": "Mədət bulağı",
+                "lastModified": "2026-07-23T15:46:21Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.601024173,
                     39.317187433
                 ]
@@ -10278,8 +11201,96 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    46.69552,
-                    39.252347
+                    46.609579589,
+                    39.307923577
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C3%87%C3%B6l_m%C9%99scidi",
+                "inventory": "4704",
+                "item": "http://www.wikidata.org/entity/Q110101377",
+                "itemAltLabel": "Dondarlı məscidi",
+                "itemDescription": "Qubadlıda məscid",
+                "itemLabel": "Çöl məscidi",
+                "lastModified": "2026-07-23T15:50:15Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.603165714,
+                    39.314356787
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Hac%C4%B1_B%C9%99d%C9%99l_k%C3%B6rp%C3%BCs%C3%BC",
+                "inventory": "4705",
+                "item": "http://www.wikidata.org/entity/Q31296476",
+                "itemAltLabel": "Hacıbədəl körpüsü",
+                "itemLabel": "Hacı Bədəl körpüsü",
+                "lastModified": "2026-07-23T15:48:16Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.56908807,
+                    39.322022587
+                ]
+            },
+            "properties": {
+                "inventory": "4708",
+                "item": "http://www.wikidata.org/entity/Q140662293",
+                "itemDescription": "Qubadlıda türbə",
+                "itemLabel": "Xocamusaxlı türbəsi",
+                "lastModified": "2026-07-23T15:39:21Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.642458154,
+                    39.246038023
+                ]
+            },
+            "properties": {
+                "inventory": "4710",
+                "item": "http://www.wikidata.org/entity/Q140662294",
+                "itemDescription": "Qubadlıda türbə",
+                "itemLabel": "Boyunəgər türbəsi",
+                "lastModified": "2026-07-23T15:23:01Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.634641666,
+                    39.302825
+                ]
+            },
+            "properties": {
+                "inventory": "4712",
+                "item": "http://www.wikidata.org/entity/Q140665585",
+                "itemDescription": "Qubadlıda məscid",
+                "itemLabel": "Mirlər məscidi",
+                "lastModified": "2026-07-23T15:59:55Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.691889,
+                    39.254444
                 ]
             },
             "properties": {
@@ -10288,7 +11299,58 @@
                 "item": "http://www.wikidata.org/entity/Q101243685",
                 "itemDescription": "18th century Azerbaijani mosque in Qubadli",
                 "itemLabel": "Məmər məscidi",
-                "lastModified": "2026-02-09T13:34:09Z"
+                "lastModified": "2026-07-23T15:51:52Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.531258333,
+                    39.365133333
+                ]
+            },
+            "properties": {
+                "inventory": "4714",
+                "item": "http://www.wikidata.org/entity/Q140662295",
+                "itemDescription": "Qubadlıda məscid",
+                "itemLabel": "Xələc məscidinin qalıqları",
+                "lastModified": "2026-07-23T15:58:11Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.41238252,
+                    39.410383372
+                ]
+            },
+            "properties": {
+                "inventory": "4715",
+                "item": "http://www.wikidata.org/entity/Q140665586",
+                "itemDescription": "Qubadlıda məbəd",
+                "itemLabel": "Məzrə məbədi",
+                "lastModified": "2026-07-23T15:21:28Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.733306,
+                    39.23775
+                ]
+            },
+            "properties": {
+                "inventory": "4716",
+                "item": "http://www.wikidata.org/entity/Q140665587",
+                "itemDescription": "Qubadlıda məscid",
+                "itemLabel": "Mahruzlu məscidi",
+                "lastModified": "2026-07-23T15:27:52Z"
             }
         },
         {
@@ -11441,6 +12503,40 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.792461471,
+                    39.833883727
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Mal%C4%B1b%C9%99yli_hamam%C4%B1",
+                "inventory": "5054",
+                "item": "http://www.wikidata.org/entity/Q55698636",
+                "itemLabel": "Malıbəyli hamamı",
+                "lastModified": "2026-07-23T18:23:29Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.796432793,
+                    39.82818719
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Novlu_bulaq",
+                "inventory": "5055",
+                "item": "http://www.wikidata.org/entity/Q117813489",
+                "itemLabel": "Novlu bulaq",
+                "lastModified": "2026-07-23T18:34:04Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.751333333,
                     39.759861111
                 ]
@@ -11542,6 +12638,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.621192,
+                    40.97131
+                ]
+            },
+            "properties": {
+                "inventory": "5186",
+                "item": "http://www.wikidata.org/entity/Q140662662",
+                "itemDescription": "Tovuzda körpü",
+                "itemLabel": "Qazıqulu dəmiryol körpüsü",
+                "lastModified": "2026-07-23T19:51:23Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.67381307,
                     40.966824304
                 ]
@@ -11626,6 +12739,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.562061111,
+                    40.889427777
+                ]
+            },
+            "properties": {
+                "inventory": "5195",
+                "item": "http://www.wikidata.org/entity/Q140662669",
+                "itemLabel": "Alı Dədə türbəsi",
+                "lastModified": "2026-07-23T19:40:54Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.628888888,
                     40.866388888
                 ]
@@ -11637,6 +12766,40 @@
                 "itemDescription": "church building in Tovuz District, Azerbaijan",
                 "itemLabel": "Əsrik Cırdaxan məbədi",
                 "lastModified": "2026-05-01T11:34:30Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.540458333,
+                    40.707308333
+                ]
+            },
+            "properties": {
+                "inventory": "5197",
+                "item": "http://www.wikidata.org/entity/Q140665754",
+                "itemDescription": "Tovuzda məscid",
+                "itemLabel": "Böyükqışlaq məscidi",
+                "lastModified": "2026-07-23T19:39:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.670823,
+                    40.729976
+                ]
+            },
+            "properties": {
+                "inventory": "5198",
+                "item": "http://www.wikidata.org/entity/Q140665755",
+                "itemDescription": "Tovuzda kilsə",
+                "itemLabel": "Qarabağlılar kilsəsi",
+                "lastModified": "2026-07-23T20:02:56Z"
             }
         },
         {
@@ -12434,6 +13597,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.058333,
+                    40.119167
+                ]
+            },
+            "properties": {
+                "inventory": "5646",
+                "item": "http://www.wikidata.org/entity/Q140663084",
+                "itemDescription": "Kəlbəcərdə yerləşən memorial",
+                "itemLabel": "Kəlbəcərdə Böyük Vətən Müharibəsində həlak olmuş həmvətənlərimizin xatirə abidəsi",
+                "lastModified": "2026-07-23T16:16:28Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.264264709,
                     41.238932746
                 ]
@@ -12582,6 +13762,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.659679859,
+                    40.458479591
+                ]
+            },
+            "properties": {
+                "inventory": "5815",
+                "item": "http://www.wikidata.org/entity/Q140663241",
+                "itemLabel": "Qoşaçinar yaşayış yeri",
+                "lastModified": "2026-07-23T18:18:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.44204075,
                     40.775565913
                 ]
@@ -12596,6 +13792,41 @@
                 "itemDescription": "Sulut kəndində yerləşmiş qala",
                 "itemLabel": "Haram qalası",
                 "lastModified": "2026-02-20T09:20:46Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.200120857,
+                    41.134180739
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C3%87ayl%C4%B1_k%C3%B6rp%C3%BCs%C3%BC",
+                "inventory": "5850",
+                "item": "http://www.wikidata.org/entity/Q140663268",
+                "itemAltLabel": "Haqverdiağa körpüsü, Haqverdi Ağa körpüsü",
+                "itemDescription": "Qazaxda körpü",
+                "itemLabel": "Haqverdiağa körpüsü",
+                "lastModified": "2026-07-23T14:59:24Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.026171,
+                    41.06462
+                ]
+            },
+            "properties": {
+                "inventory": "5852",
+                "item": "http://www.wikidata.org/entity/Q140663270",
+                "itemLabel": "Şəhərgah",
+                "lastModified": "2026-07-23T19:11:00Z"
             }
         },
         {
@@ -12783,6 +14014,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.562969444,
+                    40.889577777
+                ]
+            },
+            "properties": {
+                "inventory": "6053",
+                "item": "http://www.wikidata.org/entity/Q140665929",
+                "itemDescription": "Tovuzda qəbiristanlıq",
+                "itemLabel": "Ağdam qəbiristanlığı",
+                "lastModified": "2026-07-23T19:41:50Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.650999618,
                     40.932149599
                 ]
@@ -12819,6 +14067,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.946106299,
+                    39.993474607
+                ]
+            },
+            "properties": {
+                "inventory": "6155",
+                "item": "http://www.wikidata.org/entity/Q140663532",
+                "itemDescription": "Kəlbəcərin Zar kəndində yerləşən fiqur",
+                "itemLabel": "Daş qoç fiquru-ərəb yazısı ilə",
+                "lastModified": "2026-07-23T16:15:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.580273692,
                     40.944299346
                 ]
@@ -12828,6 +14093,23 @@
                 "item": "http://www.wikidata.org/entity/Q140663656",
                 "itemLabel": "Daş qoç fiquru",
                 "lastModified": "2026-07-22T14:17:46Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.510241,
+                    40.950552
+                ]
+            },
+            "properties": {
+                "inventory": "6276",
+                "item": "http://www.wikidata.org/entity/Q140663657",
+                "itemDescription": "Tovuzda heyvan fiquru",
+                "itemLabel": "Daş qoç fiquru",
+                "lastModified": "2026-07-23T19:46:46Z"
             }
         }
     ]
