@@ -2334,7 +2334,7 @@
                 "itemAltLabel": "AMEA Məhəmməd Füzuli adına Əlyazmalar İnstitutu, Əlyazmalar İnstitutu, Məhəmməd Füzuli adına Əlyazmalar İnstitutu",
                 "itemDescription": "research institute in Baku, Azerbaijan",
                 "itemLabel": "AMEA Əlyazmalar İnstitutu",
-                "lastModified": "2026-04-20T19:11:41Z"
+                "lastModified": "2026-07-23T20:46:13Z"
             }
         },
         {
@@ -2796,9 +2796,9 @@
                 "inventory": "204-2",
                 "item": "http://www.wikidata.org/entity/Q25399549",
                 "itemAltLabel": "Müqəddəs Yaqub monastırı, Müqəddəs Yaqub kilsəsi",
-                "itemDescription": "Armenian Monastery",
+                "itemDescription": "Armenian monastery in Azerbaijan",
                 "itemLabel": "Böyük Arran monastırı",
-                "lastModified": "2026-07-23T16:24:45Z"
+                "lastModified": "2026-07-23T22:18:51Z"
             }
         },
         {
@@ -2841,7 +2841,7 @@
                 "itemAltLabel": "Xatırvank, Xatirvəng monastırı",
                 "itemDescription": "Kəlbəcər rayonunda monastır",
                 "itemLabel": "Xatirəvəng monastırı",
-                "lastModified": "2026-07-23T16:22:33Z"
+                "lastModified": "2026-07-23T22:16:56Z"
             }
         },
         {
@@ -3366,7 +3366,7 @@
                 "itemAltLabel": "Ləv qalası, Löh qalası, Andaberd, Handaberd",
                 "itemDescription": "Kəlbəcər rayonunda qala",
                 "itemLabel": "Lex qalası",
-                "lastModified": "2026-07-23T16:18:02Z"
+                "lastModified": "2026-07-23T22:17:56Z"
             }
         },
         {
@@ -3578,7 +3578,7 @@
                 "itemAltLabel": "Laləzar",
                 "itemDescription": "Qubadlı rayonunda körpü",
                 "itemLabel": "Laləzar körpüsü",
-                "lastModified": "2026-07-23T15:20:03Z"
+                "lastModified": "2026-07-23T22:17:29Z"
             }
         },
         {
@@ -11279,8 +11279,7 @@
             "properties": {
                 "inventory": "4712",
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemDescription": "Qubadlıda məscid",
-                "itemLabel": "Mirlər məscidi",
+                "itemLabel": "Məscid",
                 "lastModified": "2026-07-23T15:59:55Z"
             }
         },
@@ -13503,6 +13502,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    47.058611,
+                    40.760278
+                ]
+            },
+            "properties": {
+                "inventory": "5603",
+                "item": "http://www.wikidata.org/entity/Q140663032",
+                "itemLabel": "Faşizm üzərində qələbənin 30 illik yubileyi münasibəti ilə ucaldılan Ana Vətən abidəsi",
+                "lastModified": "2026-07-23T20:29:27Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.681036791,
                     40.591588786
                 ]
@@ -13810,7 +13825,7 @@
                 "itemAltLabel": "Haqverdiağa körpüsü, Haqverdi Ağa körpüsü",
                 "itemDescription": "Qazaxda körpü",
                 "itemLabel": "Haqverdiağa körpüsü",
-                "lastModified": "2026-07-23T14:59:24Z"
+                "lastModified": "2026-07-23T22:04:24Z"
             }
         },
         {
@@ -13886,8 +13901,8 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Plate%20from%20Bandovan%20with%20lion%20image.jpg",
                 "inventory": "5982",
                 "item": "http://www.wikidata.org/entity/Q12837982",
-                "itemLabel": "Bəndovan",
-                "lastModified": "2026-04-10T21:17:14Z"
+                "itemLabel": "Bəndovan yaşayış yeri",
+                "lastModified": "2026-07-23T20:20:11Z"
             }
         },
         {
