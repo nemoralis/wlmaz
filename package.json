@@ -57,7 +57,7 @@
     "rate-limit-redis": "5.0.0",
     "redis": "6.0.0",
     "sharp": "0.34.5",
-    "vue": "3.5.35",
+    "vue": "3.5.40",
     "vue-chartjs": "5.3.3",
     "vue-router": "5.1.0"
   },
