@@ -117,6 +117,31 @@ const checkMonumentHtml = (html: string, loc: string, label: string): void => {
    if (!/id="seo-content"[\s\S]*?<h1[\s>]/.test(html)) {
       fail(`${label}: #seo-content has no <h1>`);
    }
+
+   const dataScript = html.match(/<script[^>]*id="monument-data"[^>]*>([\s\S]*?)<\/script>/);
+   if (!dataScript) {
+      fail(`${label}: missing #monument-data JSON block`);
+   } else {
+      try {
+         const data = JSON.parse(dataScript[1]);
+         if (!data || typeof data !== "object") {
+            fail(`${label}: #monument-data is not a JSON object`);
+         } else {
+            const canonicalId = String(data.inventory ?? "").split(",")[0].trim();
+            const expectedId = decodeURIComponent(loc.replace(`${HOST}/monument/`, ""));
+            if (canonicalId !== expectedId) {
+               fail(
+                  `${label}: #monument-data inventory "${canonicalId}" != expected "${expectedId}"`,
+               );
+            }
+            if (!data.itemLabel) {
+               fail(`${label}: #monument-data missing itemLabel`);
+            }
+         }
+      } catch {
+         fail(`${label}: #monument-data is not valid JSON`);
+      }
+   }
 };
 
 const checkStaticHtml = (html: string, loc: string, label: string): void => {

@@ -274,23 +274,65 @@ useHead({
    ],
 });
 
+// On a fresh page load the prerendered HTML embeds this monument's props as a
+// JSON data block, so the page can render immediately without downloading and
+// parsing the full geojson through the Web Worker. The store/worker path below
+// still handles client-side navigation and non-prerendered routes.
+const embeddedMonument = (() => {
+   const el = document.getElementById("monument-data");
+   if (!el) return null;
+   try {
+      return JSON.parse(el.textContent || "") as MonumentProps | null;
+   } catch {
+      return null;
+   }
+})();
+
+const hasEmbeddedData = Boolean(
+   embeddedMonument && isIdMatch(embeddedMonument.inventory, String(route.params.id ?? "")),
+);
+
+if (hasEmbeddedData && embeddedMonument) {
+   monument.value = embeddedMonument;
+   error.value = null;
+   loading.value = false;
+   if (monument.value.image) {
+      fetchImageMetadata(monument.value.image);
+   }
+}
+
 onMounted(() => {
-   monumentStore.init();
+   if (!hasEmbeddedData) {
+      monumentStore.init();
+   }
 });
 
 watch(
    [() => monumentStore.isDataReady, () => route.params.id],
    ([ready, id]) => {
-      if (ready && id) {
+      const currentId = String(id ?? "");
+
+      // The embedded data is only valid for the monument it was prerendered for;
+      // once the route changes, fall back to the store/worker path.
+      if (hasEmbeddedData && isIdMatch(embeddedMonument?.inventory, currentId)) {
+         return;
+      }
+
+      if (!ready) {
+         monumentStore.init();
+         return;
+      }
+
+      if (currentId) {
          const found = monumentStore.geoData?.features.find((f: any) =>
-            isIdMatch(f.properties.inventory, id as string),
+            isIdMatch(f.properties.inventory, currentId),
          );
          if (found) {
             const canonicalId = getCanonicalId(found.properties?.inventory);
 
             // Redirect to canonical ID if needed (path string form so %2E is
             // not double-encoded by vue-router params)
-            if (id !== canonicalId) {
+            if (currentId !== canonicalId) {
                router.replace(`/monument/${encodeIdForUrl(canonicalId)}`);
             }
 

@@ -133,6 +133,16 @@ const renderContent = (props: MonumentProps): string => {
    `;
 };
 
+/**
+ * Serializes the monument's props into a JSON data block so the runtime can
+ * render the page without downloading and parsing the full geojson through the
+ * Web Worker. `<` is escaped to keep the JSON from closing the script tag.
+ */
+const buildEmbeddedData = (props: MonumentProps): string => {
+   const json = JSON.stringify(props).replace(/</g, "\\u003c");
+   return `<script type="application/json" id="monument-data">${json}</script>`;
+};
+
 const buildHeadTags = (props: MonumentProps, canonicalUrl: string, title: string): string => {
    const description =
       props.itemDescription || "Azərbaycanın tarixi abidələri və mədəni irs xəritəsi";
@@ -191,9 +201,14 @@ const buildMonumentHtml = (
 
    // Insert per-page head tags before </head>.
    const headTags = buildHeadTags(props, canonicalUrl, title);
+   // Embed the monument's props for instant runtime rendering (no geojson).
+   const embeddedData = buildEmbeddedData(props);
    // Override the shell's overflow:hidden so static content is scrollable.
    const styleOverride = "<style>html, body { overflow: auto !important; height: auto; }</style>";
-   html = html.replace("</head>", `${headTags}\n   ${styleOverride}\n   </head>`);
+   html = html.replace(
+      "</head>",
+      `${headTags}\n   ${embeddedData}\n   ${styleOverride}\n   </head>`,
+   );
 
    // Replace the loading skeleton inside #app with real content. The #app
    // container is the only div in the body, so its closing tag is the last
