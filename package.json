@@ -72,7 +72,7 @@
     "@types/geobuf": "3.0.4",
     "@types/geojson": "7946.0.16",
     "@types/hpp": "0.2.7",
-    "@types/leaflet": "1.9.21",
+    "@types/leaflet": "1.9.22",
     "@types/morgan": "1.9.10",
     "@types/multer": "2.2.0",
     "@types/node": "24.13.3",
