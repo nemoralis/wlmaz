@@ -92,7 +92,6 @@ import {
    watch,
 } from "vue";
 import L from "leaflet";
-import "leaflet.markercluster";
 import { useAuthStore } from "../stores/auth";
 import { useMonumentStore } from "../stores/monuments";
 import type { MonumentProps } from "../types";
@@ -105,8 +104,6 @@ import { useLeafletMap, type MonumentMarker } from "../composables/useLeafletMap
 import { useWikiCredits } from "../composables/useWikiCredits";
 import { getCanonicalId } from "../utils/monumentFormatters";
 // CSS
-import "leaflet.markercluster/dist/MarkerCluster.css";
-import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
 import "leaflet-minimap/dist/Control.MiniMap.min.css";
 
@@ -137,10 +134,8 @@ export default defineComponent({
          markersGroup,
          initialize,
          highlightMarker,
-         setupClusterGroup,
+         setupMarkerLayer,
          flyToMarker,
-         getVisibleParent,
-         zoomToShowLayer,
       } = useLeafletMap();
 
       // --- Refs & State ---
@@ -161,27 +156,13 @@ export default defineComponent({
       const selectMonument = async (marker: MonumentMarker) => {
          if (!marker || !markersGroup.value) return;
 
-         const performSelection = async () => {
-            highlightMarker(marker);
+         highlightMarker(marker);
 
-            const props = marker.feature.properties;
-            monumentStore.selectedMonument = props;
+         const props = marker.feature.properties;
+         monumentStore.selectedMonument = props;
 
-            await nextTick();
-            sidebarInstance.value?.open("details");
-         };
-
-         const visibleParent = getVisibleParent(marker);
-
-         if (visibleParent && visibleParent !== marker) {
-            // It is clustered. Use zoomToShowLayer to reveal it.
-            zoomToShowLayer(marker, () => {
-               performSelection();
-            });
-         } else {
-            // It is already visible (or spiderfied). Just select it.
-            performSelection();
-         }
+         await nextTick();
+         sidebarInstance.value?.open("details");
       };
 
       const flyToMonument = (
@@ -215,9 +196,9 @@ export default defineComponent({
             const filtered = allMarkers.filter(
                (m) => !(m as MonumentMarker).feature.properties.image,
             );
-            markersGroup.value.addLayers(filtered);
+            filtered.forEach((m) => markersGroup.value!.addLayer(m));
          } else {
-            markersGroup.value.addLayers(allMarkers);
+            allMarkers.forEach((m) => markersGroup.value!.addLayer(m));
          }
       };
 
@@ -339,9 +320,9 @@ export default defineComponent({
                      (f: any) => f.properties.image,
                   ).length;
 
-                  // Create Cluster Group
-                  const clusterGroup = setupClusterGroup();
-                  if (!clusterGroup) return;
+                  // Create Marker Layer
+                  const markerLayer = setupMarkerLayer();
+                  if (!markerLayer) return;
 
                   // Create Layers
                   const geoJsonLayer = L.geoJSON(geoData, {
@@ -365,6 +346,13 @@ export default defineComponent({
                         // Ensure feature is attached for click handler
                         (marker as any).feature = feature;
 
+                        marker.on("click", (evt: L.LeafletMouseEvent) => {
+                           // Stop propagation to prevent map click from firing
+                           L.DomEvent.stopPropagation(evt.originalEvent);
+                           L.DomEvent.preventDefault(evt.originalEvent);
+                           selectMonument(marker as unknown as MonumentMarker);
+                        });
+
                         if (props.inventory) {
                            props.inventory.split(",").forEach((id) => {
                               markerLookup.set(id.trim(), marker);
@@ -375,19 +363,7 @@ export default defineComponent({
                   });
 
                   allMarkers = geoJsonLayer.getLayers() as L.Layer[];
-                  clusterGroup.addLayers(allMarkers);
-
-                  // Group Event delegation for performance
-                  clusterGroup.on("click", (evt: L.LeafletMouseEvent) => {
-                     // Stop propagation to prevent map click from firing
-                     L.DomEvent.stopPropagation(evt.originalEvent);
-                     L.DomEvent.preventDefault(evt.originalEvent);
-                     if (evt.layer instanceof L.CircleMarker) {
-                        selectMonument(evt.layer as unknown as MonumentMarker);
-                     }
-                  });
-
-                  mapInstance.value?.addLayer(clusterGroup);
+                  allMarkers.forEach((m) => markerLayer.addLayer(m));
 
                   // Deep link check after markers are ready
                   const urlParams = new URLSearchParams(window.location.search);

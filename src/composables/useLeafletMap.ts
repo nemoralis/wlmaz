@@ -1,5 +1,4 @@
 import L from "leaflet";
-import "leaflet.markercluster";
 import "leaflet-minimap";
 import { LocateControl } from "leaflet.locatecontrol";
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
@@ -185,44 +184,19 @@ export function useLeafletMap() {
       }
    };
 
-   const setupClusterGroup = (options: any = {}) => {
+   const setupMarkerLayer = () => {
       if (!mapInstance.value) return null;
 
-      const clusterGroup = (L as any).markerClusterGroup({
-         showCoverageOnHover: false,
-         chunkedLoading: true,
-         spiderfyOnMaxZoom: true,
-         zoomToBoundsOnClick: true,
-         ...options,
-      });
+      const markerLayer = L.layerGroup();
+      markersGroup.value = markerLayer;
+      mapInstance.value.addLayer(markerLayer);
 
-      markersGroup.value = clusterGroup;
-      mapInstance.value.addLayer(clusterGroup);
-
-      return clusterGroup;
+      return markerLayer;
    };
 
    const flyToMarker = (marker: L.CircleMarker, zoom = 16) => {
-      if (!mapInstance.value || !markersGroup.value) return;
-
-      const cluster = markersGroup.value as any;
-      const visibleParent = cluster.getVisibleParent(marker);
-
-      if (visibleParent && visibleParent !== marker) {
-         cluster.zoomToShowLayer(marker, () => {
-            // Marker is now visible
-         });
-      } else {
-         mapInstance.value.flyTo(marker.getLatLng(), zoom, { duration: 1.5 });
-      }
-   };
-
-   const getVisibleParent = (marker: L.Layer): L.Layer | null => {
-      return (markersGroup.value as any)?.getVisibleParent(marker) || null;
-   };
-
-   const zoomToShowLayer = (marker: L.Layer, cb: () => void) => {
-      (markersGroup.value as any)?.zoomToShowLayer(marker, cb);
+      if (!mapInstance.value) return;
+      mapInstance.value.flyTo(marker.getLatLng(), zoom, { duration: 1.5 });
    };
 
    return {
@@ -232,9 +206,7 @@ export function useLeafletMap() {
       activeMarkerLayer,
       initialize,
       highlightMarker,
-      setupClusterGroup,
+      setupMarkerLayer,
       flyToMarker,
-      getVisibleParent,
-      zoomToShowLayer,
    };
 }
