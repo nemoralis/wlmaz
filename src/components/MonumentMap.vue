@@ -99,6 +99,7 @@ import MonumentSidebarHome from "./map/MonumentSidebarHome.vue";
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 import type { Feature } from "geojson";
+import type { Point } from "geojson";
 import { useClipboard } from "../composables/useClipboard";
 import {
    useLeafletMap,
@@ -107,6 +108,7 @@ import {
 } from "../composables/useLeafletMap";
 import { useWikiCredits } from "../composables/useWikiCredits";
 import { getCanonicalId } from "../utils/monumentFormatters";
+import { getOverlapGroupKey, getSpreadPosition } from "../utils/markerOverlap";
 // CSS
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
 import "leaflet-minimap/dist/Control.MiniMap.min.css";
@@ -333,6 +335,16 @@ export default defineComponent({
                   const markerLayer = setupMarkerLayer();
                   if (!markerLayer) return;
 
+                  // Group markers by rounded position so overlapping monuments
+                  // can be spread apart and stay visible with pure colors.
+                  const positionCounts = new Map<string, number>();
+                  geoData.features.forEach((f) => {
+                     const [lng, lat] = (f.geometry as Point).coordinates as [number, number];
+                     const key = getOverlapGroupKey(lat, lng);
+                     positionCounts.set(key, (positionCounts.get(key) ?? 0) + 1);
+                  });
+                  const positionIndexes = new Map<string, number>();
+
                   // Create Layers
                   const geoJsonLayer = L.geoJSON(geoData, {
                      pointToLayer: (feature, latlng) => {
@@ -340,15 +352,30 @@ export default defineComponent({
                         props.lat = latlng.lat;
                         props.lon = latlng.lng;
 
+                        const [lng, lat] = (feature.geometry as Point).coordinates as [
+                           number,
+                           number,
+                        ];
+                        const key = getOverlapGroupKey(lat, lng);
+                        const groupSize = positionCounts.get(key) ?? 1;
+                        const index = positionIndexes.get(key) ?? 0;
+                        positionIndexes.set(key, index + 1);
+
+                        // Spread overlapping markers around the anchor so their
+                        // colors never blend, while keeping props.lat/lon at the
+                        // true position for geo:/copy-coords accuracy.
+                        const spread = getSpreadPosition(lat, lng, index, groupSize);
+                        const markerLatLng = L.latLng(spread.lat, spread.lng);
+
                         const hasImage = !!props.image;
 
-                        const marker = L.circleMarker(latlng, {
+                        const marker = L.circleMarker(markerLatLng, {
                            radius: 8,
                            fillColor: hasImage ? "#2e7d32" : "#d32f2f",
                            color: "#fff",
                            weight: 2,
                            opacity: 1,
-                           fillOpacity: 0.8,
+                           fillOpacity: 1,
                            interactive: true,
                         });
 
