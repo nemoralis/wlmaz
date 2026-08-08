@@ -183,8 +183,9 @@ const buildMonumentHtml = (
    // Replace the default title.
    html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`);
 
-   // Drop the homepage description/OG/Twitter metas so they don't conflict.
+   // Drop the homepage description/canonical/OG/Twitter tags so they don't conflict.
    html = html.replace(/<meta[^>]*name="description"[^>]*>/g, "");
+   html = html.replace(/<link[^>]*rel="canonical"[^>]*>/g, "");
    html = html.replace(/<meta[^>]*property="og:[^>]*>/g, "");
    html = html.replace(/<meta[^>]*property="twitter:[^>]*>/g, "");
 
@@ -224,6 +225,7 @@ const buildStaticHtml = (
    let html = indexHtml;
    html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`);
    html = html.replace(/<meta[^>]*name="description"[^>]*>/g, "");
+   html = html.replace(/<link[^>]*rel="canonical"[^>]*>/g, "");
    html = html.replace(/<meta[^>]*property="og:url"[^>]*>/g, "");
    html = html.replace(
       "</head>",
