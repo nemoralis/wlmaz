@@ -106,5 +106,12 @@
     "rollup-plugin-visualizer": {
       "rolldown": "npm:rolldown@latest"
     }
+  },
+    "allowScripts": {
+    "vue-demi@0.14.10": true,
+    "sharp@0.33.5": true,
+    "sharp@0.34.5": true,
+    "esbuild@0.28.0": true
   }
+  
 }
