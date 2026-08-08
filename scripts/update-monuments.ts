@@ -174,7 +174,6 @@ async function main() {
     const newData = transformToGeoJSON(bindings);
 
     // 3. Compare and calculate stats
-    // 3. Compare and calculate stats
     let added = 0;
     let removed = 0;
 
@@ -262,7 +261,9 @@ async function main() {
 
 // IndexNow Configuration
 const INDEXNOW_HOST = 'wikilovesmonuments.az';
-const INDEXNOW_KEY = '883777591e1d4511855a43256080287e';
+// The IndexNow key should come from the environment (CI secret) rather than
+// being committed to the repository.
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY;
 const INDEXNOW_KEY_LOCATION = `https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt`;
 
 async function notifyIndexNow(oldData: GeoJSON, newData: GeoJSON) {
@@ -305,7 +306,12 @@ async function notifyIndexNow(oldData: GeoJSON, newData: GeoJSON) {
    }
 
    console.log(`Notifying IndexNow for ${changedUrls.length} URLs...`);
-   
+
+   if (!INDEXNOW_KEY) {
+      console.log('Skipping IndexNow notification: INDEXNOW_KEY is not set.');
+      return;
+   }
+
    // IndexNow allows up to 10,000 URLs per request. 
    // We'll slice if necessary, but unlikely for this use case.
    const batches = [];

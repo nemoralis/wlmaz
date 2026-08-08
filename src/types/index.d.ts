@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DefineComponent } from "vue";
 
-/// <reference types="vite-plugin-pwa/client" />
-
 // ========================================================
 // 1. SHARED DOMAIN INTERFACES
 // ========================================================
@@ -112,13 +110,6 @@ declare module "*?raw" {
 /**
  * Handle missing types for passport-mediawiki-oauth
  */
-declare module "passport-mediawiki-oauth" {
-   import { Strategy as PassportStrategy } from "passport";
-   export class Strategy extends PassportStrategy {
-      constructor(options: any, verify: any);
-   }
-}
-
 declare module "leaflet-sidebar-v2" {
    // Just a basic shim to allow the import
    const content: any;

@@ -58,7 +58,9 @@
                   class="flex flex-col items-center justify-center rounded-lg bg-white p-2 text-center shadow-sm sm:flex-row sm:px-4 sm:py-2"
                >
                   <span class="text-gray-500 sm:mr-2">İştirakçı:</span>
-                  <span class="font-bold text-gray-800">{{ formatNumber(eventStats.totalUsers) }}</span>
+                  <span class="font-bold text-gray-800">{{
+                     formatNumber(eventStats.totalUsers)
+                  }}</span>
                </div>
                <div
                   class="flex flex-col items-center justify-center rounded-lg bg-white p-2 text-center shadow-sm sm:flex-row sm:px-4 sm:py-2"

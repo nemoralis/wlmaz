@@ -5,11 +5,11 @@ import crypto from "crypto";
 const config = {
    consumer: {
       key: process.env.WM_CONSUMER_TEST,
-      secret: process.env.WM_CONSUMERSC_TEST,
+      secret: process.env.WM_CONSUMER_SECRET_TEST,
    },
    token: {
       key: process.env.WM_TEST_ACCESS,
-      secret: process.env.WM_TEST_ACCESSSC,
+      secret: process.env.WM_TEST_ACCESS_SECRET,
    },
    url: "https://test.wikipedia.org/w/api.php",
 };

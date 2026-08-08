@@ -39,11 +39,7 @@
             <template #supporting-text>
                <div v-if="monument.inventory || monument.itemAltLabel" class="title-metadata">
                   <div v-if="monument.inventory" class="inventory-chips">
-                     <CdxInfoChip
-                        v-for="inv in sortedInventory"
-                        :key="inv"
-                        class="inventory-chip"
-                     >
+                     <CdxInfoChip v-for="inv in sortedInventory" :key="inv" class="inventory-chip">
                         #{{ inv }}
                      </CdxInfoChip>
                   </div>
@@ -317,10 +313,6 @@ const openExternalLink = (url: string) => {
    max-height: 25rem;
    object-fit: contain;
    transition: opacity 0.3s ease;
-}
-
-.action-button--success {
-   color: var(--color-success, #14866d);
 }
 
 .action-button--success {

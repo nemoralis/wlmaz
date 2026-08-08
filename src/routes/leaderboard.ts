@@ -1,4 +1,5 @@
 import express from "express";
+import { logger } from "../utils/logger";
 import redisClient from "../utils/redis.ts";
 
 const router = express.Router();
@@ -19,129 +20,136 @@ async function getAggregateData() {
 
    aggregatePromise = (async () => {
       try {
-   const cacheKey = "leaderboard:aggregate";
+         const cacheKey = "leaderboard:aggregate";
 
-   try {
-      if (redisClient.isOpen) {
-         const cached = await redisClient.get(cacheKey);
-         if (cached) return JSON.parse(cached);
-      }
-   } catch (e) {
-      console.error("Redis read error:", e);
-   }
-
-   const now = new Date();
-   const currentYear = now.getFullYear();
-   const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
-   const years = Array.from({ length: latestYear - START_YEAR + 1 }, (_, i) => START_YEAR + i);
-
-   const fetchPromises = years.map(async (year) => {
-      const yearCacheKey = `leaderboard:raw:${year}`;
-      const isPastYear = year < currentYear;
-
-      try {
-         if (redisClient.isOpen) {
-            const cached = await redisClient.get(yearCacheKey);
-            if (cached) return JSON.parse(cached);
-         }
-
-         const resp = await fetch(`${API_BASE}/monuments${year}`, {
-            signal: AbortSignal.timeout(10000),
-            headers: { "User-Agent": "WLMAZ-Tool/1.0" },
-         });
-         if (resp.ok) {
-            const data = await resp.json();
+         try {
             if (redisClient.isOpen) {
-               // Cache past years for 24h, current year for 1h
-               const ttl = isPastYear ? 86400 : 3600;
-               await redisClient.setEx(yearCacheKey, ttl, JSON.stringify(data));
+               const cached = await redisClient.get(cacheKey);
+               if (cached) return JSON.parse(cached);
             }
-            return data;
+         } catch (e) {
+            logger.error("Redis read error:", e);
          }
-         return null;
-      } catch (e) {
-         console.error(`Failed to fetch monuments${year}:`, e);
-         return null;
-      }
-   });
 
-   const results = await Promise.all(fetchPromises);
+         const now = new Date();
+         const currentYear = now.getFullYear();
+         const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
+         const years = Array.from(
+            { length: latestYear - START_YEAR + 1 },
+            (_, i) => START_YEAR + i,
+         );
 
-   const aggregate: any = {
-      [COUNTRY]: {
-         count: 0,
-         usage: 0,
-         usercount: 0,
-         users: Object.create(null),
-         years: Object.create(null), // Breakdown per year
-      },
-   };
+         const fetchPromises = years.map(async (year) => {
+            const yearCacheKey = `leaderboard:raw:${year}`;
+            const isPastYear = year < currentYear;
 
-   const userMap: Record<
-      string,
-      {
-         count: number;
-         usage: number;
-         reg: number;
-         yearly: Record<number, { count: number; usage: number }>;
-      }
-   > = Object.create(null);
-   const uniqueUsers = new Set<string>();
+            try {
+               if (redisClient.isOpen) {
+                  const cached = await redisClient.get(yearCacheKey);
+                  if (cached) return JSON.parse(cached);
+               }
 
-   results.forEach((data, index) => {
-      if (!data || !data[COUNTRY]) return;
-      const year = years[index];
-      const countryData = data[COUNTRY];
-
-      aggregate[COUNTRY].count += countryData.count || 0;
-      aggregate[COUNTRY].usage += countryData.usage || 0;
-      aggregate[COUNTRY].years[year] = {
-         count: countryData.count,
-         usercount: countryData.usercount,
-         usage: countryData.usage,
-      };
-
-      if (countryData.users) {
-         Object.entries(countryData.users).forEach(([username, userData]: [string, any]) => {
-            // Security: Prevent prototype pollution from upstream data
-            if (username === "__proto__" || username === "constructor" || username === "prototype") {
-               return;
-            }
-
-            uniqueUsers.add(username);
-            if (!userMap[username]) {
-               userMap[username] = {
-                  count: 0,
-                  usage: 0,
-                  reg: userData.reg,
-                  yearly: Object.create(null),
-               };
-            }
-            const count = userData.count || 0;
-            const usage = userData.usage || 0;
-            userMap[username].count += count;
-            userMap[username].usage += usage;
-            userMap[username].yearly[year] = { count, usage };
-
-            if (userData.reg < userMap[username].reg) {
-               userMap[username].reg = userData.reg;
+               const resp = await fetch(`${API_BASE}/monuments${year}`, {
+                  signal: AbortSignal.timeout(10000),
+                  headers: { "User-Agent": "WLMAZ-Tool/1.0" },
+               });
+               if (resp.ok) {
+                  const data = await resp.json();
+                  if (redisClient.isOpen) {
+                     // Cache past years for 24h, current year for 1h
+                     const ttl = isPastYear ? 86400 : 3600;
+                     await redisClient.setEx(yearCacheKey, ttl, JSON.stringify(data));
+                  }
+                  return data;
+               }
+               return null;
+            } catch (e) {
+               logger.error(`Failed to fetch monuments${year}:`, e);
+               return null;
             }
          });
-      }
-   });
 
-   aggregate[COUNTRY].usercount = uniqueUsers.size;
-   aggregate[COUNTRY].users = userMap;
+         const results = await Promise.all(fetchPromises);
 
-   try {
-      if (redisClient.isOpen) {
-         await redisClient.setEx(cacheKey, CACHE_TTL, JSON.stringify(aggregate));
-      }
-   } catch (e) {
-      console.error("Redis write error:", e);
-   }
+         const aggregate: any = {
+            [COUNTRY]: {
+               count: 0,
+               usage: 0,
+               usercount: 0,
+               users: Object.create(null),
+               years: Object.create(null), // Breakdown per year
+            },
+         };
 
-   return aggregate;
+         const userMap: Record<
+            string,
+            {
+               count: number;
+               usage: number;
+               reg: number;
+               yearly: Record<number, { count: number; usage: number }>;
+            }
+         > = Object.create(null);
+         const uniqueUsers = new Set<string>();
+
+         results.forEach((data, index) => {
+            if (!data || !data[COUNTRY]) return;
+            const year = years[index];
+            const countryData = data[COUNTRY];
+
+            aggregate[COUNTRY].count += countryData.count || 0;
+            aggregate[COUNTRY].usage += countryData.usage || 0;
+            aggregate[COUNTRY].years[year] = {
+               count: countryData.count,
+               usercount: countryData.usercount,
+               usage: countryData.usage,
+            };
+
+            if (countryData.users) {
+               Object.entries(countryData.users).forEach(([username, userData]: [string, any]) => {
+                  // Security: Prevent prototype pollution from upstream data
+                  if (
+                     username === "__proto__" ||
+                     username === "constructor" ||
+                     username === "prototype"
+                  ) {
+                     return;
+                  }
+
+                  uniqueUsers.add(username);
+                  if (!userMap[username]) {
+                     userMap[username] = {
+                        count: 0,
+                        usage: 0,
+                        reg: userData.reg,
+                        yearly: Object.create(null),
+                     };
+                  }
+                  const count = userData.count || 0;
+                  const usage = userData.usage || 0;
+                  userMap[username].count += count;
+                  userMap[username].usage += usage;
+                  userMap[username].yearly[year] = { count, usage };
+
+                  if (userData.reg < userMap[username].reg) {
+                     userMap[username].reg = userData.reg;
+                  }
+               });
+            }
+         });
+
+         aggregate[COUNTRY].usercount = uniqueUsers.size;
+         aggregate[COUNTRY].users = userMap;
+
+         try {
+            if (redisClient.isOpen) {
+               await redisClient.setEx(cacheKey, CACHE_TTL, JSON.stringify(aggregate));
+            }
+         } catch (e) {
+            logger.error("Redis write error:", e);
+         }
+
+         return aggregate;
       } finally {
          aggregatePromise = null;
       }
@@ -158,7 +166,7 @@ router.get("/total", async (_req, res) => {
       const data = await getAggregateData();
       res.json(data);
    } catch (error: any) {
-      console.error("Total leaderboard proxy error:", error);
+      logger.error("Total leaderboard proxy error:", error);
       res.status(500).json({ error: "Failed to fetch aggregated leaderboard" });
    }
 });
@@ -226,7 +234,7 @@ router.get("/user/:username", async (req, res) => {
             }
          }
       } catch (e) {
-         console.error("Failed to fetch from Commons API:", e);
+         logger.error("Failed to fetch from Commons API:", e);
       }
 
       const result = {
@@ -242,7 +250,7 @@ router.get("/user/:username", async (req, res) => {
 
       res.json(result);
    } catch (error: any) {
-      console.error("User stats proxy error:", error);
+      logger.error("User stats proxy error:", error);
       res.status(500).json({ error: "Failed to fetch user statistics" });
    }
 });
@@ -289,7 +297,7 @@ router.get("/:eventSlug", async (req, res) => {
 
       res.json(data);
    } catch (error: any) {
-      console.error("Leaderboard proxy error:", error);
+      logger.error("Leaderboard proxy error:", error);
       res.status(500).json({ error: "Failed to fetch leaderboard from upstream" });
    }
 });

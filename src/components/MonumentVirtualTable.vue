@@ -27,7 +27,7 @@
       <!-- Scroll Viewport -->
       <div
          ref="viewport"
-         class="scrollbar-thin relative flex-1 overflow-y-auto"
+         class="relative flex-1 scrollbar-thin overflow-y-auto"
          @scroll="handleScroll"
       >
          <!-- Total Height Spacer -->

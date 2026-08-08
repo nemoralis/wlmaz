@@ -25,7 +25,7 @@ It features a responsive, clustered map interface powered by Vue 3 and Leaflet, 
 
 ### Prerequisites
 
-- **Node.js:** v20.6.0 or higher.
+- **Node.js:** v24.14.1 or higher.
 - **npm:** Use npm for package management.
 - **Redis:** Required for session management in production.
 
@@ -39,7 +39,7 @@ npm install
 
 ### 2. Environment Setup
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the root directory (see `.env.example` for all options):
 
 ```bash
 WM_CONSUMER_KEY=
@@ -48,7 +48,7 @@ WM_CONSUMER_SECRET=
 NODE_ENV=
 PORT=3000
 CLIENT_URL=http://localhost:5173
-SESSION_SECRET=SessionSecret
+SESSION_SECRET=ChangeMeToARandomStringAtLeast32CharsLong
 REDIS_URL=redis://:redispassword@localhost:6379
 ```
 
