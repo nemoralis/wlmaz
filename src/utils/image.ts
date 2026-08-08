@@ -1,4 +1,5 @@
 import sharp from "sharp";
+import { logger } from "./logger";
 
 interface OptimizedImage {
    buffer: Buffer;
@@ -53,10 +54,7 @@ export async function optimizeImage(buffer: Buffer): Promise<OptimizedImage> {
          extension: ".jpg",
       };
    } catch (error) {
-      console.error(
-         "Image optimization failed:",
-         error instanceof Error ? error.message : error,
-      );
+      logger.error("Image optimization failed:", error instanceof Error ? error.message : error);
       // Re-throw so the upload route responds with a proper 500 rather than
       // silently forwarding an application/octet-stream buffer to Commons,
       // which would result in an opaque, hard-to-diagnose upload rejection.

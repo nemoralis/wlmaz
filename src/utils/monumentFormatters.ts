@@ -6,7 +6,10 @@ const WIKIMEDIA_THUMB_WIDTHS = [20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920,
  * Finds the closest Wikimedia-supported thumbnail width that is greater than or equal to the target.
  */
 export const getClosestWikiWidth = (target: number): number => {
-   return WIKIMEDIA_THUMB_WIDTHS.find((w) => w >= target) || WIKIMEDIA_THUMB_WIDTHS[WIKIMEDIA_THUMB_WIDTHS.length - 1];
+   return (
+      WIKIMEDIA_THUMB_WIDTHS.find((w) => w >= target) ||
+      WIKIMEDIA_THUMB_WIDTHS[WIKIMEDIA_THUMB_WIDTHS.length - 1]
+   );
 };
 
 export const getOptimizedImage = (url: string, targetWidth = 500): string => {
@@ -27,10 +30,10 @@ export const getOptimizedImage = (url: string, targetWidth = 500): string => {
 export const getSrcSet = (url: string, widths: number[] = [330, 500, 960, 1280]): string => {
    if (!url || !url.includes("Special:FilePath/")) return "";
    const secureUrl = url.startsWith("http:") ? url.replace("http:", "https:") : url;
-   
+
    // Filter and snap to valid Wikimedia widths
    const validWidths = [...new Set(widths.map(getClosestWikiWidth))].sort((a, b) => a - b);
-   
+
    return validWidths.map((w) => `${secureUrl}?width=${w} ${w}w`).join(", ");
 };
 

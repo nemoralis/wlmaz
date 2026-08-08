@@ -30,6 +30,12 @@ export interface MapOptions {
    onSidebarClosing?: () => void;
 }
 
+/** Marker predicate used to decide whether a marker should be on the map. */
+export type MarkerFilter = (props: MonumentProps) => boolean;
+
+/** How many markers are added per animation frame when populating the viewport. */
+const CHUNK_SIZE = 150;
+
 export function useLeafletMap() {
    const mapInstance = shallowRef<L.Map | null>(null);
    const sidebarInstance = shallowRef<SidebarControl | null>(null);
@@ -199,6 +205,94 @@ export function useLeafletMap() {
       mapInstance.value.flyTo(marker.getLatLng(), zoom, { duration: 1.5 });
    };
 
+   // --- Viewport & Filter Aware Marker Rendering ---
+   // Markers are added in chunks across animation frames so the main thread
+   // never blocks, and only those inside the current map bounds are kept on
+   // the map. Leaflet's canvas renderer already culls drawing, so this limits
+   // the number of markers Leaflet has to manage on pan/zoom.
+   let allMarkers: L.Layer[] = [];
+   const addedMarkers = new Set<L.Layer>();
+   let chunkHandle = 0;
+   let viewportTimer: ReturnType<typeof setTimeout> | null = null;
+
+   const addMarkersChunked = (markers: L.Layer[]) => {
+      const layer = markersGroup.value;
+      if (!layer || markers.length === 0) return;
+
+      const id = ++chunkHandle;
+      let i = 0;
+      const step = () => {
+         if (id !== chunkHandle) return;
+         const end = Math.min(i + CHUNK_SIZE, markers.length);
+         for (; i < end; i++) {
+            layer.addLayer(markers[i]);
+            addedMarkers.add(markers[i]);
+         }
+         if (i < markers.length && id === chunkHandle) {
+            requestAnimationFrame(step);
+         }
+      };
+      step();
+   };
+
+   const syncViewport = (passesFilter: MarkerFilter) => {
+      const layer = markersGroup.value;
+      if (!layer || !mapInstance.value) return;
+
+      chunkHandle++; // Supersede any in-flight chunked add
+
+      const bounds = mapInstance.value.getBounds().pad(0.25);
+
+      // Remove markers that left the viewport (or no longer pass the filter)
+      const toRemove: L.Layer[] = [];
+      for (const m of addedMarkers) {
+         const visible =
+            bounds.contains((m as MonumentMarker).getLatLng()) &&
+            passesFilter((m as MonumentMarker).feature.properties);
+         if (!visible) toRemove.push(m);
+      }
+      for (const m of toRemove) {
+         layer.removeLayer(m);
+         addedMarkers.delete(m);
+      }
+
+      // Add markers that entered the viewport (and pass the filter)
+      const toAdd = allMarkers.filter(
+         (m) =>
+            !addedMarkers.has(m) &&
+            bounds.contains((m as MonumentMarker).getLatLng()) &&
+            passesFilter((m as MonumentMarker).feature.properties),
+      );
+      if (toAdd.length) {
+         addMarkersChunked(toAdd);
+      }
+   };
+
+   /**
+    * Registers the full marker set and populates the map with the markers that
+    * are currently inside the viewport and pass the filter.
+    */
+   const renderMarkers = (markers: L.Layer[], passesFilter: MarkerFilter) => {
+      allMarkers.length = 0;
+      allMarkers.push(...markers);
+      syncViewport(passesFilter);
+   };
+
+   /** Debounces a viewport re-sync after pans/zooms. */
+   const scheduleViewportSync = (passesFilter: MarkerFilter) => {
+      if (viewportTimer) clearTimeout(viewportTimer);
+      viewportTimer = setTimeout(() => syncViewport(passesFilter), 150);
+   };
+
+   /** Cancels pending work and clears all rendered markers. */
+   const disposeMarkers = () => {
+      if (viewportTimer) clearTimeout(viewportTimer);
+      viewportTimer = null;
+      chunkHandle++; // Supersede any in-flight chunked add
+      allMarkers = [];
+      addedMarkers.clear();
+   };
+
    return {
       mapInstance,
       sidebarInstance,
@@ -208,5 +302,9 @@ export function useLeafletMap() {
       highlightMarker,
       setupMarkerLayer,
       flyToMarker,
+      syncViewport,
+      renderMarkers,
+      scheduleViewportSync,
+      disposeMarkers,
    };
 }

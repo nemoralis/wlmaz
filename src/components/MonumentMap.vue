@@ -100,7 +100,11 @@ import MonumentSidebarHome from "./map/MonumentSidebarHome.vue";
 import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 import type { Feature } from "geojson";
 import { useClipboard } from "../composables/useClipboard";
-import { useLeafletMap, type MonumentMarker } from "../composables/useLeafletMap";
+import {
+   useLeafletMap,
+   type MarkerFilter,
+   type MonumentMarker,
+} from "../composables/useLeafletMap";
 import { useWikiCredits } from "../composables/useWikiCredits";
 import { getCanonicalId } from "../utils/monumentFormatters";
 // CSS
@@ -136,6 +140,10 @@ export default defineComponent({
          highlightMarker,
          setupMarkerLayer,
          flyToMarker,
+         syncViewport,
+         renderMarkers,
+         scheduleViewportSync,
+         disposeMarkers,
       } = useLeafletMap();
 
       // --- Refs & State ---
@@ -145,15 +153,13 @@ export default defineComponent({
       const stats = ref({ total: 0, withImage: 0 });
       const imageLoading = ref(true);
       const markerLookup = new Map<string, L.CircleMarker>();
-      let allMarkers: L.Layer[] = [];
-      // Markers currently rendered on the map (viewport + filter aware)
-      const addedMarkers = new Set<L.Layer>();
-      let chunkHandle = 0;
-      let viewportTimer: ReturnType<typeof setTimeout> | null = null;
 
       // UI
       const showUploadModal = ref(false);
       const needsPhotoOnly = ref(false);
+
+      // Markers currently rendered on the map (viewport + filter aware)
+      const passesFilter: MarkerFilter = (props) => !needsPhotoOnly.value || !props.image;
 
       // --- Methods ---
 
@@ -191,70 +197,12 @@ export default defineComponent({
          }
       };
 
-      // --- Viewport & Filter Aware Marker Rendering ---
-      // Markers are added in chunks across animation frames so the main thread
-      // never blocks, and only those inside the current map bounds are kept on
-      // the map. Leaflet's canvas renderer already culls drawing, so this limits
-      // the number of markers Leaflet has to manage on pan/zoom.
-      const CHUNK_SIZE = 150;
-
-      const addMarkersChunked = (markers: L.Layer[]) => {
-         const layer = markersGroup.value;
-         if (!layer || markers.length === 0) return;
-
-         const id = ++chunkHandle;
-         let i = 0;
-         const step = () => {
-            if (id !== chunkHandle) return;
-            const end = Math.min(i + CHUNK_SIZE, markers.length);
-            for (; i < end; i++) {
-               layer.addLayer(markers[i]);
-               addedMarkers.add(markers[i]);
-            }
-            if (i < markers.length && id === chunkHandle) {
-               requestAnimationFrame(step);
-            }
-         };
-         step();
-      };
-
-      const syncViewport = () => {
-         const layer = markersGroup.value;
-         if (!layer || !mapInstance.value) return;
-
-         chunkHandle++; // Supersede any in-flight chunked add
-
-         const bounds = mapInstance.value.getBounds().pad(0.25);
-
-         // Remove markers that left the viewport (or no longer pass the filter)
-         const toRemove: L.Layer[] = [];
-         for (const m of addedMarkers) {
-            const visible =
-               bounds.contains((m as MonumentMarker).getLatLng()) &&
-               (!needsPhotoOnly.value || !(m as MonumentMarker).feature.properties.image);
-            if (!visible) toRemove.push(m);
-         }
-         for (const m of toRemove) {
-            layer.removeLayer(m);
-            addedMarkers.delete(m);
-         }
-
-         // Add markers that entered the viewport (and pass the filter)
-         const toAdd = allMarkers.filter(
-            (m) =>
-               !addedMarkers.has(m) &&
-               bounds.contains((m as MonumentMarker).getLatLng()) &&
-               (!needsPhotoOnly.value || !(m as MonumentMarker).feature.properties.image),
-         );
-         if (toAdd.length) {
-            addMarkersChunked(toAdd);
-         }
-      };
+      // --- Filtering ---
 
       const applyFilter = (enabled: boolean) => {
          needsPhotoOnly.value = enabled;
          if (!markersGroup.value) return;
-         syncViewport();
+         syncViewport(passesFilter);
       };
 
       const toggleNeedsPhoto = () => applyFilter(!needsPhotoOnly.value);
@@ -362,8 +310,7 @@ export default defineComponent({
 
          // Viewport-aware marker rendering: debounce re-sync after pans/zooms
          const onViewportChange = () => {
-            if (viewportTimer) clearTimeout(viewportTimer);
-            viewportTimer = setTimeout(syncViewport, 150);
+            scheduleViewportSync(passesFilter);
          };
          mapInstance.value?.on("moveend", onViewportChange);
 
@@ -424,8 +371,7 @@ export default defineComponent({
                      },
                   });
 
-                  allMarkers = geoJsonLayer.getLayers() as L.Layer[];
-                  syncViewport();
+                  renderMarkers(geoJsonLayer.getLayers() as L.Layer[], passesFilter);
 
                   // Deep link check (markerLookup is populated during marker creation)
                   const urlParams = new URLSearchParams(window.location.search);
@@ -444,8 +390,7 @@ export default defineComponent({
       });
 
       onUnmounted(() => {
-         if (viewportTimer) clearTimeout(viewportTimer);
-         chunkHandle++; // Supersede any in-flight chunked add
+         disposeMarkers();
          mapInstance.value?.remove();
       });
 

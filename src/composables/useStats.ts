@@ -37,12 +37,6 @@ export const useStats = () => {
       } catch (e: any) {
          console.error("Failed to load stats history", e);
          error.value = e.message || "Failed to load data";
-         // Fallback mock logic is removed/handled by initial state,
-         // or we could keep it if we want 'demo mode' persistence on error.
-         // For now, let's keep the initial empty state as 'fallback' enough or explicit error interaction?
-         // The original code had a fallback. Let's keep the fallback logic for robustness if that was intended.
-         // Actually, looking at original code, it sets currentStats to a default object on error.
-         // The `currentStats` ref is already initialized to that default object.
       } finally {
          isLoading.value = false;
       }

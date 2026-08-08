@@ -27,7 +27,7 @@ export const useMonumentStore = defineStore("monuments", () => {
          worker.onmessage = (e) => {
             if (e.data.type === "DATA_READY") {
                geoData.value = e.data.geoData;
-               monuments.value = e.data.geoData.features.map((f: any) => f.properties);
+               monuments.value = e.data.geoData.features.map((f: Feature) => f.properties);
                searchResults.value = e.data.geoData.features;
                isDataReady.value = true;
                isLoading.value = false;

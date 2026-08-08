@@ -4,6 +4,10 @@
   "description": "Wiki Loves Monuments Azerbaijan Map",
   "main": "src/index.ts",
   "type": "module",
+  "engines": {
+    "node": ">=24.14.1",
+    "npm": ">=11.11.0"
+  },
   "scripts": {
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "vite --host",
@@ -14,6 +18,7 @@
     "preview": "vite preview --host",
     "format": "prettier --write --list-different src/",
     "lint": "eslint src/ --ext .ts,.vue --fix",
+    "test": "vitest run",
     "analyze": "vite-bundle-visualizer",
     "prepare": "husky"
   },
@@ -27,7 +32,6 @@
     "@fortawesome/free-solid-svg-icons": "7.2.0",
     "@fortawesome/vue-fontawesome": "3.2.0",
     "@unhead/vue": "3.2.3",
-    "@vueuse/head": "2.0.0",
     "@wikimedia/codex": "2.6.2",
     "@wikimedia/codex-icons": "2.6.2",
     "chart.js": "4.5.1",
@@ -97,6 +101,7 @@
     "vite-bundle-visualizer": "1.2.1",
     "vite-plugin-image-optimizer": "2.0.3",
     "vite-plugin-sitemap": "0.8.2",
+    "vitest": "^4.1.10",
     "vue-tsc": "3.3.9"
   },
   "overrides": {

@@ -70,15 +70,6 @@ export default [
     }
   },
 
-  // Global overrides for JS/TS files
-  {
-     files: ["**/*.ts", "**/*.tsx", "**/*.vue", "**/*.js"],
-     rules: {
-         "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-         "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-     }
-  },
-
   // Prettier config must be last
   eslintConfigPrettier
 ];

@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import OAuth from "oauth-1.0a";
 import type { WikiUser } from "../types";
+import { logger } from "./logger";
 
 const IS_PROD = process.env.NODE_ENV === "production";
 
@@ -11,7 +12,8 @@ const API_CONFIG = {
    consumer: {
       key: (IS_PROD ? process.env.WM_CONSUMER_KEY : process.env.WM_CONSUMER_TEST)?.trim() || "",
       secret:
-         (IS_PROD ? process.env.WM_CONSUMER_SECRET : process.env.WM_CONSUMERSC_TEST)?.trim() || "",
+         (IS_PROD ? process.env.WM_CONSUMER_SECRET : process.env.WM_CONSUMER_SECRET_TEST)?.trim() ||
+         "",
    },
 };
 
@@ -38,11 +40,11 @@ function getOAuthClient() {
  */
 
 function getSigningToken(user?: WikiUser) {
-   if (!IS_PROD && process.env.WM_TEST_ACCESS && process.env.WM_TEST_ACCESSSC) {
+   if (!IS_PROD && process.env.WM_TEST_ACCESS && process.env.WM_TEST_ACCESS_SECRET) {
       if (!user) {
          return {
             key: process.env.WM_TEST_ACCESS.trim(),
-            secret: process.env.WM_TEST_ACCESSSC.trim(),
+            secret: process.env.WM_TEST_ACCESS_SECRET.trim(),
          };
       }
    }
@@ -103,7 +105,7 @@ export async function fetchCsrfToken(user: WikiUser): Promise<string> {
    const data = await response.json();
 
    if (data.error) {
-      console.error("[MediaWiki] Token Error:", data.error);
+      logger.error("[MediaWiki] Token Error:", data.error);
       throw new Error(`MediaWiki API Error: ${data.error.code} - ${data.error.info}`);
    }
    return data.query.tokens.csrftoken;
@@ -177,7 +179,7 @@ export async function uploadFile(
    const result = await response.json();
 
    if (result.error) {
-      console.error("[MediaWiki] Upload Error Details:", result.error);
+      logger.error("[MediaWiki] Upload Error Details:", result.error);
       throw new Error(`Upload Failed: ${result.error.code} - ${result.error.info}`);
    }
 

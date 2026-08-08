@@ -2,16 +2,17 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { RedisStore } from "connect-redis";
 import express, { type NextFunction, type Request, type Response } from "express";
+import { rateLimit } from "express-rate-limit";
 import session from "express-session";
 import helmet from "helmet";
-import { rateLimit } from "express-rate-limit";
 import hpp from "hpp";
 import morgan from "morgan";
-import { RedisStore as RateLimitRedisStore } from "rate-limit-redis";
+import { RedisStore as RateLimitRedisStore, type SendCommandFn } from "rate-limit-redis";
 import passport from "./auth/passport.ts";
 import authRoutes from "./auth/routes.ts";
 import leaderboardRoutes from "./routes/leaderboard.ts";
 import uploadRoutes from "./routes/upload.ts";
+import { logger } from "./utils/logger.ts";
 import redisClient from "./utils/redis.ts";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,13 +22,13 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-/*
 // Fail fast on startup if critical secrets are missing, before any middleware
 // or route handlers are registered.
-if (!process.env.SESSION_SECRET || process.env.SESSION_SECRET.length < 32) {
+const SESSION_SECRET = process.env.SESSION_SECRET;
+if (!SESSION_SECRET || SESSION_SECRET.length < 32) {
    throw new Error("SESSION_SECRET must be set and at least 32 characters long");
 }
-*/
+
 const startServer = async () => {
    // redisClient handles its own connection in utils/redis.ts
 
@@ -90,7 +91,7 @@ const startServer = async () => {
    });
 
    // Rate limiting
-   const redisCall = (...args: string[]) => redisClient.sendCommand(args) as any;
+   const redisCall: SendCommandFn = (...args) => redisClient.sendCommand(args);
    const apiLimiter = rateLimit({
       windowMs: 15 * 60 * 1000,
       // 200 requests / 15 min is ample for the SPA; the original 1000 made
@@ -181,7 +182,7 @@ const startServer = async () => {
             ttl: 86400 * 7,
          }),
 
-         secret: process.env.SESSION_SECRET!,
+         secret: SESSION_SECRET,
          resave: false,
          saveUninitialized: false,
          cookie: {
@@ -208,7 +209,7 @@ const startServer = async () => {
    if (process.env.NODE_ENV === "production") {
       const path = await import("path");
       const distPath = path.resolve(__dirname, "../dist");
-      console.log("Serving static files from:", distPath);
+      logger.info("Serving static files from:", distPath);
 
       app.use(express.static(distPath));
 
@@ -226,7 +227,7 @@ const startServer = async () => {
    }
 
    app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-      console.error(err);
+      logger.error(err);
       // Fail securely: do not leak internal error details or stack traces to the client in production
       res.status(500).json({
          error: true,
@@ -242,8 +243,7 @@ const startServer = async () => {
    // it appears not to exist at all.
    app.get("/health", async (req, res) => {
       const ip = req.ip ?? "";
-      const isLocal =
-         ip === "127.0.0.1" || ip === "::1" || ip === "::ffff:127.0.0.1";
+      const isLocal = ip === "127.0.0.1" || ip === "::1" || ip === "::ffff:127.0.0.1";
 
       if (!isLocal) {
          res.status(404).end();
@@ -259,16 +259,16 @@ const startServer = async () => {
    });
 
    const server = app.listen(PORT, () => {
-      console.log(`Backend server is running on ${PORT}`);
+      logger.info(`Backend server is running on ${PORT}`);
    });
 
    const gracefulShutdown = async (signal: string) => {
-      console.log(`${signal} received: closing HTTP server`);
+      logger.info(`${signal} received: closing HTTP server`);
       server.close(async () => {
-         console.log("HTTP server closed");
+         logger.info("HTTP server closed");
          if (redisClient.isOpen) {
             await redisClient.quit();
-            console.log("Redis client closed");
+            logger.info("Redis client closed");
          }
          process.exit(0);
       });
@@ -278,4 +278,4 @@ const startServer = async () => {
    process.on("SIGINT", () => gracefulShutdown("SIGINT"));
 };
 
-startServer().catch(console.error);
+startServer().catch((err) => logger.error(err));
