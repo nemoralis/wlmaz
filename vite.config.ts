@@ -1,49 +1,8 @@
-import fs from "fs";
 import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import vue from "@vitejs/plugin-vue";
-import type { FeatureCollection } from "geojson";
 import { defineConfig } from "vite";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
-import Sitemap from "vite-plugin-sitemap";
-
-const monumentsPath = path.resolve(process.cwd(), "public/monuments.geojson");
-let monumentRoutes: string[] = [];
-let lastmodMap: Record<string, Date> = {};
-
-const staticRoutes = ["/", "/stats", "/leaderboard", "/table", "/about"];
-const buildTime = new Date();
-
-try {
-   const monumentsData = fs.readFileSync(monumentsPath, "utf-8");
-   const geoData: FeatureCollection = JSON.parse(monumentsData);
-
-   geoData.features.forEach((f) => {
-      if (f.properties?.inventory) {
-         const canonicalId = f.properties.inventory.split(",")[0].trim();
-         // URL-encode dots in inventory IDs (e.g., "3.2" becomes "3%2E2")
-         // This fixes sitemap generation which treats dots as file extensions
-         const encodedInventory = canonicalId.replace(/\./g, "%2E");
-         const route = `/monument/${encodedInventory}`;
-         monumentRoutes.push(route);
-
-         if (f.properties.lastModified) {
-            lastmodMap[route] = new Date(f.properties.lastModified);
-         }
-      }
-   });
-
-   staticRoutes.forEach((route) => {
-      lastmodMap[route] = buildTime;
-   });
-   monumentRoutes = Array.from(new Set([...staticRoutes, ...monumentRoutes]));
-
-   console.log(
-      `Loaded ${monumentRoutes.length} total routes for sitemap (${staticRoutes.length} static, ${monumentRoutes.length - staticRoutes.length} monuments)`,
-   );
-} catch (error) {
-   console.warn("Could not load monuments data for sitemap:", error);
-}
 
 export default defineConfig({
    plugins: [
@@ -53,17 +12,6 @@ export default defineConfig({
          png: { quality: 80 },
          jpeg: { quality: 80 },
          webp: { quality: 80 },
-      }),
-      Sitemap({
-         hostname: "https://wikilovesmonuments.az",
-         dynamicRoutes: monumentRoutes,
-         exclude: ["/profile", "/auth", "/api", "/upload"],
-         lastmod: lastmodMap,
-         robots: [
-            { userAgent: "*", allow: "/" },
-            // Prevent crawling of ?inventory= map-state URLs (not real pages)
-            { userAgent: "*", disallow: "/*?*inventory=" },
-         ],
       }),
    ],
 

@@ -59,6 +59,13 @@ export const getCanonicalId = (inventory: string | undefined): string => {
 };
 
 /**
+ * Encodes a monument ID for use in a URL path. Dots are kept as %2E (matching
+ * the sitemap/canonical convention) and any remaining unsafe characters
+ * (e.g. em-dashes) are percent-encoded.
+ */
+export const encodeIdForUrl = (id: string): string => encodeURI(id).replace(/\./g, "%2E");
+
+/**
  * Checks if a specific ID is part of a comma-separated inventory string.
  */
 export const isIdMatch = (inventory: string | undefined, searchId: string): boolean => {

@@ -213,6 +213,34 @@ const startServer = async () => {
 
       app.use(express.static(distPath));
 
+      // Prerendered static pages written by scripts/prerender.ts.
+      const staticPageFiles: Record<string, string> = {
+         "/stats": "stats.html",
+         "/leaderboard": "leaderboard.html",
+         "/table": "table.html",
+         "/about": "about.html",
+      };
+      app.get(Object.keys(staticPageFiles), async (req, res, next) => {
+         const { existsSync } = await import("node:fs");
+         const file = path.join(distPath, staticPageFiles[req.path]);
+         if (existsSync(file)) {
+            return res.sendFile(file);
+         }
+         next();
+      });
+
+      // Serve prerendered monument pages (written by scripts/prerender.ts) so
+      // crawlers receive unique, static HTML for every monument URL.
+      app.get("/monument/:id", async (req, res, next) => {
+         const { existsSync } = await import("node:fs");
+         const monumentDir = path.join(distPath, "monument");
+         const file = path.resolve(monumentDir, `${req.params.id}.html`);
+         if (file.startsWith(`${monumentDir}/`) && existsSync(file)) {
+            return res.sendFile(file);
+         }
+         next();
+      });
+
       app.get(/.*/, (req, res, next) => {
          // Don't catch API/Auth routes
          if (
