@@ -68,7 +68,7 @@ export default defineConfig({
    ],
 
    optimizeDeps: {
-      include: ["leaflet", "leaflet.markercluster", "leaflet-minimap", "geobuf", "pbf"],
+      include: ["leaflet", "leaflet-minimap", "geobuf", "pbf"],
    },
 
    resolve: {
@@ -103,7 +103,7 @@ export default defineConfig({
             entryFileNames: "assets/[name]-[hash].js",
             assetFileNames: "assets/[name]-[hash][extname]",
             manualChunks(id) {
-               if (id.includes('node_modules/leaflet') || id.includes('node_modules/leaflet.markercluster') || id.includes('node_modules/leaflet-minimap')) {
+               if (id.includes('node_modules/leaflet') || id.includes('node_modules/leaflet-minimap')) {
                   return 'vendor-map';
                }
                if (id.includes('node_modules/geobuf') || id.includes('node_modules/pbf') || id.includes('node_modules/fuse.js')) {
