@@ -5,6 +5,7 @@ import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
 import { icon } from "@fortawesome/fontawesome-svg-core";
 import { shallowRef } from "vue";
 import type { MonumentProps } from "../types";
+import { HIGHLIGHT_RADIUS_OFFSET } from "../utils/markerRadius";
 
 export interface SidebarControl extends L.Control {
    open: (id: string) => void;
@@ -41,6 +42,7 @@ export function useLeafletMap() {
    const sidebarInstance = shallowRef<SidebarControl | null>(null);
    const markersGroup = shallowRef<any | null>(null);
    const activeMarkerLayer = shallowRef<L.CircleMarker | null>(null);
+   let currentBaseRadius = 8;
 
    const initialize = (container: HTMLElement, options: MapOptions = {}) => {
       // 1. Base Layers
@@ -173,7 +175,7 @@ export function useLeafletMap() {
          activeMarkerLayer.value.setStyle({
             color: "#fff",
             weight: 2,
-            radius: 8,
+            radius: currentBaseRadius,
          });
       }
 
@@ -182,12 +184,24 @@ export function useLeafletMap() {
          marker.setStyle({
             color: "#ffd700", // Yellow border for selection
             weight: 4,
-            radius: 10,
+            radius: currentBaseRadius + HIGHLIGHT_RADIUS_OFFSET,
          });
          activeMarkerLayer.value = marker;
       } else {
          activeMarkerLayer.value = null;
       }
+   };
+
+   /** Re-applies the base radius to every rendered marker (highlight kept larger). */
+   const setMarkerRadius = (radius: number) => {
+      currentBaseRadius = radius;
+      const layer = markersGroup.value;
+      if (!layer) return;
+      layer.getLayers().forEach((m: L.Layer) => {
+         (m as L.CircleMarker).setRadius(
+            m === activeMarkerLayer.value ? radius + HIGHLIGHT_RADIUS_OFFSET : radius,
+         );
+      });
    };
 
    const setupMarkerLayer = () => {
@@ -306,5 +320,6 @@ export function useLeafletMap() {
       renderMarkers,
       scheduleViewportSync,
       disposeMarkers,
+      setMarkerRadius,
    };
 }

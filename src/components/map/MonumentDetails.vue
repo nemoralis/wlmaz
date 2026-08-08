@@ -135,8 +135,18 @@
                            <CdxButton
                               weight="quiet"
                               class="gps-link-btn"
-                              title="Xəritə tətbiqində aç"
-                              @click="openExternalLink(`geo:${monument.lat},${monument.lon}`)"
+                              :title="
+                                 isMobileViewport() ? 'Xəritə tətbiqində aç' : 'Google Maps-də aç'
+                              "
+                              @click="
+                                 openExternalLink(
+                                    getCoordinatesUrl(
+                                       monument.lat,
+                                       monument.lon,
+                                       isMobileViewport(),
+                                    ),
+                                 )
+                              "
                            >
                               <CdxIcon :icon="cdxIconMapPin" />
                               {{ monument.lat.toFixed(4) }}, {{ monument.lon.toFixed(4) }}
@@ -222,6 +232,7 @@ import {
    getOptimizedImage,
    getSrcSet,
 } from "@/utils/monumentFormatters";
+import { getCoordinatesUrl, isMobileViewport } from "@/utils/geoLinks";
 
 interface Props {
    monument: MonumentProps | null;
