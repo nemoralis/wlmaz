@@ -147,7 +147,6 @@ const filterEnabled = computed({
    font-size: 1.5rem;
    font-weight: 700;
    color: var(--color-base, #202122);
-   font-family: var(--font-family-serif, Georgia, serif);
 }
 
 .stat-item.total .stat-value {
