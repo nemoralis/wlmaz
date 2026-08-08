@@ -189,6 +189,7 @@ import { useAuthStore } from "../stores/auth";
 import { useMonumentStore } from "../stores/monuments";
 import type { MonumentProps } from "../types";
 import {
+   encodeIdForUrl,
    getCanonicalId,
    getCategoryUrl,
    getOptimizedImage,
@@ -239,7 +240,7 @@ useHead({
          : "Abidə Detalları",
    link: computed(() => {
       const currentId = (monument.value?.inventory || route.params.id) as string;
-      const canonicalPathId = getCanonicalId(currentId).replace(/\./g, "%2E");
+      const canonicalPathId = encodeIdForUrl(getCanonicalId(currentId));
 
       const links = [
          {
@@ -306,9 +307,10 @@ watch(
          if (found) {
             const canonicalId = getCanonicalId(found.properties?.inventory);
 
-            // Redirect to canonical ID if needed
+            // Redirect to canonical ID if needed (path string form so %2E is
+            // not double-encoded by vue-router params)
             if (id !== canonicalId) {
-               router.replace({ name: "Monument", params: { id: canonicalId } });
+               router.replace(`/monument/${encodeIdForUrl(canonicalId)}`);
             }
 
             monument.value = found.properties;
