@@ -24,11 +24,11 @@
     "*.{ts,vue,js}": "eslint --fix"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "7.2.0",
-    "@fortawesome/free-brands-svg-icons": "7.2.0",
-    "@fortawesome/free-regular-svg-icons": "7.2.0",
-    "@fortawesome/free-solid-svg-icons": "7.2.0",
-    "@fortawesome/vue-fontawesome": "3.2.0",
+    "@fortawesome/fontawesome-svg-core": "7.3.1",
+    "@fortawesome/free-brands-svg-icons": "7.3.1",
+    "@fortawesome/free-regular-svg-icons": "7.3.1",
+    "@fortawesome/free-solid-svg-icons": "7.3.1",
+    "@fortawesome/vue-fontawesome": "3.3.3",
     "@unhead/vue": "3.2.3",
     "@wikimedia/codex": "2.6.2",
     "@wikimedia/codex-icons": "2.6.2",
