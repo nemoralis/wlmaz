@@ -4,10 +4,6 @@
   "description": "Wiki Loves Monuments Azerbaijan Map",
   "main": "src/index.ts",
   "type": "module",
-  "engines": {
-    "node": ">=24.14.1",
-    "npm": ">=11.11.0"
-  },
   "scripts": {
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "vite --host",
@@ -83,7 +79,6 @@
     "@types/pbf": "3.0.5",
     "@typescript-eslint/eslint-plugin": "8.65.0",
     "@typescript-eslint/parser": "8.65.0",
-    "@vite-pwa/assets-generator": "1.0.2",
     "@vitejs/plugin-vue": "6.0.8",
     "concurrently": "10.0.4",
     "eslint": "10.8.0",
