@@ -179,11 +179,6 @@ import {
    cdxIconLogoWikipedia,
 } from "@wikimedia/codex-icons";
 import UploadModal from "../components/UploadModal.vue";
-import {
-   schemaToJsonLd,
-   useBreadcrumbSchema,
-   useMonumentSchema,
-} from "../composables/useSchemaOrg";
 import { useWikiCredits } from "../composables/useWikiCredits";
 import { useAuthStore } from "../stores/auth";
 import { useMonumentStore } from "../stores/monuments";
@@ -216,28 +211,24 @@ const getCategoryLink = (category: string) => {
    return getCategoryUrl({ commonsCategory: category });
 };
 
-// Computed Schema.org structured data
-const monumentSchema = computed(() => {
-   if (!monument.value) return null;
-   return useMonumentSchema(monument.value);
-});
-
-const breadcrumbSchema = computed(() => {
-   if (!monument.value) return null;
-   return useBreadcrumbSchema([
-      { name: "Ana Səhifə", url: "https://wikilovesmonuments.az/" },
-      {
-         name: monument.value.itemLabel || "Abidə",
-         url: `https://wikilovesmonuments.az/monument/${getCanonicalId(monument.value.inventory)}`,
-      },
-   ]);
-});
+// Capture the static (prerendered) head values at setup so that, while the
+// monument data is still loading, the runtime head matches the prerendered
+// HTML instead of falling back to generic placeholders.
+const staticTitle = document.title;
+const staticDescription =
+   document.querySelector('meta[name="description"]')?.getAttribute("content") ?? "";
+const staticOgTitle =
+   document.querySelector('meta[property="og:title"]')?.getAttribute("content") ?? "";
+const staticOgDescription =
+   document.querySelector('meta[property="og:description"]')?.getAttribute("content") ?? "";
+const staticOgImage =
+   document.querySelector('meta[property="og:image"]')?.getAttribute("content") ?? "/wlm-az.png";
 
 useHead({
    title: () =>
       monument.value
          ? `${monument.value.itemLabel} | Viki Abidələri Sevir Azərbaycan`
-         : "Abidə Detalları",
+         : staticTitle,
    link: computed(() => {
       const currentId = (monument.value?.inventory || route.params.id) as string;
       const canonicalPathId = encodeIdForUrl(getCanonicalId(currentId));
@@ -265,30 +256,20 @@ useHead({
    meta: [
       {
          name: "description",
-         content: () => monument.value?.itemDescription || "Abidə haqqında məlumat",
+         content: () => monument.value?.itemDescription || staticDescription,
       },
       {
          property: "og:title",
-         content: () => monument.value?.itemLabel,
+         content: () => monument.value?.itemLabel || staticOgTitle,
       },
       {
          property: "og:description",
-         content: () => monument.value?.itemDescription,
+         content: () => monument.value?.itemDescription || staticOgDescription,
       },
       {
          property: "og:image",
          content: () =>
-            monument.value?.image ? getOptimizedImage(monument.value.image, 1280) : "/wlm-az.png",
-      },
-   ],
-   script: [
-      {
-         type: "application/ld+json",
-         innerHTML: () => (monumentSchema.value ? schemaToJsonLd(monumentSchema.value) : ""),
-      },
-      {
-         type: "application/ld+json",
-         innerHTML: () => (breadcrumbSchema.value ? schemaToJsonLd(breadcrumbSchema.value) : ""),
+            monument.value?.image ? getOptimizedImage(monument.value.image, 1280) : staticOgImage,
       },
    ],
 });

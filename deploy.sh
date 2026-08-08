@@ -73,6 +73,13 @@ else
     echo "⏭️ Skipping build"
 fi
 
+if confirm "🚦 Update Nginx config?"; then
+    sudo cp nginx.conf /etc/nginx/sites-available/wlmaz
+    sudo nginx -t && sudo systemctl reload nginx
+else
+    echo "⏭️ Skipping Nginx config update"
+fi
+
 if confirm "🔄 Restart application with PM2?"; then
     pm2 restart wlmaz
     pm2 logs wlmaz
