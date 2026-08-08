@@ -108,6 +108,7 @@ import {
 } from "../composables/useLeafletMap";
 import { useWikiCredits } from "../composables/useWikiCredits";
 import { getCanonicalId } from "../utils/monumentFormatters";
+import { getMarkerRadius } from "../utils/markerRadius";
 import { getOverlapGroupKey, getSpreadPosition } from "../utils/markerOverlap";
 // CSS
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
@@ -146,6 +147,7 @@ export default defineComponent({
          renderMarkers,
          scheduleViewportSync,
          disposeMarkers,
+         setMarkerRadius,
       } = useLeafletMap();
 
       // --- Refs & State ---
@@ -316,6 +318,12 @@ export default defineComponent({
          };
          mapInstance.value?.on("moveend", onViewportChange);
 
+         // Markers grow with zoom: keep their radius in sync on every zoom
+         const onZoomEnd = () => {
+            setMarkerRadius(getMarkerRadius(mapInstance.value?.getZoom() ?? 7));
+         };
+         mapInstance.value?.on("zoomend", onZoomEnd);
+
          // 4. Data Loading via Store
          monumentStore.init();
 
@@ -345,6 +353,9 @@ export default defineComponent({
                   });
                   const positionIndexes = new Map<string, number>();
 
+                  // Radius scales with zoom so markers are small in the overview.
+                  const initialRadius = getMarkerRadius(mapInstance.value?.getZoom() ?? 7);
+
                   // Create Layers
                   const geoJsonLayer = L.geoJSON(geoData, {
                      pointToLayer: (feature, latlng) => {
@@ -370,7 +381,7 @@ export default defineComponent({
                         const hasImage = !!props.image;
 
                         const marker = L.circleMarker(markerLatLng, {
-                           radius: 8,
+                           radius: initialRadius,
                            fillColor: hasImage ? "#2e7d32" : "#d32f2f",
                            color: "#fff",
                            weight: 2,
@@ -399,6 +410,7 @@ export default defineComponent({
                   });
 
                   renderMarkers(geoJsonLayer.getLayers() as L.Layer[], passesFilter);
+                  setMarkerRadius(initialRadius);
 
                   // Deep link check (markerLookup is populated during marker creation)
                   const urlParams = new URLSearchParams(window.location.search);
