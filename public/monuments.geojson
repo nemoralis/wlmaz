@@ -4274,6 +4274,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.75107,
+                    39.76278
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Saatl%C4%B1_m%C9%99scidi",
+                "commonsCategory": "Saatly Mosque",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Saatly_Mosque",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Saatl%C4%B1%20m%C9%99scidi%202024-c%C3%BC%20ild%C9%99.jpg",
+                "inventory": "355",
+                "item": "http://www.wikidata.org/entity/Q7395740",
+                "itemAltLabel": "Saatly Mosque",
+                "itemDescription": "Şuşada məscid",
+                "itemLabel": "Saatlı məscidi",
+                "lastModified": "2026-08-08T00:17:56Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.747416666,
                     39.758888888
                 ]
@@ -6018,6 +6040,57 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.157425,
+                    38.905397222
+                ]
+            },
+            "properties": {
+                "inventory": "1201",
+                "item": "http://www.wikidata.org/entity/Q140659013",
+                "itemDescription": "Yardımlıda nekropol",
+                "itemLabel": "Şəfəqli torpaq qəbirləri nekropolu",
+                "lastModified": "2026-08-08T00:41:58Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.17205,
+                    38.85102
+                ]
+            },
+            "properties": {
+                "inventory": "1204",
+                "item": "http://www.wikidata.org/entity/Q140659017",
+                "itemDescription": "Yardımlıda nekropol",
+                "itemLabel": "Kür-Kürdağ daş qutu nekropolu",
+                "lastModified": "2026-08-08T00:32:38Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.087605,
+                    38.866559
+                ]
+            },
+            "properties": {
+                "inventory": "1212",
+                "item": "http://www.wikidata.org/entity/Q140659033",
+                "itemDescription": "Yardımlıda kurqanlar",
+                "itemLabel": "Arvana kurqanları",
+                "lastModified": "2026-08-08T00:39:06Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.232045,
                     41.141305
                 ]
@@ -6902,7 +6975,7 @@
                 "itemAltLabel": "Zuğulba iqamətgahı",
                 "itemDescription": "Azərbaycan Respublikası Prezidentinin rəsmi iqamətgahı",
                 "itemLabel": "\"Zuğulba\" iqamətgahı",
-                "lastModified": "2026-02-04T09:34:16Z"
+                "lastModified": "2026-08-07T08:17:59Z"
             }
         },
         {
@@ -7242,7 +7315,7 @@
                 "item": "http://www.wikidata.org/entity/Q123753947",
                 "itemDescription": "Azərbaycanda muzey",
                 "itemLabel": "Dəmiryol Muzeyi",
-                "lastModified": "2026-02-17T10:33:47Z"
+                "lastModified": "2026-08-07T07:00:09Z"
             }
         },
         {
@@ -8033,6 +8106,23 @@
                 "item": "http://www.wikidata.org/entity/Q16417516",
                 "itemLabel": "Tağıyev pasajı",
                 "lastModified": "2026-05-30T19:31:41Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.085971,
+                    40.376312
+                ]
+            },
+            "properties": {
+                "inventory": "3482",
+                "item": "http://www.wikidata.org/entity/Q140665298",
+                "itemDescription": "Hövsanda məscid",
+                "itemLabel": "İmam Huccət ibnil Həsən məscidi",
+                "lastModified": "2026-08-08T01:26:03Z"
             }
         },
         {
@@ -9474,6 +9564,24 @@
                 "itemDescription": "Astara şəhərində yerləşən məscid, tarixi abidə.",
                 "itemLabel": "Qum məscidi",
                 "lastModified": "2026-02-23T13:28:19Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.870642,
+                    38.476793
+                ]
+            },
+            "properties": {
+                "inventory": "4115",
+                "item": "http://www.wikidata.org/entity/Q140661952",
+                "itemAltLabel": "Müqəddəs Nikolay Möcüzə işçisinin kilsəsi",
+                "itemDescription": "Astarada kilsə",
+                "itemLabel": "Müqəddəs Nikolay kilsəsi",
+                "lastModified": "2026-08-08T01:20:29Z"
             }
         },
         {
@@ -11467,6 +11575,40 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.109397222,
+                    40.679725
+                ]
+            },
+            "properties": {
+                "inventory": "4365",
+                "item": "http://www.wikidata.org/entity/Q140662074",
+                "itemDescription": "İsmayıllıda kilsə",
+                "itemLabel": "Kirk kilsəsi",
+                "lastModified": "2026-08-08T00:14:32Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.165202,
+                    40.658735
+                ]
+            },
+            "properties": {
+                "inventory": "4366",
+                "item": "http://www.wikidata.org/entity/Q140662075",
+                "itemDescription": "İsmayıllıda kilsə",
+                "itemLabel": "Keşxurt kilsəsi",
+                "lastModified": "2026-08-08T00:13:23Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.231406455,
                     40.769397972
                 ]
@@ -11502,6 +11644,23 @@
                 "itemDescription": "Lahıc qəsəbəsində yerləşən 18-ci əsrə aid məscid.",
                 "itemLabel": "Bədöyün məscidi",
                 "lastModified": "2026-02-19T21:17:16Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.3764398,
+                    40.8429048
+                ]
+            },
+            "properties": {
+                "inventory": "4463",
+                "item": "http://www.wikidata.org/entity/Q140662173",
+                "itemDescription": "İsmayıllıda körpü",
+                "itemLabel": "Lil körpüsü",
+                "lastModified": "2026-08-08T00:12:04Z"
             }
         },
         {
@@ -11550,6 +11709,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.129375,
+                    38.921577777
+                ]
+            },
+            "properties": {
+                "inventory": "4468",
+                "item": "http://www.wikidata.org/entity/Q140662177",
+                "itemDescription": "Yardımlıda bulaq",
+                "itemLabel": "Göz narı bulağı",
+                "lastModified": "2026-08-08T00:43:06Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.339044811,
                     38.982115263
                 ]
@@ -11563,6 +11739,40 @@
                 "itemDescription": "Yardımlı rayonunda yerləşən türbə",
                 "itemLabel": "Abi-Dərdə türbəsi",
                 "lastModified": "2026-02-20T01:10:27Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.254872,
+                    38.792528
+                ]
+            },
+            "properties": {
+                "inventory": "4473",
+                "item": "http://www.wikidata.org/entity/Q140662180",
+                "itemDescription": "Yardımlıda qala",
+                "itemLabel": "Qız qalası",
+                "lastModified": "2026-08-08T00:40:07Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.211622222,
+                    38.805025
+                ]
+            },
+            "properties": {
+                "inventory": "4474",
+                "item": "http://www.wikidata.org/entity/Q140662181",
+                "itemDescription": "Yardımlıda türbə",
+                "itemLabel": "Baba Pirəli türbəsi",
+                "lastModified": "2026-08-08T00:37:37Z"
             }
         },
         {
@@ -13308,6 +13518,25 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.487330555,
+                    38.702641666
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eahzad%C9%99_%C6%8Fb%C3%BClqasim_t%C3%BCrb%C9%99si",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Seyid%20%C6%8Fbulqasim%20T%C3%BCrb%C9%99si%20%28XVII%20%C9%99sr%29%20-%28XV-XVI%20%C9%99srl%C9%99r%29.jpeg",
+                "inventory": "4787",
+                "item": "http://www.wikidata.org/entity/Q20587098",
+                "itemDescription": "Lerikdə türbə",
+                "itemLabel": "Şahzadə Əbülqasim türbəsi",
+                "lastModified": "2026-08-08T00:48:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.516184587,
                     38.802383309
                 ]
@@ -13421,6 +13650,41 @@
                 "item": "http://www.wikidata.org/entity/Q16414887",
                 "itemLabel": "Bəlləbur qalası",
                 "lastModified": "2026-07-01T18:36:38Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.851954,
+                    38.765961
+                ]
+            },
+            "properties": {
+                "inventory": "4808",
+                "item": "http://www.wikidata.org/entity/Q140662368",
+                "itemDescription": "Lənkəranda hamam",
+                "itemLabel": "Kiçik Bazar hamamı",
+                "lastModified": "2026-08-08T01:14:34Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.83567,
+                    38.779416
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Tanr%C4%B1do%C4%9Furan%C4%B1n_Himay%C9%99darl%C4%B1q_Kils%C9%99si",
+                "inventory": "4809",
+                "item": "http://www.wikidata.org/entity/Q140662369",
+                "itemDescription": "Lənkəranda kilsə",
+                "itemLabel": "Tanrıdoğuranın Himayədarlıq Kilsəsi",
+                "lastModified": "2026-08-08T01:12:56Z"
             }
         },
         {
@@ -13546,6 +13810,25 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.1074309,
+                    39.4255439
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/X%C4%B1ll%C4%B1_C%C3%BCm%C9%99_m%C9%99scidi",
+                "inventory": "4934",
+                "item": "http://www.wikidata.org/entity/Q137925644",
+                "itemAltLabel": "Xıllı məscidi",
+                "itemDescription": "Neftçalada məscid",
+                "itemLabel": "Xıllı cümə məscidi",
+                "lastModified": "2026-08-08T01:36:09Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.248932,
                     39.350971
                 ]
@@ -13555,6 +13838,26 @@
                 "item": "http://www.wikidata.org/entity/Q140646222",
                 "itemLabel": "Neftçala kilsəsi",
                 "lastModified": "2026-07-21T20:14:24Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.249785,
+                    39.410102
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Administrative building of Bankə Fish Factory named after H.Z. Taghiyev",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Administrative_building_of_Bank%C9%99_Fish_Factory_named_after_H.Z._Taghiyev",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/H.Z.Ta%C4%9F%C4%B1yev%20ad%C4%B1na%20Bank%C9%99%20Bal%C4%B1q%20Kombinat%C4%B1n%C4%B1n%20inzibati%20binas%C4%B1.jpg",
+                "inventory": "4936",
+                "item": "http://www.wikidata.org/entity/Q140665713",
+                "itemDescription": "Neftçalada inzibati bina",
+                "itemLabel": "Balıq kombinatının inzibati binası",
+                "lastModified": "2026-08-08T01:29:18Z"
             }
         },
         {
@@ -16049,6 +16352,62 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.8518663,
+                    38.7501388
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/H%C9%99zi_Aslanovun_ev-muzeyi",
+                "commonsCategory": "House-Museum of Hazi Aslanov",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House-Museum_of_Hazi_Aslanov",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/2023%20Young%20Wikipedians%20Wikicamp%20Azerbaijan%20264.jpg",
+                "inventory": "5673",
+                "item": "http://www.wikidata.org/entity/Q110101289",
+                "itemAltLabel": "H.Aslanovun ev-muzeyi",
+                "itemDescription": "Lənkəranda muzey",
+                "itemLabel": "Həzi Aslanovun ev-muzeyi",
+                "lastModified": "2026-08-08T01:22:59Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.246306,
+                    39.373401
+                ]
+            },
+            "properties": {
+                "inventory": "5676",
+                "item": "http://www.wikidata.org/entity/Q140663116",
+                "itemDescription": "Neftçalada memorial",
+                "itemLabel": "Böyük Vətən Müharibəsində həlak olmuş həmvətənlərimizin xatirə abidəsi",
+                "lastModified": "2026-08-08T01:32:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.251708,
+                    39.409525
+                ]
+            },
+            "properties": {
+                "inventory": "5677",
+                "item": "http://www.wikidata.org/entity/Q140663117",
+                "itemDescription": "Neftçalanın Bankə qəsəbəsində memorial",
+                "itemLabel": "Böyük Vətən Müharibəsində həlak olmuş həmvətənlərimizin xatirə abidəsi",
+                "lastModified": "2026-08-08T01:33:54Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.192142148,
                     41.199310035
                 ]
@@ -16282,6 +16641,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.124122222,
+                    38.921263888
+                ]
+            },
+            "properties": {
+                "inventory": "5835",
+                "item": "http://www.wikidata.org/entity/Q140665882",
+                "itemDescription": "Yardımlıda qəbiristanlıq",
+                "itemLabel": "Perimbel qəbiristanlığı",
+                "lastModified": "2026-08-08T00:33:45Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.200120857,
                     41.134180739
                 ]
@@ -16368,6 +16744,54 @@
                 "itemAltLabel": "Köhnə qəbiristanlıq",
                 "itemLabel": "Yuxarı qəbiristanlıq",
                 "lastModified": "2026-05-01T11:38:35Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.247739,
+                    39.357976
+                ]
+            },
+            "properties": {
+                "inventory": "5972",
+                "item": "http://www.wikidata.org/entity/Q140663381",
+                "itemLabel": "Üst Qəltuq yaşayış yeri",
+                "lastModified": "2026-08-08T01:37:07Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.016738888,
+                    39.466197222
+                ]
+            },
+            "properties": {
+                "inventory": "5973",
+                "item": "http://www.wikidata.org/entity/Q140663382",
+                "itemLabel": "Kürqarabucaq yaşayış yeri",
+                "lastModified": "2026-08-08T01:31:06Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.016266666,
+                    39.465925
+                ]
+            },
+            "properties": {
+                "inventory": "5974",
+                "item": "http://www.wikidata.org/entity/Q140665910",
+                "itemLabel": "Kürqarabucaq qəbiristanlığı",
+                "lastModified": "2026-08-08T01:31:43Z"
             }
         },
         {
@@ -16614,6 +17038,23 @@
                 "itemDescription": "Yardımlı rayonun Allar kəndi yaxınlığında yerləşən daş kompleksi",
                 "itemLabel": "Dəvə fiqurlarından karvan daş kompleksi",
                 "lastModified": "2025-05-23T03:07:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.293915,
+                    38.860097
+                ]
+            },
+            "properties": {
+                "inventory": "6146",
+                "item": "http://www.wikidata.org/entity/Q140663521",
+                "itemDescription": "Yardımlıda heyvan fiquru",
+                "itemLabel": "Daş qoç fiquru",
+                "lastModified": "2026-08-08T00:45:15Z"
             }
         },
         {
