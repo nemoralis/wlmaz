@@ -33,7 +33,7 @@
     "@wikimedia/codex": "2.6.2",
     "@wikimedia/codex-icons": "2.6.2",
     "chart.js": "4.5.1",
-    "connect-redis": "9.0.0",
+    "connect-redis": "10.0.0",
     "exifr": "7.1.3",
     "express": "5.2.1",
     "express-rate-limit": "8.6.1",
