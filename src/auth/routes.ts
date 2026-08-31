@@ -1,12 +1,30 @@
-import { Router } from "express";
+import { Router, type NextFunction, type Request, type Response } from "express";
 import passport from "./passport.ts";
+import { logger } from "../utils/logger";
 
 const router = Router();
 
-router.get("/login", passport.authenticate("mediawiki"));
+const authDebug = (where: string) => (req: Request, _res: Response, next: NextFunction) => {
+   logger.info(`[AUTH-DEBUG] ${where}:`);
+   logger.info(`  sessionID: ${req.sessionID}`);
+   logger.info(`  protocol: ${req.protocol}, secure: ${req.secure}`);
+   logger.info(`  x-forwarded-proto: ${req.headers["x-forwarded-proto"]}`);
+   logger.info(`  x-forwarded-host: ${req.headers["x-forwarded-host"]}`);
+   logger.info(`  x-forwarded-port: ${req.headers["x-forwarded-port"]}`);
+   logger.info(`  host: ${req.headers.host}`);
+   logger.info(`  cookie: ${req.headers.cookie || "(none)"}`);
+   logger.info(`  session keys: ${JSON.stringify(Object.keys(req.session || {}))}`);
+   const sessionData = req.session as unknown as Record<string, unknown>;
+   logger.info(`  oauth:mediawiki present: ${Boolean(sessionData?.["oauth:mediawiki"])}`);
+   logger.info(`  full URL: ${req.protocol}://${req.get("host")}${req.originalUrl}`);
+   next();
+};
+
+router.get("/login", authDebug("/auth/login"), passport.authenticate("mediawiki"));
 
 router.get(
    "/callback",
+   authDebug("/auth/callback"),
    passport.authenticate("mediawiki", {
       failureRedirect: "/auth/login",
       successRedirect: process.env.CLIENT_URL || "/",
