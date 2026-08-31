@@ -34,7 +34,19 @@ const startServer = async () => {
 
    app.set("trust proxy", 1);
 
-   const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
+   // TEMP (verification): expose the raw X-Forwarded-For chain the CloudVPS
+   // proxy forwards, so we can determine the correct `trust proxy` hop count
+   // before fixing the real-client-IP logging. Remove once confirmed.
+   morgan.token(
+      "xff",
+      (req: Request) => String(req.headers["x-forwarded-for"] || "-"),
+   );
+
+   // TEMP: "combined" plus the raw X-Forwarded-For chain (see above).
+   const morganFormat =
+      process.env.NODE_ENV === "production"
+         ? ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" xff=":xff"'
+         : "dev";
 
    app.use(
       morgan(morganFormat, {
