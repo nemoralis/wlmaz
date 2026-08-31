@@ -186,7 +186,14 @@ const startServer = async () => {
          resave: false,
          saveUninitialized: false,
          cookie: {
-            secure: process.env.NODE_ENV === "production",
+            // 'auto' makes the Secure flag follow the actual (proxied) protocol
+            // instead of a hard NODE_ENV check. Behind the CloudVPS/nginx HTTPS
+            // proxy, nginx was rewriting X-Forwarded-Proto to "http", so
+            // req.secure was false and express-session (with secure=true) never
+            // issued the session cookie. That meant no cookie reached the
+            // browser, the OAuth request token was lost, and the callback failed
+            // with "failed to find request token in session".
+            secure: "auto",
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
             // lax — required for OAuth callback redirects to send the session cookie
