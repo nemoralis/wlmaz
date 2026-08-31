@@ -2907,12 +2907,15 @@
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/Ming%C9%99%C3%A7evir_D%C3%B6vl%C9%99t_Dram_Teatr%C4%B1",
+                "commonsCategory": "Mingachevir State Drama Theatre",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Mingachevir_State_Drama_Theatre",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mingachevir%20State%20Drama%20Theater%2003.jpg",
                 "inventory": "201",
                 "item": "http://www.wikidata.org/entity/Q12841958",
                 "itemAltLabel": "Mingəçevir Dövlət Dram Teatrının binası",
-                "itemDescription": "Azerbaijani theatre",
+                "itemDescription": "Mingəçevirdə teatr",
                 "itemLabel": "Mingəçevir Dövlət Dram Teatrı",
-                "lastModified": "2026-08-15T11:02:33Z"
+                "lastModified": "2026-08-31T00:29:49Z"
             }
         },
         {
@@ -3284,7 +3287,7 @@
                 "commonsCategory": "Khanagah of Pir Huseyn",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Khanagah_of_Pir_Huseyn",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Pirsaat%C3%A7ay%20xan%C9%99gah%C4%B1%2C%20XIII%20%C9%99sr.jpg",
-                "inventory": "221, 222, 219, 223, 220",
+                "inventory": "221, 223, 220, 222, 219",
                 "item": "http://www.wikidata.org/entity/Q1408889",
                 "itemAltLabel": "Pir Hüseyn xanəgahı, Pirsaatçay xanəgahı",
                 "itemDescription": "fortress",
@@ -4492,6 +4495,23 @@
                 "itemDescription": "Zaqatala rayonunda qala",
                 "itemLabel": "Pəriqala",
                 "lastModified": "2026-07-25T15:48:32Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.80285355,
+                    39.1167504
+                ]
+            },
+            "properties": {
+                "inventory": "390, 5291",
+                "item": "http://www.wikidata.org/entity/Q140657707",
+                "itemAltLabel": "Dairəvi bürc",
+                "itemLabel": "Dairəvi qüllə",
+                "lastModified": "2026-07-26T02:35:36Z"
             }
         },
         {
@@ -6268,7 +6288,7 @@
                 "itemAltLabel": "Böyük Əmilli məbədi, Kilsədağ məbədi",
                 "itemDescription": "Qəbələdə kilsə",
                 "itemLabel": "Kilsədağ kilsəsi",
-                "lastModified": "2026-07-25T15:43:55Z"
+                "lastModified": "2026-08-28T11:32:30Z"
             }
         },
         {
@@ -7330,7 +7350,7 @@
                 "itemAltLabel": "Azərbaycan Dövlət Rəssamlıq Məktəbi, Ə. Əzimzadə adına Azərbaycan Dövlət Rəssamlıq məktəbi",
                 "itemDescription": "1920–2000-ci illərdə fəaliyyət göstərmiş təhsil müəssisəsi",
                 "itemLabel": "Əzim Əzimzadə adına Azərbaycan Dövlət Rəssamlıq Məktəbi",
-                "lastModified": "2026-03-22T09:21:20Z"
+                "lastModified": "2026-08-28T08:03:16Z"
             }
         },
         {
@@ -11544,7 +11564,7 @@
                 "itemAltLabel": "Arakül kilsəsi, Ərəkül kilsəsi",
                 "itemDescription": "Xocavəndin Ərəkül kəndində yerləşən kilsə",
                 "itemLabel": "Müqəddəs Məryəm kilsəsi (Ərəkül)",
-                "lastModified": "2026-05-01T11:34:59Z"
+                "lastModified": "2026-08-27T09:22:00Z"
             }
         },
         {
@@ -13056,9 +13076,10 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Xan%C9%99gah%20k%C9%99nd%20m%C9%99scidi%20%282%29.jpg",
                 "inventory": "4660",
                 "item": "http://www.wikidata.org/entity/Q125522857",
-                "itemDescription": "mosque in Azerbaijan",
+                "itemAltLabel": "Xanəgah məscidi (Quba)",
+                "itemDescription": "Qubanın Xanəgah kəndində məscid, XIX əsr",
                 "itemLabel": "Xanəgah məscidi (Quba)",
-                "lastModified": "2026-03-16T00:58:34Z"
+                "lastModified": "2026-08-24T09:35:02Z"
             }
         },
         {
@@ -13362,7 +13383,8 @@
             "properties": {
                 "inventory": "4712",
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemLabel": "Məscid",
+                "itemDescription": "Qubadlıda məscid",
+                "itemLabel": "Mirlər məscidi",
                 "lastModified": "2026-07-23T15:59:55Z"
             }
         },
@@ -14253,7 +14275,7 @@
                 "itemAltLabel": "Oğuz Tarix-Diyarşünaslıq Muzeyi",
                 "itemDescription": "1822-ci ildə tikilmiş ortodoks kilsəsi",
                 "itemLabel": "Müqəddəs Yelisey kilsəsi",
-                "lastModified": "2026-05-01T11:34:30Z"
+                "lastModified": "2026-08-28T10:43:35Z"
             }
         },
         {
@@ -15987,23 +16009,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    46.80285355,
-                    39.1167504
-                ]
-            },
-            "properties": {
-                "inventory": "5291, 390",
-                "item": "http://www.wikidata.org/entity/Q140657707",
-                "itemAltLabel": "Dairəvi bürc",
-                "itemLabel": "Dairəvi qüllə",
-                "lastModified": "2026-07-26T02:35:36Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     45.409058951,
                     39.208794459
                 ]
@@ -16474,10 +16479,15 @@
                 ]
             },
             "properties": {
+                "commonsCategory": "World War II memorial in Mingachevir",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:World_War_II_memorial_in_Mingachevir",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Photowalk%20in%20Mingachevir%2018.jpg",
                 "inventory": "5603",
                 "item": "http://www.wikidata.org/entity/Q140663032",
+                "itemAltLabel": "Ana Vətən abidəsi",
+                "itemDescription": "Mingəçevirdə yerləşən memorial abidəsi",
                 "itemLabel": "Faşizm üzərində qələbənin 30 illik yubileyi münasibəti ilə ucaldılan Ana Vətən abidəsi",
-                "lastModified": "2026-07-25T23:07:17Z"
+                "lastModified": "2026-08-30T23:55:22Z"
             }
         },
         {
