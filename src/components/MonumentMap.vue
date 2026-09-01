@@ -18,7 +18,7 @@
             <ul role="tablist">
                <li>
                   <a
-                     href="https://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2025_in_Azerbaijan"
+                     href="https://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2026_in_Azerbaijan"
                      target="_blank"
                      title="WLM Azerbaijan Page"
                      aria-label="Wiki Loves Monuments Azerbaijan Page"
