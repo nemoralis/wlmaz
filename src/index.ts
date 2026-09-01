@@ -109,7 +109,7 @@ const startServer = async () => {
    });
    const uploadLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
-      limit: 20,
+      limit: 500,
       message: { error: "Upload limit reached, please try again later." },
       store: new RateLimitRedisStore({ sendCommand: redisCall, prefix: "rl-upload:" }),
    });
