@@ -113,7 +113,7 @@
                   ><font-awesome-icon :icon="['fab', 'github']" /> GitHub</a
                >
             </p>
-            <p class="mt-4 text-xs text-gray-400">&copy; 2025 Viki Abidələri Sevir Azərbaycan</p>
+            <p class="mt-4 text-xs text-gray-400">&copy; 2026 Viki Abidələri Sevir Azərbaycan</p>
          </div>
       </div>
    </div>
