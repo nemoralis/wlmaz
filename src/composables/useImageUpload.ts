@@ -8,6 +8,7 @@ export interface FileItem {
    title: string;
    description: string;
    year?: number;
+   capturedAt?: string;
    latitude?: number;
    longitude?: number;
 }
@@ -160,7 +161,11 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
             if (data) {
                if (data.DateTimeOriginal) {
                   const date = new Date(data.DateTimeOriginal);
-                  item.year = date.getFullYear();
+                  const y = date.getFullYear();
+                  const m = date.getMonth() + 1;
+                  const d = date.getDate();
+                  item.year = y;
+                  item.capturedAt = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
                }
                if (data.latitude && data.longitude) {
                   item.latitude = data.latitude;
@@ -261,6 +266,16 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
             // Add Commons Category if available
             if (monument.value?.commonsCategory) {
                formData.append("categories", monument.value.commonsCategory);
+            }
+
+            // Add inventory number if available (used for the heritage template)
+            if (monument.value?.inventory) {
+               formData.append("inventory", monument.value.inventory);
+            }
+
+            // Add EXIF capture date if available (server falls back to upload date)
+            if (fileItem.capturedAt) {
+               formData.append("capturedAt", fileItem.capturedAt);
             }
 
             // Send request
