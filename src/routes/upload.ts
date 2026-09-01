@@ -6,7 +6,7 @@ import sharp from "sharp";
 import type { WikiUser } from "@/types";
 import { optimizeImage } from "@/utils/image";
 import { logger } from "@/utils/logger";
-import { uploadFile as uploadToCommons, CommonsUploadError } from "@/utils/mediawiki";
+import { uploadFile as uploadToCommons, CommonsUploadError, checkFileExistence } from "@/utils/mediawiki";
 import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize";
 import { getCanonicalId } from "@/utils/monumentFormatters";
 
@@ -109,6 +109,43 @@ const checkUploadsEnabled = (
 // Status Check Endpoint
 router.get("/status", (_req, res) => {
    res.json({ enabled: process.env.ENABLE_UPLOADS === "true" });
+});
+
+/**
+ * Reports which of the requested upload titles already exist on Commons, so the
+ * client can re-number its batch titles to the first free slots before uploading.
+ * Public data — no authentication required (this host only shows its own origin).
+ * Uses JSON POST so long filenames never hit query-string/header limits.
+ */
+router.post("/titles-exist", async (req, res) => {
+   try {
+      const raw = req.body?.titles;
+      if (!Array.isArray(raw)) {
+         res.status(400).json({ error: "Missing titles parameter" });
+         return;
+      }
+
+      const titles = raw
+         .map((t) => String(t ?? "").trim())
+         .filter(Boolean)
+         .slice(0, 50);
+
+      if (titles.length === 0) {
+         res.status(400).json({ error: "Missing titles parameter" });
+         return;
+      }
+
+      if (titles.some((t) => t.length > 255)) {
+         res.status(400).json({ error: "Title too long" });
+         return;
+      }
+
+      const existing = await checkFileExistence(titles);
+      res.json({ existing });
+   } catch (error) {
+      logger.error("Titles existence check failed:", error);
+      res.status(502).json({ error: "Failed to check title availability" });
+   }
 });
 
 router.post(
