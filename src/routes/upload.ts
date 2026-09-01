@@ -181,13 +181,15 @@ router.post(
          }
 
          // Format Categories
-         // Base category + specific monument category
-         let categoryText = "[[Category:Wiki Loves Monuments 2025 in Azerbaijan]]";
+         // Per-monument category, placed below the WLM template (only when the
+         // monument has a Commons category).
+         let categoryText = "";
          if (safeCategories) {
-            categoryText += `\n[[Category:${safeCategories}]]`;
+            categoryText = `\n[[Category:${safeCategories}]]`;
          }
 
          // Format wikitext description
+         // The WLM competition template sits directly below the license header.
          const wikitext = `== {{int:filedesc}} ==
 {{Information
 |description={{en|1=${safeDescription}}}
@@ -201,6 +203,7 @@ ${locationTemplate}
 
 == {{int:license-header}} ==
 ${licenseTemplate}
+{{Wiki Loves Monuments 2026|az}}
 
 ${categoryText}
 `;
