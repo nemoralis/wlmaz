@@ -2,6 +2,7 @@ import crypto from "crypto";
 import OAuth from "oauth-1.0a";
 import type { WikiUser } from "../types";
 import { logger } from "./logger";
+import { sanitizeFilename } from "./sanitize";
 
 const IS_PROD = process.env.NODE_ENV === "production";
 
@@ -146,7 +147,6 @@ export async function uploadFile(
    const queryParams = {
       action: "upload",
       format: "json",
-      ignorewarnings: "1",
    };
 
    // Body Parameters (NOT SIGNED by OAuth, but sent in Multipart)
@@ -202,5 +202,98 @@ export async function uploadFile(
       throw new CommonsUploadError(result.error.code, result.error.info);
    }
 
+   // Without `ignorewarnings`, an existing/duplicate title produces a Warning
+   // result instead of an error. That must fail the upload — if we let it
+   // through, the existing file would be silently replaced with a new version.
+   const uploadResult = result.upload;
+   const hasWarnings = !!uploadResult?.warnings && Object.keys(uploadResult.warnings).length > 0;
+   if (uploadResult && (uploadResult.result === "Warning" || hasWarnings)) {
+      logger.error("[MediaWiki] Upload Warning Details:", uploadResult.warnings);
+      const warnings = uploadResult.warnings || {};
+      const priority = [
+         "exists",
+         "fileexists-shared-forbidden",
+         "fileexists",
+         "no-change",
+         "duplicateversions",
+         "duplicate",
+         "duplicate-archive",
+         "was-deleted",
+         "badfilename",
+      ];
+      const primary =
+         priority.find((key) => key in warnings) || Object.keys(warnings)[0] || "warning";
+      const raw = warnings[primary];
+      const info = Array.isArray(raw) ? raw.join(", ") : raw;
+      throw new CommonsUploadError(primary, info ? String(info) : `Upload refused: ${primary}`);
+   }
+
    return result;
+}
+
+/**
+ * Checks which of the given raw upload titles already exist on Commons.
+ * Mirrors the server-side file naming: each title becomes `File:<sanitizeFilename(t)>.<ext>`,
+ * where the backend always re-encodes to `.jpg` (see image.ts). The query is
+ * unauthenticated — file existence is public data — so no OAuth signing is needed.
+ *
+ * The returned array contains the subset of `rawTitles` that already exist.
+ */
+export async function checkFileExistence(rawTitles: string[]): Promise<string[]> {
+   const MAX_TITLES_PER_REQUEST = 50;
+
+   // MediaWiki normalizes titles (File: prefix, underscores vs spaces, first
+   // letter casing) — fold both sides to a comparable key.
+   const normalize = (title: string): string =>
+      title
+         .replace(/^File:/i, "")
+         .replace(/_/g, " ")
+         .replace(/\s+/g, " ")
+         .trim()
+         .toLowerCase();
+
+   const existing: string[] = [];
+
+   for (let i = 0; i < rawTitles.length; i += MAX_TITLES_PER_REQUEST) {
+      const chunk = rawTitles.slice(i, i + MAX_TITLES_PER_REQUEST);
+      const fileTitles = chunk.map((t) => `File:${sanitizeFilename(t)}.jpg`);
+
+      const params = new URLSearchParams({
+         action: "query",
+         titles: fileTitles.join("|"),
+         format: "json",
+      });
+
+      const response = await fetch(`${API_CONFIG.url}?${params.toString()}`, {
+         method: "GET",
+         signal: AbortSignal.timeout(10000),
+         headers: { "User-Agent": "WLMAZ-Tool/1.0" },
+      });
+
+      if (!response.ok) {
+         throw new Error(
+            `HTTP Error checking file existence: ${response.status} ${response.statusText}`,
+         );
+      }
+
+      const data = await response.json();
+      if (data.error) {
+         throw new Error(`MediaWiki API Error: ${data.error.code} - ${data.error.info}`);
+      }
+
+      const existingKeys = new Set(
+         Object.values(data.query?.pages || {}).flatMap((page) => {
+            const p = page as { missing?: string; title?: string };
+            return !p.missing && p.title ? [normalize(p.title)] : [];
+         }),
+      );
+
+      for (const raw of chunk) {
+         if (existingKeys.has(normalize(`File:${sanitizeFilename(raw)}.jpg`))) {
+            existing.push(raw);
+         }
+      }
+   }
+
+   return existing;
 }
