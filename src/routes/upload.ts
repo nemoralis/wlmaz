@@ -8,6 +8,7 @@ import { optimizeImage } from "@/utils/image";
 import { logger } from "@/utils/logger";
 import { uploadFile as uploadToCommons } from "@/utils/mediawiki";
 import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize";
+import { getCanonicalId } from "@/utils/monumentFormatters";
 
 const router = express.Router();
 
@@ -125,7 +126,7 @@ router.post(
       const filePath = req.file.path;
 
       try {
-         let { title, description, license, lat, lon, categories } = req.body;
+         let { title, description, license, lat, lon, categories, inventory, capturedAt } = req.body;
 
          if (!title || !description) {
             res.status(400).json({ error: "Missing title or description" });
@@ -137,7 +138,9 @@ router.post(
          if (
             String(title).length > 255 ||
             String(description).length > 2000 ||
-            (categories && String(categories).length > 255)
+            (categories && String(categories).length > 255) ||
+            (inventory && String(inventory).length > 255) ||
+            (capturedAt && String(capturedAt).length > 20)
          ) {
             res.status(400).json({ error: "Input too long" });
             return;
@@ -157,6 +160,8 @@ router.post(
 
          const safeDescription = sanitizeWikitext(description);
          const safeCategories = sanitizeWikitext(categories);
+         // Sanitize the inventory so no wikitext can leak into the heritage template.
+         const canonicalInventory = getCanonicalId(sanitizeWikitext(inventory));
          // Sanitize the username even though it comes from a trusted OAuth session.
          // Wikimedia usernames should never contain wikitext-special characters, but
          // being defensive here prevents template corruption if that assumption breaks.
@@ -188,12 +193,41 @@ router.post(
             categoryText = `\n[[Category:${safeCategories}]]`;
          }
 
+         // Format the cultural heritage template, placed inside the {{Information}}
+         // description (next to {{en}}) when the monument has an inventory number.
+         let heritageLine = "";
+         if (canonicalInventory) {
+            heritageLine = `\n{{Cultural Heritage Azerbaijan|${canonicalInventory}}}`;
+         }
+
+         // Format the {{date}} template: prefer the photo's EXIF capture date,
+         // validated strictly, otherwise fall back to the upload date (UTC,
+         // matching the previous ISO date behavior).
+         const now = new Date();
+         let dateTemplate = `{{date|${now.getUTCFullYear()}|${now.getUTCMonth() + 1}|${now.getUTCDate()}}}`;
+         if (
+            typeof capturedAt === "string" &&
+            /^\d{4}-\d{2}-\d{2}$/.test(capturedAt)
+         ) {
+            const [y, m, d] = capturedAt.split("-").map(Number);
+            const parsed = new Date(Date.UTC(y, m - 1, d));
+            if (
+               m >= 1 &&
+               m <= 12 &&
+               d >= 1 &&
+               d <= 31 &&
+               !Number.isNaN(parsed.getTime())
+            ) {
+               dateTemplate = `{{date|${y}|${m}|${d}}}`;
+            }
+         }
+
          // Format wikitext description
          // The WLM competition template sits directly below the license header.
          const wikitext = `== {{int:filedesc}} ==
 {{Information
-|description={{en|1=${safeDescription}}}
-|date=${new Date().toISOString().split("T")[0]}
+|description={{en|1=${safeDescription}}}${heritageLine}
+|date=${dateTemplate}
 |source={{own}}
 |author=[[User:${safeUsername}|${safeUsername}]]
 |permission=
