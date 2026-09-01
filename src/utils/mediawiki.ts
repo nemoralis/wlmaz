@@ -64,6 +64,21 @@ function getSigningToken(user?: WikiUser) {
 // ==========================================
 
 /**
+ * Error raised when Wikimedia Commons rejects or fails an upload.
+ * Carries the API error code/info so callers can surface it to the user.
+ */
+export class CommonsUploadError extends Error {
+   constructor(
+      public code: string,
+      public info?: string,
+      public httpStatus?: number,
+   ) {
+      super(`Commons upload failed: ${code}${info ? ` - ${info}` : ""}`);
+      this.name = "CommonsUploadError";
+   }
+}
+
+/**
  * Fetches a CSRF (Edit) Token.
  * Uses POST x-www-form-urlencoded to avoid query string signing issues.
  */
@@ -173,14 +188,18 @@ export async function uploadFile(
    });
 
    if (!response.ok) {
-      throw new Error(`HTTP Upload Error: ${response.status}`);
+      throw new CommonsUploadError(
+         "http_error",
+         `HTTP Upload Error: ${response.status}`,
+         response.status,
+      );
    }
 
    const result = await response.json();
 
    if (result.error) {
       logger.error("[MediaWiki] Upload Error Details:", result.error);
-      throw new Error(`Upload Failed: ${result.error.code} - ${result.error.info}`);
+      throw new CommonsUploadError(result.error.code, result.error.info);
    }
 
    return result;

@@ -6,7 +6,7 @@ import sharp from "sharp";
 import type { WikiUser } from "@/types";
 import { optimizeImage } from "@/utils/image";
 import { logger } from "@/utils/logger";
-import { uploadFile as uploadToCommons } from "@/utils/mediawiki";
+import { uploadFile as uploadToCommons, CommonsUploadError } from "@/utils/mediawiki";
 import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize";
 import { getCanonicalId } from "@/utils/monumentFormatters";
 
@@ -297,6 +297,22 @@ ${categoryText}
                `https://commons.wikimedia.org/wiki/File:${result.upload?.filename}`,
          });
       } catch (error: any) {
+         // Commons rejections carry a user-facing code/info; surface them so the
+         // client can map them to a helpful message. Everything else is an
+         // internal error and stays generic to avoid leaking stack traces.
+         if (error instanceof CommonsUploadError) {
+            logger.error("Commons upload rejected:", {
+               code: error.code,
+               info: error.info,
+            });
+            res.status(error.httpStatus || 422).json({
+               error: error.code === "http_error" ? "Commons upload failed" : "Commons rejected the upload",
+               code: error.code,
+               details: (error.info || "").slice(0, 500),
+            });
+            return;
+         }
+
          logger.error("Upload error:", error);
          // Fail securely: do not leak internal error details or stack traces to the client
          // We keep the 'details' key for compatibility but sanitize its content in production

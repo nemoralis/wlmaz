@@ -67,22 +67,41 @@
                   </div>
                </div>
 
-               <!-- SUCCESS VIEW -->
+               <!-- SUCCESS / PARTIAL RESULTS VIEW -->
                <div
                   v-if="uploadComplete"
                   class="flex h-full w-full flex-col items-center justify-center bg-white p-8 text-center"
                >
                   <div
-                     class="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-green-100"
+                     class="mb-4 flex h-20 w-20 items-center justify-center rounded-full"
+                     :class="uploadFailures.length > 0 ? 'bg-amber-100' : 'bg-green-100'"
                   >
-                     <font-awesome-icon :icon="['fas', 'check']" class="text-4xl text-green-600" />
+                     <font-awesome-icon
+                        v-if="uploadFailures.length === 0"
+                        :icon="['fas', 'check']"
+                        class="text-4xl text-green-600"
+                     />
+                     <font-awesome-icon
+                        v-else
+                        :icon="['fas', 'exclamation-triangle']"
+                        class="text-4xl text-amber-600"
+                     />
                   </div>
-                  <h3 class="mb-2 text-2xl font-bold text-gray-900">Uğurla yükləndi!</h3>
+                  <h3 class="mb-2 text-2xl font-bold text-gray-900">
+                     {{ uploadFailures.length > 0 ? "Qismən yükləndi" : "Uğurla yükləndi!" }}
+                  </h3>
                   <p class="mb-8 text-gray-500">
-                     {{ uploadResults.length }} fayl Vikianbara yükləndi.
+                     <template v-if="uploadFailures.length === 0">
+                        {{ uploadResults.length }} fayl Vikianbara yükləndi.
+                     </template>
+                     <template v-else>
+                        {{ uploadResults.length }} fayl yükləndi, {{ uploadFailures.length }} fayl
+                        yüklənə bilmədi.
+                     </template>
                   </p>
 
                   <div
+                     v-if="uploadResults.length > 0"
                      class="mb-8 w-full max-w-lg overflow-hidden rounded-xl border border-gray-200 bg-gray-50 text-left"
                   >
                      <div class="max-h-60 overflow-y-auto">
@@ -118,12 +137,53 @@
                      </div>
                   </div>
 
+                  <div
+                     v-if="uploadFailures.length > 0"
+                     class="mb-8 w-full max-w-lg overflow-hidden rounded-xl border border-red-200 bg-red-50 text-left"
+                  >
+                     <div class="max-h-40 overflow-y-auto">
+                        <div
+                           v-for="(failure, idx) in uploadFailures"
+                           :key="idx"
+                           class="flex items-start border-b border-red-100 bg-white px-4 py-3 last:border-0"
+                        >
+                           <font-awesome-icon
+                              :icon="['fas', 'exclamation-circle']"
+                              class="mr-3 mt-0.5 text-red-500"
+                           />
+                           <div class="min-w-0">
+                              <div
+                                 class="truncate text-sm font-medium text-gray-700"
+                                 :title="failure.name"
+                              >
+                                 {{ stripExtension(failure.name) }}
+                              </div>
+                              <div class="mt-0.5 text-xs text-red-600">{{ failure.message }}</div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
                   <div class="flex space-x-4">
                      <button
                         class="rounded-lg px-6 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100"
                         @click="closeModal"
                      >
                         Bağla
+                     </button>
+                     <button
+                        v-if="uploadFailures.length > 0"
+                        class="flex items-center gap-2 rounded-lg bg-amber-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-amber-700 disabled:cursor-not-allowed disabled:opacity-60"
+                        :disabled="isRetrying"
+                        @click="retryFailed"
+                     >
+                        <font-awesome-icon
+                           v-if="isRetrying"
+                           :icon="['fas', 'circle-notch']"
+                           spin
+                           class="text-sm"
+                        />
+                        {{ isRetrying ? "Yenidən cəhd edilir..." : "Yenidən cəhd et" }}
                      </button>
                      <button
                         class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700"
@@ -549,6 +609,8 @@ export default defineComponent({
          currentFileIndex,
          uploadComplete,
          uploadResults,
+         uploadFailures,
+         isRetrying,
          uploadsEnabled,
          isDragging,
          isValid,
@@ -562,6 +624,7 @@ export default defineComponent({
          handleDrop,
          removeFile,
          handleUpload,
+         retryFailed,
       } = useImageUpload(toRef(props, "monument"));
 
       // Watch for opening to pre-fill data
@@ -597,6 +660,9 @@ export default defineComponent({
          handleUpload,
          uploadComplete,
          uploadResults,
+         uploadFailures,
+         isRetrying,
+         retryFailed,
          resetForm,
          currentFileIndex,
          uploadProgress,

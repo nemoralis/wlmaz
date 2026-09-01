@@ -18,6 +18,52 @@ export interface UploadResult {
    url: string;
 }
 
+export interface UploadFailure {
+   fileItem: FileItem;
+   name: string;
+   code?: string;
+   message: string;
+}
+
+const UPLOAD_TIMEOUT_MS = 120000;
+const MAX_ATTEMPTS = 2;
+const RETRY_DELAY_MS = 1500;
+
+// Commons API error codes that are safe to auto-retry (transient/server-side).
+const TRANSIENT_ERROR_CODES = new Set([
+   "http_error",
+   "stashfailed",
+   "internalerror",
+   "uploaddisabled",
+   "sessionlost",
+]);
+
+// Friendly Azerbaijani messages for known Commons upload error codes.
+const UPLOAD_ERROR_MESSAGES: Record<string, string> = {
+   fileexists: "Bu adda fayl artıq Vikianbarda mövcuddur.",
+   "fileexists-shared-forbidden": "Bu adda fayl artıq mövcuddur və yenidən yüklənə bilməz.",
+   "duplicate-archive": "Bu fayl artıq Vikianbarda başqa adda mövcuddur.",
+   "verify-error": "Fayl doğrulama müddəti bitdi. Yenidən cəhd edin.",
+   "empty-file": "Fayl boşdur və yüklənə bilməz.",
+   badfilename: "Bu fayl adı etibarsızdır.",
+   "filename-too-short": "Fayl adı çox qısadır.",
+   "external-session-invalid": "Vikianbar sessiyası etibarsızdır. Səhifəni yeniləyib yenidən cəhd edin.",
+   badtoken: "Təhlükəsizlik tokeni köhnəlmişdir. Səhifəni yeniləyib yenidən cəhd edin.",
+   uploaddisabled: "Vikianbar yükləmələri müvəqqəti olaraq dayandırılıb.",
+   stashfailed: "Vikianbar yükləmə xidməti xəta verdi. Yenidən cəhd edin.",
+   internalerror: "Vikianbar daxili xəta verdi. Yenidən cəhd edin.",
+   http_error: "Vikianbara qoşulma xətası. İnternet bağlantınızı yoxlayın.",
+   timeout: "Yükləmə müddəti bitdi. Yenidən cəhd edin.",
+};
+
+const messageFor = (code: string | undefined, fallback: string): string =>
+   (code && UPLOAD_ERROR_MESSAGES[code]) || fallback;
+
+const isTransientError = (code: string | undefined, httpStatus?: number): boolean =>
+   (!!code && TRANSIENT_ERROR_CODES.has(code)) || (httpStatus !== undefined && httpStatus >= 500);
+
+const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
+
 const isHeicFile = (file: File): boolean =>
    file.name.toLowerCase().endsWith(".heic") ||
    file.type === "image/heic" ||
@@ -36,6 +82,8 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
    const mode = ref<"bulk" | "individual">("bulk");
    const uploadComplete = ref(false);
    const uploadResults = ref<UploadResult[]>([]);
+   const uploadFailures = ref<UploadFailure[]>([]);
+   const isRetrying = ref(false);
    const uploadsEnabled = ref(true);
    const isDragging = ref(false);
 
@@ -103,6 +151,7 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       currentFileIndex.value = 0;
       uploadComplete.value = false;
       uploadResults.value = [];
+      uploadFailures.value = [];
       if (fileInput.value) fileInput.value.value = "";
    };
 
@@ -225,63 +274,59 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       }
    };
 
-   const handleUpload = async () => {
-      if (!isValid.value) return;
+   // Build the multipart request for a single file upload
+      // (used for the initial upload and for retries).
+      const buildFormData = (fileItem: FileItem): FormData => {
+         const formData = new FormData();
+         formData.append("file", fileItem.file);
+         formData.append("title", fileItem.title);
+         formData.append("description", fileItem.description);
+         formData.append("license", bulkForm.license);
 
-      isUploading.value = true;
-      uploadProgress.value = 0;
-      currentFileIndex.value = 0;
+         // Add Coordinates (Prioritize EXIF > Monument > None)
+         if (fileItem.latitude && fileItem.longitude) {
+            formData.append("lat", fileItem.latitude.toString());
+            formData.append("lon", fileItem.longitude.toString());
+         } else if (monument.value?.lat && monument.value?.lon) {
+            formData.append("lat", monument.value.lat.toString());
+            formData.append("lon", monument.value.lon.toString());
+         }
 
-      // Apply bulk metadata if in bulk mode
-      if (mode.value === "bulk") {
-         files.value.forEach((f, index) => {
-            // Only append number if there are multiple files
-            f.title = files.value.length > 1 ? `${bulkForm.title} ${index + 1}` : bulkForm.title;
-            f.description = bulkForm.description;
-         });
+         // Add Commons Category if available
+         if (monument.value?.commonsCategory) {
+            formData.append("categories", monument.value.commonsCategory);
+         }
+
+         // Add inventory number if available (used for the heritage template)
+         if (monument.value?.inventory) {
+            formData.append("inventory", monument.value.inventory);
+         }
+
+         // Add EXIF capture date if available (server falls back to upload date)
+         if (fileItem.capturedAt) {
+            formData.append("capturedAt", fileItem.capturedAt);
+         }
+
+         return formData;
+      };
+
+      interface UploadAttemptResult {
+         ok: boolean;
+         result?: UploadResult;
+         code?: string;
+         httpStatus?: number;
+         message?: string;
       }
 
-      // Process uploads sequentially
-      try {
-         for (let i = 0; i < files.value.length; i++) {
-            currentFileIndex.value = i;
-            const fileItem = files.value[i];
-
-            // Create FormData
-            const formData = new FormData();
-            formData.append("file", fileItem.file);
-            formData.append("title", fileItem.title);
-            formData.append("description", fileItem.description);
-            formData.append("license", bulkForm.license);
-
-            // Add Coordinates (Prioritize EXIF > Monument > None)
-            if (fileItem.latitude && fileItem.longitude) {
-               formData.append("lat", fileItem.latitude.toString());
-               formData.append("lon", fileItem.longitude.toString());
-            } else if (monument.value?.lat && monument.value?.lon) {
-               formData.append("lat", monument.value.lat.toString());
-               formData.append("lon", monument.value.lon.toString());
-            }
-
-            // Add Commons Category if available
-            if (monument.value?.commonsCategory) {
-               formData.append("categories", monument.value.commonsCategory);
-            }
-
-            // Add inventory number if available (used for the heritage template)
-            if (monument.value?.inventory) {
-               formData.append("inventory", monument.value.inventory);
-            }
-
-            // Add EXIF capture date if available (server falls back to upload date)
-            if (fileItem.capturedAt) {
-               formData.append("capturedAt", fileItem.capturedAt);
-            }
-
-            // Send request
+      // Single POST attempt against /upload. Never throws; returns a structured
+      // outcome so callers can decide on retrying.
+      const attemptUpload = async (fileItem: FileItem): Promise<UploadAttemptResult> => {
+         const formData = buildFormData(fileItem);
+         try {
             const response = await fetch("/upload", {
                method: "POST",
                body: formData, // Browser handles Content-Type boundaries
+               signal: AbortSignal.timeout(UPLOAD_TIMEOUT_MS),
             });
 
             // Read response as text first to handle non-JSON errors (like Nginx 413)
@@ -290,56 +335,159 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
             try {
                responseData = JSON.parse(responseText);
             } catch (_e) {
-               throw new Error(
-                  "Server returned an invalid response. This often happens if the file is too large for the server's Nginx configuration (client_max_body_size).",
-               );
+               return {
+                  ok: false,
+                  httpStatus: response.status,
+                  message:
+                     "Server yanlış cavab qaytardı. Bu, faylın server yükləmə limitindən böyük olması halında baş verə bilər.",
+               };
             }
 
             if (!response.ok) {
-               throw new Error(responseData.error || `Upload failed for ${fileItem.file.name}`);
+               return {
+                  ok: false,
+                  httpStatus: response.status,
+                  code: responseData.code,
+                  message: responseData.details || responseData.error || "Yükləmə xətası",
+               };
             }
 
-            // The backend now returns { filename: "...", url: "..." }
-            uploadResults.value.push({
-               filename: responseData.filename,
-               url: responseData.url,
-            });
+            // The backend returns { filename: "...", url: "..." }
+            return {
+               ok: true,
+               result: {
+                  filename: responseData.filename,
+                  url: responseData.url,
+               },
+            };
+         } catch (e: any) {
+            // Timeout/network errors: map to a stable transient code
+            return {
+               ok: false,
+               code: e?.name === "TimeoutError" ? "timeout" : "http_error",
+               httpStatus: 502,
+               message: "",
+            };
+         }
+      };
 
-            // Update progress
-            uploadProgress.value = Math.round(((i + 1) / files.value.length) * 100);
+      // Uploads one file with auto-retry on transient failures.
+      const uploadSingleFile = async (fileItem: FileItem): Promise<{
+         ok: boolean;
+         result?: UploadResult;
+         failure?: UploadFailure;
+      }> => {
+         let last: UploadAttemptResult | null = null;
+         for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+            if (attempt > 0) await sleep(RETRY_DELAY_MS);
+            last = await attemptUpload(fileItem);
+            if (last.ok) return { ok: true, result: last.result };
+            if (!isTransientError(last.code, last.httpStatus)) break;
          }
 
-         uploadComplete.value = true;
-      } catch (error: any) {
-         console.error("Upload failed", error);
-         alert(`Error: ${error.message}`);
-      } finally {
-         isUploading.value = false;
-      }
-   };
+         const message = last!.message || messageFor(last!.code, "Yükləmə zamanı xəta baş verdi.");
+         return {
+            ok: false,
+            failure: {
+               fileItem,
+               name: fileItem.file.name,
+               code: last!.code,
+               message,
+            },
+         };
+      };
 
-   return {
-      fileInput,
-      files,
-      isUploading,
-      uploadProgress,
-      currentFileIndex,
-      mode,
-      uploadComplete,
-      uploadResults,
-      uploadsEnabled,
-      isDragging,
-      bulkForm,
-      isValid,
-      hasHeicFiles,
-      licenseDescription,
-      licenseUrl,
-      open,
-      resetForm,
-      triggerFileInput,
-      handleFileChange,
-      handleDrop,
-      removeFile,
-      handleUpload,
-   };
-}
+      // Process uploads sequentially; each file's outcome is recorded and a
+      // failure does not abort the rest of the batch (partial-success UX).
+      const handleUpload = async () => {
+         if (!isValid.value) return;
+
+         isUploading.value = true;
+         uploadProgress.value = 0;
+         currentFileIndex.value = 0;
+         uploadFailures.value = [];
+
+         // Apply bulk metadata if in bulk mode
+         if (mode.value === "bulk") {
+            files.value.forEach((f, index) => {
+               // Only append number if there are multiple files
+               f.title = files.value.length > 1 ? `${bulkForm.title} ${index + 1}` : bulkForm.title;
+               f.description = bulkForm.description;
+            });
+         }
+
+         try {
+            for (let i = 0; i < files.value.length; i++) {
+               currentFileIndex.value = i;
+               const fileItem = files.value[i];
+
+               const { ok, result, failure } = await uploadSingleFile(fileItem);
+               if (ok && result) {
+                  uploadResults.value.push(result);
+               } else if (failure) {
+                  uploadFailures.value.push(failure);
+               }
+
+               // Update progress
+               uploadProgress.value = Math.round(((i + 1) / files.value.length) * 100);
+            }
+         } finally {
+            uploadComplete.value = true;
+            isUploading.value = false;
+         }
+      };
+
+      // Re-attempts the failed files, keeping their existing titles/descriptions.
+      const retryFailed = async () => {
+         if (isRetrying.value || uploadFailures.value.length === 0) return;
+
+         isRetrying.value = true;
+         uploadProgress.value = 0;
+         currentFileIndex.value = 0;
+         const pending = [...uploadFailures.value];
+         uploadFailures.value = [];
+
+         try {
+            for (let i = 0; i < pending.length; i++) {
+               currentFileIndex.value = i;
+               const { ok, result, failure } = await uploadSingleFile(pending[i].fileItem);
+               if (ok && result) {
+                  uploadResults.value.push(result);
+               } else if (failure) {
+                  uploadFailures.value.push(failure);
+               }
+               uploadProgress.value = Math.round(((i + 1) / pending.length) * 100);
+            }
+         } finally {
+            isRetrying.value = false;
+         }
+      };
+
+      return {
+         fileInput,
+         files,
+         isUploading,
+         uploadProgress,
+         currentFileIndex,
+         mode,
+         uploadComplete,
+         uploadResults,
+         uploadFailures,
+         isRetrying,
+         uploadsEnabled,
+         isDragging,
+         bulkForm,
+         isValid,
+         hasHeicFiles,
+         licenseDescription,
+         licenseUrl,
+         open,
+         resetForm,
+         triggerFileInput,
+         handleFileChange,
+         handleDrop,
+         removeFile,
+         handleUpload,
+         retryFailed,
+      };
+   }
