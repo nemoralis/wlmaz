@@ -19,7 +19,7 @@
                   class="absolute top-4 right-4 z-10 rounded-full bg-white/80 p-2 text-gray-500 hover:bg-gray-100 md:hidden"
                   @click="closeModal"
                >
-                  <font-awesome-icon :icon="['fas', 'times']" class="text-xl" aria-hidden="true" />
+                  <font-awesome-icon :icon="['fas', 'xmark']" class="text-xl" aria-hidden="true" />
                </button>
 
                <!-- Hidden title for screen readers -->
@@ -281,11 +281,11 @@
                               <div
                                  class="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/20"
                               >
-                                 <button
-                                    class="absolute top-1 right-1 rounded-full bg-red-500 p-1.5 text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100 hover:bg-red-600"
-                                    @click="removeFile(index)"
-                                 >
-                                    <font-awesome-icon :icon="['fas', 'times']" class="text-xs" />
+<button
+                                     class="absolute top-1 right-1 rounded-full bg-red-500 p-1.5 text-white opacity-90 shadow-sm transition-opacity hover:bg-red-600 hover:opacity-100"
+                                     @click="removeFile(index)"
+                                  >
+                                    <font-awesome-icon :icon="['fas', 'xmark']" class="text-xs" />
                                  </button>
                               </div>
                               <div
@@ -345,7 +345,7 @@
                         @click="closeModal"
                      >
                         <font-awesome-icon
-                           :icon="['fas', 'times']"
+                           :icon="['fas', 'xmark']"
                            class="text-xl"
                            aria-hidden="true"
                         />

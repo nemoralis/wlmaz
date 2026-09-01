@@ -38,6 +38,7 @@ import {
    faUser,
    faUserCircle,
    faUsers,
+   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -83,6 +84,7 @@ library.add(
    faCopyright,
    faImage,
    faGithub,
+   faXmark,
 );
 
 export { FontAwesomeIcon };
