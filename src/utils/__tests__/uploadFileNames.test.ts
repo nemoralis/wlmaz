@@ -52,4 +52,12 @@ describe("nextFreeTitles", () => {
       const titles = await nextFreeTitles("Monument", 0, noneExisting);
       expect(titles).toEqual([]);
    });
+
+   it("throws after exhausting MAX_TITLES_TO_CHECK candidates", async () => {
+      const allTaken = async (candidates: string[]): Promise<Set<string>> => new Set(candidates);
+
+      await expect(nextFreeTitles("Monument", 3, allTaken)).rejects.toThrow(
+         /Could not find 3 free titles for "Monument"/,
+      );
+   });
 });

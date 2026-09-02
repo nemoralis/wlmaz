@@ -169,6 +169,7 @@ router.post("/titles-exist", async (req, res) => {
       }
 
       const existing = await checkFileExistence(titles);
+      logger.info("[titles-exist] checked=%d existing=%d first=%s", titles.length, existing.length, titles[0]);
       res.json({ existing });
    } catch (error) {
       logger.error("Titles existence check failed:", error);

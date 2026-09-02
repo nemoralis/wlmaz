@@ -321,6 +321,17 @@ export async function checkFileExistence(
          throw new Error(`MediaWiki API Error: ${data.error.code} - ${data.error.info}`);
       }
 
+      const pages = data.query?.pages || {};
+      const pageCount = Object.keys(pages).length;
+      // Log the page-ID keys so we can see whether missing pages are grouped
+      // under "-1" (expected) or spread across real IDs (unexpected).
+      logger.debug(
+         "[checkFileExistence] titles=%d pages=%d keys=%j",
+         chunk.length,
+         pageCount,
+         Object.keys(pages),
+      );
+
       const existingKeys = new Set(
          Object.values(data.query?.pages || {}).flatMap((page) => {
             const p = page as { missing?: string; title?: string };
