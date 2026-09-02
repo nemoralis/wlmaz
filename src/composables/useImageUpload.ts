@@ -469,14 +469,13 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
                   // Fail the batch up-front when availability can't be checked:
                   // safer than uploading blindly against possibly-taken titles.
                   console.error("Failed to check title availability", error);
+                  const detail =
+                     error instanceof Error ? error.message : messageFor("title_check_failed", "");
                   uploadFailures.value = files.value.map((f) => ({
                      fileItem: f,
                      name: f.file.name,
                      code: "title_check_failed",
-                     message: messageFor(
-                        "title_check_failed",
-                        "Başlıqların mövcudluğunu yoxlamaq mümkün olmadı.",
-                     ),
+                     message: detail || messageFor("title_check_failed", ""),
                   }));
                   return;
                }
