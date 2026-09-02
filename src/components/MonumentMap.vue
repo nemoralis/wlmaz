@@ -56,7 +56,6 @@
                <MonumentDetails
                   :monument="monumentStore.selectedMonument"
                   :image-credit="imageCredit"
-                  :is-authenticated="auth.isAuthenticated"
                   :inventory-copied="inventoryCopied"
                   :coords-copied="coordsCopied"
                   :link-copied="linkCopied"

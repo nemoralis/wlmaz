@@ -3,24 +3,45 @@ import OAuth from "oauth-1.0a";
 import type { WikiUser } from "../types";
 import { logger } from "./logger";
 import { sanitizeFilename } from "./sanitize";
+import {
+   getBotPasswordCredentials,
+   resolveMediaWikiTarget,
+   type MediaWikiTarget,
+} from "./mediawikiConfig";
+import { MediaWikiBotClient } from "./mediawikiBotClient";
 
-const IS_PROD = process.env.NODE_ENV === "production";
-
+// The Commons OAuth API target is separate from local dev mode. The upload
+// routes decide at request time which target applies via resolveMediaWikiTarget.
 const API_CONFIG = {
-   url: IS_PROD
-      ? "https://commons.wikimedia.org/w/api.php"
-      : "https://test.wikipedia.org/w/api.php",
+   url: "https://commons.wikimedia.org/w/api.php",
    consumer: {
-      key: (IS_PROD ? process.env.WM_CONSUMER_KEY : process.env.WM_CONSUMER_TEST)?.trim() || "",
-      secret:
-         (IS_PROD ? process.env.WM_CONSUMER_SECRET : process.env.WM_CONSUMER_SECRET_TEST)?.trim() ||
-         "",
+      key: process.env.WM_CONSUMER_KEY?.trim() || "",
+      secret: process.env.WM_CONSUMER_SECRET?.trim() || "",
    },
 };
 
 // Ensure keys are trimmed
 API_CONFIG.consumer.key = API_CONFIG.consumer.key.trim();
 API_CONFIG.consumer.secret = API_CONFIG.consumer.secret.trim();
+
+/**
+ * Returns a fully-authenticated MediaWiki client for the given target.
+ *
+ * - oauth: wraps the request, but the MediaWikiBotClient is not used; callers
+ *   of `uploadFile`/`checkFileExistence` handle the OAuth path internally.
+ * - bot-password: returns a MediaWikiBotClient already logged in with the
+ *   configured bot credentials (development only).
+ */
+async function buildBotClient(target: MediaWikiTarget): Promise<MediaWikiBotClient | null> {
+   if (target.auth.mode !== "bot-password") return null;
+   const credentials = getBotPasswordCredentials();
+   if (!credentials.username || !credentials.password) {
+      throw new Error("Local MediaWiki upload mode requires bot credentials to be configured");
+   }
+   const client = new MediaWikiBotClient(target.apiUrl, credentials);
+   await client.login();
+   return client;
+}
 
 /**
  * Creates an OAuth instance with the configured credentials.
@@ -36,20 +57,11 @@ function getOAuthClient() {
 }
 
 /**
- * Helper to get the correct token for signing.
- * In Test Mode, ignores the passed user and uses Environment variables.
+ * Helper to get the correct token for signing the OAuth request.
+ * Requires a logged-in user, whose OAuth token/secret pair is used.
  */
 
 function getSigningToken(user?: WikiUser) {
-   if (!IS_PROD && process.env.WM_TEST_ACCESS && process.env.WM_TEST_ACCESS_SECRET) {
-      if (!user) {
-         return {
-            key: process.env.WM_TEST_ACCESS.trim(),
-            secret: process.env.WM_TEST_ACCESS_SECRET.trim(),
-         };
-      }
-   }
-
    if (user) {
       return {
          key: user.token,
@@ -57,7 +69,7 @@ function getSigningToken(user?: WikiUser) {
       };
    }
 
-   throw new Error("No valid signing token available (User not logged in and not in Test Mode)");
+   throw new Error("No valid signing token available (User not logged in)");
 }
 
 // ==========================================
@@ -129,13 +141,28 @@ export async function fetchCsrfToken(user: WikiUser): Promise<string> {
 
 /**
  * Uploads a file.
- * Handles Multipart signing strictly: Signs URL Query Params ONLY.
+ *
+ * In OAuth mode this signs URL query params only (multipart body is plain).
+ * In bot-password mode (development only) it delegates to MediaWikiBotClient,
+ * which authenticates with a session instead of OAuth headers.
  */
 export async function uploadFile(
-   user: WikiUser,
+   user: WikiUser | null,
    fileData: { name: string; buffer: Buffer; mimetype: string },
    metadata: { text: string; comment?: string },
+   target: MediaWikiTarget = resolveMediaWikiTarget(),
 ): Promise<any> {
+   if (target.auth.mode === "bot-password") {
+      const client = await buildBotClient(target);
+      if (!client) throw new Error("Internal: bot target without bot client");
+      return client.upload(fileData, metadata);
+   }
+
+   // ---- OAuth path (requires a logged-in user) ----
+   if (!user) {
+      throw new CommonsUploadError("notloggedin", "Authentication required for upload");
+   }
+
    // 1. Get Token
    const csrfToken = await fetchCsrfToken(user);
 
@@ -232,14 +259,27 @@ export async function uploadFile(
 }
 
 /**
- * Checks which of the given raw upload titles already exist on Commons.
+ * Checks which of the given raw upload titles already exist.
  * Mirrors the server-side file naming: each title becomes `File:<sanitizeFilename(t)>.<ext>`,
- * where the backend always re-encodes to `.jpg` (see image.ts). The query is
- * unauthenticated — file existence is public data — so no OAuth signing is needed.
+ * where the backend always re-encodes to `.jpg` (see image.ts). File existence is
+ * public data, so no OAuth signing is needed in production.
+ *
+ * In bot-password mode (development only) the check runs against the same local
+ * MediaWiki target and session as the upload.
  *
  * The returned array contains the subset of `rawTitles` that already exist.
  */
-export async function checkFileExistence(rawTitles: string[]): Promise<string[]> {
+export async function checkFileExistence(
+   rawTitles: string[],
+   target: MediaWikiTarget = resolveMediaWikiTarget(),
+): Promise<string[]> {
+   if (target.auth.mode === "bot-password") {
+      const client = await buildBotClient(target);
+      if (!client) throw new Error("Internal: bot target without bot client");
+      return client.checkFileExistence(rawTitles);
+   }
+
+   const apiUrl = target.apiUrl;
    const MAX_TITLES_PER_REQUEST = 50;
 
    // MediaWiki normalizes titles (File: prefix, underscores vs spaces, first
@@ -264,7 +304,7 @@ export async function checkFileExistence(rawTitles: string[]): Promise<string[]>
          format: "json",
       });
 
-      const response = await fetch(`${API_CONFIG.url}?${params.toString()}`, {
+      const response = await fetch(`${apiUrl}?${params.toString()}`, {
          method: "GET",
          signal: AbortSignal.timeout(10000),
          headers: { "User-Agent": "WLMAZ-Tool/1.0" },
@@ -284,7 +324,10 @@ export async function checkFileExistence(rawTitles: string[]): Promise<string[]>
       const existingKeys = new Set(
          Object.values(data.query?.pages || {}).flatMap((page) => {
             const p = page as { missing?: string; title?: string };
-            return !p.missing && p.title ? [normalize(p.title)] : [];
+            // A page is missing when it carries a "missing" key (often "").
+            // Check key presence, not truthiness, so missing pages aren't
+            // mistaken for existing files.
+            return !("missing" in p) && p.title ? [normalize(p.title)] : [];
          }),
       );
 

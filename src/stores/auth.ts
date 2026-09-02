@@ -4,17 +4,21 @@ import type { WikiUser as User } from "../types";
 interface AuthState {
    user: User | null;
    loading: boolean;
+   localUploadEnabled: boolean;
 }
 
 export const useAuthStore = defineStore("auth", {
    state: (): AuthState => ({
       user: null,
       loading: false,
+      localUploadEnabled: false,
    }),
 
    getters: {
       displayName: (state) => state.user?.username || "İstifadəçi",
       isAuthenticated: (state) => !!state.user,
+      // True when uploads may proceed without a Commons login (local dev mode).
+      canUpload: (state) => state.localUploadEnabled || !!state.user,
       isBlocked: (state) => !!state.user?.blocked,
       blockReason: (state) => state.user?.blockreason || "",
    },
@@ -22,6 +26,19 @@ export const useAuthStore = defineStore("auth", {
    actions: {
       async fetchUser() {
          this.loading = true;
+         // Server-driven: reflects whether the backend runs in local MediaWiki
+         // dev mode. Never includes credentials. In production always false.
+         try {
+            const cfgRes = await fetch("/upload/config");
+            if (cfgRes.ok) {
+               const cfg = await cfgRes.json();
+               this.localUploadEnabled = !!cfg.localUploadEnabled;
+            }
+         } catch (e) {
+            console.error("Failed to check local upload config", e);
+            this.localUploadEnabled = false;
+         }
+
          try {
             const res = await fetch("/auth/me", {
                headers: { "X-Requested-With": "XMLHttpRequest" },

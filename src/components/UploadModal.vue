@@ -364,6 +364,19 @@
                      </div>
                   </div>
 
+                  <!-- Development upload mode notice -->
+                  <div v-if="localUploadEnabled" class="px-6 pt-4">
+                     <div
+                        class="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800"
+                     >
+                        <font-awesome-icon :icon="['fas', 'flask']" class="mr-1" />
+                        <strong>Development upload mode — Local MediaWiki</strong>
+                        <span v-if="mediaWikiUrl" class="mt-0.5 block text-xs opacity-80">
+                           {{ mediaWikiUrl }}
+                        </span>
+                     </div>
+                  </div>
+
                   <!-- Mode Switcher -->
                   <div v-if="files.length > 1" class="px-6 py-3">
                      <div class="flex rounded-lg bg-gray-100 p-1">
@@ -376,7 +389,7 @@
                            "
                            @click="mode = 'bulk'"
                         >
-                           Eyni Məlumat
+                           Eyni məlumat
                         </button>
                         <button
                            class="flex-1 rounded-md py-1.5 text-sm font-medium transition-all"
@@ -613,6 +626,8 @@ export default defineComponent({
          isRetrying,
          uploadsEnabled,
          isDragging,
+         localUploadEnabled,
+         mediaWikiUrl,
          isValid,
          hasHeicFiles,
          licenseDescription,
@@ -671,6 +686,8 @@ export default defineComponent({
          licenseUrl,
          hasHeicFiles,
          uploadsEnabled,
+         localUploadEnabled,
+         mediaWikiUrl,
       };
    },
 });

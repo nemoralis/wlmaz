@@ -7,7 +7,7 @@ import session from "express-session";
 import helmet from "helmet";
 import hpp from "hpp";
 import morgan from "morgan";
-import { RedisStore as RateLimitRedisStore, type SendCommandFn } from "rate-limit-redis";
+import { RedisStore as RateLimitRedisStore } from "rate-limit-redis";
 import passport from "./auth/passport.ts";
 import authRoutes from "./auth/routes.ts";
 import leaderboardRoutes from "./routes/leaderboard.ts";
@@ -18,6 +18,10 @@ import redisClient from "./utils/redis.ts";
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
+
+// Local MediaWiki dev mode: no OAuth, no Redis — everything runs in-memory.
+const isDevUploadMode =
+   process.env.MEDIAWIKI_DEV_MODE === "true" && process.env.NODE_ENV !== "production";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -90,8 +94,7 @@ const startServer = async () => {
       next();
    });
 
-   // Rate limiting
-   const redisCall: SendCommandFn = (...args) => redisClient.sendCommand(args);
+   // Rate limiting — Redis-backed in production, in-memory (or skipped) in dev mode.
    const apiLimiter = rateLimit({
       windowMs: 15 * 60 * 1000,
       // 200 requests / 15 min is ample for the SPA; the original 1000 made
@@ -99,19 +102,22 @@ const startServer = async () => {
       limit: 200,
       standardHeaders: "draft-8",
       legacyHeaders: false,
-      store: new RateLimitRedisStore({ sendCommand: redisCall, prefix: "rl-api:" }),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ...(isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-api:" }) }),
    });
    const authLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
       limit: 15,
       message: { error: "Too many login attempts, please try again later." },
-      store: new RateLimitRedisStore({ sendCommand: redisCall, prefix: "rl-auth:" }),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ...(isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-auth:" }) }),
    });
    const uploadLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
       limit: 500,
       message: { error: "Upload limit reached, please try again later." },
-      store: new RateLimitRedisStore({ sendCommand: redisCall, prefix: "rl-upload:" }),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ...(isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-upload:" }) }),
    });
 
    app.use("/api", apiLimiter);
@@ -176,11 +182,16 @@ const startServer = async () => {
       session({
          name: "wlmaz",
 
-         store: new RedisStore({
-            client: redisClient,
-            prefix: "wlmaz:",
-            ttl: 86400 * 7,
-         }),
+         // In dev mode skip the Redis session store (no Redis required).
+         ...(isDevUploadMode
+            ? {}
+            : {
+                 store: new RedisStore({
+                    client: redisClient,
+                    prefix: "wlmaz:",
+                    ttl: 86400 * 7,
+                 }),
+              }),
 
          secret: SESSION_SECRET,
          resave: false,
@@ -282,6 +293,11 @@ const startServer = async () => {
 
       if (!isLocal) {
          res.status(404).end();
+         return;
+      }
+
+      if (isDevUploadMode) {
+         res.json({ status: "ok", mode: "local-dev", redis: "skipped" });
          return;
       }
 

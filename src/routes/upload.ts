@@ -3,12 +3,17 @@ import path from "path";
 import express from "express";
 import multer from "multer";
 import sharp from "sharp";
-import type { WikiUser } from "@/types";
 import { optimizeImage } from "@/utils/image";
 import { logger } from "@/utils/logger";
 import { uploadFile as uploadToCommons, CommonsUploadError, checkFileExistence } from "@/utils/mediawiki";
 import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize";
 import { getCanonicalId } from "@/utils/monumentFormatters";
+import {
+   getBotPasswordCredentials,
+   getUploadClientConfig,
+   isLocalMediaWikiEnabled,
+   resolveMediaWikiTarget,
+} from "@/utils/mediawikiConfig";
 
 const router = express.Router();
 
@@ -77,15 +82,26 @@ const upload = multer({
 });
 
 /**
- * Middleware to ensure the user is authenticated before processing uploads.
- * This prevents unauthenticated users from consuming server resources/disk space.
+ * Middleware to ensure uploads are permitted for this request.
+ *
+ * In normal (production) operation this requires an authenticated Commons OAuth
+ * user — preventing unauthenticated users from consuming server resources/disk.
+ *
+ * In LOCAL MediaWiki dev mode (development only, never in production) the upload
+ * is authenticated server-side with a Bot Password, so no user session is
+ * required and this middleware lets the request through without a logged-in user.
+ * The upload route resolves the dev target and authenticates itself.
  */
-const ensureAuthenticated = (
+const ensureAuthenticatedOrLocalDev = (
    req: express.Request,
    res: express.Response,
    next: express.NextFunction,
 ) => {
    if (req.isAuthenticated() && req.user) {
+      return next();
+   }
+   if (isLocalMediaWikiEnabled()) {
+      // Local MediaWiki upload mode authenticates server-side; no session needed.
       return next();
    }
    res.status(401).json({ error: "Unauthorized" });
@@ -112,9 +128,21 @@ router.get("/status", (_req, res) => {
 });
 
 /**
+ * Server-driven upload configuration for the frontend.
+ *
+ * Exposes ONLY safe, non-sensitive information the UI needs. The bot password
+ * and username are never included — they are strictly server-side. In production
+ * this always reports a non-local (Commons) target and never the dev mode.
+ */
+router.get("/config", (_req, res) => {
+   res.json(getUploadClientConfig());
+});
+
+/**
  * Reports which of the requested upload titles already exist on Commons, so the
  * client can re-number its batch titles to the first free slots before uploading.
- * Public data — no authentication required (this host only shows its own origin).
+ * Uses the same MediaWiki target/authentication as the actual upload — in dev
+ * mode this hits the local MediaWiki instance with the bot session.
  * Uses JSON POST so long filenames never hit query-string/header limits.
  */
 router.post("/titles-exist", async (req, res) => {
@@ -151,7 +179,7 @@ router.post("/titles-exist", async (req, res) => {
 router.post(
    "/",
    checkUploadsEnabled,
-   ensureAuthenticated,
+   ensureAuthenticatedOrLocalDev,
    upload.single("file"),
    async (req, res) => {
       if (!req.file) {
@@ -163,6 +191,24 @@ router.post(
       const filePath = req.file.path;
 
       try {
+         // Resolve the upload target / auth mode once per request. In production
+         // this is always Commons OAuth; in local dev mode it is the configured
+         // local MediaWiki bot session (server-side authentication).
+         const target = resolveMediaWikiTarget();
+         const isLocalDev = isLocalMediaWikiEnabled();
+
+         // In local dev mode there is no logged-in user (bot-password mode). Use
+         // the configured dev username for the wikitext author line; the bot
+         // password itself is never used here.
+         let authorUsername =
+            req.user?.username || (isLocalDev ? getBotPasswordCredentials().username : "");
+
+         // In production, an upload requires an authenticated user.
+         if (!isLocalDev && !req.user) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+         }
+
          let { title, description, license, lat, lon, categories, inventory, capturedAt } = req.body;
 
          if (!title || !description) {
@@ -199,10 +245,11 @@ router.post(
          const safeCategories = sanitizeWikitext(categories);
          // Sanitize the inventory so no wikitext can leak into the heritage template.
          const canonicalInventory = getCanonicalId(sanitizeWikitext(inventory));
-         // Sanitize the username even though it comes from a trusted OAuth session.
-         // Wikimedia usernames should never contain wikitext-special characters, but
-         // being defensive here prevents template corruption if that assumption breaks.
-         const safeUsername = sanitizeWikitext(req.user!.username).replace(/\|/g, "");
+         // Sanitize the username even though it comes from a trusted source
+         // (OAuth session or dev-only bot config). Wikimedia usernames should
+         // never contain wikitext-special characters, but being defensive here
+         // prevents template corruption if that assumption breaks.
+         const safeUsername = sanitizeWikitext(authorUsername).replace(/\|/g, "");
 
          // Map license to Wiki template
          const licenseTemplate = mapLicenseTemplate(license);
@@ -313,9 +360,9 @@ ${categoryText}
             finalFilename += finalExt;
          }
 
-         // Upload to Commons (using the optimized buffer)
+         // Upload (OAuth Commons or local bot-password) using the optimized buffer.
          const result = await uploadToCommons(
-            req.user! as WikiUser,
+            req.user ?? null,
             {
                name: finalFilename,
                buffer: finalBuffer,
@@ -325,6 +372,7 @@ ${categoryText}
                text: wikitext,
                comment: `Uploaded via wikilovesmonuments.az`,
             },
+            target,
          );
 
          res.json({
