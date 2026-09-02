@@ -96,7 +96,7 @@
                </CdxButton>
 
                <!-- Primary Action -->
-               <template v-if="isAuthenticated">
+               <template v-if="auth.canUpload">
                   <CdxButton
                      :disabled="auth.isBlocked"
                      action="progressive"
@@ -237,7 +237,6 @@ import { getCoordinatesUrl, isMobileViewport } from "@/utils/geoLinks";
 interface Props {
    monument: MonumentProps | null;
    imageCredit: { author: string; license: string } | null;
-   isAuthenticated: boolean;
    inventoryCopied: boolean;
    coordsCopied: boolean;
    linkCopied: boolean;

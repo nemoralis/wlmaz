@@ -70,7 +70,7 @@
                      <div class="flex justify-end gap-1 sm:gap-3">
                         <!-- Upload Button -->
                         <CdxButton
-                           v-if="auth.isAuthenticated"
+                           v-if="auth.canUpload"
                            weight="quiet"
                            aria-label="Şəkil yüklə"
                            title="Şəkil yüklə"

@@ -71,6 +71,52 @@ npm run dev
 - Frontend: http://localhost:5173
 - Backend: http://localhost:3000
 
+### Local MediaWiki upload testing (development only)
+
+By default the dev build targets Wikimedia Commons via the standard OAuth
+login (using `WM_CONSUMER_KEY` / `WM_CONSUMER_SECRET`). To test the **complete
+upload pipeline** against a local MediaWiki instance instead — without logging
+in — enable the Bot Password dev mode:
+
+```env
+# Local MediaWiki upload testing — development only
+MEDIAWIKI_DEV_MODE=true
+MEDIAWIKI_API_URL=http://localhost:8080/w/api.php
+MEDIAWIKI_DEV_USERNAME=BotName@BotPasswordName
+MEDIAWIKI_DEV_BOT_PASSWORD=...
+```
+
+- Use `NODE_ENV=development` (or leave it unset). **This mode is completely
+  ignored when `NODE_ENV=production`**, even if these variables are set.
+- The backend authenticates server-side to the configured API using a
+  **MediaWiki Bot Password** (login-token flow) and performs uploads from that
+  session. No user session/login is required.
+- `MEDIAWIKI_DEV_BOT_PASSWORD` is **never** sent to the browser or included in
+  the Vite client bundle — uploads happen entirely server-side. The UI only
+  receives a safe config (`{ localUploadEnabled, mediaWikiUrl }`) from
+  `GET /upload/config`.
+- The API URL comes only from server configuration; client input can never
+  select an arbitrary MediaWiki URL.
+- With this mode enabled the backend **does not require**
+  `WM_CONSUMER_KEY`/`WM_CONSUMER_SECRET` to start — the Commons OAuth strategy
+  is only registered when local dev mode is off. In production the keys are
+  always required.
+
+To create a Bot Password: log into your local wiki, visit
+`Special:BotPasswords`, and create a bot with permission to
+`Edit existing pages` / `Upload new files`. The username is of the form
+`AccountName@BotName` (this is what goes in `MEDIAWIKI_DEV_USERNAME`); the
+generated password goes in `MEDIAWIKI_DEV_BOT_PASSWORD`.
+
+**Local wiki templates:** the upload generates Commons-specific wikitext
+(`{{Information}}`, `{{date}}`, `{{Cultural Heritage Azerbaijan|N}}`,
+`{{Wiki Loves Monuments 2026|az}}`, license templates). On a bare local wiki
+these render as red links but the upload itself still succeeds — they are plain
+text pages. Install matching templates locally if you want them to render, or
+omit the monument `inventory` when uploading to avoid the heritage template.
+
+> **Security:** these credentials are for local testing only. Never commit
+> real bot passwords, and always keep `NODE_ENV=production` for real usage.
 
 ## License
 

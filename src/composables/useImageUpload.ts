@@ -94,6 +94,10 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
    const isRetrying = ref(false);
    const uploadsEnabled = ref(true);
    const isDragging = ref(false);
+   // Server-driven: true when the backend is running in local MediaWiki dev mode
+   // (uploads work without a Commons OAuth login). Never carries credentials.
+   const localUploadEnabled = ref(false);
+   const mediaWikiUrl = ref("");
 
    const bulkForm = reactive({
       title: "",
@@ -110,6 +114,19 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
          }
       } catch (e) {
          console.error("Failed to check status", e);
+      }
+
+      // Fetch server-driven upload config (safe info only: dev mode flag + wiki
+      // URL). Prod always reports non-local; the bot password never leaves the server.
+      try {
+         const res = await fetch("/upload/config");
+         if (res.ok) {
+            const data = await res.json();
+            localUploadEnabled.value = !!data.localUploadEnabled;
+            mediaWikiUrl.value = data.mediaWikiUrl || "";
+         }
+      } catch (e) {
+         console.error("Failed to check upload config", e);
       }
    };
 
@@ -526,6 +543,8 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
          isRetrying,
          uploadsEnabled,
          isDragging,
+         localUploadEnabled,
+         mediaWikiUrl,
          bulkForm,
          isValid,
          hasHeicFiles,

@@ -126,7 +126,7 @@
                   <div class="mt-6 rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
                      <p class="mb-3 text-gray-700">Bu abidənin şəklini çəkmisiniz?</p>
 
-                     <template v-if="auth.user">
+                     <template v-if="auth.canUpload">
                         <button
                            :disabled="auth.isBlocked"
                            :class="[
