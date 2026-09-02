@@ -1520,7 +1520,7 @@
                 "item": "http://www.wikidata.org/entity/Q14814260",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
                 "itemLabel": "Qasımbəy hamamı",
-                "lastModified": "2025-05-01T10:12:26Z"
+                "lastModified": "2026-09-01T18:53:20Z"
             }
         },
         {
@@ -2901,6 +2901,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.424671702,
+                    40.714752113
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C4%B0mamzad%C9%99_t%C3%BCrb%C9%99si_(G%C9%99nc%C9%99)",
+                "commonsCategory": "Ganja Imamzadeh Complex",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Ganja_Imamzadeh_Complex",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/GanjaMausoleum%20004%204931.jpg",
+                "inventory": "193",
+                "item": "http://www.wikidata.org/entity/Q12849004",
+                "itemAltLabel": "Gəncə İmamzadə türbəsi, İmamzadə piri",
+                "itemDescription": "Gəncədə İmamzadə türbəsi",
+                "itemLabel": "İmamzadə türbəsi",
+                "lastModified": "2026-09-01T18:50:06Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.047663888,
                     40.767702777
                 ]
@@ -2915,7 +2937,7 @@
                 "itemAltLabel": "Mingəçevir Dövlət Dram Teatrının binası",
                 "itemDescription": "Mingəçevirdə teatr",
                 "itemLabel": "Mingəçevir Dövlət Dram Teatrı",
-                "lastModified": "2026-08-31T00:29:49Z"
+                "lastModified": "2026-08-31T01:33:50Z"
             }
         },
         {
@@ -3287,7 +3309,7 @@
                 "commonsCategory": "Khanagah of Pir Huseyn",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Khanagah_of_Pir_Huseyn",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Pirsaat%C3%A7ay%20xan%C9%99gah%C4%B1%2C%20XIII%20%C9%99sr.jpg",
-                "inventory": "221, 223, 220, 222, 219",
+                "inventory": "221, 222, 219, 223, 220",
                 "item": "http://www.wikidata.org/entity/Q1408889",
                 "itemAltLabel": "Pir Hüseyn xanəgahı, Pirsaatçay xanəgahı",
                 "itemDescription": "fortress",
@@ -4473,7 +4495,7 @@
                 "itemAltLabel": "Mamrux kilsəsi",
                 "itemDescription": "Georgian Orthodox Church located in Zaqatala District",
                 "itemLabel": "Mamrux məbədi",
-                "lastModified": "2026-07-25T15:13:22Z"
+                "lastModified": "2026-08-31T09:02:45Z"
             }
         },
         {
@@ -4495,23 +4517,6 @@
                 "itemDescription": "Zaqatala rayonunda qala",
                 "itemLabel": "Pəriqala",
                 "lastModified": "2026-07-25T15:48:32Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    46.80285355,
-                    39.1167504
-                ]
-            },
-            "properties": {
-                "inventory": "390, 5291",
-                "item": "http://www.wikidata.org/entity/Q140657707",
-                "itemAltLabel": "Dairəvi bürc",
-                "itemLabel": "Dairəvi qüllə",
-                "lastModified": "2026-07-26T02:35:36Z"
             }
         },
         {
@@ -4900,13 +4905,12 @@
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/M%C9%99h%C9%99mm%C9%99d_F%C3%BCzuli_heyk%C9%99li_(Bak%C4%B1)",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Fuz%C3%BBl%C3%AE.jpg",
                 "inventory": "451",
                 "item": "http://www.wikidata.org/entity/Q4822471",
                 "itemAltLabel": "Füzulinin heykəli",
                 "itemDescription": "Bakıda heykəl",
                 "itemLabel": "Məhəmməd Füzulinin heykəli",
-                "lastModified": "2026-05-01T11:38:38Z"
+                "lastModified": "2026-09-01T17:37:20Z"
             }
         },
         {
@@ -5196,8 +5200,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    46.432777777,
-                    40.683888888
+                    46.432709281,
+                    40.68550298
                 ]
             },
             "properties": {
@@ -5209,7 +5213,7 @@
                 "item": "http://www.wikidata.org/entity/Q2627383",
                 "itemDescription": "mausoleum in Ganja, Azerbaijan",
                 "itemLabel": "Nizami məqbərəsi",
-                "lastModified": "2026-02-15T12:41:02Z"
+                "lastModified": "2026-09-01T19:03:15Z"
             }
         },
         {
@@ -8252,13 +8256,13 @@
                 "azLink": "https://az.wikipedia.org/wiki/M%C9%99likov_qarda%C5%9Flar%C4%B1n%C4%B1n_evi",
                 "commonsCategory": "Building on Islam Safarli Street 13",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Islam_Safarli_Street_13",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/M%C9%99likovun%20evi%202023%20%282%29.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/M%C9%99likov%20qarda%C5%9Flar%C4%B1n%C4%B1n%20evi%20%283494%29%206.jpg",
                 "inventory": "3494",
                 "item": "http://www.wikidata.org/entity/Q55705317",
                 "itemAltLabel": "Məlikovun evi, Sabir adına kitabxananın binası",
                 "itemDescription": "Bakı şəhərində yerləşən tarixi abidə.",
                 "itemLabel": "Məlikov qardaşlarının evi",
-                "lastModified": "2026-04-01T06:13:57Z"
+                "lastModified": "2026-09-01T18:35:53Z"
             }
         },
         {
@@ -8535,6 +8539,28 @@
                 "itemDescription": "Bakıda kilsə, Bakı yeparxiyasının mərkəzi",
                 "itemLabel": "Jen Mironosets Baş Kafedral kilsəsi",
                 "lastModified": "2026-07-27T16:11:35Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.357325145,
+                    40.680157019
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Ziyadxanovlar_m%C3%BClk%C3%BC",
+                "commonsCategory": "Ziyadkhanov Mansion",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Ziyadkhanov_Mansion",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ganja%20History%20-%20Ethnography%20Museum.JPG",
+                "inventory": "3794",
+                "item": "http://www.wikidata.org/entity/Q12848354",
+                "itemAltLabel": "Ziyadkhanov Mansion",
+                "itemDescription": "house mainson in Ganja, Azerbaijan",
+                "itemLabel": "Ziyadxanovlar mülkü",
+                "lastModified": "2026-09-01T18:57:52Z"
             }
         },
         {
@@ -13383,8 +13409,7 @@
             "properties": {
                 "inventory": "4712",
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemDescription": "Qubadlıda məscid",
-                "itemLabel": "Mirlər məscidi",
+                "itemLabel": "Məscid",
                 "lastModified": "2026-07-23T15:59:55Z"
             }
         },
@@ -16002,6 +16027,23 @@
                 "itemDescription": "Zəngilanda məscid",
                 "itemLabel": "Sərdarlı məscidi",
                 "lastModified": "2026-07-25T23:23:19Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.80285355,
+                    39.1167504
+                ]
+            },
+            "properties": {
+                "inventory": "5291, 390",
+                "item": "http://www.wikidata.org/entity/Q140657707",
+                "itemAltLabel": "Dairəvi bürc",
+                "itemLabel": "Dairəvi qüllə",
+                "lastModified": "2026-07-26T02:35:36Z"
             }
         },
         {
