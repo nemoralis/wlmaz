@@ -91,7 +91,7 @@
     "lint-staged": "17.3.0",
     "prettier": "3.9.6",
     "prettier-plugin-tailwindcss": "0.8.1",
-    "svgo": "4.0.2",
+    "svgo": "4.1.0",
     "tailwindcss": "4.3.3",
     "tsx": "4.23.12",
     "typescript": "6.0.3",
