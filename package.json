@@ -99,7 +99,7 @@
     "vite-bundle-visualizer": "1.2.1",
     "vite-plugin-image-optimizer": "2.0.3",
     "vitest": "4.1.10",
-    "vue-tsc": "3.3.9"
+    "vue-tsc": "3.3.11"
   },
   "overrides": {
     "passport": "0.7.0",
