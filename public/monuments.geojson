@@ -1296,7 +1296,7 @@
                 "commonsCategory": "Palace of Baku Khans",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Baku_Khans",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20xan%20saray%C4%B1n%C4%B1n%20%C9%99sas%20giri%C5%9Finin%20Xan%20ba%C4%9F%C4%B1%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
-                "inventory": "71, 70, 73, 69",
+                "inventory": "69, 70, 71, 73",
                 "item": "http://www.wikidata.org/entity/Q12837306",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
                 "itemLabel": "Bakı xan sarayı",
@@ -3529,7 +3529,7 @@
                 "commonsCategory": "Khanagah of Pir Huseyn",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Khanagah_of_Pir_Huseyn",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Pirsaat%C3%A7ay%20xan%C9%99gah%C4%B1%2C%20XIII%20%C9%99sr.jpg",
-                "inventory": "221, 222, 219, 223, 220",
+                "inventory": "219, 220, 221, 222, 223",
                 "item": "http://www.wikidata.org/entity/Q1408889",
                 "itemAltLabel": "Pir Hüseyn xanəgahı, Pirsaatçay xanəgahı",
                 "itemDescription": "fortress",
@@ -3989,7 +3989,7 @@
                 "commonsCategory": "Hazra Mausoleums Complex",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Hazra_Mausoleums_Complex",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Hazra%20SheikhMansurTomb%20004%203336.jpg",
-                "inventory": "293, 294, 291, 292",
+                "inventory": "291, 292, 293, 294",
                 "item": "http://www.wikidata.org/entity/Q16417534",
                 "itemAltLabel": "Şeyx Bani türbəsi, Şeyx Bədrəddin türbəsi, Şeyx Məhəmməd türbəsi, Şeyx Mansur türbəsi",
                 "itemDescription": "Qəbələdə türbələr",
@@ -4149,7 +4149,7 @@
                 "commonsCategory": "Mausoleums in Dəmirçilər (Qubadlı)",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Mausoleums_in_D%C9%99mir%C3%A7il%C9%99r_(Qubadl%C4%B1)",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mausoleum%20in%20Damirchilar%20village%20of%20Qubadli%20DIstrict%2C%20Azerbaijan.jpg",
-                "inventory": "309, 308",
+                "inventory": "308, 309",
                 "item": "http://www.wikidata.org/entity/Q115550333",
                 "itemAltLabel": "1 nömrəli türbə, 2 nömrəli türbə",
                 "itemLabel": "Dəmirçilər türbələri",
@@ -4799,6 +4799,23 @@
                 "itemDescription": "Zaqatala rayonunda qala",
                 "itemLabel": "Pəriqala",
                 "lastModified": "2026-07-25T15:48:32Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.80285355,
+                    39.1167504
+                ]
+            },
+            "properties": {
+                "inventory": "390, 5291",
+                "item": "http://www.wikidata.org/entity/Q140657707",
+                "itemAltLabel": "Dairəvi bürc",
+                "itemLabel": "Dairəvi qüllə",
+                "lastModified": "2026-07-26T02:35:36Z"
             }
         },
         {
@@ -5514,6 +5531,44 @@
                 "itemDescription": "Gəncədə heykəl",
                 "itemLabel": "Nizami Gəncəvinin heykəli",
                 "lastModified": "2026-05-01T11:38:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.3545,
+                    40.6771
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Xan_ba%C4%9F%C4%B1_(G%C9%99nc%C9%99)",
+                "commonsCategory": "Xan bağı (Gəncə)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Xan_ba%C4%9F%C4%B1_(G%C9%99nc%C9%99)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ganja%20KhanBagiPark%20004%206429.jpg",
+                "inventory": "476",
+                "item": "http://www.wikidata.org/entity/Q16418379",
+                "itemAltLabel": "Sərdar bağı",
+                "itemDescription": "Gəncədə bağ",
+                "itemLabel": "Xan bağı",
+                "lastModified": "2026-09-03T11:11:10Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.68464858,
+                    40.587671451
+                ]
+            },
+            "properties": {
+                "inventory": "477",
+                "item": "http://www.wikidata.org/entity/Q140657783",
+                "itemLabel": "Dənizkənarı park",
+                "lastModified": "2026-09-03T10:56:40Z"
             }
         },
         {
@@ -9238,6 +9293,46 @@
                 "itemDescription": "Azərbaycanın Gəncə şəhərində yerləşən 1886-cı ildə tikilmiş məscid və tarix-memarlıq abidəsi.",
                 "itemLabel": "Qazaxlar məscidi",
                 "lastModified": "2026-06-01T17:22:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.669411063,
+                    40.596444898
+                ]
+            },
+            "properties": {
+                "commonsCategory": "House of Culture named after Samad Vurgun",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House_of_Culture_named_after_Samad_Vurgun",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/S%C9%99m%C9%99d%20Vur%C4%9Fun%20ad%C4%B1na%20M%C9%99d%C9%99niyy%C9%99t%20Evi.jpg",
+                "inventory": "3991",
+                "item": "http://www.wikidata.org/entity/Q140661865",
+                "itemAltLabel": "Sintetik Kauçuk Zavodunun mədəniyyət sarayı",
+                "itemDescription": "Sumqayıtda mədəniyyət evi",
+                "itemLabel": "Səməd Vurğun adına mədəniyyət sarayı",
+                "lastModified": "2026-09-03T10:51:32Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.668027436,
+                    40.588555244
+                ]
+            },
+            "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mart%2024%202012%20-%20panoramio%20%287%29.jpg",
+                "inventory": "3992",
+                "item": "http://www.wikidata.org/entity/Q140661866",
+                "itemAltLabel": "Alüminium zavodunun mədəniyyət sarayı",
+                "itemDescription": "Sumqayıtda mədəniyyət mərkəzi",
+                "itemLabel": "Nəriman Nərimanov adına mədəniyyət mərkəzi",
+                "lastModified": "2026-09-03T10:53:03Z"
             }
         },
         {
@@ -13481,7 +13576,7 @@
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/Yeddil%C9%99r_qalas%C4%B1",
-                "inventory": "4655, 302",
+                "inventory": "302, 4655",
                 "item": "http://www.wikidata.org/entity/Q134699272",
                 "itemDescription": "Azərbaycanda Quba rayonunun Zıxır kəndində yerləşən qala.",
                 "itemLabel": "Yeddilər qalası",
@@ -13830,7 +13925,8 @@
             "properties": {
                 "inventory": "4712",
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemLabel": "Məscid",
+                "itemDescription": "Qubadlıda məscid",
+                "itemLabel": "Mirlər məscidi",
                 "lastModified": "2026-07-23T15:59:55Z"
             }
         },
@@ -15282,7 +15378,7 @@
                 "commonsCategory": "Aghvanlar Bathhouse",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Aghvanlar_Bathhouse",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/A%C4%9Fvanlar%20bath.JPG",
-                "inventory": "4995, 334",
+                "inventory": "334, 4995",
                 "item": "http://www.wikidata.org/entity/Q97225056",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
                 "itemLabel": "Ağvanlar hamamı",
@@ -15323,7 +15419,7 @@
                 "commonsCategory": "Dadanov's property",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Dadanov%27s_property",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Dadanovlar%C4%B1n%20m%C3%BClkl%C9%99ri%20%281%29.jpg",
-                "inventory": "4996-5, 4996-4, 4996-3, 4996-2, 4996-1",
+                "inventory": "4996-1, 4996-2, 4996-3, 4996-4, 4996-5",
                 "item": "http://www.wikidata.org/entity/Q134980744",
                 "itemDescription": "Şəki şəhərində yerləşən tarixi-memarlıq abidələri",
                 "itemLabel": "Dadanovların mülkləri",
@@ -16510,23 +16606,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    46.80285355,
-                    39.1167504
-                ]
-            },
-            "properties": {
-                "inventory": "5291, 390",
-                "item": "http://www.wikidata.org/entity/Q140657707",
-                "itemAltLabel": "Dairəvi bürc",
-                "itemLabel": "Dairəvi qüllə",
-                "lastModified": "2026-07-26T02:35:36Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     45.409058951,
                     39.208794459
                 ]
@@ -17055,6 +17134,25 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    47.47326866,
+                    40.645768356
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Maqsud_%C5%9Eeyxzad%C9%99nin_ev-muzeyi",
+                "inventory": "5611",
+                "item": "http://www.wikidata.org/entity/Q110108719",
+                "itemAltLabel": "Məqsud Şeyxzadənin ev muzeyi",
+                "itemDescription": "Ağdaşda ev muzeyi",
+                "itemLabel": "Maqsud Şeyxzadənin ev muzeyi",
+                "lastModified": "2026-09-03T11:19:21Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     45.398313791,
                     41.093364786
                 ]
@@ -17196,6 +17294,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.92415157,
+                    41.423793393
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C4%B0smay%C4%B1l_Da%C4%9F%C4%B1stanl%C4%B1n%C4%B1n_Xatir%C9%99_Ev-Muzeyi",
+                "inventory": "5655",
+                "item": "http://www.wikidata.org/entity/Q110101312",
+                "itemDescription": "Qaxda ev muzeyi",
+                "itemLabel": "İsmayıl Dağıstanlının ev muzeyi",
+                "lastModified": "2026-09-03T11:28:19Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.605278,
                     39.483056
                 ]
@@ -17320,6 +17436,27 @@
                 "itemDescription": "Şamaxıda qəbirüstü abidə",
                 "itemLabel": "Mirzə Ələkbər Sabirin qəbirüstü abidəsi",
                 "lastModified": "2026-09-03T03:23:26Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.19915,
+                    41.202175
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Mirz%C9%99_F%C9%99t%C9%99li_Axundovun_ev-muzeyi",
+                "commonsCategory": "House-museum of Mirza Fatali Akhundov",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House-museum_of_Mirza_Fatali_Akhundov",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/House-museum%20of%20Mirza%20Fatali%20Akhundov2.JPG",
+                "inventory": "5688",
+                "item": "http://www.wikidata.org/entity/Q20931780",
+                "itemAltLabel": "M.F.Axundovun ev-muzeyi",
+                "itemLabel": "Mirzə Fətəli Axundovun ev muzeyi (Şəki)",
+                "lastModified": "2026-09-03T11:30:23Z"
             }
         },
         {
