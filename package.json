@@ -29,7 +29,7 @@
     "@fortawesome/free-regular-svg-icons": "7.3.1",
     "@fortawesome/free-solid-svg-icons": "7.3.1",
     "@fortawesome/vue-fontawesome": "3.3.3",
-    "@unhead/vue": "3.3.2",
+    "@unhead/vue": "3.4.0",
     "@wikimedia/codex": "2.6.2",
     "@wikimedia/codex-icons": "2.6.2",
     "chart.js": "4.5.1",
