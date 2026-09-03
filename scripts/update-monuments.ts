@@ -173,38 +173,24 @@ async function main() {
     
     const newData = transformToGeoJSON(bindings);
 
-    // 3. Compare and calculate stats
-    let added = 0;
-    let removed = 0;
+    // Sort individual inventory IDs numerically within each monument
+    for (const feature of newData.features) {
+      if (feature.properties.inventory && feature.properties.inventory.includes(",")) {
+        feature.properties.inventory = feature.properties.inventory
+          .split(",")
+          .map((s: string) => s.trim())
+          .sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true }))
+          .join(", ");
+      }
+    }
 
+    // 3. Check if data has actually changed
     if (existingData) {
-      const existingIds = new Set(existingData.features.map(f => f.properties.inventory));
-      const newIds = new Set(newData.features.map(f => f.properties.inventory));
-
-      // Added
-      for (const id of newIds) {
-        if (!existingIds.has(id)) added++;
-      }
-
-      // Removed
-      for (const id of existingIds) {
-        if (!newIds.has(id)) removed++;
-      }
-
-      console.log('--- Update Statistics ---');
-      console.log(`Total Monuments: ${newData.features.length}`);
-      console.log(`Added: ${added}`);
-      console.log(`Removed: ${removed}`);
-      console.log('-------------------------');
-
-      // Check if data has actually changed
-      const hasChanges = added > 0 || removed > 0 || 
-         JSON.stringify(existingData) !== JSON.stringify(newData);
-
-      if (!hasChanges) {
+      if (JSON.stringify(existingData) === JSON.stringify(newData)) {
          console.log('No changes detected. Skipping file update.');
          process.exit(0);
       }
+      console.log(`Updated ${newData.features.length} monuments.`);
     } else {
       console.log(`Fetched ${newData.features.length} monuments.`);
     }
@@ -228,17 +214,13 @@ async function main() {
        const today = new Date().toISOString().split('T')[0];
        const withImage = newData.features.filter(f => f.properties.image).length;
        
-       const entry = {
-          date: today,
-          timestamp: Date.now(),
-          total: newData.features.length,
-          withImage,
-          withoutImage: newData.features.length - withImage,
-          diff: { 
-             added, 
-             removed, 
-          }
-       };
+   const entry = {
+      date: today,
+      timestamp: Date.now(),
+      total: newData.features.length,
+      withImage,
+      withoutImage: newData.features.length - withImage,
+   };
        
        // Remove existing entry for same date to allow re-runs
        history = history.filter(h => h.date !== today);

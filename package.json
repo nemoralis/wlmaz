@@ -10,7 +10,7 @@
     "dev:backend": "NODE_ENV=development tsx watch --env-file=.env src/index.ts",
     "update-data": "tsx scripts/update-monuments.ts && npm run convert-data",
     "convert-data": "json2geobuf < public/monuments.geojson > public/monuments.pbf",
-    "build": "npm run convert-data && vue-tsc -b && vite build && tsx scripts/prerender.ts && npm run verify",
+    "build": "vue-tsc -b && vite build && tsx scripts/prerender.ts && npm run verify",
     "prerender": "tsx scripts/prerender.ts",
     "verify": "tsx scripts/verify-prerender.ts && html-validate \"dist/**/*.html\"",
     "preview": "vite preview --host",
