@@ -46,7 +46,7 @@
     "leaflet-minimap": "3.6.1",
     "leaflet-sidebar-v2": "3.2.3",
     "leaflet.locatecontrol": "0.90.1",
-    "morgan": "1.11.0",
+    "morgan": "1.12.0",
     "multer": "2.2.0",
     "node-addon-api": "8.9.2",
     "node-gyp": "13.0.2",
