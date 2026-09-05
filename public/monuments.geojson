@@ -2067,9 +2067,9 @@
                 "inventory": "109",
                 "item": "http://www.wikidata.org/entity/Q1138958",
                 "itemAltLabel": "Tofiq Bəhramov Stadionu, Tofiq Bəhramovun adını daşıyan Respublika Stadionu",
-                "itemDescription": "Bakı şəhərində yerləşən çoxməqsədli stadion",
+                "itemDescription": "Bakı şəhərində yerləşən stadion",
                 "itemLabel": "Tofiq Bəhramov adına Respublika Stadionu",
-                "lastModified": "2026-08-19T10:18:04Z"
+                "lastModified": "2026-09-03T20:51:37Z"
             }
         },
         {
@@ -3130,10 +3130,10 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/GanjaMausoleum%20004%204931.jpg",
                 "inventory": "193",
                 "item": "http://www.wikidata.org/entity/Q12849004",
-                "itemAltLabel": "Gəncə İmamzadə türbəsi, İmamzadə piri",
+                "itemAltLabel": "Gəncə İmamzadə türbəsi, İmamzadə piri, İmamzadə kompleksi",
                 "itemDescription": "Gəncədə İmamzadə türbəsi",
                 "itemLabel": "İmamzadə türbəsi",
-                "lastModified": "2026-09-01T18:50:06Z"
+                "lastModified": "2026-09-05T02:25:02Z"
             }
         },
         {
@@ -4799,23 +4799,6 @@
                 "itemDescription": "Zaqatala rayonunda qala",
                 "itemLabel": "Pəriqala",
                 "lastModified": "2026-07-25T15:48:32Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    46.80285355,
-                    39.1167504
-                ]
-            },
-            "properties": {
-                "inventory": "390, 5291",
-                "item": "http://www.wikidata.org/entity/Q140657707",
-                "itemAltLabel": "Dairəvi bürc",
-                "itemLabel": "Dairəvi qüllə",
-                "lastModified": "2026-07-26T02:35:36Z"
             }
         },
         {
@@ -7784,11 +7767,11 @@
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_Texniki_Pe%C5%9F%C9%99_M%C9%99kt%C9%99binin_binas%C4%B1",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/ASOA%2019%20-%20early%2020%20cc..jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Az%C9%99rbaycan%20D%C3%B6vl%C9%99t%20Neft%20Akademiyas%C4%B1n%C4%B1n%20binas%C4%B1.jpg",
                 "inventory": "3028",
                 "item": "http://www.wikidata.org/entity/Q85997456",
                 "itemLabel": "Bakı texniki peşə məktəbinin binası",
-                "lastModified": "2026-02-17T06:56:46Z"
+                "lastModified": "2026-09-04T22:47:29Z"
             }
         },
         {
@@ -8954,9 +8937,9 @@
                 "inventory": "3794",
                 "item": "http://www.wikidata.org/entity/Q12848354",
                 "itemAltLabel": "Ziyadkhanov Mansion",
-                "itemDescription": "house mainson in Ganja, Azerbaijan",
+                "itemDescription": "Gəncədə mülk",
                 "itemLabel": "Ziyadxanovlar mülkü",
-                "lastModified": "2026-09-02T12:28:22Z"
+                "lastModified": "2026-09-05T02:24:14Z"
             }
         },
         {
@@ -13598,8 +13581,10 @@
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C6%8Frm%C9%99ki%20k%C9%99nd%20m%C9%99scidi%20%281%29.jpg",
                 "inventory": "4657",
                 "item": "http://www.wikidata.org/entity/Q140665541",
+                "itemAltLabel": "Ərməki məscidi",
+                "itemDescription": "Qubada məscid",
                 "itemLabel": "Ərməki kənd məscidi",
-                "lastModified": "2026-09-02T12:13:16Z"
+                "lastModified": "2026-09-05T02:26:28Z"
             }
         },
         {
@@ -13925,8 +13910,7 @@
             "properties": {
                 "inventory": "4712",
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemDescription": "Qubadlıda məscid",
-                "itemLabel": "Mirlər məscidi",
+                "itemLabel": "Məscid",
                 "lastModified": "2026-07-23T15:59:55Z"
             }
         },
@@ -16539,11 +16523,12 @@
                 ]
             },
             "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mamrux%20m%C9%99scidi%20%28XVIII%20%C9%99sr%29.jpg",
                 "inventory": "5241",
                 "item": "http://www.wikidata.org/entity/Q140665773",
                 "itemDescription": "Zaqatalada məscid",
                 "itemLabel": "Mamrux məscidi",
-                "lastModified": "2026-07-25T15:39:19Z"
+                "lastModified": "2026-09-03T21:57:57Z"
             }
         },
         {
@@ -16599,6 +16584,23 @@
                 "itemDescription": "Zəngilanda məscid",
                 "itemLabel": "Sərdarlı məscidi",
                 "lastModified": "2026-07-25T23:23:19Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.80285355,
+                    39.1167504
+                ]
+            },
+            "properties": {
+                "inventory": "390, 5291",
+                "item": "http://www.wikidata.org/entity/Q140657707",
+                "itemAltLabel": "Dairəvi bürc",
+                "itemLabel": "Dairəvi qüllə",
+                "lastModified": "2026-07-26T02:35:36Z"
             }
         },
         {
@@ -17029,8 +17031,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.825277777,
-                    40.375
+                    49.825953673,
+                    40.369281348
                 ]
             },
             "properties": {
@@ -17042,7 +17044,7 @@
                 "item": "http://www.wikidata.org/entity/Q16364172",
                 "itemDescription": "Bakıda muzey",
                 "itemLabel": "Abdulla Şaiqin ev-muzeyi",
-                "lastModified": "2026-02-18T11:20:58Z"
+                "lastModified": "2026-09-04T22:43:11Z"
             }
         },
         {
