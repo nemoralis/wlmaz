@@ -37,8 +37,7 @@ const cleanupTempFiles = async () => {
          const filePath = path.join(uploadDir, file);
          // Use lstat to avoid following symbolic links in shared temp directories
          const stats = await fs.lstat(filePath);
-         // Orphaned files older than 1 hour are deleted. 24h was too long
-         // given the potential for automated abuse.
+         // Orphaned files older than 1 hour are deleted.
          if (now - stats.mtimeMs > ONE_HOUR) {
             await fs.unlink(filePath).catch((err) => logger.error("Failed to GC temp file:", err));
          }
@@ -66,6 +65,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
    storage: storage,
+   defParamCharset: "utf8",
    limits: {
       fileSize: 20 * 1024 * 1024, // 20MB
       fields: 10,
