@@ -28,7 +28,7 @@
          </div>
       </div>
       <div class="h-[300px]">
-         <LineChart v-if="chartData" :data="chartData" :options="chartOptions" />
+         <VChart v-if="option" :option="option" autoresize />
          <div v-else class="flex h-full items-center justify-center text-gray-400">
             Məlumat tapılmadı
          </div>
@@ -36,118 +36,88 @@
    </div>
 </template>
 
-<script lang="ts">
-import {
-   CategoryScale,
-   Chart as ChartJS,
-   Legend,
-   LinearScale,
-   LineElement,
-   PointElement,
-   Title,
-   Tooltip,
-} from "chart.js";
-import { Line as LineChart } from "vue-chartjs";
-import { computed, defineComponent, ref } from "vue";
+<script setup lang="ts">
+import "@/utils/echarts";
+import VChart from "vue-echarts";
+import { computed, ref } from "vue";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+const props = withDefaults(
+   defineProps<{
+      title?: string;
+      yearlyData: Record<number, { count: number; usage: number }>;
+   }>(),
+   { title: "İllər üzrə statistika" },
+);
 
-export default defineComponent({
-   name: "YearlyBreakdownChart",
-   components: { LineChart },
-   props: {
-      title: {
-         type: String,
-         default: "İllər üzrə statistika",
+const mode = ref<"count" | "usage">("count");
+
+const option = computed(() => {
+   const startYear = 2013;
+   const now = new Date();
+   const currentYear = now.getFullYear();
+   const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
+
+   const allYears: string[] = [];
+   for (let y = startYear; y <= latestYear; y++) {
+      allYears.push(y.toString());
+   }
+
+   if (allYears.length === 0) return null;
+
+   const data = allYears.map((y) => props.yearlyData[parseInt(y)]?.[mode.value === "count" ? "count" : "usage"] || 0);
+   const color = mode.value === "count" ? "#3B82F6" : "#10B981";
+
+   return {
+      tooltip: {
+         trigger: "axis",
+         backgroundColor: "#1f2937",
+         borderRadius: 8,
+         padding: 12,
+         textStyle: {
+            fontSize: 13,
+         },
       },
-      yearlyData: {
-         type: Object as () => Record<number, { count: number; usage: number }>,
-         required: true,
+      grid: {
+         left: "3%",
+         right: "4%",
+         bottom: "3%",
+         containLabel: true,
       },
-   },
-   setup(props) {
-      const mode = ref<"count" | "usage">("count");
-
-      const chartData = computed(() => {
-         const startYear = 2013;
-         const now = new Date();
-         const currentYear = now.getFullYear();
-         // Only show current year if we are in or after September
-         const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
-
-         const allYears: string[] = [];
-
-         for (let y = startYear; y <= latestYear; y++) {
-            allYears.push(y.toString());
-         }
-
-         if (allYears.length === 0) return null;
-
-         const counts = allYears.map((y) => props.yearlyData[parseInt(y)]?.count || 0);
-         const usages = allYears.map((y) => props.yearlyData[parseInt(y)]?.usage || 0);
-
-         const color = mode.value === "count" ? "#3B82F6" : "#10B981";
-
-         return {
-            labels: allYears,
-            datasets: [
-               {
-                  label: mode.value === "count" ? "Yüklənən şəkillər" : "İstifadə edilən şəkillər",
-                  backgroundColor: color,
-                  borderColor: color,
-                  pointBackgroundColor: color,
-                  pointRadius: 4,
-                  pointHoverRadius: 6,
-                  borderWidth: 3,
-                  tension: 0.3,
-                  data: mode.value === "count" ? counts : usages,
-                  fill: false,
-               },
-            ],
-         };
-      });
-
-      const chartOptions: any = {
-         responsive: true,
-         maintainAspectRatio: false,
-         interaction: {
-            mode: "index",
-            intersect: false,
+      xAxis: {
+         type: "category",
+         boundaryGap: false,
+         data: allYears,
+         axisLabel: {
+            fontSize: 11,
+            fontWeight: "600",
+            color: "#4b5563",
          },
-         plugins: {
-            legend: { display: false },
-            tooltip: {
-               backgroundColor: "#1f2937",
-               padding: 12,
-               cornerRadius: 8,
-               titleFont: { size: 14, weight: "bold" },
-               bodyFont: { size: 13 },
-               displayColors: false,
-            },
+      },
+      yAxis: {
+         type: "value",
+         splitLine: {
+            lineStyle: { color: "#f3f4f6" },
          },
-         scales: {
-            y: {
-               beginAtZero: true,
-               grid: {
-                  display: true,
-                  color: "#f3f4f6",
-               },
-               ticks: {
-                  font: { size: 11 },
-                  color: "#9ca3af",
-               },
-            },
-            x: {
-               grid: { display: false },
-               ticks: {
-                  font: { size: 11, weight: "600" },
-                  color: "#4b5563",
-               },
-            },
+         axisLabel: {
+            fontSize: 11,
+            color: "#9ca3af",
          },
-      };
-
-      return { chartData, chartOptions, mode };
-   },
+      },
+      series: [
+         {
+            name: mode.value === "count" ? "Yüklənən şəkillər" : "İstifadə edilən şəkillər",
+            type: "line",
+            smooth: true,
+            symbol: "circle",
+            symbolSize: 8,
+            itemStyle: { color },
+            lineStyle: { color, width: 3 },
+            emphasis: {
+               itemStyle: { borderWidth: 2, borderColor: color },
+            },
+            data,
+         },
+      ],
+   };
 });
 </script>
