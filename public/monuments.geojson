@@ -1143,30 +1143,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    45.92,
-                    39.16
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/G%C9%99miqaya_petroqlifl%C9%99ri",
-                "commonsCategory": "Gamigaya Petroglyphs",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gamigaya_Petroglyphs",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Rock%20art%20in%20Ordubad.jpg",
-                "inventory": "38, 1945",
-                "item": "http://www.wikidata.org/entity/Q4361430",
-                "itemAltLabel": "Gəmiqaya qayaüstü təsvirləri, Gəmiqaya rəsmləri",
-                "itemDescription": "monument",
-                "itemLabel": "Gəmiqaya petroqlifləri",
-                "lastModified": "2026-09-06T02:32:16Z",
-                "region": "http://www.wikidata.org/entity/Q512623",
-                "regionLabel": "Ordubad rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     46.863333333,
                     40.443611111
                 ]
@@ -1944,8 +1920,8 @@
                 "itemDescription": "XIX əsrdə İçərişəhərdə Məşədi Mirzə Qafar İsmayılov tərəfindən tikilmiş məscid.",
                 "itemLabel": "Xanlar məscidi",
                 "lastModified": "2026-03-09T11:21:14Z",
-                "region": "http://www.wikidata.org/entity/Q344569",
-                "regionLabel": "İçərişəhər"
+                "region": "http://www.wikidata.org/entity/Q9248",
+                "regionLabel": "Bakı"
             }
         },
         {
@@ -3107,9 +3083,9 @@
                 "itemAltLabel": "İsmailiyyə, Azərbaycan Milli Elmlər Akademiyasının Rəyasət Heyətinin binası, Rəyasət Heyətinin binası",
                 "itemDescription": "Bakıda yerləşən saray",
                 "itemLabel": "İsmailiyyə Sarayı",
-                "lastModified": "2026-05-01T02:29:18Z",
-                "region": "http://www.wikidata.org/entity/Q227",
-                "regionLabel": "Azərbaycan"
+                "lastModified": "2026-09-10T00:57:03Z",
+                "region": "http://www.wikidata.org/entity/Q2028793",
+                "regionLabel": "Səbail rayonu"
             }
         },
         {
@@ -4606,7 +4582,7 @@
                 "itemAltLabel": "Avey məbədi, Ay məbədi",
                 "itemDescription": "Daş Salahlı kəndində yerləşən kilsə",
                 "itemLabel": "Avey kilsəsi",
-                "lastModified": "2026-02-07T18:08:46Z",
+                "lastModified": "2026-09-10T00:55:18Z",
                 "region": "http://www.wikidata.org/entity/Q201140",
                 "regionLabel": "Tavuş mərzi"
             }
@@ -5734,6 +5710,25 @@
                 "lastModified": "2026-07-25T15:48:32Z",
                 "region": "http://www.wikidata.org/entity/Q147553",
                 "regionLabel": "Zaqatala rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.80285355,
+                    39.1167504
+                ]
+            },
+            "properties": {
+                "inventory": "390, 5291",
+                "item": "http://www.wikidata.org/entity/Q140657707",
+                "itemAltLabel": "Dairəvi bürc",
+                "itemLabel": "Dairəvi qüllə",
+                "lastModified": "2026-07-26T02:35:36Z",
+                "region": "http://www.wikidata.org/entity/Q249252",
+                "regionLabel": "Zəngilan rayonu"
             }
         },
         {
@@ -8560,6 +8555,30 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.92,
+                    39.16
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/G%C9%99miqaya_petroqlifl%C9%99ri",
+                "commonsCategory": "Gamigaya Petroglyphs",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gamigaya_Petroglyphs",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Rock%20art%20in%20Ordubad.jpg",
+                "inventory": "38, 1945",
+                "item": "http://www.wikidata.org/entity/Q4361430",
+                "itemAltLabel": "Gəmiqaya qayaüstü təsvirləri, Gəmiqaya rəsmləri",
+                "itemDescription": "monument",
+                "itemLabel": "Gəmiqaya petroqlifləri",
+                "lastModified": "2026-09-06T02:32:16Z",
+                "region": "http://www.wikidata.org/entity/Q512623",
+                "regionLabel": "Ordubad rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.13333,
                     38.8825
                 ]
@@ -10976,9 +10995,9 @@
                 "item": "http://www.wikidata.org/entity/Q25543409",
                 "itemDescription": "Bakıda tarixi bina",
                 "itemLabel": "Sadıqov qardaşlarının mədaxil evi",
-                "lastModified": "2026-02-10T13:33:52Z",
-                "region": "http://www.wikidata.org/entity/Q227",
-                "regionLabel": "Azərbaycan"
+                "lastModified": "2026-09-10T00:56:12Z",
+                "region": "http://www.wikidata.org/entity/Q2028793",
+                "regionLabel": "Səbail rayonu"
             }
         },
         {
@@ -11244,9 +11263,9 @@
                 "itemAltLabel": "Azərittifaqın binası",
                 "itemDescription": "Bakıda tarixi bina",
                 "itemLabel": "Rılski qardaşlarının yaşayış evi",
-                "lastModified": "2026-01-28T00:04:49Z",
-                "region": "http://www.wikidata.org/entity/Q65277317",
-                "regionLabel": "Yusif Məmmədəliyev küçəsi"
+                "lastModified": "2026-09-10T00:54:47Z",
+                "region": "http://www.wikidata.org/entity/Q2028793",
+                "regionLabel": "Səbail rayonu"
             }
         },
         {
@@ -14870,9 +14889,9 @@
                 "item": "http://www.wikidata.org/entity/Q10966721",
                 "itemDescription": "Gədəbəydə monastır",
                 "itemLabel": "Həmşivəng kompleksi",
-                "lastModified": "2026-07-22T18:20:37Z",
-                "region": "http://www.wikidata.org/entity/Q227",
-                "regionLabel": "Azərbaycan"
+                "lastModified": "2026-09-10T00:56:29Z",
+                "region": "http://www.wikidata.org/entity/Q330749",
+                "regionLabel": "Gədəbəy rayonu"
             }
         },
         {
@@ -21275,25 +21294,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    46.80285355,
-                    39.1167504
-                ]
-            },
-            "properties": {
-                "inventory": "390, 5291",
-                "item": "http://www.wikidata.org/entity/Q140657707",
-                "itemAltLabel": "Dairəvi bürc",
-                "itemLabel": "Dairəvi qüllə",
-                "lastModified": "2026-07-26T02:35:36Z",
-                "region": "http://www.wikidata.org/entity/Q249252",
-                "regionLabel": "Zəngilan rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     45.412326065,
                     39.195883924
                 ]
@@ -22749,9 +22749,9 @@
                 "item": "http://www.wikidata.org/entity/Q16366286",
                 "itemDescription": "Historic house museum in Nakhchivan, Azerbaijan",
                 "itemLabel": "Cəlil Məmmədquluzadənin ev-muzeyi",
-                "lastModified": "2026-02-16T08:29:44Z",
-                "region": "http://www.wikidata.org/entity/Q227",
-                "regionLabel": "Azərbaycan"
+                "lastModified": "2026-09-10T00:56:35Z",
+                "region": "http://www.wikidata.org/entity/Q230104",
+                "regionLabel": "Naxçıvan"
             }
         },
         {
