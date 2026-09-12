@@ -2521,15 +2521,16 @@
                 ]
             },
             "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eirvan%C5%9Fahlar%C4%B1n_yay_iqam%C9%99tgah%C4%B1",
                 "commonsCategory": "Khan Garden Pavilion",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Khan_Garden_Pavilion",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Xan%20ba%C4%9F%C4%B1n%C4%B1n%20k%C3%B6%C5%9Fk%C3%BC.jpg",
                 "inventory": "133",
-                "item": "http://www.wikidata.org/entity/Q137342822",
-                "itemAltLabel": "Khan's Garden Pavilion",
+                "item": "http://www.wikidata.org/entity/Q12849603",
+                "itemAltLabel": "Xan bağının köşkü",
                 "itemDescription": "pavilion in Nardaran, Baku",
-                "itemLabel": "Xan bağının köşkü",
-                "lastModified": "2025-12-11T21:27:26Z"
+                "itemLabel": "Şirvanşahların yay iqamətgahı",
+                "lastModified": "2026-09-11T22:14:47Z"
             }
         },
         {
@@ -4419,24 +4420,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    48.4414991,
-                    41.1933855
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/Yeddil%C9%99r_qalas%C4%B1",
-                "inventory": "302, 4655",
-                "item": "http://www.wikidata.org/entity/Q134699272",
-                "itemDescription": "Azərbaycanda Quba rayonunun Zıxır kəndində yerləşən qala.",
-                "itemLabel": "Yeddilər qalası",
-                "lastModified": "2026-08-11T00:17:27Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     48.223292,
                     41.337953
                 ]
@@ -5243,6 +5226,23 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    46.80285355,
+                    39.1167504
+                ]
+            },
+            "properties": {
+                "inventory": "390, 5291",
+                "item": "http://www.wikidata.org/entity/Q140657707",
+                "itemAltLabel": "Dairəvi bürc",
+                "itemLabel": "Dairəvi qüllə",
+                "lastModified": "2026-07-26T02:35:36Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.802152777,
                     39.160241666
                 ]
@@ -5489,6 +5489,28 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.8371,
+                    40.36
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_bulvar%C4%B1",
+                "commonsCategory": "Baku Boulevard",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Baku_Boulevard",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Vista%20de%20Baku%2C%20Azerbaiy%C3%A1n%2C%202016-09-26%2C%20DD%20120-124%20PAN.jpg",
+                "inventory": "428",
+                "item": "http://www.wikidata.org/entity/Q2665945",
+                "itemAltLabel": "Dənizkənarı Milli park",
+                "itemDescription": "Bakıda, Xəzər dənizinin sahilində yerləşən bulvar",
+                "itemLabel": "Bakı bulvarı",
+                "lastModified": "2026-09-11T21:48:51Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.8466,
                     40.39275
                 ]
@@ -5500,6 +5522,26 @@
                 "itemDescription": "Bakıda abidə",
                 "itemLabel": "Kitabi Dədə Qorqud abidəsi",
                 "lastModified": "2026-05-01T11:38:56Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.853557244,
+                    40.378932287
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/S%C9%99m%C9%99d_Vur%C4%9Fun_ba%C4%9F%C4%B1",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Samad_Vurgun_Park_(Baku)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Samad%20Vurgun%20Park%20in%20Baku%2C%202026%20%2895310%29.jpg",
+                "inventory": "431",
+                "item": "http://www.wikidata.org/entity/Q65280286",
+                "itemAltLabel": "S.Vurğun bağı",
+                "itemLabel": "Səməd Vurğun bağı",
+                "lastModified": "2026-09-11T21:44:30Z"
             }
         },
         {
@@ -5522,6 +5564,39 @@
                 "itemDescription": "Bakıda bağ",
                 "itemLabel": "Sabir bağı",
                 "lastModified": "2026-09-06T01:54:11Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.835207157,
+                    40.369606021
+                ]
+            },
+            "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Nizami%20Garden%20in%20Baku.jpg",
+                "inventory": "433",
+                "item": "http://www.wikidata.org/entity/Q140657749",
+                "itemLabel": "Nizami bağı",
+                "lastModified": "2026-09-11T22:08:45Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830211251,
+                    40.357474248
+                ]
+            },
+            "properties": {
+                "inventory": "434",
+                "item": "http://www.wikidata.org/entity/Q140657753",
+                "itemLabel": "Dağüstü park",
+                "lastModified": "2026-09-11T22:01:05Z"
             }
         },
         {
@@ -5578,6 +5653,66 @@
                 "itemDescription": "Bakı şəhəri Xətai rayonunda yerləşən mədəniyyət və istirahət parkı",
                 "itemLabel": "Nizami parkı",
                 "lastModified": "2026-09-06T12:57:39Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.159,
+                    40.49
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C9%99rd%C9%99kan_dendrarisi",
+                "commonsCategory": "Mardakan Arboretum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Mardakan_Arboretum",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mardakan%20dendrariy.jpg",
+                "inventory": "438",
+                "item": "http://www.wikidata.org/entity/Q4281244",
+                "itemAltLabel": "Azərbaycan Respublikası Elmlər Akademiyasının dendroparkı",
+                "itemDescription": "arboretum in Baku, Azerbaijan",
+                "itemLabel": "Mərdəkan Dendrarisi",
+                "lastModified": "2026-09-11T22:12:09Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.812102083,
+                    40.356838617
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/M%C9%99rk%C9%99zi_N%C9%99batat_Ba%C4%9F%C4%B1",
+                "commonsCategory": "Botanical Park in Baku",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Botanical_Park_in_Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Baku%20Botanical%20Garden%2019.jpg",
+                "inventory": "440",
+                "item": "http://www.wikidata.org/entity/Q20278670",
+                "itemAltLabel": "Botanika bağı",
+                "itemDescription": "Bakıda bağ",
+                "itemLabel": "Mərkəzi Nəbatat Bağı",
+                "lastModified": "2026-09-11T22:00:20Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.95639529,
+                    40.379193146
+                ]
+            },
+            "properties": {
+                "inventory": "443",
+                "item": "http://www.wikidata.org/entity/Q140665003",
+                "itemLabel": "Heydər bağı",
+                "lastModified": "2026-09-11T22:03:46Z"
             }
         },
         {
@@ -10295,6 +10430,23 @@
                 "item": "http://www.wikidata.org/entity/Q140661292",
                 "itemLabel": "Yaşayış evi",
                 "lastModified": "2026-09-07T16:26:17Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.849244273,
+                    40.375303864
+                ]
+            },
+            "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Tarixi%20abid%C9%991.jpg",
+                "inventory": "3319",
+                "item": "http://www.wikidata.org/entity/Q140661293",
+                "itemLabel": "160 nömrəli orta məktəbin binası",
+                "lastModified": "2026-09-11T22:42:58Z"
             }
         },
         {
@@ -16378,6 +16530,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.4414991,
+                    41.1933855
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Yeddil%C9%99r_qalas%C4%B1",
+                "inventory": "302, 4655",
+                "item": "http://www.wikidata.org/entity/Q134699272",
+                "itemDescription": "Azərbaycanda Quba rayonunun Zıxır kəndində yerləşən qala.",
+                "itemLabel": "Yeddilər qalası",
+                "lastModified": "2026-08-11T00:17:27Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.507220107,
                     41.278923788
                 ]
@@ -19570,23 +19740,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    46.80285355,
-                    39.1167504
-                ]
-            },
-            "properties": {
-                "inventory": "390, 5291",
-                "item": "http://www.wikidata.org/entity/Q140657707",
-                "itemAltLabel": "Dairəvi bürc",
-                "itemLabel": "Dairəvi qüllə",
-                "lastModified": "2026-07-26T02:35:36Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     45.403398013,
                     39.188960767
                 ]
@@ -20896,6 +21049,28 @@
                 "item": "http://www.wikidata.org/entity/Q140663131",
                 "itemLabel": "Böyük Vətən Müharibəsində həlak olmuş həmvətənlərimizin xatirə abidəsi",
                 "lastModified": "2026-09-09T14:11:15Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.752222222,
+                    39.759555555
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Molla_P%C9%99nah_Vaqifin_b%C3%BCst%C3%BC",
+                "commonsCategory": "Bust of Molla Panah Vagif (Şuşa)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Bust_of_Molla_Panah_Vagif_(%C5%9Eu%C5%9Fa)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Vaqifin%20b%C3%BCst%C3%BC%20%281%29.jpg",
+                "inventory": "5691",
+                "item": "http://www.wikidata.org/entity/Q110105689",
+                "itemAltLabel": "M.P.Vaqifin büstü",
+                "itemDescription": "XVIII əsrdə yaşamış Azərbaycan şairi Molla Pənah Vaqifin şərəfinə Şuşada qoyulmuş büst.",
+                "itemLabel": "Molla Pənah Vaqifin büstü",
+                "lastModified": "2026-09-11T22:17:25Z"
             }
         },
         {
