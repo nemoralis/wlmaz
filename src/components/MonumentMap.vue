@@ -28,7 +28,7 @@
                </li>
                <li>
                   <a
-                     href="https://github.com/nemoralis/wlmaz"
+                     href="https://gitlab.wikimedia.org/nmw03/wlmaz"
                      target="_blank"
                      rel="noopener noreferrer"
                      title="View Source on GitHub"

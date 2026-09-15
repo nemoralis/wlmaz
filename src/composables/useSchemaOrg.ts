@@ -91,7 +91,7 @@ export function useOrganizationSchema() {
          "Azərbaycandakı abidələrin interaktiv xəritəsi. Viki Abidələri Sevir müsabiqəsi üçün fotoşəkillər yükləyin.",
       sameAs: [
          "https://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2026_in_Azerbaijan",
-         "https://github.com/nemoralis/wlmaz",
+         "https://gitlab.wikimedia.org/nmw03/wlmaz",
       ],
       foundingLocation: {
          "@type": "Country",
