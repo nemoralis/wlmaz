@@ -4,7 +4,8 @@
       "no-inline-style": "off",
       "no-style-tag": "off",
       "void-style": "off",
-      "no-trailing-whitespace": "off",
-      "long-title": "warn"
+       "no-trailing-whitespace": "off",
+       "long-title": "warn",
+       "valid-id": "warn"
    }
 }

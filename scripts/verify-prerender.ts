@@ -6,9 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const HOST = "https://wikilovesmonuments.az";
-const PUBLIC_DIR = path.join(__dirname, "../public");
 const DIST_DIR = path.join(__dirname, "../dist");
-const GEOJSON_PATH = path.join(PUBLIC_DIR, "monuments.geojson");
+const GEOJSON_PATH = path.join(__dirname, "../data/monuments.geojson");
 const MONUMENT_DIR = path.join(DIST_DIR, "monument");
 const SITEMAP_PATH = path.join(DIST_DIR, "sitemap.xml");
 const ROBOTS_PATH = path.join(DIST_DIR, "robots.txt");

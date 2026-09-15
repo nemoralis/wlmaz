@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { minify } from "html-minifier-terser";
 import {
    schemaToJsonLd,
    useBreadcrumbSchema,
@@ -13,9 +14,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const HOST = "https://wikilovesmonuments.az";
-const PUBLIC_DIR = path.join(__dirname, "../public");
 const DIST_DIR = path.join(__dirname, "../dist");
-const GEOJSON_PATH = path.join(PUBLIC_DIR, "monuments.geojson");
+const GEOJSON_PATH = path.join(__dirname, "../data/monuments.geojson");
 const MONUMENT_DIR = path.join(DIST_DIR, "monument");
 
 const SITE_TITLE = "Viki Abidələri Sevir Azərbaycan";
@@ -293,44 +293,51 @@ const STATIC_PAGES = [
    },
 ];
 
-const main = async () => {
-   try {
-      const features = await readGeoJson();
-      const indexHtml = await fs.readFile(path.join(DIST_DIR, "index.html"), "utf-8");
-      const now = new Date().toISOString();
-      const sitemapEntries: SitemapEntry[] = [
-         { loc: `${HOST}/`, lastmod: now },
-         ...STATIC_PAGES.map(({ route }) => ({ loc: `${HOST}${route}`, lastmod: now })),
-      ];
+   const minifyHtml = (html: string): Promise<string> =>
+      minify(html, {
+         collapseWhitespace: true,
+         removeComments: true,
+         minifyCSS: true,
+      });
 
-      await fs.mkdir(MONUMENT_DIR, { recursive: true });
+   const main = async () => {
+      try {
+         const features = await readGeoJson();
+         const indexHtml = await fs.readFile(path.join(DIST_DIR, "index.html"), "utf-8");
+         const now = new Date().toISOString();
+         const sitemapEntries: SitemapEntry[] = [
+            { loc: `${HOST}/`, lastmod: now },
+            ...STATIC_PAGES.map(({ route }) => ({ loc: `${HOST}${route}`, lastmod: now })),
+         ];
 
-      let written = 0;
-      for (const feature of features) {
-         const rawInventory = feature.properties.inventory || "";
-         if (!rawInventory) continue;
+         await fs.mkdir(MONUMENT_DIR, { recursive: true });
 
-         const canonicalId = rawInventory.split(",")[0].trim();
-         const canonicalUrl = `${HOST}/monument/${encodeIdForUrl(canonicalId)}`;
-         const props = buildMonumentProps(feature, canonicalId);
+         let written = 0;
+         for (const feature of features) {
+            const rawInventory = feature.properties.inventory || "";
+            if (!rawInventory) continue;
 
-         const html = buildMonumentHtml(indexHtml, props, canonicalUrl);
-         const filePath = path.join(MONUMENT_DIR, `${safeFileName(canonicalId)}.html`);
-         await fs.writeFile(filePath, html);
-         written++;
+            const canonicalId = rawInventory.split(",")[0].trim();
+            const canonicalUrl = `${HOST}/monument/${encodeIdForUrl(canonicalId)}`;
+            const props = buildMonumentProps(feature, canonicalId);
 
-         sitemapEntries.push({
-            loc: canonicalUrl,
-            lastmod: feature.properties.lastModified
-               ? new Date(feature.properties.lastModified).toISOString()
-               : now,
-         });
-      }
+            const html = buildMonumentHtml(indexHtml, props, canonicalUrl);
+            const filePath = path.join(MONUMENT_DIR, `${safeFileName(canonicalId)}.html`);
+            await fs.writeFile(filePath, await minifyHtml(html));
+            written++;
 
-      for (const page of STATIC_PAGES) {
-         const html = buildStaticHtml(indexHtml, page.route, page.title, page.description);
-         await fs.writeFile(path.join(DIST_DIR, `${page.route.slice(1)}.html`), html);
-      }
+            sitemapEntries.push({
+               loc: canonicalUrl,
+               lastmod: feature.properties.lastModified
+                  ? new Date(feature.properties.lastModified).toISOString()
+                  : now,
+            });
+         }
+
+         for (const page of STATIC_PAGES) {
+            const html = buildStaticHtml(indexHtml, page.route, page.title, page.description);
+            await fs.writeFile(path.join(DIST_DIR, `${page.route.slice(1)}.html`), await minifyHtml(html));
+         }
 
       await fs.writeFile(path.join(DIST_DIR, "sitemap.xml"), renderSitemap(sitemapEntries));
       await fs.writeFile(path.join(DIST_DIR, "robots.txt"), ROBOTS_TXT);
