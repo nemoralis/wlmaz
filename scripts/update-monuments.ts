@@ -66,7 +66,7 @@ class SPARQLQueryDispatcher {
     const fullUrl = this.endpoint + '?query=' + encodeURIComponent(sparqlQuery);
     const headers = { 
       'Accept': 'application/sparql-results+json',
-      'User-Agent': 'WLMAZ-Updater/1.0 (https://github.com/nemoralis/wlmaz)'
+      'User-Agent': 'WLMAZ-Updater/1.0 (https://gitlab.wikimedia.org/nmw03/wlmaz)'
     };
 
     const response = await fetch(fullUrl, { headers });

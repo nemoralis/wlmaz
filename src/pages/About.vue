@@ -107,7 +107,7 @@
             <p>
                Mənbə kodu:
                <a
-                  href="https://github.com/nemoralis/wlmaz"
+                  href="https://gitlab.wikimedia.org/nmw03/wlmaz"
                   target="_blank"
                   class="text-blue-600 hover:underline"
                   ><font-awesome-icon :icon="['fab', 'github']" /> GitHub</a

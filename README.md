@@ -32,7 +32,7 @@ It features a responsive, clustered map interface powered by Vue 3 and Leaflet, 
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/nemoralis/wlmaz.git
+git clone https://gitlab.wikimedia.org/nmw03/wlmaz.git
 cd wlmaz
 npm install
 ```
