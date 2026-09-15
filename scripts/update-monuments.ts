@@ -21,17 +21,20 @@ SELECT
   ?commonsCategory 
   ?azLink 
   ?commonsLink 
+  ?parent
+  ?parentLabel
   ?lastModified 
 WHERE {
   {
     SELECT 
       ?item 
-      (GROUP_CONCAT(DISTINCT ?heritageID; separator=", ") AS ?inventory)  # Combine all IDs
+      (GROUP_CONCAT(DISTINCT ?heritageID; separator=", ") AS ?inventory)
       (SAMPLE(?img) AS ?image)
       (SAMPLE(?coord) AS ?coordinate)
       (SAMPLE(?cat) AS ?commonsCategory)
       (SAMPLE(?az) AS ?azLink)
       (SAMPLE(?cLink) AS ?commonsLink)
+      (SAMPLE(?p131) AS ?parent)
       (MAX(?mod) AS ?lastModified)
     WHERE {
       ?item wdt:P13410 ?heritageID.
@@ -40,6 +43,7 @@ WHERE {
       OPTIONAL { ?item wdt:P625 ?coord. }
       OPTIONAL { ?item wdt:P18 ?img. }
       OPTIONAL { ?item wdt:P373 ?cat. }
+      OPTIONAL { ?item wdt:P131 ?p131. }
       OPTIONAL { ?az schema:about ?item ; schema:isPartOf <https://az.wikipedia.org/> . }
       OPTIONAL { ?cLink schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> . }
     }
