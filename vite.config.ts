@@ -126,6 +126,9 @@ export default defineConfig({
                if (id.includes('node_modules/geobuf') || id.includes('node_modules/pbf') || id.includes('node_modules/fuse.js')) {
                   return 'vendor-data';
                }
+               if (id.includes('node_modules/echarts') || id.includes('node_modules/vue-echarts')) {
+                  return 'vendor-charts';
+               }
             }
          },
          external: ["sharp"],

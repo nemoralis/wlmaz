@@ -6,7 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const PUBLIC_DIR = path.join(__dirname, '../public');
-const GEOJSON_PATH = path.join(PUBLIC_DIR, 'monuments.geojson');
+const DATA_DIR = path.join(__dirname, '../data');
+const GEOJSON_PATH = path.join(DATA_DIR, 'monuments.geojson');
 
 // SPARQL Query to fetch monuments in Azerbaijan
 const SPARQL_QUERY = `

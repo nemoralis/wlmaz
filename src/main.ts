@@ -14,8 +14,13 @@ import { FontAwesomeIcon } from "./plugins/fontawesome";
 import "@wikimedia/codex/dist/codex.style.css";
 
 const head = createHead();
-createApp(App)
-   .use(createPinia())
+const app = createApp(App);
+
+app.config.errorHandler = (err, instance, info) => {
+   console.error("[Vue Error]", err, "\nComponent:", instance?.$options?.name || "Unknown", "\nInfo:", info);
+};
+
+app.use(createPinia())
    .use(router)
    .use(head)
    .component("font-awesome-icon", FontAwesomeIcon)
