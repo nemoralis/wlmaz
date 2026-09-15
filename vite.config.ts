@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
+import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
    plugins: [
@@ -12,6 +13,74 @@ export default defineConfig({
          png: { quality: 80 },
          jpeg: { quality: 80 },
          webp: { quality: 80 },
+      }),
+      VitePWA({
+         registerType: "autoUpdate",
+         includeAssets: ["favicon.ico", "favicon-32x32.png", "favicon-16x16.png", "wlm-az.svg"],
+         manifest: {
+            name: "Wiki Loves Monuments Azərbaycan",
+            short_name: "WLM Az",
+            description: "Azərbaycan tarixi abidələri xəritəsi",
+            theme_color: "#3B82F6",
+            background_color: "#f9fafb",
+            display: "standalone",
+            icons: [
+               {
+                  src: "android-chrome-192x192.png",
+                  sizes: "192x192",
+                  type: "image/png",
+               },
+               {
+                  src: "android-chrome-512x512.png",
+                  sizes: "512x512",
+                  type: "image/png",
+               },
+               {
+                  src: "android-chrome-512x512.png",
+                  sizes: "512x512",
+                  type: "image/png",
+                  purpose: "any maskable",
+               },
+            ],
+         },
+         workbox: {
+            globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
+            runtimeCaching: [
+               {
+                  urlPattern: /^https:\/\/.*\.tile\.openstreetmap\.org\/.*/i,
+                  handler: "StaleWhileRevalidate",
+                  options: {
+                     cacheName: "osm-tiles",
+                     expiration: {
+                        maxEntries: 2000,
+                        maxAgeSeconds: 60 * 60 * 24 * 30,
+                     },
+                  },
+               },
+               {
+                  urlPattern: /^https:\/\/tiles\.gomap\.az\/.*/i,
+                  handler: "StaleWhileRevalidate",
+                  options: {
+                     cacheName: "gomap-tiles",
+                     expiration: {
+                        maxEntries: 1000,
+                        maxAgeSeconds: 60 * 60 * 24 * 30,
+                     },
+                  },
+               },
+               {
+                  urlPattern: /^https:\/\/mt\d+\.google\.com\/vt\/.*/i,
+                  handler: "StaleWhileRevalidate",
+                  options: {
+                     cacheName: "google-satellite-tiles",
+                     expiration: {
+                        maxEntries: 1000,
+                        maxAgeSeconds: 60 * 60 * 24 * 30,
+                     },
+                  },
+               },
+            ],
+         },
       }),
    ],
 
