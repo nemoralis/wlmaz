@@ -1143,6 +1143,30 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.92,
+                    39.16
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/G%C9%99miqaya_petroqlifl%C9%99ri",
+                "commonsCategory": "Gamigaya Petroglyphs",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gamigaya_Petroglyphs",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/G%C9%99miqaya%20r%C9%99sml%C9%99ri%20%282%29.jpg",
+                "inventory": "38, 1945",
+                "item": "http://www.wikidata.org/entity/Q4361430",
+                "itemAltLabel": "Gəmiqaya qayaüstü təsvirləri, Gəmiqaya rəsmləri",
+                "itemDescription": "monument",
+                "itemLabel": "Gəmiqaya petroqlifləri",
+                "lastModified": "2026-09-10T10:51:15Z",
+                "parent": "http://www.wikidata.org/entity/Q512623",
+                "parentLabel": "Ordubad rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.863333333,
                     40.443611111
                 ]
@@ -3343,6 +3367,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.836348169,
+                    40.369029059
+                ]
+            },
+            "properties": {
+                "inventory": "159",
+                "item": "http://www.wikidata.org/entity/Q140654618",
+                "itemLabel": "Konstitusiya Məhkəməsinin binası",
+                "lastModified": "2026-09-16T05:47:44Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.8403,
                     40.3686
                 ]
@@ -5257,7 +5299,7 @@
                 "itemAltLabel": "Şəki kilsəsi, Şəki xanlarının ailə məscidi, Üç-Müqəddəs kilsəsi (Şəki)",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən məbəd və tarix memarlıq abidəsi.",
                 "itemLabel": "Dairəvi məbəd",
-                "lastModified": "2026-05-01T11:34:29Z",
+                "lastModified": "2026-09-16T08:16:12Z",
                 "parent": "http://www.wikidata.org/entity/Q234783",
                 "parentLabel": "Şəki"
             }
@@ -5741,25 +5783,6 @@
                 "lastModified": "2026-07-25T15:48:32Z",
                 "parent": "http://www.wikidata.org/entity/Q147553",
                 "parentLabel": "Zaqatala rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    46.80285355,
-                    39.1167504
-                ]
-            },
-            "properties": {
-                "inventory": "390, 5291",
-                "item": "http://www.wikidata.org/entity/Q140657707",
-                "itemAltLabel": "Dairəvi bürc",
-                "itemLabel": "Dairəvi qüllə",
-                "lastModified": "2026-07-26T02:35:36Z",
-                "parent": "http://www.wikidata.org/entity/Q249252",
-                "parentLabel": "Zəngilan rayonu"
             }
         },
         {
@@ -9214,30 +9237,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    45.92,
-                    39.16
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/G%C9%99miqaya_petroqlifl%C9%99ri",
-                "commonsCategory": "Gamigaya Petroglyphs",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gamigaya_Petroglyphs",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/G%C9%99miqaya%20r%C9%99sml%C9%99ri%20%282%29.jpg",
-                "inventory": "38, 1945",
-                "item": "http://www.wikidata.org/entity/Q4361430",
-                "itemAltLabel": "Gəmiqaya qayaüstü təsvirləri, Gəmiqaya rəsmləri",
-                "itemDescription": "monument",
-                "itemLabel": "Gəmiqaya petroqlifləri",
-                "lastModified": "2026-09-10T10:51:15Z",
-                "parent": "http://www.wikidata.org/entity/Q512623",
-                "parentLabel": "Ordubad rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     46.13333,
                     38.8825
                 ]
@@ -9271,6 +9270,24 @@
                 "lastModified": "2026-08-05T22:57:35Z",
                 "parent": "http://www.wikidata.org/entity/Q390820",
                 "parentLabel": "Şərur rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.833913046,
+                    40.364406787
+                ]
+            },
+            "properties": {
+                "inventory": "2104",
+                "item": "http://www.wikidata.org/entity/Q140660188",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:47:11Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -9439,6 +9456,24 @@
                 "item": "http://www.wikidata.org/entity/Q140660231",
                 "itemLabel": "Yaşayış evi",
                 "lastModified": "2026-09-09T13:09:43Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834686049,
+                    40.364285413
+                ]
+            },
+            "properties": {
+                "inventory": "2194",
+                "item": "http://www.wikidata.org/entity/Q140660268",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:48:32Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -9617,6 +9652,150 @@
                 "lastModified": "2026-01-27T23:25:33Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834037309,
+                    40.365175413
+                ]
+            },
+            "properties": {
+                "inventory": "2525",
+                "item": "http://www.wikidata.org/entity/Q140660553",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:26:45Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.835353735,
+                    40.366135786
+                ]
+            },
+            "properties": {
+                "inventory": "2532",
+                "item": "http://www.wikidata.org/entity/Q140660561",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:23:44Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834811127,
+                    40.365819786
+                ]
+            },
+            "properties": {
+                "inventory": "2534",
+                "item": "http://www.wikidata.org/entity/Q140660564",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:24:14Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.83525324,
+                    40.366270843
+                ]
+            },
+            "properties": {
+                "inventory": "2535",
+                "item": "http://www.wikidata.org/entity/Q140660565",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:18:11Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834968306,
+                    40.365919322
+                ]
+            },
+            "properties": {
+                "inventory": "2536",
+                "item": "http://www.wikidata.org/entity/Q140660566",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:22:27Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.835075161,
+                    40.366759871
+                ]
+            },
+            "properties": {
+                "inventory": "2541",
+                "item": "http://www.wikidata.org/entity/Q140660568",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:23:06Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.835208018,
+                    40.367947185
+                ]
+            },
+            "properties": {
+                "inventory": "2543-1",
+                "item": "http://www.wikidata.org/entity/Q140660571",
+                "itemLabel": "Qeyri-yaşayış binası",
+                "lastModified": "2026-09-16T06:02:43Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.835182884,
+                    40.367762007
+                ]
+            },
+            "properties": {
+                "inventory": "2548",
+                "item": "http://www.wikidata.org/entity/Q140660577",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:17:31Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -10358,6 +10537,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.835748988,
+                    40.373198707
+                ]
+            },
+            "properties": {
+                "inventory": "2883",
+                "item": "http://www.wikidata.org/entity/Q140660918",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:40:52Z",
+                "parent": "http://www.wikidata.org/entity/Q4313899",
+                "parentLabel": "Nəsimi rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.845433482,
                     40.375949065
                 ]
@@ -10370,6 +10567,28 @@
                 "item": "http://www.wikidata.org/entity/Q140660925",
                 "itemLabel": "Yaşayış evi",
                 "lastModified": "2026-09-09T12:14:11Z",
+                "parent": "http://www.wikidata.org/entity/Q4313899",
+                "parentLabel": "Nəsimi rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.844655291,
+                    40.375172408
+                ]
+            },
+            "properties": {
+                "commonsCategory": "House of Musa Nagiyev",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:House_of_Musa_Nagiyev",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%2028%20May%20Street%206.jpg",
+                "inventory": "2892",
+                "item": "http://www.wikidata.org/entity/Q140660926",
+                "itemDescription": "Bakıda tarixi yaşayış binası",
+                "itemLabel": "Musa Nağıyevin evi",
+                "lastModified": "2026-09-16T06:34:04Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -10457,6 +10676,42 @@
                 "itemDescription": "Bakıda tarixi yaşayış binası (2903)",
                 "itemLabel": "Yaşayış evi",
                 "lastModified": "2026-09-07T16:08:25Z",
+                "parent": "http://www.wikidata.org/entity/Q4313899",
+                "parentLabel": "Nəsimi rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.847532595,
+                    40.376369835
+                ]
+            },
+            "properties": {
+                "inventory": "2904",
+                "item": "http://www.wikidata.org/entity/Q140660939",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:39:13Z",
+                "parent": "http://www.wikidata.org/entity/Q4313899",
+                "parentLabel": "Nəsimi rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.848837607,
+                    40.376786573
+                ]
+            },
+            "properties": {
+                "inventory": "2906",
+                "item": "http://www.wikidata.org/entity/Q140660941",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T06:25:53Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -10872,6 +11127,24 @@
                 "item": "http://www.wikidata.org/entity/Q140661055",
                 "itemLabel": "8 nömrəli məktəbin binası",
                 "lastModified": "2026-09-13T23:44:53Z",
+                "parent": "http://www.wikidata.org/entity/Q4313899",
+                "parentLabel": "Nəsimi rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.84041823,
+                    40.389683209
+                ]
+            },
+            "properties": {
+                "inventory": "3045",
+                "item": "http://www.wikidata.org/entity/Q140661057",
+                "itemLabel": "Mərkəzi təcili yardım və 5 №-li şəhər poliklinikasının binası",
+                "lastModified": "2026-09-16T07:53:12Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -11378,6 +11651,24 @@
                 "lastModified": "2026-01-26T14:22:57Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.838326019,
+                    40.374016889
+                ]
+            },
+            "properties": {
+                "inventory": "3166-2",
+                "item": "http://www.wikidata.org/entity/Q140665278",
+                "itemLabel": "Məscid",
+                "lastModified": "2026-09-16T07:54:32Z",
+                "parent": "http://www.wikidata.org/entity/Q4313899",
+                "parentLabel": "Nəsimi rayonu"
             }
         },
         {
@@ -11912,6 +12203,25 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.844967437,
+                    40.371771515
+                ]
+            },
+            "properties": {
+                "inventory": "3279",
+                "item": "http://www.wikidata.org/entity/Q140661260",
+                "itemAltLabel": "1 nömrəli poliklinika",
+                "itemLabel": "A.H.Kazımov adına 1 nömrəli Şəhər Poliklinikasının binası",
+                "lastModified": "2026-09-16T07:30:02Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.844815097,
                     40.372045641
                 ]
@@ -11933,6 +12243,60 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.829601161,
+                    40.359877764
+                ]
+            },
+            "properties": {
+                "inventory": "3282",
+                "item": "http://www.wikidata.org/entity/Q140661262",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:31:34Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829457489,
+                    40.360322869
+                ]
+            },
+            "properties": {
+                "inventory": "3283",
+                "item": "http://www.wikidata.org/entity/Q140661263",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:45:38Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829411289,
+                    40.36134325
+                ]
+            },
+            "properties": {
+                "inventory": "3284",
+                "item": "http://www.wikidata.org/entity/Q140661264",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:26:37Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.829498103,
                     40.362084503
                 ]
@@ -11945,6 +12309,24 @@
                 "item": "http://www.wikidata.org/entity/Q140661265",
                 "itemLabel": "Yaşayış evi",
                 "lastModified": "2026-09-07T13:38:01Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829876441,
+                    40.362535989
+                ]
+            },
+            "properties": {
+                "inventory": "3286",
+                "item": "http://www.wikidata.org/entity/Q140661266",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:37:50Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -12132,6 +12514,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.832364855,
+                    40.368388632
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Building on Istiglaliyyat Street 43",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Istiglaliyyat_Street_43",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20evi%2C%20%C4%B0stiqlaliyy%C9%99t%20k%C3%BC%C3%A7%C9%99si%2C%2043%202016.jpg",
+                "inventory": "3296",
+                "item": "http://www.wikidata.org/entity/Q140661272",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:43:43Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.829166666,
                     40.368333333
                 ]
@@ -12148,6 +12551,27 @@
                 "lastModified": "2026-09-08T10:39:27Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.84113622,
+                    40.369580762
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Building on Rasul Rza Street 3",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Rasul_Rza_Street_3",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/R%C9%99sul%20Rza%203.JPG",
+                "inventory": "3300",
+                "item": "http://www.wikidata.org/entity/Q140661276",
+                "itemLabel": "Dövlət Hidrometrologiya Komitəsinin binası",
+                "lastModified": "2026-09-16T07:18:35Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -12205,6 +12629,60 @@
                 "item": "http://www.wikidata.org/entity/Q140661283",
                 "itemLabel": "Yaşayış evi",
                 "lastModified": "2026-09-08T05:52:45Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.837599977,
+                    40.346579535
+                ]
+            },
+            "properties": {
+                "inventory": "3309",
+                "item": "http://www.wikidata.org/entity/Q140661286",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:33:08Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.838785017,
+                    40.344832212
+                ]
+            },
+            "properties": {
+                "inventory": "3310",
+                "item": "http://www.wikidata.org/entity/Q140661287",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:28:01Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.839204535,
+                    40.343711924
+                ]
+            },
+            "properties": {
+                "inventory": "3311",
+                "item": "http://www.wikidata.org/entity/Q140661288",
+                "itemLabel": "Doğum evinin binası",
+                "lastModified": "2026-09-16T07:23:06Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -12307,6 +12785,27 @@
                 "item": "http://www.wikidata.org/entity/Q140661310",
                 "itemLabel": "Yaşayış evi",
                 "lastModified": "2026-09-15T14:37:52Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.839971156,
+                    40.370147251
+                ]
+            },
+            "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%2012%20Yusif%20Mammadaliyev%20Street.jpg",
+                "inventory": "3338",
+                "item": "http://www.wikidata.org/entity/Q140661311",
+                "itemAltLabel": "Bakı Maliyyə-İqtisad Kollecinin binası",
+                "itemDescription": "Bakıda tədris binası",
+                "itemLabel": "Bakı Maliyyə-Kredit Texnikumunun binası",
+                "lastModified": "2026-09-16T07:22:08Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -12522,6 +13021,64 @@
                 "lastModified": "2026-09-10T11:39:57Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834590883,
+                    40.361701514
+                ]
+            },
+            "properties": {
+                "inventory": "3389",
+                "item": "http://www.wikidata.org/entity/Q140661369",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:34:51Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.841346549,
+                    40.369090921
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Building on Neftchilar Avenue 121",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Neftchilar_Avenue_121",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20binas%C4%B1%2C%20Neft%C3%A7il%C9%99r%20prospekti%2C%20121.jpg",
+                "inventory": "3391",
+                "item": "http://www.wikidata.org/entity/Q140661372",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:49:50Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8452976,
+                    40.370274967
+                ]
+            },
+            "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20binas%C4%B1%2C%20Neft%C3%A7il%C9%99r%20prospekti%2C%20127.jpg",
+                "inventory": "3393",
+                "item": "http://www.wikidata.org/entity/Q140661374",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:36:27Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -13291,6 +13848,42 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.829996,
+                    40.382642
+                ]
+            },
+            "properties": {
+                "inventory": "3558",
+                "item": "http://www.wikidata.org/entity/Q140661521",
+                "itemLabel": "Hacı Aslan hamamı",
+                "lastModified": "2026-09-16T06:53:21Z",
+                "parent": "http://www.wikidata.org/entity/Q4539151",
+                "parentLabel": "Yasamal rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831953597,
+                    40.372111322
+                ]
+            },
+            "properties": {
+                "inventory": "3564",
+                "item": "http://www.wikidata.org/entity/Q140661529",
+                "itemLabel": "Hacıqurban Aşurovun hamamı",
+                "lastModified": "2026-09-16T06:58:08Z",
+                "parent": "http://www.wikidata.org/entity/Q4539151",
+                "parentLabel": "Yasamal rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.831944444,
                     40.373611111
                 ]
@@ -13356,20 +13949,20 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.83,
-                    40.370555555
+                    49.830085994,
+                    40.370799431
                 ]
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/%C6%8Flib%C9%99yovlar%C4%B1n_evi",
                 "commonsCategory": "Building on Rza Quliyev Street 4",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Rza_Quliyev_Street_4",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20binas%C4%B1%2C%20Rza%20Quliyev%2C%204.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C6%8Flib%C9%99yovlar%C4%B1n%20evi%20%282024%29%204.jpg",
                 "inventory": "3595",
                 "item": "http://www.wikidata.org/entity/Q65279540",
                 "itemDescription": "Bakıda yaşayış binası",
                 "itemLabel": "Əlibəyovların evi",
-                "lastModified": "2026-09-15T19:15:14Z",
+                "lastModified": "2026-09-16T12:10:12Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -13402,6 +13995,45 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.832953102,
+                    40.371140646
+                ]
+            },
+            "properties": {
+                "inventory": "3673",
+                "item": "http://www.wikidata.org/entity/Q140661586",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:01:44Z",
+                "parent": "http://www.wikidata.org/entity/Q4539151",
+                "parentLabel": "Yasamal rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829239319,
+                    40.370567833
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Building on Suleyman Taghizade Street 43",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Suleyman_Taghizade_Street_43",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/S%C3%BCleyman%20Ta%C4%9F%C4%B1zad%C9%99%2043%20%C3%BCnvan%C4%B1ndak%C4%B1%20ev%20%281%29.jpg",
+                "inventory": "3677",
+                "item": "http://www.wikidata.org/entity/Q140661588",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T12:55:19Z",
+                "parent": "http://www.wikidata.org/entity/Q4539151",
+                "parentLabel": "Yasamal rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.828801098,
                     40.370221046
                 ]
@@ -13411,6 +14043,67 @@
                 "item": "http://www.wikidata.org/entity/Q140661590",
                 "itemLabel": "150 nömrəli orta məktəbin binası",
                 "lastModified": "2026-09-14T00:10:58Z",
+                "parent": "http://www.wikidata.org/entity/Q4539151",
+                "parentLabel": "Yasamal rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829264075,
+                    40.370576767
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Building on Suleyman Taghizade Street 54",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Suleyman_Taghizade_Street_54",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20binas%C4%B1%20%28S.Ta%C4%9F%C4%B1zad%C9%99%2054%29%20%289%29.jpg",
+                "inventory": "3680",
+                "item": "http://www.wikidata.org/entity/Q140661592",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T13:20:01Z",
+                "parent": "http://www.wikidata.org/entity/Q4539151",
+                "parentLabel": "Yasamal rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830800381,
+                    40.371159843
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Building on Suleyman Taghizade Street 59",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Suleyman_Taghizade_Street_59",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Nabat%20A%C5%9Furb%C9%99yovan%C4%B1n%20m%C3%BClk%C3%BC%20%281%29.jpg",
+                "inventory": "3683",
+                "item": "http://www.wikidata.org/entity/Q140661595",
+                "itemAltLabel": "Building on Suleyman Taghizade Street 59",
+                "itemLabel": "Nabat xanım Aşurbəyovanın evi",
+                "lastModified": "2026-09-16T12:57:42Z",
+                "parent": "http://www.wikidata.org/entity/Q4539151",
+                "parentLabel": "Yasamal rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831348425,
+                    40.37114279
+                ]
+            },
+            "properties": {
+                "inventory": "3685",
+                "item": "http://www.wikidata.org/entity/Q140661597",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:06:18Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -13437,6 +14130,26 @@
                 "lastModified": "2025-09-25T15:55:34Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830378724,
+                    40.373094155
+                ]
+            },
+            "properties": {
+                "inventory": "3697",
+                "item": "http://www.wikidata.org/entity/Q140661608",
+                "itemAltLabel": "Şə-bi hamamı",
+                "itemDescription": "Bakıda hamam",
+                "itemLabel": "Şəbi hamamı",
+                "lastModified": "2026-09-16T07:10:33Z",
+                "parent": "http://www.wikidata.org/entity/Q4539151",
+                "parentLabel": "Yasamal rayonu"
             }
         },
         {
@@ -13501,6 +14214,24 @@
                 "lastModified": "2026-09-07T23:49:33Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830593336,
+                    40.373941656
+                ]
+            },
+            "properties": {
+                "inventory": "3720",
+                "item": "http://www.wikidata.org/entity/Q140661615",
+                "itemLabel": "Uşaq və Gənclər İdman Məktəbinin binası",
+                "lastModified": "2026-09-16T06:55:08Z",
+                "parent": "http://www.wikidata.org/entity/Q4539151",
+                "parentLabel": "Yasamal rayonu"
             }
         },
         {
@@ -13671,6 +14402,42 @@
                 "item": "http://www.wikidata.org/entity/Q140661629",
                 "itemLabel": "Şəmsi Əsədullayevin mülkü (Bayırşəhər)",
                 "lastModified": "2026-09-15T14:01:05Z",
+                "parent": "http://www.wikidata.org/entity/Q4539151",
+                "parentLabel": "Yasamal rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830176011,
+                    40.371471525
+                ]
+            },
+            "properties": {
+                "inventory": "3748",
+                "item": "http://www.wikidata.org/entity/Q140661631",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:04:52Z",
+                "parent": "http://www.wikidata.org/entity/Q4539151",
+                "parentLabel": "Yasamal rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829695755,
+                    40.371559004
+                ]
+            },
+            "properties": {
+                "inventory": "3749",
+                "item": "http://www.wikidata.org/entity/Q140661632",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-16T07:05:14Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -14221,9 +14988,9 @@
                 "itemAltLabel": "Sümahi türbəsi",
                 "itemDescription": "Digahda yerləşən türbə",
                 "itemLabel": "Sumahi türbəsi",
-                "lastModified": "2026-02-20T10:20:10Z",
-                "parent": "http://www.wikidata.org/entity/Q4120921",
-                "parentLabel": "Digah"
+                "lastModified": "2026-09-16T05:44:06Z",
+                "parent": "http://www.wikidata.org/entity/Q179538",
+                "parentLabel": "Abşeron rayonu"
             }
         },
         {
@@ -19359,7 +20126,7 @@
                 "item": "http://www.wikidata.org/entity/Q140662272",
                 "itemDescription": "Qubada türbə",
                 "itemLabel": "Baba dilim baba türbəsi",
-                "lastModified": "2026-09-06T11:49:29Z",
+                "lastModified": "2026-09-16T11:48:33Z",
                 "parent": "http://www.wikidata.org/entity/Q457499",
                 "parentLabel": "Quba rayonu"
             }
@@ -19683,7 +20450,8 @@
             "properties": {
                 "inventory": "4712",
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemLabel": "Məscid",
+                "itemDescription": "Qubadlıda məscid",
+                "itemLabel": "Mirlər məscidi",
                 "lastModified": "2026-07-23T15:59:55Z",
                 "parent": "http://www.wikidata.org/entity/Q644048",
                 "parentLabel": "Qubadlı rayonu"
@@ -22808,6 +23576,25 @@
                 "itemDescription": "Zəngilanda məscid",
                 "itemLabel": "Sərdarlı məscidi",
                 "lastModified": "2026-07-25T23:23:19Z",
+                "parent": "http://www.wikidata.org/entity/Q249252",
+                "parentLabel": "Zəngilan rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.80285355,
+                    39.1167504
+                ]
+            },
+            "properties": {
+                "inventory": "390, 5291",
+                "item": "http://www.wikidata.org/entity/Q140657707",
+                "itemAltLabel": "Dairəvi bürc",
+                "itemLabel": "Dairəvi qüllə",
+                "lastModified": "2026-07-26T02:35:36Z",
                 "parent": "http://www.wikidata.org/entity/Q249252",
                 "parentLabel": "Zəngilan rayonu"
             }
