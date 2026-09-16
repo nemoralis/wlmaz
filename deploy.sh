@@ -32,7 +32,7 @@ echo ""
 
 # Pre-deployment checks
 CURRENT_BRANCH=$(git branch --show-current)
-if [ "$CURRENT_BRANCH" != "master" ]; then
+if [ "$CURRENT_BRANCH" != "main" ]; then
     echo "⚠️ Warning: You are on branch '$CURRENT_BRANCH', not 'main'"
     if ! confirm "Continue anyway?"; then
         echo "❌ Deployment cancelled"
