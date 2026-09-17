@@ -78,12 +78,6 @@ select:focus-visible {
    outline: none;
 }
 
-/* ============================================
-   CUSTOM MARKER STYLES
-   ============================================ */
-
-/* Marker styles removed as we switched to L.circleMarker (Canvas/SVG) */
-
 /* Override Leaflet Marker Cluster Default Colors */
 .marker-cluster-small,
 .marker-cluster-medium,
