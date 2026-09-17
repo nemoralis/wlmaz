@@ -26,6 +26,8 @@ router.get(
 );
 
 router.get("/me", (req, res) => {
+   res.setHeader("Cache-Control", "no-store");
+
    if (req.isAuthenticated() && req.user) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { token, tokenSecret, ...publicProfile } = req.user;
