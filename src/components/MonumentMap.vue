@@ -147,6 +147,7 @@ export default defineComponent({
          scheduleViewportSync,
          disposeMarkers,
          setMarkerRadius,
+         disposeContextMenu,
       } = useLeafletMap();
 
       // --- Refs & State ---
@@ -429,6 +430,7 @@ export default defineComponent({
 
       onUnmounted(() => {
          disposeMarkers();
+         disposeContextMenu();
          mapInstance.value?.remove();
       });
 

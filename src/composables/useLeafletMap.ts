@@ -6,6 +6,7 @@ import { icon } from "@fortawesome/fontawesome-svg-core";
 import { shallowRef } from "vue";
 import type { MonumentProps } from "../types";
 import { HIGHLIGHT_RADIUS_OFFSET } from "../utils/markerRadius";
+import "./contextmenu.css";
 
 export interface SidebarControl extends L.Control {
    open: (id: string) => void;
@@ -77,7 +78,88 @@ export function useLeafletMap() {
       });
       mapInstance.value = map;
 
-      // 3. Controls
+      // 3. Context Menu (right-click)
+      let contextMenuEl: HTMLDivElement | null = null;
+
+      const dismissContextMenu = () => {
+         contextMenuEl?.remove();
+         contextMenuEl = null;
+      };
+
+      map.on("contextmenu", (e: L.LeafletMouseEvent) => {
+         dismissContextMenu();
+
+         const { lat, lng } = e.latlng;
+
+         const menu = document.createElement("div");
+         menu.className = "wlm-contextmenu";
+
+         const coords = document.createElement("div");
+         coords.className = "wlm-contextmenu-coords";
+         coords.textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+         menu.appendChild(coords);
+
+         const actions = document.createElement("div");
+         actions.className = "wlm-contextmenu-actions";
+
+         const copyBtn = document.createElement("button");
+         copyBtn.className = "wlm-contextmenu-btn";
+         copyBtn.textContent = "Koordinatları kopyala";
+         copyBtn.onclick = async () => {
+            try {
+               await navigator.clipboard.writeText(`${lat}, ${lng}`);
+               copyBtn.textContent = "Kopyalandı!";
+               setTimeout(dismissContextMenu, 800);
+            } catch {
+               copyBtn.textContent = "Xəta!";
+               setTimeout(dismissContextMenu, 1200);
+            }
+         };
+
+         const osmBtn = document.createElement("button");
+         osmBtn.className = "wlm-contextmenu-btn";
+         osmBtn.textContent = "OpenStreetMap-da aç";
+         osmBtn.onclick = () => {
+            window.open(
+               `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=18/${lat}/${lng}`,
+               "_blank",
+            );
+            dismissContextMenu();
+         };
+
+         const gmapsBtn = document.createElement("button");
+         gmapsBtn.className = "wlm-contextmenu-btn";
+         gmapsBtn.textContent = "Google Maps-da aç";
+         gmapsBtn.onclick = () => {
+            window.open(`https://www.google.com/maps/@${lat},${lng},18z`, "_blank");
+            dismissContextMenu();
+         };
+
+         actions.appendChild(copyBtn);
+         actions.appendChild(osmBtn);
+         actions.appendChild(gmapsBtn);
+         menu.appendChild(actions);
+
+         document.body.appendChild(menu);
+         menu.style.left = `${e.originalEvent.pageX}px`;
+         menu.style.top = `${e.originalEvent.pageY}px`;
+
+         // Flip if overflowing right edge
+         const rect = menu.getBoundingClientRect();
+         if (rect.right > window.innerWidth) {
+            menu.style.left = `${e.originalEvent.pageX - rect.width}px`;
+         }
+         if (rect.bottom > window.innerHeight) {
+            menu.style.top = `${e.originalEvent.pageY - rect.height}px`;
+         }
+
+         contextMenuEl = menu;
+      });
+
+      map.on("click", dismissContextMenu);
+
+      // 4. Controls
+
       const baseMaps = {
          OpenStreetMap: osmLayer,
          "Gomap.az": gomapLayer,
@@ -106,7 +188,7 @@ export function useLeafletMap() {
 
       L.control.zoom({ position: "topright" }).addTo(map);
 
-      // 4. Sidebar
+      // 5. Sidebar
       const sidebar = (L.control as any)
          .sidebar({ container: "sidebar", position: "left", autopan: true })
          .addTo(map);
@@ -115,7 +197,7 @@ export function useLeafletMap() {
       sidebar.on("content", (e: any) => options.onSidebarContentChange?.(e.id));
       sidebar.on("closing", () => options.onSidebarClosing?.());
 
-      // 5. Locate Control
+      // 6. Locate Control
       const locateControl = new LocateControl({
          position: "topright",
          flyTo: true,
@@ -134,13 +216,13 @@ export function useLeafletMap() {
          `;
       }
 
-      // 6. Global Map Events
+      // 7. Global Map Events
       map.on("click", (e: L.LeafletMouseEvent) => {
          if (e.originalEvent.defaultPrevented) return;
          options.onMapClick?.(e);
       });
 
-      // 7. MiniMap
+      // 8. MiniMap
       const miniMapLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
          maxZoom: 18,
       });
@@ -298,16 +380,21 @@ export function useLeafletMap() {
       viewportTimer = setTimeout(() => syncViewport(passesFilter), 150);
    };
 
-   /** Cancels pending work and clears all rendered markers. */
-   const disposeMarkers = () => {
-      if (viewportTimer) clearTimeout(viewportTimer);
-      viewportTimer = null;
-      chunkHandle++; // Supersede any in-flight chunked add
-      allMarkers = [];
-      addedMarkers.clear();
-   };
+    /** Cancels pending work and clears all rendered markers. */
+    const disposeMarkers = () => {
+       if (viewportTimer) clearTimeout(viewportTimer);
+       viewportTimer = null;
+       chunkHandle++; // Supersede any in-flight chunked add
+       allMarkers = [];
+       addedMarkers.clear();
+    };
 
-   return {
+    const disposeContextMenu = () => {
+       const el = document.querySelector(".wlm-contextmenu");
+       el?.remove();
+    };
+
+    return {
       mapInstance,
       sidebarInstance,
       markersGroup,
@@ -321,5 +408,6 @@ export function useLeafletMap() {
       scheduleViewportSync,
       disposeMarkers,
       setMarkerRadius,
+      disposeContextMenu,
    };
 }
