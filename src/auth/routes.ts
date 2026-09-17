@@ -7,10 +7,22 @@ router.get("/login", passport.authenticate("mediawiki"));
 
 router.get(
    "/callback",
-   passport.authenticate("mediawiki", {
-      failureRedirect: "/auth/login",
-      successRedirect: process.env.CLIENT_URL || "/",
-   }),
+   passport.authenticate("mediawiki", { failureRedirect: "/auth/login" }),
+   (req, res) => {
+      req.session.regenerate((err) => {
+         if (err) {
+            res.status(500).json({ error: "Session error" });
+            return;
+         }
+         req.session.save((err) => {
+            if (err) {
+               res.status(500).json({ error: "Session error" });
+               return;
+            }
+            res.redirect(process.env.CLIENT_URL || "/");
+         });
+      });
+   },
 );
 
 router.get("/me", (req, res) => {
