@@ -178,14 +178,9 @@ router.get("/user/:username", async (req, res) => {
    try {
       const { username } = req.params;
 
-      // Security: Prevent prototype pollution, length exhaustion or malicious queries
-      if (
-         !username ||
-         username.length > 255 ||
-         username === "__proto__" ||
-         username === "constructor" ||
-         username === "prototype"
-      ) {
+      // Enforce valid Wikimedia username characters — blocks control
+      // chars, newlines (log/Redis injection), and wikitext/API delimiters (|, =).
+      if (!username || !/^[A-Za-z0-9_\-.\s]{1,255}$/.test(username)) {
          res.status(400).json({ error: "Invalid username" });
          return;
       }
