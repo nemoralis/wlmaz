@@ -145,7 +145,7 @@ router.get("/config", (_req, res) => {
  * mode this hits the local MediaWiki instance with the bot session.
  * Uses JSON POST so long filenames never hit query-string/header limits.
  */
-router.post("/titles-exist", async (req, res) => {
+router.post("/titles-exist", ensureAuthenticatedOrLocalDev, async (req, res) => {
    try {
       const raw = req.body?.titles;
       if (!Array.isArray(raw)) {
