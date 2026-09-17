@@ -212,7 +212,9 @@ router.post(
 
          let { title, description, license, lat, lon, categories, inventory, capturedAt } = req.body;
 
-         if (!title || !description) {
+         // Security: Explicit type check — rejects non-string values (e.g. objects from
+         // parameter pollution) that a truthiness check would incorrectly accept.
+         if (typeof title !== "string" || typeof description !== "string") {
             res.status(400).json({ error: "Missing title or description" });
             return;
          }
