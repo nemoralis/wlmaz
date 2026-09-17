@@ -185,7 +185,7 @@ router.get("/user/:username", async (req, res) => {
          return;
       }
 
-      const cacheKey = `userstats:${username}`;
+      const cacheKey = `userstats:${encodeURIComponent(username)}`;
 
       if (redisClient.isOpen) {
          const cached = await redisClient.get(cacheKey);
