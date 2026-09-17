@@ -31,10 +31,10 @@
                      href="https://gitlab.wikimedia.org/nmw03/wlmaz"
                      target="_blank"
                      rel="noopener noreferrer"
-                     title="View Source on GitHub"
-                     aria-label="GitHub Repository"
+                     title="View Source on Gitlab"
+                     aria-label="Gitlab Repository"
                   >
-                     <font-awesome-icon :icon="['fab', 'github']" />
+                     <font-awesome-icon :icon="['fab', 'gitlab']" />
                   </a>
                </li>
             </ul>

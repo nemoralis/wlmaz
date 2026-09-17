@@ -110,7 +110,7 @@
                   href="https://gitlab.wikimedia.org/nmw03/wlmaz"
                   target="_blank"
                   class="text-blue-600 hover:underline"
-                  ><font-awesome-icon :icon="['fab', 'github']" /> GitHub</a
+                  ><font-awesome-icon :icon="['fab', 'gitlab']" /> Gitlab</a
                >
             </p>
             <p class="mt-4 text-xs text-gray-400">&copy; 2026 Viki Abidələri Sevir Azərbaycan</p>
