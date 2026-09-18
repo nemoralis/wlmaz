@@ -1,4 +1,4 @@
-import { computed, reactive, ref, type Ref } from "vue";
+import { computed, onUnmounted, reactive, ref, watch, type Ref } from "vue";
 import type { MonumentProps } from "../types";
 import type { UploadStatusResponse, UploadConfigResponse, TitlesExistResponse } from "../types/api.ts";
 import type { FileItem, UploadFailure, UploadResult } from "../utils/uploadService";
@@ -26,6 +26,8 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
    const isRetrying = ref(false);
    const uploadsEnabled = ref(true);
    const isDragging = ref(false);
+   const abortController = ref<AbortController | null>(null);
+   const isCancelled = ref(false);
    // Server-driven: true when the backend is running in local MediaWiki dev mode
    // (uploads work without a Commons OAuth login). Never carries credentials.
    const localUploadEnabled = ref(false);
@@ -104,6 +106,8 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       bulkForm.license = "cc-by-sa-4.0";
       mode.value = "bulk";
       isUploading.value = false;
+      isCancelled.value = false;
+      abortController.value = null;
       uploadProgress.value = 0;
       currentFileIndex.value = 0;
       uploadComplete.value = false;
@@ -210,6 +214,29 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       }
    };
 
+   const cancelUpload = () => {
+      isCancelled.value = true;
+      abortController.value?.abort();
+      abortController.value = null;
+   };
+
+   const beforeUnloadHandler = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+   };
+
+   watch(isUploading, (uploading) => {
+      if (uploading) {
+         window.addEventListener("beforeunload", beforeUnloadHandler);
+      } else {
+         window.removeEventListener("beforeunload", beforeUnloadHandler);
+      }
+   });
+
+   onUnmounted(() => {
+      window.removeEventListener("beforeunload", beforeUnloadHandler);
+   });
+
    /** Extracts monument data as plain values for the upload service. */
    const monumentData = () => ({
       lat: monument.value?.lat,
@@ -224,6 +251,8 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       if (!isValid.value) return;
 
       isUploading.value = true;
+      isCancelled.value = false;
+      abortController.value = new AbortController();
       uploadProgress.value = 0;
       currentFileIndex.value = 0;
       uploadFailures.value = [];
@@ -279,12 +308,14 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       }
 
       const md = monumentData();
+      const signal = abortController.value.signal;
       try {
          for (let i = 0; i < files.value.length; i++) {
+            if (isCancelled.value) break;
             currentFileIndex.value = i;
             const fileItem = files.value[i];
 
-            const { ok, result, failure } = await uploadSingleFile(fileItem, bulkForm.license, md);
+            const { ok, result, failure } = await uploadSingleFile(fileItem, bulkForm.license, md, signal);
             if (ok && result) {
                uploadResults.value.push(result);
             } else if (failure) {
@@ -295,6 +326,7 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
             uploadProgress.value = Math.round(((i + 1) / files.value.length) * 100);
          }
       } finally {
+         abortController.value = null;
          uploadComplete.value = true;
          isUploading.value = false;
       }
@@ -331,6 +363,7 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       fileInput,
       files,
       isUploading,
+      isCancelled,
       uploadProgress,
       currentFileIndex,
       mode,
@@ -354,6 +387,7 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       handleDrop,
       removeFile,
       handleUpload,
+      cancelUpload,
       retryFailed,
    };
 }

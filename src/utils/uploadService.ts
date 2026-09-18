@@ -103,13 +103,17 @@ async function attemptUpload(
    fileItem: FileItem,
    license: string,
    monument: MonumentData,
+   externalSignal?: AbortSignal,
 ): Promise<UploadAttemptResult> {
    const formData = buildUploadFormData(fileItem, license, monument);
    try {
+      const timeoutSignal = AbortSignal.timeout(UPLOAD_TIMEOUT_MS);
       const response = await fetch("/upload", {
          method: "POST",
          body: formData,
-         signal: AbortSignal.timeout(UPLOAD_TIMEOUT_MS),
+         signal: externalSignal
+            ? AbortSignal.any([externalSignal, timeoutSignal])
+            : timeoutSignal,
       });
 
       // Read response as text first to handle non-JSON errors (like Nginx 413)
@@ -143,6 +147,9 @@ async function attemptUpload(
          },
       };
    } catch (e: unknown) {
+      if (e instanceof Error && e.name === "AbortError") {
+         return { ok: false, code: "aborted", httpStatus: 0, message: "" };
+      }
       const code = e instanceof Error && e.name === "TimeoutError" ? "timeout" : "http_error";
       return {
          ok: false,
@@ -160,6 +167,7 @@ export async function uploadSingleFile(
    fileItem: FileItem,
    license: string,
    monument: MonumentData,
+   signal?: AbortSignal,
 ): Promise<{
    ok: boolean;
    result?: UploadResult;
@@ -167,10 +175,17 @@ export async function uploadSingleFile(
 }> {
    let last: UploadAttemptResult | null = null;
    for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+      if (signal?.aborted) break;
       if (attempt > 0) await sleep(RETRY_DELAY_MS);
-      last = await attemptUpload(fileItem, license, monument);
+      last = await attemptUpload(fileItem, license, monument, signal);
       if (last.ok) return { ok: true, result: last.result };
+      if (last.code === "aborted") break;
       if (!isTransientError(last.code, last.httpStatus)) break;
+   }
+
+   // Aborted uploads don't generate failure entries — the caller handles cancellation.
+   if (last?.code === "aborted") {
+      return { ok: false };
    }
 
    const message = last!.message || messageFor(last!.code, "Yükləmə zamanı xəta baş verdi.");

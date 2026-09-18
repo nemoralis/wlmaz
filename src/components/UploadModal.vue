@@ -63,9 +63,16 @@
                      <div class="mt-2 text-right text-xs font-medium text-gray-400">
                         {{ uploadProgress }}%
                      </div>
-                     <span class="sr-only">Yükləmə: {{ uploadProgress }}%</span>
-                  </div>
-               </div>
+                      <span class="sr-only">Yükləmə: {{ uploadProgress }}%</span>
+
+                      <button
+                         class="mt-6 rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
+                         @click="cancelUpload"
+                      >
+                         Yükləməni dayandır
+                      </button>
+                   </div>
+                </div>
 
                <!-- SUCCESS / PARTIAL RESULTS VIEW -->
                <div
@@ -647,11 +654,12 @@ export default defineComponent({
          resetForm,
          triggerFileInput,
          handleFileChange,
-         handleDrop,
-         removeFile,
-         handleUpload,
-         retryFailed,
-      } = useImageUpload(toRef(props, "monument"));
+          handleDrop,
+          removeFile,
+          handleUpload,
+          cancelUpload,
+          retryFailed,
+       } = useImageUpload(toRef(props, "monument"));
 
       // Watch for opening to pre-fill data
       watch(
@@ -682,8 +690,9 @@ export default defineComponent({
          handleFileChange,
          handleDrop,
          removeFile,
-         closeModal,
-         handleUpload,
+          closeModal,
+          handleUpload,
+          cancelUpload,
          uploadComplete,
          uploadResults,
          uploadFailures,
