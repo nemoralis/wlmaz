@@ -49,11 +49,11 @@ const startServer = async () => {
    // ---------------------------------------------------------------------------
    // 1. Global middleware — runs on EVERY request (cheap, security-relevant)
    // ---------------------------------------------------------------------------
-   const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
+    const morganFormat = process.env.NODE_ENV === "production" ? "tiny" : "dev";
 
    app.use(
       morgan(morganFormat, {
-         skip: (req, _res) => req.url === "/health",
+         skip: (req, _res) => req.url === "/health" || req.url.startsWith("/assets/"),
          stream: process.stdout,
       }),
    );
