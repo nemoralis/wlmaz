@@ -238,8 +238,11 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
                   const y = date.getFullYear();
                   const m = date.getMonth() + 1;
                   const d = date.getDate();
+                  const hh = String(date.getHours()).padStart(2, "0");
+                  const mm = String(date.getMinutes()).padStart(2, "0");
+                  const ss = String(date.getSeconds()).padStart(2, "0");
                   item.year = y;
-                  item.capturedAt = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+                  item.capturedAt = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")} ${hh}:${mm}:${ss}`;
                }
                if (data.latitude && data.longitude) {
                   item.latitude = data.latitude;

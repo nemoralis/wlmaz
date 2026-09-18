@@ -7,6 +7,7 @@ import { logger } from "@/utils/logger";
 import { uploadFile as uploadToCommons, CommonsUploadError, checkFileExistence } from "@/utils/mediawiki";
 import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize";
 import { getCanonicalId } from "@/utils/monumentFormatters";
+import { buildUploadWikitext } from "@/utils/wikitext";
 import {
    getBotPasswordCredentials,
    getUploadClientConfig,
@@ -206,80 +207,17 @@ router.post(
          // prevents template corruption if that assumption breaks.
          const safeUsername = sanitizeWikitext(authorUsername).replace(/\|/g, "");
 
-         // Map license to Wiki template
-         const licenseTemplate = mapLicenseTemplate(license);
-
-         // Format Location template if coordinates exist - validate as floats and range check
-         let locationTemplate = "";
-         const latF = parseFloat(lat);
-         const lonF = parseFloat(lon);
-         if (
-            !isNaN(latF) &&
-            !isNaN(lonF) &&
-            latF >= -90 &&
-            latF <= 90 &&
-            lonF >= -180 &&
-            lonF <= 180
-         ) {
-            locationTemplate = `\n{{Location|${latF}|${lonF}}}`;
-         }
-
-         // Format Categories
-         // Per-monument category, placed below the WLM template (only when the
-         // monument has a Commons category).
-         let categoryText = "";
-         if (safeCategories) {
-            categoryText = `\n[[Category:${safeCategories}]]`;
-         }
-
-         // Format the cultural heritage template, placed inside the {{Information}}
-         // description (next to {{en}}) when the monument has an inventory number.
-         let heritageLine = "";
-         if (canonicalInventory) {
-            heritageLine = `\n{{Cultural Heritage Azerbaijan|${canonicalInventory}}}`;
-         }
-
-         // Format the {{date}} template: prefer the photo's EXIF capture date,
-         // validated strictly, otherwise fall back to the upload date (UTC,
-         // matching the previous ISO date behavior).
-         const now = new Date();
-         let dateTemplate = `{{date|${now.getUTCFullYear()}|${now.getUTCMonth() + 1}|${now.getUTCDate()}}}`;
-         if (
-            typeof capturedAt === "string" &&
-            /^\d{4}-\d{2}-\d{2}$/.test(capturedAt)
-         ) {
-            const [y, m, d] = capturedAt.split("-").map(Number);
-            const parsed = new Date(Date.UTC(y, m - 1, d));
-            if (
-               m >= 1 &&
-               m <= 12 &&
-               d >= 1 &&
-               d <= 31 &&
-               !Number.isNaN(parsed.getTime())
-            ) {
-               dateTemplate = `{{date|${y}|${m}|${d}}}`;
-            }
-         }
-
-         // Format wikitext description
-         // The WLM competition template sits directly below the license header.
-         const wikitext = `== {{int:filedesc}} ==
-{{Information
-|description={{en|1=${safeDescription}}}${heritageLine}
-|date=${dateTemplate}
-|source={{own}}
-|author=[[User:${safeUsername}|${safeUsername}]]
-|permission=
-|other_versions=
-}}
-${locationTemplate}
-
-== {{int:license-header}} ==
-${licenseTemplate}
-{{Wiki Loves Monuments 2026|az}}
-
-${categoryText}
-`;
+          // Assemble wikitext from sanitized inputs (pure function, no side effects).
+          const wikitext = buildUploadWikitext({
+             description: safeDescription,
+             licenseTemplate: mapLicenseTemplate(license),
+             username: safeUsername,
+             capturedAt,
+             lat,
+             lon,
+             categories: safeCategories,
+             inventory: canonicalInventory,
+          });
 
          // --- Image validation + optimization (single Sharp pipeline) --------
          // The buffer comes directly from multer's memoryStorage — no disk read.
