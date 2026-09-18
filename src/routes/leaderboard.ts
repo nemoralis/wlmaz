@@ -11,151 +11,205 @@ const START_YEAR = 2013;
 const CACHE_TTL = 3600; // 1 hour
 
 let aggregatePromise: Promise<any> | null = null;
+let lastAggregate: any = null;
 
 /**
- * Fetches and aggregates data for all years
+ * Fetches fresh aggregate data from upstream (toolforge.org) with per-year
+ * Redis caching.  Extracted so it can be called from both the initial
+ * blocking fetch and the background refresh.
  */
-async function getAggregateData() {
-   if (aggregatePromise) return aggregatePromise;
+async function fetchAggregate(): Promise<any> {
+   try {
+      const cacheKey = "leaderboard:aggregate";
 
-   aggregatePromise = (async () => {
       try {
-         const cacheKey = "leaderboard:aggregate";
+         if (redisClient.isOpen) {
+            const cached = await redisClient.get(cacheKey);
+            if (cached) return JSON.parse(cached);
+         }
+      } catch (e) {
+         logger.error("Redis read error:", e);
+      }
+
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
+      const years = Array.from(
+         { length: latestYear - START_YEAR + 1 },
+         (_, i) => START_YEAR + i,
+      );
+
+      const fetchPromises = years.map(async (year) => {
+         const yearCacheKey = `leaderboard:raw:${year}`;
+         const isPastYear = year < currentYear;
 
          try {
             if (redisClient.isOpen) {
-               const cached = await redisClient.get(cacheKey);
+               const cached = await redisClient.get(yearCacheKey);
                if (cached) return JSON.parse(cached);
             }
-         } catch (e) {
-            logger.error("Redis read error:", e);
-         }
 
-         const now = new Date();
-         const currentYear = now.getFullYear();
-         const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
-         const years = Array.from(
-            { length: latestYear - START_YEAR + 1 },
-            (_, i) => START_YEAR + i,
-         );
-
-         const fetchPromises = years.map(async (year) => {
-            const yearCacheKey = `leaderboard:raw:${year}`;
-            const isPastYear = year < currentYear;
-
-            try {
+            const resp = await fetch(`${API_BASE}/monuments${year}`, {
+               signal: AbortSignal.timeout(10000),
+               headers: { "User-Agent": "WLMAZ-Tool/1.0" },
+            });
+            if (resp.ok) {
+               const data = await resp.json();
                if (redisClient.isOpen) {
-                  const cached = await redisClient.get(yearCacheKey);
-                  if (cached) return JSON.parse(cached);
+                  const ttl = isPastYear ? 86400 : 3600;
+                  await redisClient.setEx(yearCacheKey, ttl, JSON.stringify(data));
                }
-
-               const resp = await fetch(`${API_BASE}/monuments${year}`, {
-                  signal: AbortSignal.timeout(10000),
-                  headers: { "User-Agent": "WLMAZ-Tool/1.0" },
-               });
-               if (resp.ok) {
-                  const data = await resp.json();
-                  if (redisClient.isOpen) {
-                     // Cache past years for 24h, current year for 1h
-                     const ttl = isPastYear ? 86400 : 3600;
-                     await redisClient.setEx(yearCacheKey, ttl, JSON.stringify(data));
-                  }
-                  return data;
-               }
-               return null;
-            } catch (e) {
-               logger.error(`Failed to fetch monuments${year}:`, e);
-               return null;
+               return data;
             }
-         });
+            return null;
+         } catch (e) {
+            logger.error(`Failed to fetch monuments${year}:`, e);
+            return null;
+         }
+      });
 
-         const results = await Promise.all(fetchPromises);
+      const results = await Promise.all(fetchPromises);
 
-         const aggregate: any = {
-            [COUNTRY]: {
-               count: 0,
-               usage: 0,
-               usercount: 0,
-               users: Object.create(null),
-               years: Object.create(null), // Breakdown per year
-            },
+      const aggregate: any = {
+         [COUNTRY]: {
+            count: 0,
+            usage: 0,
+            usercount: 0,
+            users: Object.create(null),
+            years: Object.create(null),
+         },
+      };
+
+      const userMap: Record<
+         string,
+         {
+            count: number;
+            usage: number;
+            reg: number;
+            yearly: Record<number, { count: number; usage: number }>;
+         }
+      > = Object.create(null);
+      const uniqueUsers = new Set<string>();
+
+      results.forEach((data, index) => {
+         if (!data || !data[COUNTRY]) return;
+         const year = years[index];
+         const countryData = data[COUNTRY];
+
+         aggregate[COUNTRY].count += countryData.count || 0;
+         aggregate[COUNTRY].usage += countryData.usage || 0;
+         aggregate[COUNTRY].years[year] = {
+            count: countryData.count,
+            usercount: countryData.usercount,
+            usage: countryData.usage,
          };
 
-         const userMap: Record<
-            string,
-            {
-               count: number;
-               usage: number;
-               reg: number;
-               yearly: Record<number, { count: number; usage: number }>;
-            }
-         > = Object.create(null);
-         const uniqueUsers = new Set<string>();
+         if (countryData.users) {
+            Object.entries(countryData.users).forEach(([username, userData]: [string, any]) => {
+               if (
+                  username === "__proto__" ||
+                  username === "constructor" ||
+                  username === "prototype"
+               ) {
+                  return;
+               }
 
-         results.forEach((data, index) => {
-            if (!data || !data[COUNTRY]) return;
-            const year = years[index];
-            const countryData = data[COUNTRY];
+               uniqueUsers.add(username);
+               if (!userMap[username]) {
+                  userMap[username] = {
+                     count: 0,
+                     usage: 0,
+                     reg: userData.reg,
+                     yearly: Object.create(null),
+                  };
+               }
+               const count = userData.count || 0;
+               const usage = userData.usage || 0;
+               userMap[username].count += count;
+               userMap[username].usage += usage;
+               userMap[username].yearly[year] = { count, usage };
 
-            aggregate[COUNTRY].count += countryData.count || 0;
-            aggregate[COUNTRY].usage += countryData.usage || 0;
-            aggregate[COUNTRY].years[year] = {
-               count: countryData.count,
-               usercount: countryData.usercount,
-               usage: countryData.usage,
-            };
-
-            if (countryData.users) {
-               Object.entries(countryData.users).forEach(([username, userData]: [string, any]) => {
-                  // Security: Prevent prototype pollution from upstream data
-                  if (
-                     username === "__proto__" ||
-                     username === "constructor" ||
-                     username === "prototype"
-                  ) {
-                     return;
-                  }
-
-                  uniqueUsers.add(username);
-                  if (!userMap[username]) {
-                     userMap[username] = {
-                        count: 0,
-                        usage: 0,
-                        reg: userData.reg,
-                        yearly: Object.create(null),
-                     };
-                  }
-                  const count = userData.count || 0;
-                  const usage = userData.usage || 0;
-                  userMap[username].count += count;
-                  userMap[username].usage += usage;
-                  userMap[username].yearly[year] = { count, usage };
-
-                  if (userData.reg < userMap[username].reg) {
-                     userMap[username].reg = userData.reg;
-                  }
-               });
-            }
-         });
-
-         aggregate[COUNTRY].usercount = uniqueUsers.size;
-         aggregate[COUNTRY].users = userMap;
-
-         try {
-            if (redisClient.isOpen) {
-               await redisClient.setEx(cacheKey, CACHE_TTL, JSON.stringify(aggregate));
-            }
-         } catch (e) {
-            logger.error("Redis write error:", e);
+               if (userData.reg < userMap[username].reg) {
+                  userMap[username].reg = userData.reg;
+               }
+            });
          }
+      });
 
-         return aggregate;
-      } finally {
-         aggregatePromise = null;
+      aggregate[COUNTRY].usercount = uniqueUsers.size;
+      aggregate[COUNTRY].users = userMap;
+
+      try {
+         if (redisClient.isOpen) {
+            await redisClient.setEx(cacheKey, CACHE_TTL, JSON.stringify(aggregate));
+         }
+      } catch (e) {
+         logger.error("Redis write error:", e);
       }
-   })();
 
-   return aggregatePromise;
+      return aggregate;
+   } finally {
+      aggregatePromise = null;
+   }
+}
+
+/**
+ * Silently refresh aggregate data in the background.  Called when stale data
+ * is being served to the client so the next request gets fresh data.
+ */
+async function refreshAggregateInBackground(): Promise<void> {
+   if (aggregatePromise) return;
+   aggregatePromise = fetchAggregate();
+   try {
+      lastAggregate = await aggregatePromise;
+   } catch (e) {
+      logger.error("Background leaderboard refresh failed:", e);
+   } finally {
+      aggregatePromise = null;
+   }
+}
+
+/**
+ * Fetches and aggregates data for all years with stale-while-revalidate.
+ *
+ * 1. If a fetch is already in flight → piggyback on it.
+ * 2. If Redis has fresh data → return it.
+ * 3. If stale data exists → return it instantly, refresh in background.
+ * 4. If no stale data (first load) → block and fetch.
+ */
+async function getAggregateData() {
+   // 1. Piggyback on in-flight fetch
+   if (aggregatePromise) return aggregatePromise;
+
+   const cacheKey = "leaderboard:aggregate";
+
+   // 2. Try Redis cache
+   try {
+      if (redisClient.isOpen) {
+         const cached = await redisClient.get(cacheKey);
+         if (cached) {
+            lastAggregate = JSON.parse(cached);
+            return lastAggregate;
+         }
+      }
+   } catch (e) {
+      logger.error("Redis read error:", e);
+   }
+
+   // 3. Cache miss — serve stale and refresh in background
+   if (lastAggregate) {
+      refreshAggregateInBackground();
+      return lastAggregate;
+   }
+
+   // 4. No stale data (first load) — block until fetch completes
+   aggregatePromise = fetchAggregate();
+   try {
+      lastAggregate = await aggregatePromise;
+      return lastAggregate;
+   } finally {
+      aggregatePromise = null;
+   }
 }
 
 /**
