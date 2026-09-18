@@ -15,6 +15,13 @@ import leaderboardRoutes from "./routes/leaderboard.ts";
 import uploadRoutes from "./routes/upload.ts";
 import { logger } from "./utils/logger.ts";
 import redisClient from "./utils/redis.ts";
+import sharp from "sharp";
+
+// Limit libvips thread pool per worker.  In PM2 cluster mode each worker is a
+// separate process with its own thread pool.  With 2 workers on 2 vCPUs,
+// concurrency(2) gives each worker 2 Sharp threads (4 total), matching the
+// available cores without oversubscription.
+sharp.concurrency(2);
 
 const __filename = fileURLToPath(import.meta.url);
 

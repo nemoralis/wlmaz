@@ -81,7 +81,7 @@ else
 fi
 
 if confirm "🔄 Restart application with PM2?"; then
-    pm2 restart wlmaz
+    pm2 reload wlmaz
     pm2 logs wlmaz
 else
     echo "⏭️ Skipping PM2 restart"
