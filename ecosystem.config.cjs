@@ -1,8 +1,7 @@
 module.exports = {
   apps: [{
     name: "wlmaz",
-    script: "./src/index.ts",
-    interpreter: "./node_modules/.bin/tsx",
+    script: "./dist/server/index.mjs",
     node_args: "--env-file=.env",
     exec_mode: "cluster",
     instances: 2,
