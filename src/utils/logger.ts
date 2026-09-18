@@ -8,13 +8,13 @@
  * Defaults to "info" in production and "debug" otherwise.
  */
 
+import { config } from "../config";
+
 export type LogLevel = "debug" | "info" | "warn" | "error";
 
 const LEVELS: LogLevel[] = ["debug", "info", "warn", "error"];
 
-const configured: LogLevel =
-   ((process.env.LOG_LEVEL as LogLevel | undefined)?.toLowerCase() as LogLevel) ??
-   (process.env.NODE_ENV === "production" ? "info" : "debug");
+const configured: LogLevel = config.logLevel as LogLevel;
 
 const threshold = LEVELS.indexOf(configured) >= 0 ? LEVELS.indexOf(configured) : 1;
 

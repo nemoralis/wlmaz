@@ -6,6 +6,12 @@ import { afterEach, describe, expect, it, vi } from "vitest";
  */
 
 async function loadConfig() {
+   // Ensure required env vars are present for config.ts validation before
+   // re-evaluating the module. Individual tests override specific vars via
+   // vi.stubEnv() above this call.
+   vi.stubEnv("SESSION_SECRET", "test-session-secret-at-least-32-characters-long");
+   vi.stubEnv("WM_CONSUMER_KEY", "test-consumer-key");
+   vi.stubEnv("WM_CONSUMER_SECRET", "test-consumer-secret");
    // Force fresh module evaluation so process.env / NODE_ENV are read anew.
    vi.resetModules();
    return await import("../mediawikiConfig");

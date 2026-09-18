@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import OAuth from "oauth-1.0a";
 import type { WikiUser } from "../types";
+import { config } from "../config";
 import { logger } from "./logger";
 import { sanitizeFilename } from "./sanitize";
 import {
@@ -15,14 +16,10 @@ import { MediaWikiBotClient } from "./mediawikiBotClient";
 const API_CONFIG = {
    url: "https://commons.wikimedia.org/w/api.php",
    consumer: {
-      key: process.env.WM_CONSUMER_KEY?.trim() || "",
-      secret: process.env.WM_CONSUMER_SECRET?.trim() || "",
+      key: config.oauth.consumerKey,
+      secret: config.oauth.consumerSecret,
    },
 };
-
-// Ensure keys are trimmed
-API_CONFIG.consumer.key = API_CONFIG.consumer.key.trim();
-API_CONFIG.consumer.secret = API_CONFIG.consumer.secret.trim();
 
 /**
  * Returns a fully-authenticated MediaWiki client for the given target.

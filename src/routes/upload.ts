@@ -2,6 +2,7 @@ import path from "path";
 import express from "express";
 import multer from "multer";
 import sharp, { type Metadata } from "sharp";
+import { config } from "@/config";
 import { optimizeImage } from "@/utils/image";
 import { logger } from "@/utils/logger";
 import { uploadFile as uploadToCommons, CommonsUploadError, checkFileExistence } from "@/utils/mediawiki";
@@ -71,7 +72,7 @@ const checkUploadsEnabled = (
    res: express.Response,
    next: express.NextFunction,
 ) => {
-   if (process.env.ENABLE_UPLOADS !== "true") {
+   if (!config.uploadsEnabled) {
       res.status(403).json({ error: "Uploads are currently disabled." });
       return;
    }
@@ -80,7 +81,7 @@ const checkUploadsEnabled = (
 
 // Status Check Endpoint
 router.get("/status", (_req, res) => {
-   res.json({ enabled: process.env.ENABLE_UPLOADS === "true" });
+   res.json({ enabled: config.uploadsEnabled });
 });
 
 /**
@@ -296,10 +297,10 @@ router.post(
          // We keep the 'details' key for compatibility but sanitize its content in production
          res.status(500).json({
             error: "Upload failed",
-            details:
-               process.env.NODE_ENV === "production"
-                  ? "An internal error occurred during the upload process."
-                  : error.message || error.toString(),
+         details:
+                config.isProduction
+                   ? "An internal error occurred during the upload process."
+                   : error.message || error.toString(),
          });
       }
    },

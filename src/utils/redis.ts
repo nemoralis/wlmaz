@@ -1,13 +1,12 @@
 import { createClient, type RedisClientType } from "redis";
+import { config } from "../config";
 import { logger } from "./logger";
 
 // In local MediaWiki dev mode Redis is not required — session and rate-limit
 // stores fall back to in-memory defaults, so we skip the connection entirely.
-const DEV_MODE = process.env.MEDIAWIKI_DEV_MODE === "true" && process.env.NODE_ENV !== "production";
-
 let redisClient: RedisClientType;
 
-if (DEV_MODE) {
+if (config.isDevUploadMode) {
    // Return a minimal stub so existing `redisClient.isOpen` / `.ping()` checks
    // in leaderboard routes and the health endpoint degrade gracefully.
    redisClient = {
@@ -23,7 +22,7 @@ if (DEV_MODE) {
    logger.info("Redis skipped — local MediaWiki dev mode is active");
 } else {
    redisClient = createClient({
-      url: process.env.REDIS_URL || "redis://localhost:6379",
+      url: config.redisUrl,
    });
 
    redisClient.on("error", (err) => logger.error("Redis Client Error", err));

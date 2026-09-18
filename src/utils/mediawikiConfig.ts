@@ -15,6 +15,8 @@
  * from client input.
  */
 
+import { config } from "../config";
+
 export type MediaWikiAuth = { mode: "oauth" } | { mode: "bot-password" };
 
 export interface MediaWikiTarget {
@@ -29,18 +31,16 @@ export interface BotPasswordCredentials {
    password: string;
 }
 
-const IS_PRODUCTION = process.env.NODE_ENV === "production";
-
 const PRODUCTION_API_URL = "https://commons.wikimedia.org/w/api.php";
 
 /**
- * Reads the local bot-password credentials from the environment. Only meaningful
+ * Reads the local bot-password credentials from the config. Only meaningful
  * when bot-password mode is active.
  */
 export function getBotPasswordCredentials(): BotPasswordCredentials {
    return {
-      username: (process.env.MEDIAWIKI_DEV_USERNAME || "").trim(),
-      password: process.env.MEDIAWIKI_DEV_BOT_PASSWORD || "",
+      username: config.mediawikiDev.username,
+      password: config.mediawikiDev.botPassword,
    };
 }
 
@@ -49,8 +49,7 @@ export function getBotPasswordCredentials(): BotPasswordCredentials {
  * production AND explicitly enabled via MEDIAWIKI_DEV_MODE=true.
  */
 export function isLocalMediaWikiEnabled(): boolean {
-   // Production must refuse this mode even if the env var slips in.
-   return !IS_PRODUCTION && process.env.MEDIAWIKI_DEV_MODE === "true";
+   return config.isDevUploadMode;
 }
 
 /**
@@ -64,7 +63,7 @@ export function isLocalMediaWikiEnabled(): boolean {
  */
 export function resolveMediaWikiTarget(): MediaWikiTarget {
    if (isLocalMediaWikiEnabled()) {
-      const apiUrl = (process.env.MEDIAWIKI_API_URL || "").trim();
+      const apiUrl = config.mediawikiDev.apiUrl;
       if (!apiUrl) {
          throw new Error(
             "Local MediaWiki upload mode requires MEDIAWIKI_API_URL to be set (development only)",

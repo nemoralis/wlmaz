@@ -9,6 +9,7 @@ import helmet from "helmet";
 import hpp from "hpp";
 import morgan from "morgan";
 import { RedisStore as RateLimitRedisStore } from "rate-limit-redis";
+import { config } from "./config.ts";
 import passport from "./auth/passport.ts";
 import authRoutes from "./auth/routes.ts";
 import leaderboardRoutes from "./routes/leaderboard.ts";
@@ -27,19 +28,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
-// Local MediaWiki dev mode: no OAuth, no Redis — everything runs in-memory.
-const isDevUploadMode =
-   process.env.MEDIAWIKI_DEV_MODE === "true" && process.env.NODE_ENV !== "production";
-
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Fail fast on startup if critical secrets are missing, before any middleware
-// or route handlers are registered.
-const SESSION_SECRET = process.env.SESSION_SECRET;
-if (!SESSION_SECRET || SESSION_SECRET.length < 32) {
-   throw new Error("SESSION_SECRET must be set and at least 32 characters long");
-}
 
 const startServer = async () => {
    // redisClient handles its own connection in utils/redis.ts
@@ -49,7 +38,7 @@ const startServer = async () => {
    // ---------------------------------------------------------------------------
    // 1. Global middleware — runs on EVERY request (cheap, security-relevant)
    // ---------------------------------------------------------------------------
-    const morganFormat = process.env.NODE_ENV === "production" ? "tiny" : "dev";
+     const morganFormat = config.isProduction ? "tiny" : "dev";
 
    app.use(
       morgan(morganFormat, {
@@ -118,7 +107,7 @@ const startServer = async () => {
          return;
       }
 
-      if (isDevUploadMode) {
+      if (config.isDevUploadMode) {
          res.json({ status: "ok", mode: "local-dev", redis: "skipped" });
          return;
       }
@@ -135,7 +124,7 @@ const startServer = async () => {
    // 3. Static assets — served BEFORE session/passport to avoid unnecessary Redis
    //    operations on every hashed JS/CSS/image request.
    // ---------------------------------------------------------------------------
-   if (process.env.NODE_ENV === "production") {
+   if (config.isProduction) {
       const distPath = path.resolve(__dirname, "../dist");
       logger.info("Serving static files from:", distPath);
 
@@ -199,21 +188,21 @@ const startServer = async () => {
       standardHeaders: "draft-8",
       legacyHeaders: false,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ...(isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-api:" }) }),
+      ...(config.isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-api:" }) }),
    });
    const authLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
       limit: 15,
       message: { error: "Too many login attempts, please try again later." },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ...(isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-auth:" }) }),
+      ...(config.isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-auth:" }) }),
    });
    const uploadLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
       limit: 500,
       message: { error: "Upload limit reached, please try again later." },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ...(isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-upload:" }) }),
+      ...(config.isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-upload:" }) }),
    });
 
    const apiPaths = ["/api", "/auth", "/upload"];
@@ -235,7 +224,7 @@ const startServer = async () => {
    // are browser navigations — they carry no Origin header — so they are allowed
    // through to keep the OAuth handshake working.
    // ---------------------------------------------------------------------------
-   const allowedOrigin = (process.env.CLIENT_URL || "http://localhost:5173").replace(/\/+$/, "");
+   const allowedOrigin = config.clientUrl;
 
    const corsMiddleware = (req: Request, res: Response, next: NextFunction) => {
       const origin = req.headers["origin"] as string | undefined;
@@ -285,7 +274,7 @@ const startServer = async () => {
          name: "wlmaz",
 
          // In dev mode skip the Redis session store (no Redis required).
-         ...(isDevUploadMode
+         ...(config.isDevUploadMode
             ? {}
             : {
                  store: new RedisStore({
@@ -295,7 +284,7 @@ const startServer = async () => {
                  }),
               }),
 
-         secret: SESSION_SECRET,
+         secret: config.sessionSecret,
          resave: false,
          saveUninitialized: false,
          cookie: {
@@ -331,14 +320,14 @@ const startServer = async () => {
       res.status(500).json({
          error: true,
          message:
-            process.env.NODE_ENV === "production"
+            config.isProduction
                ? "An internal server error occurred."
                : err.message,
       });
    });
 
-   const server = app.listen(PORT, () => {
-      logger.info(`Backend server is running on ${PORT}`);
+   const server = app.listen(config.port, () => {
+      logger.info(`Backend server is running on ${config.port}`);
    });
 
    const gracefulShutdown = async (signal: string) => {
