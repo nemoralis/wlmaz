@@ -23,48 +23,37 @@ export const useAuthStore = defineStore("auth", {
       blockReason: (state) => state.user?.blockreason || "",
    },
 
-   actions: {
+    actions: {
       async fetchUser() {
          this.loading = true;
-         // Server-driven: reflects whether the backend runs in local MediaWiki
-         // dev mode. Never includes credentials. In production always false.
          try {
-            const cfgRes = await fetch("/upload/config");
+            // Server-driven config and auth check are independent — run them in
+            // parallel to avoid a sequential ~100ms penalty on every page load.
+            const [cfgRes, res] = await Promise.all([
+               fetch("/upload/config"),
+               fetch("/auth/me", {
+                  headers: { "X-Requested-With": "XMLHttpRequest" },
+               }),
+            ]);
+
+            // Process local-upload config (non-critical)
             if (cfgRes.ok) {
                const cfg = await cfgRes.json();
                this.localUploadEnabled = !!cfg.localUploadEnabled;
+            } else {
+               this.localUploadEnabled = false;
             }
-         } catch (e) {
-            console.error("Failed to check local upload config", e);
-            this.localUploadEnabled = false;
-         }
 
-         try {
-            const res = await fetch("/auth/me", {
-               headers: { "X-Requested-With": "XMLHttpRequest" },
-            });
-
+            // Process authentication state
             if (res.ok) {
                const data = await res.json();
                this.user = data;
 
-               // After getting basic user info, fetch block status/extra stats
+               // Fire-and-forget: fetch block status in the background so the
+               // page renders immediately. The upload button may briefly appear
+               // enabled; it updates reactively when this completes.
                if (this.user?.username) {
-                  try {
-                     const statsRes = await fetch(
-                        `/api/leaderboard/user/${encodeURIComponent(this.user.username)}`,
-                        { signal: AbortSignal.timeout(10000) },
-                     );
-                     if (statsRes.ok) {
-                        const statsData = await statsRes.json();
-                        if (statsData.commons) {
-                           this.user.blocked = !!statsData.commons.blocked;
-                           this.user.blockreason = statsData.commons.blockreason;
-                        }
-                     }
-                  } catch (e) {
-                     console.error("Failed to fetch extended user stats:", e);
-                  }
+                  this.fetchBlockStatus(this.user.username);
                }
             } else {
                this.user = null;
@@ -72,8 +61,32 @@ export const useAuthStore = defineStore("auth", {
          } catch (err) {
             console.error("Failed to fetch user:", err);
             this.user = null;
+            this.localUploadEnabled = false;
          } finally {
             this.loading = false;
+         }
+      },
+
+      /**
+       * Non-blocking check for the user's Commons block status.  Called after
+       * authentication succeeds; updates `user.blocked` / `user.blockreason`
+       * reactively so the upload button disables itself if needed.
+       */
+      async fetchBlockStatus(username: string) {
+         try {
+            const statsRes = await fetch(
+               `/api/leaderboard/user/${encodeURIComponent(username)}`,
+               { signal: AbortSignal.timeout(10000) },
+            );
+            if (statsRes.ok && this.user?.username === username) {
+               const statsData = await statsRes.json();
+               if (statsData.commons) {
+                  this.user.blocked = !!statsData.commons.blocked;
+                  this.user.blockreason = statsData.commons.blockreason;
+               }
+            }
+         } catch (e) {
+            console.error("Failed to fetch block status:", e);
          }
       },
 
