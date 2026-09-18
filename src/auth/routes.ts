@@ -15,12 +15,18 @@ router.get(
             res.status(500).json({ error: "Session error" });
             return;
          }
-         req.session.save((err) => {
+         req.login(req.user!, (err) => {
             if (err) {
                res.status(500).json({ error: "Session error" });
                return;
             }
-            res.redirect("/");
+            req.session.save((err) => {
+               if (err) {
+                  res.status(500).json({ error: "Session error" });
+                  return;
+               }
+               res.redirect("/");
+            });
          });
       });
    },
