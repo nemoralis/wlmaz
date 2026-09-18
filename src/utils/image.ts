@@ -1,4 +1,4 @@
-import sharp from "sharp";
+import sharp, { type Metadata } from "sharp";
 import { logger } from "./logger";
 
 interface OptimizedImage {
@@ -9,15 +9,23 @@ interface OptimizedImage {
 
 /**
  * Optimizes an image buffer for Wikimedia Commons upload.
- * - Resizes if dimensions are excessive (>5000px).
+ * - Resizes if dimensions are excessive (>8192px).
  * - Auto-rotates based on EXIF orientation.
  * - Converts to high-quality JPEG (95%).
  * - Preserves metadata (EXIF/IPTC/XMP) which is critical for Commons.
+ *
+ * @param buffer - Raw image buffer to process.
+ * @param preloadedMetadata - Optional metadata already read from the same
+ *   buffer (e.g. by the caller's validation step).  Passing this avoids a
+ *   redundant Sharp decode inside this function.
  */
-export async function optimizeImage(buffer: Buffer): Promise<OptimizedImage> {
+export async function optimizeImage(
+   buffer: Buffer,
+   preloadedMetadata?: Metadata,
+): Promise<OptimizedImage> {
    try {
       const image = sharp(buffer);
-      const metadata = await image.metadata();
+      const metadata = preloadedMetadata || await image.metadata();
 
       // Check if resizing is needed
       const MAX_DIMENSION = 8192; // Increased to 8K matches Commons "High Resolution" goal

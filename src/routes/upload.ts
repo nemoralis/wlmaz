@@ -1,8 +1,7 @@
-import fs from "fs/promises";
 import path from "path";
 import express from "express";
 import multer from "multer";
-import sharp from "sharp";
+import sharp, { type Metadata } from "sharp";
 import { optimizeImage } from "@/utils/image";
 import { logger } from "@/utils/logger";
 import { uploadFile as uploadToCommons, CommonsUploadError, checkFileExistence } from "@/utils/mediawiki";
@@ -17,54 +16,10 @@ import {
 
 const router = express.Router();
 
-// Disk Storage Configuration
-const uploadDir = "/tmp/wlmaz-uploads";
-
-/**
- * Periodically cleans up orphaned temporary upload files.
- * Security: Reduces risk of Disk Exhaustion (DoS) by ensuring temp files
- * from failed/interrupted uploads don't accumulate indefinitely.
- */
-const cleanupTempFiles = async () => {
-   try {
-      // Ensure dir exists
-      await fs.mkdir(uploadDir, { recursive: true, mode: 0o700 });
-      const files = await fs.readdir(uploadDir);
-      const now = Date.now();
-      const ONE_HOUR = 60 * 60 * 1000;
-
-      for (const file of files) {
-         const filePath = path.join(uploadDir, file);
-         // Use lstat to avoid following symbolic links in shared temp directories
-         const stats = await fs.lstat(filePath);
-         // Orphaned files older than 1 hour are deleted.
-         if (now - stats.mtimeMs > ONE_HOUR) {
-            await fs.unlink(filePath).catch((err) => logger.error("Failed to GC temp file:", err));
-         }
-      }
-   } catch (err) {
-      logger.error("Temp file garbage collection error:", err);
-   }
-};
-
-// Initial cleanup on startup to clear any leftovers from previous crashes
-cleanupTempFiles();
-// Background Cleanup for orphaned temp files - Check every 1 hour
-// .unref() prevents the timer from keeping the process alive after graceful shutdown
-setInterval(cleanupTempFiles, 60 * 60 * 1000).unref();
-
-const storage = multer.diskStorage({
-   destination: (_req, _file, cb) => {
-      cb(null, uploadDir);
-   },
-   filename: (_req, file, cb) => {
-      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-      cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname));
-   },
-});
-
+// Memory storage — keeps the upload buffer in-process, avoiding disk write/read
+// and the periodic temp-file cleanup that disk storage required.
 const upload = multer({
-   storage: storage,
+   storage: multer.memoryStorage(),
    defParamCharset: "utf8",
    limits: {
       fileSize: 20 * 1024 * 1024, // 20MB
@@ -187,9 +142,6 @@ router.post(
          res.status(400).json({ error: "No file uploaded" });
          return;
       }
-
-      // Path to the temp file
-      const filePath = req.file.path;
 
       try {
          // Resolve the upload target / auth mode once per request. In production
@@ -329,15 +281,15 @@ ${licenseTemplate}
 ${categoryText}
 `;
 
-         // Read file buffer from disk
-         const fileBuffer = await fs.readFile(filePath);
-
-         // Content-based image validation: Sharp.metadata() throws for any buffer
-         // that is not a recognised image format.  This catches disguised uploads
-         // (e.g. a script sent with Content-Type: image/jpeg) that slip past
-         // multer's client-supplied MIME check.
+         // --- Image validation + optimization (single Sharp pipeline) --------
+         // The buffer comes directly from multer's memoryStorage — no disk read.
+         // sharp.metadata() reads only the image header (fast).  Passing the
+         // result into optimizeImage avoids a second header decode.
+         const fileBuffer = req.file.buffer;
+         const image = sharp(fileBuffer);
+         let metadata: Metadata;
          try {
-            await sharp(fileBuffer).metadata();
+            metadata = await image.metadata();
          } catch {
             res.status(400).json({
                error: "Invalid image: file content is not a recognised image format",
@@ -345,7 +297,7 @@ ${categoryText}
             return;
          }
 
-         const optimized = await optimizeImage(fileBuffer);
+         const optimized = await optimizeImage(fileBuffer, metadata);
 
          // Determine final properties
          let finalBuffer = optimized.buffer;
@@ -411,13 +363,6 @@ ${categoryText}
                   ? "An internal error occurred during the upload process."
                   : error.message || error.toString(),
          });
-      } finally {
-         // Clean up temp file
-         if (req.file) {
-            await fs
-               .unlink(filePath)
-               .catch((err) => logger.error("Failed to cleanup temp file:", err));
-         }
       }
    },
 );
