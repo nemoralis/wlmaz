@@ -1,4 +1,5 @@
 import path from "path";
+import { existsSync } from "node:fs";
 import { fileURLToPath } from "url";
 import { RedisStore } from "connect-redis";
 import express, { type NextFunction, type Request, type Response } from "express";
@@ -38,6 +39,9 @@ const startServer = async () => {
 
    app.set("trust proxy", 1);
 
+   // ---------------------------------------------------------------------------
+   // 1. Global middleware — runs on EVERY request (cheap, security-relevant)
+   // ---------------------------------------------------------------------------
    const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
 
    app.use(
@@ -89,10 +93,95 @@ const startServer = async () => {
          "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), " +
             "fullscreen=(), geolocation=(self), gyroscope=(), interest-cohort=(), magnetometer=(), " +
             "microphone=(), midi=(), payment=(), publickey-credentials-get=(), screen-wake-lock=(), " +
-            "sync-xhr=(), usb=(), xr-spatial-tracking=()",
+            "sync-xhr=(), usb=(), xr-spatial-tracking()",
       );
       next();
    });
+
+   // ---------------------------------------------------------------------------
+   // 2. Health check — no session/auth/CORS needed; registered early so the SPA
+   //    catch-all below cannot intercept it.
+   // ---------------------------------------------------------------------------
+   app.get("/health", async (req, res) => {
+      const ip = req.ip ?? "";
+      const isLocal = ip === "127.0.0.1" || ip === "::1" || ip === "::ffff:127.0.0.1";
+
+      if (!isLocal) {
+         res.status(404).end();
+         return;
+      }
+
+      if (isDevUploadMode) {
+         res.json({ status: "ok", mode: "local-dev", redis: "skipped" });
+         return;
+      }
+
+      try {
+         await redisClient.ping();
+         res.json({ status: "ok", redis: "connected" });
+      } catch (_err) {
+         res.status(500).json({ status: "error", redis: "disconnected" });
+      }
+   });
+
+   // ---------------------------------------------------------------------------
+   // 3. Static assets — served BEFORE session/passport to avoid unnecessary Redis
+   //    operations on every hashed JS/CSS/image request.
+   // ---------------------------------------------------------------------------
+   if (process.env.NODE_ENV === "production") {
+      const distPath = path.resolve(__dirname, "../dist");
+      logger.info("Serving static files from:", distPath);
+
+      // Static files (hashed assets, images, monuments.pbf, etc.)
+      // express.static only serves files that exist and does NOT call next() for
+      // matched requests, so matched assets never touch session/auth middleware.
+      app.use(express.static(distPath));
+
+      // Prerendered static pages written by scripts/prerender.ts.
+      const staticPageFiles: Record<string, string> = {
+         "/stats": "stats.html",
+         "/leaderboard": "leaderboard.html",
+         "/table": "table.html",
+         "/about": "about.html",
+      };
+      app.get(Object.keys(staticPageFiles), (req, res) => {
+         const file = path.join(distPath, staticPageFiles[req.path]);
+         if (existsSync(file)) {
+            return res.sendFile(file);
+         }
+         // Fall through to SPA fallback
+         res.sendFile(path.join(distPath, "index.html"));
+      });
+
+      // Serve prerendered monument pages (written by scripts/prerender.ts) so
+      // crawlers receive unique, static HTML for every monument URL.
+      app.get("/monument/:id", (req, res, next) => {
+         const monumentDir = path.join(distPath, "monument");
+         const file = path.resolve(monumentDir, `${req.params.id}.html`);
+         if (file.startsWith(`${monumentDir}/`) && existsSync(file)) {
+            return res.sendFile(file);
+         }
+         next();
+      });
+
+      // SPA catch-all — serves index.html for client-side routes.  Skips API,
+      // auth, and upload paths so they continue to session/passport below.
+      app.get(/.*/, (req, res, next) => {
+         if (
+            req.url.startsWith("/auth") ||
+            req.url.startsWith("/upload") ||
+            req.url.startsWith("/api")
+         ) {
+            return next();
+         }
+         res.sendFile(path.join(distPath, "index.html"));
+      });
+   }
+
+   // ---------------------------------------------------------------------------
+   // 4. API-scoped middleware — only runs for /api, /auth, /upload requests.
+   //    Static file requests that matched express.static above never reach here.
+   // ---------------------------------------------------------------------------
 
    // Rate limiting — Redis-backed in production, in-memory (or skipped) in dev mode.
    const apiLimiter = rateLimit({
@@ -120,14 +209,17 @@ const startServer = async () => {
       ...(isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-upload:" }) }),
    });
 
+   const apiPaths = ["/api", "/auth", "/upload"];
+
    app.use("/api", apiLimiter);
    app.use("/auth", authLimiter);
    app.use("/upload", uploadLimiter);
 
-   app.use(express.json({ limit: "10kb" }));
-   app.use(express.urlencoded({ extended: false, limit: "10kb" }));
-   // HPP must be used after body-parsers to protect the request body
-   app.use(hpp());
+   // Body parsers scoped to API routes only — static files have no request body.
+   app.use(apiPaths, express.json({ limit: "10kb" }));
+   app.use(apiPaths, express.urlencoded({ extended: false, limit: "10kb" }));
+   // HPP must be used after body-parsers to protect the request body.
+   app.use(apiPaths, hpp());
 
    // ---------------------------------------------------------------------------
    // CORS + Origin Validation
@@ -176,9 +268,12 @@ const startServer = async () => {
       next();
    };
 
-   app.use(["/api", "/auth", "/upload"], corsMiddleware);
+   app.use(apiPaths, corsMiddleware);
 
+   // Session — scoped to API routes only.  Static file requests never reach this
+   // middleware, eliminating unnecessary Redis GET operations on every asset.
    app.use(
+      apiPaths,
       session({
          name: "wlmaz",
 
@@ -197,13 +292,6 @@ const startServer = async () => {
          resave: false,
          saveUninitialized: false,
          cookie: {
-            // 'auto' makes the Secure flag follow the actual (proxied) protocol
-            // instead of a hard NODE_ENV check. Behind the CloudVPS/nginx HTTPS
-            // proxy, nginx was rewriting X-Forwarded-Proto to "http", so
-            // req.secure was false and express-session (with secure=true) never
-            // issued the session cookie. That meant no cookie reached the
-            // browser, the OAuth request token was lost, and the callback failed
-            // with "failed to find request token in session".
             secure: "auto",
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
@@ -213,9 +301,12 @@ const startServer = async () => {
       }),
    );
 
-   app.use(passport.initialize());
-   app.use(passport.session());
+   app.use(apiPaths, passport.initialize());
+   app.use(apiPaths, passport.session());
 
+   // ---------------------------------------------------------------------------
+   // 5. API routes
+   // ---------------------------------------------------------------------------
    app.use("/auth", authRoutes);
    app.use("/upload", uploadRoutes);
    app.use("/api/leaderboard", leaderboardRoutes);
@@ -224,54 +315,9 @@ const startServer = async () => {
       res.status(404).json({ error: true, message: "Endpoint not found" });
    });
 
-   if (process.env.NODE_ENV === "production") {
-      const path = await import("path");
-      const distPath = path.resolve(__dirname, "../dist");
-      logger.info("Serving static files from:", distPath);
-
-      app.use(express.static(distPath));
-
-      // Prerendered static pages written by scripts/prerender.ts.
-      const staticPageFiles: Record<string, string> = {
-         "/stats": "stats.html",
-         "/leaderboard": "leaderboard.html",
-         "/table": "table.html",
-         "/about": "about.html",
-      };
-      app.get(Object.keys(staticPageFiles), async (req, res, next) => {
-         const { existsSync } = await import("node:fs");
-         const file = path.join(distPath, staticPageFiles[req.path]);
-         if (existsSync(file)) {
-            return res.sendFile(file);
-         }
-         next();
-      });
-
-      // Serve prerendered monument pages (written by scripts/prerender.ts) so
-      // crawlers receive unique, static HTML for every monument URL.
-      app.get("/monument/:id", async (req, res, next) => {
-         const { existsSync } = await import("node:fs");
-         const monumentDir = path.join(distPath, "monument");
-         const file = path.resolve(monumentDir, `${req.params.id}.html`);
-         if (file.startsWith(`${monumentDir}/`) && existsSync(file)) {
-            return res.sendFile(file);
-         }
-         next();
-      });
-
-      app.get(/.*/, (req, res, next) => {
-         // Don't catch API/Auth routes
-         if (
-            req.url.startsWith("/auth") ||
-            req.url.startsWith("/upload") ||
-            req.url.startsWith("/api")
-         ) {
-            return next();
-         }
-         res.sendFile(path.join(distPath, "index.html"));
-      });
-   }
-
+   // ---------------------------------------------------------------------------
+   // 6. Error handler — must be last
+   // ---------------------------------------------------------------------------
    app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
       logger.error(err);
       // Fail securely: do not leak internal error details or stack traces to the client in production
@@ -282,31 +328,6 @@ const startServer = async () => {
                ? "An internal server error occurred."
                : err.message,
       });
-   });
-
-   // Health check — restricted to localhost so infrastructure status is never
-   // leaked to external callers.  The endpoint returns 404 to non-local IPs so
-   // it appears not to exist at all.
-   app.get("/health", async (req, res) => {
-      const ip = req.ip ?? "";
-      const isLocal = ip === "127.0.0.1" || ip === "::1" || ip === "::ffff:127.0.0.1";
-
-      if (!isLocal) {
-         res.status(404).end();
-         return;
-      }
-
-      if (isDevUploadMode) {
-         res.json({ status: "ok", mode: "local-dev", redis: "skipped" });
-         return;
-      }
-
-      try {
-         await redisClient.ping();
-         res.json({ status: "ok", redis: "connected" });
-      } catch (_err) {
-         res.status(500).json({ status: "error", redis: "disconnected" });
-      }
    });
 
    const server = app.listen(PORT, () => {
