@@ -462,27 +462,38 @@
                               </p>
                            </div>
                            <div>
-                              <label class="mb-1 block text-sm font-medium text-gray-700"
-                                 >Lisenziya</label
-                              >
-                              <select
-                                 v-model="bulkForm.license"
-                                 class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                              >
-                                 <option value="cc-by-sa-4.0">CC BY-SA 4.0 (Tövsiyə olunur)</option>
-                                 <option value="cc-by-4.0">CC BY 4.0</option>
-                                 <option value="cc0">CC0 (İctimai varidat)</option>
-                              </select>
-                              <p class="mt-1 text-xs text-gray-500">
-                                 <font-awesome-icon :icon="['fas', 'info-circle']" class="mr-1" />
-                                 {{ licenseDescription }}
-                                 <a
-                                    :href="licenseUrl"
-                                    target="_blank"
-                                    class="ml-1 text-blue-600 hover:text-blue-800 hover:underline"
-                                    >(Ətraflı)</a
-                                 >
-                              </p>
+                               <label class="mb-1 block text-sm font-medium text-gray-700"
+                                  >Lisenziya</label
+                               >
+                               <p class="mb-2 text-xs text-gray-500">
+                                  Başqaları şəklinizi necə istifadə edə bilər? Bütün seçimlər
+                                  Vikipediya və Wikimedia layihələrində sərbəst istifadəyə imkan
+                                  verir.
+                               </p>
+                               <select
+                                  v-model="bulkForm.license"
+                                  class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                               >
+                                  <option value="cc-by-sa-4.0">CC BY-SA 4.0 (Tövsiyə olunur)</option>
+                                  <option value="cc-by-4.0">CC BY 4.0</option>
+                                  <option value="cc0">CC0 (İctimai varidat)</option>
+                               </select>
+                               <div class="mt-2 rounded-lg border border-blue-100 bg-blue-50 p-3">
+                                  <p class="text-sm text-blue-800">
+                                     {{ licenseDescription }}
+                                  </p>
+                                  <a
+                                     :href="licenseUrl"
+                                     target="_blank"
+                                     class="mt-1.5 inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-800 hover:underline"
+                                  >
+                                     <font-awesome-icon
+                                        :icon="['fas', 'info-circle']"
+                                        class="text-[10px]"
+                                     />
+                                     Ətraflı məlumat
+                                  </a>
+                               </div>
                            </div>
                            <div>
                               <label
