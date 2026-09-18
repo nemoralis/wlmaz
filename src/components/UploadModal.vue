@@ -681,7 +681,7 @@ export default defineComponent({
          resetForm,
          currentFileIndex,
          uploadProgress,
-         stripExtension: (name: string) => name.replace(/\.[^/.]+$/, ""),
+         stripExtension: (name: string | undefined) => (name ?? "").replace(/\.[^/.]+$/, ""),
          licenseDescription,
          licenseUrl,
          hasHeicFiles,

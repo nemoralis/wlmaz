@@ -6,6 +6,7 @@
  * reasoned about independently of UI state.
  */
 
+import type { UploadSuccessResponse } from "../types/api.ts";
 import { isTransientError, messageFor } from "./uploadErrors";
 
 export interface FileItem {
@@ -20,10 +21,7 @@ export interface FileItem {
    longitude?: number;
 }
 
-export interface UploadResult {
-   filename: string;
-   url: string;
-}
+export type UploadResult = UploadSuccessResponse;
 
 export interface UploadFailure {
    fileItem: FileItem;

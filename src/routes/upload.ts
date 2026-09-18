@@ -3,6 +3,13 @@ import express from "express";
 import multer from "multer";
 import sharp, { type Metadata } from "sharp";
 import { config } from "@/config";
+import type {
+   UploadStatusResponse,
+   UploadConfigResponse,
+   TitlesExistResponse,
+   UploadSuccessResponse,
+   UploadErrorResponse,
+} from "../types/api.ts";
 import { optimizeImage } from "@/utils/image";
 import { logger } from "@/utils/logger";
 import { uploadFile as uploadToCommons, CommonsUploadError, checkFileExistence } from "@/utils/mediawiki";
@@ -81,7 +88,8 @@ const checkUploadsEnabled = (
 
 // Status Check Endpoint
 router.get("/status", (_req, res) => {
-   res.json({ enabled: config.uploadsEnabled });
+   const body: UploadStatusResponse = { enabled: config.uploadsEnabled };
+   res.json(body);
 });
 
 /**
@@ -92,7 +100,8 @@ router.get("/status", (_req, res) => {
  * this always reports a non-local (Commons) target and never the dev mode.
  */
 router.get("/config", (_req, res) => {
-   res.json(getUploadClientConfig());
+   const body: UploadConfigResponse = getUploadClientConfig();
+   res.json(body);
 });
 
 /**
@@ -127,7 +136,8 @@ router.post("/titles-exist", ensureAuthenticatedOrLocalDev, async (req, res) => 
 
       const existing = await checkFileExistence(titles);
       logger.info("[titles-exist] checked=%d existing=%d first=%s", titles.length, existing.length, titles[0]);
-      res.json({ existing });
+      const body: TitlesExistResponse = { existing };
+      res.json(body);
    } catch (error) {
       logger.error("Titles existence check failed:", error);
       res.status(502).json({ error: "Failed to check title availability" });
@@ -269,13 +279,14 @@ router.post(
             target,
          );
 
-         res.json({
+         const body: UploadSuccessResponse = {
             filename: result.upload?.filename,
             url:
                result.upload?.imageinfo?.descriptionurl ||
                `https://commons.wikimedia.org/wiki/File:${result.upload?.filename}`,
-         });
-      } catch (error: any) {
+         };
+         res.json(body);
+      } catch (error: unknown) {
          // Commons rejections carry a user-facing code/info; surface them so the
          // client can map them to a helpful message. Everything else is an
          // internal error and stays generic to avoid leaking stack traces.
@@ -284,23 +295,25 @@ router.post(
                code: error.code,
                info: error.info,
             });
-            res.status(error.httpStatus || 422).json({
+            const body: UploadErrorResponse = {
                error: error.code === "http_error" ? "Commons upload failed" : "Commons rejected the upload",
                code: error.code,
                details: (error.info || "").slice(0, 500),
-            });
+            };
+            res.status(error.httpStatus || 422).json(body);
             return;
          }
 
          logger.error("Upload error:", error);
          // Fail securely: do not leak internal error details or stack traces to the client
          // We keep the 'details' key for compatibility but sanitize its content in production
+         const message = error instanceof Error ? error.message : String(error);
          res.status(500).json({
             error: "Upload failed",
-         details:
-                config.isProduction
-                   ? "An internal error occurred during the upload process."
-                   : error.message || error.toString(),
+            details:
+               config.isProduction
+                  ? "An internal error occurred during the upload process."
+                  : message,
          });
       }
    },

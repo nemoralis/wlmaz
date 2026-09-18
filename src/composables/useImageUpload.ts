@@ -1,5 +1,6 @@
 import { computed, reactive, ref, type Ref } from "vue";
 import type { MonumentProps } from "../types";
+import type { UploadStatusResponse, UploadConfigResponse, TitlesExistResponse } from "../types/api.ts";
 import type { FileItem, UploadFailure, UploadResult } from "../utils/uploadService";
 import { isHeicFile, uploadSingleFile } from "../utils/uploadService";
 import { nextFreeTitles } from "../utils/uploadFileNames";
@@ -40,7 +41,7 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       try {
          const res = await fetch("/upload/status");
          if (res.ok) {
-            const data = await res.json();
+            const data: UploadStatusResponse = await res.json();
             uploadsEnabled.value = data.enabled;
          }
       } catch (e) {
@@ -52,7 +53,7 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       try {
          const res = await fetch("/upload/config");
          if (res.ok) {
-            const data = await res.json();
+            const data: UploadConfigResponse = await res.json();
             localUploadEnabled.value = !!data.localUploadEnabled;
             mediaWikiUrl.value = data.mediaWikiUrl || "";
          }
@@ -253,7 +254,7 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
                      if (!response.ok) {
                         throw new Error(`titles-exist HTTP ${response.status}`);
                      }
-                     const data = await response.json();
+                     const data: TitlesExistResponse = await response.json();
                      return new Set<string>(data.existing || []);
                   },
                );

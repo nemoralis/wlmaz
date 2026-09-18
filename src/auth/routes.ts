@@ -1,4 +1,5 @@
 import { Router } from "express";
+import type { PublicWikiUser, AuthUnauthenticatedResponse } from "../types/api.ts";
 import passport from "./passport.ts";
 
 const router = Router();
@@ -32,9 +33,9 @@ router.get("/me", (req, res) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { token, tokenSecret, ...publicProfile } = req.user;
 
-      res.json(publicProfile);
+      res.json(publicProfile as PublicWikiUser);
    } else {
-      res.status(401).json({ authenticated: false });
+      res.status(401).json({ authenticated: false } satisfies AuthUnauthenticatedResponse);
    }
 });
 

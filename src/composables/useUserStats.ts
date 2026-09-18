@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import type { UserStats } from "../types";
+import type { UserStats } from "../types/api.ts";
 
 export const useUserStats = () => {
    const stats = ref<UserStats | null>(null);
@@ -35,16 +35,16 @@ export const useUserStats = () => {
             }
             throw new Error(`Xəta: ${response.status}`);
          }
-         const data = await response.json();
+         const data: UserStats = await response.json();
          stats.value = data;
 
          // Save to local storage for next time
          localStorage.setItem(cacheKey, JSON.stringify(data));
-      } catch (err: any) {
+      } catch (err: unknown) {
          console.error("Failed to fetch user stats:", err);
          // Don't show error if we have cached data, just log it
          if (!stats.value) {
-            error.value = err.message || "Statistikaları yükləmək mümkün olmadı.";
+            error.value = err instanceof Error ? err.message : "Statistikaları yükləmək mümkün olmadı.";
          }
       } finally {
          isLoading.value = false;

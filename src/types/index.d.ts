@@ -3,28 +3,30 @@ import { DefineComponent } from "vue";
 
 // ========================================================
 // 1. SHARED DOMAIN INTERFACES
+//
+// API response types live in ./api.ts.  The types below are
+// domain/session types used by multiple modules but not part
+// of the HTTP contract.
 // ========================================================
 
 /**
- * Represents a User authenticated via Wikimedia Commons.
- * Used in Passport serialization and Pinia store.
+ * Full user type including OAuth tokens — used by Passport
+ * serialization and Express session.  The frontend should
+ * use PublicWikiUser from ./api.ts instead.
  */
 export interface WikiUser {
    id: string;
    username: string;
-   token: string; // OAuth Access Token
-   tokenSecret: string; // OAuth Secret (Backend only ideally, but needed for types)
-   profile?: any; // Raw profile data from MediaWiki
+   token: string;
+   tokenSecret: string;
+   profile?: any;
    blocked?: boolean;
    blockreason?: string;
 }
 
 /**
- * Represents the GeoJSON properties for a Monument.
- * Matches the structure of your monuments.geojson file.
+ * GeoJSON properties for a Monument.
  */
-// Add this to your existing types file
-
 export interface MonumentProps {
    itemLabel?: string;
    itemDescription?: string;
@@ -41,49 +43,15 @@ export interface MonumentProps {
 }
 
 /**
- * Represents a user entry in the leaderboard.
+ * Frontend display type for a leaderboard entry.
+ * reg is a Date (converted from the API's YYYYMMDDHHmmss number).
  */
 export interface LeaderboardUser {
    username: string;
-   count: number; // Photos uploaded
-   usage: number; // Photos used in Wikipedia articles
-   reg: Date; // Registration date
-   rank: number;
-}
-
-/**
- * API response structure for a single country from wikiloves.toolforge.org
- */
-export interface WikiLovesCountryData {
-   category: string;
    count: number;
-   usercount: number;
-   userreg: number;
    usage: number;
-   start: number;
-   end: number;
-   data: Record<string, { images: number; joiners: number; newbie_joiners: number }>;
-   users: Record<string, { count: number; usage: number; reg: number }>;
-   years?: Record<number, { count: number; usercount: number; usage: number }>;
-}
-
-export interface UserStats {
-   username: string;
-   total: {
-      count: number;
-      usage: number;
-      reg: number;
-      yearly?: Record<number, { count: number; usage: number }>;
-   };
-   commons?: {
-      editcount: number;
-      registration: string;
-      groups: string[];
-      blocked?: boolean;
-      blockreason?: string;
-      blockexpiry?: string;
-   };
-   country: string;
+   reg: Date;
+   rank: number;
 }
 
 // ========================================================

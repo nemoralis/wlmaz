@@ -1,4 +1,8 @@
 import express from "express";
+import type {
+   LeaderboardResponse,
+   WikiLovesUserData,
+} from "../types/api.ts";
 import { logger } from "../utils/logger";
 import redisClient from "../utils/redis.ts";
 
@@ -10,15 +14,15 @@ const COUNTRY = "Azerbaijan";
 const START_YEAR = 2013;
 const CACHE_TTL = 3600; // 1 hour
 
-let aggregatePromise: Promise<any> | null = null;
-let lastAggregate: any = null;
+let aggregatePromise: Promise<LeaderboardResponse> | null = null;
+let lastAggregate: LeaderboardResponse | null = null;
 
 /**
  * Fetches fresh aggregate data from upstream (toolforge.org) with per-year
  * Redis caching.  Extracted so it can be called from both the initial
  * blocking fetch and the background refresh.
  */
-async function fetchAggregate(): Promise<any> {
+async function fetchAggregate(): Promise<LeaderboardResponse> {
    try {
       const cacheKey = "leaderboard:aggregate";
 
@@ -70,25 +74,22 @@ async function fetchAggregate(): Promise<any> {
 
       const results = await Promise.all(fetchPromises);
 
-      const aggregate: any = {
+      const aggregate: LeaderboardResponse = {
          [COUNTRY]: {
+            category: "",
             count: 0,
             usage: 0,
             usercount: 0,
+            userreg: 0,
+            start: 0,
+            end: 0,
+            data: Object.create(null),
             users: Object.create(null),
             years: Object.create(null),
          },
       };
 
-      const userMap: Record<
-         string,
-         {
-            count: number;
-            usage: number;
-            reg: number;
-            yearly: Record<number, { count: number; usage: number }>;
-         }
-      > = Object.create(null);
+      const userMap: Record<string, WikiLovesUserData & { yearly: Record<number, { count: number; usage: number }> }> = Object.create(null);
       const uniqueUsers = new Set<string>();
 
       results.forEach((data, index) => {
@@ -98,14 +99,15 @@ async function fetchAggregate(): Promise<any> {
 
          aggregate[COUNTRY].count += countryData.count || 0;
          aggregate[COUNTRY].usage += countryData.usage || 0;
-         aggregate[COUNTRY].years[year] = {
+         aggregate[COUNTRY].years![year] = {
             count: countryData.count,
             usercount: countryData.usercount,
             usage: countryData.usage,
          };
 
          if (countryData.users) {
-            Object.entries(countryData.users).forEach(([username, userData]: [string, any]) => {
+            const entries = Object.entries(countryData.users) as [string, WikiLovesUserData][];
+            for (const [username, userData] of entries) {
                if (
                   username === "__proto__" ||
                   username === "constructor" ||
@@ -132,7 +134,7 @@ async function fetchAggregate(): Promise<any> {
                if (userData.reg < userMap[username].reg) {
                   userMap[username].reg = userData.reg;
                }
-            });
+            }
          }
       });
 
@@ -219,7 +221,7 @@ router.get("/total", async (_req, res) => {
    try {
       const data = await getAggregateData();
       res.json(data);
-   } catch (error: any) {
+   } catch (error: unknown) {
       logger.error("Total leaderboard proxy error:", error);
       res.status(500).json({ error: "Failed to fetch aggregated leaderboard" });
    }
@@ -250,7 +252,15 @@ router.get("/user/:username", async (req, res) => {
       }
 
       const data = await getAggregateData();
+      if (!data) {
+         res.status(500).json({ error: "Failed to fetch aggregated leaderboard" });
+         return;
+      }
       const countryData = data[COUNTRY];
+      if (!countryData) {
+         res.status(404).json({ error: "User not found in WLM Azerbaijan records" });
+         return;
+      }
       const userStats = countryData.users[username];
 
       if (!userStats) {
@@ -298,7 +308,7 @@ router.get("/user/:username", async (req, res) => {
       }
 
       res.json(result);
-   } catch (error: any) {
+   } catch (error: unknown) {
       logger.error("User stats proxy error:", error);
       res.status(500).json({ error: "Failed to fetch user statistics" });
    }
@@ -345,7 +355,7 @@ router.get("/:eventSlug", async (req, res) => {
       }
 
       res.json(data);
-   } catch (error: any) {
+   } catch (error: unknown) {
       logger.error("Leaderboard proxy error:", error);
       res.status(500).json({ error: "Failed to fetch leaderboard from upstream" });
    }

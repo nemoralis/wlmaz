@@ -1,5 +1,6 @@
 import { computed, ref } from "vue";
-import type { LeaderboardUser, WikiLovesCountryData } from "../types";
+import type { LeaderboardUser } from "../types";
+import type { LeaderboardResponse, EventStats } from "../types/api.ts";
 
 const API_BASE = "/api/leaderboard";
 const COUNTRY = "Azerbaijan";
@@ -45,11 +46,7 @@ export const useLeaderboard = () => {
    });
 
    // Event stats for the selected year
-   const eventStats = ref<{
-      totalPhotos: number;
-      totalUsers: number;
-      photosUsed: number;
-   } | null>(null);
+   const eventStats = ref<EventStats | null>(null);
 
    const yearlyBreakdown = ref<Record<number, { count: number; usage: number }> | null>(null);
 
@@ -98,7 +95,7 @@ export const useLeaderboard = () => {
             throw new Error(`API xətası: ${response.status}`);
          }
 
-         const data: Record<string, WikiLovesCountryData> = await response.json();
+         const data: LeaderboardResponse = await response.json();
          const countryData = data[COUNTRY];
 
          if (!countryData || !countryData.users) {

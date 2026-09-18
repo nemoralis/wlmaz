@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
-import type { WikiUser as User } from "../types";
+import type { PublicWikiUser, UploadConfigResponse, UserStats } from "../types/api.ts";
 
 interface AuthState {
-   user: User | null;
+   user: PublicWikiUser | null;
    loading: boolean;
    localUploadEnabled: boolean;
 }
@@ -38,7 +38,7 @@ export const useAuthStore = defineStore("auth", {
 
             // Process local-upload config (non-critical)
             if (cfgRes.ok) {
-               const cfg = await cfgRes.json();
+               const cfg: UploadConfigResponse = await cfgRes.json();
                this.localUploadEnabled = !!cfg.localUploadEnabled;
             } else {
                this.localUploadEnabled = false;
@@ -46,7 +46,7 @@ export const useAuthStore = defineStore("auth", {
 
             // Process authentication state
             if (res.ok) {
-               const data = await res.json();
+               const data: PublicWikiUser = await res.json();
                this.user = data;
 
                // Fire-and-forget: fetch block status in the background so the
@@ -79,7 +79,7 @@ export const useAuthStore = defineStore("auth", {
                { signal: AbortSignal.timeout(10000) },
             );
             if (statsRes.ok && this.user?.username === username) {
-               const statsData = await statsRes.json();
+               const statsData: UserStats = await statsRes.json();
                if (statsData.commons) {
                   this.user.blocked = !!statsData.commons.blocked;
                   this.user.blockreason = statsData.commons.blockreason;
