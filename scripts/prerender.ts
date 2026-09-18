@@ -312,26 +312,32 @@ const STATIC_PAGES = [
 
          await fs.mkdir(MONUMENT_DIR, { recursive: true });
 
+         const BATCH_SIZE = 8;
          let written = 0;
-         for (const feature of features) {
-            const rawInventory = feature.properties.inventory || "";
-            if (!rawInventory) continue;
+         for (let i = 0; i < features.length; i += BATCH_SIZE) {
+            const batch = features.slice(i, i + BATCH_SIZE);
+            await Promise.all(
+               batch.map(async (feature) => {
+                  const rawInventory = feature.properties.inventory || "";
+                  if (!rawInventory) return;
 
-            const canonicalId = rawInventory.split(",")[0].trim();
-            const canonicalUrl = `${HOST}/monument/${encodeIdForUrl(canonicalId)}`;
-            const props = buildMonumentProps(feature, canonicalId);
+                  const canonicalId = rawInventory.split(",")[0].trim();
+                  const canonicalUrl = `${HOST}/monument/${encodeIdForUrl(canonicalId)}`;
+                  const props = buildMonumentProps(feature, canonicalId);
 
-            const html = buildMonumentHtml(indexHtml, props, canonicalUrl);
-            const filePath = path.join(MONUMENT_DIR, `${safeFileName(canonicalId)}.html`);
-            await fs.writeFile(filePath, await minifyHtml(html));
-            written++;
+                  const html = buildMonumentHtml(indexHtml, props, canonicalUrl);
+                  const filePath = path.join(MONUMENT_DIR, `${safeFileName(canonicalId)}.html`);
+                  await fs.writeFile(filePath, await minifyHtml(html));
 
-            sitemapEntries.push({
-               loc: canonicalUrl,
-               lastmod: feature.properties.lastModified
-                  ? new Date(feature.properties.lastModified).toISOString()
-                  : now,
-            });
+                  sitemapEntries.push({
+                     loc: canonicalUrl,
+                     lastmod: feature.properties.lastModified
+                        ? new Date(feature.properties.lastModified).toISOString()
+                        : now,
+                  });
+               }),
+            );
+            written += batch.filter((f) => f.properties.inventory).length;
          }
 
          for (const page of STATIC_PAGES) {
