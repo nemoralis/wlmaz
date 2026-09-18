@@ -182,8 +182,6 @@ const startServer = async () => {
    // Rate limiting — Redis-backed in production, in-memory (or skipped) in dev mode.
    const apiLimiter = rateLimit({
       windowMs: 15 * 60 * 1000,
-      // 200 requests / 15 min is ample for the SPA; the original 1000 made
-      // scraping and enumeration trivially easy.
       limit: 200,
       standardHeaders: "draft-8",
       legacyHeaders: false,
@@ -192,7 +190,7 @@ const startServer = async () => {
    });
    const authLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
-      limit: 15,
+      limit: 200,
       message: { error: "Too many login attempts, please try again later." },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ...(config.isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-auth:" }) }),
