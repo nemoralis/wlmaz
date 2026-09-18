@@ -38,7 +38,13 @@ const startServer = async () => {
    // ---------------------------------------------------------------------------
    // 1. Global middleware — runs on EVERY request (cheap, security-relevant)
    // ---------------------------------------------------------------------------
-     const morganFormat = config.isProduction ? "tiny" : "dev";
+   // Strip query parameters from logged URLs to avoid leaking OAuth tokens,
+   // session IDs, or other sensitive data embedded in the query string.
+   morgan.token("clean-url", (req) => (req as unknown as Request).originalUrl.split("?")[0]);
+
+   const morganFormat = config.isProduction
+      ? ":clean-url :status :response-time ms"
+      : ":method :clean-url :status :response-time ms";
 
    app.use(
       morgan(morganFormat, {
