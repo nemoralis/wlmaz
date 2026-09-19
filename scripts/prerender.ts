@@ -76,8 +76,8 @@ const renderContent = (props: MonumentProps): string => {
    const description = props.itemDescription ? escapeHtml(props.itemDescription) : "";
    const inventory = escapeHtml(props.inventory || "");
    const parentLabel = props.parentLabel ? escapeHtml(props.parentLabel) : "";
-   const imageUrl = props.image ? getOptimizedImage(props.image, 960) : "";
-   const srcSet = props.image ? getSrcSet(props.image, [500, 960, 1280, 1920]) : "";
+   const imageUrl = props.image ? getOptimizedImage(props.image, 768) : "";
+   const srcSet = props.image ? getSrcSet(props.image, [500, 768, 1024, 1536]) : "";
    const categoryUrl = getCategoryUrl(props);
 
    // Breadcrumb: Ana Səhifə > [District] > Name
@@ -96,7 +96,7 @@ const renderContent = (props: MonumentProps): string => {
    let imageBlock = "";
    if (imageUrl) {
       const srcSetAttr = srcSet ? ` srcset="${escapeHtml(srcSet)}"` : "";
-      imageBlock = `<img src="${escapeHtml(imageUrl)}"${srcSetAttr} alt="${label}" width="960" sizes="(max-width: 768px) 100vw, 768px" style="max-width:100%;height:auto;border-radius:8px;">`;
+      imageBlock = `<img src="${escapeHtml(imageUrl)}"${srcSetAttr} alt="${label}" width="768" sizes="(max-width: 768px) 100vw, 768px" style="max-width:100%;height:auto;border-radius:8px;">`;
    } else {
       imageBlock = `<div style="display:flex;align-items:center;justify-content:center;height:200px;background:#f3f4f6;border-radius:8px;color:#9ca3af;">Şəkil yoxdur</div>`;
    }
@@ -192,7 +192,7 @@ const buildHeadTags = (props: MonumentProps, canonicalUrl: string, title: string
       props.itemDescription || "Azərbaycanın tarixi abidələri və mədəni irs xəritəsi";
    const ogImage = props.image ? getOptimizedImage(props.image, 1280) : `${HOST}/wlm-az.png`;
    const imagePreload = props.image
-      ? `<link rel="preload" as="image" href="${escapeHtml(getOptimizedImage(props.image, 960))}">`
+         ? `<link rel="preload" as="image" href="${escapeHtml(getOptimizedImage(props.image, 768))}">`
       : "";
 
    const monumentSchema = useMonumentSchema(props);

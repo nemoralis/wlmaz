@@ -21,10 +21,6 @@ export interface AuthUnauthenticatedResponse {
    authenticated: false;
 }
 
-export interface AuthLogoutResponse {
-   success: true;
-}
-
 // --- Upload ---
 
 export interface UploadStatusResponse {

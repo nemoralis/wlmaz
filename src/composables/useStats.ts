@@ -62,8 +62,6 @@ export const useStats = () => {
    return {
       history,
       currentStats,
-      isLoading,
-      error,
       fetchData,
       imagePercentage,
       lastUpdateDate,

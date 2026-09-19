@@ -113,24 +113,6 @@ export function useOrganizationSchema() {
 }
 
 /**
- * Generate Schema.org markup for the website
- */
-export function useWebSiteSchema() {
-   const schema: SchemaOrgNode = {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: "Viki Abidələri Sevir Azərbaycan",
-      alternateName: "Wiki Loves Monuments Azerbaijan",
-      url: "https://wikilovesmonuments.az/",
-      description:
-         "Azərbaycandakı abidələrin interaktiv xəritəsi. Viki Abidələri Sevir müsabiqəsi üçün fotoşəkillər yükləyin.",
-      inLanguage: "az",
-   };
-
-   return schema;
-}
-
-/**
  * Generate Schema.org breadcrumb markup
  */
 export function useBreadcrumbSchema(items: Array<{ name: string; url: string }>) {

@@ -5,7 +5,7 @@
  */
 
 // Commons API error codes that are safe to auto-retry (transient/server-side).
-export const TRANSIENT_ERROR_CODES = new Set([
+const TRANSIENT_ERROR_CODES = new Set([
    "http_error",
    "stashfailed",
    "internalerror",

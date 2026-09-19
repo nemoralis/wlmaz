@@ -17,7 +17,7 @@
 
 import { config } from "../config";
 
-export type MediaWikiAuth = { mode: "oauth" } | { mode: "bot-password" };
+type MediaWikiAuth = { mode: "oauth" } | { mode: "bot-password" };
 
 export interface MediaWikiTarget {
    apiUrl: string;

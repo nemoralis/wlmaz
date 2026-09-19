@@ -26,7 +26,6 @@ export interface MonumentMarker extends L.CircleMarker {
 }
 
 export interface MapOptions {
-   onMarkerClick?: (marker: MonumentMarker) => void;
    onMapClick?: (e: L.LeafletMouseEvent) => void;
    onSidebarContentChange?: (id: string) => void;
    onSidebarClosing?: () => void;

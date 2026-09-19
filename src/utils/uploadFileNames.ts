@@ -13,7 +13,7 @@ const TITLES_PER_BATCH = 50;
  * taken (e.g. a transient API issue or a genuinely exhausted namespace).
  * 500 = at most 10 API round-trips.
  */
-export const MAX_TITLES_TO_CHECK = 500;
+const MAX_TITLES_TO_CHECK = 500;
 
 /** Builds a numbered title for a given base, e.g. ("Monument ", 2) -> "Monument 2". */
 export const titleForNumber = (baseTitle: string, number: number): string =>

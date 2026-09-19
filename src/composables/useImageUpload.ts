@@ -7,8 +7,6 @@ import { nextFreeTitles } from "../utils/uploadFileNames";
 import { messageFor } from "../utils/uploadErrors";
 import { extractExifData } from "./useExif";
 
-export type { FileItem, UploadFailure, UploadResult };
-
 /**
  * Encapsulates the file-selection and upload-to-Commons logic used by the
  * UploadModal, keyed off the currently selected monument.

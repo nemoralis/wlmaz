@@ -10,7 +10,7 @@
 
 import { config } from "../config";
 
-export type LogLevel = "debug" | "info" | "warn" | "error";
+type LogLevel = "debug" | "info" | "warn" | "error";
 
 const LEVELS: LogLevel[] = ["debug", "info", "warn", "error"];
 

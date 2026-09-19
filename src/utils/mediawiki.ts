@@ -92,7 +92,7 @@ export class CommonsUploadError extends Error {
  * Fetches a CSRF (Edit) Token.
  * Uses POST x-www-form-urlencoded to avoid query string signing issues.
  */
-export async function fetchCsrfToken(user: WikiUser): Promise<string> {
+async function fetchCsrfToken(user: WikiUser): Promise<string> {
    const oauth = getOAuthClient();
    const token = getSigningToken(user);
 

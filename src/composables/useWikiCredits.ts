@@ -91,7 +91,6 @@ export function useWikiCredits() {
 
    return {
       imageCredit,
-      creditLoading,
       fetchImageMetadata,
    };
 }

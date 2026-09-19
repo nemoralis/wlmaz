@@ -21,7 +21,7 @@ const USER_AGENT = "WLMAZ-Tool/1.0";
 
 /** Any JSON value returned by the MediaWiki API. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type MediaWikiJson = any;
+type MediaWikiJson = any;
 
 export class MediaWikiBotClient {
    private apiUrl: string;

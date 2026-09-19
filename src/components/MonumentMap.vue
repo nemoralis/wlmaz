@@ -155,7 +155,6 @@ export default defineComponent({
 
       // Data
       const stats = ref({ total: 0, withImage: 0 });
-      const imageLoading = ref(true);
       const markerLookup = new Map<string, L.CircleMarker>();
 
       // UI
@@ -245,7 +244,6 @@ export default defineComponent({
                if (newVal.inventory) {
                   url.searchParams.set("inventory", getCanonicalId(newVal.inventory));
                }
-               imageLoading.value = true;
                // Always call fetchImageMetadata to ensure credits are either updated or cleared
                fetchImageMetadata(newVal.image || "");
             } else {
@@ -456,7 +454,6 @@ export default defineComponent({
          closeSidebar,
          // State
          mapContainer,
-         imageLoading,
       };
    },
 });

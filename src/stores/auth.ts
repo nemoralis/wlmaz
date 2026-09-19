@@ -15,12 +15,10 @@ export const useAuthStore = defineStore("auth", {
    }),
 
    getters: {
-      displayName: (state) => state.user?.username || "İstifadəçi",
       isAuthenticated: (state) => !!state.user,
       // True when uploads may proceed without a Commons login (local dev mode).
       canUpload: (state) => state.localUploadEnabled || !!state.user,
       isBlocked: (state) => !!state.user?.blocked,
-      blockReason: (state) => state.user?.blockreason || "",
    },
 
     actions: {

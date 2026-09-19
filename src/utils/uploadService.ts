@@ -57,7 +57,7 @@ const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout
  * All parameters are plain values — callers pass in data from their reactive
  * state at call time, keeping this function free of Vue dependencies.
  */
-export function buildUploadFormData(
+function buildUploadFormData(
    fileItem: FileItem,
    license: string,
    monument: MonumentData,
