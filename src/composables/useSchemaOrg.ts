@@ -22,6 +22,11 @@ export function useMonumentSchema(monument: MonumentProps) {
       identifier: monument.inventory || "",
    };
 
+   // Entity deduplication URL
+   if (monument.inventory) {
+      schema["@id"] = `https://wikilovesmonuments.az/monument/${monument.inventory}`;
+   }
+
    // Add description if available
    if (monument.itemDescription) {
       schema.description = monument.itemDescription;
@@ -32,7 +37,7 @@ export function useMonumentSchema(monument: MonumentProps) {
       schema.alternateName = monument.itemAltLabel;
    }
 
-   // Add geographic coordinates
+   // Add geographic coordinates and address
    if (monument.lat && monument.lon) {
       schema.geo = {
          "@type": "GeoCoordinates",
@@ -40,10 +45,10 @@ export function useMonumentSchema(monument: MonumentProps) {
          longitude: monument.lon,
       };
 
-      // Also add as address for better local SEO
       schema.address = {
          "@type": "PostalAddress",
          addressCountry: "AZ",
+         ...(monument.parentLabel ? { addressRegion: monument.parentLabel } : {}),
       };
    }
 
@@ -71,6 +76,11 @@ export function useMonumentSchema(monument: MonumentProps) {
    // Add URL to the monument page
    if (monument.inventory) {
       schema.url = `https://wikilovesmonuments.az/monument/${monument.inventory}`;
+   }
+
+   // Add dateModified for freshness signals
+   if (monument.lastModified) {
+      schema.dateModified = monument.lastModified;
    }
 
    return schema;

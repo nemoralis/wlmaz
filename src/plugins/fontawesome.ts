@@ -1,7 +1,7 @@
 import { config, library } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { faGithub, faGitlab } from "@fortawesome/free-brands-svg-icons";
-import { faCopyright, faImage } from "@fortawesome/free-regular-svg-icons";
+import { faCopyright, faCopy, faImage } from "@fortawesome/free-regular-svg-icons";
 /* import specific icons */
 import {
    faArrowLeft,
@@ -84,6 +84,7 @@ library.add(
    faUsers,
    faImageSolid,
    faCopyright,
+   faCopy,
    faImage,
    faGithub,
    faGitlab,
