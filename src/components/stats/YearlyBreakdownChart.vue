@@ -70,7 +70,6 @@ const option = computed(() => {
    return {
       tooltip: {
          trigger: "axis",
-         backgroundColor: "#1f2937",
          borderRadius: 8,
          padding: 12,
          textStyle: {
