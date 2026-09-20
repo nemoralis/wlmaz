@@ -1143,6 +1143,30 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    45.92,
+                    39.16
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/G%C9%99miqaya_petroqlifl%C9%99ri",
+                "commonsCategory": "Gamigaya Petroglyphs",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gamigaya_Petroglyphs",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/G%C9%99miqaya%20r%C9%99sml%C9%99ri%20%282%29.jpg",
+                "inventory": "38, 1945",
+                "item": "http://www.wikidata.org/entity/Q4361430",
+                "itemAltLabel": "Gəmiqaya qayaüstü təsvirləri, Gəmiqaya rəsmləri",
+                "itemDescription": "monument",
+                "itemLabel": "Gəmiqaya petroqlifləri",
+                "lastModified": "2026-09-10T10:51:15Z",
+                "parent": "http://www.wikidata.org/entity/Q512623",
+                "parentLabel": "Ordubad rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     46.863333333,
                     40.443611111
                 ]
@@ -3022,9 +3046,9 @@
                 "itemAltLabel": "Building of Baku City Executive Power",
                 "itemDescription": "Bakıda inzibati bina",
                 "itemLabel": "Bakı Şəhər İcra Hakimiyyətinin binası",
-                "lastModified": "2026-02-02T11:35:10Z",
-                "parent": "http://www.wikidata.org/entity/Q9248",
-                "parentLabel": "Bakı"
+                "lastModified": "2026-09-19T12:36:55Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -4842,26 +4866,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    48.4414991,
-                    41.1933855
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/Yeddil%C9%99r_qalas%C4%B1",
-                "inventory": "302, 4655",
-                "item": "http://www.wikidata.org/entity/Q134699272",
-                "itemDescription": "Azərbaycanda Quba rayonunun Zıxır kəndində yerləşən qala.",
-                "itemLabel": "Yeddilər qalası",
-                "lastModified": "2026-08-11T00:17:27Z",
-                "parent": "http://www.wikidata.org/entity/Q457499",
-                "parentLabel": "Quba rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     48.223292,
                     41.337953
                 ]
@@ -5451,29 +5455,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    47.1895,
-                    41.20048
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/A%C4%9Fvanlar_hamam%C4%B1",
-                "commonsCategory": "Aghvanlar Bathhouse",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Aghvanlar_Bathhouse",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/A%C4%9Fvanlar%20hamam%C4%B1%20202506%20%283%29.jpg",
-                "inventory": "334, 4995",
-                "item": "http://www.wikidata.org/entity/Q97225056",
-                "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
-                "itemLabel": "Ağvanlar hamamı",
-                "lastModified": "2026-09-15T07:28:37Z",
-                "parent": "http://www.wikidata.org/entity/Q234783",
-                "parentLabel": "Şəki"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     46.125884,
                     40.835294
                 ]
@@ -5763,6 +5744,25 @@
                 "lastModified": "2026-07-25T15:48:32Z",
                 "parent": "http://www.wikidata.org/entity/Q147553",
                 "parentLabel": "Zaqatala rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.80285355,
+                    39.1167504
+                ]
+            },
+            "properties": {
+                "inventory": "390, 5291",
+                "item": "http://www.wikidata.org/entity/Q140657707",
+                "itemAltLabel": "Dairəvi bürc",
+                "itemLabel": "Dairəvi qüllə",
+                "lastModified": "2026-07-26T02:35:36Z",
+                "parent": "http://www.wikidata.org/entity/Q249252",
+                "parentLabel": "Zəngilan rayonu"
             }
         },
         {
@@ -9235,30 +9235,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    45.92,
-                    39.16
-                ]
-            },
-            "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/G%C9%99miqaya_petroqlifl%C9%99ri",
-                "commonsCategory": "Gamigaya Petroglyphs",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gamigaya_Petroglyphs",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/G%C9%99miqaya%20r%C9%99sml%C9%99ri%20%282%29.jpg",
-                "inventory": "38, 1945",
-                "item": "http://www.wikidata.org/entity/Q4361430",
-                "itemAltLabel": "Gəmiqaya qayaüstü təsvirləri, Gəmiqaya rəsmləri",
-                "itemDescription": "monument",
-                "itemLabel": "Gəmiqaya petroqlifləri",
-                "lastModified": "2026-09-10T10:51:15Z",
-                "parent": "http://www.wikidata.org/entity/Q512623",
-                "parentLabel": "Ordubad rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     46.13333,
                     38.8825
                 ]
@@ -9952,6 +9928,25 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.84665345,
+                    40.418007192
+                ]
+            },
+            "properties": {
+                "inventory": "2573-5",
+                "item": "http://www.wikidata.org/entity/Q140660607",
+                "itemDescription": "Bakıda tarixi inzibati bina",
+                "itemLabel": "Geodeziya və Kartoqrafiya Agentliyinin binası",
+                "lastModified": "2026-09-20T02:41:06Z",
+                "parent": "http://www.wikidata.org/entity/Q864153",
+                "parentLabel": "Binəqədi rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.798859733,
                     40.436084974
                 ]
@@ -10182,6 +10177,26 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    50.130076937,
+                    40.496965003
+                ]
+            },
+            "properties": {
+                "inventory": "2601",
+                "item": "http://www.wikidata.org/entity/Q140665250",
+                "itemAltLabel": "Muzeyi Kazım məscidi",
+                "itemDescription": "Şağanda məscid",
+                "itemLabel": "Muzeyi-Kazım məscidi",
+                "lastModified": "2026-09-20T06:27:21Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     50.14190408,
                     40.491096391
                 ]
@@ -10304,6 +10319,27 @@
                 "lastModified": "2026-09-11T01:01:18Z",
                 "parent": "http://www.wikidata.org/entity/Q526313",
                 "parentLabel": "Xəzər rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.946601139,
+                    40.383536314
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Qasımov's hammam",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Qas%C4%B1mov%27s_hammam",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qas%C4%B1movun%20hamam%C4%B1.jpg",
+                "inventory": "2857",
+                "item": "http://www.wikidata.org/entity/Q140660905",
+                "itemLabel": "Qasımovun hamamı",
+                "lastModified": "2026-09-20T05:03:29Z",
+                "parent": "http://www.wikidata.org/entity/Q2076557",
+                "parentLabel": "Xətai rayonu"
             }
         },
         {
@@ -10481,12 +10517,14 @@
                 ]
             },
             "properties": {
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_with_a_clock",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Saatl%C4%B1%20bina%2C%202023.jpg",
                 "inventory": "2872",
                 "item": "http://www.wikidata.org/entity/Q137907822",
                 "itemAltLabel": "Saatlı bina",
                 "itemDescription": "Heydər Əliyev prospektində tarixi yaşayış evi",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-01-27T01:03:01Z",
+                "lastModified": "2026-09-19T15:23:33Z",
                 "parent": "http://www.wikidata.org/entity/Q4313166",
                 "parentLabel": "Nərimanov rayonu"
             }
@@ -11394,6 +11432,25 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.846412212,
+                    40.381062719
+                ]
+            },
+            "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Azadlig%20Avenue%2043.jpg",
+                "inventory": "3036",
+                "item": "http://www.wikidata.org/entity/Q140661048",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-20T02:46:49Z",
+                "parent": "http://www.wikidata.org/entity/Q4313899",
+                "parentLabel": "Nəsimi rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.8458,
                     40.3819
                 ]
@@ -11411,6 +11468,25 @@
                 "lastModified": "2026-02-20T01:10:31Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.844496719,
+                    40.386092242
+                ]
+            },
+            "properties": {
+                "inventory": "3038",
+                "item": "http://www.wikidata.org/entity/Q140665275",
+                "itemDescription": "Bakıda inzibati bina",
+                "itemLabel": "Nəsimi rayon Polis idarəsinin binası",
+                "lastModified": "2026-09-20T02:53:01Z",
+                "parent": "http://www.wikidata.org/entity/Q4313899",
+                "parentLabel": "Nəsimi rayonu"
             }
         },
         {
@@ -12073,6 +12149,24 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    50.03717964,
+                    40.569387168
+                ]
+            },
+            "properties": {
+                "inventory": "3177",
+                "item": "http://www.wikidata.org/entity/Q140661167",
+                "itemLabel": "Seyid ağa hamamı",
+                "lastModified": "2026-09-20T03:38:08Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.934176855,
                     40.556625188
                 ]
@@ -12394,6 +12488,25 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.832111374,
+                    40.368723868
+                ]
+            },
+            "properties": {
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20binas%C4%B1%2C%20A.Babayev%20k%C3%BC%C3%A7%C9%99si%2C%205.jpg",
+                "inventory": "3231",
+                "item": "http://www.wikidata.org/entity/Q140661213",
+                "itemLabel": "Yaşayış evi",
+                "lastModified": "2026-09-20T02:34:21Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.829994533,
                     40.366179407
                 ]
@@ -12452,6 +12565,51 @@
                 "item": "http://www.wikidata.org/entity/Q140661231",
                 "itemLabel": "Yaşayış evi",
                 "lastModified": "2026-09-08T11:42:02Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830652193,
+                    40.367437692
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Building of Iranian Embassy, Baku",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_Iranian_Embassy,_Baku",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C4%B0ran%20s%C9%99firliyinin%20binas%C4%B1%202018-ci%20ild%C9%99.jpg",
+                "inventory": "3246",
+                "item": "http://www.wikidata.org/entity/Q140665287",
+                "itemDescription": "Bakıda səfirlik binası",
+                "itemLabel": "İran Səfirliyinin binası",
+                "lastModified": "2026-09-20T03:18:05Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.82634591,
+                    40.368473774
+                ]
+            },
+            "properties": {
+                "commonsCategory": "Technical-Humanities Lyceum on Bunyad Sardarov Street",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Technical-Humanities_Lyceum_on_Bunyad_Sardarov_Street",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Texniki-Humanitar%20Elml%C9%99r%20Litseyinin%20binas%C4%B1%202018.jpg",
+                "inventory": "3254",
+                "item": "http://www.wikidata.org/entity/Q140661241",
+                "itemAltLabel": "2 nömrəli texniki-humanitar elmlər liseyi, Həbibbəy Mahmudbəyov adına 2 №-li texniki-humanitar elmlər liseyi",
+                "itemDescription": "Bakıda tədris binası",
+                "itemLabel": "Texniki-Humanitar Elmlər Liseyinin binası",
+                "lastModified": "2026-09-20T03:11:17Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -13489,7 +13647,7 @@
                 "item": "http://www.wikidata.org/entity/Q16642153",
                 "itemDescription": "sports venue",
                 "itemLabel": "Bakı İdman Sarayı",
-                "lastModified": "2026-09-19T02:54:39Z",
+                "lastModified": "2026-09-19T03:22:40Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
             }
@@ -20519,8 +20677,8 @@
                 "itemDescription": "historic site in Alpan, Quba",
                 "itemLabel": "Subaba türbəsi",
                 "lastModified": "2026-03-02T06:54:19Z",
-                "parent": "http://www.wikidata.org/entity/Q457499",
-                "parentLabel": "Quba rayonu"
+                "parent": "http://www.wikidata.org/entity/Q4062860",
+                "parentLabel": "Alpan"
             }
         },
         {
@@ -20747,6 +20905,26 @@
                 "lastModified": "2026-09-11T12:20:06Z",
                 "parent": "http://www.wikidata.org/entity/Q4846302",
                 "parentLabel": "Hacı Hüseynli"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.4414991,
+                    41.1933855
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Yeddil%C9%99r_qalas%C4%B1",
+                "inventory": "302, 4655",
+                "item": "http://www.wikidata.org/entity/Q134699272",
+                "itemDescription": "Azərbaycanda Quba rayonunun Zıxır kəndində yerləşən qala.",
+                "itemLabel": "Yeddilər qalası",
+                "lastModified": "2026-08-11T00:17:27Z",
+                "parent": "http://www.wikidata.org/entity/Q457499",
+                "parentLabel": "Quba rayonu"
             }
         },
         {
@@ -21177,7 +21355,8 @@
             "properties": {
                 "inventory": "4712",
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemLabel": "Məscid",
+                "itemDescription": "Qubadlıda məscid",
+                "itemLabel": "Mirlər məscidi",
                 "lastModified": "2026-07-23T15:59:55Z",
                 "parent": "http://www.wikidata.org/entity/Q644048",
                 "parentLabel": "Qubadlı rayonu"
@@ -22780,6 +22959,29 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    47.1895,
+                    41.20048
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/A%C4%9Fvanlar_hamam%C4%B1",
+                "commonsCategory": "Aghvanlar Bathhouse",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Aghvanlar_Bathhouse",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/A%C4%9Fvanlar%20hamam%C4%B1%20202506%20%283%29.jpg",
+                "inventory": "334, 4995",
+                "item": "http://www.wikidata.org/entity/Q97225056",
+                "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
+                "itemLabel": "Ağvanlar hamamı",
+                "lastModified": "2026-09-15T07:28:37Z",
+                "parent": "http://www.wikidata.org/entity/Q234783",
+                "parentLabel": "Şəki"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     47.1941965,
                     41.2007262
                 ]
@@ -24302,25 +24504,6 @@
                 "itemDescription": "Zəngilanda məscid",
                 "itemLabel": "Sərdarlı məscidi",
                 "lastModified": "2026-07-25T23:23:19Z",
-                "parent": "http://www.wikidata.org/entity/Q249252",
-                "parentLabel": "Zəngilan rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    46.80285355,
-                    39.1167504
-                ]
-            },
-            "properties": {
-                "inventory": "390, 5291",
-                "item": "http://www.wikidata.org/entity/Q140657707",
-                "itemAltLabel": "Dairəvi bürc",
-                "itemLabel": "Dairəvi qüllə",
-                "lastModified": "2026-07-26T02:35:36Z",
                 "parent": "http://www.wikidata.org/entity/Q249252",
                 "parentLabel": "Zəngilan rayonu"
             }
