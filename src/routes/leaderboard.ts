@@ -1,14 +1,17 @@
 import express from "express";
-import type { LeaderboardResponse, WikiLovesUserData } from "@/types/api.ts";
+import type { LeaderboardResponse } from "@/types/api.ts";
 import { logger } from "@/utils/logger.ts";
 import redisClient from "@/utils/redis.ts";
+import {
+   aggregateLeaderboardYears,
+   COUNTRY,
+   START_YEAR,
+} from "@/utils/leaderboard.ts";
 
 const router = express.Router();
 
 const API_BASE = "https://wikiloves.toolforge.org/api/events";
 
-const COUNTRY = "Azerbaijan";
-const START_YEAR = 2013;
 const CACHE_TTL = 3600; // 1 hour
 
 let aggregatePromise: Promise<LeaderboardResponse> | null = null;
@@ -68,75 +71,7 @@ async function fetchAggregate(): Promise<LeaderboardResponse> {
 
       const results = await Promise.all(fetchPromises);
 
-      const aggregate: LeaderboardResponse = {
-         [COUNTRY]: {
-            category: "",
-            count: 0,
-            usage: 0,
-            usercount: 0,
-            userreg: 0,
-            start: 0,
-            end: 0,
-            data: Object.create(null),
-            users: Object.create(null),
-            years: Object.create(null),
-         },
-      };
-
-      const userMap: Record<
-         string,
-         WikiLovesUserData & { yearly: Record<number, { count: number; usage: number }> }
-      > = Object.create(null);
-      const uniqueUsers = new Set<string>();
-
-      results.forEach((data, index) => {
-         if (!data || !data[COUNTRY]) return;
-         const year = years[index];
-         const countryData = data[COUNTRY];
-
-         aggregate[COUNTRY].count += countryData.count || 0;
-         aggregate[COUNTRY].usage += countryData.usage || 0;
-         aggregate[COUNTRY].years![year] = {
-            count: countryData.count,
-            usercount: countryData.usercount,
-            usage: countryData.usage,
-         };
-
-         if (countryData.users) {
-            const entries = Object.entries(countryData.users) as [string, WikiLovesUserData][];
-            for (const [username, userData] of entries) {
-               if (
-                  username === "__proto__" ||
-                  username === "constructor" ||
-                  username === "prototype"
-               ) {
-                  return;
-               }
-
-               uniqueUsers.add(username);
-               if (!userMap[username]) {
-                  userMap[username] = {
-                     count: 0,
-                     usage: 0,
-                     reg: userData.reg,
-                     yearly: Object.create(null),
-                  };
-               }
-               const count = userData.count || 0;
-               const usage = userData.usage || 0;
-               userMap[username].count += count;
-               userMap[username].usage += usage;
-               userMap[username].yearly[year] = { count, usage };
-
-               if (userData.reg < userMap[username].reg) {
-                  userMap[username].reg = userData.reg;
-               }
-            }
-         }
-      });
-
-      aggregate[COUNTRY].usercount = uniqueUsers.size;
-      aggregate[COUNTRY].users = userMap;
+      const aggregate = aggregateLeaderboardYears(years, results);
 
       try {
          if (redisClient.isOpen) {

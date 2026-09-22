@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { MonumentProps } from "@/types";
 import {
+   encodeIdForUrl,
    getCanonicalId,
    getCategoryUrl,
    getClosestWikiWidth,
@@ -125,5 +126,19 @@ describe("isIdMatch", () => {
    it("returns false for empty inputs", () => {
       expect(isIdMatch("", "AZ-01")).toBe(false);
       expect(isIdMatch("AZ-01", "")).toBe(false);
+   });
+});
+
+describe("encodeIdForUrl", () => {
+   it("escapes dots to %2E so they survive path routing", () => {
+      expect(encodeIdForUrl("AZ-01.2")).toBe("AZ-01%2E2");
+   });
+
+   it("URL-encodes non-ASCII characters", () => {
+      expect(encodeIdForUrl("Gəncə")).toBe("G%C9%99nc%C9%99");
+   });
+
+   it("passes through plain alphanumeric ids unchanged", () => {
+      expect(encodeIdForUrl("AZ-0001")).toBe("AZ-0001");
    });
 });
