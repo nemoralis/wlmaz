@@ -18,12 +18,23 @@
          <div class="flex flex-1 flex-col border border-gray-200 bg-white">
             <!-- Search / Filter -->
             <div class="border-b border-gray-200 bg-[#f8f9fa] p-4">
-               <div class="max-w-md">
-                  <CdxSearchInput
-                     v-model="searchQuery"
-                     placeholder="Axtarış (Ad və ya İnventar nömrəsi)..."
-                     aria-label="Abidə axtar"
-                  />
+               <div class="flex flex-wrap items-center gap-4">
+                  <div class="max-w-md flex-1 basis-72">
+                     <CdxSearchInput
+                        v-model="searchQuery"
+                        placeholder="Axtarış (Ad və ya inventar nömrəsi)..."
+                        aria-label="Abidə axtar"
+                     />
+                  </div>
+                  <div class="shrink-0">
+                     <CdxSelect
+                        :menu-items="regionOptions"
+                        :selected="selectedRegion"
+                        default-label="Bütün regionlar"
+                        aria-label="Region üzrə filtr"
+                        @update:selected="selectedRegion = $event"
+                     />
+                  </div>
                </div>
             </div>
 
@@ -111,7 +122,7 @@
                class="flex justify-between border-t border-gray-200 bg-[#f8f9fa] px-6 py-3 text-sm text-gray-500"
             >
                <span>Cəmi: {{ monuments.length }} abidə</span>
-               <span v-if="searchQuery">Filtrlənmiş: {{ sortedMonuments.length }}</span>
+               <span v-if="isFiltering">Filtrlənmiş: {{ sortedMonuments.length }}</span>
             </div>
          </div>
       </div>
@@ -126,7 +137,7 @@
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, onMounted, onUnmounted, ref, watch } from "vue";
 import { useHead } from "@unhead/vue";
-import { CdxButton, CdxIcon, CdxSearchInput } from "@wikimedia/codex";
+import { CdxButton, CdxIcon, CdxSearchInput, CdxSelect } from "@wikimedia/codex";
 import {
    cdxIconLogoWikipedia,
    cdxIconMap,
@@ -164,6 +175,28 @@ const selectedMonumentForUpload = ref<Monument | null>(null);
 const searchQuery = ref("");
 const debouncedSearchQuery = ref("");
 const monuments = computed(() => monumentStore.monuments);
+
+// Region filter state ("__none__" matches monuments without a parentLabel)
+const REGION_NONE = "__none__";
+const selectedRegion = ref<string | null>(null);
+
+const regionOptions = computed(() => {
+   const regions = new Set<string>();
+   for (const m of monuments.value) {
+      if (m.parentLabel) regions.add(m.parentLabel);
+   }
+   const items = [...regions]
+      .sort((a, b) => a.localeCompare(b, "az", { sensitivity: "base" }))
+      .map((region) => ({ value: region, label: region }));
+   return [{ value: REGION_NONE, label: "Region yoxdur" }, ...items];
+});
+
+const isFiltering = computed(() => Boolean(searchQuery.value || selectedRegion.value));
+
+// Reset scroll to top when region filter changes (mirrors search behavior)
+watch(selectedRegion, () => {
+   virtualTable.value?.scrollToTop();
+});
 
 let searchTimeout: ReturnType<typeof setTimeout>;
 watch(searchQuery, (newVal) => {
@@ -246,6 +279,15 @@ const sortedMonuments = computed(() => {
       data = data.filter((m) => {
          return m._sLabel.includes(query) || m._sInv.includes(query) || m._sAlt.includes(query);
       });
+   }
+
+   // Filter by region, when selected
+   const region = selectedRegion.value;
+   if (region) {
+      data =
+         region === REGION_NONE
+            ? data.filter((m) => !m.parentLabel)
+            : data.filter((m) => m.parentLabel === region);
    }
 
    // Sort
