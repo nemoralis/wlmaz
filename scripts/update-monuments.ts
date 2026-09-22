@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { readFileSync } from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,50 +11,7 @@ const DATA_DIR = path.join(__dirname, "../data");
 const GEOJSON_PATH = path.join(DATA_DIR, "monuments.geojson");
 
 // SPARQL Query to fetch monuments in Azerbaijan
-const SPARQL_QUERY = `
-SELECT 
-  ?item 
-  ?itemLabel 
-  ?itemDescription 
-  ?itemAltLabel 
-  ?inventory
-  ?coordinate 
-  ?image
-  ?commonsCategory 
-  ?azLink 
-  ?commonsLink 
-  ?parent
-  ?parentLabel
-  ?lastModified 
-WHERE {
-  {
-    SELECT 
-      ?item 
-      (GROUP_CONCAT(DISTINCT ?heritageID; separator=", ") AS ?inventory)
-      (SAMPLE(?img) AS ?image)
-      (SAMPLE(?coord) AS ?coordinate)
-      (SAMPLE(?cat) AS ?commonsCategory)
-      (SAMPLE(?az) AS ?azLink)
-      (SAMPLE(?cLink) AS ?commonsLink)
-      (SAMPLE(?p131) AS ?parent)
-      (MAX(?mod) AS ?lastModified)
-    WHERE {
-      ?item wdt:P13410 ?heritageID.
-      
-      ?item schema:dateModified ?mod .
-      OPTIONAL { ?item wdt:P625 ?coord. }
-      OPTIONAL { ?item wdt:P18 ?img. }
-      OPTIONAL { ?item wdt:P373 ?cat. }
-      OPTIONAL { ?item wdt:P131 ?p131. }
-      OPTIONAL { ?az schema:about ?item ; schema:isPartOf <https://az.wikipedia.org/> . }
-      OPTIONAL { ?cLink schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> . }
-    }
-    GROUP BY ?item
-  }.
-  SERVICE wikibase:label { 
-    bd:serviceParam wikibase:language "az,en". 
-  }
-}`;
+const SPARQL_QUERY = readFileSync(path.join(__dirname, "queries", "monuments.rq"), "utf-8");
 
 class SPARQLQueryDispatcher {
    endpoint: string;

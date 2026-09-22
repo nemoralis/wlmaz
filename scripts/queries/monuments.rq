@@ -1,0 +1,23 @@
+SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?inventory ?coordinate ?image ?commonsCategory ?azLink ?commonsLink ?parent ?parentLabel ?addressLabel ?lastModified WHERE {
+  {
+    SELECT ?item (GROUP_CONCAT(DISTINCT ?heritageID; SEPARATOR = ", ") AS ?inventory) (SAMPLE(?img) AS ?image) (SAMPLE(?coord) AS ?coordinate) (SAMPLE(?cat) AS ?commonsCategory) (SAMPLE(?az) AS ?azLink) (SAMPLE(?cLink) AS ?commonsLink) (SAMPLE(?p131) AS ?parent) (SAMPLE(?address) AS ?addressLabel) (MAX(?mod) AS ?lastModified) WHERE {
+      ?item wdt:P13410 ?heritageID;
+        schema:dateModified ?mod.
+      OPTIONAL { ?item wdt:P625 ?coord. }
+      OPTIONAL { ?item wdt:P18 ?img. }
+      OPTIONAL { ?item wdt:P373 ?cat. }
+      OPTIONAL { ?item wdt:P131 ?p131. }
+      OPTIONAL { ?item wdt:P6375 ?address. }
+      OPTIONAL {
+        ?az schema:about ?item;
+          schema:isPartOf <https://az.wikipedia.org/>.
+      }
+      OPTIONAL {
+        ?cLink schema:about ?item;
+          schema:isPartOf <https://commons.wikimedia.org/>.
+      }
+    }
+    GROUP BY ?item
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "az,en". }
+}
