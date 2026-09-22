@@ -19,17 +19,17 @@ const UPLOAD_ERROR_MESSAGES: Record<string, string> = {
    "fileexists-shared-forbidden": "Bu adda fayl artıq mövcuddur və yenidən yüklənə bilməz.",
    "duplicate-archive": "Bu fayl artıq Vikianbarda başqa adda mövcuddur.",
    duplicate: "Bu fayl artıq Vikianbarda başqa adda mövcuddur.",
-   duplicateversions:
-      "Bu fayl artıq eyni məzmunla Vikianbarda mövcuddur. Başlığı dəyişdirin.",
+   duplicateversions: "Bu fayl artıq eyni məzmunla Vikianbarda mövcuddur. Başlığı dəyişdirin.",
    "no-change": "Bu adda eyni fayl artıq mövcuddur. Başlığı dəyişdirin.",
    "was-deleted": "Bu adda fayl əvvəllər silinib. Başlığı dəyişdirin.",
    "verify-error": "Fayl doğrulama müddəti bitdi. Yenidən cəhd edin.",
    "empty-file": "Fayl boşdur və yüklənə bilməz.",
    badfilename: "Bu fayl adı etibarsızdır.",
    "filename-too-short": "Fayl adı çox qısadır.",
-   "title_check_failed":
+   title_check_failed:
       "Başlıqların mövcudluğunu yoxlamaq mümkün olmadı. İnternet bağlantınızı yoxlayıb yenidən cəhd edin.",
-   "external-session-invalid": "Vikianbar sessiyası etibarsızdır. Səhifəni yeniləyib yenidən cəhd edin.",
+   "external-session-invalid":
+      "Vikianbar sessiyası etibarsızdır. Səhifəni yeniləyib yenidən cəhd edin.",
    badtoken: "Təhlükəsizlik tokeni köhnəlmişdir. Səhifəni yeniləyib yenidən cəhd edin.",
    uploaddisabled: "Vikianbar yükləmələri müvəqqəti olaraq dayandırılıb.",
    stashfailed: "Vikianbar yükləmə xidməti xəta verdi. Yenidən cəhd edin.",

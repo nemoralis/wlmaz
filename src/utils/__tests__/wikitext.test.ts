@@ -1,11 +1,11 @@
-import { describe, expect, it, vi, afterEach } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
    buildCategoryText,
    buildDateTemplate,
    buildHeritageTemplate,
    buildLocationTemplate,
    buildUploadWikitext,
-} from "../wikitext";
+} from "@/utils/wikitext.ts";
 
 describe("buildDateTemplate", () => {
    afterEach(() => {
@@ -85,7 +85,9 @@ describe("buildLocationTemplate", () => {
    });
 
    it("formats negative coordinates", () => {
-      expect(buildLocationTemplate("-33.8688", "151.2093")).toBe("\n{{Location|-33.8688|151.2093}}");
+      expect(buildLocationTemplate("-33.8688", "151.2093")).toBe(
+         "\n{{Location|-33.8688|151.2093}}",
+      );
    });
 
    it("formats zero coordinates", () => {
@@ -214,7 +216,9 @@ describe("buildUploadWikitext", () => {
 
       const lines = result.split("\n");
       const descIdx = lines.findIndex((l) => l.startsWith("|description="));
-      const heritageIdx = lines.findIndex((l) => l.includes("{{Cultural Heritage Azerbaijan|TEST-001}}"));
+      const heritageIdx = lines.findIndex((l) =>
+         l.includes("{{Cultural Heritage Azerbaijan|TEST-001}}"),
+      );
       // Heritage line immediately follows the description line
       expect(heritageIdx).toBe(descIdx + 1);
       expect(lines[heritageIdx]).toBe("{{Cultural Heritage Azerbaijan|TEST-001}}");

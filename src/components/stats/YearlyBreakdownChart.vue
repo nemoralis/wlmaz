@@ -64,7 +64,9 @@ const option = computed(() => {
 
    if (allYears.length === 0) return null;
 
-   const data = allYears.map((y) => props.yearlyData[parseInt(y)]?.[mode.value === "count" ? "count" : "usage"] || 0);
+   const data = allYears.map(
+      (y) => props.yearlyData[parseInt(y)]?.[mode.value === "count" ? "count" : "usage"] || 0,
+   );
    const color = mode.value === "count" ? "#3B82F6" : "#10B981";
 
    return {

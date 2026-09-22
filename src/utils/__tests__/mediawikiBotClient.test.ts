@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { MediaWikiBotClient } from "../mediawikiBotClient";
+import { MediaWikiBotClient } from "@/utils/mediawikiBotClient.ts";
 
 const CREDENTIALS = {
    username: "Bot@MyBotPassword",
@@ -100,7 +100,11 @@ function mockFetch(opts: MockOptions) {
       }
       // Upload (multipart)
       if (isMultipart && multipart["action"] === "upload") {
-         return json(opts.upload?.(multipart, cookies) ?? { upload: { result: "Success", filename: "X.jpg" } });
+         return json(
+            opts.upload?.(multipart, cookies) ?? {
+               upload: { result: "Success", filename: "X.jpg" },
+            },
+         );
       }
       // File existence query
       if (form["action"] === "query" && url.includes("titles=") && isMultipart === false) {

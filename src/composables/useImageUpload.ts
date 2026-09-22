@@ -1,11 +1,20 @@
 import { computed, onUnmounted, reactive, ref, watch, type Ref } from "vue";
-import type { MonumentProps } from "../types";
-import type { UploadStatusResponse, UploadConfigResponse, TitlesExistResponse } from "../types/api.ts";
-import type { FileItem, UploadFailure, UploadResult } from "../utils/uploadService";
-import { isHeicFile, uploadSingleFile } from "../utils/uploadService";
-import { nextFreeTitles } from "../utils/uploadFileNames";
-import { messageFor } from "../utils/uploadErrors";
-import { extractExifData } from "./useExif";
+import { extractExifData } from "@/composables/useExif.ts";
+import type { MonumentProps } from "@/types";
+import type {
+   TitlesExistResponse,
+   UploadConfigResponse,
+   UploadStatusResponse,
+} from "@/types/api.ts";
+import { messageFor } from "@/utils/uploadErrors.ts";
+import { nextFreeTitles } from "@/utils/uploadFileNames.ts";
+import {
+   isHeicFile,
+   uploadSingleFile,
+   type FileItem,
+   type UploadFailure,
+   type UploadResult,
+} from "@/utils/uploadService.ts";
 
 /**
  * Encapsulates the file-selection and upload-to-Commons logic used by the
@@ -313,7 +322,12 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
             currentFileIndex.value = i;
             const fileItem = files.value[i];
 
-            const { ok, result, failure } = await uploadSingleFile(fileItem, bulkForm.license, md, signal);
+            const { ok, result, failure } = await uploadSingleFile(
+               fileItem,
+               bulkForm.license,
+               md,
+               signal,
+            );
             if (ok && result) {
                uploadResults.value.push(result);
             } else if (failure) {
@@ -344,7 +358,11 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       try {
          for (let i = 0; i < pending.length; i++) {
             currentFileIndex.value = i;
-            const { ok, result, failure } = await uploadSingleFile(pending[i].fileItem, bulkForm.license, md);
+            const { ok, result, failure } = await uploadSingleFile(
+               pending[i].fileItem,
+               bulkForm.license,
+               md,
+            );
             if (ok && result) {
                uploadResults.value.push(result);
             } else if (failure) {

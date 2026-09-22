@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { PublicWikiUser, UploadConfigResponse, UserStats } from "../types/api.ts";
+import type { PublicWikiUser, UploadConfigResponse, UserStats } from "@/types/api.ts";
 
 interface AuthState {
    user: PublicWikiUser | null;
@@ -21,7 +21,7 @@ export const useAuthStore = defineStore("auth", {
       isBlocked: (state) => !!state.user?.blocked,
    },
 
-    actions: {
+   actions: {
       async fetchUser() {
          this.loading = true;
          try {
@@ -72,10 +72,9 @@ export const useAuthStore = defineStore("auth", {
        */
       async fetchBlockStatus(username: string) {
          try {
-            const statsRes = await fetch(
-               `/api/leaderboard/user/${encodeURIComponent(username)}`,
-               { signal: AbortSignal.timeout(10000) },
-            );
+            const statsRes = await fetch(`/api/leaderboard/user/${encodeURIComponent(username)}`, {
+               signal: AbortSignal.timeout(10000),
+            });
             if (statsRes.ok && this.user?.username === username) {
                const statsData: UserStats = await statsRes.json();
                if (statsData.commons) {

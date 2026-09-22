@@ -226,8 +226,8 @@
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, onMounted } from "vue";
 import { useHead } from "@unhead/vue";
-import { useUserStats } from "../composables/useUserStats";
-import { useAuthStore } from "../stores/auth";
+import { useUserStats } from "@/composables/useUserStats.ts";
+import { useAuthStore } from "@/stores/auth.ts";
 
 const YearlyBreakdownChart = defineAsyncComponent(
    () => import("../components/stats/YearlyBreakdownChart.vue"),

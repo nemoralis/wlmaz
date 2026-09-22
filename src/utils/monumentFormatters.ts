@@ -1,4 +1,4 @@
-import type { MonumentProps } from "../types";
+import type { MonumentProps } from "@/types";
 
 const WIKIMEDIA_THUMB_WIDTHS = [20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840];
 

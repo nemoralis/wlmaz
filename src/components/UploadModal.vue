@@ -63,16 +63,16 @@
                      <div class="mt-2 text-right text-xs font-medium text-gray-400">
                         {{ uploadProgress }}%
                      </div>
-                      <span class="sr-only">Yükləmə: {{ uploadProgress }}%</span>
+                     <span class="sr-only">Yükləmə: {{ uploadProgress }}%</span>
 
-                      <button
-                         class="mt-6 rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
-                         @click="cancelUpload"
-                      >
-                         Yükləməni dayandır
-                      </button>
-                   </div>
-                </div>
+                     <button
+                        class="mt-6 rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
+                        @click="cancelUpload"
+                     >
+                        Yükləməni dayandır
+                     </button>
+                  </div>
+               </div>
 
                <!-- SUCCESS / PARTIAL RESULTS VIEW -->
                <div
@@ -156,7 +156,7 @@
                         >
                            <font-awesome-icon
                               :icon="['fas', 'exclamation-circle']"
-                              class="mr-3 mt-0.5 text-red-500"
+                              class="mt-0.5 mr-3 text-red-500"
                            />
                            <div class="min-w-0">
                               <div
@@ -288,10 +288,10 @@
                               <div
                                  class="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/20"
                               >
-<button
-                                     class="absolute top-1 right-1 rounded-full bg-red-500 p-1.5 text-white opacity-90 shadow-sm transition-opacity hover:bg-red-600 hover:opacity-100"
-                                     @click="removeFile(index)"
-                                  >
+                                 <button
+                                    class="absolute top-1 right-1 rounded-full bg-red-500 p-1.5 text-white opacity-90 shadow-sm transition-opacity hover:bg-red-600 hover:opacity-100"
+                                    @click="removeFile(index)"
+                                 >
                                     <font-awesome-icon :icon="['fas', 'xmark']" class="text-xs" />
                                  </button>
                               </div>
@@ -469,38 +469,38 @@
                               </p>
                            </div>
                            <div>
-                               <label class="mb-1 block text-sm font-medium text-gray-700"
-                                  >Lisenziya</label
-                               >
-                               <p class="mb-2 text-xs text-gray-500">
-                                  Başqaları şəklinizi necə istifadə edə bilər? Bütün seçimlər
-                                  Vikipediya və Wikimedia layihələrində sərbəst istifadəyə imkan
-                                  verir.
-                               </p>
-                               <select
-                                  v-model="bulkForm.license"
-                                  class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                               >
-                                  <option value="cc-by-sa-4.0">CC BY-SA 4.0 (Tövsiyə olunur)</option>
-                                  <option value="cc-by-4.0">CC BY 4.0</option>
-                                  <option value="cc0">CC0 (İctimai varidat)</option>
-                               </select>
-                               <div class="mt-2 rounded-lg border border-blue-100 bg-blue-50 p-3">
-                                  <p class="text-sm text-blue-800">
-                                     {{ licenseDescription }}
-                                  </p>
-                                  <a
-                                     :href="licenseUrl"
-                                     target="_blank"
-                                     class="mt-1.5 inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-800 hover:underline"
-                                  >
-                                     <font-awesome-icon
-                                        :icon="['fas', 'info-circle']"
-                                        class="text-[10px]"
-                                     />
-                                     Ətraflı məlumat
-                                  </a>
-                               </div>
+                              <label class="mb-1 block text-sm font-medium text-gray-700"
+                                 >Lisenziya</label
+                              >
+                              <p class="mb-2 text-xs text-gray-500">
+                                 Başqaları şəklinizi necə istifadə edə bilər? Bütün seçimlər
+                                 Vikipediya və Wikimedia layihələrində sərbəst istifadəyə imkan
+                                 verir.
+                              </p>
+                              <select
+                                 v-model="bulkForm.license"
+                                 class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                              >
+                                 <option value="cc-by-sa-4.0">CC BY-SA 4.0 (Tövsiyə olunur)</option>
+                                 <option value="cc-by-4.0">CC BY 4.0</option>
+                                 <option value="cc0">CC0 (İctimai varidat)</option>
+                              </select>
+                              <div class="mt-2 rounded-lg border border-blue-100 bg-blue-50 p-3">
+                                 <p class="text-sm text-blue-800">
+                                    {{ licenseDescription }}
+                                 </p>
+                                 <a
+                                    :href="licenseUrl"
+                                    target="_blank"
+                                    class="mt-1.5 inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-800 hover:underline"
+                                 >
+                                    <font-awesome-icon
+                                       :icon="['fas', 'info-circle']"
+                                       class="text-[10px]"
+                                    />
+                                    Ətraflı məlumat
+                                 </a>
+                              </div>
                            </div>
                            <div>
                               <label
@@ -606,9 +606,9 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRef, watch } from "vue";
-import { useFocusTrap } from "../composables/useFocusTrap";
-import { useImageUpload } from "../composables/useImageUpload";
-import type { MonumentProps } from "../types";
+import { useFocusTrap } from "@/composables/useFocusTrap.ts";
+import { useImageUpload } from "@/composables/useImageUpload.ts";
+import type { MonumentProps } from "@/types";
 
 export default defineComponent({
    name: "UploadModal",
@@ -654,12 +654,12 @@ export default defineComponent({
          resetForm,
          triggerFileInput,
          handleFileChange,
-          handleDrop,
-          removeFile,
-          handleUpload,
-          cancelUpload,
-          retryFailed,
-       } = useImageUpload(toRef(props, "monument"));
+         handleDrop,
+         removeFile,
+         handleUpload,
+         cancelUpload,
+         retryFailed,
+      } = useImageUpload(toRef(props, "monument"));
 
       // Watch for opening to pre-fill data
       watch(
@@ -690,9 +690,9 @@ export default defineComponent({
          handleFileChange,
          handleDrop,
          removeFile,
-          closeModal,
-          handleUpload,
-          cancelUpload,
+         closeModal,
+         handleUpload,
+         cancelUpload,
          uploadComplete,
          uploadResults,
          uploadFailures,

@@ -28,14 +28,9 @@
          <!-- Progress Bar -->
          <div class="progress-section">
             <div class="progress-bar">
-               <div
-                  class="progress-bar-fill"
-                  :style="{ width: photoPercentage + '%' }"
-               />
+               <div class="progress-bar-fill" :style="{ width: photoPercentage + '%' }" />
             </div>
-            <span class="progress-label">
-               {{ photoPercentage }}% abidənin şəkli çəkilib
-            </span>
+            <span class="progress-label"> {{ photoPercentage }}% abidənin şəkli çəkilib </span>
          </div>
 
          <!-- 4. Filter Toggle -->
@@ -60,7 +55,7 @@
                <span>Statistika</span>
             </router-link>
             <router-link to="/leaderboard" class="quick-link">
-               <CdxIcon :icon=" cdxIconUserGroup" size="small" class="quick-link-icon" />
+               <CdxIcon :icon="cdxIconUserGroup" size="small" class="quick-link-icon" />
                <span>İştirakçılar</span>
             </router-link>
             <router-link to="/about" class="quick-link">
@@ -77,7 +72,7 @@ import type { Feature } from "geojson";
 import { computed } from "vue";
 import { CdxIcon, CdxToggleSwitch } from "@wikimedia/codex";
 import { cdxIconFunnel, cdxIconChart, cdxIconUserGroup, cdxIconInfo } from "@wikimedia/codex-icons";
-import SearchBar from "./SearchBar.vue";
+import SearchBar from "@/components/map/SearchBar.vue";
 
 interface Props {
    stats: { total: number; withImage: number };

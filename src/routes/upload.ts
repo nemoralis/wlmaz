@@ -4,24 +4,28 @@ import multer from "multer";
 import sharp, { type Metadata } from "sharp";
 import { config } from "@/config";
 import type {
-   UploadStatusResponse,
-   UploadConfigResponse,
    TitlesExistResponse,
-   UploadSuccessResponse,
+   UploadConfigResponse,
    UploadErrorResponse,
-} from "../types/api.ts";
+   UploadStatusResponse,
+   UploadSuccessResponse,
+} from "@/types/api.ts";
 import { optimizeImage } from "@/utils/image";
 import { logger } from "@/utils/logger";
-import { uploadFile as uploadToCommons, CommonsUploadError, checkFileExistence } from "@/utils/mediawiki";
-import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize";
-import { getCanonicalId } from "@/utils/monumentFormatters";
-import { buildUploadWikitext } from "@/utils/wikitext";
+import {
+   checkFileExistence,
+   CommonsUploadError,
+   uploadFile as uploadToCommons,
+} from "@/utils/mediawiki";
 import {
    getBotPasswordCredentials,
    getUploadClientConfig,
    isLocalMediaWikiEnabled,
    resolveMediaWikiTarget,
 } from "@/utils/mediawikiConfig";
+import { getCanonicalId } from "@/utils/monumentFormatters";
+import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize";
+import { buildUploadWikitext } from "@/utils/wikitext";
 
 const router = express.Router();
 
@@ -135,7 +139,12 @@ router.post("/titles-exist", ensureAuthenticatedOrLocalDev, async (req, res) => 
       }
 
       const existing = await checkFileExistence(titles);
-      logger.info("[titles-exist] checked=%d existing=%d first=%s", titles.length, existing.length, titles[0]);
+      logger.info(
+         "[titles-exist] checked=%d existing=%d first=%s",
+         titles.length,
+         existing.length,
+         titles[0],
+      );
       const body: TitlesExistResponse = { existing };
       res.json(body);
    } catch (error) {
@@ -174,7 +183,8 @@ router.post(
             return;
          }
 
-         let { title, description, license, lat, lon, categories, inventory, capturedAt } = req.body;
+         let { title, description, license, lat, lon, categories, inventory, capturedAt } =
+            req.body;
 
          // Security: Explicit type check — rejects non-string values (e.g. objects from
          // parameter pollution) that a truthiness check would incorrectly accept.
@@ -218,17 +228,17 @@ router.post(
          // prevents template corruption if that assumption breaks.
          const safeUsername = sanitizeWikitext(authorUsername).replace(/\|/g, "");
 
-          // Assemble wikitext from sanitized inputs (pure function, no side effects).
-          const wikitext = buildUploadWikitext({
-             description: safeDescription,
-             licenseTemplate: mapLicenseTemplate(license),
-             username: safeUsername,
-             capturedAt,
-             lat,
-             lon,
-             categories: safeCategories,
-             inventory: canonicalInventory,
-          });
+         // Assemble wikitext from sanitized inputs (pure function, no side effects).
+         const wikitext = buildUploadWikitext({
+            description: safeDescription,
+            licenseTemplate: mapLicenseTemplate(license),
+            username: safeUsername,
+            capturedAt,
+            lat,
+            lon,
+            categories: safeCategories,
+            inventory: canonicalInventory,
+         });
 
          // --- Image validation + optimization (single Sharp pipeline) --------
          // The buffer comes directly from multer's memoryStorage — no disk read.
@@ -296,7 +306,10 @@ router.post(
                info: error.info,
             });
             const body: UploadErrorResponse = {
-               error: error.code === "http_error" ? "Commons upload failed" : "Commons rejected the upload",
+               error:
+                  error.code === "http_error"
+                     ? "Commons upload failed"
+                     : "Commons rejected the upload",
                code: error.code,
                details: (error.info || "").slice(0, 500),
             };
@@ -310,10 +323,9 @@ router.post(
          const message = error instanceof Error ? error.message : String(error);
          res.status(500).json({
             error: "Upload failed",
-            details:
-               config.isProduction
-                  ? "An internal error occurred during the upload process."
-                  : message,
+            details: config.isProduction
+               ? "An internal error occurred during the upload process."
+               : message,
          });
       }
    },

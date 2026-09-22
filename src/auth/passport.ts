@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy as MediaWikiStrategy } from "passport-mediawiki-oauth";
-import type { WikiUser } from "@/types";
 import { config } from "@/config";
+import type { WikiUser } from "@/types";
 import { isLocalMediaWikiEnabled } from "@/utils/mediawikiConfig";
 
 // In local dev-upload mode we authenticate to a local MediaWiki via a Bot

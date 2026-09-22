@@ -1,15 +1,15 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { createHead } from "@unhead/vue/client";
-import App from "./App.vue";
-import { router } from "./routes/index";
+import App from "@/App.vue";
+import { router } from "@/routes/index.ts";
 import "./styles.css";
 // Leaflet Core CSS
 import "leaflet/dist/leaflet.css";
 import "leaflet.locatecontrol/dist/L.Control.Locate.css";
 import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 // FontAwesome configuration
-import { FontAwesomeIcon } from "./plugins/fontawesome";
+import { FontAwesomeIcon } from "@/plugins/fontawesome.ts";
 // Wikimedia Codex Design System
 import "@wikimedia/codex/dist/codex.style.css";
 
@@ -17,7 +17,14 @@ const head = createHead();
 const app = createApp(App);
 
 app.config.errorHandler = (err, instance, info) => {
-   console.error("[Vue Error]", err, "\nComponent:", instance?.$options?.name || "Unknown", "\nInfo:", info);
+   console.error(
+      "[Vue Error]",
+      err,
+      "\nComponent:",
+      instance?.$options?.name || "Unknown",
+      "\nInfo:",
+      info,
+   );
 };
 
 app.use(createPinia())

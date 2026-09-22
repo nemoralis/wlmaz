@@ -52,11 +52,16 @@ export function buildDateTemplate(capturedAt?: string): string {
       const parsed = new Date(Date.UTC(y, m - 1, d, h, min, s));
 
       if (
-         m >= 1 && m <= 12 &&
-         d >= 1 && d <= 31 &&
-         h >= 0 && h <= 23 &&
-         min >= 0 && min <= 59 &&
-         s >= 0 && s <= 59 &&
+         m >= 1 &&
+         m <= 12 &&
+         d >= 1 &&
+         d <= 31 &&
+         h >= 0 &&
+         h <= 23 &&
+         min >= 0 &&
+         min <= 59 &&
+         s >= 0 &&
+         s <= 59 &&
          !Number.isNaN(parsed.getTime())
       ) {
          return `${y}-${mS}-${dS} ${hS}:${minS}:${sS}`;
@@ -74,11 +79,7 @@ export function buildDateTemplate(capturedAt?: string): string {
       const d = Number(dS);
       const parsed = new Date(Date.UTC(y, m - 1, d));
 
-      if (
-         m >= 1 && m <= 12 &&
-         d >= 1 && d <= 31 &&
-         !Number.isNaN(parsed.getTime())
-      ) {
+      if (m >= 1 && m <= 12 && d >= 1 && d <= 31 && !Number.isNaN(parsed.getTime())) {
          return `${y}-${mS}-${dS} 00:00:00`;
       }
 
@@ -96,14 +97,7 @@ export function buildLocationTemplate(lat?: string, lon?: string): string {
    const latF = parseFloat(lat ?? "");
    const lonF = parseFloat(lon ?? "");
 
-   if (
-      !isNaN(latF) &&
-      !isNaN(lonF) &&
-      latF >= -90 &&
-      latF <= 90 &&
-      lonF >= -180 &&
-      lonF <= 180
-   ) {
+   if (!isNaN(latF) && !isNaN(lonF) && latF >= -90 && latF <= 90 && lonF >= -180 && lonF <= 180) {
       return `\n{{Location|${latF}|${lonF}}}`;
    }
 
@@ -140,16 +134,8 @@ export function buildCategoryText(categories?: string): string {
  * sanitization — it is a pure string assembler.
  */
 export function buildUploadWikitext(params: UploadWikitextContent): string {
-   const {
-      description,
-      licenseTemplate,
-      username,
-      capturedAt,
-      lat,
-      lon,
-      categories,
-      inventory,
-   } = params;
+   const { description, licenseTemplate, username, capturedAt, lat, lon, categories, inventory } =
+      params;
 
    const dateTemplate = buildDateTemplate(capturedAt);
    const locationTemplate = buildLocationTemplate(lat, lon);

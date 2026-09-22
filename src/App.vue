@@ -245,7 +245,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, ref } from "vue";
-import { useAuthStore } from "./stores/auth";
+import { useAuthStore } from "@/stores/auth.ts";
 
 const auth = useAuthStore();
 const menuOpen = ref(false);

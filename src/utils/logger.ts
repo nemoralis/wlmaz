@@ -8,7 +8,7 @@
  * Defaults to "info" in production and "debug" otherwise.
  */
 
-import { config } from "../config";
+import { config } from "@/config.ts";
 
 type LogLevel = "debug" | "info" | "warn" | "error";
 

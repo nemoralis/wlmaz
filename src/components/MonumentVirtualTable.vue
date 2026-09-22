@@ -73,7 +73,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
-import type { MonumentProps } from "../types";
+import type { MonumentProps } from "@/types";
 
 interface Column {
    id: string;

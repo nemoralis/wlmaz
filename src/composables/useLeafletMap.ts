@@ -4,8 +4,8 @@ import { LocateControl } from "leaflet.locatecontrol";
 import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
 import { icon } from "@fortawesome/fontawesome-svg-core";
 import { shallowRef } from "vue";
-import type { MonumentProps } from "../types";
-import { HIGHLIGHT_RADIUS_OFFSET } from "../utils/markerRadius";
+import type { MonumentProps } from "@/types";
+import { HIGHLIGHT_RADIUS_OFFSET } from "@/utils/markerRadius.ts";
 import "./contextmenu.css";
 
 export interface SidebarControl extends L.Control {
@@ -379,21 +379,21 @@ export function useLeafletMap() {
       viewportTimer = setTimeout(() => syncViewport(passesFilter), 150);
    };
 
-    /** Cancels pending work and clears all rendered markers. */
-    const disposeMarkers = () => {
-       if (viewportTimer) clearTimeout(viewportTimer);
-       viewportTimer = null;
-       chunkHandle++; // Supersede any in-flight chunked add
-       allMarkers = [];
-       addedMarkers.clear();
-    };
+   /** Cancels pending work and clears all rendered markers. */
+   const disposeMarkers = () => {
+      if (viewportTimer) clearTimeout(viewportTimer);
+      viewportTimer = null;
+      chunkHandle++; // Supersede any in-flight chunked add
+      allMarkers = [];
+      addedMarkers.clear();
+   };
 
-    const disposeContextMenu = () => {
-       const el = document.querySelector(".wlm-contextmenu");
-       el?.remove();
-    };
+   const disposeContextMenu = () => {
+      const el = document.querySelector(".wlm-contextmenu");
+      el?.remove();
+   };
 
-    return {
+   return {
       mapInstance,
       sidebarInstance,
       markersGroup,

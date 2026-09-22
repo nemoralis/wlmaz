@@ -14,11 +14,7 @@ export interface ExifData {
 export async function extractExifData(file: File): Promise<ExifData> {
    try {
       const exifr = (await import("exifr")).default;
-      const data = await exifr.parse(file, [
-         "DateTimeOriginal",
-         "latitude",
-         "longitude",
-      ]);
+      const data = await exifr.parse(file, ["DateTimeOriginal", "latitude", "longitude"]);
 
       if (!data) return {};
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getMarkerRadius, HIGHLIGHT_RADIUS_OFFSET } from "../markerRadius";
+import { getMarkerRadius, HIGHLIGHT_RADIUS_OFFSET } from "@/utils/markerRadius.ts";
 
 describe("getMarkerRadius", () => {
    it("returns 6px at the default zoom 7", () => {

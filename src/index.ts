@@ -1,5 +1,5 @@
-import path from "path";
 import { existsSync } from "node:fs";
+import path from "path";
 import { fileURLToPath } from "url";
 import { RedisStore } from "connect-redis";
 import express, { type NextFunction, type Request, type Response } from "express";
@@ -9,14 +9,14 @@ import helmet from "helmet";
 import hpp from "hpp";
 import morgan from "morgan";
 import { RedisStore as RateLimitRedisStore } from "rate-limit-redis";
-import { config } from "./config.ts";
-import passport from "./auth/passport.ts";
-import authRoutes from "./auth/routes.ts";
-import leaderboardRoutes from "./routes/leaderboard.ts";
-import uploadRoutes from "./routes/upload.ts";
-import { logger } from "./utils/logger.ts";
-import redisClient from "./utils/redis.ts";
 import sharp from "sharp";
+import passport from "@/auth/passport.ts";
+import authRoutes from "@/auth/routes.ts";
+import { config } from "@/config.ts";
+import leaderboardRoutes from "@/routes/leaderboard.ts";
+import uploadRoutes from "@/routes/upload.ts";
+import { logger } from "@/utils/logger.ts";
+import redisClient from "@/utils/redis.ts";
 
 // Limit libvips thread pool per worker.  In PM2 cluster mode each worker is a
 // separate process with its own thread pool.  With 2 workers on 2 vCPUs,
@@ -191,22 +191,43 @@ const startServer = async () => {
       limit: 200,
       standardHeaders: "draft-8",
       legacyHeaders: false,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ...(config.isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-api:" }) }),
+       
+      ...(config.isDevUploadMode
+         ? {}
+         : {
+              store: new RateLimitRedisStore({
+                 sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any,
+                 prefix: "rl-api:",
+              }),
+           }),
    });
    const authLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
       limit: 200,
       message: { error: "Too many login attempts, please try again later." },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ...(config.isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-auth:" }) }),
+       
+      ...(config.isDevUploadMode
+         ? {}
+         : {
+              store: new RateLimitRedisStore({
+                 sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any,
+                 prefix: "rl-auth:",
+              }),
+           }),
    });
    const uploadLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
       limit: 500,
       message: { error: "Upload limit reached, please try again later." },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ...(config.isDevUploadMode ? {} : { store: new RateLimitRedisStore({ sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any, prefix: "rl-upload:" }) }),
+       
+      ...(config.isDevUploadMode
+         ? {}
+         : {
+              store: new RateLimitRedisStore({
+                 sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any,
+                 prefix: "rl-upload:",
+              }),
+           }),
    });
 
    const apiPaths = ["/api", "/auth", "/upload"];
@@ -323,10 +344,7 @@ const startServer = async () => {
       // Fail securely: do not leak internal error details or stack traces to the client in production
       res.status(500).json({
          error: true,
-         message:
-            config.isProduction
-               ? "An internal server error occurred."
-               : err.message,
+         message: config.isProduction ? "An internal server error occurred." : err.message,
       });
    });
 

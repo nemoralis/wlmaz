@@ -6,8 +6,8 @@
  * reasoned about independently of UI state.
  */
 
-import type { UploadSuccessResponse } from "../types/api.ts";
-import { isTransientError, messageFor } from "./uploadErrors";
+import type { UploadSuccessResponse } from "@/types/api.ts";
+import { isTransientError, messageFor } from "@/utils/uploadErrors.ts";
 
 export interface FileItem {
    id: string;
@@ -111,9 +111,7 @@ async function attemptUpload(
       const response = await fetch("/upload", {
          method: "POST",
          body: formData,
-         signal: externalSignal
-            ? AbortSignal.any([externalSignal, timeoutSignal])
-            : timeoutSignal,
+         signal: externalSignal ? AbortSignal.any([externalSignal, timeoutSignal]) : timeoutSignal,
       });
 
       // Read response as text first to handle non-JSON errors (like Nginx 413)

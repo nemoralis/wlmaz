@@ -1,5 +1,5 @@
 import sharp, { type Metadata } from "sharp";
-import { logger } from "./logger";
+import { logger } from "@/utils/logger.ts";
 
 interface OptimizedImage {
    buffer: Buffer;
@@ -25,7 +25,7 @@ export async function optimizeImage(
 ): Promise<OptimizedImage> {
    try {
       const image = sharp(buffer);
-      const metadata = preloadedMetadata || await image.metadata();
+      const metadata = preloadedMetadata || (await image.metadata());
 
       // Check if resizing is needed
       const MAX_DIMENSION = 8192; // Increased to 8K matches Commons "High Resolution" goal

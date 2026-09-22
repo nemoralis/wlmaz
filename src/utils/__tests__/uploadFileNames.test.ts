@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { nextFreeTitles, titleForNumber } from "../uploadFileNames";
+import { nextFreeTitles, titleForNumber } from "@/utils/uploadFileNames.ts";
 
 const noneExisting = async (_candidates: string[]): Promise<Set<string>> => new Set();
 

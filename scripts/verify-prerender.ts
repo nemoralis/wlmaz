@@ -126,7 +126,9 @@ const checkMonumentHtml = (html: string, loc: string, label: string): void => {
          if (!data || typeof data !== "object") {
             fail(`${label}: #monument-data is not a JSON object`);
          } else {
-            const canonicalId = String(data.inventory ?? "").split(",")[0].trim();
+            const canonicalId = String(data.inventory ?? "")
+               .split(",")[0]
+               .trim();
             const expectedId = decodeURIComponent(loc.replace(`${HOST}/monument/`, ""));
             if (canonicalId !== expectedId) {
                fail(

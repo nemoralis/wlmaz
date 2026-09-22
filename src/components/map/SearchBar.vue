@@ -66,7 +66,7 @@ import type { Feature } from "geojson";
 import { computed, ref, watch } from "vue";
 import { CdxIcon, CdxSearchInput } from "@wikimedia/codex";
 import { cdxIconImage } from "@wikimedia/codex-icons";
-import { useMonumentStore } from "../../stores/monuments";
+import { useMonumentStore } from "@/stores/monuments.ts";
 
 const monumentStore = useMonumentStore();
 

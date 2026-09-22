@@ -1,13 +1,13 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const PUBLIC_DIR = path.join(__dirname, '../public');
-const DATA_DIR = path.join(__dirname, '../data');
-const GEOJSON_PATH = path.join(DATA_DIR, 'monuments.geojson');
+const PUBLIC_DIR = path.join(__dirname, "../public");
+const DATA_DIR = path.join(__dirname, "../data");
+const GEOJSON_PATH = path.join(DATA_DIR, "monuments.geojson");
 
 // SPARQL Query to fetch monuments in Azerbaijan
 const SPARQL_QUERY = `
@@ -56,218 +56,226 @@ WHERE {
 }`;
 
 class SPARQLQueryDispatcher {
-  endpoint: string;
+   endpoint: string;
 
-  constructor(endpoint: string) {
-    this.endpoint = endpoint;
-  }
+   constructor(endpoint: string) {
+      this.endpoint = endpoint;
+   }
 
-  async query(sparqlQuery: string): Promise<any> {
-    const fullUrl = this.endpoint + '?query=' + encodeURIComponent(sparqlQuery);
-    const headers = { 
-      'Accept': 'application/sparql-results+json',
-      'User-Agent': 'WLMAZ-Updater/1.0 (https://gitlab.wikimedia.org/nmw03/wlmaz)'
-    };
+   async query(sparqlQuery: string): Promise<any> {
+      const fullUrl = this.endpoint + "?query=" + encodeURIComponent(sparqlQuery);
+      const headers = {
+         Accept: "application/sparql-results+json",
+         "User-Agent": "WLMAZ-Updater/1.0 (https://gitlab.wikimedia.org/nmw03/wlmaz)",
+      };
 
-    const response = await fetch(fullUrl, { headers });
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data: ${response.statusText}`);
-    }
-    return response.json();
-  }
+      const response = await fetch(fullUrl, { headers });
+      if (!response.ok) {
+         throw new Error(`Failed to fetch data: ${response.statusText}`);
+      }
+      return response.json();
+   }
 }
 
-const endpointUrl = 'https://query.wikidata.org/sparql';
+const endpointUrl = "https://query.wikidata.org/sparql";
 
 interface SparqlValue {
-  type: string;
-  value: string;
-  datatype?: string;
-  [key: string]: any;
+   type: string;
+   value: string;
+   datatype?: string;
+   [key: string]: any;
 }
 
 interface SparqlBinding {
-  [key: string]: SparqlValue;
+   [key: string]: SparqlValue;
 }
 
 interface GeoJSONFeature {
-  type: 'Feature';
-  geometry: {
-    type: 'Point';
-    coordinates: [number, number];
-  };
-  properties: {
-    [key: string]: string;
-  };
+   type: "Feature";
+   geometry: {
+      type: "Point";
+      coordinates: [number, number];
+   };
+   properties: {
+      [key: string]: string;
+   };
 }
 
 interface GeoJSON {
-  type: 'FeatureCollection';
-  features: GeoJSONFeature[];
+   type: "FeatureCollection";
+   features: GeoJSONFeature[];
 }
 
 function transformToGeoJSON(bindings: SparqlBinding[]): GeoJSON {
-  const features: GeoJSONFeature[] = [];
+   const features: GeoJSONFeature[] = [];
 
-  for (const row of bindings) {
-    const properties: { [key: string]: string } = {};
-    let coordinates: [number, number] | null = null;
+   for (const row of bindings) {
+      const properties: { [key: string]: string } = {};
+      let coordinates: [number, number] | null = null;
 
-    for (const rowVar in row) {
-      const binding = row[rowVar];
-      
-      // Check for WKT literal (coordinates)
-      if (binding.type === 'literal' && binding.datatype === 'http://www.opengis.net/ont/geosparql#wktLiteral') {
-        const match = binding.value.match(/Point\(([-\d.]+) ([-\d.]+)\)/);
-        if (match) {
-          coordinates = [parseFloat(match[1]), parseFloat(match[2])];
-        }
-      } else {
-        // Add other fields to properties
-        properties[rowVar] = binding.value;
+      for (const rowVar in row) {
+         const binding = row[rowVar];
+
+         // Check for WKT literal (coordinates)
+         if (
+            binding.type === "literal" &&
+            binding.datatype === "http://www.opengis.net/ont/geosparql#wktLiteral"
+         ) {
+            const match = binding.value.match(/Point\(([-\d.]+) ([-\d.]+)\)/);
+            if (match) {
+               coordinates = [parseFloat(match[1]), parseFloat(match[2])];
+            }
+         } else {
+            // Add other fields to properties
+            properties[rowVar] = binding.value;
+         }
       }
-    }
 
-    // Only add feature if coordinates were found
-    if (coordinates) {
-      const sortedProperties = Object.keys(properties).sort().reduce((obj, key) => { 
-          obj[key] = properties[key]; 
-          return obj;
-      }, {} as { [key: string]: string });
+      // Only add feature if coordinates were found
+      if (coordinates) {
+         const sortedProperties = Object.keys(properties)
+            .sort()
+            .reduce(
+               (obj, key) => {
+                  obj[key] = properties[key];
+                  return obj;
+               },
+               {} as { [key: string]: string },
+            );
 
-      features.push({
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: coordinates
-        },
-        properties: sortedProperties
-      });
-    }
-  }
+         features.push({
+            type: "Feature",
+            geometry: {
+               type: "Point",
+               coordinates: coordinates,
+            },
+            properties: sortedProperties,
+         });
+      }
+   }
 
-  // Sort features by inventory number
-  features.sort((a, b) => {
-    const invA = a.properties.inventory || '';
-    const invB = b.properties.inventory || '';
-    return invA.localeCompare(invB, undefined, { numeric: true, sensitivity: 'base' });
-  });
+   // Sort features by inventory number
+   features.sort((a, b) => {
+      const invA = a.properties.inventory || "";
+      const invB = b.properties.inventory || "";
+      return invA.localeCompare(invB, undefined, { numeric: true, sensitivity: "base" });
+   });
 
-  return {
-    type: 'FeatureCollection',
-    features
-  };
+   return {
+      type: "FeatureCollection",
+      features,
+   };
 }
 
 async function main() {
-  try {
-    // 1. Load existing data
-    let existingData: GeoJSON | null = null;
-    try {
-      const fileContent = await fs.readFile(GEOJSON_PATH, 'utf-8');
-      existingData = JSON.parse(fileContent);
-    } catch (error) {
-      console.log('No existing GeoJSON found or invalid JSON.');
-    }
-
-    // 2. Fetch new data
-    console.log('Fetching data from Wikidata...');
-    const queryDispatcher = new SPARQLQueryDispatcher( endpointUrl );
-    const data = await queryDispatcher.query( SPARQL_QUERY );
-    const bindings = data.results.bindings as SparqlBinding[];
-    
-    const newData = transformToGeoJSON(bindings);
-
-    // Sort individual inventory IDs numerically within each monument
-    for (const feature of newData.features) {
-      if (feature.properties.inventory && feature.properties.inventory.includes(",")) {
-        feature.properties.inventory = feature.properties.inventory
-          .split(",")
-          .map((s: string) => s.trim())
-          .sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true }))
-          .join(", ");
+   try {
+      // 1. Load existing data
+      let existingData: GeoJSON | null = null;
+      try {
+         const fileContent = await fs.readFile(GEOJSON_PATH, "utf-8");
+         existingData = JSON.parse(fileContent);
+      } catch (error) {
+         console.log("No existing GeoJSON found or invalid JSON.");
       }
-    }
 
-    // 3. Check if data has actually changed
-    if (existingData) {
-      if (JSON.stringify(existingData) === JSON.stringify(newData)) {
-         console.log('No changes detected. Skipping file update.');
-         process.exit(0);
+      // 2. Fetch new data
+      console.log("Fetching data from Wikidata...");
+      const queryDispatcher = new SPARQLQueryDispatcher(endpointUrl);
+      const data = await queryDispatcher.query(SPARQL_QUERY);
+      const bindings = data.results.bindings as SparqlBinding[];
+
+      const newData = transformToGeoJSON(bindings);
+
+      // Sort individual inventory IDs numerically within each monument
+      for (const feature of newData.features) {
+         if (feature.properties.inventory && feature.properties.inventory.includes(",")) {
+            feature.properties.inventory = feature.properties.inventory
+               .split(",")
+               .map((s: string) => s.trim())
+               .sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true }))
+               .join(", ");
+         }
       }
-      console.log(`Updated ${newData.features.length} monuments.`);
-    } else {
-      console.log(`Fetched ${newData.features.length} monuments.`);
-    }
 
-    // 4. Save new data
-    await fs.writeFile(GEOJSON_PATH, JSON.stringify(newData, null, 4));
-    console.log(`Saved updated GeoJSON to ${GEOJSON_PATH}`);
+      // 3. Check if data has actually changed
+      if (existingData) {
+         if (JSON.stringify(existingData) === JSON.stringify(newData)) {
+            console.log("No changes detected. Skipping file update.");
+            process.exit(0);
+         }
+         console.log(`Updated ${newData.features.length} monuments.`);
+      } else {
+         console.log(`Fetched ${newData.features.length} monuments.`);
+      }
 
-    // 5. Save History
-    if (existingData) {
-       const HISTORY_PATH = path.join(PUBLIC_DIR, 'stats-history.json');
-       let history: any[] = [];
-       try {
-          const content = await fs.readFile(HISTORY_PATH, 'utf-8');
-          history = JSON.parse(content);
-       } catch (e) {
-          // Start new history
-          console.log('Starting new history file.');
-       }
-   
-       const today = new Date().toISOString().split('T')[0];
-       const withImage = newData.features.filter(f => f.properties.image).length;
-       
-   const entry = {
-      date: today,
-      timestamp: Date.now(),
-      total: newData.features.length,
-      withImage,
-      withoutImage: newData.features.length - withImage,
-   };
-       
-       // Remove existing entry for same date to allow re-runs
-       history = history.filter(h => h.date !== today);
-       history.push(entry);
-       
-       // Sort by date
-       history.sort((a, b) => a.timestamp - b.timestamp);
-       
-       await fs.writeFile(HISTORY_PATH, JSON.stringify(history, null, 2));
-       console.log(`Saved update stats to ${HISTORY_PATH}`);
+      // 4. Save new data
+      await fs.writeFile(GEOJSON_PATH, JSON.stringify(newData, null, 4));
+      console.log(`Saved updated GeoJSON to ${GEOJSON_PATH}`);
 
-       // 6. Notify IndexNow
-       await notifyIndexNow(existingData, newData);
-    }
-  } catch (error) {
-    console.error('Error updating monuments:', error);
-    process.exit(1);
-  }
+      // 5. Save History
+      if (existingData) {
+         const HISTORY_PATH = path.join(PUBLIC_DIR, "stats-history.json");
+         let history: any[] = [];
+         try {
+            const content = await fs.readFile(HISTORY_PATH, "utf-8");
+            history = JSON.parse(content);
+         } catch (e) {
+            // Start new history
+            console.log("Starting new history file.");
+         }
+
+         const today = new Date().toISOString().split("T")[0];
+         const withImage = newData.features.filter((f) => f.properties.image).length;
+
+         const entry = {
+            date: today,
+            timestamp: Date.now(),
+            total: newData.features.length,
+            withImage,
+            withoutImage: newData.features.length - withImage,
+         };
+
+         // Remove existing entry for same date to allow re-runs
+         history = history.filter((h) => h.date !== today);
+         history.push(entry);
+
+         // Sort by date
+         history.sort((a, b) => a.timestamp - b.timestamp);
+
+         await fs.writeFile(HISTORY_PATH, JSON.stringify(history, null, 2));
+         console.log(`Saved update stats to ${HISTORY_PATH}`);
+
+         // 6. Notify IndexNow
+         await notifyIndexNow(existingData, newData);
+      }
+   } catch (error) {
+      console.error("Error updating monuments:", error);
+      process.exit(1);
+   }
 }
 
 // IndexNow Configuration
-const INDEXNOW_HOST = 'wikilovesmonuments.az';
+const INDEXNOW_HOST = "wikilovesmonuments.az";
 // The IndexNow key should come from the environment (CI secret) rather than
 // being committed to the repository.
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY;
 const INDEXNOW_KEY_LOCATION = `https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt`;
 
 async function notifyIndexNow(oldData: GeoJSON, newData: GeoJSON) {
-   console.log('--- IndexNow Notification ---');
+   console.log("--- IndexNow Notification ---");
    const changedUrls: string[] = [];
-   const oldMap = new Map(oldData.features.map(f => [f.properties.inventory, f]));
-   const forceIndex = process.argv.includes('--force-index');
+   const oldMap = new Map(oldData.features.map((f) => [f.properties.inventory, f]));
+   const forceIndex = process.argv.includes("--force-index");
 
    if (forceIndex) {
-      console.log('Force index enabled: Submitting ALL monuments.');
+      console.log("Force index enabled: Submitting ALL monuments.");
    }
 
    // Find added and modified
    for (const feature of newData.features) {
       const inv = feature.properties.inventory;
       const oldFeature = oldMap.get(inv);
-      
+
       const url = `https://${INDEXNOW_HOST}/monument/${inv.replace(/\./g, "%2E")}`;
 
       if (forceIndex) {
@@ -288,18 +296,18 @@ async function notifyIndexNow(oldData: GeoJSON, newData: GeoJSON) {
    }
 
    if (changedUrls.length === 0) {
-      console.log('No URLs to index.');
+      console.log("No URLs to index.");
       return;
    }
 
    console.log(`Notifying IndexNow for ${changedUrls.length} URLs...`);
 
    if (!INDEXNOW_KEY) {
-      console.log('Skipping IndexNow notification: INDEXNOW_KEY is not set.');
+      console.log("Skipping IndexNow notification: INDEXNOW_KEY is not set.");
       return;
    }
 
-   // IndexNow allows up to 10,000 URLs per request. 
+   // IndexNow allows up to 10,000 URLs per request.
    // We'll slice if necessary, but unlikely for this use case.
    const batches = [];
    while (changedUrls.length > 0) {
@@ -308,10 +316,10 @@ async function notifyIndexNow(oldData: GeoJSON, newData: GeoJSON) {
 
    for (const batch of batches) {
       try {
-         const response = await fetch('https://api.indexnow.org/indexnow', {
-            method: 'POST',
+         const response = await fetch("https://api.indexnow.org/indexnow", {
+            method: "POST",
             headers: {
-               'Content-Type': 'application/json; charset=utf-8',
+               "Content-Type": "application/json; charset=utf-8",
             },
             body: JSON.stringify({
                host: INDEXNOW_HOST,
@@ -326,10 +334,10 @@ async function notifyIndexNow(oldData: GeoJSON, newData: GeoJSON) {
          } else {
             console.error(`❌ IndexNow failed: ${response.status} ${response.statusText}`);
             const text = await response.text();
-            console.error('Response:', text);
+            console.error("Response:", text);
          }
       } catch (error) {
-         console.error('❌ IndexNow error:', error);
+         console.error("❌ IndexNow error:", error);
       }
    }
 }

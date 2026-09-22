@@ -192,7 +192,7 @@ const buildHeadTags = (props: MonumentProps, canonicalUrl: string, title: string
       props.itemDescription || "Azərbaycanın tarixi abidələri və mədəni irs xəritəsi";
    const ogImage = props.image ? getOptimizedImage(props.image, 1280) : `${HOST}/wlm-az.png`;
    const imagePreload = props.image
-         ? `<link rel="preload" as="image" href="${escapeHtml(getOptimizedImage(props.image, 768))}">`
+      ? `<link rel="preload" as="image" href="${escapeHtml(getOptimizedImage(props.image, 768))}">`
       : "";
 
    const monumentSchema = useMonumentSchema(props);
@@ -202,9 +202,7 @@ const buildHeadTags = (props: MonumentProps, canonicalUrl: string, title: string
    }
 
    // Build breadcrumb with district level when parentLabel is available
-   const breadcrumbItems = [
-      { name: "Ana Səhifə", url: `${HOST}/` },
-   ];
+   const breadcrumbItems = [{ name: "Ana Səhifə", url: `${HOST}/` }];
    if (props.parentLabel) {
       breadcrumbItems.push({ name: props.parentLabel, url: `${HOST}/` });
    }
@@ -355,57 +353,60 @@ const STATIC_PAGES = [
    },
 ];
 
-   const minifyHtml = (html: string): Promise<string> =>
-      minify(html, {
-         collapseWhitespace: true,
-         removeComments: true,
-         minifyCSS: true,
-      });
+const minifyHtml = (html: string): Promise<string> =>
+   minify(html, {
+      collapseWhitespace: true,
+      removeComments: true,
+      minifyCSS: true,
+   });
 
-   const main = async () => {
-      try {
-         const features = await readGeoJson();
-         const indexHtml = await fs.readFile(path.join(DIST_DIR, "index.html"), "utf-8");
-         const now = new Date().toISOString();
-         const sitemapEntries: SitemapEntry[] = [
-            { loc: `${HOST}/`, lastmod: now },
-            ...STATIC_PAGES.map(({ route }) => ({ loc: `${HOST}${route}`, lastmod: now })),
-         ];
+const main = async () => {
+   try {
+      const features = await readGeoJson();
+      const indexHtml = await fs.readFile(path.join(DIST_DIR, "index.html"), "utf-8");
+      const now = new Date().toISOString();
+      const sitemapEntries: SitemapEntry[] = [
+         { loc: `${HOST}/`, lastmod: now },
+         ...STATIC_PAGES.map(({ route }) => ({ loc: `${HOST}${route}`, lastmod: now })),
+      ];
 
-         await fs.mkdir(MONUMENT_DIR, { recursive: true });
+      await fs.mkdir(MONUMENT_DIR, { recursive: true });
 
-         const BATCH_SIZE = 8;
-         let written = 0;
-         for (let i = 0; i < features.length; i += BATCH_SIZE) {
-            const batch = features.slice(i, i + BATCH_SIZE);
-            await Promise.all(
-               batch.map(async (feature) => {
-                  const rawInventory = feature.properties.inventory || "";
-                  if (!rawInventory) return;
+      const BATCH_SIZE = 8;
+      let written = 0;
+      for (let i = 0; i < features.length; i += BATCH_SIZE) {
+         const batch = features.slice(i, i + BATCH_SIZE);
+         await Promise.all(
+            batch.map(async (feature) => {
+               const rawInventory = feature.properties.inventory || "";
+               if (!rawInventory) return;
 
-                  const canonicalId = rawInventory.split(",")[0].trim();
-                  const canonicalUrl = `${HOST}/monument/${encodeIdForUrl(canonicalId)}`;
-                  const props = buildMonumentProps(feature, canonicalId);
+               const canonicalId = rawInventory.split(",")[0].trim();
+               const canonicalUrl = `${HOST}/monument/${encodeIdForUrl(canonicalId)}`;
+               const props = buildMonumentProps(feature, canonicalId);
 
-                  const html = buildMonumentHtml(indexHtml, props, canonicalUrl);
-                  const filePath = path.join(MONUMENT_DIR, `${safeFileName(canonicalId)}.html`);
-                  await fs.writeFile(filePath, await minifyHtml(html));
+               const html = buildMonumentHtml(indexHtml, props, canonicalUrl);
+               const filePath = path.join(MONUMENT_DIR, `${safeFileName(canonicalId)}.html`);
+               await fs.writeFile(filePath, await minifyHtml(html));
 
-                  sitemapEntries.push({
-                     loc: canonicalUrl,
-                     lastmod: feature.properties.lastModified
-                        ? new Date(feature.properties.lastModified).toISOString()
-                        : now,
-                  });
-               }),
-            );
-            written += batch.filter((f) => f.properties.inventory).length;
-         }
+               sitemapEntries.push({
+                  loc: canonicalUrl,
+                  lastmod: feature.properties.lastModified
+                     ? new Date(feature.properties.lastModified).toISOString()
+                     : now,
+               });
+            }),
+         );
+         written += batch.filter((f) => f.properties.inventory).length;
+      }
 
-         for (const page of STATIC_PAGES) {
-            const html = buildStaticHtml(indexHtml, page.route, page.title, page.description);
-            await fs.writeFile(path.join(DIST_DIR, `${page.route.slice(1)}.html`), await minifyHtml(html));
-         }
+      for (const page of STATIC_PAGES) {
+         const html = buildStaticHtml(indexHtml, page.route, page.title, page.description);
+         await fs.writeFile(
+            path.join(DIST_DIR, `${page.route.slice(1)}.html`),
+            await minifyHtml(html),
+         );
+      }
 
       await fs.writeFile(path.join(DIST_DIR, "sitemap.xml"), renderSitemap(sitemapEntries));
       await fs.writeFile(path.join(DIST_DIR, "robots.txt"), ROBOTS_TXT);

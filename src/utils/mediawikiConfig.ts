@@ -15,7 +15,7 @@
  * from client input.
  */
 
-import { config } from "../config";
+import { config } from "@/config.ts";
 
 type MediaWikiAuth = { mode: "oauth" } | { mode: "bot-password" };
 

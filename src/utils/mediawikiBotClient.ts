@@ -12,10 +12,10 @@
  *  - Errors returned to callers never contain credentials or cookies.
  */
 
-import { logger } from "./logger";
-import { CommonsUploadError } from "./mediawiki";
-import type { BotPasswordCredentials } from "./mediawikiConfig";
-import { sanitizeFilename } from "./sanitize";
+import { logger } from "@/utils/logger.ts";
+import { CommonsUploadError } from "@/utils/mediawiki.ts";
+import type { BotPasswordCredentials } from "@/utils/mediawikiConfig.ts";
+import { sanitizeFilename } from "@/utils/sanitize.ts";
 
 const USER_AGENT = "WLMAZ-Tool/1.0";
 
@@ -56,7 +56,10 @@ export class MediaWikiBotClient {
     */
    private async apiRequest(
       params: Record<string, string>,
-      { withSession = false, timeoutMs = 15000 }: { withSession?: boolean; timeoutMs?: number } = {},
+      {
+         withSession = false,
+         timeoutMs = 15000,
+      }: { withSession?: boolean; timeoutMs?: number } = {},
    ): Promise<MediaWikiJson> {
       const body = new URLSearchParams({ format: "json", ...params }).toString();
       const headers: Record<string, string> = {

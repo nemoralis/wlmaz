@@ -20,7 +20,10 @@
       <div v-else-if="monument">
          <!-- Header / Navigation -->
          <div class="flex items-center justify-between bg-blue-600 px-6 py-3">
-            <router-link to="/" class="flex items-center gap-2 text-sm text-white hover:text-blue-100">
+            <router-link
+               to="/"
+               class="flex items-center gap-2 text-sm text-white hover:text-blue-100"
+            >
                <font-awesome-icon :icon="['fas', 'arrow-left']" /> Xəritə
             </router-link>
             <router-link
@@ -48,7 +51,7 @@
             <h1 class="mb-2 text-3xl font-bold text-gray-900">{{ monument.itemLabel }}</h1>
 
             <!-- Alt Label -->
-            <p v-if="monument.itemAltLabel" class="mb-4 italic text-gray-500">
+            <p v-if="monument.itemAltLabel" class="mb-4 text-gray-500 italic">
                {{ monument.itemAltLabel }}
             </p>
 
@@ -62,10 +65,10 @@
                <div v-if="monument.image" class="relative overflow-hidden rounded-lg shadow-md">
                   <img
                      :src="getOptimizedImage(monument.image, 768)"
-                      :srcset="getSrcSet(monument.image, [500, 768, 1024, 1536])"
-                      sizes="(max-width: 768px) 100vw, 768px"
-                      :alt="monument.itemLabel"
-                      width="768"
+                     :srcset="getSrcSet(monument.image, [500, 768, 1024, 1536])"
+                     sizes="(max-width: 768px) 100vw, 768px"
+                     :alt="monument.itemLabel"
+                     width="768"
                      class="h-auto w-full object-cover"
                   />
                   <div
@@ -113,7 +116,7 @@
                         {{ monument.lat.toFixed(4) }}, {{ monument.lon.toFixed(4) }}
                      </a>
                      <button
-                        class="rounded p-0.5 text-gray-400 opacity-0 transition-opacity hover:text-blue-600 group-hover:opacity-100"
+                        class="rounded p-0.5 text-gray-400 opacity-0 transition-opacity group-hover:opacity-100 hover:text-blue-600"
                         title="Koordinatları kopyala"
                         @click="copyCoordinates(monument.lat, monument.lon)"
                      >
@@ -121,7 +124,10 @@
                      </button>
                   </div>
                </div>
-               <div v-if="monument.inventory" class="rounded-md border border-gray-200 bg-gray-50 p-3">
+               <div
+                  v-if="monument.inventory"
+                  class="rounded-md border border-gray-200 bg-gray-50 p-3"
+               >
                   <div class="mb-1 text-xs text-gray-500">İnventar nömrəsi</div>
                   <div class="font-semibold text-gray-900">#{{ monument.inventory }}</div>
                </div>
@@ -230,12 +236,12 @@ import {
    cdxIconLogoWikimediaCommons,
    cdxIconLogoWikipedia,
 } from "@wikimedia/codex-icons";
-import MonumentMiniMap from "../components/monument/MonumentMiniMap.vue";
-import UploadModal from "../components/UploadModal.vue";
-import { useWikiCredits } from "../composables/useWikiCredits";
-import { useAuthStore } from "../stores/auth";
-import { useMonumentStore } from "../stores/monuments";
-import type { MonumentProps } from "../types";
+import MonumentMiniMap from "@/components/monument/MonumentMiniMap.vue";
+import UploadModal from "@/components/UploadModal.vue";
+import { useWikiCredits } from "@/composables/useWikiCredits.ts";
+import { useAuthStore } from "@/stores/auth.ts";
+import { useMonumentStore } from "@/stores/monuments.ts";
+import type { MonumentProps } from "@/types";
 import {
    encodeIdForUrl,
    getCanonicalId,
@@ -243,8 +249,8 @@ import {
    getOptimizedImage,
    getSrcSet,
    isIdMatch,
-} from "../utils/monumentFormatters";
-import { getCoordinatesUrl, isMobileViewport } from "../utils/geoLinks";
+} from "@/utils/monumentFormatters.ts";
+import { getCoordinatesUrl, isMobileViewport } from "@/utils/geoLinks.ts";
 
 const monumentStore = useMonumentStore();
 const auth = useAuthStore();
@@ -398,7 +404,8 @@ watch(
                router.replace(`/monument/${encodeIdForUrl(canonicalId)}`);
             }
 
-            const [lon, lat] = (found.geometry as { type: "Point"; coordinates: [number, number] }).coordinates;
+            const [lon, lat] = (found.geometry as { type: "Point"; coordinates: [number, number] })
+               .coordinates;
             monument.value = { ...found.properties, lat, lon };
             error.value = null;
             if (monument.value?.image) {

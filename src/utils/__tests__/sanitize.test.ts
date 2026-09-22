@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "../sanitize";
+import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize.ts";
 
 describe("sanitizeWikitext", () => {
    it("strips link and category brackets", () => {

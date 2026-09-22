@@ -1,4 +1,4 @@
-import type { MonumentProps } from "../types";
+import type { MonumentProps } from "@/types";
 
 /**
  * Composable for generating Schema.org JSON-LD structured data

@@ -1,10 +1,7 @@
 import express from "express";
-import type {
-   LeaderboardResponse,
-   WikiLovesUserData,
-} from "../types/api.ts";
-import { logger } from "../utils/logger";
-import redisClient from "../utils/redis.ts";
+import type { LeaderboardResponse, WikiLovesUserData } from "@/types/api.ts";
+import { logger } from "@/utils/logger.ts";
+import redisClient from "@/utils/redis.ts";
 
 const router = express.Router();
 
@@ -38,10 +35,7 @@ async function fetchAggregate(): Promise<LeaderboardResponse> {
       const now = new Date();
       const currentYear = now.getFullYear();
       const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
-      const years = Array.from(
-         { length: latestYear - START_YEAR + 1 },
-         (_, i) => START_YEAR + i,
-      );
+      const years = Array.from({ length: latestYear - START_YEAR + 1 }, (_, i) => START_YEAR + i);
 
       const fetchPromises = years.map(async (year) => {
          const yearCacheKey = `leaderboard:raw:${year}`;
@@ -89,7 +83,10 @@ async function fetchAggregate(): Promise<LeaderboardResponse> {
          },
       };
 
-      const userMap: Record<string, WikiLovesUserData & { yearly: Record<number, { count: number; usage: number }> }> = Object.create(null);
+      const userMap: Record<
+         string,
+         WikiLovesUserData & { yearly: Record<number, { count: number; usage: number }> }
+      > = Object.create(null);
       const uniqueUsers = new Set<string>();
 
       results.forEach((data, index) => {

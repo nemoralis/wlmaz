@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getOverlapGroupKey, getSpreadPosition } from "../markerOverlap";
+import { getOverlapGroupKey, getSpreadPosition } from "@/utils/markerOverlap.ts";
 
 describe("getOverlapGroupKey", () => {
    it("groups identical coordinates", () => {

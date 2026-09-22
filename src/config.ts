@@ -19,8 +19,7 @@ const isProduction = process.env.NODE_ENV === "production";
  * True only when the local MediaWiki dev-upload mode may be used: not running
  * in production AND explicitly enabled via MEDIAWIKI_DEV_MODE=true.
  */
-const isDevUploadMode =
-   !isProduction && process.env.MEDIAWIKI_DEV_MODE === "true";
+const isDevUploadMode = !isProduction && process.env.MEDIAWIKI_DEV_MODE === "true";
 
 // ---------------------------------------------------------------------------
 // Validation helpers
@@ -84,8 +83,7 @@ export const config = {
    uploadsEnabled: process.env.ENABLE_UPLOADS === "true",
 
    /** Log level: debug | info | warn | error */
-   logLevel: (process.env.LOG_LEVEL?.toLowerCase()) ||
-      (isProduction ? "info" : "debug"),
+   logLevel: process.env.LOG_LEVEL?.toLowerCase() || (isProduction ? "info" : "debug"),
 
    /** Wikimedia OAuth consumer credentials (trimmed) */
    oauth: {

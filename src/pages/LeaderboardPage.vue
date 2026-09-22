@@ -223,7 +223,7 @@
 <script lang="ts" setup>
 import { defineAsyncComponent, onMounted } from "vue";
 import { useHead } from "@unhead/vue";
-import { useLeaderboard } from "../composables/useLeaderboard";
+import { useLeaderboard } from "@/composables/useLeaderboard.ts";
 
 const YearlyBreakdownChart = defineAsyncComponent(
    () => import("../components/stats/YearlyBreakdownChart.vue"),

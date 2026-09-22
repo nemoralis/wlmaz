@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import type { UserStats } from "../types/api.ts";
+import type { UserStats } from "@/types/api.ts";
 
 export const useUserStats = () => {
    const stats = ref<UserStats | null>(null);
@@ -44,7 +44,8 @@ export const useUserStats = () => {
          console.error("Failed to fetch user stats:", err);
          // Don't show error if we have cached data, just log it
          if (!stats.value) {
-            error.value = err instanceof Error ? err.message : "Statistikaları yükləmək mümkün olmadı.";
+            error.value =
+               err instanceof Error ? err.message : "Statistikaları yükləmək mümkün olmadı.";
          }
       } finally {
          isLoading.value = false;

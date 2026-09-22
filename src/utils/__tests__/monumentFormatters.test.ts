@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { MonumentProps } from "../../types";
+import type { MonumentProps } from "@/types";
 import {
    getCanonicalId,
    getCategoryUrl,
@@ -8,7 +8,7 @@ import {
    getOptimizedImage,
    getSrcSet,
    isIdMatch,
-} from "../monumentFormatters";
+} from "@/utils/monumentFormatters.ts";
 
 describe("getClosestWikiWidth", () => {
    it("returns the first supported width >= target", () => {

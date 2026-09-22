@@ -11,7 +11,7 @@
 import "@/utils/echarts";
 import VChart from "vue-echarts";
 import { computed } from "vue";
-import type { StatHistoryItem } from "../../composables/useStats";
+import type { StatHistoryItem } from "@/composables/useStats.ts";
 
 const props = defineProps<{
    currentStats: StatHistoryItem;

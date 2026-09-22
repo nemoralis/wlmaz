@@ -91,24 +91,24 @@ import {
    watch,
 } from "vue";
 import L from "leaflet";
-import { useAuthStore } from "../stores/auth";
-import { useMonumentStore } from "../stores/monuments";
-import type { MonumentProps } from "../types";
-import MonumentSidebarHome from "./map/MonumentSidebarHome.vue";
+import { useAuthStore } from "@/stores/auth.ts";
+import { useMonumentStore } from "@/stores/monuments.ts";
+import type { MonumentProps } from "@/types";
+import MonumentSidebarHome from "@/components/map/MonumentSidebarHome.vue";
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
 import type { Feature } from "geojson";
 import type { Point } from "geojson";
-import { useClipboard } from "../composables/useClipboard";
+import { useClipboard } from "@/composables/useClipboard.ts";
 import {
    useLeafletMap,
    type MarkerFilter,
    type MonumentMarker,
-} from "../composables/useLeafletMap";
-import { useWikiCredits } from "../composables/useWikiCredits";
-import { getCanonicalId } from "../utils/monumentFormatters";
-import { getMarkerRadius } from "../utils/markerRadius";
-import { getOverlapGroupKey, getSpreadPosition } from "../utils/markerOverlap";
+} from "@/composables/useLeafletMap.ts";
+import { useWikiCredits } from "@/composables/useWikiCredits.ts";
+import { getCanonicalId } from "@/utils/monumentFormatters.ts";
+import { getMarkerRadius } from "@/utils/markerRadius.ts";
+import { getOverlapGroupKey, getSpreadPosition } from "@/utils/markerOverlap.ts";
 // CSS
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
 import "leaflet-minimap/dist/Control.MiniMap.min.css";

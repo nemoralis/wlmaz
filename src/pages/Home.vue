@@ -30,10 +30,10 @@
 <script lang="ts" setup>
 import { computed, onErrorCaptured, ref } from "vue";
 import { useHead } from "@unhead/vue";
-import MonumentMap from "../components/MonumentMap.vue";
-import { schemaToJsonLd, useOrganizationSchema } from "../composables/useSchemaOrg";
-import { useMonumentStore } from "../stores/monuments";
-import { getOptimizedImage, getSrcSet } from "../utils/monumentFormatters";
+import MonumentMap from "@/components/MonumentMap.vue";
+import { schemaToJsonLd, useOrganizationSchema } from "@/composables/useSchemaOrg.ts";
+import { useMonumentStore } from "@/stores/monuments.ts";
+import { getOptimizedImage, getSrcSet } from "@/utils/monumentFormatters.ts";
 
 const monumentStore = useMonumentStore();
 

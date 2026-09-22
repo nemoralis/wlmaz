@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getCoordinatesUrl } from "../geoLinks";
+import { getCoordinatesUrl } from "@/utils/geoLinks.ts";
 
 describe("getCoordinatesUrl", () => {
    it("returns a geo: URI on mobile", () => {

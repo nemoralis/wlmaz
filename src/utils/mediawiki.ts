@@ -1,15 +1,15 @@
 import crypto from "crypto";
 import OAuth from "oauth-1.0a";
-import type { WikiUser } from "../types";
-import { config } from "../config";
-import { logger } from "./logger";
-import { sanitizeFilename } from "./sanitize";
+import { config } from "@/config.ts";
+import type { WikiUser } from "@/types";
+import { logger } from "@/utils/logger.ts";
+import { MediaWikiBotClient } from "@/utils/mediawikiBotClient.ts";
 import {
    getBotPasswordCredentials,
    resolveMediaWikiTarget,
    type MediaWikiTarget,
-} from "./mediawikiConfig";
-import { MediaWikiBotClient } from "./mediawikiBotClient";
+} from "@/utils/mediawikiConfig.ts";
+import { sanitizeFilename } from "@/utils/sanitize.ts";
 
 // The Commons OAuth API target is separate from local dev mode. The upload
 // routes decide at request time which target applies via resolveMediaWikiTarget.

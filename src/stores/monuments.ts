@@ -1,8 +1,8 @@
 import type { Feature, FeatureCollection } from "geojson";
 import { ref, shallowRef } from "vue";
 import { defineStore } from "pinia";
-import type { MonumentProps } from "../types";
-import DataWorker from "../workers/data.worker?worker";
+import type { MonumentProps } from "@/types";
+import DataWorker from "@/workers/data.worker.ts?worker";
 
 export const useMonumentStore = defineStore("monuments", () => {
    const geoData = shallowRef<FeatureCollection | null>(null);

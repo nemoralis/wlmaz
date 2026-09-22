@@ -1,6 +1,6 @@
 import { Router } from "express";
-import type { PublicWikiUser, AuthUnauthenticatedResponse } from "../types/api.ts";
-import passport from "./passport.ts";
+import passport from "@/auth/passport.ts";
+import type { AuthUnauthenticatedResponse, PublicWikiUser } from "@/types/api.ts";
 
 const router = Router();
 

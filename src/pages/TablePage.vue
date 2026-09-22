@@ -132,11 +132,11 @@ import {
    cdxIconMapPin,
    cdxIconUpload,
 } from "@wikimedia/codex-icons";
-import MonumentVirtualTable from "../components/MonumentVirtualTable.vue";
-import { useAuthStore } from "../stores/auth";
-import { useMonumentStore } from "../stores/monuments";
-import type { MonumentProps as Monument } from "../types";
-import { getCanonicalId } from "../utils/monumentFormatters";
+import MonumentVirtualTable from "@/components/MonumentVirtualTable.vue";
+import { useAuthStore } from "@/stores/auth.ts";
+import { useMonumentStore } from "@/stores/monuments.ts";
+import type { MonumentProps as Monument } from "@/types";
+import { getCanonicalId } from "@/utils/monumentFormatters.ts";
 
 const UploadModal = defineAsyncComponent(() => import("../components/UploadModal.vue"));
 

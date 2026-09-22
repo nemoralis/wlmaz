@@ -48,10 +48,12 @@
 <script lang="ts" setup>
 import { defineAsyncComponent, onMounted } from "vue";
 import { useHead } from "@unhead/vue";
-import StatsCard from "../components/stats/StatsCard.vue";
-import { useStats } from "../composables/useStats";
+import StatsCard from "@/components/stats/StatsCard.vue";
+import { useStats } from "@/composables/useStats.ts";
 
-const StatsDoughnutChart = defineAsyncComponent(() => import("../components/stats/StatsDoughnutChart.vue"));
+const StatsDoughnutChart = defineAsyncComponent(
+   () => import("../components/stats/StatsDoughnutChart.vue"),
+);
 const StatsLineChart = defineAsyncComponent(() => import("../components/stats/StatsLineChart.vue"));
 
 const { history, currentStats, imagePercentage, lastUpdateDate, fetchData } = useStats();

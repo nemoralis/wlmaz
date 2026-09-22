@@ -1,6 +1,6 @@
 import { computed, ref } from "vue";
-import type { LeaderboardUser } from "../types";
-import type { LeaderboardResponse, EventStats } from "../types/api.ts";
+import type { LeaderboardUser } from "@/types";
+import type { EventStats, LeaderboardResponse } from "@/types/api.ts";
 
 const API_BASE = "/api/leaderboard";
 const COUNTRY = "Azerbaijan";
