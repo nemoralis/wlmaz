@@ -3,7 +3,7 @@
       <div class="border-b border-gray-200 bg-white">
          <div class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
-               <h1 class="text-2xl font-bold text-gray-900">Abidələr Siyahısı</h1>
+               <h1 class="text-2xl font-bold text-gray-900">Abidələr siyahısı</h1>
                <router-link
                   to="/"
                   class="flex items-center gap-2 font-medium text-[#3366cc] hover:text-[#2a4b8d]"
@@ -144,13 +144,13 @@ const auth = useAuthStore();
 const monumentStore = useMonumentStore();
 
 useHead({
-   title: "Abidələr Siyahısı - Azərbaycan Tarixi Abidələri | Viki Abidələri Sevir",
+   title: "Abidələr siyahısı - Azərbaycan tarixi abidələri | Viki Abidələri Sevir",
    link: [{ rel: "canonical", href: "https://wikilovesmonuments.az/table" }],
    meta: [
       {
          name: "description",
          content:
-            "Azərbaycanın bütün tarixi abidələrinin tam siyahısı. Bakı, Şəki, Qəbələ və digər bölgələrdəki məscid, qala, məqbərə və digər mədəni irs abidələri haqqında məlumat.",
+            "Azərbaycanın bütün tarixi abidələrinin tam siyahısı.",
       },
    ],
 });
