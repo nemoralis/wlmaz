@@ -210,14 +210,17 @@ async function main() {
          }
 
          const today = new Date().toISOString().split("T")[0];
-         const withImage = newData.features.filter((f) => f.properties.image).length;
+         // Count located (geometry-bearing) monuments only: coord-less
+         // monuments are table-only and must not inflate the history.
+         const locatedFeatures = newData.features.filter((f) => f.geometry);
+         const withImage = locatedFeatures.filter((f) => f.properties.image).length;
 
          const entry = {
             date: today,
             timestamp: Date.now(),
-            total: newData.features.length,
+            total: locatedFeatures.length,
             withImage,
-            withoutImage: newData.features.length - withImage,
+            withoutImage: locatedFeatures.length - withImage,
          };
 
          // Remove existing entry for same date to allow re-runs

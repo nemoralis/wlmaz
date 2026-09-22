@@ -331,11 +331,12 @@ export default defineComponent({
                if (ready && monumentStore.geoData) {
                   const geoData = monumentStore.geoData;
 
-                  // Update Stats
-                  stats.value.total = geoData.features.length;
-                  stats.value.withImage = geoData.features.filter(
-                     (f) => f.properties?.image,
-                  ).length;
+                  // Update Stats — located (geometry-bearing) monuments only, so the
+                  // dashboard matches the markers actually on the map and the
+                  // stats page; coord-less monuments live only in the table.
+                  const locatedFeatures = geoData.features.filter((f) => f.geometry);
+                  stats.value.total = locatedFeatures.length;
+                  stats.value.withImage = locatedFeatures.filter((f) => f.properties?.image).length;
 
                   // Create Marker Layer
                   const markerLayer = setupMarkerLayer();

@@ -23,8 +23,13 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
 
          allFeatures = geoData.features as MonumentFeature[];
 
+         // Search only covers located (geometry-bearing) monuments: they are the
+         // ones rendered on the map, so selecting a coord-less result would be a
+         // dead click. Coord-less monuments remain available in the table.
+         const locatedFeatures = allFeatures.filter((f) => f.geometry);
+
          // Initialize Fuse
-         fuse = new Fuse(allFeatures, {
+         fuse = new Fuse(locatedFeatures, {
             keys: ["properties.itemLabel", "properties.inventory", "properties.itemAltLabel"],
             threshold: 0.3,
             ignoreLocation: true,
@@ -48,7 +53,11 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
       if (!fuse) return;
 
       if (!query || query.trim() === "") {
-         const msg: WorkerResponse = { type: "SEARCH_RESULTS", results: allFeatures, query };
+         const msg: WorkerResponse = {
+            type: "SEARCH_RESULTS",
+            results: allFeatures.filter((f) => f.geometry),
+            query,
+         };
          self.postMessage(msg);
          return;
       }
