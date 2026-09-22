@@ -17,6 +17,8 @@ import { CommonsUploadError } from "@/utils/mediawiki.ts";
 import type { BotPasswordCredentials } from "@/utils/mediawikiConfig.ts";
 import type { MediaWikiApiResponse } from "@/types/mediawiki.ts";
 import { sanitizeFilename } from "@/utils/sanitize.ts";
+import { MEDIAWIKI_TITLES_PER_REQUEST } from "@/utils/constants.ts";
+import { normalizeWikiTitle, pickUploadWarning } from "@/utils/mediawikiShared.ts";
 
 const USER_AGENT = "WLMAZ-Tool/1.0";
 
@@ -187,26 +189,10 @@ export class MediaWikiBotClient {
          throw new CommonsUploadError(result.error.code, result.error.info);
       }
 
-      const uploadResult = result.upload;
-      const hasWarnings = !!uploadResult?.warnings && Object.keys(uploadResult.warnings).length > 0;
-      if (uploadResult && (uploadResult.result === "Warning" || hasWarnings)) {
-         const warnings = uploadResult.warnings || {};
-         const priority = [
-            "exists",
-            "fileexists-shared-forbidden",
-            "fileexists",
-            "no-change",
-            "duplicateversions",
-            "duplicate",
-            "duplicate-archive",
-            "was-deleted",
-            "badfilename",
-         ];
-         const primary =
-            priority.find((key) => key in warnings) || Object.keys(warnings)[0] || "warning";
-         const raw = warnings[primary];
-         const info = Array.isArray(raw) ? raw.join(", ") : raw;
-         throw new CommonsUploadError(primary, info ? String(info) : `Upload refused: ${primary}`);
+      const warning = pickUploadWarning(result.upload);
+      if (warning) {
+         logger.error("[MediaWikiBot] Upload Warning Details:", result.upload?.warnings);
+         throw new CommonsUploadError(warning.code, warning.info);
       }
 
       return result;
@@ -217,19 +203,10 @@ export class MediaWikiBotClient {
     * Uses the same session and API URL as uploads. Returns the subset that exist.
     */
    async checkFileExistence(rawTitles: string[]): Promise<string[]> {
-      const MAX_TITLES_PER_REQUEST = 50;
-      const normalize = (title: string): string =>
-         title
-            .replace(/^File:/i, "")
-            .replace(/_/g, " ")
-            .replace(/\s+/g, " ")
-            .trim()
-            .toLowerCase();
-
       const existing: string[] = [];
 
-      for (let i = 0; i < rawTitles.length; i += MAX_TITLES_PER_REQUEST) {
-         const chunk = rawTitles.slice(i, i + MAX_TITLES_PER_REQUEST);
+      for (let i = 0; i < rawTitles.length; i += MEDIAWIKI_TITLES_PER_REQUEST) {
+         const chunk = rawTitles.slice(i, i + MEDIAWIKI_TITLES_PER_REQUEST);
          const fileTitles = chunk.map((t) => `File:${sanitizeFilename(t)}.jpg`);
 
          const params = new URLSearchParams({
@@ -264,12 +241,12 @@ export class MediaWikiBotClient {
                // A page is missing when it carries a "missing" key (often "").
                // Check key presence, not truthiness, so missing pages aren't
                // mistaken for existing files.
-               return !("missing" in p) && p.title ? [normalize(p.title)] : [];
+               return !("missing" in p) && p.title ? [normalizeWikiTitle(p.title)] : [];
             }),
          );
 
          for (const raw of chunk) {
-            if (existingKeys.has(normalize(`File:${sanitizeFilename(raw)}.jpg`))) {
+            if (existingKeys.has(normalizeWikiTitle(`File:${sanitizeFilename(raw)}.jpg`))) {
                existing.push(raw);
             }
          }

@@ -1,4 +1,5 @@
 import type { MonumentProps } from "@/types";
+import { SITE_HOST } from "@/utils/constants.ts";
 
 /**
  * Composable for generating Schema.org JSON-LD structured data
@@ -24,7 +25,7 @@ export function useMonumentSchema(monument: MonumentProps) {
 
    // Entity deduplication URL
    if (monument.inventory) {
-      schema["@id"] = `https://wikilovesmonuments.az/monument/${monument.inventory}`;
+      schema["@id"] = `${SITE_HOST}/monument/${monument.inventory}`;
    }
 
    // Add description if available
@@ -75,7 +76,7 @@ export function useMonumentSchema(monument: MonumentProps) {
 
    // Add URL to the monument page
    if (monument.inventory) {
-      schema.url = `https://wikilovesmonuments.az/monument/${monument.inventory}`;
+      schema.url = `${SITE_HOST}/monument/${monument.inventory}`;
    }
 
    // Add dateModified for freshness signals
@@ -95,8 +96,8 @@ export function useOrganizationSchema() {
       "@type": "Organization",
       name: "Wiki Loves Monuments Azerbaijan",
       alternateName: "Viki Abidələri Sevir Azərbaycan",
-      url: "https://wikilovesmonuments.az",
-      logo: "https://wikilovesmonuments.az/wlm-az.png",
+      url: SITE_HOST,
+      logo: `${SITE_HOST}/wlm-az.png`,
       description:
          "Azərbaycandakı abidələrin interaktiv xəritəsi. Viki Abidələri Sevir müsabiqəsi üçün fotoşəkillər yükləyin.",
       sameAs: [

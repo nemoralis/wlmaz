@@ -11,6 +11,8 @@ import {
    type MediaWikiTarget,
 } from "@/utils/mediawikiConfig.ts";
 import { sanitizeFilename } from "@/utils/sanitize.ts";
+import { MEDIAWIKI_TITLES_PER_REQUEST } from "@/utils/constants.ts";
+import { normalizeWikiTitle, pickUploadWarning } from "@/utils/mediawikiShared.ts";
 
 // The Commons OAuth API target is separate from local dev mode. The upload
 // routes decide at request time which target applies via resolveMediaWikiTarget.
@@ -227,30 +229,10 @@ export async function uploadFile(
       throw new CommonsUploadError(result.error.code, result.error.info);
    }
 
-   // Without `ignorewarnings`, an existing/duplicate title produces a Warning
-   // result instead of an error. That must fail the upload — if we let it
-   // through, the existing file would be silently replaced with a new version.
-   const uploadResult = result.upload;
-   const hasWarnings = !!uploadResult?.warnings && Object.keys(uploadResult.warnings).length > 0;
-   if (uploadResult && (uploadResult.result === "Warning" || hasWarnings)) {
-      logger.error("[MediaWiki] Upload Warning Details:", uploadResult.warnings);
-      const warnings = uploadResult.warnings || {};
-      const priority = [
-         "exists",
-         "fileexists-shared-forbidden",
-         "fileexists",
-         "no-change",
-         "duplicateversions",
-         "duplicate",
-         "duplicate-archive",
-         "was-deleted",
-         "badfilename",
-      ];
-      const primary =
-         priority.find((key) => key in warnings) || Object.keys(warnings)[0] || "warning";
-      const raw = warnings[primary];
-      const info = Array.isArray(raw) ? raw.join(", ") : raw;
-      throw new CommonsUploadError(primary, info ? String(info) : `Upload refused: ${primary}`);
+   const warning = pickUploadWarning(result.upload);
+   if (warning) {
+      logger.error("[MediaWiki] Upload Warning Details:", result.upload?.warnings);
+      throw new CommonsUploadError(warning.code, warning.info);
    }
 
    return result;
@@ -278,22 +260,13 @@ export async function checkFileExistence(
    }
 
    const apiUrl = target.apiUrl;
-   const MAX_TITLES_PER_REQUEST = 50;
 
    // MediaWiki normalizes titles (File: prefix, underscores vs spaces, first
    // letter casing) — fold both sides to a comparable key.
-   const normalize = (title: string): string =>
-      title
-         .replace(/^File:/i, "")
-         .replace(/_/g, " ")
-         .replace(/\s+/g, " ")
-         .trim()
-         .toLowerCase();
-
    const existing: string[] = [];
 
-   for (let i = 0; i < rawTitles.length; i += MAX_TITLES_PER_REQUEST) {
-      const chunk = rawTitles.slice(i, i + MAX_TITLES_PER_REQUEST);
+   for (let i = 0; i < rawTitles.length; i += MEDIAWIKI_TITLES_PER_REQUEST) {
+      const chunk = rawTitles.slice(i, i + MEDIAWIKI_TITLES_PER_REQUEST);
       const fileTitles = chunk.map((t) => `File:${sanitizeFilename(t)}.jpg`);
 
       const params = new URLSearchParams({
@@ -336,12 +309,12 @@ export async function checkFileExistence(
             // A page is missing when it carries a "missing" key (often "").
             // Check key presence, not truthiness, so missing pages aren't
             // mistaken for existing files.
-            return !("missing" in page) && page.title ? [normalize(page.title)] : [];
+            return !("missing" in page) && page.title ? [normalizeWikiTitle(page.title)] : [];
          }),
       );
 
       for (const raw of chunk) {
-         if (existingKeys.has(normalize(`File:${sanitizeFilename(raw)}.jpg`))) {
+         if (existingKeys.has(normalizeWikiTitle(`File:${sanitizeFilename(raw)}.jpg`))) {
             existing.push(raw);
          }
       }
