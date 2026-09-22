@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
+import type { Map as LeafletMap } from "leaflet";
 
 const props = defineProps<{
    lat: number;
@@ -25,8 +26,7 @@ const props = defineProps<{
 }>();
 
 const mapContainer = ref<HTMLDivElement | null>(null);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let map: any = null;
+let map: LeafletMap | null = null;
 
 const initMap = async () => {
    if (!mapContainer.value || map) return;

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { isHeicFile, type FileItem, uploadSingleFile } from "@/utils/uploadService.ts";
+import { isHeicFile, uploadSingleFile, type FileItem } from "@/utils/uploadService.ts";
 
 /**
  * Tests for the upload HTTP service: single-file upload with auto-retry on
@@ -22,7 +22,9 @@ const makeFileItem = (overrides: Partial<FileItem> = {}): FileItem => ({
 let fetchMock: ReturnType<typeof vi.fn>;
 
 const respond = (status: number, body: unknown = {}) => {
-   fetchMock.mockResolvedValue(new Response(status >= 400 ? JSON.stringify(body) : JSON.stringify(body), { status }));
+   fetchMock.mockResolvedValue(
+      new Response(status >= 400 ? JSON.stringify(body) : JSON.stringify(body), { status }),
+   );
 };
 
 beforeEach(() => {
@@ -58,7 +60,9 @@ describe("uploadSingleFile — success", () => {
    });
 
    it("forwards EXIF coords, category and inventory into the form", async () => {
-      fetchMock.mockResolvedValue(new Response(JSON.stringify({ filename: "x.jpg" }), { status: 200 }));
+      fetchMock.mockResolvedValue(
+         new Response(JSON.stringify({ filename: "x.jpg" }), { status: 200 }),
+      );
 
       await uploadSingleFile(
          makeFileItem({ latitude: 40.5, longitude: 47.1, capturedAt: "2026-01-01T10:00:00" }),
@@ -75,7 +79,9 @@ describe("uploadSingleFile — success", () => {
    });
 
    it("falls back to monument coords when EXIF coords are absent", async () => {
-      fetchMock.mockResolvedValue(new Response(JSON.stringify({ filename: "x.jpg" }), { status: 200 }));
+      fetchMock.mockResolvedValue(
+         new Response(JSON.stringify({ filename: "x.jpg" }), { status: 200 }),
+      );
 
       await uploadSingleFile(makeFileItem(), "cc-by-sa-4.0", { lat: 40.1, lon: 47.9 });
 
@@ -88,7 +94,9 @@ describe("uploadSingleFile — success", () => {
 describe("uploadSingleFile — transient failures retry", () => {
    it("retries on a 5xx response and succeeds on the second attempt", async () => {
       fetchMock
-         .mockResolvedValueOnce(new Response(JSON.stringify({ error: "backing up" }), { status: 503 }))
+         .mockResolvedValueOnce(
+            new Response(JSON.stringify({ error: "backing up" }), { status: 503 }),
+         )
          .mockResolvedValueOnce(
             new Response(JSON.stringify({ filename: "retried.jpg", url: "https://x" }), {
                status: 200,

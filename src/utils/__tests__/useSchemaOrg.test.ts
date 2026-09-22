@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import type { MonumentProps } from "@/types";
 import {
    schemaToJsonLd,
    useBreadcrumbSchema,
    useMonumentSchema,
    useOrganizationSchema,
 } from "@/composables/useSchemaOrg.ts";
+import type { MonumentProps } from "@/types";
 
 describe("useMonumentSchema", () => {
    const baseMonument: MonumentProps = { itemLabel: "Nizami Mausoleum" };
@@ -67,8 +67,7 @@ describe("useMonumentSchema", () => {
    });
 
    it("keeps absolute image URLs untouched", () => {
-      const absolute =
-         "https://commons.wikimedia.org/wiki/Special:FilePath/Nizami%20Mausoleum.jpg";
+      const absolute = "https://commons.wikimedia.org/wiki/Special:FilePath/Nizami%20Mausoleum.jpg";
       const schema = useMonumentSchema({ ...baseMonument, image: absolute });
       expect(schema.image).toBe(absolute);
    });

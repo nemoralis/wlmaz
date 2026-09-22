@@ -16,10 +16,7 @@ export interface MiniMapOptions {
 declare module "leaflet" {
    namespace Control {
       class MiniMap extends Control {
-         constructor(
-            layer: L.Layer,
-            options?: MiniMapOptions,
-         );
+         constructor(layer: L.Layer, options?: MiniMapOptions);
          changeLayer(layer: L.Layer): void;
       }
    }

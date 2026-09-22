@@ -3,6 +3,7 @@ import OAuth from "oauth-1.0a";
 import { config } from "@/config.ts";
 import type { WikiUser } from "@/types";
 import type { MediaWikiApiResponse } from "@/types/mediawiki.ts";
+import { MEDIAWIKI_TITLES_PER_REQUEST } from "@/utils/constants.ts";
 import { logger } from "@/utils/logger.ts";
 import { MediaWikiBotClient } from "@/utils/mediawikiBotClient.ts";
 import {
@@ -10,9 +11,8 @@ import {
    resolveMediaWikiTarget,
    type MediaWikiTarget,
 } from "@/utils/mediawikiConfig.ts";
-import { sanitizeFilename } from "@/utils/sanitize.ts";
-import { MEDIAWIKI_TITLES_PER_REQUEST } from "@/utils/constants.ts";
 import { normalizeWikiTitle, pickUploadWarning } from "@/utils/mediawikiShared.ts";
+import { sanitizeFilename } from "@/utils/sanitize.ts";
 
 // The Commons OAuth API target is separate from local dev mode. The upload
 // routes decide at request time which target applies via resolveMediaWikiTarget.

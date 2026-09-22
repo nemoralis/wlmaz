@@ -5,13 +5,9 @@
  */
 import express from "express";
 import type { LeaderboardResponse } from "@/types/api.ts";
+import { aggregateLeaderboardYears, COUNTRY, START_YEAR } from "@/utils/leaderboard.ts";
 import { logger } from "@/utils/logger.ts";
 import redisClient from "@/utils/redis.ts";
-import {
-   aggregateLeaderboardYears,
-   COUNTRY,
-   START_YEAR,
-} from "@/utils/leaderboard.ts";
 
 const router = express.Router();
 

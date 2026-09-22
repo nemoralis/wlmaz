@@ -7,10 +7,7 @@
  * tested in isolation.
  */
 
-import type {
-   LeaderboardResponse,
-   WikiLovesUserData,
-} from "@/types/api.ts";
+import type { LeaderboardResponse, WikiLovesUserData } from "@/types/api.ts";
 
 /** Wiki Loves Monuments country name used as the top-level key. */
 export const COUNTRY = "Azerbaijan";

@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-   aggregateLeaderboardYears,
-   COUNTRY,
-} from "@/utils/leaderboard.ts";
+import { aggregateLeaderboardYears, COUNTRY } from "@/utils/leaderboard.ts";
 
 /** Minimal country payload shaped like the toolforge `/api/events/monuments<year>` node. */
 function countryPayload(overrides: {
@@ -26,10 +23,13 @@ function countryPayload(overrides: {
 
 describe("aggregateLeaderboardYears", () => {
    it("sums totals across years and records per-year tallies", () => {
-      const result = aggregateLeaderboardYears([2013, 2014], [
-         { Azerbaijan: countryPayload({ count: 10, usage: 20 }) },
-         { Azerbaijan: countryPayload({ count: 30, usage: 40 }) },
-      ]);
+      const result = aggregateLeaderboardYears(
+         [2013, 2014],
+         [
+            { Azerbaijan: countryPayload({ count: 10, usage: 20 }) },
+            { Azerbaijan: countryPayload({ count: 30, usage: 40 }) },
+         ],
+      );
 
       const country = result[COUNTRY];
       expect(country.count).toBe(40);
@@ -39,10 +39,10 @@ describe("aggregateLeaderboardYears", () => {
    });
 
    it("skips null results (fetch failures) without skewing the sums", () => {
-      const result = aggregateLeaderboardYears([2013, 2014], [
-         { Azerbaijan: countryPayload({ count: 10, usage: 20 }) },
-         null,
-      ]);
+      const result = aggregateLeaderboardYears(
+         [2013, 2014],
+         [{ Azerbaijan: countryPayload({ count: 10, usage: 20 }) }, null],
+      );
 
       expect(result[COUNTRY].count).toBe(10);
       expect(result[COUNTRY].usage).toBe(20);
@@ -50,18 +50,30 @@ describe("aggregateLeaderboardYears", () => {
    });
 
    it("skips payloads that lack the Azerbaijan key entirely", () => {
-      const result = aggregateLeaderboardYears([2013], [
-         { Germany: countryPayload({ count: 99 }) },
-      ]);
+      const result = aggregateLeaderboardYears(
+         [2013],
+         [{ Germany: countryPayload({ count: 99 }) }],
+      );
 
       expect(result[COUNTRY].count).toBe(0);
    });
 
    it("merges a user's count/usage and earliest registration across years", () => {
-      const result = aggregateLeaderboardYears([2013, 2014], [
-         { Azerbaijan: countryPayload({ users: { Alice: { count: 1, usage: 5, reg: 20130801000000 } } }) },
-         { Azerbaijan: countryPayload({ users: { Alice: { count: 2, usage: 9, reg: 20140801000000 } } }) },
-      ]);
+      const result = aggregateLeaderboardYears(
+         [2013, 2014],
+         [
+            {
+               Azerbaijan: countryPayload({
+                  users: { Alice: { count: 1, usage: 5, reg: 20130801000000 } },
+               }),
+            },
+            {
+               Azerbaijan: countryPayload({
+                  users: { Alice: { count: 2, usage: 9, reg: 20140801000000 } },
+               }),
+            },
+         ],
+      );
 
       const alice = result[COUNTRY].users["Alice"];
       expect(alice.count).toBe(3);
@@ -74,10 +86,20 @@ describe("aggregateLeaderboardYears", () => {
    });
 
    it("counts unique users across years", () => {
-      const result = aggregateLeaderboardYears([2013, 2014], [
-         { Azerbaijan: countryPayload({ users: { Alice: { count: 1, usage: 1, reg: 1 } } }) },
-         { Azerbaijan: countryPayload({ users: { Alice: { count: 1, usage: 1, reg: 1 }, Bob: { count: 1, usage: 1, reg: 1 } } }) },
-      ]);
+      const result = aggregateLeaderboardYears(
+         [2013, 2014],
+         [
+            { Azerbaijan: countryPayload({ users: { Alice: { count: 1, usage: 1, reg: 1 } } }) },
+            {
+               Azerbaijan: countryPayload({
+                  users: {
+                     Alice: { count: 1, usage: 1, reg: 1 },
+                     Bob: { count: 1, usage: 1, reg: 1 },
+                  },
+               }),
+            },
+         ],
+      );
 
       expect(result[COUNTRY].usercount).toBe(2);
    });
@@ -88,9 +110,10 @@ describe("aggregateLeaderboardYears", () => {
          constructor: { count: 99, usage: 99, reg: 1 },
          prototype: { count: 99, usage: 99, reg: 1 },
       };
-      const result = aggregateLeaderboardYears([2013], [
-         { Azerbaijan: countryPayload({ users: hostileUsers }) },
-      ]);
+      const result = aggregateLeaderboardYears(
+         [2013],
+         [{ Azerbaijan: countryPayload({ users: hostileUsers }) }],
+      );
 
       expect(result[COUNTRY].users["__proto__"]).toBeUndefined();
       expect(result[COUNTRY].users["constructor"]).toBeUndefined();

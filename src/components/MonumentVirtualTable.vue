@@ -53,11 +53,11 @@
                   :style="{ width: col.width || 'auto', flex: col.width ? 'none' : 1 }"
                   class="overflow-hidden px-4"
                >
-<slot :name="`item-${col.id}`" :row="row">
-                      <span class="text-sm text-gray-700">
-                         {{ getColumnValue(row, col.id) }}
-                      </span>
-                   </slot>
+                  <slot :name="`item-${col.id}`" :row="row">
+                     <span class="text-sm text-gray-700">
+                        {{ getColumnValue(row, col.id) }}
+                     </span>
+                  </slot>
                </div>
             </div>
          </div>

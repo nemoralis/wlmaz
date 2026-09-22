@@ -191,34 +191,28 @@ const startServer = async () => {
    //    Static file requests that matched express.static above never reach here.
    // ---------------------------------------------------------------------------
 
-// Rate limiting — Redis-backed in production, in-memory (or skipped) in dev mode.
+   // Rate limiting — Redis-backed in production, in-memory (or skipped) in dev mode.
    const apiLimiter = rateLimit({
       windowMs: 15 * 60 * 1000,
       limit: 200,
       standardHeaders: "draft-8",
       legacyHeaders: false,
 
-      ...(config.isDevUploadMode
-         ? {}
-         : { store: createRateLimitRedisStore("rl-api:") }),
+      ...(config.isDevUploadMode ? {} : { store: createRateLimitRedisStore("rl-api:") }),
    });
    const authLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
       limit: 200,
       message: { error: "Too many login attempts, please try again later." },
 
-      ...(config.isDevUploadMode
-         ? {}
-         : { store: createRateLimitRedisStore("rl-auth:") }),
+      ...(config.isDevUploadMode ? {} : { store: createRateLimitRedisStore("rl-auth:") }),
    });
    const uploadLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
       limit: 500,
       message: { error: "Upload limit reached, please try again later." },
 
-      ...(config.isDevUploadMode
-         ? {}
-         : { store: createRateLimitRedisStore("rl-upload:") }),
+      ...(config.isDevUploadMode ? {} : { store: createRateLimitRedisStore("rl-upload:") }),
    });
 
    const apiPaths = ["/api", "/auth", "/upload"];

@@ -12,13 +12,13 @@
  *  - Errors returned to callers never contain credentials or cookies.
  */
 
+import type { MediaWikiApiResponse } from "@/types/mediawiki.ts";
+import { MEDIAWIKI_TITLES_PER_REQUEST } from "@/utils/constants.ts";
 import { logger } from "@/utils/logger.ts";
 import { CommonsUploadError } from "@/utils/mediawiki.ts";
 import type { BotPasswordCredentials } from "@/utils/mediawikiConfig.ts";
-import type { MediaWikiApiResponse } from "@/types/mediawiki.ts";
-import { sanitizeFilename } from "@/utils/sanitize.ts";
-import { MEDIAWIKI_TITLES_PER_REQUEST } from "@/utils/constants.ts";
 import { normalizeWikiTitle, pickUploadWarning } from "@/utils/mediawikiShared.ts";
+import { sanitizeFilename } from "@/utils/sanitize.ts";
 
 const USER_AGENT = "WLMAZ-Tool/1.0";
 

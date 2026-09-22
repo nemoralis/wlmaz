@@ -8,6 +8,7 @@ import {
    useMonumentSchema,
 } from "../src/composables/useSchemaOrg";
 import type { MonumentProps } from "../src/types";
+import { SITE_HOST } from "../src/utils/constants";
 import {
    encodeIdForUrl,
    getCategoryUrl,
@@ -15,7 +16,6 @@ import {
    getSrcSet,
    safeFileName,
 } from "../src/utils/monumentFormatters";
-import { SITE_HOST } from "../src/utils/constants";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

@@ -1,5 +1,4 @@
-import { RedisStore } from "rate-limit-redis";
-import type { RedisReply } from "rate-limit-redis";
+import { RedisStore, type RedisReply } from "rate-limit-redis";
 import redisClient from "@/utils/redis.ts";
 
 /**
