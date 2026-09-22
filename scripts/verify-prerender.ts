@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import { SITE_HOST } from "../src/utils/constants";
+import { encodeIdForUrl, safeFileName } from "../src/utils/monumentFormatters";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,10 +31,6 @@ const errors: string[] = [];
 const fail = (message: string): void => {
    errors.push(message);
 };
-
-const encodeIdForUrl = (id: string): string => encodeURI(id).replace(/\./g, "%2E");
-
-const safeFileName = (id: string): string => id.replace(/[^\w\u00A0-\uFFFF.-]/g, "_");
 
 const countOf = (html: string, pattern: RegExp): number => {
    const matches = html.match(pattern);

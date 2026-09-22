@@ -8,7 +8,13 @@ import {
    useMonumentSchema,
 } from "../src/composables/useSchemaOrg";
 import type { MonumentProps } from "../src/types";
-import { getCategoryUrl, getOptimizedImage, getSrcSet } from "../src/utils/monumentFormatters";
+import {
+   encodeIdForUrl,
+   getCategoryUrl,
+   getOptimizedImage,
+   getSrcSet,
+   safeFileName,
+} from "../src/utils/monumentFormatters";
 import { SITE_HOST } from "../src/utils/constants";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,18 +26,6 @@ const GEOJSON_PATH = path.join(__dirname, "../data/monuments.geojson");
 const MONUMENT_DIR = path.join(DIST_DIR, "monument");
 
 const SITE_TITLE = "Viki Abidələri Sevir Azərbaycan";
-
-/**
- * Encodes a monument ID for use in a URL path. Dots are kept as %2E (matching
- * the existing canonical/sitemap convention) and any remaining unsafe
- * characters (e.g. em-dashes) are percent-encoded.
- */
-const encodeIdForUrl = (id: string): string => encodeURI(id).replace(/\./g, "%2E");
-
-/**
- * Builds a filesystem-safe file name from a (decoded) monument ID.
- */
-const safeFileName = (id: string): string => id.replace(/[^\w\u00A0-\uFFFF.-]/g, "_");
 
 const escapeXml = (value: string): string =>
    value

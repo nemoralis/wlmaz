@@ -14,7 +14,6 @@ import session from "express-session";
 import helmet from "helmet";
 import hpp from "hpp";
 import morgan from "morgan";
-import { RedisStore as RateLimitRedisStore, type RedisReply } from "rate-limit-redis";
 import sharp from "sharp";
 import passport from "@/auth/passport.ts";
 import authRoutes from "@/auth/routes.ts";
@@ -22,6 +21,7 @@ import { config } from "@/config.ts";
 import leaderboardRoutes from "@/routes/leaderboard.ts";
 import uploadRoutes from "@/routes/upload.ts";
 import { logger } from "@/utils/logger.ts";
+import { createRateLimitRedisStore } from "@/utils/rateLimitStore.ts";
 import redisClient from "@/utils/redis.ts";
 
 // Limit libvips thread pool per worker.  In PM2 cluster mode each worker is a
@@ -191,49 +191,34 @@ const startServer = async () => {
    //    Static file requests that matched express.static above never reach here.
    // ---------------------------------------------------------------------------
 
-   // Rate limiting — Redis-backed in production, in-memory (or skipped) in dev mode.
+// Rate limiting — Redis-backed in production, in-memory (or skipped) in dev mode.
    const apiLimiter = rateLimit({
       windowMs: 15 * 60 * 1000,
       limit: 200,
       standardHeaders: "draft-8",
       legacyHeaders: false,
-       
+
       ...(config.isDevUploadMode
          ? {}
-         : {
-store: new RateLimitRedisStore({
-                sendCommand: (...args: string[]) => redisClient.sendCommand(args) as Promise<RedisReply>,
-                prefix: "rl-api:",
-             }),
-           }),
+         : { store: createRateLimitRedisStore("rl-api:") }),
    });
    const authLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
       limit: 200,
       message: { error: "Too many login attempts, please try again later." },
-       
+
       ...(config.isDevUploadMode
          ? {}
-         : {
-store: new RateLimitRedisStore({
-                sendCommand: (...args: string[]) => redisClient.sendCommand(args) as Promise<RedisReply>,
-                prefix: "rl-auth:",
-             }),
-           }),
+         : { store: createRateLimitRedisStore("rl-auth:") }),
    });
    const uploadLimiter = rateLimit({
       windowMs: 60 * 60 * 1000,
       limit: 500,
       message: { error: "Upload limit reached, please try again later." },
-       
+
       ...(config.isDevUploadMode
          ? {}
-         : {
-store: new RateLimitRedisStore({
-                sendCommand: (...args: string[]) => redisClient.sendCommand(args) as Promise<RedisReply>,
-                prefix: "rl-upload:",
-             }),
-           }),
+         : { store: createRateLimitRedisStore("rl-upload:") }),
    });
 
    const apiPaths = ["/api", "/auth", "/upload"];

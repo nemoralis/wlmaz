@@ -9,6 +9,7 @@ import {
    getOptimizedImage,
    getSrcSet,
    isIdMatch,
+   safeFileName,
 } from "@/utils/monumentFormatters.ts";
 
 describe("getClosestWikiWidth", () => {
@@ -140,5 +141,19 @@ describe("encodeIdForUrl", () => {
 
    it("passes through plain alphanumeric ids unchanged", () => {
       expect(encodeIdForUrl("AZ-0001")).toBe("AZ-0001");
+   });
+});
+
+describe("safeFileName", () => {
+   it("keeps letters, digits, dashes and dots as-is", () => {
+      expect(safeFileName("AZ-0001.2")).toBe("AZ-0001.2");
+   });
+
+   it("preserves non-ASCII (Unicode) letters like Azerbaijani ç/ə/ğ and №", () => {
+      expect(safeFileName("Gəncə / № 2")).toBe("Gəncə___№_2");
+   });
+
+   it("replaces whitespace and characters unsafe for file systems with underscores", () => {
+      expect(safeFileName("Gəncə/Qalası: A")).toBe("Gəncə_Qalası__A");
    });
 });
