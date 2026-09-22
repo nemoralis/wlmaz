@@ -10274,17 +10274,6 @@
             "type": "Feature",
             "geometry": null,
             "properties": {
-                "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 4 nömrəli daş",
-                "inventory": "26—839",
-                "item": "http://www.wikidata.org/entity/Q140654168",
-                "itemLabel": "Qayaüstü təsvirlər (2 maral, keçi), qaya yalağı",
-                "lastModified": "2026-07-26T00:15:52Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": null,
-            "properties": {
                 "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 5 nömrəli daş",
                 "inventory": "26—840",
                 "item": "http://www.wikidata.org/entity/Q140654169",
@@ -10301,17 +10290,6 @@
                 "item": "http://www.wikidata.org/entity/Q140654171",
                 "itemLabel": "Heyvan bağlamaq üçün dəlmə",
                 "lastModified": "2026-07-26T00:15:54Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": null,
-            "properties": {
-                "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 7 nömrəli daş",
-                "inventory": "26—842",
-                "item": "http://www.wikidata.org/entity/Q140654172",
-                "itemLabel": "Qayaüstü təsvirlər (9 ədəd)",
-                "lastModified": "2026-07-26T00:15:55Z"
             }
         },
         {
@@ -18229,27 +18207,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    48.4414991,
-                    41.1933855
-                ]
-            },
-            "properties": {
-                "addressLabel": "Xaşı kəndi",
-                "azLink": "https://az.wikipedia.org/wiki/Yeddil%C9%99r_qalas%C4%B1",
-                "inventory": "302, 4655",
-                "item": "http://www.wikidata.org/entity/Q134699272",
-                "itemDescription": "Azərbaycanda Quba rayonunun Zıxır kəndində yerləşən qala.",
-                "itemLabel": "Yeddilər qalası",
-                "lastModified": "2026-08-11T00:17:27Z",
-                "parent": "http://www.wikidata.org/entity/Q457499",
-                "parentLabel": "Quba rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     48.223292,
                     41.337953
                 ]
@@ -19506,14 +19463,16 @@
                 ]
             },
             "properties": {
+                "addressLabel": "Nəvvab küçəsi, 4",
                 "azLink": "https://az.wikipedia.org/wiki/Mir_M%C3%B6hs%C3%BCn_N%C9%99vvab%C4%B1n_ev-muzeyi",
                 "commonsCategory": "Mir Möhsün Nəvvabın evi",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Mir_M%C3%B6hs%C3%BCn_N%C9%99vvab%C4%B1n_evi",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mir%20M%C3%B6hs%C3%BCn%20N%C9%99vvab%C4%B1n%20evi%20%281%29.jpg",
                 "inventory": "372",
                 "item": "http://www.wikidata.org/entity/Q55704539",
+                "itemAltLabel": "M.M.Nəvvabın evi",
                 "itemLabel": "Mir Möhsün Nəvvabın ev-muzeyi",
-                "lastModified": "2026-09-08T06:25:14Z",
+                "lastModified": "2026-09-22T11:21:16Z",
                 "parent": "http://www.wikidata.org/entity/Q16417847",
                 "parentLabel": "Mamayı məhəlləsi"
             }
@@ -19768,6 +19727,26 @@
                 "lastModified": "2026-07-25T22:52:39Z",
                 "parent": "http://www.wikidata.org/entity/Q147553",
                 "parentLabel": "Zaqatala rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.80285355,
+                    39.1167504
+                ]
+            },
+            "properties": {
+                "addressLabel": "Hacıalılar kəndi",
+                "inventory": "390, 5291",
+                "item": "http://www.wikidata.org/entity/Q140657707",
+                "itemAltLabel": "Dairəvi bürc",
+                "itemLabel": "Dairəvi qüllə",
+                "lastModified": "2026-07-26T02:35:36Z",
+                "parent": "http://www.wikidata.org/entity/Q249252",
+                "parentLabel": "Zəngilan rayonu"
             }
         },
         {
@@ -58918,13 +58897,23 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.839409288,
+                    40.368782964
+                ]
+            },
             "properties": {
                 "addressLabel": "T.Əliyarbəyov küçəsi, 4-6",
+                "commonsCategory": "Building on Tarlan Aliyarbayov Street 6",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Tarlan_Aliyarbayov_Street_6",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/T.%C6%8Fliyarb%C9%99yov%2C%206%20%C3%BCnvan%C4%B1nda%20yerl%C9%99%C5%9F%C9%99n%20bina%20202409.jpg",
                 "inventory": "3361",
                 "item": "http://www.wikidata.org/entity/Q140661333",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:05:01Z",
+                "itemDescription": "Bakı şəhərində yerləşən tarixi abidə",
+                "itemLabel": "Ağa Yusif Dadaşovun mülkü",
+                "lastModified": "2026-09-22T12:17:23Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -73957,14 +73946,16 @@
                 ]
             },
             "properties": {
+                "addressLabel": "R.Nəcəfov küçəsi",
                 "azLink": "https://az.wikipedia.org/wiki/Z%C9%99v%C9%99ro_m%C9%99scidi",
                 "commonsCategory": "Zavaro mosque",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Zavaro_mosque",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Z%C9%99v%C9%99r%C9%99%20m%C9%99scidi%20202504%20%281%29.jpg",
                 "inventory": "4411",
                 "item": "http://www.wikidata.org/entity/Q4182921",
+                "itemAltLabel": "Zavaro məscidi",
                 "itemLabel": "Zəvəro məscidi",
-                "lastModified": "2026-09-07T08:10:49Z",
+                "lastModified": "2026-09-22T11:20:33Z",
                 "parent": "http://www.wikidata.org/entity/Q344252",
                 "parentLabel": "İsmayıllı rayonu"
             }
@@ -77663,6 +77654,27 @@
         },
         {
             "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.4414991,
+                    41.1933855
+                ]
+            },
+            "properties": {
+                "addressLabel": "Xaşı kəndi",
+                "azLink": "https://az.wikipedia.org/wiki/Yeddil%C9%99r_qalas%C4%B1",
+                "inventory": "302, 4655",
+                "item": "http://www.wikidata.org/entity/Q134699272",
+                "itemDescription": "Azərbaycanda Quba rayonunun Zıxır kəndində yerləşən qala.",
+                "itemLabel": "Yeddilər qalası",
+                "lastModified": "2026-08-11T00:17:27Z",
+                "parent": "http://www.wikidata.org/entity/Q457499",
+                "parentLabel": "Quba rayonu"
+            }
+        },
+        {
+            "type": "Feature",
             "geometry": null,
             "properties": {
                 "addressLabel": "Təngəaltı kəndi",
@@ -78576,8 +78588,7 @@
                 "addressLabel": "Mirlər kəndi",
                 "inventory": "4712",
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemDescription": "Qubadlıda məscid",
-                "itemLabel": "Mirlər məscidi",
+                "itemLabel": "Məscid",
                 "lastModified": "2026-07-23T15:59:55Z",
                 "parent": "http://www.wikidata.org/entity/Q644048",
                 "parentLabel": "Qubadlı rayonu"
@@ -84957,6 +84968,7 @@
                 ]
             },
             "properties": {
+                "addressLabel": "keçmiş Əmiryan küçəsi, Çuxur məhəlləsi",
                 "azLink": "https://az.wikipedia.org/wiki/%C3%87uxur_m%C9%99h%C9%99ll%C9%99_bula%C4%9F%C4%B1",
                 "commonsCategory": "Çuxur məhəllə bulağı",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:%C3%87uxur_m%C9%99h%C9%99ll%C9%99_bula%C4%9F%C4%B1",
@@ -84964,9 +84976,9 @@
                 "inventory": "5067",
                 "item": "http://www.wikidata.org/entity/Q117813276",
                 "itemLabel": "Çuxur məhəllə bulağı",
-                "lastModified": "2026-09-08T17:46:01Z",
-                "parent": "http://www.wikidata.org/entity/Q158903",
-                "parentLabel": "Şuşa"
+                "lastModified": "2026-09-22T11:21:44Z",
+                "parent": "http://www.wikidata.org/entity/Q388960",
+                "parentLabel": "Şuşa rayonu"
             }
         },
         {
@@ -86271,6 +86283,7 @@
                 ]
             },
             "properties": {
+                "addressLabel": "Q.Əsgərov küçəsi",
                 "azLink": "https://az.wikipedia.org/wiki/Mamay%C4%B1_bula%C4%9F%C4%B1",
                 "commonsCategory": "Mamay Spring",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Mamay_Spring",
@@ -86279,7 +86292,7 @@
                 "item": "http://www.wikidata.org/entity/Q110108657",
                 "itemDescription": "bulaq",
                 "itemLabel": "Mamayı bulağı",
-                "lastModified": "2026-09-08T06:40:47Z",
+                "lastModified": "2026-09-22T11:22:17Z",
                 "parent": "http://www.wikidata.org/entity/Q388960",
                 "parentLabel": "Şuşa rayonu"
             }
@@ -88171,26 +88184,6 @@
                 "item": "http://www.wikidata.org/entity/Q140662724",
                 "itemLabel": "Körpü",
                 "lastModified": "2026-07-25T22:41:50Z",
-                "parent": "http://www.wikidata.org/entity/Q249252",
-                "parentLabel": "Zəngilan rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    46.80285355,
-                    39.1167504
-                ]
-            },
-            "properties": {
-                "addressLabel": "Hacıalılar kəndi",
-                "inventory": "390, 5291",
-                "item": "http://www.wikidata.org/entity/Q140657707",
-                "itemAltLabel": "Dairəvi bürc",
-                "itemLabel": "Dairəvi qüllə",
-                "lastModified": "2026-07-26T02:35:36Z",
                 "parent": "http://www.wikidata.org/entity/Q249252",
                 "parentLabel": "Zəngilan rayonu"
             }
@@ -92179,7 +92172,7 @@
                 "inventory": "5584",
                 "item": "http://www.wikidata.org/entity/Q12843520",
                 "itemLabel": "Nəriman Nərimanovun ev-muzeyi",
-                "lastModified": "2026-01-28T00:08:46Z",
+                "lastModified": "2026-09-22T12:35:56Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
             }
@@ -92303,11 +92296,11 @@
                 "azLink": "https://az.wikipedia.org/wiki/S%C9%99m%C9%99d_Vur%C4%9Funun_ev-muzeyi",
                 "commonsCategory": "House-museum of Samad Vurgun",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:House-museum_of_Samad_Vurgun",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%206%20Tarlan%20Aliyarbayov%20Street.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/S%C9%99m%C9%99d%20Vur%C4%9Funun%20ev-muzeyi%20%282026%29%2019.jpg",
                 "inventory": "5590",
                 "item": "http://www.wikidata.org/entity/Q16374671",
                 "itemLabel": "Səməd Vurğunun ev-muzeyi",
-                "lastModified": "2026-02-10T14:00:15Z",
+                "lastModified": "2026-09-22T12:20:39Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
             }
