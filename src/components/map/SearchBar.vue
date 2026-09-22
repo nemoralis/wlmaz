@@ -63,6 +63,7 @@
 
 <script lang="ts" setup>
 import type { Feature } from "geojson";
+import type { ComponentPublicInstance } from "vue";
 import { computed, ref, watch } from "vue";
 import { CdxIcon, CdxSearchInput } from "@wikimedia/codex";
 import { cdxIconImage } from "@wikimedia/codex-icons";
@@ -106,7 +107,7 @@ const selectResult = (feature: Feature) => {
    clearSearch();
 };
 
-const setResultRef = (el: any, index: number) => {
+const setResultRef = (el: Element | ComponentPublicInstance | null, index: number) => {
    if (el) {
       resultRefs[index] = el as HTMLElement;
    }

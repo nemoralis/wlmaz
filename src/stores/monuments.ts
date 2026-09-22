@@ -1,13 +1,14 @@
-import type { Feature, FeatureCollection } from "geojson";
+import type { FeatureCollection, Point } from "geojson";
 import { ref, shallowRef } from "vue";
 import { defineStore } from "pinia";
-import type { MonumentProps } from "@/types";
+import type { MonumentFeature, MonumentProps } from "@/types";
+import type { WorkerResponse } from "@/types/worker.ts";
 import DataWorker from "@/workers/data.worker.ts?worker";
 
 export const useMonumentStore = defineStore("monuments", () => {
-   const geoData = shallowRef<FeatureCollection | null>(null);
+   const geoData = shallowRef<FeatureCollection<Point, MonumentProps> | null>(null);
    const monuments = shallowRef<MonumentProps[]>([]);
-   const searchResults = shallowRef<Feature[]>([]);
+   const searchResults = shallowRef<MonumentFeature[]>([]);
    const isLoading = ref(false);
    const error = ref<string | null>(null);
    const isDataReady = ref(false);
@@ -15,6 +16,12 @@ export const useMonumentStore = defineStore("monuments", () => {
    const selectedMonument = ref<MonumentProps | null>(null);
 
    let worker: Worker | null = null;
+
+   /** Extracts the flattened display props (including lat/lon) from a feature. */
+   const toMonumentProps = (feature: MonumentFeature): MonumentProps => {
+      const [lon, lat] = feature.geometry.coordinates;
+      return { ...feature.properties, lat, lon };
+   };
 
    const init = () => {
       if (isDataReady.value || isLoading.value) return;
@@ -24,11 +31,13 @@ export const useMonumentStore = defineStore("monuments", () => {
 
       if (!worker) {
          worker = new DataWorker();
-         worker.onmessage = (e) => {
+         worker.onmessage = (e: MessageEvent<WorkerResponse>) => {
             if (e.data.type === "DATA_READY") {
                geoData.value = e.data.geoData;
-               monuments.value = e.data.geoData.features.map((f: Feature) => f.properties);
-               searchResults.value = e.data.geoData.features;
+               monuments.value = e.data.geoData.features.map((f) =>
+                  toMonumentProps(f as MonumentFeature),
+               );
+               searchResults.value = e.data.geoData.features as MonumentFeature[];
                isDataReady.value = true;
                isLoading.value = false;
             } else if (e.data.type === "SEARCH_RESULTS") {

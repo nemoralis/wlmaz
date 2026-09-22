@@ -80,11 +80,11 @@
                         </CdxButton>
 
                         <CdxButton
-                           v-if="row.article"
+                           v-if="row.azLink"
                            weight="quiet"
                            aria-label="Vikipediyada oxu"
                            title="Wikipedia"
-                           @click="openExternalLink(row.article)"
+                           @click="openExternalLink(row.azLink)"
                         >
                            <CdxIcon :icon="cdxIconLogoWikipedia" />
                         </CdxButton>
@@ -155,7 +155,7 @@ useHead({
    ],
 });
 
-const virtualTable = ref<any>(null);
+const virtualTable = ref<{ scrollToTop: () => void } | null>(null);
 const loading = computed(() => monumentStore.isLoading);
 const isUploadModalOpen = ref(false);
 const selectedMonumentForUpload = ref<Monument | null>(null);
@@ -210,12 +210,22 @@ onMounted(() => {
 // Pre-define regex for inventory sorting to avoid repeated instantiation
 const INVENTORY_NUM_REGEX = /[^0-9.]/g;
 
+/** One row of `processedMonuments` (a MonumentProps augmented with sort metadata). */
+type MonumentSortRecord = Monument & {
+   _sLabel: string;
+   _sInv: string;
+   _sAlt: string;
+   _invNum: number;
+};
+
+type MonumentRecord = MonumentSortRecord & Record<string, unknown>;
+
 /**
  * Performance: Offload expensive operations like string lowercasing and regex replacements
  * into a one-time pre-processing computed property. This ensures that filtering (O(N))
  * and sorting (O(N log N)) loops use pre-calculated metadata, keeping interactions responsive.
  */
-const processedMonuments = computed(() => {
+const processedMonuments = computed<MonumentSortRecord[]>(() => {
    return monuments.value.map((m) => ({
       ...m,
       _sLabel: (m.itemLabel || "").toLowerCase(),
@@ -251,8 +261,10 @@ const sortedMonuments = computed(() => {
             }
          }
 
-         const valA = (a as any)[sortKey] ?? "";
-         const valB = (b as any)[sortKey] ?? "";
+         const recordA = a as MonumentRecord;
+         const recordB = b as MonumentRecord;
+         const valA = recordA[sortKey as keyof MonumentRecord] ?? "";
+         const valB = recordB[sortKey as keyof MonumentRecord] ?? "";
 
          if (valA < valB) return -order;
          if (valA > valB) return order;

@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { DefineComponent } from "vue";
+import type { DefineComponent } from "vue";
+import type { Feature, Point } from "geojson";
 
 // ========================================================
 // 1. SHARED DOMAIN INTERFACES
@@ -19,13 +19,18 @@ export interface WikiUser {
    username: string;
    token: string;
    tokenSecret: string;
-   profile?: any;
+   profile?: Record<string, unknown>;
    blocked?: boolean;
    blockreason?: string;
 }
 
 /**
  * GeoJSON properties for a Monument.
+ *
+ * Only explicit fields are used by the app; the index-signature escape hatch
+ * has been removed so typos in property names surface at compile time.
+ * Coordinates live in the GeoJSON geometry; `lat`/`lon` here are the flattened
+ * display form used by monument pages (see `MonumentPage.vue` / prerender).
  */
 export interface MonumentProps {
    itemLabel?: string;
@@ -37,9 +42,20 @@ export interface MonumentProps {
    item?: string;
    azLink?: string;
    commonsLink?: string;
+   parentLabel?: string;
+   lastModified?: string;
+   /** Flattened latitude (source of truth is geometry.coordinates). */
    lat?: number;
+   /** Flattened longitude (source of truth is geometry.coordinates). */
    lon?: number;
-   [key: string]: any;
+}
+
+/**
+ * A GeoJSON Feature carrying a MonumentProps payload. Geometry is the single
+ * source of truth for coordinates; `props.lat/lon` are only a display convenience.
+ */
+export interface MonumentFeature extends Feature<Point, MonumentProps> {
+   geometry: { type: "Point"; coordinates: [number, number] };
 }
 
 /**
@@ -62,6 +78,7 @@ export interface LeaderboardUser {
  * Allows importing .vue files
  */
 declare module "*.vue" {
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
    const component: DefineComponent<object, object, any>;
    export default component;
 }
@@ -79,7 +96,7 @@ declare module "*?raw" {
  * Handle missing types for passport-mediawiki-oauth
  */
 declare module "leaflet-sidebar-v2" {
-   // Just a basic shim to allow the import
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
    const content: any;
    export default content;
 }

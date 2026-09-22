@@ -53,9 +53,11 @@
                   :style="{ width: col.width || 'auto', flex: col.width ? 'none' : 1 }"
                   class="overflow-hidden px-4"
                >
-                  <slot :name="`item-${col.id}`" :row="row">
-                     <span class="text-sm text-gray-700">{{ row[col.id] }}</span>
-                  </slot>
+<slot :name="`item-${col.id}`" :row="row">
+                      <span class="text-sm text-gray-700">
+                         {{ getColumnValue(row, col.id) }}
+                      </span>
+                   </slot>
                </div>
             </div>
          </div>
@@ -109,6 +111,12 @@ const endIndex = computed(() => {
 
 const visibleData = computed(() => props.data.slice(startIndex.value, endIndex.value));
 const offsetY = computed(() => startIndex.value * props.rowHeight);
+
+const getColumnValue = (row: MonumentProps, id: string): string => {
+   const value = (row as Record<string, unknown>)[id];
+   if (typeof value === "string" || typeof value === "number") return String(value);
+   return "";
+};
 
 const handleScroll = (e: Event) => {
    scrollTop.value = (e.currentTarget as HTMLElement).scrollTop;

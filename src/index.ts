@@ -8,7 +8,7 @@ import session from "express-session";
 import helmet from "helmet";
 import hpp from "hpp";
 import morgan from "morgan";
-import { RedisStore as RateLimitRedisStore } from "rate-limit-redis";
+import { RedisStore as RateLimitRedisStore, type RedisReply } from "rate-limit-redis";
 import sharp from "sharp";
 import passport from "@/auth/passport.ts";
 import authRoutes from "@/auth/routes.ts";
@@ -121,7 +121,7 @@ const startServer = async () => {
       try {
          await redisClient.ping();
          res.json({ status: "ok", redis: "connected" });
-      } catch (_err) {
+      } catch {
          res.status(500).json({ status: "error", redis: "disconnected" });
       }
    });
@@ -195,10 +195,10 @@ const startServer = async () => {
       ...(config.isDevUploadMode
          ? {}
          : {
-              store: new RateLimitRedisStore({
-                 sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any,
-                 prefix: "rl-api:",
-              }),
+store: new RateLimitRedisStore({
+                sendCommand: (...args: string[]) => redisClient.sendCommand(args) as Promise<RedisReply>,
+                prefix: "rl-api:",
+             }),
            }),
    });
    const authLimiter = rateLimit({
@@ -209,10 +209,10 @@ const startServer = async () => {
       ...(config.isDevUploadMode
          ? {}
          : {
-              store: new RateLimitRedisStore({
-                 sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any,
-                 prefix: "rl-auth:",
-              }),
+store: new RateLimitRedisStore({
+                sendCommand: (...args: string[]) => redisClient.sendCommand(args) as Promise<RedisReply>,
+                prefix: "rl-auth:",
+             }),
            }),
    });
    const uploadLimiter = rateLimit({
@@ -223,10 +223,10 @@ const startServer = async () => {
       ...(config.isDevUploadMode
          ? {}
          : {
-              store: new RateLimitRedisStore({
-                 sendCommand: (...args: any[]) => redisClient.sendCommand(args) as any,
-                 prefix: "rl-upload:",
-              }),
+store: new RateLimitRedisStore({
+                sendCommand: (...args: string[]) => redisClient.sendCommand(args) as Promise<RedisReply>,
+                prefix: "rl-upload:",
+             }),
            }),
    });
 

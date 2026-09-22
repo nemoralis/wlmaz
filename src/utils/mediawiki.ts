@@ -2,6 +2,7 @@ import crypto from "crypto";
 import OAuth from "oauth-1.0a";
 import { config } from "@/config.ts";
 import type { WikiUser } from "@/types";
+import type { MediaWikiApiResponse } from "@/types/mediawiki.ts";
 import { logger } from "@/utils/logger.ts";
 import { MediaWikiBotClient } from "@/utils/mediawikiBotClient.ts";
 import {
@@ -120,20 +121,20 @@ async function fetchCsrfToken(user: WikiUser): Promise<string> {
          "Content-Type": "application/x-www-form-urlencoded",
          "User-Agent": "WLMAZ-Tool/1.0",
       },
-      body: new URLSearchParams(params as any).toString(),
+      body: new URLSearchParams(params).toString(),
    });
 
    if (!response.ok) {
       throw new Error(`HTTP Error fetching token: ${response.status} ${response.statusText}`);
    }
 
-   const data = await response.json();
+   const data: MediaWikiApiResponse = await response.json();
 
    if (data.error) {
       logger.error("[MediaWiki] Token Error:", data.error);
       throw new Error(`MediaWiki API Error: ${data.error.code} - ${data.error.info}`);
    }
-   return data.query.tokens.csrftoken;
+   return data.query?.tokens?.csrftoken ?? "";
 }
 
 /**
@@ -148,7 +149,7 @@ export async function uploadFile(
    fileData: { name: string; buffer: Buffer; mimetype: string },
    metadata: { text: string; comment?: string },
    target: MediaWikiTarget = resolveMediaWikiTarget(),
-): Promise<any> {
+): Promise<MediaWikiApiResponse> {
    if (target.auth.mode === "bot-password") {
       const client = await buildBotClient(target);
       if (!client) throw new Error("Internal: bot target without bot client");
@@ -219,7 +220,7 @@ export async function uploadFile(
       );
    }
 
-   const result = await response.json();
+   const result: MediaWikiApiResponse = await response.json();
 
    if (result.error) {
       logger.error("[MediaWiki] Upload Error Details:", result.error);
@@ -313,7 +314,7 @@ export async function checkFileExistence(
          );
       }
 
-      const data = await response.json();
+      const data: MediaWikiApiResponse = await response.json();
       if (data.error) {
          throw new Error(`MediaWiki API Error: ${data.error.code} - ${data.error.info}`);
       }
@@ -331,11 +332,11 @@ export async function checkFileExistence(
 
       const existingKeys = new Set(
          Object.values(data.query?.pages || {}).flatMap((page) => {
-            const p = page as { missing?: string; title?: string };
+            if (!page) return [];
             // A page is missing when it carries a "missing" key (often "").
             // Check key presence, not truthiness, so missing pages aren't
             // mistaken for existing files.
-            return !("missing" in p) && p.title ? [normalize(p.title)] : [];
+            return !("missing" in page) && page.title ? [normalize(page.title)] : [];
          }),
       );
 

@@ -93,12 +93,11 @@ import {
 import L from "leaflet";
 import { useAuthStore } from "@/stores/auth.ts";
 import { useMonumentStore } from "@/stores/monuments.ts";
-import type { MonumentProps } from "@/types";
+import type { MonumentFeature, MonumentProps } from "@/types";
 import MonumentSidebarHome from "@/components/map/MonumentSidebarHome.vue";
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
-import type { Feature } from "geojson";
-import type { Point } from "geojson";
+import type { Feature, Point } from "geojson";
 import { useClipboard } from "@/composables/useClipboard.ts";
 import {
    useLeafletMap,
@@ -172,7 +171,8 @@ export default defineComponent({
          highlightMarker(marker);
 
          const props = marker.feature.properties;
-         monumentStore.selectedMonument = props;
+         const [lon, lat] = marker.feature.geometry.coordinates as [number, number];
+         monumentStore.selectedMonument = { ...props, lat, lon };
 
          await nextTick();
          sidebarInstance.value?.open("details");
@@ -221,7 +221,7 @@ export default defineComponent({
          if (navigator.share) {
             try {
                await navigator.share({ title, text, url });
-            } catch (_err) {
+            } catch {
                // Share cancelled
             }
          } else {
@@ -230,7 +230,7 @@ export default defineComponent({
       };
 
       const closeSidebar = () => {
-         (sidebarInstance.value as any)?.close();
+         sidebarInstance.value?.close();
       };
 
       // --- Watchers ---
@@ -334,7 +334,7 @@ export default defineComponent({
                   // Update Stats
                   stats.value.total = geoData.features.length;
                   stats.value.withImage = geoData.features.filter(
-                     (f: any) => f.properties.image,
+                     (f) => f.properties?.image,
                   ).length;
 
                   // Create Marker Layer
@@ -356,10 +356,8 @@ export default defineComponent({
 
                   // Create Layers
                   const geoJsonLayer = L.geoJSON(geoData, {
-                     pointToLayer: (feature, latlng) => {
+                     pointToLayer: (feature) => {
                         const props = feature.properties as MonumentProps;
-                        props.lat = latlng.lat;
-                        props.lon = latlng.lng;
 
                         const [lng, lat] = (feature.geometry as Point).coordinates as [
                            number,
@@ -371,8 +369,8 @@ export default defineComponent({
                         positionIndexes.set(key, index + 1);
 
                         // Spread overlapping markers around the anchor so their
-                        // colors never blend, while keeping props.lat/lon at the
-                        // true position for geo:/copy-coords accuracy.
+                        // colors never blend. The true position always comes from
+                        // geometry.coordinates (see selectMonument).
                         const spread = getSpreadPosition(lat, lng, index, groupSize);
                         const markerLatLng = L.latLng(spread.lat, spread.lng);
 
@@ -389,7 +387,8 @@ export default defineComponent({
                         });
 
                         // Ensure feature is attached for click handler
-                        (marker as any).feature = feature;
+                        const monumentFeature = feature as unknown as MonumentFeature;
+                        (marker as unknown as MonumentMarker).feature = monumentFeature;
 
                         marker.on("click", (evt: L.LeafletMouseEvent) => {
                            // Stop propagation to prevent map click from firing

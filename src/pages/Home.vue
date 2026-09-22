@@ -44,25 +44,23 @@ const organizationSchema = useOrganizationSchema();
 
 useHead({
    title: "Viki Abidələri Sevir Azərbaycan - Abidələrin İnteraktiv Xəritəsi",
-   link: computed(() => {
-      const links: any[] = [
-         {
-            rel: "canonical",
-            href: "https://wikilovesmonuments.az/",
-         },
-      ];
-
-      if (monumentStore.selectedMonument?.image) {
-         links.push({
-            rel: "preload",
-            as: "image",
-            href: getOptimizedImage(monumentStore.selectedMonument.image, 500),
-            imagesrcset: getSrcSet(monumentStore.selectedMonument.image, [330, 500, 960]),
-            imagesizes: "(max-width: 768px) 100vw, 400px",
-         } as any);
-      }
-      return links;
-   }),
+   link: computed(() => [
+      {
+         rel: "canonical" as const,
+         href: "https://wikilovesmonuments.az/",
+      },
+      ...(monumentStore.selectedMonument?.image
+         ? [
+              {
+                 rel: "preload" as const,
+                 as: "image" as const,
+                 href: getOptimizedImage(monumentStore.selectedMonument.image, 500),
+                 imagesrcset: getSrcSet(monumentStore.selectedMonument.image, [330, 500, 960]),
+                 imagesizes: "(max-width: 768px) 100vw, 400px",
+              },
+           ]
+         : []),
+   ]),
    meta: [
       {
          name: "description",

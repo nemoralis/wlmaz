@@ -62,7 +62,7 @@ class SPARQLQueryDispatcher {
       this.endpoint = endpoint;
    }
 
-   async query(sparqlQuery: string): Promise<any> {
+   async query(sparqlQuery: string): Promise<SparqlResults> {
       const fullUrl = this.endpoint + "?query=" + encodeURIComponent(sparqlQuery);
       const headers = {
          Accept: "application/sparql-results+json",
@@ -83,11 +83,16 @@ interface SparqlValue {
    type: string;
    value: string;
    datatype?: string;
-   [key: string]: any;
 }
 
 interface SparqlBinding {
    [key: string]: SparqlValue;
+}
+
+interface SparqlResults {
+   results: {
+      bindings: SparqlBinding[];
+   };
 }
 
 interface GeoJSONFeature {
@@ -104,6 +109,15 @@ interface GeoJSONFeature {
 interface GeoJSON {
    type: "FeatureCollection";
    features: GeoJSONFeature[];
+}
+
+/** A single daily stats-history entry written to stats-history.json. */
+interface HistoryEntry {
+   date: string;
+   timestamp: number;
+   total: number;
+   withImage: number;
+   withoutImage: number;
 }
 
 function transformToGeoJSON(bindings: SparqlBinding[]): GeoJSON {
@@ -174,7 +188,7 @@ async function main() {
       try {
          const fileContent = await fs.readFile(GEOJSON_PATH, "utf-8");
          existingData = JSON.parse(fileContent);
-      } catch (error) {
+      } catch {
          console.log("No existing GeoJSON found or invalid JSON.");
       }
 
@@ -215,11 +229,11 @@ async function main() {
       // 5. Save History
       if (existingData) {
          const HISTORY_PATH = path.join(PUBLIC_DIR, "stats-history.json");
-         let history: any[] = [];
+         let history: HistoryEntry[] = [];
          try {
             const content = await fs.readFile(HISTORY_PATH, "utf-8");
-            history = JSON.parse(content);
-         } catch (e) {
+            history = JSON.parse(content) as HistoryEntry[];
+         } catch {
             // Start new history
             console.log("Starting new history file.");
          }

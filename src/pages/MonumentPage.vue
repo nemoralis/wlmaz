@@ -229,7 +229,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useHead } from "@unhead/vue";
+import { useHead, type Link } from "@unhead/vue";
 import { CdxIcon } from "@wikimedia/codex";
 import {
    cdxIconLogoWikidata,
@@ -297,11 +297,11 @@ useHead({
       monument.value
          ? `${monument.value.itemLabel} | Viki Abidələri Sevir Azərbaycan`
          : staticTitle,
-   link: computed(() => {
+   link: computed<Link[]>(() => {
       const currentId = (monument.value?.inventory || route.params.id) as string;
       const canonicalPathId = encodeIdForUrl(getCanonicalId(currentId));
 
-      const links = [
+      const links: Link[] = [
          {
             rel: "canonical",
             href: currentId
@@ -317,9 +317,9 @@ useHead({
             href: getOptimizedImage(monument.value.image, 768),
             imagesrcset: getSrcSet(monument.value.image, [500, 768, 1024, 1536]),
             imagesizes: "(max-width: 768px) 100vw, 50vw",
-         } as any);
+         });
       }
-      return links as any;
+      return links;
    }),
    meta: [
       {
@@ -392,8 +392,8 @@ watch(
       }
 
       if (currentId) {
-         const found = monumentStore.geoData?.features.find((f: any) =>
-            isIdMatch(f.properties.inventory, currentId),
+         const found = monumentStore.geoData?.features.find((f) =>
+            isIdMatch(f.properties?.inventory, currentId),
          );
          if (found) {
             const canonicalId = getCanonicalId(found.properties?.inventory);

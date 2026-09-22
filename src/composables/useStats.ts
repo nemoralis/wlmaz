@@ -34,9 +34,10 @@ export const useStats = () => {
          } else {
             throw new Error("Failed to fetch stats");
          }
-      } catch (e: any) {
+      } catch (e) {
+         const message = e instanceof Error ? e.message : "Failed to load data";
          console.error("Failed to load stats history", e);
-         error.value = e.message || "Failed to load data";
+         error.value = message;
       } finally {
          isLoading.value = false;
       }

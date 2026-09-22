@@ -15,13 +15,10 @@
 import { logger } from "@/utils/logger.ts";
 import { CommonsUploadError } from "@/utils/mediawiki.ts";
 import type { BotPasswordCredentials } from "@/utils/mediawikiConfig.ts";
+import type { MediaWikiApiResponse } from "@/types/mediawiki.ts";
 import { sanitizeFilename } from "@/utils/sanitize.ts";
 
 const USER_AGENT = "WLMAZ-Tool/1.0";
-
-/** Any JSON value returned by the MediaWiki API. */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type MediaWikiJson = any;
 
 export class MediaWikiBotClient {
    private apiUrl: string;
@@ -60,7 +57,7 @@ export class MediaWikiBotClient {
          withSession = false,
          timeoutMs = 15000,
       }: { withSession?: boolean; timeoutMs?: number } = {},
-   ): Promise<MediaWikiJson> {
+   ): Promise<MediaWikiApiResponse> {
       const body = new URLSearchParams({ format: "json", ...params }).toString();
       const headers: Record<string, string> = {
          "Content-Type": "application/x-www-form-urlencoded",
@@ -149,7 +146,7 @@ export class MediaWikiBotClient {
    async upload(
       fileData: { name: string; buffer: Buffer; mimetype: string },
       metadata: { text: string; comment?: string },
-   ): Promise<MediaWikiJson> {
+   ): Promise<MediaWikiApiResponse> {
       const csrfToken = await this.getCsrfToken();
 
       const formData = new FormData();

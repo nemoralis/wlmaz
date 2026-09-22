@@ -77,8 +77,8 @@ describe("getDescriptionPage", () => {
 
 describe("getCategoryUrl", () => {
    const base: MonumentProps = {
-      id: "AZ-1",
-      name: "Test",
+      inventory: "AZ-1",
+      itemLabel: "Test",
       lat: 0,
       lon: 0,
    };

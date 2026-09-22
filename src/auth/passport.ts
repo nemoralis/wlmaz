@@ -2,6 +2,7 @@ import passport from "passport";
 import { Strategy as MediaWikiStrategy } from "passport-mediawiki-oauth";
 import { config } from "@/config";
 import type { WikiUser } from "@/types";
+import type { MediaWikiProfile } from "passport-mediawiki-oauth";
 import { isLocalMediaWikiEnabled } from "@/utils/mediawikiConfig";
 
 // In local dev-upload mode we authenticate to a local MediaWiki via a Bot
@@ -20,8 +21,8 @@ if (!isLocalMediaWikiEnabled()) {
          (
             token: string,
             tokenSecret: string,
-            profile: WikiUser & { displayName?: string; id: string; username: string },
-            done: (err: any, user?: WikiUser) => void,
+            profile: MediaWikiProfile,
+            done: (err: Error | null, user?: WikiUser) => void,
          ) => {
             const user: WikiUser = {
                id: profile.id,

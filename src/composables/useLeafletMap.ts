@@ -5,14 +5,11 @@ import "leaflet-sidebar-v2/js/leaflet-sidebar.js";
 import { icon } from "@fortawesome/fontawesome-svg-core";
 import { shallowRef } from "vue";
 import type { MonumentProps } from "@/types";
+import type { SidebarControl } from "@/types/leaflet-sidebar-v2.ts";
 import { HIGHLIGHT_RADIUS_OFFSET } from "@/utils/markerRadius.ts";
 import "./contextmenu.css";
 
-export interface SidebarControl extends L.Control {
-   open: (id: string) => void;
-   close: () => void;
-   on: (event: string, fn: (e: any) => void) => void;
-}
+export type { SidebarControl };
 
 export interface MonumentMarker extends L.CircleMarker {
    feature: {
@@ -40,7 +37,7 @@ const CHUNK_SIZE = 150;
 export function useLeafletMap() {
    const mapInstance = shallowRef<L.Map | null>(null);
    const sidebarInstance = shallowRef<SidebarControl | null>(null);
-   const markersGroup = shallowRef<any | null>(null);
+   const markersGroup = shallowRef<L.LayerGroup | null>(null);
    const activeMarkerLayer = shallowRef<L.CircleMarker | null>(null);
    let currentBaseRadius = 8;
 
@@ -188,12 +185,12 @@ export function useLeafletMap() {
       L.control.zoom({ position: "topright" }).addTo(map);
 
       // 5. Sidebar
-      const sidebar = (L.control as any)
+      const sidebar = L.control
          .sidebar({ container: "sidebar", position: "left", autopan: true })
          .addTo(map);
       sidebarInstance.value = sidebar;
 
-      sidebar.on("content", (e: any) => options.onSidebarContentChange?.(e.id));
+      sidebar.on("content", (e: { id?: string }) => options.onSidebarContentChange?.(e.id ?? ""));
       sidebar.on("closing", () => options.onSidebarClosing?.());
 
       // 6. Locate Control
@@ -226,7 +223,7 @@ export function useLeafletMap() {
          maxZoom: 18,
       });
 
-      const miniMapControl = new (L.Control as any).MiniMap(miniMapLayer, {
+      const miniMapControl = new L.Control.MiniMap(miniMapLayer, {
          toggleDisplay: true,
          minimized: false,
          position: "bottomright",
@@ -235,10 +232,11 @@ export function useLeafletMap() {
          strings: { hideText: "Gizlə", showText: "Göstər" },
       }).addTo(map);
 
-      map.on("baselayerchange", (e: any) => {
+      map.on("baselayerchange", (e: L.LayersControlEvent) => {
          const layer = e.layer as L.TileLayer;
-         if (layer && (layer as any)._url) {
-            const newMiniLayer = L.tileLayer((layer as any)._url, {
+         const tileLayer = layer as L.TileLayer & { _url?: string };
+         if (layer && tileLayer._url) {
+            const newMiniLayer = L.tileLayer(tileLayer._url, {
                ...layer.options,
                maxZoom: 18,
                attribution: "",

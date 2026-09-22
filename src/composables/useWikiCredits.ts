@@ -46,7 +46,7 @@ export function useWikiCredits() {
          // Feature detection for AbortSignal.timeout to support older browsers.
          const fetchOptions: RequestInit = {};
          if (typeof AbortSignal !== "undefined" && "timeout" in AbortSignal) {
-            fetchOptions.signal = (AbortSignal as any).timeout(10000);
+            fetchOptions.signal = AbortSignal.timeout(10000);
          }
 
          const res = await fetch(apiUrl, fetchOptions);

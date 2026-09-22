@@ -1,11 +1,14 @@
 import Fuse from "fuse.js";
 import * as geobuf from "geobuf";
 import { PbfReader as Pbf } from "pbf";
+import type { FeatureCollection, Point } from "geojson";
+import type { MonumentFeature, MonumentProps } from "@/types";
+import type { WorkerRequest, WorkerResponse } from "@/types/worker.ts";
 
-let fuse: Fuse<any> | null = null;
-let allFeatures: any[] = [];
+let fuse: Fuse<MonumentFeature> | null = null;
+let allFeatures: MonumentFeature[] = [];
 
-self.onmessage = async (e) => {
+self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
    if (e.data.type === "INIT") {
       try {
          const response = await fetch("/monuments.pbf");
@@ -13,13 +16,13 @@ self.onmessage = async (e) => {
             throw new Error(`Failed to load data: ${response.statusText}`);
          }
          const buffer = await response.arrayBuffer();
-         const geoData = geobuf.decode(new Pbf(buffer));
+         const geoData = geobuf.decode(new Pbf(buffer)) as FeatureCollection<Point, MonumentProps>;
 
          if (geoData.type !== "FeatureCollection") {
             throw new Error("Data is not a FeatureCollection");
          }
 
-         allFeatures = geoData.features;
+         allFeatures = geoData.features as MonumentFeature[];
 
          // Initialize Fuse
          fuse = new Fuse(allFeatures, {
@@ -29,26 +32,30 @@ self.onmessage = async (e) => {
             useTokenSearch: true,
          });
 
-         self.postMessage({
+         const msg: WorkerResponse = {
             type: "DATA_READY",
             geoData,
-         });
+         };
+         self.postMessage(msg);
       } catch (err) {
-         self.postMessage({
+         const msg: WorkerResponse = {
             type: "ERROR",
             error: err instanceof Error ? err.message : "Unknown error",
-         });
+         };
+         self.postMessage(msg);
       }
    } else if (e.data.type === "SEARCH") {
       const { query } = e.data;
       if (!fuse) return;
 
       if (!query || query.trim() === "") {
-         self.postMessage({ type: "SEARCH_RESULTS", results: allFeatures, query });
+         const msg: WorkerResponse = { type: "SEARCH_RESULTS", results: allFeatures, query };
+         self.postMessage(msg);
          return;
       }
 
       const results = fuse.search(query).map((r) => r.item);
-      self.postMessage({ type: "SEARCH_RESULTS", results, query });
+      const msg: WorkerResponse = { type: "SEARCH_RESULTS", results, query };
+      self.postMessage(msg);
    }
 };

@@ -194,7 +194,7 @@ describe("MediaWikiBotClient", () => {
          { text: "wikitext" },
       );
 
-      expect(result.upload.filename).toBe("Test.jpg");
+      expect(result.upload?.filename).toBe("Test.jpg");
       const uploadCall = calls.find((c) => c.multipart["action"] === "upload")!;
       expect(uploadCall.url).toBe(API_URL);
       expect(uploadCall.cookies).toContain("session=abc123");
