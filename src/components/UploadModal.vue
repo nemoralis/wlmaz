@@ -26,180 +26,24 @@
                <h2 id="upload-modal-title" class="sr-only">Şəkil yüklə</h2>
 
                <!-- UPLOAD PROGRESS OVERLAY -->
-               <div
+               <UploadProgress
                   v-if="isUploading"
-                  role="status"
-                  aria-live="polite"
-                  aria-atomic="true"
-                  class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm"
-               >
-                  <div class="w-full max-w-sm px-6 text-center">
-                     <!-- Spinner -->
-                     <div class="mb-6 inline-block">
-                        <font-awesome-icon
-                           :icon="['fas', 'circle-notch']"
-                           spin
-                           class="text-4xl text-blue-600"
-                           aria-hidden="true"
-                        />
-                     </div>
-
-                     <h3 class="mb-2 text-xl font-bold text-gray-900">Yüklənir...</h3>
-                     <p class="mb-6 text-sm text-gray-500">
-                        {{ currentFileIndex + 1 }} / {{ files.length }} şəkil yüklənir
-                     </p>
-
-                     <!-- Progress Bar -->
-                     <div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
-                        <div
-                           class="h-full rounded-full bg-blue-600 transition-all duration-300 ease-out"
-                           :style="{ width: `${uploadProgress}%` }"
-                           role="progressbar"
-                           :aria-valuenow="uploadProgress"
-                           aria-valuemin="0"
-                           aria-valuemax="100"
-                        ></div>
-                     </div>
-                     <div class="mt-2 text-right text-xs font-medium text-gray-400">
-                        {{ uploadProgress }}%
-                     </div>
-                     <span class="sr-only">Yükləmə: {{ uploadProgress }}%</span>
-
-                     <button
-                        class="mt-6 rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
-                        @click="cancelUpload"
-                     >
-                        Yükləməni dayandır
-                     </button>
-                  </div>
-               </div>
+                  :total="files.length"
+                  :current-index="currentFileIndex"
+                  :progress="uploadProgress"
+                  @cancel="cancelUpload"
+               />
 
                <!-- SUCCESS / PARTIAL RESULTS VIEW -->
-               <div
+               <UploadResults
                   v-if="uploadComplete"
-                  class="flex h-full w-full flex-col items-center justify-center bg-white p-8 text-center"
-               >
-                  <div
-                     class="mb-4 flex h-20 w-20 items-center justify-center rounded-full"
-                     :class="uploadFailures.length > 0 ? 'bg-amber-100' : 'bg-green-100'"
-                  >
-                     <font-awesome-icon
-                        v-if="uploadFailures.length === 0"
-                        :icon="['fas', 'check']"
-                        class="text-4xl text-green-600"
-                     />
-                     <font-awesome-icon
-                        v-else
-                        :icon="['fas', 'exclamation-triangle']"
-                        class="text-4xl text-amber-600"
-                     />
-                  </div>
-                  <h3 class="mb-2 text-2xl font-bold text-gray-900">
-                     {{ uploadFailures.length > 0 ? "Qismən yükləndi" : "Uğurla yükləndi!" }}
-                  </h3>
-                  <p class="mb-8 text-gray-500">
-                     <template v-if="uploadFailures.length === 0">
-                        {{ uploadResults.length }} fayl Vikianbara yükləndi.
-                     </template>
-                     <template v-else>
-                        {{ uploadResults.length }} fayl yükləndi, {{ uploadFailures.length }} fayl
-                        yüklənə bilmədi.
-                     </template>
-                  </p>
-
-                  <div
-                     v-if="uploadResults.length > 0"
-                     class="mb-8 w-full max-w-lg overflow-hidden rounded-xl border border-gray-200 bg-gray-50 text-left"
-                  >
-                     <div class="max-h-60 overflow-y-auto">
-                        <div
-                           v-for="(res, idx) in uploadResults"
-                           :key="idx"
-                           class="flex items-center justify-between border-b border-gray-100 bg-white px-4 py-3 last:border-0 hover:bg-gray-50"
-                        >
-                           <div class="flex items-center truncate">
-                              <font-awesome-icon
-                                 :icon="['far', 'image']"
-                                 class="mr-3 text-gray-400"
-                              />
-                              <span
-                                 class="truncate text-sm font-medium text-gray-700"
-                                 :title="res.filename"
-                              >
-                                 {{ stripExtension(res.filename) }}
-                              </span>
-                           </div>
-                           <a
-                              :href="res.url"
-                              target="_blank"
-                              class="ml-4 flex items-center text-sm font-medium text-blue-600 hover:text-blue-800"
-                           >
-                              Bax
-                              <font-awesome-icon
-                                 :icon="['fas', 'external-link-alt']"
-                                 class="ml-1 text-xs"
-                              />
-                           </a>
-                        </div>
-                     </div>
-                  </div>
-
-                  <div
-                     v-if="uploadFailures.length > 0"
-                     class="mb-8 w-full max-w-lg overflow-hidden rounded-xl border border-red-200 bg-red-50 text-left"
-                  >
-                     <div class="max-h-40 overflow-y-auto">
-                        <div
-                           v-for="(failure, idx) in uploadFailures"
-                           :key="idx"
-                           class="flex items-start border-b border-red-100 bg-white px-4 py-3 last:border-0"
-                        >
-                           <font-awesome-icon
-                              :icon="['fas', 'exclamation-circle']"
-                              class="mt-0.5 mr-3 text-red-500"
-                           />
-                           <div class="min-w-0">
-                              <div
-                                 class="truncate text-sm font-medium text-gray-700"
-                                 :title="failure.name"
-                              >
-                                 {{ stripExtension(failure.name) }}
-                              </div>
-                              <div class="mt-0.5 text-xs text-red-600">{{ failure.message }}</div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-
-                  <div class="flex space-x-4">
-                     <button
-                        class="rounded-lg px-6 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100"
-                        @click="closeModal"
-                     >
-                        Bağla
-                     </button>
-                     <button
-                        v-if="uploadFailures.length > 0"
-                        class="flex items-center gap-2 rounded-lg bg-amber-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-amber-700 disabled:cursor-not-allowed disabled:opacity-60"
-                        :disabled="isRetrying"
-                        @click="retryFailed"
-                     >
-                        <font-awesome-icon
-                           v-if="isRetrying"
-                           :icon="['fas', 'circle-notch']"
-                           spin
-                           class="text-sm"
-                        />
-                        {{ isRetrying ? "Yenidən cəhd edilir..." : "Yenidən cəhd et" }}
-                     </button>
-                     <button
-                        class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700"
-                        @click="resetForm"
-                     >
-                        Başqasını yüklə
-                     </button>
-                  </div>
-               </div>
+                  :results="uploadResults"
+                  :failures="uploadFailures"
+                  :is-retrying="isRetrying"
+                  @close="closeModal"
+                  @retry="retryFailed"
+                  @reset="resetForm"
+               />
 
                <!-- DISABLED STATE (Full Modal) -->
                <div
@@ -608,10 +452,13 @@
 import { defineComponent, ref, toRef, watch } from "vue";
 import { useFocusTrap } from "@/composables/useFocusTrap.ts";
 import { useImageUpload } from "@/composables/useImageUpload.ts";
+import UploadProgress from "@/components/upload/UploadProgress.vue";
+import UploadResults from "@/components/upload/UploadResults.vue";
 import type { MonumentProps } from "@/types";
 
 export default defineComponent({
    name: "UploadModal",
+   components: { UploadProgress, UploadResults },
    props: {
       isOpen: {
          type: Boolean,
@@ -701,7 +548,6 @@ export default defineComponent({
          resetForm,
          currentFileIndex,
          uploadProgress,
-         stripExtension: (name: string | undefined) => (name ?? "").replace(/\.[^/.]+$/, ""),
          licenseDescription,
          licenseUrl,
          hasHeicFiles,

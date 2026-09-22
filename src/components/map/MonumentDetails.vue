@@ -48,39 +48,13 @@
          </CdxCard>
 
          <!-- 2. HERO IMAGE -->
-         <div class="hero-card">
-            <!-- Case A: Hero Image -->
-            <template v-if="monument.image">
-               <div class="hero-image-container">
-                  <a :href="descriptionPageUrl" target="_blank" rel="noopener">
-                     <img
-                        :key="monument.image"
-                        :src="optimizedImageUrl"
-                        :srcset="srcSetUrl"
-                        sizes="(max-width: 768px) 100vw, 400px"
-                        alt="Abidənin şəkli"
-                        class="hero-image"
-                        loading="lazy"
-                     />
-                  </a>
-               </div>
-
-               <!-- Image Credits -->
-               <div v-if="imageCredit" class="hero-credits">
-                  <span>© {{ imageCredit.author }}</span>
-               </div>
-            </template>
-
-            <!-- Case B: No Image -->
-            <template v-else>
-               <div class="no-image-container">
-                  <div class="no-image-placeholder">
-                     <CdxIcon :icon="cdxIconCamera" class="no-image-icon" />
-                     <span>Şəkil yoxdur</span>
-                  </div>
-               </div>
-            </template>
-         </div>
+         <HeroImage
+            :image="monument.image || ''"
+            :description-page-url="descriptionPageUrl"
+            :optimized-url="optimizedImageUrl"
+            :src-set="srcSetUrl"
+            :image-credit="imageCredit"
+         />
 
          <!-- 3. CONTENT BODY (Actions) -->
          <div class="content-body">
@@ -124,75 +98,11 @@
             </div>
 
             <!-- 4. INFO CARD (Metadata) -->
-            <CdxCard class="info-card">
-               <template #title>Metadata</template>
-               <template #supporting-text>
-                  <div class="info-section">
-                     <!-- GPS Section -->
-                     <div v-if="monument.lat && monument.lon" class="info-group">
-                        <span class="info-group-label">Koordinatlar</span>
-                        <div class="gps-actions">
-                           <CdxButton
-                              weight="quiet"
-                              class="gps-link-btn"
-                              :title="
-                                 isMobileViewport() ? 'Xəritə tətbiqində aç' : 'Google Maps-də aç'
-                              "
-                              @click="
-                                 openExternalLink(
-                                    getCoordinatesUrl(
-                                       monument.lat,
-                                       monument.lon,
-                                       isMobileViewport(),
-                                    ),
-                                 )
-                              "
-                           >
-                              <CdxIcon :icon="cdxIconMapPin" />
-                              {{ monument.lat.toFixed(4) }}, {{ monument.lon.toFixed(4) }}
-                           </CdxButton>
-                           <CdxButton
-                              weight="quiet"
-                              class="gps-copy-btn"
-                              aria-label="Koordinatları kopyala"
-                              title="Koordinatları kopyala"
-                              @click="$emit('copy-coords', monument.lat, monument.lon)"
-                           >
-                              <CdxIcon
-                                 :icon="coordsCopied ? cdxIconCheck : cdxIconCopy"
-                                 :class="{ 'icon-success': coordsCopied }"
-                              />
-                           </CdxButton>
-                        </div>
-                     </div>
-
-                     <!-- Links Section -->
-                     <div class="info-group">
-                        <span class="info-group-label">Xarici keçidlər</span>
-                        <div class="links-row">
-                           <CdxButton
-                              v-if="monument.azLink"
-                              weight="quiet"
-                              class="link-chip"
-                              @click="openExternalLink(monument.azLink)"
-                           >
-                              <CdxIcon :icon="cdxIconLogoWikipedia" />
-                              Vikipediya
-                           </CdxButton>
-                           <CdxButton
-                              v-if="monument.item"
-                              weight="quiet"
-                              class="link-chip"
-                              @click="openExternalLink(monument.item)"
-                           >
-                              <CdxIcon :icon="cdxIconLogoWikidata" />
-                              Vikidata
-                           </CdxButton>
-                        </div>
-                     </div>
-                  </div>
-               </template>
-            </CdxCard>
+            <MetadataSection
+               :monument="monument"
+               :coords-copied="coordsCopied"
+               @copy-coords="(lat, lon) => $emit('copy-coords', lat, lon)"
+            />
          </div>
       </template>
 
@@ -212,18 +122,16 @@ import { computed } from "vue";
 import { CdxButton, CdxCard, CdxIcon, CdxInfoChip } from "@wikimedia/codex";
 import {
    cdxIconBlock,
-   cdxIconCamera,
    cdxIconCheck,
    cdxIconClose,
-   cdxIconCopy,
    cdxIconLogIn,
-   cdxIconLogoWikidata,
    cdxIconLogoWikimediaCommons,
-   cdxIconLogoWikipedia,
    cdxIconMapPin,
    cdxIconShare,
    cdxIconUpload,
 } from "@wikimedia/codex-icons";
+import HeroImage from "@/components/map/HeroImage.vue";
+import MetadataSection from "@/components/map/MetadataSection.vue";
 import { useAuthStore } from "@/stores/auth";
 import type { MonumentProps } from "@/types";
 import {
@@ -232,7 +140,6 @@ import {
    getOptimizedImage,
    getSrcSet,
 } from "@/utils/monumentFormatters";
-import { getCoordinatesUrl, isMobileViewport } from "@/utils/geoLinks";
 
 interface Props {
    monument: MonumentProps | null;
@@ -297,65 +204,8 @@ const openExternalLink = (url: string) => {
    padding: 0 1rem 1rem; /* Horizontal padding for consistent alignment */
 }
 
-/* Hero Card */
-.hero-card {
-   border-radius: 0;
-   overflow: hidden;
-   padding: 0;
-}
-
-.hero-card :deep(.cdx-card__text) {
-   padding: 0;
-}
-
-.hero-image-container {
-   position: relative;
-   min-height: 12rem;
-   max-height: 25rem;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-}
-
-.hero-image {
-   width: 100%;
-   height: auto;
-   max-height: 25rem;
-   object-fit: contain;
-   transition: opacity 0.3s ease;
-}
-
 .action-button--success {
    color: var(--color-success, #14866d);
-}
-
-.hero-credits {
-   margin-top: 0.5rem;
-   font-size: 0.75rem;
-   color: var(--color-subtle, #54595d);
-   text-align: right;
-}
-
-.no-image-container {
-   position: relative;
-   height: 16rem;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   background: var(--background-color-disabled-subtle, #eaecf0);
-}
-
-.no-image-placeholder {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   gap: 0.5rem;
-   color: var(--color-placeholder, #72777d);
-}
-
-.no-image-icon {
-   width: 3rem;
-   height: 3rem;
 }
 
 /* Content Body */
@@ -453,60 +303,6 @@ const openExternalLink = (url: string) => {
    color: #d33;
    text-align: center;
    font-weight: 500;
-}
-
-/* Info Card Refinement */
-.info-section {
-   display: flex;
-   flex-direction: column;
-   gap: 1.5rem;
-}
-
-.info-group {
-   display: flex;
-   flex-direction: column;
-   gap: 0.5rem;
-}
-
-.info-group-label {
-   font-size: 0.75rem;
-   font-weight: 700;
-   text-transform: uppercase;
-   letter-spacing: 0.05em;
-   color: var(--color-subtle, #54595d);
-}
-
-.gps-actions {
-   display: flex;
-   gap: 4px;
-   background: var(--background-color-disabled-subtle, #eaecf0);
-   padding: 2px;
-   width: fit-content;
-}
-
-.gps-link-btn {
-   justify-content: flex-start !important;
-   font-family: monospace;
-   font-size: 0.875rem;
-}
-
-.gps-copy-btn {
-   min-width: 32px !important;
-}
-
-.icon-success {
-   color: var(--color-success, #14866d) !important;
-}
-
-.links-row {
-   display: flex;
-   flex-wrap: wrap;
-   gap: 0.5rem;
-}
-
-.link-chip {
-   border: 1px solid var(--border-color-base, #a2a9b1) !important;
-   background-color: #fff !important;
 }
 
 /* Empty States */
