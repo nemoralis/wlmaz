@@ -1,6 +1,10 @@
 import { ref } from "vue";
 import type { UserStats } from "@/types/api.ts";
 
+/**
+ * Loads a single user's WLM statistics from /api/leaderboard/user/:name with
+ * SWR caching in localStorage.
+ */
 export const useUserStats = () => {
    const stats = ref<UserStats | null>(null);
    const isLoading = ref(false);

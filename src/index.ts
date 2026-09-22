@@ -1,3 +1,9 @@
+/**
+ * Express server entrypoint: mounts security middleware, session/rate-limit
+ * stores, the auth (OAuth), upload and leaderboard routers, and serves the
+ * SSG-prerendered static build plus health/sitemap metadata routes.
+ * Configuration comes exclusively from src/config.ts.
+ */
 import { existsSync } from "node:fs";
 import path from "path";
 import { fileURLToPath } from "url";

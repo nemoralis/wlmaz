@@ -1,5 +1,9 @@
 import { ref } from "vue";
 
+/**
+ * Clipboard helper: exposes a `copy` action plus a reactive `copied` flag that
+ * resets after `timeout` ms. Failures are logged, not thrown.
+ */
 export function useClipboard(timeout = 2000) {
    const copied = ref(false);
 

@@ -1,3 +1,8 @@
+/**
+ * Leaderboard endpoints (/api/leaderboard/*): proxy from wikiloves.toolforge.org
+ * with per-year Redis caching, aggregate building (leaderboard.ts) and a
+ * background refresh. Serves both the ranking list and individual user stats.
+ */
 import express from "express";
 import type { LeaderboardResponse } from "@/types/api.ts";
 import { logger } from "@/utils/logger.ts";

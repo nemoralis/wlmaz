@@ -2,8 +2,13 @@ import { createClient, type RedisClientType } from "redis";
 import { config } from "@/config.ts";
 import { logger } from "@/utils/logger.ts";
 
-// In local MediaWiki dev mode Redis is not required — session and rate-limit
-// stores fall back to in-memory defaults, so we skip the connection entirely.
+/**
+ * Default export: the application's Redis client.
+ *
+ * In local MediaWiki dev mode (config.isDevUploadMode) Redis is not required —
+ * session and rate-limit stores fall back to in-memory defaults, so this
+ * exports a minimal stub that satisfies `isOpen`/`ping()` checks.
+ */
 let redisClient: RedisClientType;
 
 if (config.isDevUploadMode) {

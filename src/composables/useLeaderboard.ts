@@ -19,6 +19,10 @@ function parseWikiDate(timestamp: number): Date {
    return new Date(year, month, day);
 }
 
+/**
+ * Leaderboard state for the rankings page: per-year or aggregate ("total")
+ * views, SWR caching in localStorage, and derived event stats.
+ */
 export const useLeaderboard = () => {
    const users = ref<LeaderboardUser[]>([]);
    const isLoading = ref(false);

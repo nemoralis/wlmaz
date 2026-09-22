@@ -9,6 +9,11 @@
 import type { UploadSuccessResponse } from "@/types/api.ts";
 import { isTransientError, messageFor } from "@/utils/uploadErrors.ts";
 
+/**
+ * One file entry in a pending upload queue. EXIF-originated fields
+ * (`capturedAt`, `latitude`, `longitude`) are optional and take priority over
+ * monument-level coordinates when both are present.
+ */
 export interface FileItem {
    id: string;
    file: File;
@@ -21,12 +26,16 @@ export interface FileItem {
    longitude?: number;
 }
 
+/** Successful upload outcome — mirrors the server's /upload success payload. */
 export type UploadResult = UploadSuccessResponse;
 
+/** Structured failure record for surfacing to the user with a localized message. */
 export interface UploadFailure {
    fileItem: FileItem;
    name: string;
+   /** Stable machine code (e.g. "aborted", "timeout", "http_error", or a Commons error code). */
    code?: string;
+   /** User-facing message, resolved via uploadErrors' messageFor when missing. */
    message: string;
 }
 
@@ -198,6 +207,10 @@ export async function uploadSingleFile(
    };
 }
 
+/**
+ * Detects HEIC/HEIF image files (by extension or MIME type) so they can be
+ * highlighted for conversion before upload.
+ */
 export const isHeicFile = (file: File): boolean =>
    file.name.toLowerCase().endsWith(".heic") ||
    file.type === "image/heic" ||

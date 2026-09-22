@@ -1,3 +1,11 @@
+/**
+ * Upload + file-management endpoints (/upload/status, /upload/config,
+ * /upload/titles-exist, /upload):
+ *
+ * Multipart POST /upload optimizes the image (sharp), builds Commons wikitext,
+ * and pushes the result to Commons via OAuth or the local bot-password mode.
+ * Replies are strictly typed (api.ts) and never expose credentials.
+ */
 import path from "path";
 import express from "express";
 import multer from "multer";

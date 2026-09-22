@@ -11,6 +11,10 @@ interface ImageCredit {
  */
 const creditCache = new Map<string, ImageCredit | null>();
 
+/**
+ * Loads and caches attribution (author + license) metadata for a Wikimedia
+ * Commons image, used to credit photographers next to monument photos.
+ */
 export function useWikiCredits() {
    const imageCredit = ref<ImageCredit | null>(null);
    const creditLoading = ref(false);

@@ -12,6 +12,11 @@ export const getClosestWikiWidth = (target: number): number => {
    );
 };
 
+/**
+ * Rewrites a Wikimedia Commons image URL to request a server-resized thumbnail
+ * at the closest supported width >= the target. Non-Special:FilePath URLs are
+ * returned unchanged (after normalizing to HTTPS).
+ */
 export const getOptimizedImage = (url: string, targetWidth = 500): string => {
    if (!url) return "";
    // Force HTTPS
@@ -27,6 +32,11 @@ export const getOptimizedImage = (url: string, targetWidth = 500): string => {
    return url;
 };
 
+/**
+ * Builds a `srcset` string for responsive `<img>` loading from a Wikimedia
+ * Commons URL, snapping the requested widths to valid thumbnail sizes. Returns
+ * "" for non-Special:FilePath URLs.
+ */
 export const getSrcSet = (url: string, widths: number[] = [330, 500, 960, 1280]): string => {
    if (!url || !url.includes("Special:FilePath/")) return "";
    const secureUrl = url.startsWith("http:") ? url.replace("http:", "https:") : url;
@@ -37,11 +47,19 @@ export const getSrcSet = (url: string, widths: number[] = [330, 500, 960, 1280])
    return validWidths.map((w) => `${secureUrl}?width=${w} ${w}w`).join(", ");
 };
 
+/**
+ * Converts a Special:FilePath thumbnail URL back into a Commons File: page link.
+ * Returns "" for empty input.
+ */
 export const getDescriptionPage = (url: string): string => {
    if (!url) return "";
    return url.replace("Special:FilePath/", "File:");
 };
 
+/**
+ * Resolves the Commons category page URL for a monument, preferring an
+ * explicit commonsLink when present, else building from commonsCategory.
+ */
 export const getCategoryUrl = (props: MonumentProps): string => {
    if (props.commonsLink) return props.commonsLink;
    if (props.commonsCategory) {

@@ -38,8 +38,16 @@ const UPLOAD_ERROR_MESSAGES: Record<string, string> = {
    timeout: "Yükləmə müddəti bitdi. Yenidən cəhd edin.",
 };
 
+/**
+ * Returns the friendly Azerbaijani message for a known Commons upload error
+ * code, or the given fallback when the code is unknown / absent.
+ */
 export const messageFor = (code: string | undefined, fallback: string): string =>
    (code && UPLOAD_ERROR_MESSAGES[code]) || fallback;
 
+/**
+ * Whether a failed upload should be retried: a known transient code or any
+ * HTTP status >= 500 (server-side error).
+ */
 export const isTransientError = (code: string | undefined, httpStatus?: number): boolean =>
    (!!code && TRANSIENT_ERROR_CODES.has(code)) || (httpStatus !== undefined && httpStatus >= 500);

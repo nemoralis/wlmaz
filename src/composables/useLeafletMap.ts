@@ -9,8 +9,19 @@ import type { SidebarControl } from "@/types/leaflet-sidebar-v2.ts";
 import { HIGHLIGHT_RADIUS_OFFSET } from "@/utils/markerRadius.ts";
 import "./contextmenu.css";
 
+/**
+ * Leaflet map lifecycle and marker management.
+ *
+ * Owns the single Mapbox instance, its sidebar/minimap/locate controls, a
+ * content context-menu and a shared marker layer group. Markers are added in
+ * chunks (via animation frames) and only for the current viewport, so large
+ * feature sets (thousands of monuments) stay responsive. Returns a typed
+ * handle object; all DOM work happens against the container passed to
+ * `initialize`.
+ */
 export type { SidebarControl };
 
+/** A monument marker: the original GeoJSON feature attached to a Leaflet circle marker. */
 export interface MonumentMarker extends L.CircleMarker {
    feature: {
       type: "Feature";
@@ -22,6 +33,7 @@ export interface MonumentMarker extends L.CircleMarker {
    };
 }
 
+/** Callbacks wired to user interactions with the map (sidebar opens, clicks). */
 export interface MapOptions {
    onMapClick?: (e: L.LeafletMouseEvent) => void;
    onSidebarContentChange?: (id: string) => void;
@@ -34,6 +46,10 @@ export type MarkerFilter = (props: MonumentProps) => boolean;
 /** How many markers are added per animation frame when populating the viewport. */
 const CHUNK_SIZE = 150;
 
+/**
+ * Creates a map controller. Returns reactive refs and methods used by
+ * MonumentMap.vue; `initialize` must be called once the container exists.
+ */
 export function useLeafletMap() {
    const mapInstance = shallowRef<L.Map | null>(null);
    const sidebarInstance = shallowRef<SidebarControl | null>(null);

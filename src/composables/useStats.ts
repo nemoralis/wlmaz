@@ -1,5 +1,6 @@
 import { computed, ref } from "vue";
 
+/** One point in the monument-coverage history, as published in stats-history.json. */
 export interface StatHistoryItem {
    total: number;
    withImage: number;
@@ -7,6 +8,10 @@ export interface StatHistoryItem {
    date: string;
 }
 
+/**
+ * Loads and formats the monument coverage history (stats-history.json).
+ * Exposes the latest snapshot plus derived percentage/last-update strings.
+ */
 export const useStats = () => {
    const history = ref<StatHistoryItem[]>([]);
    const currentStats = ref<StatHistoryItem>({
