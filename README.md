@@ -8,18 +8,18 @@
 
 **wlmaz** is a full-stack mapping application designed to help contributors discover heritage monuments in Azerbaijan and upload photos directly to Wikimedia Commons. 
 
-It features a responsive, clustered map interface powered by Vue 3 and Leaflet, backed by a secure Node.js proxy that handles MediaWiki OAuth authentication and uploads.
+It features a responsive map interface powered by Vue 3 and Leaflet, backed by a secure Node.js proxy that handles MediaWiki OAuth authentication and uploads.
 
 ## Features
 
-- **Interactive Map:** High-performance markers and clustering powered by `Leaflet.markercluster` with canvas rendering.
+- **Interactive Map:** Viewport-aware, canvas-rendered markers that stream in per animation frame, keeping thousands of monuments responsive without clustering overhead.
 - **Fuzzy Search:** Fast, client-side search across thousands of monuments with fuzzy matching capabilities.
 - **MediaWiki OAuth:** Secure authentication using existing Wikimedia accounts.
 - **Direct Uploads:** Seamless photo uploads to Wikimedia Commons directly from the interface.
-- **Deep Linking:** Share specific monuments via unique inventory URLs (e.g., `?inventory=4810`).
+- **Deep Linking & SEO:** Every monument gets a unique static page at `/monument/<inventory-id>` (prerendered from the GeoJSON data) plus a `sitemap.xml`.
 - **Rich Metadata:** Automatic image credits, Wikidata integration, and Schema.org structured data.
 - **Mobile Optimized:** Fully responsive sidebar and map controls designed for field use.
-- **Persistence:** Redis-backed session management for stable authentication in production.
+- **Persistence:** Redis-backed session and rate-limit stores in production, with in-memory fallbacks in local dev mode.
 
 ## Getting Started
 
@@ -117,6 +117,21 @@ omit the monument `inventory` when uploading to avoid the heritage template.
 
 > **Security:** these credentials are for local testing only. Never commit
 > real bot passwords, and always keep `NODE_ENV=production` for real usage.
+
+## Development Workflow
+
+- `npm run dev` — Vite frontend + Express backend concurrently.
+- `npm run build` — typecheck, Vite build, prerender static monument pages,
+  verify output, then bundle the server.
+- `npm run test` — Vitest unit tests (`npm run test:watch` to watch).
+- `npm run typecheck` — `vue-tsc` across `src/` and `scripts/`.
+- `npm run lint` / `npm run lint:fix` — ESLint without auto-fix / with auto-fix.
+- `npm run format` — Prettier (prints files it would rewrite).
+- `npm run update-data` — re-pull monument data from Wikidata and regenerate the
+  PBF used by the map.
+
+Server configuration lives in `src/config.ts`; shared application constants live
+in `src/utils/constants.ts`.
 
 ## License
 
