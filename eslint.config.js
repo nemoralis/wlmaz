@@ -37,7 +37,7 @@ export default [
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
       "no-undef": "off"
     }
@@ -64,7 +64,7 @@ export default [
       "vue/multi-word-component-names": "off",
       "vue/no-v-html": "warn", // Prevent XSS attacks
       "vue/require-default-prop": "warn", // Better prop validation
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
       "no-undef": "off"
     }
