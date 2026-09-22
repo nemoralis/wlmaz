@@ -97,7 +97,7 @@ import type { MonumentFeature, MonumentProps } from "@/types";
 import MonumentSidebarHome from "@/components/map/MonumentSidebarHome.vue";
 // Sidebar & Plugins
 import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
-import type { Feature, Point } from "geojson";
+import type { Point } from "geojson";
 import { useClipboard } from "@/composables/useClipboard.ts";
 import {
    useLeafletMap,
@@ -179,7 +179,7 @@ export default defineComponent({
       };
 
       const flyToMonument = (
-         feature: Feature | { properties: { inventory: string; image?: string } },
+         feature: MonumentFeature | { properties: { inventory: string; image?: string } },
       ) => {
          const props = feature.properties as MonumentProps;
          const { inventory, image } = props;
@@ -345,7 +345,8 @@ export default defineComponent({
                   // can be spread apart and stay visible with pure colors.
                   const positionCounts = new Map<string, number>();
                   geoData.features.forEach((f) => {
-                     const [lng, lat] = (f.geometry as Point).coordinates as [number, number];
+                     if (!f.geometry) return;
+                     const [lng, lat] = f.geometry.coordinates;
                      const key = getOverlapGroupKey(lat, lng);
                      positionCounts.set(key, (positionCounts.get(key) ?? 0) + 1);
                   });
@@ -386,8 +387,9 @@ export default defineComponent({
                            interactive: true,
                         });
 
-                        // Ensure feature is attached for click handler
-                        const monumentFeature = feature as unknown as MonumentFeature;
+                        // Ensure feature is attached for click handler (pointToLayer
+                        // is only invoked for features with real Point geometry)
+                        const monumentFeature = feature as unknown as MonumentMarker["feature"];
                         (marker as unknown as MonumentMarker).feature = monumentFeature;
 
                         marker.on("click", (evt: L.LeafletMouseEvent) => {

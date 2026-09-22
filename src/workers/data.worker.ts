@@ -1,8 +1,7 @@
 import Fuse from "fuse.js";
 import * as geobuf from "geobuf";
 import { PbfReader as Pbf } from "pbf";
-import type { FeatureCollection, Point } from "geojson";
-import type { MonumentFeature, MonumentProps } from "@/types";
+import type { MonumentFeature, MonumentGeoData } from "@/types";
 import type { WorkerRequest, WorkerResponse } from "@/types/worker.ts";
 
 let fuse: Fuse<MonumentFeature> | null = null;
@@ -16,7 +15,7 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
             throw new Error(`Failed to load data: ${response.statusText}`);
          }
          const buffer = await response.arrayBuffer();
-         const geoData = geobuf.decode(new Pbf(buffer)) as FeatureCollection<Point, MonumentProps>;
+         const geoData = geobuf.decode(new Pbf(buffer)) as unknown as MonumentGeoData;
 
          if (geoData.type !== "FeatureCollection") {
             throw new Error("Data is not a FeatureCollection");

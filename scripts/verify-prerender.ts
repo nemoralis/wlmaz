@@ -22,7 +22,7 @@ const STATIC_PAGES = ["/", "/stats", "/leaderboard", "/table", "/about"];
 
 interface MonumentFeature {
    type: "Feature";
-   geometry: { type: "Point"; coordinates: [number, number] };
+   geometry: { type: "Point"; coordinates: [number, number] } | null;
    properties: Record<string, string>;
 }
 
@@ -174,8 +174,12 @@ const main = async (): Promise<void> => {
       const geoData = JSON.parse(await fs.readFile(GEOJSON_PATH, "utf-8"));
       const features = geoData.features as MonumentFeature[];
 
+      // Mirrors scripts/prerender.ts: only monuments with coordinates get a
+      // static page, so only those are expected in the sitemap and dist.
+      const locatedFeatures = features.filter((feature) => feature.geometry);
+
       const monumentLocToFile = new Map<string, string>();
-      for (const feature of features) {
+      for (const feature of locatedFeatures) {
          const rawInventory = feature.properties.inventory || "";
          if (!rawInventory) continue;
          const canonicalId = rawInventory.split(",")[0].trim();

@@ -68,10 +68,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { Feature } from "geojson";
 import { computed } from "vue";
 import { CdxIcon, CdxToggleSwitch } from "@wikimedia/codex";
 import { cdxIconFunnel, cdxIconChart, cdxIconUserGroup, cdxIconInfo } from "@wikimedia/codex-icons";
+import type { MonumentFeature } from "@/types";
 import SearchBar from "@/components/map/SearchBar.vue";
 
 interface Props {
@@ -83,7 +83,7 @@ const props = defineProps<Props>();
 
 const emit = defineEmits<{
    "toggle-filter": [];
-   "select-monument": [feature: Feature];
+   "select-monument": [feature: MonumentFeature];
 }>();
 
 const filterEnabled = computed({

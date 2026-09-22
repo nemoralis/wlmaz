@@ -19,6 +19,7 @@ export interface MonumentProps {
    azLink?: string;
    commonsLink?: string;
    parentLabel?: string;
+   addressLabel?: string;
    lastModified?: string;
    /** Flattened latitude (source of truth is geometry.coordinates). */
    lat?: number;
@@ -29,7 +30,17 @@ export interface MonumentProps {
 /**
  * A GeoJSON Feature carrying a MonumentProps payload. Geometry is the single
  * source of truth for coordinates; `props.lat/lon` are only a display convenience.
+ * `geometry` may be `null` for monuments without coordinates (GeoJSON spec).
  */
-export interface MonumentFeature extends Feature<Point, MonumentProps> {
-   geometry: { type: "Point"; coordinates: [number, number] };
+export interface MonumentFeature extends Feature<Point | null, MonumentProps> {
+   geometry: { type: "Point"; coordinates: [number, number] } | null;
+}
+
+/**
+ * Top-level GeoJSON container produced by the data pipeline (and decoded from
+ * `public/monuments.pbf`). Features may carry `geometry: null`.
+ */
+export interface MonumentGeoData {
+   type: "FeatureCollection";
+   features: MonumentFeature[];
 }

@@ -1,7 +1,7 @@
+import { readFileSync } from "fs";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
-import { readFileSync } from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,9 +15,11 @@ const SPARQL_QUERY = readFileSync(path.join(__dirname, "queries", "monuments.rq"
 
 class SPARQLQueryDispatcher {
    endpoint: string;
+   maxRetries: number;
 
-   constructor(endpoint: string) {
+   constructor(endpoint: string, maxRetries = 3) {
       this.endpoint = endpoint;
+      this.maxRetries = maxRetries;
    }
 
    async query(sparqlQuery: string): Promise<SparqlResults> {
@@ -27,11 +29,25 @@ class SPARQLQueryDispatcher {
          "User-Agent": "WLMAZ-Updater/1.0 (https://gitlab.wikimedia.org/nmw03/wlmaz)",
       };
 
-      const response = await fetch(fullUrl, { headers });
-      if (!response.ok) {
-         throw new Error(`Failed to fetch data: ${response.statusText}`);
+      // Large result sets occasionally arrive truncated over the network; retry
+      // the request a few times before giving up.
+      for (let attempt = 1; ; attempt++) {
+         const response = await fetch(fullUrl, { headers });
+         if (!response.ok) {
+            throw new Error(`Failed to fetch data: ${response.statusText}`);
+         }
+         try {
+            return await response.json();
+         } catch (error) {
+            if (attempt >= this.maxRetries) {
+               throw error;
+            }
+            console.warn(
+               `Response corrupted on attempt ${attempt}/${this.maxRetries}, retrying...`,
+            );
+            await new Promise((resolve) => setTimeout(resolve, 2000 * attempt));
+         }
       }
-      return response.json();
    }
 }
 
@@ -55,10 +71,7 @@ interface SparqlResults {
 
 interface GeoJSONFeature {
    type: "Feature";
-   geometry: {
-      type: "Point";
-      coordinates: [number, number];
-   };
+   geometry: { type: "Point"; coordinates: [number, number] } | null;
    properties: {
       [key: string]: string;
    };
@@ -103,27 +116,27 @@ function transformToGeoJSON(bindings: SparqlBinding[]): GeoJSON {
          }
       }
 
-      // Only add feature if coordinates were found
-      if (coordinates) {
-         const sortedProperties = Object.keys(properties)
-            .sort()
-            .reduce(
-               (obj, key) => {
-                  obj[key] = properties[key];
-                  return obj;
-               },
-               {} as { [key: string]: string },
-            );
-
-         features.push({
-            type: "Feature",
-            geometry: {
-               type: "Point",
-               coordinates: coordinates,
+      // Add feature with or without coordinates (geometry: null per GeoJSON spec)
+      const sortedProperties = Object.keys(properties)
+         .sort()
+         .reduce(
+            (obj, key) => {
+               obj[key] = properties[key];
+               return obj;
             },
-            properties: sortedProperties,
-         });
-      }
+            {} as { [key: string]: string },
+         );
+
+      features.push({
+         type: "Feature",
+         geometry: coordinates
+            ? {
+                 type: "Point",
+                 coordinates: coordinates,
+              }
+            : null,
+         properties: sortedProperties,
+      });
    }
 
    // Sort features by inventory number

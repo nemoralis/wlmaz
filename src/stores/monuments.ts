@@ -1,12 +1,11 @@
-import type { FeatureCollection, Point } from "geojson";
 import { ref, shallowRef } from "vue";
 import { defineStore } from "pinia";
-import type { MonumentFeature, MonumentProps } from "@/types";
+import type { MonumentFeature, MonumentGeoData, MonumentProps } from "@/types";
 import type { WorkerResponse } from "@/types/worker.ts";
 import DataWorker from "@/workers/data.worker.ts?worker";
 
 export const useMonumentStore = defineStore("monuments", () => {
-   const geoData = shallowRef<FeatureCollection<Point, MonumentProps> | null>(null);
+   const geoData = shallowRef<MonumentGeoData | null>(null);
    const monuments = shallowRef<MonumentProps[]>([]);
    const searchResults = shallowRef<MonumentFeature[]>([]);
    const isLoading = ref(false);
@@ -17,8 +16,11 @@ export const useMonumentStore = defineStore("monuments", () => {
 
    let worker: Worker | null = null;
 
-   /** Extracts the flattened display props (including lat/lon) from a feature. */
+   /** Extracts the flattened display props (including lat/lon, when present) from a feature. */
    const toMonumentProps = (feature: MonumentFeature): MonumentProps => {
+      if (!feature.geometry) {
+         return { ...feature.properties };
+      }
       const [lon, lat] = feature.geometry.coordinates;
       return { ...feature.properties, lat, lon };
    };
@@ -37,7 +39,7 @@ export const useMonumentStore = defineStore("monuments", () => {
                monuments.value = e.data.geoData.features.map((f) =>
                   toMonumentProps(f as MonumentFeature),
                );
-               searchResults.value = e.data.geoData.features as MonumentFeature[];
+               searchResults.value = e.data.geoData.features;
                isDataReady.value = true;
                isLoading.value = false;
             } else if (e.data.type === "SEARCH_RESULTS") {

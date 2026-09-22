@@ -1,3 +1,8 @@
+#+ endpoint: https://query.wikidata.org/sparql
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX schema: <http://schema.org/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
 SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?inventory ?coordinate ?image ?commonsCategory ?azLink ?commonsLink ?parent ?parentLabel ?addressLabel ?lastModified WHERE {
   {
     SELECT ?item (GROUP_CONCAT(DISTINCT ?heritageID; SEPARATOR = ", ") AS ?inventory) (SAMPLE(?img) AS ?image) (SAMPLE(?coord) AS ?coordinate) (SAMPLE(?cat) AS ?commonsCategory) (SAMPLE(?az) AS ?azLink) (SAMPLE(?cLink) AS ?commonsLink) (SAMPLE(?p131) AS ?parent) (SAMPLE(?address) AS ?addressLabel) (MAX(?mod) AS ?lastModified) WHERE {

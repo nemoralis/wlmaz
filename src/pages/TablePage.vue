@@ -90,6 +90,7 @@
                         </CdxButton>
 
                         <CdxButton
+                           v-if="typeof row.lat === 'number'"
                            weight="quiet"
                            aria-label="Xəritədə göstər"
                            title="Xəritədə göstər"
@@ -149,8 +150,7 @@ useHead({
    meta: [
       {
          name: "description",
-         content:
-            "Azərbaycanın bütün tarixi abidələrinin tam siyahısı.",
+         content: "Azərbaycanın bütün tarixi abidələrinin tam siyahısı.",
       },
    ],
 });
@@ -183,6 +183,8 @@ const sortState = ref<Record<string, "asc" | "desc">>({ inventory: "asc" });
 const columns = [
    { id: "inventory", label: "İnventar", allowSort: true, width: "100px" },
    { id: "itemLabel", label: "Ad", allowSort: true },
+   { id: "parentLabel", label: "Region", allowSort: true, width: "150px" },
+   { id: "addressLabel", label: "Ünvan", allowSort: false },
    { id: "status", label: "Status" },
    { id: "actions", label: "" },
 ];

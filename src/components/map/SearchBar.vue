@@ -62,17 +62,17 @@
 </template>
 
 <script lang="ts" setup>
-import type { Feature } from "geojson";
 import type { ComponentPublicInstance } from "vue";
 import { computed, ref, watch } from "vue";
 import { CdxIcon, CdxSearchInput } from "@wikimedia/codex";
 import { cdxIconImage } from "@wikimedia/codex-icons";
+import type { MonumentFeature } from "@/types";
 import { useMonumentStore } from "@/stores/monuments.ts";
 
 const monumentStore = useMonumentStore();
 
 const emit = defineEmits<{
-   "select-monument": [feature: Feature];
+   "select-monument": [feature: MonumentFeature];
 }>();
 
 // Search state
@@ -102,7 +102,7 @@ const searchResults = computed(() => {
 });
 
 // Methods
-const selectResult = (feature: Feature) => {
+const selectResult = (feature: MonumentFeature) => {
    emit("select-monument", feature);
    clearSearch();
 };

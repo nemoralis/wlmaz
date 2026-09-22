@@ -40,7 +40,7 @@ const escapeHtml = (value: string): string =>
 
 interface MonumentFeature {
    type: "Feature";
-   geometry: { type: "Point"; coordinates: [number, number] };
+   geometry: { type: "Point"; coordinates: [number, number] } | null;
    properties: Record<string, string>;
 }
 
@@ -56,13 +56,16 @@ const readGeoJson = async (): Promise<MonumentFeature[]> => {
 };
 
 const buildMonumentProps = (feature: MonumentFeature, canonicalId: string): MonumentProps => {
-   const [lon, lat] = feature.geometry.coordinates;
-   return {
+   const props: MonumentProps = {
       ...feature.properties,
-      lat,
-      lon,
       inventory: canonicalId,
    };
+   if (feature.geometry) {
+      const [lon, lat] = feature.geometry.coordinates;
+      props.lat = lat;
+      props.lon = lon;
+   }
+   return props;
 };
 
 const renderContent = (props: MonumentProps): string => {
@@ -365,12 +368,21 @@ const main = async () => {
          ...STATIC_PAGES.map(({ route }) => ({ loc: `${HOST}${route}`, lastmod: now })),
       ];
 
+      // Only monuments with coordinates get a static page: they're the ones the
+      // map/sitemap surface, and coord-less URLs still render client-side via
+      // the SPA fallback. This keeps the static output (and its validation)
+      // proportional to the located monument set.
+      const locatedFeatures = features.filter((feature) => feature.geometry);
+
+      // Remove pages from previous runs so removed monuments (and the
+      // coord-less set that no longer gets a page) don't leave orphans behind.
+      await fs.rm(MONUMENT_DIR, { recursive: true, force: true });
       await fs.mkdir(MONUMENT_DIR, { recursive: true });
 
       const BATCH_SIZE = 8;
       let written = 0;
-      for (let i = 0; i < features.length; i += BATCH_SIZE) {
-         const batch = features.slice(i, i + BATCH_SIZE);
+      for (let i = 0; i < locatedFeatures.length; i += BATCH_SIZE) {
+         const batch = locatedFeatures.slice(i, i + BATCH_SIZE);
          await Promise.all(
             batch.map(async (feature) => {
                const rawInventory = feature.properties.inventory || "";

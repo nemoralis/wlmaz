@@ -13,6 +13,6 @@
  * - Express `req.user` augmentation: ./express.d.ts
  */
 
-export type { MonumentFeature, MonumentProps } from "./monuments.ts";
+export type { MonumentFeature, MonumentGeoData, MonumentProps } from "./monuments.ts";
 export type { WikiUser } from "./users.ts";
 export type { LeaderboardUser } from "./leaderboard.ts";

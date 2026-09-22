@@ -404,9 +404,12 @@ watch(
                router.replace(`/monument/${encodeIdForUrl(canonicalId)}`);
             }
 
-            const [lon, lat] = (found.geometry as { type: "Point"; coordinates: [number, number] })
-               .coordinates;
-            monument.value = { ...found.properties, lat, lon };
+            if (found.geometry) {
+               const [lon, lat] = found.geometry.coordinates;
+               monument.value = { ...found.properties, lat, lon };
+            } else {
+               monument.value = { ...found.properties };
+            }
             error.value = null;
             if (monument.value?.image) {
                fetchImageMetadata(monument.value.image);
