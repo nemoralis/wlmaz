@@ -139,11 +139,26 @@ function transformToGeoJSON(bindings: SparqlBinding[]): GeoJSON {
       });
    }
 
-   // Sort features by inventory number
+   // Normalize multi-ID inventories BEFORE sorting: SPARQL's
+   // GROUP_CONCAT(DISTINCT ...) has no guaranteed order, so sorting on the raw
+   // string would place features at different positions on every run.
+   for (const feature of features) {
+      if (feature.properties.inventory?.includes(",")) {
+         feature.properties.inventory = feature.properties.inventory
+            .split(",")
+            .map((s: string) => s.trim())
+            .sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true }))
+            .join(", ");
+      }
+   }
+
+   // Sort by inventory number, with the Q-ID as a deterministic tiebreaker
    features.sort((a, b) => {
       const invA = a.properties.inventory || "";
       const invB = b.properties.inventory || "";
-      return invA.localeCompare(invB, undefined, { numeric: true, sensitivity: "base" });
+      const cmp = invA.localeCompare(invB, undefined, { numeric: true, sensitivity: "base" });
+      if (cmp !== 0) return cmp;
+      return (a.properties.item || "").localeCompare(b.properties.item || "");
    });
 
    return {
@@ -170,17 +185,6 @@ async function main() {
       const bindings = data.results.bindings as SparqlBinding[];
 
       const newData = transformToGeoJSON(bindings);
-
-      // Sort individual inventory IDs numerically within each monument
-      for (const feature of newData.features) {
-         if (feature.properties.inventory && feature.properties.inventory.includes(",")) {
-            feature.properties.inventory = feature.properties.inventory
-               .split(",")
-               .map((s: string) => s.trim())
-               .sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true }))
-               .join(", ");
-         }
-      }
 
       // 3. Check if data has actually changed
       if (existingData) {

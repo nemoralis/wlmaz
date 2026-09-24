@@ -1,28 +1,48 @@
-#+ endpoint: https://query.wikidata.org/sparql
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX schema: <http://schema.org/>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX bd: <http://www.bigdata.com/rdf#>
-SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?inventory ?coordinate ?image ?commonsCategory ?azLink ?commonsLink ?parent ?parentLabel ?addressLabel ?lastModified WHERE {
+SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?inventory ?coordinate ?image
+       ?commonsCategory ?azLink ?commonsLink ?parent ?parentLabel ?addressLabel ?lastModified
+WHERE {
   {
-    SELECT ?item (GROUP_CONCAT(DISTINCT ?heritageID; SEPARATOR = ", ") AS ?inventory) (SAMPLE(?img) AS ?image) (SAMPLE(?coord) AS ?coordinate) (SAMPLE(?cat) AS ?commonsCategory) (SAMPLE(?az) AS ?azLink) (SAMPLE(?cLink) AS ?commonsLink) (SAMPLE(?p131) AS ?parent) (SAMPLE(?address) AS ?addressLabel) (MAX(?mod) AS ?lastModified) WHERE {
-      ?item wdt:P13410 ?heritageID;
-        schema:dateModified ?mod.
-      OPTIONAL { ?item wdt:P625 ?coord. }
-      OPTIONAL { ?item wdt:P18 ?img. }
-      OPTIONAL { ?item wdt:P373 ?cat. }
-      OPTIONAL { ?item wdt:P131 ?p131. }
+    SELECT ?item ?inventory ?lastModified
+           (SAMPLE(?coord)   AS ?coordinate)
+           (SAMPLE(?img)     AS ?image)
+           (SAMPLE(?cat)     AS ?commonsCategory)
+           (SAMPLE(?az)      AS ?azLink)
+           (SAMPLE(?cLink)   AS ?commonsLink)
+           (SAMPLE(?p131)    AS ?parent)
+           (SAMPLE(?address) AS ?addressLabel)
+    WHERE {
+      hint:Query hint:optimizer "None".   # run in the order written below
+
+      # 1. Selective step first: one row per item, heritage IDs already concatenated
+      {
+        SELECT ?item (GROUP_CONCAT(DISTINCT ?heritageID; SEPARATOR = ", ") AS ?inventory)
+        WHERE { ?item wdt:P13410 ?heritageID. }
+        GROUP BY ?item
+      }
+
+      # 2. Single-valued per item, so a plain triple (no MAX needed)
+      ?item schema:dateModified ?lastModified.
+
+      # 3. Optional enrichments
+      OPTIONAL { ?item wdt:P625  ?coord. }
+      OPTIONAL { ?item wdt:P18   ?img. }
+      OPTIONAL { ?item wdt:P373  ?cat. }
+      OPTIONAL { ?item wdt:P131  ?p131. }
       OPTIONAL { ?item wdt:P6375 ?address. }
       OPTIONAL {
         ?az schema:about ?item;
-          schema:isPartOf <https://az.wikipedia.org/>.
+            schema:isPartOf <https://az.wikipedia.org/>.
       }
       OPTIONAL {
         ?cLink schema:about ?item;
-          schema:isPartOf <https://commons.wikimedia.org/>.
+               schema:isPartOf <https://commons.wikimedia.org/>.
       }
     }
-    GROUP BY ?item
+    GROUP BY ?item ?inventory ?lastModified
   }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "az,en". }
 }

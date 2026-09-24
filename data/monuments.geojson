@@ -10274,6 +10274,17 @@
             "type": "Feature",
             "geometry": null,
             "properties": {
+                "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 4 nömrəli daş",
+                "inventory": "26—839",
+                "item": "http://www.wikidata.org/entity/Q140654168",
+                "itemLabel": "Qayaüstü təsvirlər (2 maral, keçi), qaya yalağı",
+                "lastModified": "2026-07-26T00:15:52Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
                 "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 5 nömrəli daş",
                 "inventory": "26—840",
                 "item": "http://www.wikidata.org/entity/Q140654169",
@@ -10290,6 +10301,17 @@
                 "item": "http://www.wikidata.org/entity/Q140654171",
                 "itemLabel": "Heyvan bağlamaq üçün dəlmə",
                 "lastModified": "2026-07-26T00:15:54Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 7 nömrəli daş",
+                "inventory": "26—842",
+                "item": "http://www.wikidata.org/entity/Q140654172",
+                "itemLabel": "Qayaüstü təsvirlər (9 ədəd)",
+                "lastModified": "2026-07-26T00:15:55Z"
             }
         },
         {
@@ -12950,6 +12972,31 @@
                 "lastModified": "2026-07-25T22:57:21Z",
                 "parent": "http://www.wikidata.org/entity/Q390820",
                 "parentLabel": "Şərur rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.92,
+                    39.16
+                ]
+            },
+            "properties": {
+                "addressLabel": "Nəsirvaz kəndi",
+                "azLink": "https://az.wikipedia.org/wiki/G%C9%99miqaya_petroqlifl%C9%99ri",
+                "commonsCategory": "Gamigaya Petroglyphs",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gamigaya_Petroglyphs",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/G%C9%99miqaya%20r%C9%99sml%C9%99ri%20%289%29.jpg",
+                "inventory": "38, 1945",
+                "item": "http://www.wikidata.org/entity/Q4361430",
+                "itemAltLabel": "Gəmiqaya qayaüstü təsvirləri, Gəmiqaya rəsmləri",
+                "itemDescription": "monument",
+                "itemLabel": "Gəmiqaya petroqlifləri",
+                "lastModified": "2026-09-10T10:51:15Z",
+                "parent": "http://www.wikidata.org/entity/Q512623",
+                "parentLabel": "Ordubad rayonu"
             }
         },
         {
@@ -18207,6 +18254,27 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    48.4414991,
+                    41.1933855
+                ]
+            },
+            "properties": {
+                "addressLabel": "Xaşı kəndi",
+                "azLink": "https://az.wikipedia.org/wiki/Yeddil%C9%99r_qalas%C4%B1",
+                "inventory": "302, 4655",
+                "item": "http://www.wikidata.org/entity/Q134699272",
+                "itemDescription": "Azərbaycanda Quba rayonunun Zıxır kəndində yerləşən qala.",
+                "itemLabel": "Yeddilər qalası",
+                "lastModified": "2026-08-11T00:17:27Z",
+                "parent": "http://www.wikidata.org/entity/Q457499",
+                "parentLabel": "Quba rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     48.223292,
                     41.337953
                 ]
@@ -18876,6 +18944,30 @@
                 "itemDescription": "Mosque in Sheki, Azerbaijan",
                 "itemLabel": "İmam Əli məscidi",
                 "lastModified": "2026-04-24T12:55:14Z",
+                "parent": "http://www.wikidata.org/entity/Q234783",
+                "parentLabel": "Şəki"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.1895,
+                    41.20048
+                ]
+            },
+            "properties": {
+                "addressLabel": "Şəki şəhəri",
+                "azLink": "https://az.wikipedia.org/wiki/A%C4%9Fvanlar_hamam%C4%B1",
+                "commonsCategory": "Aghvanlar Bathhouse",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Aghvanlar_Bathhouse",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/A%C4%9Fvanlar%20hamam%C4%B1%20202506%20%283%29.jpg",
+                "inventory": "334, 4995",
+                "item": "http://www.wikidata.org/entity/Q97225056",
+                "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
+                "itemLabel": "Ağvanlar hamamı",
+                "lastModified": "2026-09-15T07:28:37Z",
                 "parent": "http://www.wikidata.org/entity/Q234783",
                 "parentLabel": "Şəki"
             }
@@ -41376,31 +41468,6 @@
         },
         {
             "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    45.92,
-                    39.16
-                ]
-            },
-            "properties": {
-                "addressLabel": "Nəsirvaz kəndi",
-                "azLink": "https://az.wikipedia.org/wiki/G%C9%99miqaya_petroqlifl%C9%99ri",
-                "commonsCategory": "Gamigaya Petroglyphs",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gamigaya_Petroglyphs",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/G%C9%99miqaya%20r%C9%99sml%C9%99ri%20%289%29.jpg",
-                "inventory": "38, 1945",
-                "item": "http://www.wikidata.org/entity/Q4361430",
-                "itemAltLabel": "Gəmiqaya qayaüstü təsvirləri, Gəmiqaya rəsmləri",
-                "itemDescription": "monument",
-                "itemLabel": "Gəmiqaya petroqlifləri",
-                "lastModified": "2026-09-10T10:51:15Z",
-                "parent": "http://www.wikidata.org/entity/Q512623",
-                "parentLabel": "Ordubad rayonu"
-            }
-        },
-        {
-            "type": "Feature",
             "geometry": null,
             "properties": {
                 "addressLabel": "Tivi kəndi",
@@ -61143,7 +61210,7 @@
                 "item": "http://www.wikidata.org/entity/Q124359066",
                 "itemDescription": "XIX əsrə aid tarix-memarlıq abidəsi. Azərbaycanın Bakı şəhərində yerləşir.",
                 "itemLabel": "Qasımbəy məscidi",
-                "lastModified": "2026-06-08T01:13:48Z",
+                "lastModified": "2026-09-23T14:23:26Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -62907,12 +62974,15 @@
             },
             "properties": {
                 "addressLabel": "M.Muxtarov küçəsi, 41",
+                "commonsCategory": "Shabi hammam",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Shabi_hammam",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C5%9E%C9%99bi%20hamam%C4%B1%20%282026%29%206.jpg",
                 "inventory": "3697",
                 "item": "http://www.wikidata.org/entity/Q140661608",
                 "itemAltLabel": "Şə-bi hamamı",
                 "itemDescription": "Bakıda hamam",
                 "itemLabel": "Şəbi hamamı",
-                "lastModified": "2026-09-16T07:10:33Z",
+                "lastModified": "2026-09-23T17:47:37Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -63025,13 +63095,21 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829834719,
+                    40.373811224
+                ]
+            },
             "properties": {
                 "addressLabel": "Ç.Mustafayev küçəsi, 72",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Chingiz_Mustafayev_Street,_72",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Chingiz%20Mustafayev%20Street%2C%2072%20%282026%29%2005.jpg",
                 "inventory": "3718",
                 "item": "http://www.wikidata.org/entity/Q140661614",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:20:32Z",
+                "lastModified": "2026-09-23T14:44:02Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -63577,13 +63655,23 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830637632,
+                    40.372952458
+                ]
+            },
             "properties": {
                 "addressLabel": "B.Səfəroğlu küçəsi, 103",
+                "commonsCategory": "Gasim bey mosque on Bashir Safaroglu Street 103",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Gasim_bey_mosque_on_Bashir_Safaroglu_Street_103",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Gasim%20bey%20mosque%20on%20Bashir%20Safaroglu%20Street%20103%20%282026%29%2005.jpg",
                 "inventory": "3770",
                 "item": "http://www.wikidata.org/entity/Q140661644",
+                "itemDescription": "Bəşir Səfəroğlu küçəsində məscid",
                 "itemLabel": "Qasım bəy məscidi",
-                "lastModified": "2026-07-25T23:16:07Z",
+                "lastModified": "2026-09-23T14:37:20Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -68093,7 +68181,7 @@
                 "itemAltLabel": "Müqəddəs Yelisey monastrı",
                 "itemDescription": "monastery",
                 "itemLabel": "Müqəddəs Yelisey monastırı",
-                "lastModified": "2026-09-22T10:05:00Z",
+                "lastModified": "2026-09-23T13:44:58Z",
                 "parent": "http://www.wikidata.org/entity/Q2025789",
                 "parentLabel": "Ağdərə rayonu"
             }
@@ -77654,27 +77742,6 @@
         },
         {
             "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    48.4414991,
-                    41.1933855
-                ]
-            },
-            "properties": {
-                "addressLabel": "Xaşı kəndi",
-                "azLink": "https://az.wikipedia.org/wiki/Yeddil%C9%99r_qalas%C4%B1",
-                "inventory": "302, 4655",
-                "item": "http://www.wikidata.org/entity/Q134699272",
-                "itemDescription": "Azərbaycanda Quba rayonunun Zıxır kəndində yerləşən qala.",
-                "itemLabel": "Yeddilər qalası",
-                "lastModified": "2026-08-11T00:17:27Z",
-                "parent": "http://www.wikidata.org/entity/Q457499",
-                "parentLabel": "Quba rayonu"
-            }
-        },
-        {
-            "type": "Feature",
             "geometry": null,
             "properties": {
                 "addressLabel": "Təngəaltı kəndi",
@@ -78588,7 +78655,8 @@
                 "addressLabel": "Mirlər kəndi",
                 "inventory": "4712",
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemLabel": "Məscid",
+                "itemDescription": "Qubadlıda məscid",
+                "itemLabel": "Mirlər məscidi",
                 "lastModified": "2026-07-23T15:59:55Z",
                 "parent": "http://www.wikidata.org/entity/Q644048",
                 "parentLabel": "Qubadlı rayonu"
@@ -83015,30 +83083,6 @@
                 "lastModified": "2026-07-26T01:07:08Z",
                 "parent": "http://www.wikidata.org/entity/Q330864",
                 "parentLabel": "Şəki rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    47.1895,
-                    41.20048
-                ]
-            },
-            "properties": {
-                "addressLabel": "Şəki şəhəri",
-                "azLink": "https://az.wikipedia.org/wiki/A%C4%9Fvanlar_hamam%C4%B1",
-                "commonsCategory": "Aghvanlar Bathhouse",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Aghvanlar_Bathhouse",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/A%C4%9Fvanlar%20hamam%C4%B1%20202506%20%283%29.jpg",
-                "inventory": "334, 4995",
-                "item": "http://www.wikidata.org/entity/Q97225056",
-                "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
-                "itemLabel": "Ağvanlar hamamı",
-                "lastModified": "2026-09-15T07:28:37Z",
-                "parent": "http://www.wikidata.org/entity/Q234783",
-                "parentLabel": "Şəki"
             }
         },
         {
