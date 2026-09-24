@@ -104,7 +104,8 @@ describe("useOrganizationSchema", () => {
    it("emits a stable Organization node", () => {
       const schema = useOrganizationSchema();
       expect(schema["@type"]).toBe("Organization");
-      expect(schema.name).toBe("Wiki Loves Monuments Azerbaijan");
+      expect(schema.name).toBe("Viki Abidələri Sevir Azərbaycan");
+      expect(schema.alternateName).toBe("Wiki Loves Monuments Azerbaijan");
       expect(schema.sameAs).toHaveLength(2);
       expect(schema.foundingLocation).toEqual({ "@type": "Country", name: "Azerbaijan" });
    });

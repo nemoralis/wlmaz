@@ -96,8 +96,8 @@ export function useOrganizationSchema() {
    const schema: SchemaOrgNode = {
       "@context": "https://schema.org",
       "@type": "Organization",
-      name: "Wiki Loves Monuments Azerbaijan",
-      alternateName: "Viki Abidələri Sevir Azərbaycan",
+      name: "Viki Abidələri Sevir Azərbaycan",
+      alternateName: "Wiki Loves Monuments Azerbaijan",
       url: SITE_HOST,
       logo: `${SITE_HOST}/wlm-az.png`,
       description:

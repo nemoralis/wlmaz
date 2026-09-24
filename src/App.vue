@@ -20,7 +20,7 @@
          >
             <img
                src="/wlm-az.svg"
-               alt="Wiki Loves Monuments Azerbaijan"
+               alt="Viki Abidələri Sevir Azərbaycan"
                class="h-10 w-auto"
                width="40"
                height="40"

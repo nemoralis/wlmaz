@@ -20,8 +20,8 @@
                   <a
                      href="https://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2026_in_Azerbaijan"
                      target="_blank"
-                     title="WLM Azerbaijan Page"
-                     aria-label="Wiki Loves Monuments Azerbaijan Page"
+                     title="Viki Abidələri Sevir Azərbaycan səhifəsi"
+                     aria-label="Viki Abidələri Sevir Azərbaycan səhifəsi"
                   >
                      <font-awesome-icon :icon="['fas', 'external-link-alt']" />
                   </a>
