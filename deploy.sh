@@ -73,6 +73,17 @@ else
     echo "⏭️ Skipping build"
 fi
 
+# nginx.conf includes the prerender-generated monument-redirects.conf;
+# `nginx -t` fails when the file is absent (fresh clone without a build).
+if [ ! -f monument-redirects.conf ]; then
+    echo "⚠️ monument-redirects.conf missing — run npm run build to generate it"
+    if ! confirm "Create an empty placeholder (no redirects) and continue?"; then
+        echo "❌ Deployment cancelled"
+        exit 1
+    fi
+    echo "# placeholder: run npm run build to generate monument redirects" > monument-redirects.conf
+fi
+
 if confirm "🚦 Update Nginx config?"; then
     sudo cp nginx.conf /etc/nginx/sites-available/wlmaz
     sudo nginx -t && sudo systemctl reload nginx

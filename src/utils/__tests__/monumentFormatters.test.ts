@@ -2,10 +2,12 @@ import { describe, expect, it } from "vitest";
 import type { MonumentProps } from "@/types";
 import {
    encodeIdForUrl,
+   findDuplicateLabels,
    getCanonicalId,
    getCategoryUrl,
    getClosestWikiWidth,
    getDescriptionPage,
+   getDisplayLabel,
    getOptimizedImage,
    getSrcSet,
    isIdMatch,
@@ -155,5 +157,46 @@ describe("safeFileName", () => {
 
    it("replaces whitespace and characters unsafe for file systems with underscores", () => {
       expect(safeFileName("Gəncə/Qalası: A")).toBe("Gəncə_Qalası__A");
+   });
+});
+
+describe("findDuplicateLabels", () => {
+   it("returns only labels used more than once", () => {
+      const dups = findDuplicateLabels(["Məscid", "Saray", "Məscid"]);
+      expect([...dups]).toEqual(["Məscid"]);
+   });
+
+   it("returns an empty set when every label is unique", () => {
+      expect(findDuplicateLabels(["Məscid", "Saray"]).size).toBe(0);
+   });
+
+   it("normalizes missing labels to the 'Abidə' fallback so they cannot collide silently", () => {
+      const dups = findDuplicateLabels([undefined, "", "Saray"]);
+      expect(dups.has("Abidə")).toBe(true);
+      expect(dups.has("Saray")).toBe(false);
+   });
+});
+
+describe("getDisplayLabel", () => {
+   it("keeps a unique label untouched", () => {
+      expect(getDisplayLabel("Məscid", "42", new Set())).toBe("Məscid");
+   });
+
+   it("appends the canonical inventory id for shared labels", () => {
+      expect(getDisplayLabel("Yaşayış evi", "4996-12", new Set(["Yaşayış evi"]))).toBe(
+         "Yaşayış evi (4996-12)",
+      );
+   });
+
+   it("falls back to 'Abidə' for missing labels", () => {
+      expect(getDisplayLabel(undefined, "5", new Set())).toBe("Abidə");
+   });
+
+   it("disambiguates label-less monuments when the fallback itself is shared", () => {
+      expect(getDisplayLabel(undefined, "5", new Set(["Abidə"]))).toBe("Abidə (5)");
+   });
+
+   it("leaves a shared label bare when there is no inventory id to append", () => {
+      expect(getDisplayLabel("Məscid", "", new Set(["Məscid"]))).toBe("Məscid");
    });
 });

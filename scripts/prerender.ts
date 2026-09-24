@@ -11,7 +11,9 @@ import type { MonumentProps } from "../src/types";
 import { SITE_HOST } from "../src/utils/constants";
 import {
    encodeIdForUrl,
+   findDuplicateLabels,
    getCategoryUrl,
+   getDisplayLabel,
    getOptimizedImage,
    getSrcSet,
    safeFileName,
@@ -24,6 +26,10 @@ const HOST = SITE_HOST;
 const DIST_DIR = path.join(__dirname, "../dist");
 const GEOJSON_PATH = path.join(__dirname, "../data/monuments.geojson");
 const MONUMENT_DIR = path.join(DIST_DIR, "monument");
+// Generated nginx include with exact-match 301s for non-canonical
+// comma-separated inventory parts. Lives at the repo root (outside the
+// web root) — gitignored; see nginx.conf's include directive.
+const REDIRECTS_PATH = path.join(__dirname, "..", "monument-redirects.conf");
 
 const SITE_TITLE = "Viki Abidələri Sevir Azərbaycan";
 
@@ -185,7 +191,11 @@ const buildEmbeddedData = (props: MonumentProps): string => {
    return `<script type="application/json" id="monument-data">${json}</script>`;
 };
 
-const buildHeadTags = (props: MonumentProps, canonicalUrl: string, title: string): string => {
+const buildHeadTags = (
+   props: MonumentProps,
+   canonicalUrl: string,
+   displayLabel: string,
+): string => {
    const description =
       props.itemDescription || "Azərbaycanın tarixi abidələri və mədəni irs xəritəsi";
    const ogImage = props.image ? getOptimizedImage(props.image, 1280) : `${HOST}/wlm-az.png`;
@@ -213,12 +223,12 @@ const buildHeadTags = (props: MonumentProps, canonicalUrl: string, title: string
       <meta property="og:type" content="place">
       <meta property="og:url" content="${escapeHtml(canonicalUrl)}">
       <meta property="og:site_name" content="Wiki Loves Monuments Azerbaijan">
-      <meta property="og:title" content="${escapeHtml(props.itemLabel || title)}">
+      <meta property="og:title" content="${escapeHtml(displayLabel)}">
       <meta property="og:description" content="${escapeHtml(description)}">
       <meta property="og:image" content="${escapeHtml(ogImage)}">
       <meta property="og:locale" content="az_AZ">
       <meta name="twitter:card" content="summary_large_image">
-      <meta name="twitter:title" content="${escapeHtml(props.itemLabel || title)}">
+      <meta name="twitter:title" content="${escapeHtml(displayLabel)}">
       <meta name="twitter:description" content="${escapeHtml(description)}">
       <meta name="twitter:image" content="${escapeHtml(ogImage)}">
       ${imagePreload}
@@ -233,8 +243,13 @@ const buildMonumentHtml = (
    indexHtml: string,
    props: MonumentProps,
    canonicalUrl: string,
+   duplicateLabels: ReadonlySet<string>,
 ): string => {
-   const title = `${props.itemLabel || "Abidə"} | ${SITE_TITLE}`;
+   // Shared labels get the canonical inventory id appended so no two pages
+   // ship the same <title> ("Yaşayış evi (4996-12) | Viki Abidələri...").
+   const displayLabel = getDisplayLabel(props.itemLabel, props.inventory || "", duplicateLabels);
+   props.displayLabel = displayLabel;
+   const title = `${displayLabel} | ${SITE_TITLE}`;
    let html = indexHtml;
 
    // Replace the default title.
@@ -247,7 +262,7 @@ const buildMonumentHtml = (
    html = html.replace(/<meta[^>]*name="twitter:[^>]*>/g, "");
 
    // Insert per-page head tags before </head>.
-   const headTags = buildHeadTags(props, canonicalUrl, title);
+   const headTags = buildHeadTags(props, canonicalUrl, displayLabel);
    // Embed the monument's props for instant runtime rendering (no geojson).
    const embeddedData = buildEmbeddedData(props);
    // Override the shell's overflow:hidden so static content is scrollable.
@@ -358,6 +373,59 @@ const minifyHtml = (html: string): Promise<string> =>
       minifyCSS: true,
    });
 
+/**
+ * Builds the nginx include that 301s every non-first comma-separated
+ * inventory part to its canonical page (e.g. /monument/4655 → /monument/302).
+ * Only page-bearing (located, inventoried) features contribute: their
+ * canonical id has a real page to land on. A part that already has its own
+ * page is skipped so a live URL is never hijacked away from its own page.
+ */
+const buildRedirectConf = (pageFeatures: MonumentFeature[]): string => {
+   const canonicalIds = new Set(
+      pageFeatures.map((feature) => (feature.properties.inventory || "").split(",")[0].trim()),
+   );
+   const redirectByPart = new Map<string, string>();
+   for (const feature of pageFeatures) {
+      const parts = (feature.properties.inventory || "").split(",").map((part) => part.trim());
+      const canonicalId = parts[0];
+      for (const part of parts.slice(1)) {
+         if (!part || part === canonicalId || canonicalIds.has(part)) continue;
+         const existing = redirectByPart.get(part);
+         if (existing && existing !== canonicalId) {
+            throw new Error(
+               `inventory part "${part}" maps to both "${existing}" and "${canonicalId}" — ambiguous redirect`,
+            );
+         }
+         redirectByPart.set(part, canonicalId);
+      }
+   }
+
+   // Values land verbatim in the nginx config: reject anything the config
+   // parser treats as syntax (whitespace, quotes, ";{}", or "$" which would
+   // trigger variable interpolation in the return URI).
+   const unsafe = /[\s;"'\\{}$]/;
+   const lines = [...redirectByPart]
+      .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
+      .map(([part, canonicalId]) => {
+         // Key is the decoded form (nginx matches locations against the
+         // percent-decoded URI); target follows the encoded sitemap convention.
+         const target = encodeIdForUrl(canonicalId);
+         if (unsafe.test(part) || unsafe.test(target)) {
+            throw new Error(
+               `inventory part "${part}" / target "${target}" is not nginx-config-safe`,
+            );
+         }
+         return `location = /monument/${part} { return 301 /monument/${target}; }`;
+      });
+
+   return [
+      "# Generated by scripts/prerender.ts — do not edit (regenerated by npm run build).",
+      "# Exact-match 301s: non-first comma-separated inventory parts → canonical page.",
+      ...lines,
+      "",
+   ].join("\n");
+};
+
 const main = async () => {
    try {
       const features = await readGeoJson();
@@ -369,10 +437,25 @@ const main = async () => {
       ];
 
       // Only monuments with coordinates get a static page: they're the ones the
-      // map/sitemap surface, and coord-less URLs still render client-side via
-      // the SPA fallback. This keeps the static output (and its validation)
-      // proportional to the located monument set.
+      // map/sitemap surface, and coord-less (or stale) IDs 404 at the nginx
+      // layer instead of falling back to the SPA shell — the shell's homepage
+      // canonical is what GSC flagged as "Google chose different canonical".
+      // This keeps the static output (and its validation) proportional to the
+      // located monument set.
       const locatedFeatures = features.filter((feature) => feature.geometry);
+
+      // The page-bearing set: located features that actually get a page (the
+      // loop below skips empty inventories). Drives both the redirect map and
+      // duplicate-label detection so titles match what ships to crawlers.
+      const pageFeatures = locatedFeatures.filter((feature) =>
+         (feature.properties.inventory || "").trim(),
+      );
+      // Labels shared by several page-bearing monuments get the inventory id
+      // appended in <title>/og:title ("Yaşayış evi (4996-12)") so no two
+      // prerendered pages collide in the SERPs.
+      const duplicateLabels = findDuplicateLabels(
+         pageFeatures.map((feature) => feature.properties.itemLabel),
+      );
 
       // Remove pages from previous runs so removed monuments (and the
       // coord-less set that no longer gets a page) don't leave orphans behind.
@@ -392,7 +475,7 @@ const main = async () => {
                const canonicalUrl = `${HOST}/monument/${encodeIdForUrl(canonicalId)}`;
                const props = buildMonumentProps(feature, canonicalId);
 
-               const html = buildMonumentHtml(indexHtml, props, canonicalUrl);
+               const html = buildMonumentHtml(indexHtml, props, canonicalUrl, duplicateLabels);
                const filePath = path.join(MONUMENT_DIR, `${safeFileName(canonicalId)}.html`);
                await fs.writeFile(filePath, await minifyHtml(html));
 
@@ -418,10 +501,17 @@ const main = async () => {
       await fs.writeFile(path.join(DIST_DIR, "sitemap.xml"), renderSitemap(sitemapEntries));
       await fs.writeFile(path.join(DIST_DIR, "robots.txt"), ROBOTS_TXT);
 
+      const redirectConf = buildRedirectConf(pageFeatures);
+      await fs.writeFile(REDIRECTS_PATH, redirectConf);
+      const redirectCount = redirectConf
+         .split("\n")
+         .filter((line) => line.startsWith("location")).length;
+
       console.log(`Prerendered ${written} monument pages`);
       console.log(
          `Wrote ${STATIC_PAGES.length} static pages, sitemap.xml (${sitemapEntries.length} URLs), robots.txt`,
       );
+      console.log(`Wrote ${redirectCount} nginx redirects to monument-redirects.conf`);
    } catch (error) {
       console.error("Prerender failed:", error);
       process.exit(1);

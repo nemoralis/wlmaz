@@ -25,6 +25,13 @@ export interface MonumentProps {
    lat?: number;
    /** Flattened longitude (source of truth is geometry.coordinates). */
    lon?: number;
+   /**
+    * Prerender-computed page label: `itemLabel` with the canonical inventory
+    * id appended when the label is shared by several monuments (used by
+    * <title>/og:title). Only present in the #monument-data JSON embedded in
+    * prerendered pages; the store path recomputes it with the same rule.
+    */
+   displayLabel?: string;
 }
 
 /**

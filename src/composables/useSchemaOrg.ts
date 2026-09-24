@@ -1,5 +1,6 @@
 import type { MonumentProps } from "@/types";
 import { SITE_HOST } from "@/utils/constants.ts";
+import { encodeIdForUrl, getCanonicalId } from "@/utils/monumentFormatters.ts";
 
 /**
  * Composable for generating Schema.org JSON-LD structured data
@@ -23,9 +24,10 @@ export function useMonumentSchema(monument: MonumentProps) {
       identifier: monument.inventory || "",
    };
 
-   // Entity deduplication URL
+   // Entity deduplication URL (canonical first-part id, encoded like the
+   // sitemap/canonical links — see encodeIdForUrl)
    if (monument.inventory) {
-      schema["@id"] = `${SITE_HOST}/monument/${monument.inventory}`;
+      schema["@id"] = `${SITE_HOST}/monument/${encodeIdForUrl(getCanonicalId(monument.inventory))}`;
    }
 
    // Add description if available
@@ -74,9 +76,9 @@ export function useMonumentSchema(monument: MonumentProps) {
       schema.sameAs = sameAs;
    }
 
-   // Add URL to the monument page
+   // Add URL to the monument page (same canonical, encoded form as @id)
    if (monument.inventory) {
-      schema.url = `${SITE_HOST}/monument/${monument.inventory}`;
+      schema.url = `${SITE_HOST}/monument/${encodeIdForUrl(getCanonicalId(monument.inventory))}`;
    }
 
    // Add dateModified for freshness signals

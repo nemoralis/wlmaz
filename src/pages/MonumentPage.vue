@@ -244,8 +244,10 @@ import { useMonumentStore } from "@/stores/monuments.ts";
 import type { MonumentProps } from "@/types";
 import {
    encodeIdForUrl,
+   findDuplicateLabels,
    getCanonicalId,
    getCategoryUrl,
+   getDisplayLabel,
    getOptimizedImage,
    getSrcSet,
    isIdMatch,
@@ -292,11 +294,30 @@ const staticOgDescription =
 const staticOgImage =
    document.querySelector('meta[property="og:image"]')?.getAttribute("content") ?? "/wlm-az.png";
 
+// Duplicate-label disambiguation, mirroring scripts/prerender.ts: only
+// located monuments get static pages, so only they count as "shared".
+const duplicatedLabels = computed(() =>
+   findDuplicateLabels(
+      monumentStore.monuments.filter((m) => typeof m.lat === "number").map((m) => m.itemLabel),
+   ),
+);
+
+/**
+ * Label for <title>/og:title. Prerendered pages carry it in the embedded
+ * #monument-data JSON (the store is not initialized on that fast path);
+ * after client-side navigation it is recomputed from the store with the
+ * same rule the prerender applied, so head tags never flip format.
+ */
+const displayLabel = computed(() => {
+   const m = monument.value;
+   if (!m) return null;
+   if (m.displayLabel) return m.displayLabel;
+   return getDisplayLabel(m.itemLabel, getCanonicalId(m.inventory), duplicatedLabels.value);
+});
+
 useHead({
    title: () =>
-      monument.value
-         ? `${monument.value.itemLabel} | Viki Abidələri Sevir Azərbaycan`
-         : staticTitle,
+      displayLabel.value ? `${displayLabel.value} | Viki Abidələri Sevir Azərbaycan` : staticTitle,
    link: computed<Link[]>(() => {
       const currentId = (monument.value?.inventory || route.params.id) as string;
       const canonicalPathId = encodeIdForUrl(getCanonicalId(currentId));
@@ -328,7 +349,7 @@ useHead({
       },
       {
          property: "og:title",
-         content: () => monument.value?.itemLabel || staticOgTitle,
+         content: () => displayLabel.value ?? staticOgTitle,
       },
       {
          property: "og:description",

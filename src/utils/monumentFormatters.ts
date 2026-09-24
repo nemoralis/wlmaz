@@ -77,6 +77,37 @@ export const getCanonicalId = (inventory: string | undefined): string => {
 };
 
 /**
+ * Returns the set of itemLabels used by more than one monument. Page titles
+ * for these labels get the canonical inventory id appended so every
+ * prerendered page keeps a unique <title> (see scripts/prerender.ts and
+ * MonumentPage.vue). Empty labels are normalized to the "Abidə" fallback so
+ * label-less monuments cannot silently collide.
+ */
+export const findDuplicateLabels = (labels: Iterable<string | undefined>): Set<string> => {
+   const counts = new Map<string, number>();
+   for (const label of labels) {
+      const key = label || "Abidə";
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+   }
+   return new Set([...counts].filter(([, count]) => count > 1).map(([key]) => key));
+};
+
+/**
+ * Builds the display label used in <title>/og:title: labels shared by several
+ * monuments get the canonical inventory id appended, e.g. "Yaşayış evi (4996-12)".
+ * `duplicateLabels` comes from findDuplicateLabels over the page-bearing
+ * (located) monuments so prerender and runtime stay in sync.
+ */
+export const getDisplayLabel = (
+   label: string | undefined,
+   canonicalId: string,
+   duplicateLabels: ReadonlySet<string>,
+): string => {
+   const base = label || "Abidə";
+   return duplicateLabels.has(base) && canonicalId ? `${base} (${canonicalId})` : base;
+};
+
+/**
  * Encodes a monument ID for use in a URL path. Dots are kept as %2E (matching
  * the sitemap/canonical convention) and any remaining unsafe characters
  * (e.g. em-dashes) are percent-encoded.

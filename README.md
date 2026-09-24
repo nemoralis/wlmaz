@@ -6,7 +6,7 @@
 ![Contributors](https://img.shields.io/github/contributors/nemoralis/wlmaz?color=dark-green) ![Stargazers](https://img.shields.io/github/stars/nemoralis/wlmaz?style=social)
 ![Issues](https://img.shields.io/github/issues/nemoralis/wlmaz)
 
-**wlmaz** is a full-stack mapping application designed to help contributors discover heritage monuments in Azerbaijan and upload photos directly to Wikimedia Commons. 
+**wlmaz** is a full-stack mapping application designed to help contributors discover heritage monuments in Azerbaijan and upload photos directly to Wikimedia Commons.
 
 It features a responsive map interface powered by Vue 3 and Leaflet, backed by a secure Node.js proxy that handles MediaWiki OAuth authentication and uploads.
 
@@ -121,8 +121,9 @@ omit the monument `inventory` when uploading to avoid the heritage template.
 ## Development Workflow
 
 - `npm run dev` — Vite frontend + Express backend concurrently.
-- `npm run build` — typecheck, Vite build, prerender static monument pages,
-  verify output, then bundle the server.
+- `npm run build` — typecheck, Vite build, prerender static monument pages
+  (and the generated `monument-redirects.conf` nginx include), verify output,
+  then bundle the server.
 - `npm run test` — Vitest unit tests (`npm run test:watch` to watch).
 - `npm run typecheck` — `vue-tsc` across `src/` and `scripts/`.
 - `npm run lint` / `npm run lint:fix` — ESLint without auto-fix / with auto-fix.

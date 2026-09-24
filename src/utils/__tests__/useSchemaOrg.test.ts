@@ -28,6 +28,12 @@ describe("useMonumentSchema", () => {
       expect(schema.url).toBe("https://wikilovesmonuments.az/monument/AZ-0001");
    });
 
+   it("canonicalizes comma lists and encodes dots in @id/url", () => {
+      const schema = useMonumentSchema({ ...baseMonument, inventory: "AZ-0001.2, AZ-9" });
+      expect(schema["@id"]).toBe("https://wikilovesmonuments.az/monument/AZ-0001%2E2");
+      expect(schema.url).toBe("https://wikilovesmonuments.az/monument/AZ-0001%2E2");
+   });
+
    it("adds description and alternateName when present", () => {
       const schema = useMonumentSchema({
          ...baseMonument,

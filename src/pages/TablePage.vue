@@ -50,7 +50,18 @@
                   <!-- Custom Slot for Ad (Label + Description + AltLabel) -->
                   <template #item-itemLabel="{ row }">
                      <div class="flex h-full flex-col justify-center">
-                        <div class="truncate font-medium text-gray-900">{{ row.itemLabel }}</div>
+                        <div class="truncate font-medium text-gray-900">
+                           <!-- Located monuments get a prerendered page — link
+                                it so crawlers can discover /monument/* URLs. -->
+                           <router-link
+                              v-if="typeof row.lat === 'number' && row.inventory"
+                              :to="monumentPath(row)"
+                              class="hover:text-[#3366cc] hover:underline"
+                           >
+                              {{ row.itemLabel }}
+                           </router-link>
+                           <template v-else>{{ row.itemLabel }}</template>
+                        </div>
                         <div
                            v-if="row.itemDescription"
                            class="mt-0.5 truncate text-xs text-gray-500"
@@ -148,7 +159,7 @@ import MonumentVirtualTable from "@/components/MonumentVirtualTable.vue";
 import { useAuthStore } from "@/stores/auth.ts";
 import { useMonumentStore } from "@/stores/monuments.ts";
 import type { MonumentProps as Monument } from "@/types";
-import { getCanonicalId } from "@/utils/monumentFormatters.ts";
+import { encodeIdForUrl, getCanonicalId } from "@/utils/monumentFormatters.ts";
 
 const UploadModal = defineAsyncComponent(() => import("../components/UploadModal.vue"));
 
@@ -237,6 +248,10 @@ const handleSort = (colId: string) => {
 const openExternalLink = (url: string) => {
    window.open(url, "_blank", "noopener,noreferrer");
 };
+
+/** Static monument page path for a row (only located monuments get one). */
+const monumentPath = (row: Monument): string =>
+   `/monument/${encodeIdForUrl(getCanonicalId(row.inventory))}`;
 
 onMounted(() => {
    monumentStore.init();
