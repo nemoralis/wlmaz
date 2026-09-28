@@ -1,6 +1,6 @@
 import { computed, ref } from "vue";
 import type { LeaderboardUser } from "@/types";
-import type { EventStats, LeaderboardResponse } from "@/types/api.ts";
+import type { EventStats, LeaderboardResponse, WikiLovesDailyData } from "@/types/api.ts";
 
 const API_BASE = "/api/leaderboard";
 const COUNTRY = "Azerbaijan";
@@ -54,6 +54,12 @@ export const useLeaderboard = () => {
 
    const yearlyBreakdown = ref<Record<number, { count: number; usage: number }> | null>(null);
 
+   // Per-day stats of the selected year (toolforge `data`), for the daily chart
+   const dailyStats = ref<Record<string, WikiLovesDailyData> | null>(null);
+
+   // Contest window (YYYYMMDDHHmmss) of the selected year, bounds the chart axis
+   const eventWindow = ref<{ start: number; end: number } | null>(null);
+
    const fetchLeaderboard = async (year?: number | "total") => {
       const target = year ?? selectedYear.value;
       if (typeof target === "number") selectedYear.value = target;
@@ -68,6 +74,8 @@ export const useLeaderboard = () => {
             users.value = parsed.users;
             eventStats.value = parsed.eventStats;
             yearlyBreakdown.value = parsed.yearlyBreakdown;
+            dailyStats.value = parsed.dailyStats ?? null;
+            eventWindow.value = parsed.eventWindow ?? null;
          } catch (e) {
             console.warn("Failed to parse cached leaderboard", e);
          }
@@ -75,6 +83,8 @@ export const useLeaderboard = () => {
          users.value = [];
          eventStats.value = null;
          yearlyBreakdown.value = null;
+         dailyStats.value = null;
+         eventWindow.value = null;
       }
 
       if (users.value.length === 0) {
@@ -139,6 +149,16 @@ export const useLeaderboard = () => {
             yearlyBreakdown.value = countryData.years;
          }
 
+         // Per-day stats + contest window exist only on single-year payloads
+         // (the "total" aggregate carries an empty `data`), so the daily chart
+         // is per-year by design.
+         dailyStats.value =
+            countryData.data && Object.keys(countryData.data).length > 0 ? countryData.data : null;
+         eventWindow.value =
+            countryData.start && countryData.end
+               ? { start: countryData.start, end: countryData.end }
+               : null;
+
          // Cache everything
          localStorage.setItem(
             cacheKey,
@@ -146,6 +166,8 @@ export const useLeaderboard = () => {
                users: users.value,
                eventStats: eventStats.value,
                yearlyBreakdown: yearlyBreakdown.value,
+               dailyStats: dailyStats.value,
+               eventWindow: eventWindow.value,
             }),
          );
       } catch (e: unknown) {
@@ -168,6 +190,8 @@ export const useLeaderboard = () => {
       availableYears,
       eventStats,
       yearlyBreakdown,
+      dailyStats,
+      eventWindow,
       fetchLeaderboard,
    };
 };

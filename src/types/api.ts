@@ -62,6 +62,13 @@ export interface WikiLovesUserData {
    yearly?: Record<number, { count: number; usage: number }>;
 }
 
+/** Per-day event statistics for one date key (`YYYYMMDD`). */
+export interface WikiLovesDailyData {
+   images: number;
+   joiners: number;
+   newbie_joiners: number;
+}
+
 export interface WikiLovesCountryData {
    category: string;
    count: number;
@@ -70,7 +77,7 @@ export interface WikiLovesCountryData {
    usage: number;
    start: number;
    end: number;
-   data: Record<string, { images: number; joiners: number; newbie_joiners: number }>;
+   data: Record<string, WikiLovesDailyData>;
    users: Record<string, WikiLovesUserData>;
    years?: Record<number, WikiLovesYearData>;
 }

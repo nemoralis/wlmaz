@@ -84,6 +84,19 @@
             />
          </div>
 
+         <!-- Daily activity chart (individual year views) -->
+         <div
+            v-if="selectedYear !== 'total' && dailyStats && !isLoading"
+            class="animate-in fade-in mb-8 duration-700"
+         >
+            <DailyStatsChart
+               :daily-data="dailyStats"
+               :start="eventWindow?.start"
+               :end="eventWindow?.end"
+               :title="`${selectedYear} ilinin gündəlik nəticələri`"
+            />
+         </div>
+
          <!-- Loading State -->
          <div v-if="isLoading" class="flex flex-col items-center justify-center py-16">
             <div
@@ -228,6 +241,9 @@ import { useLeaderboard } from "@/composables/useLeaderboard.ts";
 const YearlyBreakdownChart = defineAsyncComponent(
    () => import("../components/stats/YearlyBreakdownChart.vue"),
 );
+const DailyStatsChart = defineAsyncComponent(
+   () => import("../components/stats/DailyStatsChart.vue"),
+);
 
 const {
    users,
@@ -238,6 +254,8 @@ const {
    availableYears,
    eventStats,
    yearlyBreakdown,
+   dailyStats,
+   eventWindow,
    fetchLeaderboard,
 } = useLeaderboard();
 
