@@ -81,7 +81,7 @@
             <h2 class="mb-2 text-xl font-bold text-gray-900">Məlumat tapılmadı</h2>
             <p class="mb-6 text-gray-600">{{ error }}</p>
             <router-link
-               to="/"
+               to="/map"
                class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-colors hover:bg-blue-700"
             >
                <font-awesome-icon :icon="['fas', 'location-arrow']" />

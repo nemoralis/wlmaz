@@ -5,7 +5,7 @@
          <div class="container mx-auto px-4 py-8">
             <div class="flex items-center justify-between">
                <h1 class="text-3xl font-bold text-gray-900">Layihə haqqında</h1>
-               <router-link to="/" class="text-blue-600 hover:underline">
+               <router-link to="/map" class="text-blue-600 hover:underline">
                   <font-awesome-icon :icon="['fas', 'arrow-left']" class="mr-1" /> Xəritəyə qayıt
                </router-link>
             </div>

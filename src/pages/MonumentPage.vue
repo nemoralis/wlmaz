@@ -9,7 +9,7 @@
             <h2 class="mb-4 text-2xl font-bold text-red-600">Xəta baş verdi</h2>
             <p class="mb-6 text-gray-600">{{ error }}</p>
             <router-link
-               to="/"
+               to="/map"
                class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
                Xəritəyə qayıt
@@ -21,13 +21,13 @@
          <!-- Header / Navigation -->
          <div class="flex items-center justify-between bg-blue-600 px-6 py-3">
             <router-link
-               to="/"
+               to="/map"
                class="flex items-center gap-2 text-sm text-white hover:text-blue-100"
             >
                <font-awesome-icon :icon="['fas', 'arrow-left']" /> Xəritə
             </router-link>
             <router-link
-               :to="`/?inventory=${monument.inventory}`"
+               :to="`/map?inventory=${monument.inventory}`"
                class="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-gray-100"
             >
                <font-awesome-icon :icon="['fas', 'map-marked-alt']" class="mr-2" /> Xəritədə göstər

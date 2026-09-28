@@ -28,7 +28,7 @@
 
          <div class="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <router-link
-               to="/"
+               to="/map"
                class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#3366cc] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#2a4b8d] sm:w-auto"
             >
                <font-awesome-icon :icon="['fas', 'map']" class="text-xs" aria-hidden="true" />

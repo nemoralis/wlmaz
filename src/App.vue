@@ -30,6 +30,13 @@
          <!-- Desktop Nav -->
          <nav role="navigation" aria-label="Əsas naviqasiya" class="ml-6 hidden gap-4 md:flex">
             <router-link
+               to="/map"
+               class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
+               aria-label="Xəritə səhifəsinə get"
+            >
+               Xəritə
+            </router-link>
+            <router-link
                to="/stats"
                class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
                aria-label="Statistika səhifəsinə get"
@@ -177,6 +184,19 @@
             aria-label="Mobil naviqasiya"
             class="absolute top-14 left-0 z-40 flex w-full flex-col space-y-3 border-b border-gray-200 bg-white p-4 shadow-xl md:hidden"
          >
+            <router-link
+               to="/map"
+               class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
+               aria-label="Xəritə səhifəsinə get"
+               @click="mobileNavOpen = false"
+            >
+               <font-awesome-icon
+                  :icon="['fas', 'map']"
+                  class="w-5 text-gray-400"
+                  aria-hidden="true"
+               />
+               Xəritə
+            </router-link>
             <router-link
                to="/stats"
                class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
