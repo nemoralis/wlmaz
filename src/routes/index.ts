@@ -4,8 +4,12 @@ const routes: Array<RouteRecordRaw> = [
    {
       path: "/",
       name: "Home",
-      // Change this to point to the new wrapper page
       component: () => import("../pages/Home.vue"),
+   },
+   {
+      path: "/map",
+      name: "Map",
+      component: () => import("../pages/MapPage.vue"),
    },
    {
       path: "/about",

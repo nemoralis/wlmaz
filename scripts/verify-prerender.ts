@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { HOME_DESCRIPTION } from "../src/content/home";
 import { SITE_HOST } from "../src/utils/constants";
 import {
    encodeIdForUrl,
@@ -25,10 +26,11 @@ const REDIRECTS_PATH = path.join(__dirname, "..", "monument-redirects.conf");
 const NGINX_CONF_PATH = path.join(__dirname, "../nginx.conf");
 
 const SITE_TITLE = "Viki Abidələri Sevir Azərbaycan";
-const SHELL_DESCRIPTION =
-   "Azərbaycanın tarixi abidələri və mədəni irs xəritəsi. Bakı, Şəki, Qəbələ və digər bölgələrdəki 300+ abidəni kəşf edin. Viki Abidələri Sevir müsabiqəsinə şəkil yükləyin.";
+// The description the SPA shell ships with (see index.html); a monument page
+// still carrying it was never actually prerendered.
+const SHELL_DESCRIPTION = HOME_DESCRIPTION;
 
-const STATIC_PAGES = ["/", "/stats", "/leaderboard", "/table", "/about"];
+const STATIC_PAGES = ["/", "/map", "/stats", "/leaderboard", "/table", "/about"];
 
 /** GeoJSON properties as the app reads them: literals, plus an id list. */
 type FeatureProperties = Record<string, string> & { inventory?: string[] };

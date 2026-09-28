@@ -1,96 +1,330 @@
 <template>
-   <div class="relative h-full w-full">
-      <div
-         v-if="error"
-         class="absolute inset-0 z-5000 flex flex-col items-center justify-center bg-gray-50 p-6 text-center"
+   <div class="min-h-full bg-gray-50">
+      <!-- Hero -->
+      <section
+         class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-amber-50"
       >
-         <div class="max-w-md rounded-xl border border-gray-200 bg-white p-8 shadow-xl">
-            <div
-               class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-red-600"
-            >
-               <font-awesome-icon :icon="['fas', 'exclamation-triangle']" class="text-2xl" />
-            </div>
-            <h2 class="mb-2 text-xl font-bold text-gray-900">Map could not be loaded</h2>
-            <p class="mb-6 text-gray-600">
-               {{ error.message || "An unexpected error occurred while initializing the map." }}
-            </p>
-            <button
-               class="rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-colors hover:bg-blue-700"
-               @click="reload"
-            >
-               Reload page
-            </button>
-         </div>
-      </div>
+         <div class="mx-auto max-w-7xl px-4 pt-12 pb-16 sm:px-6 sm:pt-20 sm:pb-24 lg:px-8">
+            <div class="grid items-center gap-10 lg:grid-cols-2">
+               <div>
+                  <h1
+                     class="font-display text-4xl leading-tight font-bold text-gray-900 sm:text-5xl lg:text-6xl"
+                  >
+                     {{ HOME_HEADLINE }}
+                  </h1>
+                  <p class="mt-6 text-lg leading-relaxed text-gray-700 sm:text-xl">
+                     {{ HOME_INTRO }}
+                  </p>
 
-      <MonumentMap v-else />
+                  <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                     <router-link
+                        :to="HOME_PRIMARY_CTA.to"
+                        class="inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                     >
+                        <svg
+                           class="mr-2 h-5 w-5"
+                           fill="none"
+                           stroke="currentColor"
+                           viewBox="0 0 24 24"
+                           aria-hidden="true"
+                        >
+                           <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                           />
+                        </svg>
+                        {{ HOME_PRIMARY_CTA.label }}
+                     </router-link>
+                     <router-link
+                        :to="HOME_SECONDARY_CTA.to"
+                        class="inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-base font-semibold text-gray-900 ring-1 ring-gray-300 transition ring-inset hover:bg-gray-50"
+                     >
+                        {{ HOME_SECONDARY_CTA.label }}
+                        <svg
+                           class="ml-2 h-4 w-4"
+                           fill="none"
+                           stroke="currentColor"
+                           viewBox="0 0 24 24"
+                           aria-hidden="true"
+                        >
+                           <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M14 5l7 7m0 0l-7 7m7-7H3"
+                           />
+                        </svg>
+                     </router-link>
+                  </div>
+
+                  <div
+                     v-if="homeData && homeData.total > 0"
+                     class="mt-6 flex items-center gap-6 text-sm text-gray-500"
+                  >
+                     <div class="flex items-center gap-2">
+                        <span
+                           class="inline-block h-2 w-2 rounded-full bg-green-500"
+                           aria-hidden="true"
+                        ></span>
+                        {{ formatMonumentCount(homeData.total) }} abidə
+                     </div>
+                     <div>{{ HOME_META_NOTE }}</div>
+                  </div>
+               </div>
+
+               <!-- Hero collage: 1 large + 3 small, ordered by data/featured-monuments.json -->
+               <div class="relative">
+                  <div class="grid h-[420px] grid-cols-6 grid-rows-6 gap-3 sm:h-[500px]">
+                     <template v-for="(slot, index) in collage" :key="index">
+                        <router-link
+                           v-if="slot"
+                           :to="slot.url"
+                           :class="slotClass(index)"
+                           class="group relative block overflow-hidden rounded-xl shadow-lg"
+                        >
+                           <img
+                              :src="collageSrc(slot, index)"
+                              :srcset="collageSrcSet(slot, index)"
+                              :sizes="collageSizes(index)"
+                              :alt="slot.label"
+                              :loading="index === 0 ? 'eager' : 'lazy'"
+                              :fetchpriority="index === 0 ? 'high' : 'auto'"
+                              width="960"
+                              height="720"
+                              class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                           />
+                           <div
+                              v-if="index === 0"
+                              class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-xs text-white"
+                           >
+                              {{ slot.label
+                              }}<template v-if="slot.parentLabel">
+                                 · {{ slot.parentLabel }}</template
+                              >
+                           </div>
+                        </router-link>
+                        <div
+                           v-else
+                           :class="slotClass(index)"
+                           class="rounded-xl bg-gradient-to-br from-gray-100 to-gray-200"
+                        ></div>
+                     </template>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- WLM 2026 campaign callout — auto-hides once the contest ends -->
+      <section v-if="campaignActive" class="bg-white">
+         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <div
+               class="flex flex-col gap-4 rounded-2xl bg-[#8f0000] px-6 py-5 text-white shadow-sm sm:flex-row sm:items-center"
+            >
+               <div class="min-w-0 flex-1">
+                  <div class="text-lg font-semibold">{{ CAMPAIGN.title }}</div>
+                  <div class="mt-0.5 text-sm text-white/90">{{ CAMPAIGN.body }}</div>
+               </div>
+               <a
+                  :href="CAMPAIGN.href"
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-[#8f0000] transition hover:bg-gray-100"
+               >
+                  {{ CAMPAIGN.cta }}
+                  <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                     />
+                  </svg>
+               </a>
+            </div>
+         </div>
+      </section>
+
+      <!-- How to contribute -->
+      <section class="bg-white py-16">
+         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center">
+               <h2 class="text-3xl font-bold text-gray-900">Necə iştirak etməli?</h2>
+               <p class="mt-3 text-gray-600">
+                  Üç addım. Müraciət tələb olunmur — telefon və ya kamera və Wikimedia hesabı
+                  kifayətdir.
+               </p>
+            </div>
+
+            <ol class="mt-12 grid gap-8 md:grid-cols-3">
+               <li
+                  v-for="(step, index) in HOME_STEPS"
+                  :key="step.title"
+                  class="relative rounded-xl bg-gray-50 p-6"
+               >
+                  <div
+                     class="absolute -top-4 left-6 flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 font-bold text-white"
+                  >
+                     {{ index + 1 }}
+                  </div>
+                  <h3 class="mt-2 text-lg font-semibold text-gray-900">{{ step.title }}</h3>
+                  <p class="mt-2 text-sm text-gray-600">{{ step.body }}</p>
+               </li>
+            </ol>
+
+            <div class="mt-12 text-center">
+               <router-link
+                  :to="HOME_BOTTOM_CTA.to"
+                  class="inline-flex items-center justify-center rounded-md bg-blue-600 px-8 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+               >
+                  {{ HOME_BOTTOM_CTA.label }}
+                  <svg
+                     class="ml-2 h-5 w-5"
+                     fill="none"
+                     stroke="currentColor"
+                     viewBox="0 0 24 24"
+                     aria-hidden="true"
+                  >
+                     <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                     />
+                  </svg>
+               </router-link>
+            </div>
+         </div>
+      </section>
    </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onErrorCaptured, ref } from "vue";
+import { computed, ref } from "vue";
 import { useHead } from "@unhead/vue";
-import MonumentMap from "@/components/MonumentMap.vue";
+import {
+   CAMPAIGN,
+   HOME_CANONICAL,
+   HOME_DESCRIPTION,
+   HOME_HEADLINE,
+   HOME_INTRO,
+   HOME_META_NOTE,
+   HOME_PRIMARY_CTA,
+   HOME_SECONDARY_CTA,
+   HOME_STEPS,
+   HOME_TITLE,
+   HOME_BOTTOM_CTA,
+   formatMonumentCount,
+   isCampaignActive,
+} from "@/content/home.ts";
 import { schemaToJsonLd, useOrganizationSchema } from "@/composables/useSchemaOrg.ts";
-import { useMonumentStore } from "@/stores/monuments.ts";
+import type { HomeData } from "@/content/featured.ts";
 import { getOptimizedImage, getSrcSet } from "@/utils/monumentFormatters.ts";
 
-const monumentStore = useMonumentStore();
+/** Collage slots: the large image first, then the three small ones. */
+const COLLAGE_SLOTS = 4;
 
-const error = ref<Error | null>(null);
+const homeData = ref<HomeData | null>(null);
+const campaignActive = ref(isCampaignActive());
 
-// Schema.org markup for homepage
-const organizationSchema = useOrganizationSchema();
+const collage = computed<(HomeData["featured"][number] | null)[]>(() => {
+   const featured = homeData.value?.featured ?? [];
+   return Array.from({ length: COLLAGE_SLOTS }, (_, index) => featured[index] ?? null);
+});
+
+/** Grid placement per slot: 4 columns × full height for the large one. */
+const slotClass = (index: number): string =>
+   index === 0 ? "col-span-4 row-span-6" : "col-span-2 row-span-2";
+
+const collageSrc = (m: HomeData["featured"][number], index: number): string =>
+   getOptimizedImage(m.image, index === 0 ? 960 : 500);
+
+const collageSrcSet = (m: HomeData["featured"][number], index: number): string =>
+   getSrcSet(m.image, index === 0 ? [500, 768, 960, 1280] : [330, 500]);
+
+const collageSizes = (index: number): string =>
+   index === 0 ? "(max-width: 1024px) 100vw, 40vw" : "(max-width: 1024px) 33vw, 20vw";
+
+/** Hero photo doubles as the social card image. */
+const ogImage = computed(() => {
+   const first = collage.value[0];
+   return first ? getOptimizedImage(first.image, 1280) : `${HOME_CANONICAL}wlm-az.png`;
+});
+
+// Build-time payload, inlined by scripts/prerender.ts. Read synchronously in
+// setup so the first Vue render already matches the static markup that ships
+// inside #app — no flash, no request.
+const readEmbeddedData = (): HomeData | null => {
+   const el = document.getElementById("home-data");
+   if (!el?.textContent) return null;
+   try {
+      return JSON.parse(el.textContent) as HomeData;
+   } catch (e) {
+      console.warn("Failed to parse #home-data", e);
+      return null;
+   }
+};
+
+homeData.value = readEmbeddedData();
+
+// Without a prerendered shell (npm run dev) fall back to the snapshot kept in
+// public/ and refreshed by `npm run update-data`.
+if (!homeData.value) {
+   fetch("/home-data.json")
+      .then((res) => (res.ok ? (res.json() as Promise<HomeData>) : null))
+      .then((data) => {
+         if (data) homeData.value = data;
+      })
+      .catch((e) => console.warn("Failed to load /home-data.json", e));
+}
+
+const organizationSchema = schemaToJsonLd(useOrganizationSchema());
 
 useHead({
-   title: "Viki Abidələri Sevir Azərbaycan - Abidələrin İnteraktiv Xəritəsi",
-   link: computed(() => [
+   title: HOME_TITLE,
+   link: [
       {
-         rel: "canonical" as const,
-         href: "https://wikilovesmonuments.az/",
+         rel: "canonical",
+         href: HOME_CANONICAL,
       },
-      ...(monumentStore.selectedMonument?.image
-         ? [
-              {
-                 rel: "preload" as const,
-                 as: "image" as const,
-                 href: getOptimizedImage(monumentStore.selectedMonument.image, 500),
-                 imagesrcset: getSrcSet(monumentStore.selectedMonument.image, [330, 500, 960]),
-                 imagesizes: "(max-width: 768px) 100vw, 400px",
-              },
-           ]
-         : []),
-   ]),
-   meta: [
+   ],
+   meta: computed(() => [
       {
          name: "description",
-         content:
-            "Azərbaycanın tarixi abidələri və mədəni irs xəritəsi. Bakı, Şəki, Qəbələ və digər bölgələrdəki 300+ abidəni kəşf edin. Viki Abidələri Sevir müsabiqəsinə şəkil yükləyin.",
+         content: HOME_DESCRIPTION,
       },
       {
          property: "og:site_name",
-         content: "Viki Abidələri Sevir Azərbaycan",
+         content: HOME_TITLE,
       },
       {
          property: "og:title",
-         content: "Viki Abidələri Sevir Azərbaycan - Abidələrin interaktiv xəritəsi",
+         content: HOME_TITLE,
       },
-   ],
+      {
+         property: "og:description",
+         content: HOME_DESCRIPTION,
+      },
+      {
+         property: "og:url",
+         content: HOME_CANONICAL,
+      },
+      {
+         property: "og:image",
+         content: ogImage.value,
+      },
+      {
+         name: "twitter:image",
+         content: ogImage.value,
+      },
+   ]),
    script: [
       {
          type: "application/ld+json",
-         innerHTML: schemaToJsonLd(organizationSchema),
+         innerHTML: organizationSchema,
       },
    ],
 });
-
-onErrorCaptured((err) => {
-   console.error("Map Error Captured:", err);
-   error.value = err as Error;
-   return false;
-});
-
-const reload = () => {
-   window.location.reload();
-};
 </script>

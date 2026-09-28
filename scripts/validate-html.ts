@@ -10,7 +10,14 @@ const DIST_DIR = path.join(__dirname, "../dist");
 const MONUMENT_DIR = path.join(DIST_DIR, "monument");
 const HTML_VALIDATE_BIN = path.join(__dirname, "../node_modules/.bin/html-validate");
 
-const STATIC_FILES = ["index.html", "stats.html", "leaderboard.html", "table.html", "about.html"];
+const STATIC_FILES = [
+   "index.html",
+   "map.html",
+   "stats.html",
+   "leaderboard.html",
+   "table.html",
+   "about.html",
+];
 const SAMPLE_SIZE = 50;
 
 const main = async (): Promise<void> => {

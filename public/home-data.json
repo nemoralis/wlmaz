@@ -1,0 +1,34 @@
+{
+  "featured": [
+    {
+      "inventory": "2.2",
+      "label": "Qız qalası",
+      "parentLabel": "Səbail rayonu",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Baku%20Maiden%20Tower%20004%207736.jpg",
+      "url": "/monument/2%2E2"
+    },
+    {
+      "inventory": "20",
+      "label": "Şəki xan sarayı",
+      "parentLabel": "Şəki",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Shaki%20KhanPalace%20004%203718.jpg",
+      "url": "/monument/20"
+    },
+    {
+      "inventory": "4.3",
+      "label": "Ramana qalası",
+      "parentLabel": "Ramana",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Ramana%20Castle.jpg",
+      "url": "/monument/4%2E3"
+    },
+    {
+      "inventory": "10",
+      "label": "Gəncəsər monastırı",
+      "parentLabel": "Ağdərə rayonu",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Gandzasar%20Monastery1.jpg",
+      "url": "/monument/10"
+    }
+  ],
+  "total": 1313,
+  "withImage": 750
+}
