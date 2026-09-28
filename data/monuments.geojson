@@ -20,7 +20,7 @@
                 "itemAltLabel": "Suraxanı atəşgahı",
                 "itemDescription": "Müxtəlif dövrlərdə zərdüştilər, hinduistlər və siqhlər tərəfindən ibadətgah alov məbədidir",
                 "itemLabel": "Atəşgah",
-                "lastModified": "2026-09-22T10:05:01Z",
+                "lastModified": "2026-09-27T17:51:45Z",
                 "parent": "http://www.wikidata.org/entity/Q4446443",
                 "parentLabel": "Suraxanı rayonu"
             }
@@ -91,7 +91,7 @@
                 "item": "http://www.wikidata.org/entity/Q842822",
                 "itemDescription": "Bakıdakı memarlıq abidəsi",
                 "itemLabel": "Qız qalası",
-                "lastModified": "2026-09-22T10:05:02Z",
+                "lastModified": "2026-09-27T17:53:18Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -465,7 +465,7 @@
                 "item": "http://www.wikidata.org/entity/Q4516154",
                 "itemDescription": "ruined ancient fortress overlooking the Caspian coastal plains north of Baku in Azerbaijan",
                 "itemLabel": "Çıraqqala",
-                "lastModified": "2026-02-20T09:10:55Z",
+                "lastModified": "2026-09-28T13:19:59Z",
                 "parent": "http://www.wikidata.org/entity/Q387994",
                 "parentLabel": "Şabran rayonu"
             }
@@ -610,7 +610,7 @@
                 "itemAltLabel": "Ganjasar monastery",
                 "itemDescription": "Kəlbəcər rayonunda monastr",
                 "itemLabel": "Gəncəsər monastırı",
-                "lastModified": "2026-09-22T10:05:04Z",
+                "lastModified": "2026-09-28T09:42:21Z",
                 "parent": "http://www.wikidata.org/entity/Q2025789",
                 "parentLabel": "Ağdərə rayonu"
             }
@@ -635,7 +635,7 @@
                 "itemAltLabel": "Xudavəng monastırı",
                 "itemDescription": "Kəlbəcərdə monastır",
                 "itemLabel": "Xudavəng monastır kompleksi",
-                "lastModified": "2026-09-22T06:07:33Z",
+                "lastModified": "2026-09-28T09:38:35Z",
                 "parent": "http://www.wikidata.org/entity/Q457513",
                 "parentLabel": "Kəlbəcər rayonu"
             }
@@ -13526,6 +13526,30 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    49.836339,
+                    40.368792
+                ]
+            },
+            "properties": {
+                "azLink": "https://az.wikipedia.org/wiki/Qo%C5%9Fa_qala_qap%C4%B1lar%C4%B1",
+                "commonsCategory": "Shamakhy Gate of Baku Fortress",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Shamakhy_Gate_of_Baku_Fortress",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qo%C5%9Fa%20qala%20qap%C4%B1lar%C4%B1.JPG",
+                "inventory": "66",
+                "item": "http://www.wikidata.org/entity/Q30694329",
+                "itemAltLabel": "Şamaxı qapısı",
+                "itemDescription": "Bakı qalasının şimalında yerləşən qapılar",
+                "itemLabel": "Qoşa qala qapıları",
+                "lastModified": "2026-09-25T12:20:52Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     49.832505,
                     40.366
                 ]
@@ -14767,7 +14791,7 @@
                 "itemAltLabel": "Azərbaycan Dövlət Оpera və Balet Teatrı, Opera və Balet Teatrı",
                 "itemDescription": "opera house in Baku, Azerbaijan",
                 "itemLabel": "Azərbaycan Dövlət Akademik Opera və Balet Teatrı",
-                "lastModified": "2026-04-16T06:18:55Z",
+                "lastModified": "2026-09-27T12:15:54Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
             }
@@ -14879,13 +14903,25 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.839456927,
+                    40.383083683
+                ]
+            },
             "properties": {
                 "addressLabel": "S.Vurğun küçəsi, 68",
+                "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_D%C3%B6vl%C9%99t_Sirki",
+                "commonsCategory": "Baku State Circus",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Baku_State_Circus",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20D%C3%B6vl%C9%99t%20Sikrinin%20loqosu.png",
                 "inventory": "119",
-                "item": "http://www.wikidata.org/entity/Q140654595",
-                "itemLabel": "Bakı Dövlət Sirkinin əsas binası",
-                "lastModified": "2026-07-25T22:47:04Z",
+                "item": "http://www.wikidata.org/entity/Q2974257",
+                "itemAltLabel": "=",
+                "itemDescription": "building in Baku, Azerbaijan",
+                "itemLabel": "Bakı Dövlət Sirki",
+                "lastModified": "2026-09-27T22:05:19Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -15900,7 +15936,7 @@
                 "itemAltLabel": "Nizami Gəncəvi adına Azərbaycan Ədəbiyyatı Muzeyi",
                 "itemDescription": "Bakıda muzey",
                 "itemLabel": "Nizami Gəncəvi adına Milli Azərbaycan Ədəbiyyatı Muzeyi",
-                "lastModified": "2026-04-11T16:43:14Z",
+                "lastModified": "2026-09-27T01:32:59Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
             }
@@ -37791,10 +37827,11 @@
             "geometry": null,
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/K%C3%BCrs%C9%99ngi_k%C3%BCp_q%C9%99birl%C9%99ri_nekropolu",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/K%C3%BCrs%C9%99ngi%20Nekropolu%20by%20Uzeyir%20A%20Mikayil%203.jpg",
                 "inventory": "1675",
                 "item": "http://www.wikidata.org/entity/Q110104198",
                 "itemLabel": "Kürsəngi küp qəbirləri nekropolu",
-                "lastModified": "2026-09-06T01:39:21Z",
+                "lastModified": "2026-09-27T22:29:22Z",
                 "parent": "http://www.wikidata.org/entity/Q457485",
                 "parentLabel": "Salyan rayonu"
             }
@@ -41214,7 +41251,7 @@
                 "item": "http://www.wikidata.org/entity/Q109253621",
                 "itemDescription": "Chalcolithic archaeological settlement in Nakhchivan, Azerbaijan",
                 "itemLabel": "Bülövqaya",
-                "lastModified": "2026-09-15T05:12:17Z",
+                "lastModified": "2026-09-28T00:57:33Z",
                 "parent": "http://www.wikidata.org/entity/Q643895",
                 "parentLabel": "Babək rayonu"
             }
@@ -53773,11 +53810,13 @@
             },
             "properties": {
                 "addressLabel": "R.Rza küçəsi, 27",
+                "commonsCategory": "Building on Rasul Rza Street, 27",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Rasul_Rza_Street,_27",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Rasul%20Rza%20Street%2C%2027%20in%202026%2001.jpg",
                 "inventory": "2996",
                 "item": "http://www.wikidata.org/entity/Q140661016",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-09-15T21:42:37Z",
+                "lastModified": "2026-09-27T22:31:15Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -54322,7 +54361,7 @@
                 "inventory": "3036",
                 "item": "http://www.wikidata.org/entity/Q140661048",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-09-20T02:46:49Z",
+                "lastModified": "2026-09-26T18:26:54Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -59815,13 +59854,19 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.843460882,
+                    40.370292678
+                ]
+            },
             "properties": {
                 "addressLabel": "S.Vurğun küçəsi, 4",
                 "inventory": "3417",
                 "item": "http://www.wikidata.org/entity/Q140661399",
                 "itemLabel": "Bakı Dənizçilik məktəbinin binası",
-                "lastModified": "2026-07-26T01:39:58Z",
+                "lastModified": "2026-09-27T22:07:28Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -60098,13 +60143,19 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.846623178,
+                    40.372803863
+                ]
+            },
             "properties": {
                 "addressLabel": "Ü.Hacıbəyov küçəsi, 30",
                 "inventory": "3437",
                 "item": "http://www.wikidata.org/entity/Q140661417",
                 "itemLabel": "Səbail Rayon İcra Hakimiyyətinin binası",
-                "lastModified": "2026-07-25T22:28:53Z",
+                "lastModified": "2026-09-27T22:12:53Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -60275,13 +60326,19 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.843063181,
+                    40.372659184
+                ]
+            },
             "properties": {
                 "addressLabel": "Xaqani küçəsi, 14",
                 "inventory": "3449",
                 "item": "http://www.wikidata.org/entity/Q140661428",
                 "itemLabel": "Azərbaycan Respublikası Məhkəmə ekspertizası üzrə Elmi-Tədqiqat İnstitutunun binası",
-                "lastModified": "2026-07-26T02:36:46Z",
+                "lastModified": "2026-09-27T22:10:02Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -60598,13 +60655,20 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.846269222,
+                    40.372043279
+                ]
+            },
             "properties": {
-                "addressLabel": "Azərbaycan prospekti, 33",
+                "addressLabel": "Zərifə Əliyeva küçəsi, 33",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20binas%C4%B1%2C%20Z.%C6%8Fliyeva%20prospekti%2C%2033.jpg",
                 "inventory": "3469",
                 "item": "http://www.wikidata.org/entity/Q140661443",
                 "itemLabel": "Azərbaycan Respublikası Rabitə Nazirliyinin binası",
-                "lastModified": "2026-07-25T22:29:09Z",
+                "lastModified": "2026-09-27T22:20:28Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -61094,13 +61158,14 @@
             },
             "properties": {
                 "addressLabel": "H.Aslanov küçəsi, 13",
-                "commonsCategory": "Building on Hazi Aslanov Street, 13",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Hazi_Aslanov_Street,_13",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Hazi%20Aslanov%20Street%2C%2013%20%28September%29%2003.jpg",
+                "commonsCategory": "Building on Hazi Aslanov Street 13",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Hazi_Aslanov_Street_13",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/H.Aslanov%2013%20%C3%BCnvan%C4%B1nda%20yerl%C9%99%C5%9F%C9%99n%20bina%20%281%29.jpg",
                 "inventory": "3502",
                 "item": "http://www.wikidata.org/entity/Q140661468",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-09-19T00:40:14Z",
+                "itemDescription": "Bakıda yerləşən tarixi abidə",
+                "itemLabel": "H.Aslanov 13 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T11:04:11Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -61778,16 +61843,19 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.829996,
-                    40.382642
+                    49.83400551,
+                    40.383488992
                 ]
             },
             "properties": {
                 "addressLabel": "S.Salayev küçəsi, 37",
+                "commonsCategory": "Haji Aslan Bath",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Haji_Aslan_Bath",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Haji%20Aslan%20Bath%207.jpg",
                 "inventory": "3558",
                 "item": "http://www.wikidata.org/entity/Q140661521",
                 "itemLabel": "Hacı Aslan hamamı",
-                "lastModified": "2026-09-16T06:53:21Z",
+                "lastModified": "2026-09-27T22:25:17Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -61820,13 +61888,22 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.832109,
+                    40.371222
+                ]
+            },
             "properties": {
                 "addressLabel": "Zərgərpalan küçəsi, 9",
+                "commonsCategory": "Building on Zargarpalan Street 9",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Zargarpalan_Street_9",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Z%C9%99rg%C9%99rpalan%20k%C3%BC%C3%A7%C9%99si%209%20%C3%BCnvan%C4%B1nda%20yerl%C9%99%C5%9F%C9%99n%20bina%20%281%29.jpg",
                 "inventory": "3561",
                 "item": "http://www.wikidata.org/entity/Q140661524",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:17:33Z",
+                "itemLabel": "Zərgərpalan küçəsi 9 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T11:53:54Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -61929,11 +62006,13 @@
             },
             "properties": {
                 "addressLabel": "Zərgərpalan küçəsi, 33",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Zargarpalan_Street,_33",
+                "commonsCategory": "Building on Zargarpalan Street 33",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Zargarpalan_Street_33",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Z%C9%99rg%C9%99rpalan%20k%C3%BC%C3%A7%C9%99si%2033%20%C3%BCnvan%C4%B1nda%20yerl%C9%99%C5%9F%C9%99n%20bina%20%281%29.jpg",
                 "inventory": "3568",
                 "item": "http://www.wikidata.org/entity/Q140661533",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-09-18T17:15:17Z",
+                "itemLabel": "Zərgərpalan küçəsi 33 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T11:57:01Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -62074,13 +62153,22 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829662958,
+                    40.379897446
+                ]
+            },
             "properties": {
                 "addressLabel": "Zərgərpalan küçəsi, 137",
+                "commonsCategory": "Building on Zargarpalan Street 137",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Zargarpalan_Street_137",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Zargarpalan%20Street%20137.jpg",
                 "inventory": "3582",
                 "item": "http://www.wikidata.org/entity/Q140661542",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:17:56Z",
+                "lastModified": "2026-09-28T20:18:18Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -62341,26 +62429,46 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831094,
+                    40.372363
+                ]
+            },
             "properties": {
                 "addressLabel": "Ə.Quliyev küçəsi, 40",
+                "commonsCategory": "Building on Alovsat Guliyev Street 40",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Alovsat_Guliyev_Street_40",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Alovsat%20Guliyev%20Street%2040.jpg",
                 "inventory": "3633",
                 "item": "http://www.wikidata.org/entity/Q140661564",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:18:51Z",
+                "itemDescription": "Bakı şəhərində yerləşən tarixi abidə",
+                "itemLabel": "Əlövsət Quliyev 40 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T10:55:26Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831606,
+                    40.372521
+                ]
+            },
             "properties": {
                 "addressLabel": "Ə.Quliyev küçəsi, 44",
+                "commonsCategory": "Building on Alovsat Guliyev Street 44",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Alovsat_Guliyev_Street_44",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C6%8F.Quliyev%2044%20%C3%BCnvan%C4%B1nda%20yerl%C9%99%C5%9F%C9%99n%20bina%20%281%29.jpg",
                 "inventory": "3634",
                 "item": "http://www.wikidata.org/entity/Q140661566",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:18:53Z",
+                "itemDescription": "Bakı şəhərində yerləşən tarixi abidə",
+                "itemLabel": "Əlövsət Quliyev 44 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T10:58:59Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -62458,26 +62566,44 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829414,
+                    40.370769
+                ]
+            },
             "properties": {
                 "addressLabel": "M.Fətəli küçəsi, 1",
+                "commonsCategory": "Building on Mirza Fatali Akhundov Street 1",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Mirza_Fatali_Akhundov_Street_1",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Mirza%20Fatali%20Akhundov%20Street%201.jpg",
                 "inventory": "3644",
                 "item": "http://www.wikidata.org/entity/Q140661574",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:19:06Z",
+                "itemLabel": "Mirzə Fətəli Axundov küçəsi 1 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T11:16:36Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829755,
+                    40.370934
+                ]
+            },
             "properties": {
                 "addressLabel": "M.Fətəli küçəsi, 2",
+                "commonsCategory": "Building on Mirza Fatali Akhundov Street 2",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Mirza_Fatali_Akhundov_Street_2",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20binas%C4%B1%2C%20Mirz%C9%99%20F%C9%99t%C9%99li%2C%202.jpg",
                 "inventory": "3645",
                 "item": "http://www.wikidata.org/entity/Q140661575",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:19:07Z",
+                "itemLabel": "Mirzə Fətəli Axundov küçəsi 2 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T11:19:09Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -62510,26 +62636,44 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829089,
+                    40.372882
+                ]
+            },
             "properties": {
                 "addressLabel": "M.Fətəli küçəsi, 32",
+                "commonsCategory": "Building on Mirza Fatali Akhundov Street 32",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Mirza_Fatali_Akhundov_Street_32",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/M.F%C9%99t%C9%99li%20Axundzad%C9%99%20k%C3%BC%C3%A7%C9%99si%2032%20%C3%BCnvan%C4%B1nda%20yerl%C9%99%C5%9F%C9%99n%20bina%20%282%29.jpg",
                 "inventory": "3654",
                 "item": "http://www.wikidata.org/entity/Q140661579",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:19:25Z",
+                "itemLabel": "M.Fətəli Axundzadə küçəsi 32 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T11:10:13Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829037,
+                    40.373331
+                ]
+            },
             "properties": {
                 "addressLabel": "M.Fətəli küçəsi, 40",
+                "commonsCategory": "Building on Mirza Fatali Akhundov Street 40",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Mirza_Fatali_Akhundov_Street_40",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/M.F.Axundov%20k%C3%BC%C3%A7%C9%99si%2040%20%282025%29.jpg",
                 "inventory": "3657",
                 "item": "http://www.wikidata.org/entity/Q140661580",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:19:27Z",
+                "itemLabel": "M.F.Axundov küçəsi 40 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T11:14:18Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -62548,13 +62692,13 @@
                 "azLink": "https://az.wikipedia.org/wiki/%C5%9Eor_hamam%C4%B1",
                 "commonsCategory": "Şor bath",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:%C5%9Eor_bath",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Yasamal%20rayonu%20Mirz%C9%99%20F%C9%99t%C9%99li%20Axundov%20k%C3%BC%C3%A7%C9%99si%20105%20%C3%BCnvan%C4%B1nda%20hamam%20%283%29.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/12%20n%C3%B6mr%C9%99li%20hamam%20%283664%29%20sentyabr%202026%201.jpg",
                 "inventory": "3664",
                 "item": "http://www.wikidata.org/entity/Q140661581",
                 "itemAltLabel": "Şor hamamı",
                 "itemDescription": "Bakıda hamam",
                 "itemLabel": "12 nömrəli hamam",
-                "lastModified": "2026-09-21T14:19:44Z",
+                "lastModified": "2026-09-27T14:58:50Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -62727,13 +62871,22 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.829495,
+                    40.370631
+                ]
+            },
             "properties": {
                 "addressLabel": "S.Tağızadə küçəsi, 56",
+                "commonsCategory": "Building on Suleyman Taghizade Street 56",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Suleyman_Taghizade_Street_56",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Suleyman%20Taghizade%20Street%2056.jpg",
                 "inventory": "3681",
                 "item": "http://www.wikidata.org/entity/Q140661593",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:19:53Z",
+                "itemLabel": "S.Tağızadə küçəsi 56 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T11:50:39Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -62798,23 +62951,35 @@
             },
             "properties": {
                 "addressLabel": "S.Tağızadə küçəsi, 68",
+                "commonsCategory": "Building on Suleyman Taghizade Street 68",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Suleyman_Taghizade_Street_68",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/S.Ta%C4%9F%C4%B1zad%C9%99%2068%20%C3%BCnvan%C4%B1nda%20yerl%C9%99%C5%9F%C9%99n%20bina%20%281%29.jpg",
                 "inventory": "3685",
                 "item": "http://www.wikidata.org/entity/Q140661597",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-09-16T07:06:18Z",
+                "itemLabel": "S.Tağızadə 68 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T11:22:43Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831193,
+                    40.371098
+                ]
+            },
             "properties": {
                 "addressLabel": "S.Tağızadə küçəsi, 70",
+                "commonsCategory": "Building on Suleyman Taghizade Street 70",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Suleyman_Taghizade_Street_70",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/S.Ta%C4%9F%C4%B1zad%C9%99%2070%20%C3%BCnvan%C4%B1nda%20yerl%C9%99%C5%9F%C9%99n%20bina%20%281%29.jpg",
                 "inventory": "3686",
                 "item": "http://www.wikidata.org/entity/Q140661599",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:19:58Z",
+                "itemLabel": "S.Tağızadə 70 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T11:25:41Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -62851,7 +63016,7 @@
                 "itemAltLabel": "İslamiyyə binası, İslamiyyə karvansarası, İslamiyyə mehmanxanası",
                 "itemDescription": "Bakıda yerləşən bina",
                 "itemLabel": "Hacı Mustafa Rəsulovun mülkü",
-                "lastModified": "2025-09-25T15:55:34Z",
+                "lastModified": "2026-09-28T11:07:05Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
             }
@@ -63363,10 +63528,13 @@
             "geometry": null,
             "properties": {
                 "addressLabel": "B.Məcidov küçəsi, 65",
+                "commonsCategory": "Building on Balabala Majidov Street 65",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Balabala_Majidov_Street_65",
                 "inventory": "3740",
                 "item": "http://www.wikidata.org/entity/Q140661628",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:20:57Z",
+                "itemDescription": "Bakı şəhərində yerləşən tarixi abidə",
+                "itemLabel": "Balababa Məcidov küçəsi 65 ünvanında yerləşən bina",
+                "lastModified": "2026-09-28T10:49:14Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -63616,13 +63784,22 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830032806,
+                    40.372743017
+                ]
+            },
             "properties": {
                 "addressLabel": "B.Səfəroğlu küçəsi, 93",
+                "commonsCategory": "Building on Bashir Safaroglu Street 93",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Bashir_Safaroglu_Street_93",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/B.S%C9%99f%C9%99ro%C4%9Flu%2093%20%C3%BCnvan%C4%B1nda%20yerl%C9%99%C5%9F%C9%99n%20bina%20%281%29.jpg",
                 "inventory": "3767",
                 "item": "http://www.wikidata.org/entity/Q140661641",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:21:31Z",
+                "itemLabel": "B.Səfəroğlu 93 ünvanında yerləşən bina",
+                "lastModified": "2026-09-25T14:25:58Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -76725,7 +76902,7 @@
                 "itemAltLabel": "Məscid Sündü",
                 "itemDescription": "Qobustan rayonunun Sündü kənd inzibati ərazisində dini abidə",
                 "itemLabel": "Sündü məscidi",
-                "lastModified": "2026-09-06T06:32:40Z",
+                "lastModified": "2026-09-27T15:56:51Z",
                 "parent": "http://www.wikidata.org/entity/Q7666753",
                 "parentLabel": "Sündü"
             }
@@ -77370,7 +77547,7 @@
                 "inventory": "4631",
                 "item": "http://www.wikidata.org/entity/Q12847036",
                 "itemLabel": "Uzunmeşə məscidi",
-                "lastModified": "2026-09-06T17:37:50Z",
+                "lastModified": "2026-09-28T16:47:21Z",
                 "parent": "http://www.wikidata.org/entity/Q457499",
                 "parentLabel": "Quba rayonu"
             }
@@ -78332,13 +78509,23 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.324415071,
+                    41.495153972
+                ]
+            },
             "properties": {
                 "addressLabel": "Yasab kəndi",
+                "commonsCategory": "Yasab kənd məscidi",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Yasab_k%C9%99nd_m%C9%99scidi",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Yasab%20k%C9%99nd%20m%C9%99scidi%20%288%29.jpg",
                 "inventory": "4692",
                 "item": "http://www.wikidata.org/entity/Q140665577",
-                "itemLabel": "Məscid",
-                "lastModified": "2026-09-06T01:37:24Z",
+                "itemDescription": "Azərbaycanın Qusar rayonunda yerləşən XIX əsrə aid tarixi memarlıq abidəsi, məscid.",
+                "itemLabel": "Yasab kənd məscidi",
+                "lastModified": "2026-09-25T11:56:27Z",
                 "parent": "http://www.wikidata.org/entity/Q386506",
                 "parentLabel": "Qusar rayonu"
             }
@@ -84675,7 +84862,7 @@
                 "item": "http://www.wikidata.org/entity/Q113996550",
                 "itemDescription": "spring in Shusha, Azerbaijan",
                 "itemLabel": "Xan qızı bulağı",
-                "lastModified": "2026-09-15T06:27:57Z",
+                "lastModified": "2026-09-28T02:59:32Z",
                 "parent": "http://www.wikidata.org/entity/Q158903",
                 "parentLabel": "Şuşa"
             }
@@ -88224,10 +88411,14 @@
             "geometry": null,
             "properties": {
                 "addressLabel": "Hacıalılar kəndi",
+                "commonsCategory": "Hacıalılar bridge",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Hac%C4%B1al%C4%B1lar_bridge",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Hac%C4%B1al%C4%B1lar%20bridge%20in%20Zangilan.jpg",
                 "inventory": "5290",
                 "item": "http://www.wikidata.org/entity/Q140662724",
-                "itemLabel": "Körpü",
-                "lastModified": "2026-07-25T22:41:50Z",
+                "itemDescription": "Zəngilanda körpü",
+                "itemLabel": "Hacıalılar körpüsü",
+                "lastModified": "2026-09-27T22:28:36Z",
                 "parent": "http://www.wikidata.org/entity/Q249252",
                 "parentLabel": "Zəngilan rayonu"
             }
@@ -95361,10 +95552,11 @@
             "geometry": null,
             "properties": {
                 "addressLabel": "Züngüləş kəndi",
+                "azLink": "https://az.wikipedia.org/wiki/G%C3%B6rin%C9%99bi_q%C9%99biristanl%C4%B1%C4%9F%C4%B1",
                 "inventory": "5771",
                 "item": "http://www.wikidata.org/entity/Q140663204",
                 "itemLabel": "Görinəbi qəbiristanlığı",
-                "lastModified": "2026-07-25T22:33:31Z",
+                "lastModified": "2026-09-25T06:36:38Z",
                 "parent": "http://www.wikidata.org/entity/Q269680",
                 "parentLabel": "Astara rayonu"
             }
