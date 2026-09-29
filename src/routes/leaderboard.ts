@@ -5,7 +5,14 @@
  */
 import express from "express";
 import type { LeaderboardResponse } from "@/types/api.ts";
-import { aggregateLeaderboardYears, COUNTRY, START_YEAR } from "@/utils/leaderboard.ts";
+import {
+   aggregateLeaderboardYears,
+   COUNTRY,
+   extractCountry,
+   FINISHED_TTL,
+   isEventFinished,
+   START_YEAR,
+} from "@/utils/leaderboard.ts";
 import { logger } from "@/utils/logger.ts";
 import redisClient from "@/utils/redis.ts";
 
@@ -13,7 +20,15 @@ const router = express.Router();
 
 const API_BASE = "https://wikiloves.toolforge.org/api/events";
 
-const CACHE_TTL = 3600; // 1 hour
+const CACHE_TTL = 3600; // 1 hour — a contest still running keeps changing
+
+/**
+ * Redis key for one event's Azerbaijan slice, shared by the per-year proxy
+ * route and the aggregate builder so a single upstream fetch serves both.
+ */
+function yearCacheKey(eventSlug: string): string {
+   return `leaderboard:year:${eventSlug}`;
+}
 
 let aggregatePromise: Promise<LeaderboardResponse> | null = null;
 let lastAggregate: LeaderboardResponse | null = null;
@@ -42,30 +57,32 @@ async function fetchAggregate(): Promise<LeaderboardResponse> {
       const years = Array.from({ length: latestYear - START_YEAR + 1 }, (_, i) => START_YEAR + i);
 
       const fetchPromises = years.map(async (year) => {
-         const yearCacheKey = `leaderboard:raw:${year}`;
-         const isPastYear = year < currentYear;
+         const eventSlug = `monuments${year}`;
+         const eventCacheKey = yearCacheKey(eventSlug);
 
          try {
             if (redisClient.isOpen) {
-               const cached = await redisClient.get(yearCacheKey);
+               const cached = await redisClient.get(eventCacheKey);
                if (cached) return JSON.parse(cached);
             }
 
-            const resp = await fetch(`${API_BASE}/monuments${year}`, {
+            const resp = await fetch(`${API_BASE}/${eventSlug}`, {
                signal: AbortSignal.timeout(10000),
                headers: { "User-Agent": "WLMAZ-Tool/1.0" },
             });
-            if (resp.ok) {
-               const data = await resp.json();
-               if (redisClient.isOpen) {
-                  const ttl = isPastYear ? 86400 : 3600;
-                  await redisClient.setEx(yearCacheKey, ttl, JSON.stringify(data));
-               }
-               return data;
+            if (!resp.ok) return null;
+
+            // Only the Azerbaijan slice is ever read — see extractCountry
+            const country = extractCountry(await resp.json());
+            if (!country) return null;
+
+            if (redisClient.isOpen) {
+               const ttl = isEventFinished(country[COUNTRY].end, now) ? FINISHED_TTL : CACHE_TTL;
+               await redisClient.setEx(eventCacheKey, ttl, JSON.stringify(country));
             }
-            return null;
+            return country;
          } catch (e) {
-            logger.error(`Failed to fetch monuments${year}:`, e);
+            logger.error(`Failed to fetch ${eventSlug}:`, e);
             return null;
          }
       });
@@ -259,7 +276,7 @@ router.get("/:eventSlug", async (req, res) => {
          return;
       }
 
-      const cacheKey = `leaderboard:${eventSlug}`;
+      const cacheKey = yearCacheKey(eventSlug);
       if (redisClient.isOpen) {
          const cached = await redisClient.get(cacheKey);
          if (cached) {
@@ -281,13 +298,20 @@ router.get("/:eventSlug", async (req, res) => {
          return;
       }
 
-      const data = await response.json();
-
-      if (redisClient.isOpen) {
-         await redisClient.setEx(cacheKey, CACHE_TTL, JSON.stringify(data));
+      // Upstream answers with every country; only ours is ever read
+      const country = extractCountry(await response.json());
+      if (!country) {
+         res.status(404).json({ error: `No ${COUNTRY} data for ${eventSlug}` });
+         return;
       }
 
-      res.json(data);
+      if (redisClient.isOpen) {
+         // A finished contest is final, so it only needs an occasional refresh
+         const ttl = isEventFinished(country[COUNTRY].end) ? FINISHED_TTL : CACHE_TTL;
+         await redisClient.setEx(cacheKey, ttl, JSON.stringify(country));
+      }
+
+      res.json(country);
    } catch (error: unknown) {
       logger.error("Leaderboard proxy error:", error);
       res.status(500).json({ error: "Failed to fetch leaderboard from upstream" });

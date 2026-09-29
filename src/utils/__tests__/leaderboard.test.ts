@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { aggregateLeaderboardYears, COUNTRY } from "@/utils/leaderboard.ts";
+import {
+   aggregateLeaderboardYears,
+   COUNTRY,
+   extractCountry,
+   isEventFinished,
+} from "@/utils/leaderboard.ts";
 
 /** Minimal country payload shaped like the toolforge `/api/events/monuments<year>` node. */
 function countryPayload(overrides: {
@@ -119,5 +124,91 @@ describe("aggregateLeaderboardYears", () => {
       expect(result[COUNTRY].users["constructor"]).toBeUndefined();
       expect(result[COUNTRY].users["prototype"]).toBeUndefined();
       expect(result[COUNTRY].count).toBe(0);
+   });
+
+   it("aggregates sliced payloads exactly like full ones", () => {
+      const users = { Alice: { count: 3, usage: 4, reg: 20130101000000 } };
+      const full = {
+         Azerbaijan: countryPayload({ users, count: 7, usage: 9, usercount: 1 }),
+         Albania: countryPayload({ users, count: 999, usage: 999, usercount: 99 }),
+      };
+
+      const fromFull = aggregateLeaderboardYears([2013], [full]);
+      const fromSlice = aggregateLeaderboardYears([2013], [extractCountry(full)]);
+
+      expect(fromSlice).toEqual(fromFull);
+   });
+});
+
+describe("extractCountry", () => {
+   it("keeps only the country we serve", () => {
+      const payload = {
+         Azerbaijan: countryPayload({ count: 5 }),
+         Albania: countryPayload({ count: 999 }),
+         Angola: countryPayload({ count: 999 }),
+      };
+
+      const result = extractCountry(payload);
+
+      expect(Object.keys(result!)).toEqual([COUNTRY]);
+      expect(result![COUNTRY].count).toBe(5);
+   });
+
+   it("does not mutate the payload it was given", () => {
+      const payload = {
+         Azerbaijan: countryPayload({ count: 5 }),
+         Albania: countryPayload({}),
+      };
+      const before = Object.keys(payload);
+
+      extractCountry(payload);
+
+      expect(Object.keys(payload)).toEqual(before);
+   });
+
+   it("returns null when the country is missing, so callers can 404", () => {
+      expect(extractCountry({ Albania: countryPayload({}) })).toBeNull();
+      expect(extractCountry({ [COUNTRY]: null })).toBeNull();
+      expect(extractCountry({ [COUNTRY]: "nope" })).toBeNull();
+   });
+
+   it("returns null for values that are not payloads at all", () => {
+      expect(extractCountry(null)).toBeNull();
+      expect(extractCountry(undefined)).toBeNull();
+      expect(extractCountry("Azerbaijan")).toBeNull();
+      expect(extractCountry(42)).toBeNull();
+   });
+});
+
+describe("isEventFinished", () => {
+   const now = new Date("2026-09-29T12:00:00Z");
+
+   it("treats a past contest as finished", () => {
+      expect(isEventFinished(20130930185959, now)).toBe(true);
+      expect(isEventFinished(20260831200000, now)).toBe(true);
+   });
+
+   it("treats a running or future contest as live", () => {
+      expect(isEventFinished(20261001195959, now)).toBe(false);
+      expect(isEventFinished(20301001195959, now)).toBe(false);
+   });
+
+   it("treats a contest ending today as still live", () => {
+      // The end stamp is a local contest time, so the day is only over once
+      // it is actually behind us — a same-day stamp must not be cached long.
+      expect(isEventFinished(20260929235959, now)).toBe(false);
+   });
+
+   it("falls back to the live TTL for unusable stamps", () => {
+      expect(isEventFinished(undefined, now)).toBe(false);
+      expect(isEventFinished(0, now)).toBe(false);
+      expect(isEventFinished(-1, now)).toBe(false);
+      expect(isEventFinished(NaN, now)).toBe(false);
+      expect(isEventFinished("20130930185959", now)).toBe(false);
+      expect(isEventFinished(2013093.5, now)).toBe(false);
+   });
+
+   it("reads the date off a stamp that carries a fractional part", () => {
+      expect(isEventFinished(20130930185959.7, now)).toBe(true);
    });
 });

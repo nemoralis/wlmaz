@@ -3,8 +3,10 @@
  *
  * The route layer (src/routes/leaderboard.ts) handles fetching and Redis
  * caching; this module only performs the deterministic merge of per-year
- * country payloads into a single aggregate. It has no I/O so it can be unit
- * tested in isolation.
+ * country payloads into a single aggregate, plus the two decisions the route
+ * needs to make before caching: which slice of the upstream payload to keep
+ * and how long it stays valid. It has no I/O so it can be unit tested in
+ * isolation.
  */
 
 import type { LeaderboardResponse, WikiLovesUserData } from "@/types/api.ts";
@@ -14,6 +16,46 @@ export const COUNTRY = "Azerbaijan";
 
 /** First year of the WLM competition that contributes to the aggregate. */
 export const START_YEAR = 2013;
+
+/** Seconds. TTL for a contest that has already ended — its data never changes. */
+export const FINISHED_TTL = 60 * 60 * 24 * 30; // 30 days
+
+/**
+ * Keeps only the country we serve out of an upstream event payload.
+ *
+ * The toolforge API answers with every participating country (~52 of them),
+ * while only {@link COUNTRY} is ever read downstream — for 2013 that is
+ * 1.4 KB of a 1.4 MB response. Dropping the rest before the value is cached
+ * and sent keeps Redis and the client payload at the size we actually need.
+ *
+ * Returns `null` when the country is absent, so the route can answer 404
+ * instead of caching an empty shell under whatever slug was requested.
+ */
+export function extractCountry(data: unknown): LeaderboardResponse | null {
+   if (!data || typeof data !== "object") return null;
+
+   const country = (data as Record<string, unknown>)[COUNTRY];
+   if (!country || typeof country !== "object") return null;
+
+   return { [COUNTRY]: country as LeaderboardResponse[string] };
+}
+
+/**
+ * Whether a contest has ended, i.e. whether its data can be treated as final.
+ *
+ * `end` is a `YYYYMMDDHHmmss` stamp, not an epoch, so the two are compared as
+ * fixed-width `YYYYMMDD` strings — timezone-free and correct for every year.
+ * Anything unexpected (missing, zero, malformed) counts as *not* finished so
+ * the caller falls back to the short TTL.
+ */
+export function isEventFinished(end: unknown, now: Date = new Date()): boolean {
+   if (typeof end !== "number" || !Number.isFinite(end) || end <= 0) return false;
+
+   const stamp = String(Math.trunc(end)).slice(0, 8);
+   if (stamp.length !== 8 || !/^\d{8}$/.test(stamp)) return false;
+
+   return stamp < now.toISOString().slice(0, 10).replace(/-/g, "");
+}
 
 /** User records merged across years (yearly data included). */
 type MergedUser = WikiLovesUserData & {
