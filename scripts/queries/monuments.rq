@@ -17,9 +17,11 @@ WHERE {
     WHERE {
       hint:Query hint:optimizer "None".   # run in the order written below
 
-      # 1. Selective step first: one row per item, heritage IDs already concatenated
+      # 1. Selective step first: one row per item, heritage IDs already concatenated.
+      #    A tab separator is used because it cannot occur inside a register number;
+      #    update-monuments.ts splits on it and stores the ids as an array.
       {
-        SELECT ?item (GROUP_CONCAT(DISTINCT ?heritageID; SEPARATOR = ", ") AS ?inventory)
+        SELECT ?item (GROUP_CONCAT(DISTINCT ?heritageID; SEPARATOR = "\t") AS ?inventory)
         WHERE { ?item wdt:P13410 ?heritageID. }
         GROUP BY ?item
       }

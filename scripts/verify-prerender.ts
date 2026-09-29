@@ -5,8 +5,10 @@ import { SITE_HOST } from "../src/utils/constants";
 import {
    encodeIdForUrl,
    findDuplicateLabels,
+   getCanonicalId,
    getDisplayLabel,
    safeFileName,
+   toInventoryIds,
 } from "../src/utils/monumentFormatters";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,10 +30,13 @@ const SHELL_DESCRIPTION =
 
 const STATIC_PAGES = ["/", "/stats", "/leaderboard", "/table", "/about"];
 
+/** GeoJSON properties as the app reads them: literals, plus an id list. */
+type FeatureProperties = Record<string, string> & { inventory?: string[] };
+
 interface MonumentFeature {
    type: "Feature";
    geometry: { type: "Point"; coordinates: [number, number] } | null;
-   properties: Record<string, string>;
+   properties: FeatureProperties;
 }
 
 /** A sitemap URL expected to resolve to a prerendered file. */
@@ -153,9 +158,7 @@ const checkMonumentHtml = (
          if (!data || typeof data !== "object") {
             fail(`${label}: #monument-data is not a JSON object`);
          } else {
-            const canonicalId = String(data.inventory ?? "")
-               .split(",")[0]
-               .trim();
+            const canonicalId = getCanonicalId(data.inventory);
             const expectedId = decodeURIComponent(loc.replace(`${HOST}/monument/`, ""));
             if (canonicalId !== expectedId) {
                fail(
@@ -211,13 +214,29 @@ const main = async (): Promise<void> => {
       const geoData = JSON.parse(await fs.readFile(GEOJSON_PATH, "utf-8"));
       const features = geoData.features as MonumentFeature[];
 
+      // Data contract: `inventory` is always a list of register numbers. A
+      // generator run that wrote the old comma-joined string (or a tab-joined
+      // one that was never split) would silently corrupt every page built from
+      // it, so fail loudly here instead.
+      const badInventory = features.filter(
+         (feature) =>
+            !Array.isArray(feature.properties.inventory) ||
+            feature.properties.inventory.length === 0 ||
+            feature.properties.inventory.some((id) => typeof id !== "string" || !id.trim()),
+      );
+      if (badInventory.length) {
+         fail(
+            `${badInventory.length} features have a malformed inventory list, e.g. ${JSON.stringify(badInventory[0].properties.inventory)} (${badInventory[0].properties.item})`,
+         );
+      }
+
       // Mirrors scripts/prerender.ts: only monuments with coordinates get a
       // static page, so only those are expected in the sitemap and dist.
       const locatedFeatures = features.filter((feature) => feature.geometry);
       // The page-bearing set (prerender skips empty inventories when writing
       // pages but counts all located features' labels — match exactly).
-      const pageFeatures = locatedFeatures.filter((feature) =>
-         (feature.properties.inventory || "").trim(),
+      const pageFeatures = locatedFeatures.filter(
+         (feature) => feature.properties.inventory?.length,
       );
       // Same duplicate-label rule the prerender applied to <title>/og:title.
       const duplicateLabels = findDuplicateLabels(
@@ -227,9 +246,8 @@ const main = async (): Promise<void> => {
       const monumentLocToFile = new Map<string, ExpectedMonument>();
       const locatedCanonicalIds = new Set<string>();
       for (const feature of locatedFeatures) {
-         const rawInventory = feature.properties.inventory || "";
-         if (!rawInventory) continue;
-         const canonicalId = rawInventory.split(",")[0].trim();
+         const canonicalId = getCanonicalId(feature.properties.inventory);
+         if (!canonicalId) continue;
          locatedCanonicalIds.add(canonicalId);
          const loc = `${HOST}/monument/${encodeIdForUrl(canonicalId)}`;
          monumentLocToFile.set(loc, {
@@ -278,19 +296,14 @@ const main = async (): Promise<void> => {
          fail(`sitemap has ${extra.length} unexpected URLs, e.g. ${extra.slice(0, 5).join(", ")}`);
       }
 
-      // --- Sitemap must not list IDs that404 (coord-less ids, non-first comma parts) ---
+      // --- Sitemap must not list IDs that 404 (coord-less ids, secondary register ids) ---
       const coordLessCanonicalIds = features
-         .filter((f) => !f.geometry && (f.properties.inventory || "").trim())
-         .map((f) => (f.properties.inventory || "").split(",")[0].trim());
+         .filter((f) => !f.geometry && f.properties.inventory?.length)
+         .map((f) => getCanonicalId(f.properties.inventory));
       const nonFirstParts = new Set<string>();
       for (const feature of features) {
-         const rawInventory = feature.properties.inventory || "";
-         if (!rawInventory.trim()) continue;
-         for (const part of rawInventory
-            .split(",")
-            .map((p) => p.trim())
-            .slice(1)) {
-            if (part) nonFirstParts.add(part);
+         for (const part of toInventoryIds(feature.properties.inventory).slice(1)) {
+            nonFirstParts.add(part);
          }
       }
       for (const id of new Set([...coordLessCanonicalIds, ...nonFirstParts])) {
@@ -364,7 +377,7 @@ const main = async (): Promise<void> => {
          fail("robots.txt is missing the ?inventory= disallow rule");
       }
 
-      // --- Generated nginx redirect map (non-first comma parts -> canonical) ---
+      // --- Generated nginx redirect map (secondary register ids -> canonical) ---
       let redirectConf = "";
       try {
          redirectConf = await fs.readFile(REDIRECTS_PATH, "utf-8");
@@ -386,7 +399,7 @@ const main = async (): Promise<void> => {
 
       const expectedRedirects = new Map<string, string>();
       for (const feature of pageFeatures) {
-         const parts = (feature.properties.inventory || "").split(",").map((p) => p.trim());
+         const parts = toInventoryIds(feature.properties.inventory);
          const canonicalId = parts[0];
          for (const source of parts.slice(1)) {
             // Mirrors buildRedirectConf in scripts/prerender.ts.

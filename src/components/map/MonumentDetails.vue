@@ -37,8 +37,11 @@
                <div class="info-card-description">{{ monument.itemDescription }}</div>
             </template>
             <template #supporting-text>
-               <div v-if="monument.inventory || monument.itemAltLabel" class="title-metadata">
-                  <div v-if="monument.inventory" class="inventory-chips">
+               <div
+                  v-if="monument.inventory?.length || monument.itemAltLabel"
+                  class="title-metadata"
+               >
+                  <div v-if="monument.inventory?.length" class="inventory-chips">
                      <CdxInfoChip v-for="inv in sortedInventory" :key="inv" class="inventory-chip">
                         #{{ inv }}
                      </CdxInfoChip>
@@ -158,10 +161,9 @@ const auth = useAuthStore();
  */
 const sortedInventory = computed(() => {
    if (!props.monument?.inventory) return [];
-   return props.monument.inventory
-      .split(",")
-      .map((s) => s.trim())
-      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+   return [...props.monument.inventory].sort((a, b) =>
+      a.localeCompare(b, undefined, { numeric: true }),
+   );
 });
 
 const optimizedImageUrl = computed(() => {

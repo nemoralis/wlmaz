@@ -21,12 +21,14 @@ export function useMonumentSchema(monument: MonumentProps) {
       "@context": "https://schema.org",
       "@type": ["TouristAttraction", "LandmarksOrHistoricalBuildings"],
       name: monument.itemLabel || "Monument",
-      identifier: monument.inventory || "",
+      // schema.org identifiers are scalars, so the canonical id is used
+      // (the full list is rendered as chips on the page instead).
+      identifier: getCanonicalId(monument.inventory),
    };
 
    // Entity deduplication URL (canonical first-part id, encoded like the
    // sitemap/canonical links — see encodeIdForUrl)
-   if (monument.inventory) {
+   if (monument.inventory?.length) {
       schema["@id"] = `${SITE_HOST}/monument/${encodeIdForUrl(getCanonicalId(monument.inventory))}`;
    }
 
@@ -77,7 +79,7 @@ export function useMonumentSchema(monument: MonumentProps) {
    }
 
    // Add URL to the monument page (same canonical, encoded form as @id)
-   if (monument.inventory) {
+   if (monument.inventory?.length) {
       schema.url = `${SITE_HOST}/monument/${encodeIdForUrl(getCanonicalId(monument.inventory))}`;
    }
 

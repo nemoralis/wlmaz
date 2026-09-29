@@ -5,10 +5,39 @@
          <h1 class="sidebar-title">Axtarış və Filtrlər</h1>
       </div>
 
-      <!-- 2. Search Component -->
+      <!-- 2. Deep link notice: ?inventory= named something the map cannot show -->
+      <div v-if="unresolvedInventory" class="notice" role="status">
+         <p class="notice-text">
+            <font-awesome-icon :icon="['fas', 'triangle-exclamation']" class="notice-icon" />
+            <span v-if="unresolvedInventory.inTable">
+               «{{ unresolvedInventory.id }}» hələ xəritəyə daxil edilməyib.
+            </span>
+            <span v-else>«{{ unresolvedInventory.id }}» xəritədə tapılmadı.</span>
+         </p>
+         <div class="notice-actions">
+            <router-link
+               v-if="unresolvedInventory.inTable"
+               to="/table"
+               class="notice-link"
+               @click="emit('dismiss-notice')"
+            >
+               Cədvəldə baxın
+            </router-link>
+            <button
+               type="button"
+               class="notice-close"
+               aria-label="Bildirişi bağla"
+               @click="emit('dismiss-notice')"
+            >
+               <font-awesome-icon :icon="['fas', 'xmark']" />
+            </button>
+         </div>
+      </div>
+
+      <!-- 3. Search Component -->
       <SearchBar @select-monument="$emit('select-monument', $event)" />
 
-      <!-- 3. Dashboard Section -->
+      <!-- 4. Dashboard Section -->
       <div class="dashboard-section">
          <div class="stats-dashboard">
             <div class="stat-item stat-item--needs-photo">
@@ -33,7 +62,7 @@
             <span class="progress-label"> {{ photoPercentage }}% abidənin şəkli çəkilib </span>
          </div>
 
-         <!-- 4. Filter Toggle -->
+         <!-- 5. Filter Toggle -->
          <div class="view-settings">
             <div class="filter-toggle" @click="$emit('toggle-filter')">
                <div class="filter-info">
@@ -48,7 +77,7 @@
             </div>
          </div>
 
-         <!-- 5. Quick Links -->
+         <!-- 6. Quick Links -->
          <div class="quick-links">
             <router-link to="/stats" class="quick-link">
                <CdxIcon :icon="cdxIconChart" size="small" class="quick-link-icon" />
@@ -77,6 +106,8 @@ import SearchBar from "@/components/map/SearchBar.vue";
 interface Props {
    stats: { total: number; withImage: number };
    needsPhotoOnly: boolean;
+   /** A `?inventory=` deep link that matched no marker, and whether the table has it. */
+   unresolvedInventory?: { id: string; inTable: boolean } | null;
 }
 
 const props = defineProps<Props>();
@@ -84,6 +115,7 @@ const props = defineProps<Props>();
 const emit = defineEmits<{
    "toggle-filter": [];
    "select-monument": [feature: MonumentFeature];
+   "dismiss-notice": [];
 }>();
 
 const filterEnabled = computed({
@@ -120,7 +152,61 @@ const photoPercentage = computed(() => {
    margin: 0;
 }
 
-/* 2. Dashboard */
+/* 2. Deep link notice */
+.notice {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+   padding: 0.75rem;
+   background-color: var(--background-color-warning-subtle, #fff8c1);
+   border: 1px solid var(--border-color-base, #a2a9b1);
+   border-radius: 2px;
+}
+
+.notice-text {
+   display: flex;
+   align-items: flex-start;
+   gap: 0.5rem;
+   margin: 0;
+   font-size: 0.75rem;
+   line-height: 1.4;
+   color: var(--color-base, #202122);
+}
+
+.notice-icon {
+   margin-top: 0.125rem;
+   color: var(--color-warning, #edab00);
+}
+
+.notice-actions {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   gap: 0.5rem;
+}
+
+.notice-link {
+   font-size: 0.75rem;
+   font-weight: 600;
+   color: var(--color-progressive, #3366cc);
+}
+
+.notice-link:hover {
+   text-decoration: underline;
+}
+
+.notice-close {
+   display: flex;
+   align-items: center;
+   padding: 0.25rem;
+   color: var(--color-subtle, #54595d);
+}
+
+.notice-close:hover {
+   color: var(--color-base, #202122);
+}
+
+/* 3. Dashboard */
 .dashboard-section {
    display: flex;
    flex-direction: column;
@@ -177,7 +263,7 @@ const photoPercentage = computed(() => {
    color: var(--color-progressive, #3366cc);
 }
 
-/* 3. Progress Bar */
+/* 4. Progress Bar */
 .progress-section {
    display: flex;
    flex-direction: column;
@@ -205,7 +291,7 @@ const photoPercentage = computed(() => {
    text-align: center;
 }
 
-/* 4. Filter Toggle */
+/* 5. Filter Toggle */
 .view-settings {
    border-top: 1px solid var(--border-color-subtle, #eaecf0);
    padding-top: 0.75rem;
@@ -241,7 +327,7 @@ const photoPercentage = computed(() => {
    color: var(--color-base, #202122);
 }
 
-/* 5. Quick Links */
+/* 6. Quick Links */
 .quick-links {
    display: flex;
    flex-direction: column;

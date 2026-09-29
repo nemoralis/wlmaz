@@ -27,7 +27,7 @@
                <font-awesome-icon :icon="['fas', 'arrow-left']" /> Xəritə
             </router-link>
             <router-link
-               :to="`/?inventory=${monument.inventory}`"
+               :to="`/?inventory=${getCanonicalId(monument.inventory)}`"
                class="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-gray-100"
             >
                <font-awesome-icon :icon="['fas', 'map-marked-alt']" class="mr-2" /> Xəritədə göstər
@@ -125,11 +125,13 @@
                   </div>
                </div>
                <div
-                  v-if="monument.inventory"
+                  v-if="monument.inventory?.length"
                   class="rounded-md border border-gray-200 bg-gray-50 p-3"
                >
                   <div class="mb-1 text-xs text-gray-500">İnventar nömrəsi</div>
-                  <div class="font-semibold text-gray-900">#{{ monument.inventory }}</div>
+                  <div class="font-semibold text-gray-900">
+                     #{{ monument.inventory.join(", ") }}
+                  </div>
                </div>
                <div v-if="monument.item" class="rounded-md border border-gray-200 bg-gray-50 p-3">
                   <div class="mb-1 text-xs text-gray-500">Wikidata</div>
@@ -179,7 +181,7 @@
                v-if="typeof monument.lat === 'number' && typeof monument.lon === 'number'"
                :lat="monument.lat"
                :lon="monument.lon"
-               :inventory="monument.inventory || ''"
+               :inventory="monument.inventory"
             />
 
             <!-- Upload CTA -->
@@ -319,7 +321,8 @@ useHead({
    title: () =>
       displayLabel.value ? `${displayLabel.value} | Viki Abidələri Sevir Azərbaycan` : staticTitle,
    link: computed<Link[]>(() => {
-      const currentId = (monument.value?.inventory || route.params.id) as string;
+      // The URL id wins; a monument found without one falls back to its canonical id.
+      const currentId = (route.params.id as string) || getCanonicalId(monument.value?.inventory);
       const canonicalPathId = encodeIdForUrl(getCanonicalId(currentId));
 
       const links: Link[] = [

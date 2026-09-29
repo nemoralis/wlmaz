@@ -54,7 +54,7 @@
                            <!-- Located monuments get a prerendered page — link
                                 it so crawlers can discover /monument/* URLs. -->
                            <router-link
-                              v-if="typeof row.lat === 'number' && row.inventory"
+                              v-if="typeof row.lat === 'number' && row.inventory?.length"
                               :to="monumentPath(row)"
                               class="hover:text-[#3366cc] hover:underline"
                            >
@@ -279,9 +279,12 @@ const processedMonuments = computed<MonumentSortRecord[]>(() => {
    return monuments.value.map((m) => ({
       ...m,
       _sLabel: (m.itemLabel || "").toLowerCase(),
-      _sInv: (m.inventory || "").toLowerCase(),
+      // Joined so searching for a secondary register id still finds the monument
+      _sInv: (m.inventory || []).join(", ").toLowerCase(),
       _sAlt: (m.itemAltLabel || "").toLowerCase(),
-      _invNum: m.inventory ? parseFloat(m.inventory.replace(INVENTORY_NUM_REGEX, "")) : NaN,
+      _invNum: m.inventory?.length
+         ? parseFloat(getCanonicalId(m.inventory).replace(INVENTORY_NUM_REGEX, ""))
+         : NaN,
    }));
 });
 

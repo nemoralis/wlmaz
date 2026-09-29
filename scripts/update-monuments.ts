@@ -2,6 +2,7 @@ import { readFileSync } from "fs";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { encodeIdForUrl, getCanonicalId } from "../src/utils/monumentFormatters";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,6 +10,10 @@ const __dirname = path.dirname(__filename);
 const PUBLIC_DIR = path.join(__dirname, "../public");
 const DATA_DIR = path.join(__dirname, "../data");
 const GEOJSON_PATH = path.join(DATA_DIR, "monuments.geojson");
+
+// Separator used to concatenate heritage IDs in the SPARQL query; kept in sync
+// with the SEPARATOR in scripts/queries/monuments.rq.
+const INVENTORY_SEPARATOR = "\t";
 
 // SPARQL Query to fetch monuments in Azerbaijan
 const SPARQL_QUERY = readFileSync(path.join(__dirname, "queries", "monuments.rq"), "utf-8");
@@ -69,12 +74,25 @@ interface SparqlResults {
    };
 }
 
+/** GeoJSON properties: SPARQL literals, except `inventory` which is a list of ids. */
+interface GeoProperties {
+   [key: string]: string | string[];
+}
+
+/** Narrows an index-signature property to its (always string) scalar form. */
+const asText = (value: string | string[] | undefined): string =>
+   typeof value === "string" ? value : "";
+
+/** Splits the GROUP_CONCAT'ed heritage ids back into a list of register numbers. */
+const splitInventoryGroups = (value: string | string[] | undefined): string[] =>
+   (Array.isArray(value) ? value : (value || "").split(INVENTORY_SEPARATOR))
+      .map((id) => id.trim())
+      .filter(Boolean);
+
 interface GeoJSONFeature {
    type: "Feature";
    geometry: { type: "Point"; coordinates: [number, number] } | null;
-   properties: {
-      [key: string]: string;
-   };
+   properties: GeoProperties;
 }
 
 interface GeoJSON {
@@ -95,7 +113,7 @@ function transformToGeoJSON(bindings: SparqlBinding[]): GeoJSON {
    const features: GeoJSONFeature[] = [];
 
    for (const row of bindings) {
-      const properties: { [key: string]: string } = {};
+      const properties: GeoProperties = {};
       let coordinates: [number, number] | null = null;
 
       for (const rowVar in row) {
@@ -119,13 +137,24 @@ function transformToGeoJSON(bindings: SparqlBinding[]): GeoJSON {
       // Add feature with or without coordinates (geometry: null per GeoJSON spec)
       const sortedProperties = Object.keys(properties)
          .sort()
-         .reduce(
-            (obj, key) => {
-               obj[key] = properties[key];
-               return obj;
-            },
-            {} as { [key: string]: string },
-         );
+         .reduce((obj, key) => {
+            obj[key] = properties[key];
+            return obj;
+         }, {} as GeoProperties);
+
+      // `inventory` arrives as one tab-concatenated GROUP_CONCAT string (see
+      // scripts/queries/monuments.rq); a tab cannot occur inside a register
+      // number, so the concatenation is unambiguous. Store it as a list, sorted
+      // first because SPARQL makes no ordering promise and the first id is the
+      // canonical one the monument page is published under.
+      const inventoryIds = splitInventoryGroups(sortedProperties.inventory).sort((a, b) =>
+         a.localeCompare(b, undefined, { numeric: true }),
+      );
+      if (inventoryIds.length) {
+         sortedProperties.inventory = inventoryIds;
+      } else {
+         delete sortedProperties.inventory;
+      }
 
       features.push({
          type: "Feature",
@@ -139,26 +168,13 @@ function transformToGeoJSON(bindings: SparqlBinding[]): GeoJSON {
       });
    }
 
-   // Normalize multi-ID inventories BEFORE sorting: SPARQL's
-   // GROUP_CONCAT(DISTINCT ...) has no guaranteed order, so sorting on the raw
-   // string would place features at different positions on every run.
-   for (const feature of features) {
-      if (feature.properties.inventory?.includes(",")) {
-         feature.properties.inventory = feature.properties.inventory
-            .split(",")
-            .map((s: string) => s.trim())
-            .sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true }))
-            .join(", ");
-      }
-   }
-
-   // Sort by inventory number, with the Q-ID as a deterministic tiebreaker
+   // Sort by canonical inventory number, with the Q-ID as a deterministic tiebreaker
    features.sort((a, b) => {
-      const invA = a.properties.inventory || "";
-      const invB = b.properties.inventory || "";
+      const invA = getCanonicalId(a.properties.inventory);
+      const invB = getCanonicalId(b.properties.inventory);
       const cmp = invA.localeCompare(invB, undefined, { numeric: true, sensitivity: "base" });
       if (cmp !== 0) return cmp;
-      return (a.properties.item || "").localeCompare(b.properties.item || "");
+      return asText(a.properties.item).localeCompare(asText(b.properties.item));
    });
 
    return {
@@ -256,7 +272,9 @@ const INDEXNOW_KEY_LOCATION = `https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt`;
 async function notifyIndexNow(oldData: GeoJSON, newData: GeoJSON) {
    console.log("--- IndexNow Notification ---");
    const changedUrls: string[] = [];
-   const oldMap = new Map(oldData.features.map((f) => [f.properties.inventory, f]));
+   // Keyed by canonical id: a monument's inventory is a list, so the array
+   // itself is useless as a map key (and would differ by identity, not value).
+   const oldMap = new Map(oldData.features.map((f) => [getCanonicalId(f.properties.inventory), f]));
    const forceIndex = process.argv.includes("--force-index");
 
    if (forceIndex) {
@@ -265,10 +283,10 @@ async function notifyIndexNow(oldData: GeoJSON, newData: GeoJSON) {
 
    // Find added and modified
    for (const feature of newData.features) {
-      const inv = feature.properties.inventory;
+      const inv = getCanonicalId(feature.properties.inventory);
       const oldFeature = oldMap.get(inv);
 
-      const url = `https://${INDEXNOW_HOST}/monument/${inv.replace(/\./g, "%2E")}`;
+      const url = `https://${INDEXNOW_HOST}/monument/${encodeIdForUrl(inv)}`;
 
       if (forceIndex) {
          changedUrls.push(url);

@@ -6,6 +6,7 @@ import type {
    UploadConfigResponse,
    UploadStatusResponse,
 } from "@/types/api.ts";
+import { getCanonicalId } from "@/utils/monumentFormatters.ts";
 import { messageFor } from "@/utils/uploadErrors.ts";
 import { nextFreeTitles } from "@/utils/uploadFileNames.ts";
 import {
@@ -129,7 +130,7 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
 
       if (monument.value) {
          const name = monument.value.itemLabel || "";
-         const inv = monument.value.inventory;
+         const inv = monument.value.inventory?.join(", ");
 
          // Default to Inventory format first, will be updated to Year format if EXIF exists
          if (name && inv) {
@@ -189,7 +190,7 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
 
          // Only update if the user hasn't heavily customized the title
          // OR if it currently matches the default Inventory format
-         const invFormat = `${name} (${monument.value.inventory})`;
+         const invFormat = `${name} (${monument.value.inventory?.join(", ")})`;
          const nameOnly = name;
 
          if (!bulkForm.title || bulkForm.title === invFormat || bulkForm.title === nameOnly) {
@@ -249,7 +250,8 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       lat: monument.value?.lat,
       lon: monument.value?.lon,
       commonsCategory: monument.value?.commonsCategory,
-      inventory: monument.value?.inventory,
+      // Uploaded records are stored against the single canonical register id.
+      inventory: getCanonicalId(monument.value?.inventory) || undefined,
    });
 
    // Process uploads sequentially; each file's outcome is recorded and a

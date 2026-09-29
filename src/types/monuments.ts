@@ -12,7 +12,12 @@ export interface MonumentProps {
    itemLabel?: string;
    itemDescription?: string;
    itemAltLabel?: string;
-   inventory?: string;
+   /**
+    * Heritage register id(s) for this monument. Always a list: a monument can
+    * appear under several register numbers, and the first one is the canonical
+    * id its page is published under. Empty when the source has none.
+    */
+   inventory?: string[];
    image?: string;
    commonsCategory?: string;
    item?: string;

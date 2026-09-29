@@ -43,7 +43,7 @@
          >
             <div
                v-for="row in visibleData"
-               :key="row.inventory"
+               :key="getCanonicalId(row.inventory) || row.item"
                :style="{ height: `${rowHeight}px` }"
                class="flex items-center border-b border-gray-100 transition-colors hover:bg-blue-50/30"
             >
@@ -76,6 +76,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import type { MonumentProps } from "@/types";
+import { getCanonicalId } from "@/utils/monumentFormatters.ts";
 
 interface Column {
    id: string;

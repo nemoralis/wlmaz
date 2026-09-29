@@ -12,11 +12,13 @@ import { SITE_HOST } from "../src/utils/constants";
 import {
    encodeIdForUrl,
    findDuplicateLabels,
+   getCanonicalId,
    getCategoryUrl,
    getDisplayLabel,
    getOptimizedImage,
    getSrcSet,
    safeFileName,
+   toInventoryIds,
 } from "../src/utils/monumentFormatters";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -26,9 +28,9 @@ const HOST = SITE_HOST;
 const DIST_DIR = path.join(__dirname, "../dist");
 const GEOJSON_PATH = path.join(__dirname, "../data/monuments.geojson");
 const MONUMENT_DIR = path.join(DIST_DIR, "monument");
-// Generated nginx include with exact-match 301s for non-canonical
-// comma-separated inventory parts. Lives at the repo root (outside the
-// web root) — gitignored; see nginx.conf's include directive.
+// Generated nginx include with exact-match 301s for the secondary register
+// ids of a monument. Lives at the repo root (outside the web root) —
+// gitignored; see nginx.conf's include directive.
 const REDIRECTS_PATH = path.join(__dirname, "..", "monument-redirects.conf");
 
 const SITE_TITLE = "Viki Abidələri Sevir Azərbaycan";
@@ -44,10 +46,13 @@ const escapeXml = (value: string): string =>
 const escapeHtml = (value: string): string =>
    value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
+/** GeoJSON properties as the app reads them: literals, plus an id list. */
+type FeatureProperties = Omit<MonumentProps, "inventory"> & { inventory?: string[] };
+
 interface MonumentFeature {
    type: "Feature";
    geometry: { type: "Point"; coordinates: [number, number] } | null;
-   properties: Record<string, string>;
+   properties: FeatureProperties;
 }
 
 interface SitemapEntry {
@@ -61,10 +66,9 @@ const readGeoJson = async (): Promise<MonumentFeature[]> => {
    return data.features as MonumentFeature[];
 };
 
-const buildMonumentProps = (feature: MonumentFeature, canonicalId: string): MonumentProps => {
+const buildMonumentProps = (feature: MonumentFeature): MonumentProps => {
    const props: MonumentProps = {
       ...feature.properties,
-      inventory: canonicalId,
    };
    if (feature.geometry) {
       const [lon, lat] = feature.geometry.coordinates;
@@ -78,7 +82,9 @@ const renderContent = (props: MonumentProps): string => {
    const label = escapeHtml(props.itemLabel || "Abidə");
    const altLabel = props.itemAltLabel ? escapeHtml(props.itemAltLabel) : "";
    const description = props.itemDescription ? escapeHtml(props.itemDescription) : "";
-   const inventory = escapeHtml(props.inventory || "");
+   // Chips/fact box list every register id; the map link carries just the canonical one
+   const inventory = escapeHtml(toInventoryIds(props.inventory).join(", "));
+   const mapInventory = encodeURIComponent(getCanonicalId(props.inventory));
    const parentLabel = props.parentLabel ? escapeHtml(props.parentLabel) : "";
    const imageUrl = props.image ? getOptimizedImage(props.image, 768) : "";
    const srcSet = props.image ? getSrcSet(props.image, [500, 768, 1024, 1536]) : "";
@@ -160,7 +166,7 @@ const renderContent = (props: MonumentProps): string => {
    // Map placeholder
    const mapBlock =
       typeof props.lat === "number" && typeof props.lon === "number"
-         ? `<div style="border:1px solid #e5e7eb;border-radius:8px;background:#f3f4f6;padding:2rem;text-align:center;margin:1.5rem 0;"><a href="/?inventory=${inventory}" style="color:#2563eb;text-decoration:none;font-weight:500;">Xəritədə baxın</a></div>`
+         ? `<div style="border:1px solid #e5e7eb;border-radius:8px;background:#f3f4f6;padding:2rem;text-align:center;margin:1.5rem 0;"><a href="/?inventory=${mapInventory}" style="color:#2563eb;text-decoration:none;font-weight:500;">Xəritədə baxın</a></div>`
          : "";
 
    return `
@@ -247,7 +253,11 @@ const buildMonumentHtml = (
 ): string => {
    // Shared labels get the canonical inventory id appended so no two pages
    // ship the same <title> ("Yaşayış evi (4996-12) | Viki Abidələri...").
-   const displayLabel = getDisplayLabel(props.itemLabel, props.inventory || "", duplicateLabels);
+   const displayLabel = getDisplayLabel(
+      props.itemLabel,
+      getCanonicalId(props.inventory),
+      duplicateLabels,
+   );
    props.displayLabel = displayLabel;
    const title = `${displayLabel} | ${SITE_TITLE}`;
    let html = indexHtml;
@@ -374,19 +384,17 @@ const minifyHtml = (html: string): Promise<string> =>
    });
 
 /**
- * Builds the nginx include that 301s every non-first comma-separated
- * inventory part to its canonical page (e.g. /monument/4655 → /monument/302).
+ * Builds the nginx include that 301s every secondary register id to its
+ * monument's canonical page (e.g. /monument/4655 → /monument/302).
  * Only page-bearing (located, inventoried) features contribute: their
- * canonical id has a real page to land on. A part that already has its own
+ * canonical id has a real page to land on. An id that already has its own
  * page is skipped so a live URL is never hijacked away from its own page.
  */
 const buildRedirectConf = (pageFeatures: MonumentFeature[]): string => {
-   const canonicalIds = new Set(
-      pageFeatures.map((feature) => (feature.properties.inventory || "").split(",")[0].trim()),
-   );
+   const canonicalIds = new Set(pageFeatures.map((f) => getCanonicalId(f.properties.inventory)));
    const redirectByPart = new Map<string, string>();
    for (const feature of pageFeatures) {
-      const parts = (feature.properties.inventory || "").split(",").map((part) => part.trim());
+      const parts = toInventoryIds(feature.properties.inventory);
       const canonicalId = parts[0];
       for (const part of parts.slice(1)) {
          if (!part || part === canonicalId || canonicalIds.has(part)) continue;
@@ -420,7 +428,7 @@ const buildRedirectConf = (pageFeatures: MonumentFeature[]): string => {
 
    return [
       "# Generated by scripts/prerender.ts — do not edit (regenerated by npm run build).",
-      "# Exact-match 301s: non-first comma-separated inventory parts → canonical page.",
+      "# Exact-match 301s: secondary register ids → the canonical monument page.",
       ...lines,
       "",
    ].join("\n");
@@ -447,8 +455,8 @@ const main = async () => {
       // The page-bearing set: located features that actually get a page (the
       // loop below skips empty inventories). Drives both the redirect map and
       // duplicate-label detection so titles match what ships to crawlers.
-      const pageFeatures = locatedFeatures.filter((feature) =>
-         (feature.properties.inventory || "").trim(),
+      const pageFeatures = locatedFeatures.filter(
+         (feature) => feature.properties.inventory?.length,
       );
       // Labels shared by several page-bearing monuments get the inventory id
       // appended in <title>/og:title ("Yaşayış evi (4996-12)") so no two
@@ -468,12 +476,11 @@ const main = async () => {
          const batch = locatedFeatures.slice(i, i + BATCH_SIZE);
          await Promise.all(
             batch.map(async (feature) => {
-               const rawInventory = feature.properties.inventory || "";
-               if (!rawInventory) return;
+               const canonicalId = getCanonicalId(feature.properties.inventory);
+               if (!canonicalId) return;
 
-               const canonicalId = rawInventory.split(",")[0].trim();
                const canonicalUrl = `${HOST}/monument/${encodeIdForUrl(canonicalId)}`;
-               const props = buildMonumentProps(feature, canonicalId);
+               const props = buildMonumentProps(feature);
 
                const html = buildMonumentHtml(indexHtml, props, canonicalUrl, duplicateLabels);
                const filePath = path.join(MONUMENT_DIR, `${safeFileName(canonicalId)}.html`);
@@ -487,7 +494,7 @@ const main = async () => {
                });
             }),
          );
-         written += batch.filter((f) => f.properties.inventory).length;
+         written += batch.filter((f) => f.properties.inventory?.length).length;
       }
 
       for (const page of STATIC_PAGES) {

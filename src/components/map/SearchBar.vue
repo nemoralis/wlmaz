@@ -28,7 +28,7 @@
          <ul v-else class="results-list">
             <li
                v-for="(result, index) in searchResults"
-               :key="result.properties?.inventory || index"
+               :key="getCanonicalId(result.properties?.inventory) || index"
                :ref="(el) => setResultRef(el, index)"
                role="option"
                :aria-selected="selectedIndex === index"
@@ -43,8 +43,8 @@
                   {{ result.properties?.itemLabel }}
                </div>
                <div class="result-meta">
-                  <span v-if="result.properties?.inventory" class="inventory-tag">
-                     {{ result.properties?.inventory }}
+                  <span v-if="result.properties?.inventory?.length" class="inventory-tag">
+                     {{ result.properties.inventory.join(", ") }}
                   </span>
                   <span v-if="result.properties?.image" class="image-tag">
                      <CdxIcon :icon="cdxIconImage" size="x-small" /> Şəkilli
@@ -68,6 +68,7 @@ import { CdxIcon, CdxSearchInput } from "@wikimedia/codex";
 import { cdxIconImage } from "@wikimedia/codex-icons";
 import type { MonumentFeature } from "@/types";
 import { useMonumentStore } from "@/stores/monuments.ts";
+import { getCanonicalId } from "@/utils/monumentFormatters.ts";
 
 const monumentStore = useMonumentStore();
 

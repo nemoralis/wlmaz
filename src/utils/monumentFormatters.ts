@@ -69,12 +69,25 @@ export const getCategoryUrl = (props: MonumentProps): string => {
 };
 
 /**
- * Returns the first ID from a comma-separated inventory string.
+ * Normalizes an inventory value into a list of ids.
+ *
+ * The data pipeline stores `inventory` as an array of ids. A comma-joined
+ * string is still accepted so the two boundaries that can only produce one —
+ * the upload form field, and monuments already stored in Redis before the
+ * array shape existed — keep working. Never returns empty entries.
  */
-export const getCanonicalId = (inventory: string | undefined): string => {
-   if (!inventory) return "";
-   return inventory.split(",")[0].trim();
+export const toInventoryIds = (inventory: string[] | string | undefined | null): string[] => {
+   if (!inventory) return [];
+   const parts = Array.isArray(inventory) ? inventory : inventory.split(",");
+   return parts.map((s) => s.trim()).filter(Boolean);
 };
+
+/**
+ * Returns the canonical (first) ID of an inventory, which is the id its
+ * monument page is published under.
+ */
+export const getCanonicalId = (inventory: string[] | string | undefined | null): string =>
+   toInventoryIds(inventory)[0] ?? "";
 
 /**
  * Returns the set of itemLabels used by more than one monument. Page titles
@@ -122,12 +135,33 @@ export const encodeIdForUrl = (id: string): string => encodeURI(id).replace(/\./
 export const safeFileName = (id: string): string => id.replace(/[^\w\u00A0-\uFFFF.-]/g, "_");
 
 /**
- * Checks if a specific ID is part of a comma-separated inventory string.
+ * Checks if a specific ID is part of a monument's inventory.
  */
-export const isIdMatch = (inventory: string | undefined, searchId: string): boolean => {
-   if (!inventory || !searchId) return false;
-   return inventory
-      .split(",")
+export const isIdMatch = (
+   inventory: string[] | string | undefined | null,
+   searchId: string,
+): boolean => {
+   if (!searchId) return false;
+   return toInventoryIds(inventory).includes(searchId.trim());
+};
+
+/**
+ * Resolves a `?inventory=` deep-link value to an id that actually exists.
+ *
+ * The value may be a single id ("38"), a whole inventory string ("38, 1945"),
+ * or padded with whitespace, and every form has to work: the map rewrites the
+ * URL with bare canonical ids, but links written by hand — or by older builds
+ * that interpolated the raw inventory — carry the full list. Candidates are
+ * tried in order (the whole value first, then each comma-separated part) and
+ * `has` decides which of them exist. Returns null when nothing matches.
+ */
+export const resolveInventoryId = (
+   param: string | null | undefined,
+   has: (id: string) => boolean,
+): string | null => {
+   if (!param) return null;
+   const candidates = [param, ...param.split(",")]
       .map((s) => s.trim())
-      .includes(searchId.trim());
+      .filter((s, i, all) => s !== "" && all.indexOf(s) === i);
+   return candidates.find((id) => has(id)) ?? null;
 };

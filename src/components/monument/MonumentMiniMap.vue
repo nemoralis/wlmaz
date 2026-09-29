@@ -8,7 +8,10 @@
       ></div>
       <div class="mt-2 flex justify-between text-xs text-gray-400">
          <span>© OpenStreetMap</span>
-         <router-link :to="`/?inventory=${inventory}`" class="text-blue-600 hover:underline">
+         <router-link
+            :to="`/?inventory=${getCanonicalId(inventory)}`"
+            class="text-blue-600 hover:underline"
+         >
             Tam xəritədə baxın
          </router-link>
       </div>
@@ -18,11 +21,12 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import type { Map as LeafletMap } from "leaflet";
+import { getCanonicalId } from "@/utils/monumentFormatters.ts";
 
 const props = defineProps<{
    lat: number;
    lon: number;
-   inventory: string;
+   inventory?: string[];
 }>();
 
 const mapContainer = ref<HTMLDivElement | null>(null);

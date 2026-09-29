@@ -23,15 +23,17 @@ describe("useMonumentSchema", () => {
    });
 
    it("adds @id and url based on inventory", () => {
-      const schema = useMonumentSchema({ ...baseMonument, inventory: "AZ-0001" });
+      const schema = useMonumentSchema({ ...baseMonument, inventory: ["AZ-0001"] });
       expect(schema["@id"]).toBe("https://wikilovesmonuments.az/monument/AZ-0001");
       expect(schema.url).toBe("https://wikilovesmonuments.az/monument/AZ-0001");
+      expect(schema.identifier).toBe("AZ-0001");
    });
 
-   it("canonicalizes comma lists and encodes dots in @id/url", () => {
-      const schema = useMonumentSchema({ ...baseMonument, inventory: "AZ-0001.2, AZ-9" });
+   it("uses the canonical id of a multi-id inventory and encodes dots in @id/url", () => {
+      const schema = useMonumentSchema({ ...baseMonument, inventory: ["AZ-0001.2", "AZ-9"] });
       expect(schema["@id"]).toBe("https://wikilovesmonuments.az/monument/AZ-0001%2E2");
       expect(schema.url).toBe("https://wikilovesmonuments.az/monument/AZ-0001%2E2");
+      expect(schema.identifier).toBe("AZ-0001.2");
    });
 
    it("adds description and alternateName when present", () => {

@@ -46,8 +46,10 @@
                <MonumentSidebarHome
                   :stats="stats"
                   :needs-photo-only="needsPhotoOnly"
+                  :unresolved-inventory="unresolvedInventory"
                   @toggle-filter="toggleNeedsPhoto"
                   @select-monument="flyToMonument"
+                  @dismiss-notice="unresolvedInventory = null"
                />
             </div>
 
@@ -105,7 +107,7 @@ import {
    type MonumentMarker,
 } from "@/composables/useLeafletMap.ts";
 import { useWikiCredits } from "@/composables/useWikiCredits.ts";
-import { getCanonicalId } from "@/utils/monumentFormatters.ts";
+import { getCanonicalId, isIdMatch, resolveInventoryId } from "@/utils/monumentFormatters.ts";
 import { getMarkerRadius } from "@/utils/markerRadius.ts";
 import { getOverlapGroupKey, getSpreadPosition } from "@/utils/markerOverlap.ts";
 // CSS
@@ -160,6 +162,10 @@ export default defineComponent({
       const showUploadModal = ref(false);
       const needsPhotoOnly = ref(false);
 
+      // Set when `?inventory=` names something the map cannot show, so the
+      // sidebar can explain it instead of silently ignoring the link.
+      const unresolvedInventory = ref<{ id: string; inTable: boolean } | null>(null);
+
       // Markers currently rendered on the map (viewport + filter aware)
       const passesFilter: MarkerFilter = (props) => !needsPhotoOnly.value || !props.image;
 
@@ -169,6 +175,7 @@ export default defineComponent({
          if (!marker || !markersGroup.value) return;
 
          highlightMarker(marker);
+         unresolvedInventory.value = null;
 
          const props = marker.feature.properties;
          const [lon, lat] = marker.feature.geometry.coordinates as [number, number];
@@ -178,15 +185,13 @@ export default defineComponent({
          sidebarInstance.value?.open("details");
       };
 
-      const flyToMonument = (
-         feature: MonumentFeature | { properties: { inventory: string; image?: string } },
-      ) => {
+      const flyToMonument = (feature: MonumentFeature) => {
          const props = feature.properties as MonumentProps;
          const { inventory, image } = props;
          if (inventory) {
-            // Inventory might be a comma-separated list. Try to find any match in the lookup.
-            const ids = inventory.split(",").map((s) => s.trim());
-            const foundId = ids.find((id) => markerLookup.has(id));
+            // A monument can be registered under several ids; any of them that
+            // has a marker identifies the same one.
+            const foundId = inventory.find((id) => markerLookup.has(id));
 
             if (foundId) {
                if (image && needsPhotoOnly.value) {
@@ -206,6 +211,52 @@ export default defineComponent({
          needsPhotoOnly.value = enabled;
          if (!markersGroup.value) return;
          syncViewport(passesFilter);
+      };
+
+      /**
+       * Drops a dead `inventory` parameter from the URL. Without this the link
+       * keeps repeating the same dead end on every reload, and the URL keeps
+       * advertising a selection that never happened.
+       */
+      const clearInventoryParam = () => {
+         const url = new URL(window.location.href);
+         if (!url.searchParams.has("inventory")) return;
+         url.searchParams.delete("inventory");
+         window.history.replaceState({}, "", url);
+      };
+
+      /** True when any feature in the dataset carries the id, coordinates or not. */
+      const isKnownInventory = (param: string) =>
+         [param, ...param.split(",")].some((candidate) =>
+            monumentStore.geoData?.features.some((f) =>
+               isIdMatch(f.properties?.inventory, candidate.trim()),
+            ),
+         );
+
+      /**
+       * Opens the monument named by `?inventory=`. Returns true when a marker
+       * was found. A comma-separated value ("38, 1945") is still accepted: it is
+       * what links generated before inventory became a list carry. An id with no
+       * marker is reported in the sidebar rather than leaving the user on a map
+       * that ignored them.
+       */
+      const applyInventoryParam = (): boolean => {
+         const param = new URLSearchParams(window.location.search).get("inventory");
+         if (!param) return false;
+
+         const id = resolveInventoryId(param, (candidate) => markerLookup.has(candidate));
+         if (id) {
+            // Hand over the real feature rather than a synthetic one: flyToMonument
+            // needs its image flag to lift the photo-only filter for this monument.
+            flyToMonument((markerLookup.get(id) as MonumentMarker).feature);
+            return true;
+         }
+
+         console.warn(`[map] ?inventory=${param} matched no marker`);
+         clearInventoryParam();
+         unresolvedInventory.value = { id: param.trim(), inTable: isKnownInventory(param) };
+         sidebarInstance.value?.open("home");
+         return false;
       };
 
       const toggleNeedsPhoto = () => applyFilter(!needsPhotoOnly.value);
@@ -401,9 +452,9 @@ export default defineComponent({
                         });
 
                         if (props.inventory) {
-                           props.inventory.split(",").forEach((id) => {
-                              markerLookup.set(id.trim(), marker);
-                           });
+                           for (const id of props.inventory) {
+                              markerLookup.set(id, marker);
+                           }
                         }
                         return marker;
                      },
@@ -412,15 +463,9 @@ export default defineComponent({
                   renderMarkers(geoJsonLayer.getLayers() as L.Layer[], passesFilter);
                   setMarkerRadius(initialRadius);
 
-                  // Deep link check (markerLookup is populated during marker creation)
-                  const urlParams = new URLSearchParams(window.location.search);
-                  const inv = urlParams.get("inventory");
-                  if (inv && markerLookup.has(inv)) {
-                     flyToMonument({ properties: { inventory: inv } });
-                  } else {
-                     if (window.innerWidth > 768) {
-                        sidebarInstance.value?.open("home");
-                     }
+                  // Deep link (markerLookup is populated during marker creation)
+                  if (!applyInventoryParam() && window.innerWidth > 768) {
+                     sidebarInstance.value?.open("home");
                   }
                }
             },
@@ -440,6 +485,7 @@ export default defineComponent({
          monumentStore,
          showUploadModal,
          needsPhotoOnly,
+         unresolvedInventory,
          // Actions
          openUploadModal,
          toggleNeedsPhoto,

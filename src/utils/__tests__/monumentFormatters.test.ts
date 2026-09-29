@@ -11,7 +11,9 @@ import {
    getOptimizedImage,
    getSrcSet,
    isIdMatch,
+   resolveInventoryId,
    safeFileName,
+   toInventoryIds,
 } from "@/utils/monumentFormatters.ts";
 
 describe("getClosestWikiWidth", () => {
@@ -81,7 +83,7 @@ describe("getDescriptionPage", () => {
 
 describe("getCategoryUrl", () => {
    const base: MonumentProps = {
-      inventory: "AZ-1",
+      inventory: ["AZ-1"],
       itemLabel: "Test",
       lat: 0,
       lon: 0,
@@ -107,28 +109,99 @@ describe("getCategoryUrl", () => {
    });
 });
 
+describe("toInventoryIds", () => {
+   it("returns a trimmed copy of a list", () => {
+      expect(toInventoryIds([" 38 ", "1945"])).toEqual(["38", "1945"]);
+   });
+
+   it("splits a legacy comma-separated string", () => {
+      expect(toInventoryIds("38, 1945")).toEqual(["38", "1945"]);
+   });
+
+   it("drops empty entries and empty input", () => {
+      expect(toInventoryIds(["38", "", "  "])).toEqual(["38"]);
+      expect(toInventoryIds(", ,")).toEqual([]);
+      expect(toInventoryIds([])).toEqual([]);
+      expect(toInventoryIds(undefined)).toEqual([]);
+      expect(toInventoryIds(null)).toEqual([]);
+   });
+});
+
 describe("getCanonicalId", () => {
-   it("returns the first id from a comma-separated inventory", () => {
+   it("returns the first id of an inventory list", () => {
+      expect(getCanonicalId(["AZ-01", "AZ-02", "AZ-03"])).toBe("AZ-01");
+   });
+
+   it("accepts a comma-separated string for legacy values", () => {
       expect(getCanonicalId("AZ-01, AZ-02, AZ-03")).toBe("AZ-01");
    });
 
    it("returns empty for empty input", () => {
       expect(getCanonicalId(undefined)).toBe("");
+      expect(getCanonicalId([])).toBe("");
    });
 });
 
 describe("isIdMatch", () => {
-   it("matches a trimmed id in the inventory", () => {
-      expect(isIdMatch("AZ-01, AZ-02", " AZ-02 ")).toBe(true);
+   it("matches a trimmed id in the inventory list", () => {
+      expect(isIdMatch(["AZ-01", "AZ-02"], " AZ-02 ")).toBe(true);
+   });
+
+   it("matches a legacy comma-separated value", () => {
+      expect(isIdMatch("AZ-01, AZ-02", "AZ-02")).toBe(true);
    });
 
    it("returns false for non-matching ids", () => {
-      expect(isIdMatch("AZ-01", "AZ-99")).toBe(false);
+      expect(isIdMatch(["AZ-01"], "AZ-99")).toBe(false);
    });
 
    it("returns false for empty inputs", () => {
       expect(isIdMatch("", "AZ-01")).toBe(false);
-      expect(isIdMatch("AZ-01", "")).toBe(false);
+      expect(isIdMatch([], "AZ-01")).toBe(false);
+      expect(isIdMatch(["AZ-01"], "")).toBe(false);
+   });
+});
+
+describe("resolveInventoryId", () => {
+   const has =
+      (...ids: string[]) =>
+      (id: string) =>
+         ids.includes(id);
+
+   it("resolves a single id", () => {
+      expect(resolveInventoryId("38", has("38"))).toBe("38");
+   });
+
+   it("resolves a whole inventory string through its comma-separated parts", () => {
+      expect(resolveInventoryId("38, 1945", has("38", "1945"))).toBe("38");
+   });
+
+   it("prefers the whole value when it is itself a key", () => {
+      expect(resolveInventoryId("38, 1945", has("38, 1945", "1945"))).toBe("38, 1945");
+   });
+
+   it("falls through to a later part when the first has no marker", () => {
+      expect(resolveInventoryId("38, 1945", has("1945"))).toBe("1945");
+   });
+
+   it("trims surrounding and inner whitespace", () => {
+      expect(resolveInventoryId(" 38 ", has("38"))).toBe("38");
+      expect(resolveInventoryId("38 , 1945", has("1945"))).toBe("1945");
+   });
+
+   it("keeps spaces inside a single id intact", () => {
+      expect(resolveInventoryId("3166 -1", has("3166 -1"))).toBe("3166 -1");
+   });
+
+   it("returns null when nothing matches", () => {
+      expect(resolveInventoryId("9999", has("38"))).toBeNull();
+   });
+
+   it("returns null for empty, missing and comma-only input", () => {
+      expect(resolveInventoryId("", has("38"))).toBeNull();
+      expect(resolveInventoryId(null, has("38"))).toBeNull();
+      expect(resolveInventoryId(undefined, has("38"))).toBeNull();
+      expect(resolveInventoryId(" , ", has("38"))).toBeNull();
    });
 });
 
