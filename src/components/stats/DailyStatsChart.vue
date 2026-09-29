@@ -66,6 +66,7 @@ const option = computed(() => {
 
    const isImages = mode.value === "images";
    const color = isImages ? "#3B82F6" : "#10B981";
+   const totalName = isImages ? "Ümumi şəkillər" : "Ümumi iştirakçılar";
 
    return {
       tooltip: {
@@ -75,7 +76,20 @@ const option = computed(() => {
          textStyle: {
             fontSize: 13,
          },
-         valueFormatter: (value: number) => NUMBER_FORMATTER.format(value),
+         // Both readings at once: the running total and what that day added
+         formatter: (params: { dataIndex: number }[]) => {
+            const point = points[params[0]?.dataIndex ?? 0];
+            if (!point) return "";
+            const daily = isImages ? point.images : point.joiners;
+            const total = isImages ? point.totalImages : point.totalJoiners;
+            return [
+               `<div style="font-weight:600;margin-bottom:4px">${DATE_FORMATTER.format(
+                  new Date(`${point.date}T00:00:00Z`),
+               )}</div>`,
+               `<div>${totalName}: ${NUMBER_FORMATTER.format(total)}</div>`,
+               `<div style="color:#6b7280">Bu gün: +${NUMBER_FORMATTER.format(daily)}</div>`,
+            ].join("");
+         },
       },
       grid: {
          left: "3%",
@@ -107,17 +121,30 @@ const option = computed(() => {
       },
       series: [
          {
-            name: isImages ? "Yüklənən şəkillər" : "Yeni iştirakçılar",
+            name: totalName,
             type: "line",
             smooth: true,
             symbol: "circle",
-            symbolSize: 8,
+            symbolSize: 5,
             itemStyle: { color },
             lineStyle: { color, width: 3 },
+            areaStyle: {
+               color: {
+                  type: "linear",
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [
+                     { offset: 0, color: `${color}33` },
+                     { offset: 1, color: `${color}00` },
+                  ],
+               },
+            },
             emphasis: {
                itemStyle: { borderWidth: 2, borderColor: color },
             },
-            data: points.map((p) => (isImages ? p.images : p.joiners)),
+            data: points.map((p) => (isImages ? p.totalImages : p.totalJoiners)),
          },
       ],
    };
