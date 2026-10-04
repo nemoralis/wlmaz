@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
-import { HOME_DESCRIPTION } from "../src/content/home";
+import { HOME_DESCRIPTION, HOME_STEPS, HOME_STEPS_HEADING } from "../src/content/home";
 import { SITE_HOST } from "../src/utils/constants";
 import {
    encodeIdForUrl,
@@ -211,6 +211,40 @@ const checkStaticHtml = (html: string, loc: string, label: string): void => {
    }
 };
 
+/**
+ * Body-content checks for the landing page only.
+ *
+ * `checkStaticHtml` deliberately covers head tags alone (title, canonical,
+ * description), which every static page shares. The homepage is the one page
+ * whose body is hand-written twice — `src/pages/Home.vue` and
+ * `buildHomeStaticContent()` in scripts/prerender.ts — so it is the one place
+ * the two copies can silently drift. These assertions pin the shared copy and
+ * the removed duplicate CTA so a change to one render path alone fails the
+ * build.
+ *
+ * Not a byte-equality check: that would pin incidental Tailwind class order and
+ * make routine restyles fail for no benefit.
+ */
+const checkHomeBody = (html: string): void => {
+   const label = "home body";
+
+   if (!html.includes(HOME_STEPS_HEADING)) {
+      fail(`${label}: missing the participation heading ${HOME_STEPS_HEADING}`);
+   }
+
+   for (const step of HOME_STEPS) {
+      if (!html.includes(step.title)) {
+         fail(`${label}: missing step title ${step.title}`);
+      }
+   }
+
+   // The step CTA was dropped as a duplicate of the hero's primary CTA; it must
+   // not reappear in the prerendered markup.
+   if (html.includes("Xəritəyə keç")) {
+      fail(`${label}: reintroduced the removed bottom CTA "Xəritəyə keç"`);
+   }
+};
+
 const main = async (): Promise<void> => {
    try {
       const geoData = JSON.parse(await fs.readFile(GEOJSON_PATH, "utf-8"));
@@ -369,6 +403,9 @@ const main = async (): Promise<void> => {
             continue;
          }
          checkStaticHtml(html, loc, label);
+         if (route === "/") {
+            checkHomeBody(html);
+         }
       }
 
       // --- robots.txt ---

@@ -35,9 +35,20 @@ export const HOME_PRIMARY_CTA = { label: "Xəritəyə bax", to: "/map" };
 
 export const HOME_SECONDARY_CTA = { label: "Daha çox məlumat", to: "/about" };
 
-/** Second hero meta item, right after the build-time monument count. */
-export const HOME_META_NOTE = "Vikidatada";
+/** Heading above the how-to-participate steps. */
+export const HOME_STEPS_HEADING = "Necə iştirak etməli?";
 
+/** Sub-heading under HOME_STEPS_HEADING. */
+export const HOME_STEPS_INTRO =
+   "Üç addım. Müraciət tələb olunmur — telefon və ya kamera və Wikimedia hesabı kifayətdir.";
+
+/**
+ * The three participation steps.
+ *
+ * Copy only. The step icons are inline `<svg>` in both render paths rather than
+ * FontAwesome components, because `scripts/prerender.ts` emits hand-written HTML
+ * and cannot reproduce the markup the FA component generates.
+ */
 export const HOME_STEPS = [
    {
       title: "Abidəni seçin",
@@ -53,8 +64,6 @@ export const HOME_STEPS = [
    },
 ] as const;
 
-export const HOME_BOTTOM_CTA = { label: "Xəritəyə keç", to: "/map" };
-
 /**
  * Contest callout. Auto-hides once the contest is over, mirroring the
  * reference site's own campaign banner. UTC so the prerender (node) and the
@@ -66,8 +75,13 @@ export const CAMPAIGN = {
    body: "Müsabiqə 1–30 sentyabr tarixlərində keçirilir. Şəkilləri yükləmək üçün müsabiqə səhifəsinə baxın.",
    cta: "Müsabiqə səhifəsi",
    href: "https://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2026_in_Azerbaijan",
-   /** Campaign banner disappears on this instant (2026-11-01T00:00:00Z). */
-   endsAt: new Date(Date.UTC(2026, 10, 1)),
+   /**
+    * Campaign banner disappears on this instant (2026-10-01T00:00:00Z), i.e. the
+    * close of the 1–30 September contest. Months are zero-indexed, so `9` is
+    * October. For the next edition update title/body/href/endsAt together so the
+    * banner never advertises a contest that is not running.
+    */
+   endsAt: new Date(Date.UTC(2026, 9, 1)),
 } as const;
 
 /** Whether the campaign banner should be shown at the given moment. */

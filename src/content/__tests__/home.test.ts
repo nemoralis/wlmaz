@@ -2,11 +2,13 @@ import { describe, expect, it } from "vitest";
 import {
    CAMPAIGN,
    formatMonumentCount,
-   HOME_BOTTOM_CTA,
    HOME_CANONICAL,
    HOME_DESCRIPTION,
    HOME_PRIMARY_CTA,
    HOME_SECONDARY_CTA,
+   HOME_STEPS,
+   HOME_STEPS_HEADING,
+   HOME_STEPS_INTRO,
    HOME_TITLE,
    isCampaignActive,
 } from "@/content/home.ts";
@@ -32,10 +34,26 @@ describe("isCampaignActive", () => {
    });
 });
 
+describe("how-to-participate steps", () => {
+   it("has exactly three steps, each with a title and a body", () => {
+      expect(HOME_STEPS).toHaveLength(3);
+      for (const step of HOME_STEPS) {
+         expect(step.title.length).toBeGreaterThan(0);
+         expect(step.body.length).toBeGreaterThan(0);
+      }
+   });
+
+   it("keeps the heading and intro as shared copy for both render paths", () => {
+      // These live in the content module precisely so Home.vue and
+      // scripts/prerender.ts cannot drift; both import them.
+      expect(HOME_STEPS_HEADING).toBe("Necə iştirak etməli?");
+      expect(HOME_STEPS_INTRO.length).toBeGreaterThan(20);
+   });
+});
+
 describe("landing page copy", () => {
    it("points every CTA at the routes that exist after the map move", () => {
       expect(HOME_PRIMARY_CTA.to).toBe("/map");
-      expect(HOME_BOTTOM_CTA.to).toBe("/map");
       expect(HOME_SECONDARY_CTA.to).toBe("/about");
    });
 

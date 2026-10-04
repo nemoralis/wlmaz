@@ -22,13 +22,13 @@
       "url": "/monument/4%2E3"
     },
     {
-      "inventory": "10",
-      "label": "Gəncəsər monastırı",
-      "parentLabel": "Ağdərə rayonu",
-      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Gandzasar%20Monastery1.jpg",
-      "url": "/monument/10"
+      "inventory": "167",
+      "label": "Azərbaycan Dövlət Mahnı Teatrı",
+      "parentLabel": "Bakı",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/R%C9%99%C5%9Fid%20Behbudov%20ad%C4%B1na%20Mahn%C4%B1%20Teatr%C4%B1.jpg",
+      "url": "/monument/167"
     }
   ],
-  "total": 1313,
-  "withImage": 750
+  "total": 1322,
+  "withImage": 755
 }

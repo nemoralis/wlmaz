@@ -70,7 +70,6 @@
                         ></span>
                         {{ formatMonumentCount(homeData.total) }} abidə
                      </div>
-                     <div>{{ HOME_META_NOTE }}</div>
                   </div>
                </div>
 
@@ -151,51 +150,53 @@
       <section class="bg-white py-16">
          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-2xl text-center">
-               <h2 class="text-3xl font-bold text-gray-900">Necə iştirak etməli?</h2>
-               <p class="mt-3 text-gray-600">
-                  Üç addım. Müraciət tələb olunmur — telefon və ya kamera və Wikimedia hesabı
-                  kifayətdir.
-               </p>
+               <h2 class="text-3xl font-bold text-gray-900">{{ HOME_STEPS_HEADING }}</h2>
+               <p class="mt-3 text-gray-600">{{ HOME_STEPS_INTRO }}</p>
             </div>
 
-            <ol class="mt-12 grid gap-8 md:grid-cols-3">
+            <ol class="mt-12 grid gap-6 md:grid-cols-3">
                <li
                   v-for="(step, index) in HOME_STEPS"
                   :key="step.title"
-                  class="relative rounded-xl bg-gray-50 p-6"
+                  class="group relative rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
                >
                   <div
-                     class="absolute -top-4 left-6 flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 font-bold text-white"
+                     class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white"
                   >
-                     {{ index + 1 }}
+                     <svg
+                        class="h-6 w-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                     >
+                        <path
+                           v-if="index === 0"
+                           stroke-linecap="round"
+                           stroke-linejoin="round"
+                           stroke-width="2"
+                           d="M12 21s-7-4.35-9.33-8.24A5.5 5.5 0 0 1 12 6.5a5.5 5.5 0 0 1 9.33 6.26C19 16.65 12 21 12 21z"
+                        />
+                        <path
+                           v-else-if="index === 1"
+                           stroke-linecap="round"
+                           stroke-linejoin="round"
+                           stroke-width="2"
+                           d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2L8 5h8l1.5 2h2A1.5 1.5 0 0 1 21 8.5v10A1.5 1.5 0 0 1 19.5 20h-15A1.5 1.5 0 0 1 3 18.5v-10zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+                        />
+                        <path
+                           v-else
+                           stroke-linecap="round"
+                           stroke-linejoin="round"
+                           stroke-width="2"
+                           d="M7 17.5A4.5 4.5 0 0 1 7 8.5a5.5 5.5 0 0 1 10.5-1.6A4 4 0 0 1 17.5 17.5H7zM12 12v9m0-9l-3 3m3-3l3 3"
+                        />
+                     </svg>
                   </div>
-                  <h3 class="mt-2 text-lg font-semibold text-gray-900">{{ step.title }}</h3>
-                  <p class="mt-2 text-sm text-gray-600">{{ step.body }}</p>
+                  <h3 class="mt-5 text-lg font-semibold text-gray-900">{{ step.title }}</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-gray-600">{{ step.body }}</p>
                </li>
             </ol>
-
-            <div class="mt-12 text-center">
-               <router-link
-                  :to="HOME_BOTTOM_CTA.to"
-                  class="inline-flex items-center justify-center rounded-md bg-blue-600 px-8 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-               >
-                  {{ HOME_BOTTOM_CTA.label }}
-                  <svg
-                     class="ml-2 h-5 w-5"
-                     fill="none"
-                     stroke="currentColor"
-                     viewBox="0 0 24 24"
-                     aria-hidden="true"
-                  >
-                     <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                     />
-                  </svg>
-               </router-link>
-            </div>
          </div>
       </section>
    </div>
@@ -210,12 +211,12 @@ import {
    HOME_DESCRIPTION,
    HOME_HEADLINE,
    HOME_INTRO,
-   HOME_META_NOTE,
    HOME_PRIMARY_CTA,
    HOME_SECONDARY_CTA,
    HOME_STEPS,
+   HOME_STEPS_HEADING,
+   HOME_STEPS_INTRO,
    HOME_TITLE,
-   HOME_BOTTOM_CTA,
    formatMonumentCount,
    isCampaignActive,
 } from "@/content/home.ts";

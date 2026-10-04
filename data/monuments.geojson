@@ -366,9 +366,9 @@
                 "itemAltLabel": "Mərdəkan qalası-1",
                 "itemDescription": "castle in Azerbaijan",
                 "itemLabel": "Dördkünc Mərdəkan qalası",
-                "lastModified": "2026-05-01T11:36:20Z",
-                "parent": "http://www.wikidata.org/entity/Q1026043",
-                "parentLabel": "Mərdəkan"
+                "lastModified": "2026-09-29T13:22:51Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -392,9 +392,9 @@
                 "itemAltLabel": "Mərdəkan qalası-2",
                 "itemDescription": "historical and architectural monument in the Khazar district in Baku",
                 "itemLabel": "Dairəvi Mərdəkan qalası",
-                "lastModified": "2026-05-01T11:36:22Z",
-                "parent": "http://www.wikidata.org/entity/Q1026043",
-                "parentLabel": "Mərdəkan"
+                "lastModified": "2026-09-29T13:23:01Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -442,9 +442,9 @@
                 "item": "http://www.wikidata.org/entity/Q943153",
                 "itemDescription": "geographical object",
                 "itemLabel": "Nardaran qalası",
-                "lastModified": "2026-02-07T18:00:50Z",
-                "parent": "http://www.wikidata.org/entity/Q1965248",
-                "parentLabel": "Nardaran"
+                "lastModified": "2026-09-29T13:26:50Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -501,13 +501,11 @@
                 "commonsCategory": "Chirag Gala",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Chirag_Gala",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Chirag%20Gala%20closeup.jpg",
-                "inventory": [
-                    "4.7"
-                ],
+                "inventory": "4.7",
                 "item": "http://www.wikidata.org/entity/Q4516154",
                 "itemDescription": "ruined ancient fortress overlooking the Caspian coastal plains north of Baku in Azerbaijan",
                 "itemLabel": "Çıraqqala",
-                "lastModified": "2026-09-28T13:19:59Z",
+                "lastModified": "2026-10-02T05:46:42Z",
                 "parent": "http://www.wikidata.org/entity/Q387994",
                 "parentLabel": "Şabran rayonu"
             }
@@ -9076,15 +9074,21 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.377875565,
+                    40.111531773
+                ]
+            },
             "properties": {
                 "addressLabel": "Böyükdaş dağının yuxarı səki hissəsi, 29 nömrəli daş",
-                "inventory": [
-                    "26—612"
-                ],
+                "inventory": "26—612",
                 "item": "http://www.wikidata.org/entity/Q140653821",
                 "itemLabel": "Qayaüstü təsvirlər (115 ədəd)",
-                "lastModified": "2026-07-26T00:05:45Z"
+                "lastModified": "2026-10-01T06:37:49Z",
+                "parent": "http://www.wikidata.org/entity/Q4818249",
+                "parentLabel": "Qaradağ rayonu"
             }
         },
         {
@@ -9901,12 +9905,10 @@
             "geometry": null,
             "properties": {
                 "addressLabel": "Böyükdaş dağının yuxarı səki hissəsi, 67 nömrəli daş",
-                "inventory": [
-                    "26—675"
-                ],
+                "inventory": "26—675",
                 "item": "http://www.wikidata.org/entity/Q140653916",
                 "itemLabel": "Qayaüstü təsvirlər (42 ədəd—yallı səhnəsi, adamlar, öküzlər və s.)",
-                "lastModified": "2026-07-26T00:08:44Z"
+                "lastModified": "2026-10-01T06:32:10Z"
             }
         },
         {
@@ -10786,12 +10788,10 @@
                 "commonsCategory": "Stone number 117",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Stone_number_117",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qobustan%2015%2025%2009%20710000.jpeg",
-                "inventory": [
-                    "26—742"
-                ],
+                "inventory": "26—742",
                 "item": "http://www.wikidata.org/entity/Q140654013",
                 "itemLabel": "Qayaüstü təsvirlər (35 ədəd)",
-                "lastModified": "2026-09-06T23:25:54Z"
+                "lastModified": "2026-10-01T06:20:58Z"
             }
         },
         {
@@ -12047,9 +12047,7 @@
             "geometry": null,
             "properties": {
                 "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 4 nömrəli daş",
-                "inventory": [
-                    "26—839"
-                ],
+                "inventory": "26—839",
                 "item": "http://www.wikidata.org/entity/Q140654168",
                 "itemLabel": "Qayaüstü təsvirlər (2 maral, keçi), qaya yalağı",
                 "lastModified": "2026-07-26T00:15:52Z"
@@ -12086,9 +12084,7 @@
             "geometry": null,
             "properties": {
                 "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 7 nömrəli daş",
-                "inventory": [
-                    "26—842"
-                ],
+                "inventory": "26—842",
                 "item": "http://www.wikidata.org/entity/Q140654172",
                 "itemLabel": "Qayaüstü təsvirlər (9 ədəd)",
                 "lastModified": "2026-07-26T00:15:55Z"
@@ -15126,7 +15122,7 @@
                 "itemAltLabel": "I Kültəpə, Kültəpə I, I Kültəpə yaşayış yeri",
                 "itemDescription": "human settlement in Azerbaijan",
                 "itemLabel": "Kültəpə",
-                "lastModified": "2026-09-08T12:57:24Z",
+                "lastModified": "2026-09-28T23:21:51Z",
                 "parent": "http://www.wikidata.org/entity/Q643895",
                 "parentLabel": "Babək rayonu"
             }
@@ -15194,9 +15190,9 @@
                 "itemAltLabel": "Üzərliktəpə yaşayış yeri",
                 "itemDescription": "settlement in Aghdam, Azerbaijan",
                 "itemLabel": "Üzərliktəpə",
-                "lastModified": "2026-09-22T09:52:58Z",
-                "parent": "http://www.wikidata.org/entity/Q4807202",
-                "parentLabel": "Əsgəran rayonu"
+                "lastModified": "2026-09-29T14:09:14Z",
+                "parent": "http://www.wikidata.org/entity/Q540844",
+                "parentLabel": "Ağdam"
             }
         },
         {
@@ -15678,7 +15674,7 @@
                 "itemAltLabel": "Örənqala şəhər xarabalığı, Beyləqan yaşayış yeri (Örənqala)",
                 "itemDescription": "qədim şəhər",
                 "itemLabel": "Örənqala",
-                "lastModified": "2026-08-06T00:02:37Z",
+                "lastModified": "2026-10-02T06:36:05Z",
                 "parent": "http://www.wikidata.org/entity/Q330807",
                 "parentLabel": "Beyləqan rayonu"
             }
@@ -15817,9 +15813,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654563",
                 "itemLabel": "Qala divarları",
-                "lastModified": "2026-07-25T22:51:56Z",
-                "parent": "http://www.wikidata.org/entity/Q55614271",
-                "parentLabel": "İçərişəhər Dövlət Tarix-Memarlıq Qoruğu İdarəsi"
+                "lastModified": "2026-09-29T13:56:46Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -15893,9 +15889,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654565",
                 "itemLabel": "Ticarət anbarları",
-                "lastModified": "2026-09-06T23:37:13Z",
-                "parent": "http://www.wikidata.org/entity/Q55614271",
-                "parentLabel": "İçərişəhər Dövlət Tarix-Memarlıq Qoruğu İdarəsi"
+                "lastModified": "2026-09-29T13:56:33Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -15922,9 +15918,9 @@
                 "item": "http://www.wikidata.org/entity/Q12837306",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
                 "itemLabel": "Bakı xan sarayı",
-                "lastModified": "2026-03-06T16:53:16Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:21:36Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -15999,9 +15995,9 @@
                 "item": "http://www.wikidata.org/entity/Q20980828",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən qala və tarix memarlıq abidəsi.",
                 "itemLabel": "Dördbucaqlı qala",
-                "lastModified": "2026-03-06T17:00:08Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:57:24Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -16129,9 +16125,9 @@
                 "itemAltLabel": "Xan karvansarası",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən karavansara və tarix memarlıq abidəsi",
                 "itemLabel": "Kiçik Karvansaray",
-                "lastModified": "2026-01-19T10:17:55Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:44Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -16156,9 +16152,9 @@
                 "itemAltLabel": "İkimərtəbəli karvansara",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən karavansara və tarix memarlıq abidəsi.",
                 "itemLabel": "İkimərtəbəli karvansaray",
-                "lastModified": "2026-01-13T00:29:17Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:57:21Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -16209,9 +16205,9 @@
                 "item": "http://www.wikidata.org/entity/Q14814260",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən hamam və tarix memarlıq abidəsi.",
                 "itemLabel": "Qasımbəy hamamı",
-                "lastModified": "2026-09-14T04:30:03Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:57:23Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -16234,9 +16230,9 @@
                 "item": "http://www.wikidata.org/entity/Q12847654",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Xıdır Məscidi",
-                "lastModified": "2026-01-06T17:02:06Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-10-01T06:04:29Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -16249,9 +16245,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654568",
                 "itemLabel": "Nəsir ad-Din Gəştasib Məscidi",
-                "lastModified": "2026-07-25T23:07:32Z",
-                "parent": "http://www.wikidata.org/entity/Q55614271",
-                "parentLabel": "İçərişəhər Dövlət Tarix-Memarlıq Qoruğu İdarəsi"
+                "lastModified": "2026-09-29T13:56:34Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -16346,14 +16342,12 @@
                 "commonsCategory": "Juma Mosque (Baku)",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Juma_Mosque_(Baku)",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Juma%20mosque-Old%20City%20Baku%20Azerbaijan%2019th%20century4.jpg",
-                "inventory": [
-                    "89"
-                ],
+                "inventory": "89",
                 "item": "http://www.wikidata.org/entity/Q4160569",
                 "itemAltLabel": "Cümə məscidi (Bakı), Cümə məscidi (İçərişəhər)",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
                 "itemLabel": "Cümə məscidi (Köhnə Bakı)",
-                "lastModified": "2026-09-22T10:04:11Z",
+                "lastModified": "2026-10-01T06:07:21Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -16474,9 +16468,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654570",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:27:10Z",
-                "parent": "http://www.wikidata.org/entity/Q55614271",
-                "parentLabel": "İçərişəhər Dövlət Tarix-Memarlıq Qoruğu İdarəsi"
+                "lastModified": "2026-09-29T13:57:22Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -16493,13 +16487,11 @@
                 "commonsCategory": "Maksud Ibrahimbeyov Creativity Centre",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Maksud_Ibrahimbeyov_Creativity_Centre",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Maqsud%20%C4%B0brahimb%C9%99yov%20yarad%C4%B1c%C4%B1l%C4%B1q%20m%C9%99rk%C9%99zi.jpg",
-                "inventory": [
-                    "93-2"
-                ],
+                "inventory": "93-2",
                 "item": "http://www.wikidata.org/entity/Q111987812",
                 "itemDescription": "İçərişəhərdə yerləşən muzey",
                 "itemLabel": "Maqsud İbrahimbəyov yaradıcılıq mərkəzi",
-                "lastModified": "2026-06-27T15:51:32Z",
+                "lastModified": "2026-10-01T06:17:08Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
             }
@@ -16595,9 +16587,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654574",
                 "itemLabel": "Tikinti qalıqları",
-                "lastModified": "2026-07-25T22:30:00Z",
-                "parent": "http://www.wikidata.org/entity/Q55614271",
-                "parentLabel": "İçərişəhər Dövlət Tarix-Memarlıq Qoruğu İdarəsi"
+                "lastModified": "2026-09-29T13:56:34Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -16610,9 +16602,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654575",
                 "itemLabel": "Atəşpərəstlik məbədinin qalıqları",
-                "lastModified": "2026-07-26T02:21:43Z",
-                "parent": "http://www.wikidata.org/entity/Q55614271",
-                "parentLabel": "İçərişəhər Dövlət Tarix-Memarlıq Qoruğu İdarəsi"
+                "lastModified": "2026-09-29T13:56:35Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -16711,9 +16703,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654576",
                 "itemLabel": "Cümə Məscidinin minarəsi",
-                "lastModified": "2026-09-06T23:41:07Z",
-                "parent": "http://www.wikidata.org/entity/Q55614271",
-                "parentLabel": "İçərişəhər Dövlət Tarix-Memarlıq Qoruğu İdarəsi"
+                "lastModified": "2026-09-29T13:56:36Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -16761,9 +16753,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654577",
                 "itemLabel": "Yaşayış evinin portalı",
-                "lastModified": "2026-09-07T12:21:51Z",
-                "parent": "http://www.wikidata.org/entity/Q55614271",
-                "parentLabel": "İçərişəhər Dövlət Tarix-Memarlıq Qoruğu İdarəsi"
+                "lastModified": "2026-09-29T13:56:36Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -16839,9 +16831,9 @@
                 "itemAltLabel": "Tübaşahi məscidi",
                 "itemDescription": "mosque",
                 "itemLabel": "Tuba Şahi məscidi",
-                "lastModified": "2026-09-10T11:13:34Z",
-                "parent": "http://www.wikidata.org/entity/Q1026043",
-                "parentLabel": "Mərdəkan"
+                "lastModified": "2026-09-29T13:22:16Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -16949,9 +16941,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654578",
                 "itemLabel": "Qala",
-                "lastModified": "2026-07-25T22:51:57Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:13Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -16964,9 +16956,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654579",
                 "itemLabel": "Bayraməli hamamı",
-                "lastModified": "2026-07-25T22:38:01Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:06Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -16979,9 +16971,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654580",
                 "itemLabel": "Türbə",
-                "lastModified": "2026-07-26T02:27:56Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:14Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -16994,9 +16986,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654581",
                 "itemLabel": "Türbə",
-                "lastModified": "2026-07-26T02:28:07Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:15Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -17039,9 +17031,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654582",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:27:12Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:16Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -17054,9 +17046,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654584",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:27:18Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:17Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -17534,9 +17526,9 @@
                 "item": "http://www.wikidata.org/entity/Q12849456",
                 "itemDescription": "Bakının Balaxanı qəsəbəsində yerləşən XV əsr memarlıq abidəsi.",
                 "itemLabel": "Şakirağa türbəsi",
-                "lastModified": "2026-09-10T08:05:39Z",
-                "parent": "http://www.wikidata.org/entity/Q2081104",
-                "parentLabel": "Balaxanı"
+                "lastModified": "2026-09-29T13:24:41Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -17559,9 +17551,9 @@
                 "item": "http://www.wikidata.org/entity/Q31299025",
                 "itemDescription": "Mosque in Balakhany, Baku, Azerbaijan",
                 "itemLabel": "Hacı Şəhla məscidi",
-                "lastModified": "2026-09-10T11:06:49Z",
-                "parent": "http://www.wikidata.org/entity/Q2081104",
-                "parentLabel": "Balaxanı"
+                "lastModified": "2026-09-29T13:24:51Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -17583,9 +17575,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q97231657",
                 "itemLabel": "Balaxanı qum hamamı",
-                "lastModified": "2026-02-09T11:38:04Z",
-                "parent": "http://www.wikidata.org/entity/Q2081104",
-                "parentLabel": "Balaxanı"
+                "lastModified": "2026-09-29T13:25:17Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -17636,9 +17628,9 @@
                 "item": "http://www.wikidata.org/entity/Q12837576",
                 "itemAltLabel": "Bilgah qalası",
                 "itemLabel": "Bilgəh qalası",
-                "lastModified": "2026-02-20T01:10:37Z",
-                "parent": "http://www.wikidata.org/entity/Q4026907",
-                "parentLabel": "Bilgəh"
+                "lastModified": "2026-09-29T14:06:53Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -17677,9 +17669,9 @@
                 "itemAltLabel": "Xan bağının köşkü",
                 "itemDescription": "pavilion in Nardaran, Baku",
                 "itemLabel": "Şirvanşahların yay iqamətgahı",
-                "lastModified": "2026-09-11T22:14:47Z",
-                "parent": "http://www.wikidata.org/entity/Q1965248",
-                "parentLabel": "Nardaran"
+                "lastModified": "2026-09-30T08:43:04Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -17724,9 +17716,9 @@
                 "item": "http://www.wikidata.org/entity/Q31311167",
                 "itemAltLabel": "Hacı Zeynəddin hamamı, Qum hamamı",
                 "itemLabel": "Xan hamamı",
-                "lastModified": "2026-02-09T11:41:18Z",
-                "parent": "http://www.wikidata.org/entity/Q1965248",
-                "parentLabel": "Nardaran"
+                "lastModified": "2026-09-29T14:06:57Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -17750,9 +17742,9 @@
                 "itemAltLabel": "Pirsəid məscidi, Rəhimə xanım ziyarətgahı, Rəhimə xanım məscidi",
                 "itemDescription": "Nardaranda məscid",
                 "itemLabel": "Nardaran məscidi",
-                "lastModified": "2026-02-04T06:29:51Z",
-                "parent": "http://www.wikidata.org/entity/Q1965248",
-                "parentLabel": "Nardaran"
+                "lastModified": "2026-09-29T14:06:52Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -18996,9 +18988,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654654",
                 "itemLabel": "Qala divarının qalıqları",
-                "lastModified": "2026-07-25T22:52:02Z",
-                "parent": "http://www.wikidata.org/entity/Q16416877",
-                "parentLabel": "Gəncə Dövlət Tarix – Mədəniyyət Qoruğu"
+                "lastModified": "2026-09-29T14:08:38Z",
+                "parent": "http://www.wikidata.org/entity/Q131290",
+                "parentLabel": "Gəncə"
             }
         },
         {
@@ -19011,9 +19003,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654656",
                 "itemLabel": "1 №-li körpü qalıqları",
-                "lastModified": "2026-07-25T22:40:06Z",
-                "parent": "http://www.wikidata.org/entity/Q16416877",
-                "parentLabel": "Gəncə Dövlət Tarix – Mədəniyyət Qoruğu"
+                "lastModified": "2026-09-29T14:08:40Z",
+                "parent": "http://www.wikidata.org/entity/Q131290",
+                "parentLabel": "Gəncə"
             }
         },
         {
@@ -19026,9 +19018,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654657",
                 "itemLabel": "2 №-li körpü qalıqları",
-                "lastModified": "2026-07-25T22:40:07Z",
-                "parent": "http://www.wikidata.org/entity/Q16416877",
-                "parentLabel": "Gəncə Dövlət Tarix – Mədəniyyət Qoruğu"
+                "lastModified": "2026-09-29T14:08:39Z",
+                "parent": "http://www.wikidata.org/entity/Q131290",
+                "parentLabel": "Gəncə"
             }
         },
         {
@@ -19041,9 +19033,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654660",
                 "itemLabel": "3 №-li körpü qalıqları",
-                "lastModified": "2026-07-25T22:40:08Z",
-                "parent": "http://www.wikidata.org/entity/Q16416877",
-                "parentLabel": "Gəncə Dövlət Tarix – Mədəniyyət Qoruğu"
+                "lastModified": "2026-09-29T14:08:41Z",
+                "parent": "http://www.wikidata.org/entity/Q131290",
+                "parentLabel": "Gəncə"
             }
         },
         {
@@ -19083,9 +19075,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654667",
                 "itemLabel": "Məscid və başqa tikililər",
-                "lastModified": "2026-07-25T23:07:35Z",
-                "parent": "http://www.wikidata.org/entity/Q16416877",
-                "parentLabel": "Gəncə Dövlət Tarix – Mədəniyyət Qoruğu"
+                "lastModified": "2026-09-29T14:08:42Z",
+                "parent": "http://www.wikidata.org/entity/Q131290",
+                "parentLabel": "Gəncə"
             }
         },
         {
@@ -19098,9 +19090,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654669",
                 "itemLabel": "Hasar və darvaza",
-                "lastModified": "2026-07-25T23:00:27Z",
-                "parent": "http://www.wikidata.org/entity/Q16416877",
-                "parentLabel": "Gəncə Dövlət Tarix – Mədəniyyət Qoruğu"
+                "lastModified": "2026-09-29T14:08:43Z",
+                "parent": "http://www.wikidata.org/entity/Q131290",
+                "parentLabel": "Gəncə"
             }
         },
         {
@@ -19128,9 +19120,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654670",
                 "itemLabel": "Hamam qalıqları",
-                "lastModified": "2026-07-25T22:38:02Z",
-                "parent": "http://www.wikidata.org/entity/Q16416877",
-                "parentLabel": "Gəncə Dövlət Tarix – Mədəniyyət Qoruğu"
+                "lastModified": "2026-09-29T14:08:44Z",
+                "parent": "http://www.wikidata.org/entity/Q131290",
+                "parentLabel": "Gəncə"
             }
         },
         {
@@ -19143,9 +19135,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654673",
                 "itemLabel": "Türbələr",
-                "lastModified": "2026-07-26T02:28:08Z",
-                "parent": "http://www.wikidata.org/entity/Q16416877",
-                "parentLabel": "Gəncə Dövlət Tarix – Mədəniyyət Qoruğu"
+                "lastModified": "2026-09-29T14:08:46Z",
+                "parent": "http://www.wikidata.org/entity/Q131290",
+                "parentLabel": "Gəncə"
             }
         },
         {
@@ -19173,9 +19165,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654675",
                 "itemLabel": "Gəncə qalasının divar qalıqları",
-                "lastModified": "2026-07-25T22:52:03Z",
-                "parent": "http://www.wikidata.org/entity/Q16416877",
-                "parentLabel": "Gəncə Dövlət Tarix – Mədəniyyət Qoruğu"
+                "lastModified": "2026-09-29T14:08:45Z",
+                "parent": "http://www.wikidata.org/entity/Q131290",
+                "parentLabel": "Gəncə"
             }
         },
         {
@@ -20329,7 +20321,7 @@
                 "itemAltLabel": "Surb Stepanos",
                 "itemDescription": "Tuğ kəndində kilsə",
                 "itemLabel": "Müqəddəs Stefan kilsəsi",
-                "lastModified": "2026-05-01T11:34:36Z",
+                "lastModified": "2026-09-28T22:40:00Z",
                 "parent": "http://www.wikidata.org/entity/Q330813",
                 "parentLabel": "Xocavənd rayonu"
             }
@@ -20713,9 +20705,9 @@
                 "itemAltLabel": "Holy Mother of God Church, Surb Astvatsatsin Church",
                 "itemDescription": "church",
                 "itemLabel": "Əskipara monastırı",
-                "lastModified": "2026-02-07T17:13:49Z",
-                "parent": "http://www.wikidata.org/entity/Q33803",
-                "parentLabel": "Əskipara"
+                "lastModified": "2026-09-29T14:10:09Z",
+                "parent": "http://www.wikidata.org/entity/Q389381",
+                "parentLabel": "Qazax rayonu"
             }
         },
         {
@@ -23312,7 +23304,7 @@
                 "item": "http://www.wikidata.org/entity/Q16414261",
                 "itemDescription": "ice house in Nakhchivan Autonomous Republic, Azerbaijan",
                 "itemLabel": "Ordubad buzxanası",
-                "lastModified": "2026-09-11T08:32:50Z",
+                "lastModified": "2026-09-30T10:30:06Z",
                 "parent": "http://www.wikidata.org/entity/Q1000839",
                 "parentLabel": "Ordubad"
             }
@@ -23494,9 +23486,9 @@
                 "itemAltLabel": "Əliağa Vahid parkı",
                 "itemDescription": "Bakıda park",
                 "itemLabel": "Əliağa Vahid bağı",
-                "lastModified": "2026-09-11T20:10:37Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:47Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -24463,9 +24455,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657774",
                 "itemLabel": "Xan bağı",
-                "lastModified": "2026-07-25T23:37:57Z",
-                "parent": "http://www.wikidata.org/entity/Q1965248",
-                "parentLabel": "Nardaran"
+                "lastModified": "2026-09-29T14:06:55Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -24703,9 +24695,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657797",
                 "itemLabel": "Şah ovdanı",
-                "lastModified": "2026-07-25T22:47:05Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:38Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -24718,9 +24710,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657799",
                 "itemLabel": "Yeraltı tikililər (su anbarı və yeraltı yol)",
-                "lastModified": "2026-07-26T02:15:20Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:37Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -24733,9 +24725,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657800",
                 "itemLabel": "Su kəməri",
-                "lastModified": "2026-07-25T22:29:36Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:39Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -24748,9 +24740,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657802",
                 "itemLabel": "Məscid və məscid həyəti",
-                "lastModified": "2026-07-25T23:07:31Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:39Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -24763,9 +24755,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657803",
                 "itemLabel": "Üçotaqlı yeraltı tikili",
-                "lastModified": "2026-07-25T22:29:51Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:40Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -24794,9 +24786,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657805",
                 "itemLabel": "Yaşayış yerinin tikinti qalıqları",
-                "lastModified": "2026-07-26T01:42:51Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:42Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -24809,9 +24801,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657807",
                 "itemLabel": "Qoşa məqbərə qalıqları",
-                "lastModified": "2026-07-26T02:27:48Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:42Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -24824,9 +24816,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657809",
                 "itemLabel": "Kəhriz sisteminin qalıqları",
-                "lastModified": "2026-07-25T22:59:57Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:44Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -24839,9 +24831,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657811",
                 "itemLabel": "Karvansara qalıqları",
-                "lastModified": "2026-07-25T22:29:52Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:43Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -25410,9 +25402,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657877",
                 "itemLabel": "Qaya yalaqları",
-                "lastModified": "2026-07-26T00:02:39Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:08Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -25425,9 +25417,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657879",
                 "itemLabel": "1 nömrəli ovdan",
-                "lastModified": "2026-07-25T22:47:25Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:08Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -25440,9 +25432,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657880",
                 "itemLabel": "2 nömrəli ovdan",
-                "lastModified": "2026-07-25T22:47:26Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:10Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -25455,9 +25447,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657881",
                 "itemLabel": "Ovdan",
-                "lastModified": "2026-07-25T22:47:27Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:15Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -25485,9 +25477,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657882",
                 "itemLabel": "Şor hamamı",
-                "lastModified": "2026-07-25T22:38:00Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:09Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -25702,9 +25694,9 @@
                 "item": "http://www.wikidata.org/entity/Q96354642",
                 "itemDescription": "Şirvanşah əmiri Xacə Zeynəddinin göstərişi ilə XIV əsrdə Balaxanı qəsəbəsində tikilmiş ovdan.",
                 "itemLabel": "Balaxanı ovdanı",
-                "lastModified": "2025-07-09T09:17:00Z",
-                "parent": "http://www.wikidata.org/entity/Q2081104",
-                "parentLabel": "Balaxanı"
+                "lastModified": "2026-09-29T14:06:59Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -34077,15 +34069,19 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.707564639,
+                    40.653199024
+                ]
+            },
             "properties": {
                 "addressLabel": "II-ci Ərəbcəbirli kəndi",
-                "inventory": [
-                    "1074"
-                ],
+                "inventory": "1074",
                 "item": "http://www.wikidata.org/entity/Q140665052",
-                "itemLabel": "Qəbiristanlıq",
-                "lastModified": "2026-09-06T01:40:54Z",
+                "itemLabel": "İkinci Ərəbcəbirli kənd qəbiristanlığı",
+                "lastModified": "2026-09-29T13:02:43Z",
                 "parent": "http://www.wikidata.org/entity/Q477163",
                 "parentLabel": "Göyçay rayonu"
             }
@@ -50393,15 +50389,19 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.835456585,
+                    40.36588997
+                ]
+            },
             "properties": {
                 "addressLabel": "Böyük Qala küçəsi, 17",
-                "inventory": [
-                    "2131"
-                ],
+                "inventory": "2131",
                 "item": "http://www.wikidata.org/entity/Q140660214",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-09-06T01:26:56Z",
+                "lastModified": "2026-10-01T06:14:13Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -50485,7 +50485,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660219",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-09-09T12:58:41Z",
+                "lastModified": "2026-09-30T20:02:31Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -50642,12 +50642,10 @@
                 "commonsCategory": "Building on Boyuk Qala Street 38",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Boyuk_Qala_Street_38",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Boyuk%20Qala%20Street%2038.jpg",
-                "inventory": [
-                    "2150"
-                ],
+                "inventory": "2150",
                 "item": "http://www.wikidata.org/entity/Q140660229",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-09-09T13:05:33Z",
+                "lastModified": "2026-09-30T20:03:08Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -51098,15 +51096,19 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834705411,
+                    40.364205356
+                ]
+            },
             "properties": {
                 "addressLabel": "V.Məmmədov küçəsi, 7",
-                "inventory": [
-                    "2191"
-                ],
+                "inventory": "2191",
                 "item": "http://www.wikidata.org/entity/Q140660265",
-                "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-09-06T01:28:46Z",
+                "itemLabel": "Q140660265",
+                "lastModified": "2026-10-01T06:02:43Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -56664,9 +56666,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660646",
                 "itemLabel": "Kənd təsərrüfatı məhsullarının saxlanması üçün anbar və digər tikililər-Samanlıq",
-                "lastModified": "2026-07-25T22:37:05Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:11Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56679,9 +56681,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660647",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:06Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:17Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56694,9 +56696,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660648",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:07Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:23Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56709,9 +56711,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660649",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:13Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:23Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56724,9 +56726,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660650",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:14Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:21Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56739,9 +56741,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660651",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:16Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:22Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56754,9 +56756,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660652",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:17Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:25Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56769,9 +56771,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660653",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:18Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:26Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56784,9 +56786,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660654",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:24Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:24Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56799,9 +56801,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660655",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:25Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:24Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56814,9 +56816,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660656",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:26Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:28Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56829,9 +56831,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660657",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:28Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:29Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56844,9 +56846,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660658",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:29Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:27Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56859,9 +56861,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660659",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:30Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:28Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56874,9 +56876,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660660",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:31Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:31Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56889,9 +56891,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660661",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:34Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:32Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56904,9 +56906,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660662",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:32Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:30Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56919,9 +56921,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660663",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:33Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:31Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56934,9 +56936,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660664",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:35Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:34Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56949,9 +56951,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660666",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:36Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:33Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56964,9 +56966,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660667",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:37Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:34Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56979,9 +56981,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660669",
                 "itemLabel": "Samanlıq",
-                "lastModified": "2026-07-25T22:37:39Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:35Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -56994,9 +56996,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660671",
                 "itemLabel": "Tövlə və xalxallar-Tövlə",
-                "lastModified": "2026-07-26T02:15:00Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:12Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57069,9 +57071,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660672",
                 "itemLabel": "Həyət-bacalı yaşayış evləri-yaşayış evi",
-                "lastModified": "2026-07-26T00:33:59Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:12Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57084,9 +57086,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660673",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:05Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:09Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57099,9 +57101,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660674",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:07Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:07Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57114,9 +57116,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660675",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:13Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:08Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57129,9 +57131,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660676",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:25Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:11Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57144,9 +57146,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660677",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:26Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:12Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57159,9 +57161,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660678",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:27Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:10Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57174,9 +57176,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660680",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:28Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:15Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57189,9 +57191,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660681",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:29Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:16Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57204,9 +57206,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660682",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:35Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:14Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57219,9 +57221,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660683",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:36Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:15Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57234,9 +57236,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660684",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:37Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:19Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57249,9 +57251,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660685",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:39Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:20Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57264,9 +57266,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660686",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:40Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:17Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57279,9 +57281,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660687",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:41Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:18Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57294,9 +57296,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660688",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:42Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:22Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57309,9 +57311,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660690",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:43Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:20Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57324,9 +57326,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660691",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:44Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:21Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57339,9 +57341,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660692",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:45Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:23Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57354,9 +57356,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660693",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:51Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:24Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57369,9 +57371,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660694",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:58Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:22Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57384,9 +57386,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660696",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:34:59Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:26Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57399,9 +57401,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660697",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:00Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:27Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57414,9 +57416,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660698",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:01Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:25Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57429,9 +57431,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660699",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:02Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:25Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57444,9 +57446,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660700",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:08Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:29Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57459,9 +57461,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660701",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:10Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:30Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57474,9 +57476,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660702",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:16Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:28Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57489,9 +57491,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660703",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:27Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:28Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57504,9 +57506,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660704",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:28Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:32Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57519,9 +57521,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660705",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:29Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:33Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57534,9 +57536,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660706",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:30Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:30Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57549,9 +57551,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660707",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:31Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:31Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57564,9 +57566,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660709",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:38Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:34Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57579,9 +57581,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660711",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:39Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:33Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57594,9 +57596,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660712",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:40Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:36Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57609,9 +57611,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660713",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:41Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:37Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57624,9 +57626,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660714",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:43Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:34Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57639,9 +57641,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660715",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:44Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:35Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57654,9 +57656,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660716",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:45Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:39Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57669,9 +57671,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660718",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:46Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:38Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57684,9 +57686,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660719",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:47Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:38Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57699,9 +57701,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660720",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:53Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:41Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57714,9 +57716,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660721",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:35:54Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:42Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57729,9 +57731,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660722",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:01Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:40Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57744,9 +57746,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660723",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:02Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:55:40Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57759,9 +57761,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660725",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:03Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:16Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57774,9 +57776,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660726",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:04Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:15Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57789,9 +57791,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660727",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:05Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:16Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57804,9 +57806,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660729",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:11Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:18Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57819,9 +57821,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660730",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:12Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:17Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57834,9 +57836,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660731",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:19Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:18Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57849,9 +57851,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660732",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:30Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:21Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57864,9 +57866,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660733",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:31Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:21Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57879,9 +57881,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660734",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:32Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:19Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57894,9 +57896,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660735",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:33Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:20Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57909,9 +57911,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660736",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:40Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:23Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57924,9 +57926,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660737",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:41Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:24Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57939,9 +57941,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660738",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:42Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:22Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57954,9 +57956,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660739",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:43Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:22Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57969,9 +57971,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660740",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:44Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:26Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57984,9 +57986,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660742",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:45Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:24Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -57999,9 +58001,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660743",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:47Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:25Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58014,9 +58016,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660744",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:48Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:27Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58029,9 +58031,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660745",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:49Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:28Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58044,9 +58046,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660746",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:50Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:27Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58059,9 +58061,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660747",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:36:56Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:46Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58074,9 +58076,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660750",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:03Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:46Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58089,9 +58091,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660751",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:04Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:47Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58104,9 +58106,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660753",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:05Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:49Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58119,9 +58121,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660754",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:06Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:48Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58134,9 +58136,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660755",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:07Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:49Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58149,9 +58151,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660756",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:08Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:51Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58164,9 +58166,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660758",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:15Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:50Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58179,9 +58181,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660759",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:21Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:51Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58194,9 +58196,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660760",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:22Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:53Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58209,9 +58211,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660761",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:33Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:53Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58224,9 +58226,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660763",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:34Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:52Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58254,9 +58256,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660764",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:35Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:54Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58269,9 +58271,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660765",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:36Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:55Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58284,9 +58286,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660767",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:43Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:54Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58299,9 +58301,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660768",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:44Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:57Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58314,9 +58316,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660769",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:45Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:58Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58329,9 +58331,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660770",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:46Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:56Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58344,9 +58346,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660771",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:47Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:56Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58359,9 +58361,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660773",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:48Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:00Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58374,9 +58376,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660774",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:49Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:58Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58389,9 +58391,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660775",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:50Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:51:59Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58404,9 +58406,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660776",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:52Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:01Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58419,9 +58421,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660777",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:53Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:02Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58434,9 +58436,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660778",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:37:59Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:00Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58449,9 +58451,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660779",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:05Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:01Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58464,9 +58466,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660780",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:06Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:03Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58479,9 +58481,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660781",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:08Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:04Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58494,9 +58496,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660782",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:07Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:03Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58509,9 +58511,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660785",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:09Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:06Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58524,9 +58526,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660786",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:11Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:05Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58539,9 +58541,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660787",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:17Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:06Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58554,9 +58556,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660788",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:23Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:08Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58569,9 +58571,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660789",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:24Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:09Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58584,9 +58586,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660790",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:36Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:07Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58599,9 +58601,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660796",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:37Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:11Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58614,9 +58616,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660797",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:38Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:12Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58629,9 +58631,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660799",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:39Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:10Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58644,9 +58646,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660800",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:45Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:14Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58659,9 +58661,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660801",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:46Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:15Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58674,9 +58676,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660802",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:49Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:12Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58689,9 +58691,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660803",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:50Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:13Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58704,9 +58706,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660804",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:54Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:16Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58719,9 +58721,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660805",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:55Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:16Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58734,9 +58736,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660807",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:56Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:15Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58749,9 +58751,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660808",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:38:57Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:50Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58764,9 +58766,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660809",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:04Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:51Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58779,9 +58781,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660810",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:05Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:48Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58794,9 +58796,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660811",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:06Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:49Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58809,9 +58811,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660812",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:07Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:52Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58824,9 +58826,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660813",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:12Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:53Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58839,9 +58841,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660814",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:13Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:52Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58854,9 +58856,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660816",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:14Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:54Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58869,9 +58871,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660817",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:15Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:55Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58884,9 +58886,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660820",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:23Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:55Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58899,9 +58901,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660821",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:26Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:56Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58914,9 +58916,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660824",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:27Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:58Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58929,9 +58931,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660827",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:39Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:57Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58944,9 +58946,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660829",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:50Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:00Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58959,9 +58961,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660830",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:52Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:52:59Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58974,9 +58976,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660833",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:53Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:00Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -58989,9 +58991,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660838",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:54Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:01Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59004,9 +59006,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660841",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:55Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:02Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59019,9 +59021,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660843",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:56Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:02Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59034,9 +59036,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660845",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:58Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:04Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59049,9 +59051,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660847",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:39:59Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:03Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59064,9 +59066,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660850",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:00Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:04Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59079,9 +59081,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660853",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:02Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:06Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59094,9 +59096,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660855",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:03Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:05Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59109,9 +59111,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660856",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:04Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:08Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59124,9 +59126,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660857",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:05Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:08Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59139,9 +59141,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660858",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:06Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:06Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59154,9 +59156,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660859",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:07Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:07Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59169,9 +59171,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660860",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:08Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:13Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59184,9 +59186,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660861",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:14Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:14Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59199,9 +59201,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660862",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:15Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:10Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59214,9 +59216,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660863",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:17Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:11Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59229,9 +59231,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660864",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:18Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:15Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59244,9 +59246,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660867",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:24Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:14Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59259,9 +59261,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660868",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:30Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:17Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59274,9 +59276,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660869",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:31Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:17Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59289,9 +59291,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660870",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:43Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:16Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59304,9 +59306,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660872",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:54Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:20Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59319,9 +59321,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660873",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:56Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:21Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59334,9 +59336,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660874",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:57Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:18Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59349,9 +59351,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660876",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:58Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:23Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59364,9 +59366,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660877",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:40:59Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:24Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59379,9 +59381,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660878",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:00Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:22Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59394,9 +59396,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660879",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:01Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:22Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59409,9 +59411,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660881",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:02Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:57Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59424,9 +59426,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660883",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:03Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:24Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59439,9 +59441,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660885",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:04Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:58Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59454,9 +59456,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660886",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:05Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:58Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59469,9 +59471,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660888",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:06Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:00Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59484,9 +59486,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660889",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:07Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:00Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59499,9 +59501,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660891",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:09Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:53:59Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59514,9 +59516,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660892",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:10Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:03Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59529,9 +59531,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660893",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:16Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:04Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59544,9 +59546,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660894",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:17Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:01Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59559,9 +59561,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660895",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:18Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:54:02Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59574,9 +59576,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660896",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:19Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:31Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59604,9 +59606,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660897",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:26Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:32Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59619,9 +59621,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660898",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:32Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:30Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59634,9 +59636,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660899",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T00:41:33Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:30Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -59649,9 +59651,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660901",
                 "itemLabel": "Sərdabələr kompleksi-Sərdabə",
-                "lastModified": "2026-07-25T22:48:03Z",
-                "parent": "http://www.wikidata.org/entity/Q19715196",
-                "parentLabel": "Qala Dövlət Tarix Etnoqrafya Qoruğu"
+                "lastModified": "2026-09-29T13:56:29Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
@@ -64359,9 +64361,9 @@
                 "itemAltLabel": "Soltan Əli məscidi, Hacı Manaf məscidi",
                 "itemDescription": "Kürdəxanıda, Ləhiş bağlarında məscid",
                 "itemLabel": "Bağ məscidi",
-                "lastModified": "2026-09-02T14:56:10Z",
-                "parent": "http://www.wikidata.org/entity/Q4026908",
-                "parentLabel": "Kürdəxanı"
+                "lastModified": "2026-09-29T14:06:57Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -64399,9 +64401,9 @@
                 "item": "http://www.wikidata.org/entity/Q135005845",
                 "itemDescription": "Kürdəxanıda hamam",
                 "itemLabel": "Hacı Zeynal hamamı",
-                "lastModified": "2025-06-22T00:09:38Z",
-                "parent": "http://www.wikidata.org/entity/Q4026908",
-                "parentLabel": "Kürdəxanı"
+                "lastModified": "2026-09-29T14:07:01Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -64437,9 +64439,9 @@
                 "item": "http://www.wikidata.org/entity/Q135005738",
                 "itemDescription": "Kürdəxanıda hamam",
                 "itemLabel": "Aşağı hamam",
-                "lastModified": "2026-02-07T15:34:00Z",
-                "parent": "http://www.wikidata.org/entity/Q4026908",
-                "parentLabel": "Kürdəxanı"
+                "lastModified": "2026-09-29T14:07:00Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -64495,9 +64497,9 @@
                 "item": "http://www.wikidata.org/entity/Q110101196",
                 "itemDescription": "Maştağada hamam",
                 "itemLabel": "Şamxal hamamı",
-                "lastModified": "2026-02-19T22:04:27Z",
-                "parent": "http://www.wikidata.org/entity/Q4026905",
-                "parentLabel": "Maştağa"
+                "lastModified": "2026-09-29T14:06:58Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -64888,9 +64890,9 @@
                 "item": "http://www.wikidata.org/entity/Q60231854",
                 "itemDescription": "building in Sabunchu district, Azerbaijan",
                 "itemLabel": "Hacı Əbu-Salam hamamı",
-                "lastModified": "2025-06-21T23:49:51Z",
-                "parent": "http://www.wikidata.org/entity/Q4363507",
-                "parentLabel": "Pirşağı"
+                "lastModified": "2026-09-29T14:07:01Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -64913,9 +64915,9 @@
                 "item": "http://www.wikidata.org/entity/Q56633670",
                 "itemDescription": "Pirşağıda yerləşən hamam",
                 "itemLabel": "Hacı Şahverdi hamamı",
-                "lastModified": "2026-03-09T22:00:59Z",
-                "parent": "http://www.wikidata.org/entity/Q4363507",
-                "parentLabel": "Pirşağı"
+                "lastModified": "2026-09-29T14:06:54Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -65030,9 +65032,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q97302239",
                 "itemLabel": "Eldarzadənin türbəsi",
-                "lastModified": "2025-07-09T09:07:33Z",
-                "parent": "http://www.wikidata.org/entity/Q2081104",
-                "parentLabel": "Balaxanı"
+                "lastModified": "2026-09-29T14:06:56Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -65055,9 +65057,9 @@
                 "item": "http://www.wikidata.org/entity/Q55700594",
                 "itemDescription": "Balaxanıda yerləşən karvansaray",
                 "itemLabel": "Şah Səfi karvansarası",
-                "lastModified": "2026-06-19T13:38:30Z",
-                "parent": "http://www.wikidata.org/entity/Q2081104",
-                "parentLabel": "Balaxanı"
+                "lastModified": "2026-09-29T14:06:54Z",
+                "parent": "http://www.wikidata.org/entity/Q2210210",
+                "parentLabel": "Sabunçu rayonu"
             }
         },
         {
@@ -71696,7 +71698,7 @@
                 "itemAltLabel": "Şor hamamı",
                 "itemDescription": "Bakıda hamam",
                 "itemLabel": "12 nömrəli hamam",
-                "lastModified": "2026-09-27T14:58:50Z",
+                "lastModified": "2026-09-30T20:00:43Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -82655,7 +82657,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140662047",
                 "itemLabel": "Dəmiryolçular klubu",
-                "lastModified": "2026-07-26T02:27:34Z",
+                "lastModified": "2026-09-29T16:30:33Z",
                 "parent": "http://www.wikidata.org/entity/Q6398826",
                 "parentLabel": "Xaçmaz rayonu"
             }
@@ -86338,9 +86340,9 @@
                 "item": "http://www.wikidata.org/entity/Q31309982",
                 "itemDescription": "cultural heritage monument of Armenia",
                 "itemLabel": "Qatır körpüsü",
-                "lastModified": "2026-09-15T22:33:10Z",
-                "parent": "http://www.wikidata.org/entity/Q33803",
-                "parentLabel": "Əskipara"
+                "lastModified": "2026-09-29T14:10:17Z",
+                "parent": "http://www.wikidata.org/entity/Q389381",
+                "parentLabel": "Qazax rayonu"
             }
         },
         {
@@ -87304,7 +87306,7 @@
                 "itemAltLabel": "St George's Church, Qax İngiloy",
                 "itemDescription": "Georgian Orthodox Church in Gakh-Inguila, Qakh district, Azerbaijan",
                 "itemLabel": "Müqəddəs Georgi kilsəsi",
-                "lastModified": "2026-09-15T08:09:15Z",
+                "lastModified": "2026-09-28T22:41:14Z",
                 "parent": "http://www.wikidata.org/entity/Q4845996",
                 "parentLabel": "Qaxingiloy"
             }
@@ -89906,9 +89908,8 @@
                     "4712"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemDescription": "Qubadlıda məscid",
-                "itemLabel": "Mirlər məscidi",
-                "lastModified": "2026-07-23T15:59:55Z",
+                "itemLabel": "Məscid",
+                "lastModified": "2026-07-22T13:14:53Z",
                 "parent": "http://www.wikidata.org/entity/Q644048",
                 "parentLabel": "Qubadlı rayonu"
             }
@@ -92479,15 +92480,19 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.625565858,
+                    39.026805118
+                ]
+            },
             "properties": {
                 "addressLabel": "Ərkivan qəsəbəsi",
-                "inventory": [
-                    "4856"
-                ],
+                "inventory": "4856",
                 "item": "http://www.wikidata.org/entity/Q140665661",
                 "itemLabel": "Ərkivan qalası",
-                "lastModified": "2026-09-06T01:40:12Z",
+                "lastModified": "2026-09-29T17:06:37Z",
                 "parent": "http://www.wikidata.org/entity/Q476695",
                 "parentLabel": "Masallı rayonu"
             }
@@ -93999,9 +94004,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q20578444",
                 "itemLabel": "Hacı Rəşid körpüsü",
-                "lastModified": "2026-01-28T00:24:47Z",
-                "parent": "http://www.wikidata.org/entity/Q4809483",
-                "parentLabel": "Xaçmaz"
+                "lastModified": "2026-09-29T13:58:28Z",
+                "parent": "http://www.wikidata.org/entity/Q643989",
+                "parentLabel": "Oğuz rayonu"
             }
         },
         {
@@ -100815,20 +100820,18 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    45.403398013,
-                    39.188960767
+                    45.403231,
+                    39.189005
                 ]
             },
             "properties": {
                 "addressLabel": "Azərbaycan küçəsi",
-                "inventory": [
-                    "5294"
-                ],
+                "inventory": "5294",
                 "item": "http://www.wikidata.org/entity/Q140662728",
                 "itemAltLabel": "Naxçıvan dəmiryol vağzalı, Naxçıvan stansiyası",
                 "itemDescription": "Naxçıvanda dəmiryol stansiyası",
                 "itemLabel": "Naxçıvan dəmiryol stansiyası",
-                "lastModified": "2026-09-11T01:23:41Z",
+                "lastModified": "2026-10-03T16:19:29Z",
                 "parent": "http://www.wikidata.org/entity/Q230104",
                 "parentLabel": "Naxçıvan"
             }
@@ -105657,15 +105660,19 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.354138366,
+                    40.675987126
+                ]
+            },
             "properties": {
                 "addressLabel": "Gəncə şəhəri, Mədəniyyət və İstirahət bağında",
-                "inventory": [
-                    "5599"
-                ],
+                "inventory": "5599",
                 "item": "http://www.wikidata.org/entity/Q140665823",
                 "itemLabel": "Nigar Rəfibəylinin heykəli",
-                "lastModified": "2026-09-06T01:25:05Z",
+                "lastModified": "2026-10-01T07:05:15Z",
                 "parent": "http://www.wikidata.org/entity/Q131290",
                 "parentLabel": "Gəncə"
             }
@@ -107849,9 +107856,9 @@
                 "item": "http://www.wikidata.org/entity/Q20404595",
                 "itemDescription": "İçərişəhərdə mövcud olmuş kilsə",
                 "itemLabel": "Müqəddəs Varfolomey kilsəsi (Bakı)",
-                "lastModified": "2026-01-10T08:38:13Z",
-                "parent": "http://www.wikidata.org/entity/Q344569",
-                "parentLabel": "İçərişəhər"
+                "lastModified": "2026-09-29T13:56:48Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -108988,12 +108995,10 @@
             "geometry": null,
             "properties": {
                 "addressLabel": "Səraq kəndi",
-                "inventory": [
-                    "5778"
-                ],
+                "inventory": "5778",
                 "item": "http://www.wikidata.org/entity/Q140663211",
                 "itemLabel": "Pirəbülqasım qəbiristanlığı",
-                "lastModified": "2026-07-26T02:14:15Z",
+                "lastModified": "2026-09-29T06:12:20Z",
                 "parent": "http://www.wikidata.org/entity/Q269680",
                 "parentLabel": "Astara rayonu"
             }
@@ -111747,15 +111752,20 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.82890824,
+                    38.682762768
+                ]
+            },
             "properties": {
                 "addressLabel": "Şıxakəran kəndi",
-                "inventory": [
-                    "5951"
-                ],
+                "inventory": "5951",
                 "item": "http://www.wikidata.org/entity/Q140665905",
-                "itemLabel": "Köhnə qəbiristanlıq",
-                "lastModified": "2026-09-06T01:32:49Z",
+                "itemDescription": "Lənkəranda qəbiristanlıq",
+                "itemLabel": "Şıxəkəran köhnə qəbiristanlığı",
+                "lastModified": "2026-09-30T22:59:05Z",
                 "parent": "http://www.wikidata.org/entity/Q269986",
                 "parentLabel": "Lənkəran rayonu"
             }
@@ -111777,15 +111787,19 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.802325644,
+                    38.651821619
+                ]
+            },
             "properties": {
                 "addressLabel": "Hikan qəsəbəsi",
-                "inventory": [
-                    "5953"
-                ],
+                "inventory": "5953",
                 "item": "http://www.wikidata.org/entity/Q140665908",
-                "itemLabel": "Qəbiristanlıq",
-                "lastModified": "2026-09-06T01:32:49Z",
+                "itemLabel": "Hirkan qəbiristanlığı",
+                "lastModified": "2026-09-30T23:02:12Z",
                 "parent": "http://www.wikidata.org/entity/Q269986",
                 "parentLabel": "Lənkəran rayonu"
             }
