@@ -12,9 +12,14 @@ import {
    CAMPAIGN,
    formatMonumentCount,
    HOME_DESCRIPTION,
+   HOME_GAP_CTA,
+   HOME_GAP_HEADING,
+   HOME_GAP_NOTE,
    HOME_HEADLINE,
    HOME_INTRO,
    HOME_PRIMARY_CTA,
+   HOME_REGIONS_HEADING,
+   HOME_REGIONS_INTRO,
    HOME_SECONDARY_CTA,
    HOME_STEPS,
    HOME_STEPS_HEADING,
@@ -421,6 +426,69 @@ const buildHomeStaticContent = (data: HomeData): string => {
          "M7 17.5A4.5 4.5 0 0 1 7 8.5a5.5 5.5 0 0 1 10.5-1.6A4 4 0 0 1 17.5 17.5H7zM12 12v9m0-9l-3 3m3-3l3 3",
       ][index];
 
+   // Photo-gap panel. Mirrors the `gap` computed in Home.vue: same integers, same
+   // rounding, so the prerendered markup and the Vue render agree exactly.
+   const gap =
+      data.total > 0
+         ? {
+              total: data.total,
+              withImage: data.withImage,
+              without: Math.max(0, data.total - data.withImage),
+              percent: Math.round((data.withImage / data.total) * 1000) / 10,
+           }
+         : null;
+
+   const gapPanel =
+      gap && gap.without > 0
+         ? `<section class="border-y border-gray-200 bg-gradient-to-br from-blue-50 to-white">
+         <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <div class="grid items-center gap-8 lg:grid-cols-2">
+               <div>
+                  <h2 class="text-2xl font-bold text-gray-900">${escapeHtml(HOME_GAP_HEADING)}</h2>
+                  <p class="mt-2 text-lg text-gray-700">${formatMonumentCount(gap.without)} abidənin hələ fotoşəkili yoxdur.</p>
+                  <a href="${HOME_GAP_CTA.to}" class="mt-6 inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+                     ${escapeHtml(HOME_GAP_CTA.label)} ${icon("ml-2 h-5 w-5")}
+                  </a>
+                  <p class="mt-3 text-xs text-gray-500">${escapeHtml(HOME_GAP_NOTE)}</p>
+               </div>
+               <div>
+                  <div class="flex items-baseline justify-between text-sm text-gray-600">
+                     <span>${formatMonumentCount(gap.withImage)} fotoşəkilləndirilib</span>
+                     <span>${formatMonumentCount(gap.total)} ümumi abidə</span>
+                  </div>
+                  <div class="mt-2 h-3 w-full overflow-hidden rounded-full bg-gray-200" role="img" aria-label="${escapeHtml(`${formatMonumentCount(gap.withImage)} / ${formatMonumentCount(gap.total)} abidə çəkilib`)}">
+                     <div class="h-full rounded-full bg-green-500" style="width:${gap.percent}%"></div>
+                  </div>
+                  <div class="mt-2 text-xs text-gray-500">${gap.percent}% fotoşəkilləndirilib</div>
+               </div>
+            </div>
+         </div>
+      </section>`
+         : "";
+
+   const regions = (data.regions ?? [])
+      .map(
+         (region) => `<li>
+            <a href="/map" class="flex items-baseline justify-between gap-2 rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm transition hover:border-blue-300 hover:bg-blue-50">
+               <span class="min-w-0 truncate text-sm font-medium text-gray-800">${escapeHtml(region.label)}</span>
+               <span class="flex-none text-sm font-semibold text-gray-500">${formatMonumentCount(region.count)}</span>
+            </a>
+         </li>`,
+      )
+      .join("");
+
+   const regionsPanel = regions
+      ? `<section class="bg-white py-16">
+         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center">
+               <h2 class="text-3xl font-bold text-gray-900">${escapeHtml(HOME_REGIONS_HEADING)}</h2>
+               <p class="mt-3 text-gray-600">${escapeHtml(HOME_REGIONS_INTRO)}</p>
+            </div>
+            <ul class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">${regions}</ul>
+         </div>
+      </section>`
+      : "";
+
    const steps = HOME_STEPS.map(
       (
          step,
@@ -459,6 +527,8 @@ const buildHomeStaticContent = (data: HomeData): string => {
          </div>
       </section>
       ${campaign}
+      ${gapPanel}
+      ${regionsPanel}
       <section class="bg-white py-16">
          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-2xl text-center">

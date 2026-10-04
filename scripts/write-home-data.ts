@@ -36,7 +36,8 @@ const main = async (): Promise<void> => {
    console.log(
       `Wrote ${path.relative(process.cwd(), OUTPUT_PATH)} — ` +
          `${homeData.featured.length}/${featuredIds.length} featured, ` +
-         `${homeData.total} located (${homeData.withImage} photographed)`,
+         `${homeData.total} located (${homeData.withImage} photographed), ` +
+         `${homeData.regions.length} regions`,
    );
 };
 

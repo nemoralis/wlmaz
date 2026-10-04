@@ -22,25 +22,37 @@ export const HOME_CANONICAL = `${SITE_HOST}/`;
  * accurate without a second edit here.
  */
 export const HOME_DESCRIPTION =
-   "Viki Abidələri Sevir Azərbaycan — Azərbaycanın tarixi abidələri və mədəni irs xəritəsi. " +
-   "Abidəni xəritədə tapın, pulsuz şəkil çəkin və Wikimedia Commons-a yükləyin.";
+   "Azərbaycandakı abidələrin fotoşəkillərini toplamaq üçün yaradılmış açıq layihə. " +
+   "İştirak üçün icazə tələb olunmur və hər kəs qoşula bilər.";
 
-export const HOME_HEADLINE = "Azərbaycanın mədəni irsini sənədləşdiririk";
+export const HOME_HEADLINE = "Azərbaycanın mədəni irsini sənədləşdirək!";
 
 export const HOME_INTRO =
-   "Viki Abidələri Sevir dünyanın ən böyük fotoşəkil müsabiqəsidir. Çəkdiyiniz hər şəkil " +
-   "Wikimedia Commons-a yükləndikdə mədəni irsimiz əlçatan, pulsuz və dünya miqyasında görünür.";
+   "Azərbaycanda qeydə alınmış tarixi abidələrin böyük hissəsinin hələ şəkli yoxdur. " +
+   "Viki Abidələri Sevir layihəsinə qoşularaq bu boşluğu doldura bilərsiniz.";
+
+/**
+ * Photo-gap panel. States the deficit instead of only the total — the number
+ * of monuments a visitor could still contribute is the point of the page.
+ */
+export const HOME_GAP_HEADING = "Fotoşəkili olmayan abidələr";
+export const HOME_GAP_CTA = { label: "Şəkil çəkməyə başla", to: "/map" };
+export const HOME_GAP_NOTE = "Xəritədə filtrləyin";
+
+export const HOME_REGIONS_HEADING = "Regionlar";
+export const HOME_REGIONS_INTRO =
+   "Abidələr rayonlar üzrə paylanıb. Ən çox abidənin yerləşdiyi rayonlara nəzər salın.";
 
 export const HOME_PRIMARY_CTA = { label: "Xəritəyə bax", to: "/map" };
 
-export const HOME_SECONDARY_CTA = { label: "Daha çox məlumat", to: "/about" };
+export const HOME_SECONDARY_CTA = { label: "Layihə haqqında", to: "/about" };
 
 /** Heading above the how-to-participate steps. */
-export const HOME_STEPS_HEADING = "Necə iştirak etməli?";
+export const HOME_STEPS_HEADING = "Üç addımda başlayın";
 
 /** Sub-heading under HOME_STEPS_HEADING. */
 export const HOME_STEPS_INTRO =
-   "Üç addım. Müraciət tələb olunmur — telefon və ya kamera və Wikimedia hesabı kifayətdir.";
+   "Xəritəni açın, bir abidə seçin və Wikimedia Commons-a fotoşəkil yükləyin. Bütün abidələrin fotoşəkillərini yükləmək mümkündür.";
 
 /**
  * The three participation steps.
@@ -52,15 +64,15 @@ export const HOME_STEPS_INTRO =
 export const HOME_STEPS = [
    {
       title: "Abidəni seçin",
-      body: "Xəritədə yaxınınızdakı abidəni tapın və inventar nömrəsini qeyd edin.",
+      body: "Xəritədə rayon və ya yaxınlığa görə axtarış edin. Fotoşəkili olmayan abidələri xüsusi filtrlə göstərə bilərsiniz.",
    },
    {
-      title: "Şəkil çəkin",
-      body: "Abidənin tam və aydın şəklini çəkin; nəşqləri və ornamentlərin yaxın planını da əlavə edin.",
+      title: "Fotoşəkil çəkin",
+      body: "Abidəni müxtəlif bucaqlardan tam şəkildə çəkin və xüsusilə yazılara, kitabələrə və ornamentlərə diqqət yetirin. Yaxşı işıqlandırma və abidənin aydın göründüyü kadrlar tövsiyə olunur.",
    },
    {
       title: "Commons-a yükləyin",
-      body: "Wikimedia hesabınızla daxil olun və şəkli CC BY-SA lisenziyası ilə Wikimedia Commons-a yükləyin.",
+      body: "Fotoşəkili Wikimedia Commons-a CC BY-SA 4.0 lisenziyası ilə yükləyin. Fotoşəkil saytda avtomatik olaraq müvafiq abidənin səhifəsi ilə əlaqələndiriləcək.",
    },
 ] as const;
 
@@ -71,9 +83,9 @@ export const HOME_STEPS = [
  * few hours of timezone skew is harmless either way.
  */
 export const CAMPAIGN = {
-   title: "Wiki Loves Monuments 2026",
+   title: "Wiki Loves Monuments 2026 — Azərbaycan",
    body: "Müsabiqə 1–30 sentyabr tarixlərində keçirilir. Şəkilləri yükləmək üçün müsabiqə səhifəsinə baxın.",
-   cta: "Müsabiqə səhifəsi",
+   cta: "Ətraflı məlumat",
    href: "https://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2026_in_Azerbaijan",
    /**
     * Campaign banner disappears on this instant (2026-10-01T00:00:00Z), i.e. the

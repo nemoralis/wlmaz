@@ -24,6 +24,16 @@ export interface FeaturedMonument {
    url: string;
 }
 
+/** One region (district) promoted to the landing-page region grid. */
+export interface FeaturedRegion {
+   /** parentLabel, e.g. "Səbail rayonu". */
+   label: string;
+   /** How many located monuments the region has. */
+   count: number;
+   /** How many of those already have a photo. */
+   withImage: number;
+}
+
 /** Everything the landing page needs, injected as `#home-data` at build time. */
 export interface HomeData {
    /** Ordered collage slots: first entry is the large hero image. */
@@ -32,6 +42,8 @@ export interface HomeData {
    total: number;
    /** How many of those already have a photo. */
    withImage: number;
+   /** Busiest regions, most monuments first. */
+   regions: FeaturedRegion[];
 }
 
 /**
@@ -51,6 +63,9 @@ export interface HomeFeature {
 
 const asString = (value: unknown): string => (typeof value === "string" ? value.trim() : "");
 
+/** How many regions the landing-page grid shows. */
+export const DEFAULT_REGION_LIMIT = 12;
+
 /** Canonical inventory id (first comma-separated part). */
 const canonicalId = (properties: HomeFeature["properties"]): string =>
    asString(properties.inventory).split(",")[0].trim();
@@ -67,20 +82,40 @@ const canonicalId = (properties: HomeFeature["properties"]): string =>
 export const resolveHomeData = (
    features: Iterable<HomeFeature>,
    ids: readonly string[],
-   { strict = false }: { strict?: boolean } = {},
+   {
+      strict = false,
+      regionLimit = DEFAULT_REGION_LIMIT,
+   }: { strict?: boolean; regionLimit?: number } = {},
 ): HomeData => {
    const byId = new Map<string, HomeFeature>();
+   const regionTotals = new Map<string, { count: number; withImage: number }>();
    let total = 0;
    let withImage = 0;
 
    for (const feature of features) {
       if (!feature.geometry) continue;
       total++;
+
+      const region = asString(feature.properties.parentLabel);
+      if (region) {
+         const bucket = regionTotals.get(region) ?? { count: 0, withImage: 0 };
+         bucket.count++;
+         if (asString(feature.properties.image)) bucket.withImage++;
+         regionTotals.set(region, bucket);
+      }
+
       if (asString(feature.properties.image)) withImage++;
 
       const id = canonicalId(feature.properties);
       if (id && !byId.has(id)) byId.set(id, feature);
    }
+
+   // Busiest regions first; ties broken alphabetically so the landing page is
+   // byte-stable across rebuilds when two regions hold the same count.
+   const regions: FeaturedRegion[] = [...regionTotals.entries()]
+      .map(([label, bucket]) => ({ label, count: bucket.count, withImage: bucket.withImage }))
+      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "az"))
+      .slice(0, regionLimit);
 
    const featured: FeaturedMonument[] = [];
    for (const rawId of ids) {
@@ -113,5 +148,5 @@ export const resolveHomeData = (
       });
    }
 
-   return { featured, total, withImage };
+   return { featured, total, withImage, regions };
 };

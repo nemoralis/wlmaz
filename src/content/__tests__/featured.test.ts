@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { resolveHomeData, type HomeFeature } from "@/content/featured.ts";
+import { DEFAULT_REGION_LIMIT, resolveHomeData, type HomeFeature } from "@/content/featured.ts";
 
 const feature = (
    inventory: string,
@@ -107,5 +107,63 @@ describe("resolveHomeData", () => {
 
       expect(data.featured).toEqual([]);
       expect(data.total).toBe(1);
+   });
+
+   describe("regions", () => {
+      it("ranks regions by monument count and splits out the photographed ones", () => {
+         const data = resolveHomeData(
+            [
+               feature("1", { parentLabel: "Bakı" }),
+               feature("2", { parentLabel: "Bakı", image: null }),
+               feature("3", { parentLabel: "Şəki" }),
+               feature("4", { parentLabel: "Gəncə" }),
+               feature("5", { parentLabel: "Quba", image: null }),
+            ],
+            [],
+         );
+
+         expect(data.regions).toEqual([
+            { label: "Bakı", count: 2, withImage: 1 },
+            { label: "Gəncə", count: 1, withImage: 1 },
+            { label: "Quba", count: 1, withImage: 0 },
+            { label: "Şəki", count: 1, withImage: 1 },
+         ]);
+      });
+
+      it("breaks count ties alphabetically so rebuilds stay byte-stable", () => {
+         const regions = (labels: string[]) =>
+            resolveHomeData(
+               labels.map((parentLabel, index) => feature(String(index), { parentLabel })),
+               [],
+            ).regions;
+
+         // Same multiset, opposite input order — the ranking must not depend on it.
+         expect(regions(["Zaqa rayonu", "Bakı", "Ağstafa rayonu"])).toEqual(
+            regions(["Ağstafa rayonu", "Zaqa rayonu", "Bakı"]),
+         );
+      });
+
+      it("caps the grid and honours an explicit limit", () => {
+         const many = Array.from({ length: 30 }, (_, index) =>
+            feature(String(index), { parentLabel: `R${index}` }),
+         );
+
+         expect(resolveHomeData(many, []).regions).toHaveLength(DEFAULT_REGION_LIMIT);
+         expect(resolveHomeData(many, [], { regionLimit: 4 }).regions).toHaveLength(4);
+      });
+
+      it("skips coordinate-less features and features with no region label", () => {
+         const data = resolveHomeData(
+            [
+               feature("1", { parentLabel: "Bakı" }),
+               feature("2", { parentLabel: "Bakı", coordinates: null }),
+               feature("3", { parentLabel: "" }),
+            ],
+            [],
+         );
+
+         expect(data.total).toBe(2);
+         expect(data.regions).toEqual([{ label: "Bakı", count: 1, withImage: 1 }]);
+      });
    });
 });

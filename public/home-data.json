@@ -29,6 +29,68 @@
       "url": "/monument/167"
     }
   ],
-  "total": 1322,
-  "withImage": 755
+  "total": 1321,
+  "withImage": 755,
+  "regions": [
+    {
+      "label": "Səbail rayonu",
+      "count": 170,
+      "withImage": 130
+    },
+    {
+      "label": "Bakı",
+      "count": 95,
+      "withImage": 88
+    },
+    {
+      "label": "Nəsimi rayonu",
+      "count": 78,
+      "withImage": 43
+    },
+    {
+      "label": "Yasamal rayonu",
+      "count": 58,
+      "withImage": 49
+    },
+    {
+      "label": "Şəki",
+      "count": 45,
+      "withImage": 41
+    },
+    {
+      "label": "Qazax rayonu",
+      "count": 44,
+      "withImage": 9
+    },
+    {
+      "label": "Tovuz rayonu",
+      "count": 38,
+      "withImage": 0
+    },
+    {
+      "label": "Laçın rayonu",
+      "count": 28,
+      "withImage": 4
+    },
+    {
+      "label": "Gəncə",
+      "count": 26,
+      "withImage": 23
+    },
+    {
+      "label": "Sabunçu rayonu",
+      "count": 26,
+      "withImage": 18
+    },
+    {
+      "label": "Ağstafa rayonu",
+      "count": 24,
+      "withImage": 1
+    },
+    {
+      "label": "Quba rayonu",
+      "count": 24,
+      "withImage": 19
+    }
+  ]
 }

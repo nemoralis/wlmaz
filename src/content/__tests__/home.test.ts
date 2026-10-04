@@ -4,7 +4,13 @@ import {
    formatMonumentCount,
    HOME_CANONICAL,
    HOME_DESCRIPTION,
+   HOME_GAP_CTA,
+   HOME_GAP_HEADING,
+   HOME_GAP_NOTE,
+   HOME_INTRO,
    HOME_PRIMARY_CTA,
+   HOME_REGIONS_HEADING,
+   HOME_REGIONS_INTRO,
    HOME_SECONDARY_CTA,
    HOME_STEPS,
    HOME_STEPS_HEADING,
@@ -46,7 +52,7 @@ describe("how-to-participate steps", () => {
    it("keeps the heading and intro as shared copy for both render paths", () => {
       // These live in the content module precisely so Home.vue and
       // scripts/prerender.ts cannot drift; both import them.
-      expect(HOME_STEPS_HEADING).toBe("Necə iştirak etməli?");
+      expect(HOME_STEPS_HEADING).toBe("Üç addımda başlayın");
       expect(HOME_STEPS_INTRO.length).toBeGreaterThan(20);
    });
 });
@@ -68,7 +74,44 @@ describe("landing page copy", () => {
       expect(HOME_DESCRIPTION.length).toBeGreaterThan(50);
    });
 
+   it("does not reuse the Turkish campaign's stock phrasing", () => {
+      // The landing page previously carried near-verbatim translations of the
+      // wording on vikianitlariseviyor.toolforge.org (the Turkish Wiki Loves
+      // Monuments site). These phrasings must not creep back in.
+      const copy = [HOME_INTRO, HOME_STEPS_HEADING, HOME_STEPS_INTRO]
+         .concat(HOME_STEPS.map((step) => `${step.title} ${step.body}`))
+         .join(" ");
+
+      for (const borrowed of [
+         "dünyanın ən böyük",
+         "Üç addım. Müraciət tələb olunmur",
+         "Necə iştirak etməli",
+      ]) {
+         expect(copy).not.toContain(borrowed);
+      }
+   });
+
    it("links the 2026 campaign to its Commons page", () => {
       expect(CAMPAIGN.href).toMatch(/^https:\/\/commons\.wikimedia\.org\/wiki\/Commons:Wiki_Loves/);
+   });
+});
+
+describe("photo-gap panel", () => {
+   it("leads with the deficit rather than the total", () => {
+      // The panel's whole point: the number a visitor could still contribute to.
+      expect(HOME_GAP_HEADING.length).toBeGreaterThan(0);
+      expect(HOME_GAP_NOTE.length).toBeGreaterThan(0);
+   });
+
+   it("sends the gap CTA to the map", () => {
+      expect(HOME_GAP_CTA.to).toBe("/map");
+   });
+
+   it("keeps heading and CTA as shared copy for both render paths", () => {
+      // Mirrors HOME_STEPS_HEADING: Home.vue and scripts/prerender.ts both
+      // import these, so the two render paths cannot disagree on wording.
+      expect(HOME_GAP_HEADING).toBe("Çəkilməyən abidələr");
+      expect(HOME_REGIONS_HEADING.length).toBeGreaterThan(0);
+      expect(HOME_REGIONS_INTRO.length).toBeGreaterThan(20);
    });
 });

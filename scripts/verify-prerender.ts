@@ -1,7 +1,15 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
-import { HOME_DESCRIPTION, HOME_STEPS, HOME_STEPS_HEADING } from "../src/content/home";
+import {
+   HOME_DESCRIPTION,
+   HOME_GAP_HEADING,
+   HOME_INTRO,
+   HOME_REGIONS_HEADING,
+   HOME_STEPS,
+   HOME_STEPS_HEADING,
+   HOME_STEPS_INTRO,
+} from "../src/content/home";
 import { SITE_HOST } from "../src/utils/constants";
 import {
    encodeIdForUrl,
@@ -232,10 +240,30 @@ const checkHomeBody = (html: string): void => {
       fail(`${label}: missing the participation heading ${HOME_STEPS_HEADING}`);
    }
 
+   if (!html.includes(HOME_STEPS_INTRO)) {
+      fail(`${label}: missing the steps intro`);
+   }
+
+   // The hero intro is prose and is the easiest string to accidentally leave
+   // untranslated from the Turkish reference site, so pin it too.
+   if (!html.includes(HOME_INTRO)) {
+      fail(`${label}: missing the hero intro`);
+   }
+
    for (const step of HOME_STEPS) {
       if (!html.includes(step.title)) {
          fail(`${label}: missing step title ${step.title}`);
       }
+   }
+
+   // The photo-gap panel and region grid are the two sections added after the
+   // initial landing page; both must survive into the prerendered markup.
+   if (!html.includes(HOME_GAP_HEADING)) {
+      fail(`${label}: missing the photo-gap heading ${HOME_GAP_HEADING}`);
+   }
+
+   if (!html.includes(HOME_REGIONS_HEADING)) {
+      fail(`${label}: missing the regions heading ${HOME_REGIONS_HEADING}`);
    }
 
    // The step CTA was dropped as a duplicate of the hero's primary CTA; it must
