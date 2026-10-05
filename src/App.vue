@@ -256,6 +256,39 @@
       >
          <router-view />
       </main>
+
+      <!-- Persistent legal footer.
+           WMCS ToU §7.3.1 requires the Privacy Statement to be conspicuously
+           linked from the homepage and §9.1 requires the End User Terms of Use
+           to be conspicuously linked from it. A link that only exists on one
+           page is not conspicuous, so this sits in the shell: `#app` is
+           `h-dvh overflow-hidden` and `<main>` is `flex-1 overflow-y-auto`, so a
+           `flex-none` sibling is pinned to the bottom of the viewport on every
+           page, including the full-bleed map. It costs ~32px of map viewport. -->
+      <footer
+         role="contentinfo"
+         class="flex flex-none flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-gray-200 bg-white px-4 py-2 text-xs text-gray-500"
+      >
+         <p class="flex items-center gap-1.5">
+            <font-awesome-icon :icon="['fas', 'server']" class="text-gray-400" aria-hidden="true" />
+            Wikimedia Cloud Services-də yerləşdirilib
+         </p>
+         <nav aria-label="Hüquqi linklər" class="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <component
+               :is="link.external ? 'a' : 'router-link'"
+               v-for="link in PRIVACY_FOOTER_LINKS"
+               :key="link.to"
+               :to="link.to"
+               :href="link.external ? link.to : undefined"
+               :target="link.external ? '_blank' : undefined"
+               :rel="link.external ? 'noopener' : undefined"
+               class="underline-offset-2 transition-colors hover:text-[#3366cc] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            >
+               {{ link.label }}
+               <span lang="en" class="sr-only"> — {{ link.labelEn }}</span>
+            </component>
+         </nav>
+      </footer>
    </div>
 </template>
 
@@ -263,6 +296,7 @@
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { CdxIcon } from "@wikimedia/codex";
 import { cdxIconLogoWikimediaCommons } from "@wikimedia/codex-icons";
+import { PRIVACY_FOOTER_LINKS } from "@/content/privacy.ts";
 import { useAuthStore } from "@/stores/auth.ts";
 
 const auth = useAuthStore();

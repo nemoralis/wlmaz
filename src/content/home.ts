@@ -36,7 +36,6 @@ export const HOME_INTRO =
  */
 export const HOME_GAP_HEADING = "Fotoşəkili olmayan abidələr";
 export const HOME_GAP_CTA = { label: "Şəkil çəkməyə başla", to: "/map" };
-export const HOME_GAP_NOTE = "Xəritədə filtrləyin";
 
 export const HOME_REGIONS_HEADING = "Regionlar";
 export const HOME_REGIONS_INTRO =

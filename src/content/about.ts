@@ -204,7 +204,7 @@ export const ABOUT_LICENSES = [
 ] as const;
 
 export const ABOUT_LICENSES_FOOTER =
-   "Saytın mənbə kodu MIT lisenziyası ilə, abidə məlumatları isə Wikidatada CC0 " +
+   "Saytın mənbə kodu GNU GPL v3 lisenziyası ilə, abidə məlumatları isə Wikidatada CC0 " +
    "lisenziyası ilə yayımlanır.";
 
 export const ABOUT_AUTHOR = { name: "Nəriman", href: "https://neriman.me" };

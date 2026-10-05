@@ -17,6 +17,13 @@ const routes: Array<RouteRecordRaw> = [
       component: () => import("../pages/About.vue"),
    },
    {
+      // WMCS ToU §7.3.2: projects collecting Wikimedia Usernames must publish
+      // a Privacy Statement. Linked conspicuously from the footer strip in App.vue.
+      path: "/privacy",
+      name: "Privacy",
+      component: () => import("../pages/PrivacyPage.vue"),
+   },
+   {
       path: "/stats",
       name: "Stats",
       component: () => import("../pages/StatsPage.vue"),

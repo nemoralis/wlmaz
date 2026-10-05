@@ -2,7 +2,7 @@
 
 # Wiki Loves Monuments Azerbaijan - Interactive Map
 
-![GitHub License](https://img.shields.io/github/license/nemoralis/wlmaz)
+![License: GPL-3.0](https://img.shields.io/badge/license-GPLv3-blue.svg)
 ![Contributors](https://img.shields.io/github/contributors/nemoralis/wlmaz?color=dark-green) ![Stargazers](https://img.shields.io/github/stars/nemoralis/wlmaz?style=social)
 ![Issues](https://img.shields.io/github/issues/nemoralis/wlmaz)
 
@@ -136,4 +136,12 @@ in `src/utils/constants.ts`.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the **GNU General Public License v3.0** — see
+[LICENSE](LICENSE).
+
+The client bundle includes [`@wikimedia/codex`](https://www.npmjs.com/package/@wikimedia/codex),
+which is licensed GPL-2.0-or-later; GPL-3.0 is compatible with it. Wikimedia Cloud Services
+Terms of Use §6 also default otherwise-unspecified project code on WMCS to GPL-3.0.
+
+Keep any user-facing licence statement in sync with `LICENSE` — `src/content/__tests__/license.test.ts`
+enforces this.

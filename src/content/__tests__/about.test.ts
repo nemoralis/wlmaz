@@ -19,7 +19,7 @@ import {
 import { SITE_HOST } from "@/utils/constants.ts";
 
 /** Every route the app registers (see src/routes/index.ts). */
-const ROUTES = ["/", "/map", "/about", "/stats", "/leaderboard", "/profile", "/table"];
+const ROUTES = ["/", "/map", "/about", "/privacy", "/stats", "/leaderboard", "/profile", "/table"];
 
 describe("about page head", () => {
    it("uses the same title format the prerender writes for static pages", () => {

@@ -178,7 +178,6 @@
                         />
                      </svg>
                   </router-link>
-                  <p class="mt-3 text-xs text-gray-500">{{ HOME_GAP_NOTE }}</p>
                </div>
 
                <div>
@@ -294,7 +293,6 @@ import {
    HOME_CANONICAL,
    HOME_GAP_CTA,
    HOME_GAP_HEADING,
-   HOME_GAP_NOTE,
    HOME_REGIONS_HEADING,
    HOME_REGIONS_INTRO,
    HOME_DESCRIPTION,

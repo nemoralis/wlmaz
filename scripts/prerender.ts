@@ -15,7 +15,6 @@ import {
    HOME_DESCRIPTION,
    HOME_GAP_CTA,
    HOME_GAP_HEADING,
-   HOME_GAP_NOTE,
    HOME_HEADLINE,
    HOME_INTRO,
    HOME_PRIMARY_CTA,
@@ -27,6 +26,7 @@ import {
    HOME_STEPS_INTRO,
    isCampaignActive,
 } from "../src/content/home";
+import { PRIVACY_DESCRIPTION } from "../src/content/privacy";
 import type { MonumentProps } from "../src/types";
 import { SITE_HOST } from "../src/utils/constants";
 import {
@@ -464,7 +464,6 @@ const buildHomeStaticContent = (data: HomeData): string => {
                   <a href="${HOME_GAP_CTA.to}" class="mt-6 inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
                      ${escapeHtml(HOME_GAP_CTA.label)} ${icon("ml-2 h-5 w-5")}
                   </a>
-                  <p class="mt-3 text-xs text-gray-500">${escapeHtml(HOME_GAP_NOTE)}</p>
                </div>
                <div>
                   <div class="flex items-baseline justify-between text-sm text-gray-600">
@@ -661,6 +660,13 @@ const STATIC_PAGES = [
       route: "/about",
       title: "Haqqında",
       description: ABOUT_DESCRIPTION,
+   },
+   {
+      // WMCS ToU §7.3.2 — the Privacy Statement itself. Prerendered so the
+      // policy text is readable without JavaScript and to a crawler.
+      route: "/privacy",
+      title: "Məxfilik Bəyannaməsi",
+      description: PRIVACY_DESCRIPTION,
    },
 ];
 

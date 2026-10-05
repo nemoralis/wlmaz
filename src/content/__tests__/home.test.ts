@@ -6,7 +6,6 @@ import {
    HOME_DESCRIPTION,
    HOME_GAP_CTA,
    HOME_GAP_HEADING,
-   HOME_GAP_NOTE,
    HOME_INTRO,
    HOME_PRIMARY_CTA,
    HOME_REGIONS_HEADING,
@@ -100,7 +99,6 @@ describe("photo-gap panel", () => {
    it("leads with the deficit rather than the total", () => {
       // The panel's whole point: the number a visitor could still contribute to.
       expect(HOME_GAP_HEADING.length).toBeGreaterThan(0);
-      expect(HOME_GAP_NOTE.length).toBeGreaterThan(0);
    });
 
    it("sends the gap CTA to the map", () => {

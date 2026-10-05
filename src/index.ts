@@ -151,6 +151,7 @@ const startServer = async () => {
          "/leaderboard": "leaderboard.html",
          "/table": "table.html",
          "/about": "about.html",
+         "/privacy": "privacy.html",
       };
       app.get(Object.keys(staticPageFiles), (req, res) => {
          const file = path.join(distPath, staticPageFiles[req.path]);
