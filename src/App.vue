@@ -133,9 +133,19 @@
                <button
                   v-else
                   aria-label="Wikimedia hesabınızla daxil olun"
-                  class="rounded-full bg-[#3366cc] px-5 py-1.5 text-sm font-semibold whitespace-nowrap text-white shadow-sm transition-colors hover:bg-[#2a4b8d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                  class="inline-flex items-center gap-2 rounded-full bg-[#3366cc] px-5 py-1.5 text-sm font-semibold whitespace-nowrap text-white shadow-sm transition-colors hover:bg-[#2a4b8d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                   @click="auth.login"
                >
+                  <!-- Commons is where both the OAuth and the upload live, so the
+                       mark says what the button signs you in to. The custom property
+                       is deliberate: codex pins `.cdx-icon` to `--color-base`
+                       (#202122) rather than inheriting, which would put a near-black
+                       mark on the blue pill. -->
+                  <CdxIcon
+                     :icon="cdxIconLogoWikimediaCommons"
+                     size="small"
+                     class="[--color-base:currentColor]"
+                  />
                   Daxil ol
                </button>
             </div>
@@ -251,6 +261,8 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, ref } from "vue";
+import { CdxIcon } from "@wikimedia/codex";
+import { cdxIconLogoWikimediaCommons } from "@wikimedia/codex-icons";
 import { useAuthStore } from "@/stores/auth.ts";
 
 const auth = useAuthStore();

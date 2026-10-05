@@ -209,11 +209,15 @@
 
                <button
                   v-else
-                  class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700"
+                  class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700"
                   @click="auth.login"
                >
-                  <font-awesome-icon :icon="['fas', 'sign-in-alt']" class="mr-2" /> Yükləmək üçün
-                  daxil ol
+                  <CdxIcon
+                     :icon="cdxIconLogoWikimediaCommons"
+                     size="small"
+                     class="[--color-base:currentColor]"
+                  />
+                  Yükləmək üçün daxil ol
                </button>
             </div>
          </article>
