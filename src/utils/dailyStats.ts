@@ -1,18 +1,18 @@
 /**
  * Pure helpers for turning toolforge per-day event statistics
- * (`data: { "YYYYMMDD": { images, joiners, newbie_joiners } }`) into a
- * continuous daily series for line charts. No I/O, unit-testable.
+ * (`data: { "YYYYMMDD": { images, joiners, newbie_joiners } }`) into a daily
+ * series for line charts. No I/O, unit-testable.
  */
 
 import type { WikiLovesDailyData } from "@/types/api.ts";
 
-/** One day of the chart series. `date` is `YYYY-MM-DD`. */
+/** One reported day of the chart series. `date` is `YYYY-MM-DD`. */
 export interface DailyPoint extends WikiLovesDailyData {
    date: string;
    /**
-    * Running totals from the first day of the window. `images`/`joiners` stay
-    * the per-day values; these are what the chart plots, so the line ends on
-    * the season total the rest of the page shows.
+    * Running totals from the first reported day. `images`/`joiners` stay the
+    * per-day values; these are what the chart plots, so the line ends on the
+    * season total the rest of the page shows.
     */
    totalImages: number;
    totalJoiners: number;
@@ -21,8 +21,6 @@ export interface DailyPoint extends WikiLovesDailyData {
 /** Toolforge event start/end timestamps: `YYYYMMDDHHmmss`. */
 type WikiTimestamp = number;
 
-const DAY_MS = 86_400_000;
-
 /**
  * WLM contests are September–October, but the upstream start stamp is 20:00 UTC
  * on 31 August, whose date part reads as 31 August. Any August start is
@@ -30,9 +28,6 @@ const DAY_MS = 86_400_000;
  * on 31 August, its bucket is folded into that first day rather than dropped.
  */
 const CONTEST_START_MONTH = 9;
-
-/** Safety cap so a malformed window can never spin forever. */
-const MAX_WINDOW_DAYS = 400;
 
 /** Converts a `YYYYMMDD` key to `YYYY-MM-DD`, or null if invalid. */
 function toIsoDate(key: string): string | null {
@@ -56,79 +51,81 @@ function timestampToDate(ts: WikiTimestamp | undefined): string | null {
 }
 
 /**
- * Builds a continuous daily series from sparse toolforge `data`.
+ * Moves reported August days onto 1 September — see CONTEST_START_MONTH.
  *
- * The API only lists days with activity, which would render a gappy line —
- * so the series is zero-filled across the contest window (`start`/`end`
- * timestamps), falling back to the min/max dates present in the data when
- * no window is given. The window starts on 1 September (see
- * CONTEST_START_MONTH) rather than the upstream 31 August stamp, and each
- * point carries both the day's own counts and the running total. Invalid keys
- * are skipped; an empty result means nothing can be charted.
+ * Only days that are actually reported get moved, and only when a September day
+ * exists to merge them into, so a window that never leaves August keeps its
+ * own dates instead of being pushed forward past its own end.
+ */
+function foldAugustIntoSeptember(
+   byDate: Map<string, WikiLovesDailyData>,
+   from: string | undefined,
+): void {
+   if (!from || from.slice(5, 7) !== "08") return;
+
+   const contestStart = `${from.slice(0, 4)}-0${CONTEST_START_MONTH}-01`;
+   const august = [...byDate.keys()].filter((date) => date >= from && date < contestStart);
+   if (august.length === 0) return;
+   if (![...byDate.keys()].some((date) => date >= contestStart)) return;
+
+   const existing = byDate.get(contestStart);
+   const merged: WikiLovesDailyData = {
+      images: existing?.images ?? 0,
+      joiners: existing?.joiners ?? 0,
+      newbie_joiners: existing?.newbie_joiners ?? 0,
+   };
+
+   for (const date of august) {
+      const stat = byDate.get(date) as WikiLovesDailyData;
+      merged.images += stat.images;
+      merged.joiners += stat.joiners;
+      merged.newbie_joiners += stat.newbie_joiners;
+      byDate.delete(date);
+   }
+   byDate.set(contestStart, merged);
+}
+
+/**
+ * Turns sparse toolforge `data` into one point per reported day, ascending,
+ * each carrying that day's own counts plus the running total.
+ *
+ * Upstream omits days with no activity rather than sending zeros for them, so
+ * this does not invent any: a day we have no reading for stays absent, and the
+ * chart draws straight through it instead of dipping to a fake zero.
+ *
+ * `start` is still needed for the September-start normalization — the upstream
+ * stamp reads as 31 August. Invalid keys are skipped; an empty result means
+ * nothing can be charted.
  */
 export function buildDailySeries(
    data: Record<string, WikiLovesDailyData> | null | undefined,
    start?: WikiTimestamp,
-   end?: WikiTimestamp,
 ): DailyPoint[] {
    const byDate = new Map<string, WikiLovesDailyData>();
    let min: string | undefined;
-   let max: string | undefined;
 
    for (const [key, stat] of Object.entries(data ?? {})) {
       const iso = toIsoDate(key);
       if (!iso) continue;
       byDate.set(iso, stat);
       if (!min || iso < min) min = iso;
-      if (!max || iso > max) max = iso;
    }
 
-   // Nothing to chart — an empty window of zeros would just be noise
+   // Nothing to chart
    if (byDate.size === 0) return [];
 
-   let from = timestampToDate(start) ?? min;
-   let to = timestampToDate(end) ?? max;
-   if (from && to && from > to) [from, to] = [to, from];
-   if (!from || !to) return [];
-
-   // Days that fall inside the upstream window but before the chart starts;
-   // only 2013 has any (its contest really did open on 31 August).
-   let folded: WikiLovesDailyData | null = null;
-   if (from.slice(5, 7) === "08") {
-      const contestStart = `${from.slice(0, 4)}-0${CONTEST_START_MONTH}-01`;
-      // A window entirely inside August has no September day to move to.
-      if (contestStart <= to) {
-         for (const [date, stat] of byDate) {
-            if (date >= from && date < contestStart) {
-               folded = folded ?? { images: 0, joiners: 0, newbie_joiners: 0 };
-               folded.images += stat.images;
-               folded.joiners += stat.joiners;
-               folded.newbie_joiners += stat.newbie_joiners;
-            }
-         }
-         from = contestStart;
-      }
-   }
+   foldAugustIntoSeptember(byDate, timestampToDate(start) ?? min);
 
    const points: DailyPoint[] = [];
    let totalImages = 0;
    let totalJoiners = 0;
-   let cursor = Date.parse(`${from}T00:00:00Z`);
-   const last = Date.parse(`${to}T00:00:00Z`);
-   for (let i = 0; cursor <= last && i < MAX_WINDOW_DAYS; i++, cursor += DAY_MS) {
-      const date = new Date(cursor).toISOString().slice(0, 10);
-      const stat = byDate.get(date);
-      // Folded days belong to the first one plotted, so the totals still add up.
-      const images = (stat?.images ?? 0) + (i === 0 ? (folded?.images ?? 0) : 0);
-      const joiners = (stat?.joiners ?? 0) + (i === 0 ? (folded?.joiners ?? 0) : 0);
-      totalImages += images;
-      totalJoiners += joiners;
+   for (const date of [...byDate.keys()].sort()) {
+      const stat = byDate.get(date) as WikiLovesDailyData;
+      totalImages += stat.images;
+      totalJoiners += stat.joiners;
       points.push({
          date,
-         images,
-         joiners,
-         newbie_joiners:
-            (stat?.newbie_joiners ?? 0) + (i === 0 ? (folded?.newbie_joiners ?? 0) : 0),
+         ...stat,
          totalImages,
          totalJoiners,
       });

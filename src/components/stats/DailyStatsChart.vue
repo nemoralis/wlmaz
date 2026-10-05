@@ -47,11 +47,13 @@ const props = withDefaults(
    defineProps<{
       title?: string;
       dailyData: Record<string, WikiLovesDailyData>;
-      /** Contest window bounds (YYYYMMDDHHmmss) — optional axis limits. */
+      /**
+       * Contest window start (YYYYMMDDHHmmss). Bounds the September-start
+       * normalization only — the axis spans the reported days instead.
+       */
       start?: number;
-      end?: number;
    }>(),
-   { title: "Gündəlik nəticələr", start: undefined, end: undefined },
+   { title: "Gündəlik nəticələr", start: undefined },
 );
 
 const mode = ref<"images" | "joiners">("images");
@@ -60,8 +62,10 @@ const mode = ref<"images" | "joiners">("images");
 const DATE_FORMATTER = new Intl.DateTimeFormat("az-AZ", { day: "numeric", month: "short" });
 const NUMBER_FORMATTER = new Intl.NumberFormat("az-AZ");
 
+const toTimestamp = (date: string): number => Date.parse(`${date}T00:00:00Z`);
+
 const option = computed(() => {
-   const points = buildDailySeries(props.dailyData, props.start, props.end);
+   const points = buildDailySeries(props.dailyData, props.start);
    if (points.length === 0) return null;
 
    const isImages = mode.value === "images";
@@ -84,7 +88,7 @@ const option = computed(() => {
             const total = isImages ? point.totalImages : point.totalJoiners;
             return [
                `<div style="font-weight:600;margin-bottom:4px">${DATE_FORMATTER.format(
-                  new Date(`${point.date}T00:00:00Z`),
+                  new Date(toTimestamp(point.date)),
                )}</div>`,
                `<div>${totalName}: ${NUMBER_FORMATTER.format(total)}</div>`,
                `<div style="color:#6b7280">Bu gün: +${NUMBER_FORMATTER.format(daily)}</div>`,
@@ -97,16 +101,16 @@ const option = computed(() => {
          bottom: "3%",
          containLabel: true,
       },
+      // Time axis, not category: a category axis spaces every day equally, so
+      // a 13-day gap would look the same width as a single day.
       xAxis: {
-         type: "category",
-         boundaryGap: false,
-         data: points.map((p) => p.date),
+         type: "time",
          axisLabel: {
             fontSize: 11,
             fontWeight: "600",
             color: "#4b5563",
             hideOverlap: true,
-            formatter: (date: string) => DATE_FORMATTER.format(new Date(`${date}T00:00:00Z`)),
+            formatter: (value: number) => DATE_FORMATTER.format(new Date(value)),
          },
       },
       yAxis: {
@@ -144,7 +148,12 @@ const option = computed(() => {
             emphasis: {
                itemStyle: { borderWidth: 2, borderColor: color },
             },
-            data: points.map((p) => (isImages ? p.totalImages : p.totalJoiners)),
+            // [timestamp, running total] pairs, one per reported day — the time axis
+            // keeps a 13-day gap 13× as wide as a single day
+            data: points.map((p) => [
+               toTimestamp(p.date),
+               isImages ? p.totalImages : p.totalJoiners,
+            ]),
          },
       ],
    };

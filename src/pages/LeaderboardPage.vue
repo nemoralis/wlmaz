@@ -92,7 +92,6 @@
             <DailyStatsChart
                :daily-data="dailyStats"
                :start="eventWindow?.start"
-               :end="eventWindow?.end"
                :title="`${selectedYear} ilinin gündəlik nəticələri`"
             />
          </div>
