@@ -135,7 +135,7 @@ export const PRIVACY_INTRO = {
     * Spelled out on first use, then abbreviated, per the STE rules on nouns.
     */
    administeredBy: {
-      en: `Wikimedia community volunteers run this project. Wikimedia Cloud Services (WMCS) hosts this project. WMCS is a hosting service for Wikimedia community developers. The Wikimedia Foundation ("WMF", "we", "our", or "us") provides WMCS. WMF does not run this project. WMF does not represent this project.`,
+      en: `Wikimedia community volunteers run this project. Wikimedia Cloud Services (WMCS) hosts it. WMCS is a hosting service for Wikimedia community developers. The Wikimedia Foundation ("WMF", "we", "our", or "us") provides WMCS. WMF does not run or represent this project.`,
       az: `Bu layihə Vikipediya icmasının könüllüləri tərəfindən idarə olunur. Layihə Vikimedia Fondu ("VF", "biz", "bizim" və ya "bizə") tərəfindən Vikipediya icmasının tərtibatçıları üçün təqdim olunan hosting xidməti olan Wikimedia Cloud Services üzərində yerləşdirilib. Layihə Vikimedia Fondu tərəfindən idarə olunmur və Vikimedia Fondunu təmsil etmir.`,
    },
 } as const;
@@ -187,7 +187,7 @@ export const PRIVACY_DATA_TABLE: readonly PrivacyDataRow[] = [
          az: "Vikipediya istifadəçi adı",
       },
       use: {
-         en: "It identifies you after you sign in. We use it to link your uploads to your Commons account. Wikimedia Commons checks your password, not this project.",
+         en: "It identifies you after you sign in. We use it to link your uploads to your Commons account. Commons checks your password.",
          az: "Daxil olduqdan sonra sizi müəyyən etmək və yükləmələrinizi Commons hesabınızla əlaqələndirmək üçün. Kimliyin təsdiqi Wikimedia Commons-da həyata keçirilir; bu layihə parolunuzu heç vaxt əldə etmir.",
       },
       retention: {
@@ -215,7 +215,7 @@ export const PRIVACY_DATA_TABLE: readonly PrivacyDataRow[] = [
          az: "Vikipediya e-poçt ünvanı",
       },
       use: {
-         en: "We do not collect it. Wikimedia's OAuth flow does not give it to us. We never ask for it.",
+         en: "We do not collect it. Wikimedia's OAuth flow does not give it to us.",
          az: "Toplanmır. Vikipediyanın OAuth axını bu məlumatı layihəyə təqdim etmir və biz də onu heç vaxt istəmirik.",
       },
       retention: {
@@ -233,7 +233,7 @@ export const PRIVACY_DATA_TABLE: readonly PrivacyDataRow[] = [
          az: "Yükləmək qərarına gəldiyiniz fotoşəkli sizin hesabınızdan yükləmək üçün Wikimedia Commons-da kimliyinizi təsdiqləmək məqsədilə istifadə olunur. Token heç vaxt brauzerinizə göndərilmir və heç bir cavabda təqdim edilmir.",
       },
       retention: {
-         en: "Up to 7 days. We delete it when you sign out. This project does not revoke the token at Wikimedia. You can revoke it in your Commons preferences.",
+         en: "Up to 7 days. We delete it when you sign out. We do not revoke the token at Wikimedia. You can revoke it in your Commons preferences.",
          az: "Sessiya müddəti ərzində, ən çoxu 7 gün və çıxış etdikdə silinir. Bu layihə çıxış etdiyiniz zaman Wikimedia-da tokeni ləğv etmir; istənilən vaxt Commons hesabınızın parametrlərindən giriş icazəsini ləğv edə bilərsiniz.",
       },
    },
@@ -257,11 +257,11 @@ export const PRIVACY_DATA_TABLE: readonly PrivacyDataRow[] = [
          az: "IP ünvanı",
       },
       use: {
-         en: "It is in our web server access log. We use it to rate-limit requests. This prevents abuse of the upload and sign-in endpoints.",
+         en: "It is in our web server access log. We use it to rate-limit requests. This prevents abuse.",
          az: "Veb serverimizin giriş jurnalında qeydə alınır və yükləmə və giriş son nöqtələrindən sui-istifadənin qarşısını almaq üçün sorğuların tezliyinin məhdudlaşdırılmasında istifadə olunur.",
       },
       retention: {
-         en: "The server keeps it for a short time. Standard log rotation then deletes it. We cannot delete single entries from that log on request.",
+         en: "The server keeps it for a short time. Log rotation then deletes it. We cannot delete single entries on request.",
          az: "Adi sistem jurnalının fırlanma qaydaları ilə müəyyən edilən qısa müddət ərzində server jurnalında saxlanılır, sonra avtomatik silinir. Həmin jurnalın fərdi qeydlərini sorğu əsasında silə bilmirik.",
       },
    },
@@ -289,7 +289,7 @@ export const PRIVACY_DATA_TABLE: readonly PrivacyDataRow[] = [
          az: "Fayl səhifəsini yaratmaq üçün Wikimedia Commons-a göndərilir, yəni Commons veb-saytı vasitəsilə birbaşa yüklədiyiniz zaman olduğu kimi.",
       },
       retention: {
-         en: "Kept permanently on Wikimedia Commons, which is a public project. Anyone can reuse or remove your upload under Commons policy.",
+         en: "Kept permanently on Wikimedia Commons. Anyone can reuse or remove it under Commons policy.",
          az: "Wikimedia Commons-da həmişəlik qalır, çünki bu, açıq layihədir. Yükləməniz və təsviriniz açıq sənədin bir hissəsinə çevrilir və Commons siyasətlərinə uyğun olaraq yenidən istifadə edilə və ya silinə bilər.",
       },
    },
@@ -299,7 +299,7 @@ export const PRIVACY_DATA_TABLE: readonly PrivacyDataRow[] = [
          az: "Fotoşəkilinizdəki EXIF metadatası, o cümlədən GPS koordinatları və çəkiliş vaxtı",
       },
       use: {
-         en: "We keep it because it makes the photo useful on Commons. It is published on Wikimedia Commons with the image.",
+         en: "We keep it. It makes the photo useful on Commons.",
          az: "Silinmir, çünki bu məlumat fotoşəkili Commons-da faydalı edən əsas amillərdən biridir. Bu məlumat fotoşəkillə birlikdə Wikimedia Commons-da yayımlanır.",
       },
       retention: {
@@ -340,7 +340,7 @@ export const PRIVACY_SECURITY = {
          az: "Sessiya çərəzləri HttpOnly və Secure atributları ilə işarələnir və SameSite ilə məhdudlaşdırılır ki, başqa veb-sayt sizin adınızdan sorğu göndərə bilməsin.",
       },
       {
-         en: "We process uploaded photos in memory only. We never write them to disk or store them in a database. We send them to Commons, then discard them.",
+         en: "We process uploaded photos in memory only. We never write them to disk. We send them to Commons, then discard them.",
          az: "Yüklənmiş fotoşəkillər yalnız serverin yaddaşında emal olunur. Onlar heç vaxt diskə yazılmır, bazamızda və ya keşimizdə saxlanmır; Commons-a ötürüldükdən sonra silinir.",
       },
       {
@@ -348,7 +348,7 @@ export const PRIVACY_SECURITY = {
          az: "Giriş və yükləmə son nöqtələrində sorğuların tezliyi məhdudlaşdırılır və digər veb-saytlardan gələn sorğular rədd edilir.",
       },
       {
-         en: "We remove query strings from application logs. This keeps tokens and session identifiers out of log output.",
+         en: "We remove query strings from application logs. This keeps tokens out of the logs.",
          az: "Sorğu sətirləri tətbiq qeydlərindən çıxarılır ki, tokenlər və ya sessiya identifikatorları jurnal çıxışında qeydə alınmasın.",
       },
       {
@@ -368,7 +368,7 @@ export const PRIVACY_ACCESS_HEADING = {
 } as const;
 
 export const PRIVACY_ACCESS = {
-   en: "The Wikimedia Foundation can see your Personal Information. Volunteer administrators of WMCS projects can see it. Other WMCS developers can see it. The administrators of this project can access the server database.",
+   en: "The Wikimedia Foundation can see your Personal Information. WMCS volunteer administrators can see it. Other WMCS developers can see it. Our administrators can read the server database.",
    az: "Bu layihənin topladığı hər hansı Şəxsi Məlumat Vikimedia Fonduna, Wikimedia Cloud Services layihələrinin könüllü administratorlarına və digər Wikimedia Cloud Services tərtibatçılarına əlçatan ola bilər. Xüsusilə, bu layihənin administratorları saytı idarə etmək üçün serverin verilənlər bazasına daxil ola bilən könüllülərdir.",
 } as const;
 
@@ -381,17 +381,25 @@ export const PRIVACY_USERNAMES_HEADING = {
    az: "Vikipediya istifadəçi adınız haqqında",
 } as const;
 
+/**
+ * §7.3.1 requirement 1 — the statement must notify End Users about how their
+ * Wikimedia Username is handled.
+ *
+ * Three bullets, matching the project-supplied Azerbaijani one for one. The
+ * English is shortened to comply with the ASD-STE100 sentence limit; the
+ * Azerbaijani is the project's own text and is left as written.
+ */
 export const PRIVACY_USERNAMES = [
    {
-      en: "When you sign in, we record your Wikimedia username. A username is Personal Information. It can help identify you when you combine it with other data. So we do not treat it as anonymous.",
+      en: "When you sign in, we record your Wikimedia username. A username is Personal Information. It can identify you when you combine it with other data. We do not treat it as anonymous.",
       az: "Vikipediya hesabınızla daxil olmaq bu layihənin Vikipediya istifadəçi adınızı qeyd etməsi deməkdir. İstifadəçi adı Şəxsi Məlumatdır: digər məlumatlarla birləşdirildikdə şəxsinizi müəyyən etməyə kömək edə bilər və buna görə də biz onu anonim hesab etmirik.",
    },
    {
-      en: "We use your username only to link your uploads to you and to show your profile page. We do not use it for advertising. We do not sell it. We do not share it with others for marketing.",
+      en: "We use it only to link your uploads to you and to show your profile page. We never use it for advertising. We never sell it.",
       az: "İstifadəçi adınızdan yalnız yüklədiyiniz fotoşəkilləri sizin adınızla əlaqələndirmək və profil səhifənizi göstərmək üçün istifadə edirik. Ondan reklam məqsədləri üçün istifadə etmirik və üçüncü tərəflərə marketinq məqsədilə satmırıq və ya ötürmürük.",
    },
    {
-      en: "Sign out at any time to stop this. Signing out deletes the session from our server. You can also ask an administrator to delete data you think we should not keep.",
+      en: "Sign out to delete your session. You can also ask an administrator to delete your data.",
       az: "Çıxış etməklə bu prosesi istənilən vaxt dayandıra bilərsiniz; bu, sessiyanızı serverimizdən silir. Həmçinin saxlanılmamalı olduğunu düşündüyünüz hər hansı məlumatın silinməsini administratordan xahiş edə bilərsiniz.",
    },
 ] as const;
@@ -430,7 +438,7 @@ export const PRIVACY_TRANSFER_HEADING = {
  * those countries' laws may be weaker — and the disclaimer does the rest.
  */
 export const PRIVACY_TRANSFER = {
-   en: "WMCS is hosted and operated in the United States. We collect, store, and process your information there. Your information may also go to other countries. Those countries may have different or weaker data protection laws than your country.",
+   en: "WMCS runs in the United States. We collect, store, and process your information there. Your information may also go to other countries. Their data protection laws may be weaker than your country's.",
    az: "WMCS ABŞ-da yerləşir və idarə olunur. Wiki Loves Monuments Azerbaijan-dan istifadə etdikdə, bu Məxfilik Bəyannaməsində təsvir olunan məlumatlarınızın (şəxsi və ya digər) toplanmasının, istifadəsinin, saxlanmasının və digər emalının ABŞ-da həyata keçiriləcəyini qəbul edir və anlayırsınız. Məlumatlarınızın digər ölkələrə də ötürülə biləcəyini, ABŞ-ın və həmin digər ölkələrin ölkənizdəkilərdən fərqli və ya daha zəif məlumatların mühafizəsi qanunlarına malik ola biləcəyini anlayırsınız. Bundan əlavə, Şəxsi Məlumatınızın Vikimedia Fondunun Məxfilik Siyasəti ilə deyil, bu Məxfilik Bəyannaməsi ilə tənzimləndiyini qəbul edirsiniz.",
 } as const;
 
@@ -442,7 +450,7 @@ export const PRIVACY_TRANSFER = {
  */
 export const PRIVACY_DISCLAIMER = {
    en: "WMCS is hosted and operated in the United States. By using Wiki Loves Monuments Azerbaijan, you acknowledge and understand that collection, use, storage, and other processing of your information (personal or otherwise) as outlined in this Privacy Statement will take place in the United States. You understand that your information also may be transferred to other countries, and that the United States and such other countries may have different or less stringent data protection laws than your country. Furthermore, you acknowledge that your Personal Information will be governed by this Privacy Statement, rather than the Wikimedia Foundation's Privacy Policy.",
-   az: "WMCS ABŞ-da yerləşir və idarə olunur. Wiki Loves Monuments Azerbaijan-dan istifadə etdikdə, bu Məxfilik Bəyannaməsində təsvir olunan məlumatlarınızın (şəxsi və ya digər) toplanmasının, istifadəsinin, saxlanmasının və digər emalının ABŞ-da həyata keçiriləcəyini qəbul edir və anlayırsınız. Məlumatlarınızın digər ölkələrə də ötürülə biləcəyini, ABŞ-ın və həmin digər ölkələrin ölkənizdəkilərdən fərqli və ya daha zəif məlumatların mühafizəsi qanunlarına malik ola biləcəyini anlayırsınız. Bundan əlavə, Şəxsi Məlumatınızın Vikimedia Fondunun Məxfilik Siyasəti ilə deyil, bu Məxfilik Bəyannaməsi ilə tənzimləndiyini qəbul edirsiniz."
+   az: "WMCS ABŞ-da yerləşir və idarə olunur. Wiki Loves Monuments Azerbaijan-dan istifadə etdikdə, bu Məxfilik Bəyannaməsində təsvir olunan məlumatlarınızın (şəxsi və ya digər) toplanmasının, istifadəsinin, saxlanmasının və digər emalının ABŞ-da həyata keçiriləcəyini qəbul edir və anlayırsınız. Məlumatlarınızın digər ölkələrə də ötürülə biləcəyini, ABŞ-ın və həmin digər ölkələrin ölkənizdəkilərdən fərqli və ya daha zəif məlumatların mühafizəsi qanunlarına malik ola biləcəyini anlayırsınız. Bundan əlavə, Şəxsi Məlumatınızın Vikimedia Fondunun Məxfilik Siyasəti ilə deyil, bu Məxfilik Bəyannaməsi ilə tənzimləndiyini qəbul edirsiniz.",
 } as const;
 
 /**
@@ -454,7 +462,7 @@ export const PRIVACY_DISCLAIMER = {
  */
 export const PRIVACY_CONTACT = {
    heading: { en: "Questions or concerns", az: "Suallar və ya narahatlıqlar" },
-   en: "If you think your Personal Information was exposed to a third party or the public, tell the project maintainers at once. You can also contact privacy@wikimedia.org.",
+   en: "If you think we exposed your Personal Information to another person or the public, tell the project maintainers at once. You can also contact privacy@wikimedia.org.",
    az: "Əgər Şəxsi Məlumatınızın üçüncü tərəfə və ya ictimaiyyətə açıqlandığına inanırsınızsa, layihənin məsul şəxslərini dərhal xəbərdar edin və privacy@wikimedia.org ünvanı ilə əlaqə saxlayın.",
 } as const;
 
