@@ -116,6 +116,11 @@ const offsetY = computed(() => startIndex.value * props.rowHeight);
 const getColumnValue = (row: MonumentProps, id: string): string => {
    const value = (row as Record<string, unknown>)[id];
    if (typeof value === "string" || typeof value === "number") return String(value);
+   // Array-valued columns, e.g. `inventory` (string[]). Without this the cell
+   // renders empty: the header and its sort key both work, so the column looks
+   // present but every cell is blank. Joined the same way as the sort key in
+   // TablePage.vue, so the displayed and sorted values agree.
+   if (Array.isArray(value)) return value.filter((v) => v != null).join(", ");
    return "";
 };
 
