@@ -196,7 +196,9 @@
                         :style="{ width: `${gap.percent}%` }"
                      ></div>
                   </div>
-                  <div class="mt-2 text-xs text-gray-500">{{ gap.percent }}% fotoşəkilləndirilib</div>
+                  <div class="mt-2 text-xs text-gray-500">
+                     {{ gap.percent }}% fotoşəkilləndirilib
+                  </div>
                </div>
             </div>
          </div>
@@ -309,6 +311,7 @@ import {
 } from "@/content/home.ts";
 import { schemaToJsonLd, useOrganizationSchema } from "@/composables/useSchemaOrg.ts";
 import type { HomeData } from "@/content/featured.ts";
+import { fetchHomeData, readEmbeddedHomeData } from "@/utils/homeData.ts";
 import { getOptimizedImage, getSrcSet } from "@/utils/monumentFormatters.ts";
 
 /** Collage slots: the large image first, then the three small ones. */
@@ -361,28 +364,14 @@ const ogImage = computed(() => {
 // Build-time payload, inlined by scripts/prerender.ts. Read synchronously in
 // setup so the first Vue render already matches the static markup that ships
 // inside #app — no flash, no request.
-const readEmbeddedData = (): HomeData | null => {
-   const el = document.getElementById("home-data");
-   if (!el?.textContent) return null;
-   try {
-      return JSON.parse(el.textContent) as HomeData;
-   } catch (e) {
-      console.warn("Failed to parse #home-data", e);
-      return null;
-   }
-};
-
-homeData.value = readEmbeddedData();
+homeData.value = readEmbeddedHomeData();
 
 // Without a prerendered shell (npm run dev) fall back to the snapshot kept in
 // public/ and refreshed by `npm run update-data`.
 if (!homeData.value) {
-   fetch("/home-data.json")
-      .then((res) => (res.ok ? (res.json() as Promise<HomeData>) : null))
-      .then((data) => {
-         if (data) homeData.value = data;
-      })
-      .catch((e) => console.warn("Failed to load /home-data.json", e));
+   fetchHomeData().then((data) => {
+      if (data) homeData.value = data;
+   });
 }
 
 const organizationSchema = schemaToJsonLd(useOrganizationSchema());

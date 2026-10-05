@@ -79,9 +79,31 @@
 
       .skeleton-logo {
          height: 40px;
-         width: 40px;
-         background: var(--gray-100);
+         /* The real header logo is the horizontal wordmark, ~150px wide at
+            h-10 — reserve its width so nothing shifts when Vue mounts. */
+         width: 150px;
          border-radius: 4px;
+      }
+
+      /* Placeholder pills for the header nav, mirroring NAV_LINK_CLASS in
+         src/App.vue: five rounded-full links, visible only at the lg
+         breakpoint where the real inline nav appears. */
+      .skeleton-nav {
+         display: none;
+      }
+
+      .skeleton-bar {
+         height: 24px;
+         background: var(--gray-100);
+         border-radius: 9999px;
+      }
+
+      @media (min-width: 1024px) {
+         .skeleton-nav {
+            display: flex;
+            margin-left: 24px;
+            gap: 4px;
+         }
       }
 
       .skeleton-content {
@@ -145,9 +167,12 @@
       <div id="app-loading-skeleton">
          <div class="skeleton-header">
             <img src="/wlm-az.svg" alt="" class="skeleton-logo" style="background: transparent;">
-            <div style="margin-left: 24px; display: flex; gap: 16px;">
-               <div style="width: 60px; height: 12px; background: #f3f4f6; border-radius: 2px;"></div>
-               <div style="width: 60px; height: 12px; background: #f3f4f6; border-radius: 2px;"></div>
+            <div class="skeleton-nav" aria-hidden="true">
+               <div class="skeleton-bar" style="width: 64px;"></div>
+               <div class="skeleton-bar" style="width: 84px;"></div>
+               <div class="skeleton-bar" style="width: 96px;"></div>
+               <div class="skeleton-bar" style="width: 64px;"></div>
+               <div class="skeleton-bar" style="width: 76px;"></div>
             </div>
          </div>
          <div class="skeleton-content">

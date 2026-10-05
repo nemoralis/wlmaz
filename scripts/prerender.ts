@@ -7,6 +7,7 @@ import {
    useBreadcrumbSchema,
    useMonumentSchema,
 } from "../src/composables/useSchemaOrg";
+import { ABOUT_DESCRIPTION } from "../src/content/about";
 import { resolveHomeData, type HomeData } from "../src/content/featured";
 import {
    CAMPAIGN,
@@ -321,11 +322,24 @@ const buildMonumentHtml = (
    return html;
 };
 
+/**
+ * The `#home-data` payload, inlined into every page that renders coverage
+ * counts (the landing page and /about) so the first Vue render already has
+ * them — no flash, no request. `<` is escaped so the JSON can never close the
+ * script element.
+ */
+const buildHomeDataScript = (data: HomeData): string =>
+   `<script type="application/json" id="home-data">${JSON.stringify(data).replace(
+      /</g,
+      "\\u003c",
+   )}</script>`;
+
 const buildStaticHtml = (
    indexHtml: string,
    route: string,
    pageTitle: string,
    description: string,
+   payload?: string,
 ): string => {
    const title = `${pageTitle} | ${SITE_TITLE}`;
    const pageUrl = `${HOST}${route}`;
@@ -350,6 +364,7 @@ const buildStaticHtml = (
       <meta name="twitter:title" content="${escapeHtml(title)}">
       <meta name="twitter:description" content="${escapeHtml(description)}">
       <meta name="twitter:image" content="${HOST}/wlm-az.png">
+      ${payload ?? ""}
    </head>`,
    );
    return html;
@@ -586,7 +601,7 @@ const buildHomeHtml = (indexHtml: string, data: HomeData): string => {
 
    // Payload + scrollable static content (the shell pins html/body to
    // overflow:hidden for the map app).
-   const embeddedData = `<script type="application/json" id="home-data">${JSON.stringify(data).replace(/</g, "\\u003c")}</script>`;
+   const embeddedData = buildHomeDataScript(data);
    const styleOverride = "<style>html, body { overflow: auto !important; height: auto; }</style>";
    html = html.replace("</head>", `${embeddedData}\n   ${styleOverride}\n   </head>`);
 
@@ -645,7 +660,7 @@ const STATIC_PAGES = [
    {
       route: "/about",
       title: "Haqqında",
-      description: "Viki Abidələri Sevir Azərbaycan layihəsi haqqında məlumat.",
+      description: ABOUT_DESCRIPTION,
    },
 ];
 
@@ -777,7 +792,16 @@ const main = async () => {
       }
 
       for (const page of STATIC_PAGES) {
-         const html = buildStaticHtml(indexHtml, page.route, page.title, page.description);
+         const html = buildStaticHtml(
+            indexHtml,
+            page.route,
+            page.title,
+            page.description,
+            // /about shows the coverage counts in its hero, so it needs the same
+            // payload the landing page gets — otherwise the numbers only appear
+            // after a client-side fetch of /home-data.json.
+            page.route === "/about" ? buildHomeDataScript(homeData) : undefined,
+         );
          await fs.writeFile(
             path.join(DIST_DIR, `${page.route.slice(1)}.html`),
             await minifyHtml(html),

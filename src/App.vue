@@ -27,41 +27,27 @@
             />
          </a>
 
-         <!-- Desktop Nav -->
-         <nav role="navigation" aria-label="Əsas naviqasiya" class="ml-6 hidden gap-4 md:flex">
-            <router-link
-               to="/map"
-               class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
-               aria-label="Xəritə səhifəsinə get"
-            >
+         <!-- Desktop Nav. Pills add ~70px of horizontal padding, so the inline
+              nav starts at lg rather than md: at 768px a signed-in user with a
+              long username would push the right-hand cluster off the header. -->
+         <nav role="navigation" aria-label="Əsas naviqasiya" class="ml-6 hidden gap-1 lg:flex">
+            <router-link to="/map" :class="NAV_LINK_CLASS" aria-label="Xəritə səhifəsinə get">
                Xəritə
             </router-link>
-            <router-link
-               to="/stats"
-               class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
-               aria-label="Statistika səhifəsinə get"
-            >
+            <router-link to="/stats" :class="NAV_LINK_CLASS" aria-label="Statistika səhifəsinə get">
                Statistika
             </router-link>
             <router-link
                to="/leaderboard"
-               class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
+               :class="NAV_LINK_CLASS"
                aria-label="Liderlik cədvəlinə get"
             >
                İştirakçılar
             </router-link>
-            <router-link
-               to="/table"
-               class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
-               aria-label="Siyahı səhifəsinə get"
-            >
+            <router-link to="/table" :class="NAV_LINK_CLASS" aria-label="Siyahı səhifəsinə get">
                Siyahı
             </router-link>
-            <router-link
-               to="/about"
-               class="text-sm font-medium text-gray-700 transition-colors hover:text-[#3366cc]"
-               aria-label="Haqqında səhifəsinə get"
-            >
+            <router-link to="/about" :class="NAV_LINK_CLASS" aria-label="Haqqında səhifəsinə get">
                Haqqında
             </router-link>
          </nav>
@@ -74,7 +60,7 @@
                      :aria-expanded="menuOpen"
                      aria-haspopup="true"
                      aria-label="İstifadəçi menyusu"
-                     class="flex items-center gap-2 font-medium text-gray-800 transition-colors hover:text-[#3366cc] focus:outline-none"
+                     class="flex items-center gap-2 rounded-full px-2 py-1.5 font-medium text-gray-800 transition-colors hover:bg-gray-100 hover:text-[#3366cc] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                      @click="toggleMenu"
                      @keydown="handleDropdownKeydown"
                   >
@@ -147,7 +133,7 @@
                <button
                   v-else
                   aria-label="Wikimedia hesabınızla daxil olun"
-                  class="rounded-md bg-[#3366cc] px-5 py-1.5 text-sm font-semibold whitespace-nowrap text-white shadow-sm transition-colors hover:bg-[#2a4b8d]"
+                  class="rounded-full bg-[#3366cc] px-5 py-1.5 text-sm font-semibold whitespace-nowrap text-white shadow-sm transition-colors hover:bg-[#2a4b8d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                   @click="auth.login"
                >
                   Daxil ol
@@ -156,7 +142,7 @@
 
             <!-- Hamburger Button (Mobile Only) -->
             <button
-               class="rounded-md p-2 text-gray-600 hover:bg-gray-100 focus:outline-none md:hidden"
+               class="rounded-full p-2 text-gray-600 transition-colors hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 lg:hidden"
                :aria-expanded="mobileNavOpen"
                aria-label="Mobil menyunu aç"
                aria-controls="mobile-nav"
@@ -182,11 +168,11 @@
             id="mobile-nav"
             role="navigation"
             aria-label="Mobil naviqasiya"
-            class="absolute top-14 left-0 z-40 flex w-full flex-col space-y-3 border-b border-gray-200 bg-white p-4 shadow-xl md:hidden"
+            class="absolute top-14 left-0 z-40 flex w-full flex-col space-y-3 border-b border-gray-200 bg-white p-4 shadow-xl lg:hidden"
          >
             <router-link
                to="/map"
-               class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
+               :class="NAV_DRAWER_LINK_CLASS"
                aria-label="Xəritə səhifəsinə get"
                @click="mobileNavOpen = false"
             >
@@ -199,7 +185,7 @@
             </router-link>
             <router-link
                to="/stats"
-               class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
+               :class="NAV_DRAWER_LINK_CLASS"
                aria-label="Statistika səhifəsinə get"
                @click="mobileNavOpen = false"
             >
@@ -212,7 +198,7 @@
             </router-link>
             <router-link
                to="/leaderboard"
-               class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
+               :class="NAV_DRAWER_LINK_CLASS"
                aria-label="Liderlik cədvəlinə get"
                @click="mobileNavOpen = false"
             >
@@ -225,7 +211,7 @@
             </router-link>
             <router-link
                to="/table"
-               class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
+               :class="NAV_DRAWER_LINK_CLASS"
                aria-label="Siyahı səhifəsinə get"
                @click="mobileNavOpen = false"
             >
@@ -238,7 +224,7 @@
             </router-link>
             <router-link
                to="/about"
-               class="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-gray-800 hover:bg-gray-50"
+               :class="NAV_DRAWER_LINK_CLASS"
                aria-label="Haqqında səhifəsinə get"
                @click="mobileNavOpen = false"
             >
@@ -271,6 +257,37 @@ const auth = useAuthStore();
 const menuOpen = ref(false);
 const mobileNavOpen = ref(false);
 const dropdownContainer = ref<HTMLElement | null>(null);
+
+/**
+ * Pill styling shared by the header nav links.
+ *
+ * `router-link` stamps `.router-link-active` on the current route, so the
+ * active tint is driven off that class rather than a `:class` binding.
+ * The `:not()` guard on the hover background is what keeps the two from
+ * fighting: without it, `hover:bg-*` and the active `bg-*` have equal
+ * specificity and which one wins depends on Tailwind's variant order.
+ *
+ * Vue Router also sets `aria-current="page"` on the exact match, so the
+ * visible state and the accessible name come from the same source.
+ */
+const NAV_LINK_CLASS = [
+   "rounded-full px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors",
+   "hover:text-gray-900",
+   "[&:not(.router-link-active)]:hover:bg-gray-100",
+   "[&.router-link-active]:bg-blue-50 [&.router-link-active]:font-semibold [&.router-link-active]:text-[#3366cc]",
+   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600",
+].join(" ");
+
+/**
+ * Same active tint, but square-ish: the mobile drawer rows span the full
+ * viewport width, where a fully rounded pill reads as a mistake.
+ */
+const NAV_DRAWER_LINK_CLASS = [
+   "flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-800 transition-colors",
+   "hover:bg-gray-100",
+   "[&.router-link-active]:bg-blue-50 [&.router-link-active]:text-[#3366cc]",
+   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600",
+].join(" ");
 
 const toggleMenu = () => {
    menuOpen.value = !menuOpen.value;

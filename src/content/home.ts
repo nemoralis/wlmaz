@@ -22,8 +22,7 @@ export const HOME_CANONICAL = `${SITE_HOST}/`;
  * accurate without a second edit here.
  */
 export const HOME_DESCRIPTION =
-   "Azərbaycandakı abidələrin fotoşəkillərini toplamaq üçün yaradılmış açıq layihə. " +
-   "İştirak üçün icazə tələb olunmur və hər kəs qoşula bilər.";
+   "Azərbaycandakı abidələrin fotoşəkillərini toplamaq üçün yaradılmış açıq layihə. ";
 
 export const HOME_HEADLINE = "Azərbaycanın mədəni irsini sənədləşdirək!";
 

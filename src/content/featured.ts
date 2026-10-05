@@ -66,9 +66,12 @@ const asString = (value: unknown): string => (typeof value === "string" ? value.
 /** How many regions the landing-page grid shows. */
 export const DEFAULT_REGION_LIMIT = 12;
 
-/** Canonical inventory id (first comma-separated part). */
-const canonicalId = (properties: HomeFeature["properties"]): string =>
-   asString(properties.inventory).split(",")[0].trim();
+/** Canonical inventory id (first comma-separated part). Handles both strings and arrays. */
+const canonicalId = (properties: HomeFeature["properties"]): string => {
+   const raw = properties.inventory;
+   const first = Array.isArray(raw) ? (raw[0] as unknown) : raw;
+   return asString(first).split(",")[0].trim();
+};
 
 /**
  * Builds the landing-page payload from the geojson.

@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { ABOUT_DESCRIPTION, ABOUT_TITLE } from "../src/content/about";
 import {
    HOME_DESCRIPTION,
    HOME_GAP_HEADING,
@@ -273,6 +274,52 @@ const checkHomeBody = (html: string): void => {
    }
 };
 
+/**
+ * Head checks for /about.
+ *
+ * `checkStaticHtml` only asserts that a title/canonical/description exist. The
+ * about page has no prerendered body, so the head is the only thing the two
+ * render paths share — and it must match `src/content/about.ts` exactly or the
+ * runtime head rewrites the title and description right after hydration.
+ * The inlined `#home-data` payload is asserted for the same reason: without it
+ * the hero counts would only appear after a client-side fetch.
+ */
+const checkAboutHead = (html: string): void => {
+   const label = "about head";
+
+   const title = extractTitle(html);
+   if (title !== escapeHtmlText(ABOUT_TITLE)) {
+      fail(`${label}: <title> "${title}" != expected "${escapeHtmlText(ABOUT_TITLE)}"`);
+   }
+
+   const descriptionTags = html.match(/<meta[^>]*name="description"[^>]*>/g) || [];
+   if (descriptionTags.length !== 1) {
+      fail(`${label}: expected exactly 1 description meta, found ${descriptionTags.length}`);
+   } else {
+      const content = attrValue(descriptionTags[0], "content");
+      if (content !== escapeHtmlText(ABOUT_DESCRIPTION)) {
+         fail(
+            `${label}: description "${content}" != expected "${escapeHtmlText(ABOUT_DESCRIPTION)}"`,
+         );
+      }
+   }
+
+   const payload = html.match(/<script[^>]*id="home-data"[^>]*>([\s\S]*?)<\/script>/);
+   if (!payload) {
+      fail(`${label}: missing the #home-data payload`);
+      return;
+   }
+
+   try {
+      const data = JSON.parse(payload[1]) as { total?: unknown; withImage?: unknown };
+      if (typeof data.total !== "number" || typeof data.withImage !== "number") {
+         fail(`${label}: #home-data is missing the total/withImage counts`);
+      }
+   } catch {
+      fail(`${label}: #home-data is not valid JSON`);
+   }
+};
+
 const main = async (): Promise<void> => {
    try {
       const geoData = JSON.parse(await fs.readFile(GEOJSON_PATH, "utf-8"));
@@ -433,6 +480,8 @@ const main = async (): Promise<void> => {
          checkStaticHtml(html, loc, label);
          if (route === "/") {
             checkHomeBody(html);
+         } else if (route === "/about") {
+            checkAboutHead(html);
          }
       }
 
