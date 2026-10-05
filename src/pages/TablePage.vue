@@ -89,38 +89,7 @@
 
                   <!-- Custom Slot for Actions -->
                   <template #item-actions="{ row }">
-                     <div class="flex justify-end gap-1 sm:gap-3">
-                        <!-- Upload Button -->
-                        <CdxButton
-                           v-if="auth.canUpload"
-                           weight="quiet"
-                           aria-label="Şəkil yüklə"
-                           title="Şəkil yüklə"
-                           @click="openUploadModal(row)"
-                        >
-                           <CdxIcon :icon="cdxIconUpload" />
-                        </CdxButton>
-
-                        <CdxButton
-                           v-if="row.azLink"
-                           weight="quiet"
-                           aria-label="Vikipediyada oxu"
-                           title="Wikipedia"
-                           @click="openExternalLink(row.azLink)"
-                        >
-                           <CdxIcon :icon="cdxIconLogoWikipedia" />
-                        </CdxButton>
-
-                        <CdxButton
-                           v-if="typeof row.lat === 'number'"
-                           weight="quiet"
-                           aria-label="Xəritədə göstər"
-                           title="Xəritədə göstər"
-                           @click="$router.push('/map?inventory=' + getCanonicalId(row.inventory))"
-                        >
-                           <CdxIcon :icon="cdxIconMapPin" />
-                        </CdxButton>
-                     </div>
+                     <MonumentRowActions :row="row" @upload="openUploadModal" />
                   </template>
 
                   <template #empty>
@@ -148,22 +117,17 @@
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, onMounted, onUnmounted, ref, watch } from "vue";
 import { useHead } from "@unhead/vue";
-import { CdxButton, CdxIcon, CdxSearchInput, CdxSelect } from "@wikimedia/codex";
-import {
-   cdxIconLogoWikipedia,
-   cdxIconMap,
-   cdxIconMapPin,
-   cdxIconUpload,
-} from "@wikimedia/codex-icons";
+import { CdxIcon, CdxSearchInput, CdxSelect } from "@wikimedia/codex";
+import { cdxIconMap } from "@wikimedia/codex-icons";
 import MonumentVirtualTable from "@/components/MonumentVirtualTable.vue";
-import { useAuthStore } from "@/stores/auth.ts";
+import MonumentRowActions from "@/components/MonumentRowActions.vue";
 import { useMonumentStore } from "@/stores/monuments.ts";
 import type { MonumentProps as Monument } from "@/types";
 import { encodeIdForUrl, getCanonicalId } from "@/utils/monumentFormatters.ts";
+import { activeSortKey, sortDirectionFor, sortMonumentsByKey } from "@/utils/monumentSorting.ts";
 
 const UploadModal = defineAsyncComponent(() => import("../components/UploadModal.vue"));
 
-const auth = useAuthStore();
 const monumentStore = useMonumentStore();
 
 useHead({
@@ -233,7 +197,7 @@ const columns = [
    { id: "actions", label: "" },
 ];
 
-const openUploadModal = (monument: Monument) => {
+const openUploadModal = (monument: Monument): void => {
    selectedMonumentForUpload.value = monument;
    isUploadModalOpen.value = true;
 };
@@ -245,10 +209,6 @@ const handleSort = (colId: string) => {
    virtualTable.value?.scrollToTop();
 };
 
-const openExternalLink = (url: string) => {
-   window.open(url, "_blank", "noopener,noreferrer");
-};
-
 /** Static monument page path for a row (only located monuments get one). */
 const monumentPath = (row: Monument): string =>
    `/monument/${encodeIdForUrl(getCanonicalId(row.inventory))}`;
@@ -257,23 +217,22 @@ onMounted(() => {
    monumentStore.init();
 });
 
-// Pre-define regex for inventory sorting to avoid repeated instantiation
-const INVENTORY_NUM_REGEX = /[^0-9.]/g;
-
-/** One row of `processedMonuments` (a MonumentProps augmented with sort metadata). */
+/**
+ * One row of `processedMonuments` (a MonumentProps augmented with search
+ * metadata). The sort metadata that used to live here — `_invNum` — moved into
+ * `sortMonumentsByKey`, where the region table's sort reads it too, so the two
+ * pages cannot compute the numeric inventory order differently.
+ */
 type MonumentSortRecord = Monument & {
    _sLabel: string;
    _sInv: string;
    _sAlt: string;
-   _invNum: number;
 };
-
-type MonumentRecord = MonumentSortRecord & Record<string, unknown>;
 
 /**
  * Performance: Offload expensive operations like string lowercasing and regex replacements
  * into a one-time pre-processing computed property. This ensures that filtering (O(N))
- * and sorting (O(N log N)) loops use pre-calculated metadata, keeping interactions responsive.
+ * loop uses pre-calculated metadata, keeping interactions responsive.
  */
 const processedMonuments = computed<MonumentSortRecord[]>(() => {
    return monuments.value.map((m) => ({
@@ -282,9 +241,6 @@ const processedMonuments = computed<MonumentSortRecord[]>(() => {
       // Joined so searching for a secondary register id still finds the monument
       _sInv: (m.inventory || []).join(", ").toLowerCase(),
       _sAlt: (m.itemAltLabel || "").toLowerCase(),
-      _invNum: m.inventory?.length
-         ? parseFloat(getCanonicalId(m.inventory).replace(INVENTORY_NUM_REGEX, ""))
-         : NaN,
    }));
 });
 
@@ -308,32 +264,9 @@ const sortedMonuments = computed(() => {
             : data.filter((m) => m.parentLabel === region);
    }
 
-   // Sort
-   const sortKey = Object.keys(sortState.value)[0];
-   const sortDir = sortState.value[sortKey];
-
-   if (sortKey) {
-      const order = sortDir === "asc" ? 1 : -1;
-      data.sort((a, b) => {
-         if (sortKey === "inventory") {
-            const numA = a._invNum;
-            const numB = b._invNum;
-            if (!isNaN(numA) && !isNaN(numB) && numA !== numB) {
-               return (numA - numB) * order;
-            }
-         }
-
-         const recordA = a as MonumentRecord;
-         const recordB = b as MonumentRecord;
-         const valA = recordA[sortKey as keyof MonumentRecord] ?? "";
-         const valB = recordB[sortKey as keyof MonumentRecord] ?? "";
-
-         if (valA < valB) return -order;
-         if (valA > valB) return order;
-         return 0;
-      });
-   }
-
-   return data;
+   // Sort. Shared with RegionPage so the two tables cannot order the same
+   // monument differently; see utils/monumentSorting.ts.
+   const sortKey = activeSortKey(sortState.value);
+   return sortMonumentsByKey(data, sortKey, sortDirectionFor(sortState.value, sortKey));
 });
 </script>

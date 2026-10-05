@@ -44,6 +44,19 @@ const routes: Array<RouteRecordRaw> = [
       component: () => import("../pages/TablePage.vue"),
    },
    {
+      // Region names are Azerbaijani and percent-encoded in the path
+      // (see regionPath in utils/regions.ts). `/regions` must be declared
+      // before this one or it would be read as a region named "regions".
+      path: "/regions",
+      name: "Regions",
+      component: () => import("../pages/RegionsPage.vue"),
+   },
+   {
+      path: "/region/:name",
+      name: "Region",
+      component: () => import("../pages/RegionPage.vue"),
+   },
+   {
       path: "/monument/:id",
       name: "Monument",
       component: () => import("../pages/MonumentPage.vue"),

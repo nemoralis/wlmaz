@@ -44,6 +44,13 @@
             >
                İştirakçılar
             </router-link>
+            <router-link
+               to="/regions"
+               :class="NAV_LINK_CLASS"
+               aria-label="Regionlar səhifəsinə get"
+            >
+               Regionlar
+            </router-link>
             <router-link to="/table" :class="NAV_LINK_CLASS" aria-label="Siyahı səhifəsinə get">
                Siyahı
             </router-link>
@@ -218,6 +225,19 @@
                   aria-hidden="true"
                />
                İştirakçılar
+            </router-link>
+            <router-link
+               to="/regions"
+               :class="NAV_DRAWER_LINK_CLASS"
+               aria-label="Regionlar səhifəsinə get"
+               @click="mobileNavOpen = false"
+            >
+               <font-awesome-icon
+                  :icon="['fas', 'map-location-dot']"
+                  class="w-5 text-gray-400"
+                  aria-hidden="true"
+               />
+               Regionlar
             </router-link>
             <router-link
                to="/table"

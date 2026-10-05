@@ -134,13 +134,34 @@ const updateViewportHeight = () => {
    }
 };
 
+/**
+ * Watches the viewport's own size, which flex layout decides and this component
+ * does not control.
+ *
+ * Measuring once on mount was enough as long as nothing above the table changed
+ * height after the first paint. On a region page it does: the gallery and the
+ * coverage stats render only once the monuments have loaded, which is later than
+ * the region name resolves, so the box the observer would have measured at mount
+ * is taller than the box it ends up in. A stale `viewportHeight` makes
+ * `endIndex` render more rows than fit, which `overflow-hidden` then clips — the
+ * table looks empty or truncated with no error to trace.
+ *
+ * ResizeObserver covers the window-resize case the listener used to handle, so
+ * the listener is gone rather than left as a second source of truth.
+ */
+let resizeObserver: ResizeObserver | null = null;
+
 onMounted(() => {
    updateViewportHeight();
-   window.addEventListener("resize", updateViewportHeight);
+   if (viewport.value) {
+      resizeObserver = new ResizeObserver(updateViewportHeight);
+      resizeObserver.observe(viewport.value);
+   }
 });
 
 onUnmounted(() => {
-   window.removeEventListener("resize", updateViewportHeight);
+   resizeObserver?.disconnect();
+   resizeObserver = null;
 });
 
 // Reset scroll on data change if needed (e.g. search)
