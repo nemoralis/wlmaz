@@ -19,6 +19,37 @@ function parseWikiDate(timestamp: number): Date {
    return new Date(year, month, day);
 }
 
+/** The snapshot written to localStorage, as read back. */
+interface CachedLeaderboard {
+   users: LeaderboardUser[];
+   eventStats: EventStats | null;
+   yearlyBreakdown: Record<number, { count: number; usage: number }> | null;
+   dailyStats: Record<string, WikiLovesDailyData> | null;
+   eventWindow: { start: number; end: number } | null;
+}
+
+/**
+ * Rebuilds cached users into the shape the page renders.
+ *
+ * JSON has no Date type, so `reg` comes back as an ISO string — and
+ * `Intl.DateTimeFormat.format()` on a string throws "Invalid time value",
+ * taking the whole table down on every visit after the first. Throws on
+ * anything unusable so the caller can drop the entry and fetch fresh.
+ */
+function reviveUsers(users: unknown): LeaderboardUser[] {
+   if (!Array.isArray(users)) {
+      throw new TypeError("cached users is not an array");
+   }
+
+   return users.map((user: Record<string, unknown>) => {
+      const reg = user.reg instanceof Date ? user.reg : new Date(user.reg as string | number);
+      if (Number.isNaN(reg.getTime())) {
+         throw new TypeError(`cached reg is not a date: ${String(user.reg)}`);
+      }
+      return { ...user, reg } as LeaderboardUser;
+   });
+}
+
 /**
  * Leaderboard state for the rankings page: per-year or aggregate ("total")
  * views, SWR caching in localStorage, and derived event stats.
@@ -68,23 +99,32 @@ export const useLeaderboard = () => {
 
       // SWR: Load from local storage
       const cached = localStorage.getItem(cacheKey);
-      if (cached) {
-         try {
-            const parsed = JSON.parse(cached);
-            users.value = parsed.users;
-            eventStats.value = parsed.eventStats;
-            yearlyBreakdown.value = parsed.yearlyBreakdown;
-            dailyStats.value = parsed.dailyStats ?? null;
-            eventWindow.value = parsed.eventWindow ?? null;
-         } catch (e) {
-            console.warn("Failed to parse cached leaderboard", e);
-         }
-      } else {
+      const clearState = () => {
          users.value = [];
          eventStats.value = null;
          yearlyBreakdown.value = null;
          dailyStats.value = null;
          eventWindow.value = null;
+      };
+
+      if (cached) {
+         try {
+            const parsed = JSON.parse(cached) as CachedLeaderboard;
+            users.value = reviveUsers(parsed.users);
+            eventStats.value = parsed.eventStats;
+            yearlyBreakdown.value = parsed.yearlyBreakdown;
+            dailyStats.value = parsed.dailyStats ?? null;
+            eventWindow.value = parsed.eventWindow ?? null;
+         } catch (e) {
+            // Unusable entry — hand-edited, or written by an older build. Drop
+            // it and fall through to a fresh fetch, so the loading state shows
+            // instead of the page rendering rows it cannot format.
+            console.warn("Failed to read cached leaderboard", e);
+            localStorage.removeItem(cacheKey);
+            clearState();
+         }
+      } else {
+         clearState();
       }
 
       if (users.value.length === 0) {

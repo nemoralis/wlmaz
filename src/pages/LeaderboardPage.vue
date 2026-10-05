@@ -97,13 +97,10 @@
             />
          </div>
 
-         <!-- Loading State -->
-         <div v-if="isLoading" class="flex flex-col items-center justify-center py-16">
-            <div
-               class="h-10 w-10 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"
-            ></div>
-            <p class="mt-4 text-gray-500">Məlumat yüklənir...</p>
-         </div>
+         <!-- Loading State: static import, not an async component like the
+              charts below — an async skeleton would add a round-trip to the
+              exact moment it is meant to cover. -->
+         <LeaderboardSkeleton v-if="isLoading" />
 
          <!-- Error State -->
          <div
@@ -237,6 +234,7 @@
 import { defineAsyncComponent, onMounted } from "vue";
 import { useHead } from "@unhead/vue";
 import { useLeaderboard } from "@/composables/useLeaderboard.ts";
+import LeaderboardSkeleton from "@/components/stats/LeaderboardSkeleton.vue";
 
 const YearlyBreakdownChart = defineAsyncComponent(
    () => import("../components/stats/YearlyBreakdownChart.vue"),
