@@ -29,23 +29,23 @@
       "url": "/monument/167"
     }
   ],
-  "total": 1321,
-  "withImage": 755,
+  "total": 1342,
+  "withImage": 756,
   "regions": [
     {
       "label": "Səbail rayonu",
-      "count": 170,
-      "withImage": 130
+      "count": 179,
+      "withImage": 132
     },
     {
       "label": "Bakı",
       "count": 95,
-      "withImage": 88
+      "withImage": 87
     },
     {
       "label": "Nəsimi rayonu",
-      "count": 78,
-      "withImage": 43
+      "count": 88,
+      "withImage": 44
     },
     {
       "label": "Yasamal rayonu",
