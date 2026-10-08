@@ -819,15 +819,27 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.192222222,
+                    39.430277777
+                ]
+            },
             "properties": {
                 "addressLabel": "Şərur rayonu, Qarabağlar kəndi",
+                "azLink": "https://az.wikipedia.org/wiki/Qaraba%C4%9Flar_t%C3%BCrb%C9%99si",
+                "commonsCategory": "Garabaghlar Mausoleum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Garabaghlar_Mausoleum",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Qaraba%C4%9Flar%20t%C3%BCrb%C9%99%20kompleksinin%20%C3%BCmumi%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
                 "inventory": [
                     "17"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140651928",
-                "itemLabel": "Qarabağlar Tarix-Mədəniyyət Kompleksi",
-                "lastModified": "2026-07-25T22:48:35Z",
+                "item": "http://www.wikidata.org/entity/Q943174",
+                "itemAltLabel": "Qarabağlar Tarix-Mədəniyyət Kompleksi",
+                "itemDescription": "mausoleum in Azerbaijan",
+                "itemLabel": "Qarabağlar türbəsi",
+                "lastModified": "2026-10-07T11:12:13Z",
                 "parent": "http://www.wikidata.org/entity/Q390820",
                 "parentLabel": "Şərur rayonu"
             }
@@ -16245,15 +16257,27 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.835588888,
+                    40.367591666
+                ]
+            },
             "properties": {
                 "addressLabel": "Sabir küçəsi, 9",
+                "azLink": "https://az.wikipedia.org/wiki/Molla_%C6%8Fhm%C9%99d_m%C9%99scidi",
+                "commonsCategory": "Molla Ahmed Mosque",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Molla_Ahmed_Mosque",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Molla%20Ahmed%20Mosque%20%28Ichery%20Sheher%29.JPG",
                 "inventory": [
                     "85"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140654568",
-                "itemLabel": "Nəsir ad-Din Gəştasib Məscidi",
-                "lastModified": "2026-09-29T13:56:34Z",
+                "item": "http://www.wikidata.org/entity/Q12842223",
+                "itemAltLabel": "Nəsir ad-Din Gəştasib məscidi",
+                "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
+                "itemLabel": "Molla Əhməd Məscidi",
+                "lastModified": "2026-10-07T02:09:54Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -18357,12 +18381,15 @@
             },
             "properties": {
                 "addressLabel": "Gənclər meydanı, 1",
+                "commonsCategory": "Building of Constitutional Court of Azerbaijan",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_Constitutional_Court_of_Azerbaijan",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Konstitusiya%20M%C9%99hk%C9%99m%C9%99sinin%20binas%C4%B1%20%281%29.JPG",
                 "inventory": [
                     "159"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654618",
                 "itemLabel": "Konstitusiya Məhkəməsinin binası",
-                "lastModified": "2026-09-16T05:47:44Z",
+                "lastModified": "2026-10-08T17:04:40Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -23807,7 +23834,7 @@
                 "itemAltLabel": "Azərbaycan Respublikası Elmlər Akademiyasının dendroparkı",
                 "itemDescription": "arboretum in Baku, Azerbaijan",
                 "itemLabel": "Mərdəkan Dendrarisi",
-                "lastModified": "2026-09-22T10:04:14Z",
+                "lastModified": "2026-10-08T15:21:13Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
             }
@@ -24338,15 +24365,25 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.825839823,
+                    40.390118597
+                ]
+            },
             "properties": {
                 "addressLabel": "Bakı şəhəri, Tbilisi prospekti",
+                "commonsCategory": "Monument to Liberated Energy",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Monument_to_Liberated_Energy",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Azad%20olunmu%C5%9F%20enerji%20abid%C9%99si.jpg",
                 "inventory": [
                     "465"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657772",
+                "itemAltLabel": "Azad olunmuş enerji abidəsi",
                 "itemLabel": "Gürcü-Azərbaycan xalqlarının Dostluq abidəsi",
-                "lastModified": "2026-07-25T23:07:14Z",
+                "lastModified": "2026-10-07T12:08:56Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
             }
@@ -25785,32 +25822,6 @@
                 "lastModified": "2026-07-25T22:47:31Z",
                 "parent": "http://www.wikidata.org/entity/Q2210210",
                 "parentLabel": "Sabunçu rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    49.83701,
-                    40.366099
-                ]
-            },
-            "properties": {
-                "addressLabel": "Ичери-шехер",
-                "azLink": "https://az.wikipedia.org/wiki/Baba_Kuhi_Bakuvi_m%C9%99scidi",
-                "commonsCategory": "Baba Kuhi Bakuvi Mosque",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Baba_Kuhi_Bakuvi_Mosque",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Archeological%20site%20near%20Maiden%20Towers%20of%20Baku6.jpg",
-                "inventory": [
-                    "548"
-                ],
-                "item": "http://www.wikidata.org/entity/Q20573552",
-                "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi",
-                "itemLabel": "Baba Kuhi Bakuvi məscidi",
-                "lastModified": "2026-09-22T10:03:14Z",
-                "parent": "http://www.wikidata.org/entity/Q2028793",
-                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -32188,32 +32199,6 @@
                 "item": "http://www.wikidata.org/entity/Q140658605",
                 "itemLabel": "Gülxan qalası",
                 "lastModified": "2026-07-25T22:50:36Z",
-                "parent": "http://www.wikidata.org/entity/Q372795",
-                "parentLabel": "Cəlilabad rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    49.835588888,
-                    40.367591666
-                ]
-            },
-            "properties": {
-                "addressLabel": "İçərişəhər, Sabir küçəsi, 9",
-                "azLink": "https://az.wikipedia.org/wiki/Molla_%C6%8Fhm%C9%99d_m%C9%99scidi",
-                "commonsCategory": "Molla Ahmed Mosque",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Molla_Ahmed_Mosque",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Molla%20Ahmed%20Mosque%20%28Ichery%20Sheher%29.JPG",
-                "inventory": [
-                    "958"
-                ],
-                "item": "http://www.wikidata.org/entity/Q12842223",
-                "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən məscid və tarix memarlıq abidəsi.",
-                "itemLabel": "Molla Əhməd Məscidi",
-                "lastModified": "2026-09-22T10:01:56Z",
                 "parent": "http://www.wikidata.org/entity/Q372795",
                 "parentLabel": "Cəlilabad rayonu"
             }
@@ -59992,7 +59977,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.87603,
+                    40.384347
+                ]
+            },
             "properties": {
                 "addressLabel": "Qara şəhər",
                 "inventory": [
@@ -60000,7 +59991,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140660910",
                 "itemLabel": "Mədəniyyət sarayı",
-                "lastModified": "2026-09-06T01:38:59Z",
+                "lastModified": "2026-10-07T11:17:39Z",
                 "parent": "http://www.wikidata.org/entity/Q3912215",
                 "parentLabel": "Nizami rayonu"
             }
@@ -63606,8 +63597,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.864983168,
-                    40.381132357
+                    49.841466387,
+                    40.375486811
                 ]
             },
             "properties": {
@@ -63616,8 +63607,9 @@
                     "3131"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661129",
-                "itemLabel": "Azərbaycan Respublikası Ali Məhkəməsinin binası",
-                "lastModified": "2026-09-06T14:16:26Z",
+                "itemDescription": "Bakıda məhkəmə binası",
+                "itemLabel": "Bakı Ağır Cinayətlər Məhkəməsinin binası",
+                "lastModified": "2026-10-07T12:37:59Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -65370,22 +65362,37 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.82899719,
+                    40.366434718
+                ]
+            },
             "properties": {
                 "addressLabel": "Şeyx Şamil küçəsi, 9",
+                "commonsCategory": "Building on Sheikh Shamil Street 9",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Sheikh_Shamil_Street_9",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20binas%C4%B1%2C%20%C5%9Eeyx%20%C5%9Eamil%20k%C3%BC%C3%A7%C9%99si%2C%209.jpg",
                 "inventory": [
                     "3235"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661217",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:00:05Z",
+                "lastModified": "2026-10-07T00:16:25Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.828712291,
+                    40.366735734
+                ]
+            },
             "properties": {
                 "addressLabel": "Şeyx Şamil küçəsi, 10",
                 "inventory": [
@@ -65393,29 +65400,44 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661218",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:00:06Z",
+                "lastModified": "2026-10-07T00:18:26Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.828716115,
+                    40.366487802
+                ]
+            },
             "properties": {
                 "addressLabel": "Şeyx Şamil küçəsi, 11",
+                "commonsCategory": "Building on Sheikh Shamil Street 11",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Sheikh_Shamil_Street_11",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20binas%C4%B1%2C%20%C5%9Eeyx%20%C5%9Eamil%20k%C3%BC%C3%A7%C9%99si%2C%2011.jpg",
                 "inventory": [
                     "3237"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661220",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:00:12Z",
+                "lastModified": "2026-10-07T05:36:25Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.828590368,
+                    40.366753032
+                ]
+            },
             "properties": {
                 "addressLabel": "Şeyx Şamil küçəsi, 12",
                 "inventory": [
@@ -65423,22 +65445,31 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661222",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:00:13Z",
+                "lastModified": "2026-10-07T00:23:58Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.82859972,
+                    40.366528524
+                ]
+            },
             "properties": {
                 "addressLabel": "Şeyx Şamil küçəsi, 13",
+                "commonsCategory": "Building on Sheikh Shamil Street 13",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Sheikh_Shamil_Street_13",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ya%C5%9Fay%C4%B1%C5%9F%20binas%C4%B1%2C%20%C5%9Eeyx%20%C5%9Eamil%20k%C3%BC%C3%A7%C9%99si%2C%2013%202020.jpg",
                 "inventory": [
                     "3239"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661223",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:00:15Z",
+                "lastModified": "2026-10-07T00:25:56Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -65472,15 +65503,24 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.82766575,
+                    40.366658172
+                ]
+            },
             "properties": {
                 "addressLabel": "Şeyx Şamil küçəsi, 19",
+                "commonsCategory": "Building on Sheikh Shamil Street 19",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Sheikh_Shamil_Street_19",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C5%9Eeyx%20%C5%9Eamil%2019%20%282%29.jpg",
                 "inventory": [
                     "3241"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661225",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:00:21Z",
+                "lastModified": "2026-10-07T00:30:57Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -65502,15 +65542,24 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.826764,
+                    40.366953512
+                ]
+            },
             "properties": {
                 "addressLabel": "Şeyx Şamil küçəsi, 25",
+                "commonsCategory": "Building on Sheikh Shamil Street 25",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_on_Sheikh_Shamil_Street_25",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Building%20on%20Sheikh%20Shamil%20Street%2025%202020.jpg",
                 "inventory": [
                     "3243"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661228",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:00:28Z",
+                "lastModified": "2026-10-07T00:07:53Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -65807,7 +65856,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834227435,
+                    40.369904603
+                ]
+            },
             "properties": {
                 "addressLabel": "H.Hacıyev küçəsi, 3",
                 "inventory": [
@@ -65815,22 +65870,33 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661245",
                 "itemLabel": "Yaşayış evi və elmi-texniki kitabxana",
-                "lastModified": "2026-07-26T01:01:04Z",
+                "lastModified": "2026-10-07T01:59:17Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834531208,
+                    40.370006805
+                ]
+            },
             "properties": {
                 "addressLabel": "H.Hacıyev küçəsi, 4",
+                "commonsCategory": "Building of Azərnəşr",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_Az%C9%99rn%C9%99%C5%9Fr",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Az%C9%99rbaycan.%20Bak%C4%B1.%20Az%C9%99rbaycan%20Prospekti%204.jpg",
                 "inventory": [
                     "3261"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661246",
+                "itemAltLabel": "Azərnəşrin binası",
+                "itemDescription": "Bakıda inzibati bina",
                 "itemLabel": "“Azərnəşr”in binası",
-                "lastModified": "2026-07-25T22:28:27Z",
+                "lastModified": "2026-10-07T12:18:44Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -66427,8 +66493,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.830456,
-                    40.365361
+                    49.830595354,
+                    40.365972369
                 ]
             },
             "properties": {
@@ -66443,7 +66509,7 @@
                 "itemAltLabel": "Mirzəbekyanın mədaxil mülkü, Mirzəbekyanın yeddimərtəbəli mülkü",
                 "itemDescription": "Bakıda tarixi bina",
                 "itemLabel": "Mirzəbəyovun mədaxil evi",
-                "lastModified": "2026-03-25T12:22:22Z",
+                "lastModified": "2026-10-07T01:44:41Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
             }
@@ -66934,7 +67000,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.847268365,
+                    40.373685539
+                ]
+            },
             "properties": {
                 "addressLabel": "R.Behbudov küçəsi, 8",
                 "inventory": [
@@ -66942,7 +67014,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661294",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:03:21Z",
+                "lastModified": "2026-10-07T02:13:33Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -68746,7 +68818,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.836342,
+                    40.369365
+                ]
+            },
             "properties": {
                 "addressLabel": "Gənclər Meydanı, 3",
                 "inventory": [
@@ -68754,7 +68832,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661407",
                 "itemLabel": "Azərbaycan Həmkarlar İttifaqları Konfederasiyasının binası",
-                "lastModified": "2026-07-25T22:28:39Z",
+                "lastModified": "2026-10-07T01:54:44Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -69899,15 +69977,26 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.831077004,
+                    40.379112119
+                ]
+            },
             "properties": {
                 "addressLabel": "S.Əsgərova küçəsi, 85",
+                "commonsCategory": "Building of Ministry of Labour and Social Protection of the Population (Azerbaijan)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_Ministry_of_Labour_and_Social_Protection_of_the_Population_(Azerbaijan)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Be%C5%9Fm%C9%99rt%C9%99b%C9%99%20meydan%C4%B1%20-%20panoramio.jpg",
                 "inventory": [
                     "3490"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140665301",
+                "itemAltLabel": "Əmək və Əhalinin Sosial Müdafiəsi Nazirliyinin binası",
+                "itemDescription": "Bakıda inzibati bina",
                 "itemLabel": "İnzibati bina",
-                "lastModified": "2026-09-06T01:39:12Z",
+                "lastModified": "2026-10-07T10:58:04Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -71338,15 +71427,23 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.832526,
+                    40.377431
+                ]
+            },
             "properties": {
                 "addressLabel": "Ş.Qurbanov küçəsi, 4",
                 "inventory": [
                     "3596"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140665302",
+                "itemAltLabel": "Xarici İşlər Nazirliyinin binası",
+                "itemDescription": "Bakıda yerləşən inzibati bina",
                 "itemLabel": "İnzibati bina",
-                "lastModified": "2026-09-06T01:39:11Z",
+                "lastModified": "2026-10-07T11:02:37Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -105869,7 +105966,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.352515536,
+                    40.676583494
+                ]
+            },
             "properties": {
                 "addressLabel": "Gəncə şəhəri, Mədəniyyət və İstirahət bağında",
                 "inventory": [
@@ -105877,7 +105980,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140663030",
                 "itemLabel": "İsrafil Məmmədovun qəbirüstü abidəsi",
-                "lastModified": "2026-07-25T23:07:15Z",
+                "lastModified": "2026-10-07T11:30:15Z",
                 "parent": "http://www.wikidata.org/entity/Q131290",
                 "parentLabel": "Gəncə"
             }
@@ -105988,7 +106091,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.359181773,
+                    40.670470016
+                ]
+            },
             "properties": {
                 "addressLabel": "Gəncə şəhəri, Dövlət Dram Teatrının yanındakı bağın ərazisində",
                 "inventory": [
@@ -105996,7 +106105,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140663034",
                 "itemLabel": "Abbas Səhhətin qəbirüstü abidəsi",
-                "lastModified": "2026-07-25T23:07:18Z",
+                "lastModified": "2026-10-07T11:29:53Z",
                 "parent": "http://www.wikidata.org/entity/Q131290",
                 "parentLabel": "Gəncə"
             }
@@ -107598,15 +107707,25 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.75948,
+                    39.75442
+                ]
+            },
             "properties": {
                 "addressLabel": "Şuşa şəhəri, Q.Quliyev küçəsi",
+                "azLink": "https://az.wikipedia.org/wiki/Mir_M%C3%B6hs%C3%BCn_N%C9%99vvab%C4%B1n_q%C9%99bir%C3%BCst%C3%BC_abid%C9%99si",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mir%20M%C3%B6hs%C3%BCn%20N%C9%99vvab%C4%B1n%20%C5%9Eu%C5%9Fada%20yerl%C9%99%C5%9F%C9%99n%20q%C9%99bir%C3%BCst%C3%BC%20xatir%C9%99%20abid%C9%99si.jpg",
                 "inventory": [
                     "5695"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140663135",
-                "itemLabel": "Mir Mövsüm Nəvvabın qəbirüstü abidəsi",
-                "lastModified": "2026-07-25T23:07:26Z",
+                "item": "http://www.wikidata.org/entity/Q110104298",
+                "itemAltLabel": "Mir Mövsüm Nəvvabın qəbirüstü abidəsi",
+                "itemDescription": "Şuşa şəhərində ölkə əhəmiyyətli monumental abidə",
+                "itemLabel": "Mir Möhsün Nəvvabın qəbirüstü abidəsi",
+                "lastModified": "2026-10-07T11:49:03Z",
                 "parent": "http://www.wikidata.org/entity/Q158903",
                 "parentLabel": "Şuşa"
             }
