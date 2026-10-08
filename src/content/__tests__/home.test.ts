@@ -108,7 +108,7 @@ describe("photo-gap panel", () => {
    it("keeps heading and CTA as shared copy for both render paths", () => {
       // Mirrors HOME_STEPS_HEADING: Home.vue and scripts/prerender.ts both
       // import these, so the two render paths cannot disagree on wording.
-      expect(HOME_GAP_HEADING).toBe("Çəkilməyən abidələr");
+      expect(HOME_GAP_HEADING).toBe("Fotoşəkili olmayan abidələr");
       expect(HOME_REGIONS_HEADING.length).toBeGreaterThan(0);
       expect(HOME_REGIONS_INTRO.length).toBeGreaterThan(20);
    });
