@@ -29,13 +29,13 @@
       "url": "/monument/167"
     }
   ],
-  "total": 1360,
-  "withImage": 766,
+  "total": 1375,
+  "withImage": 779,
   "regions": [
     {
       "label": "Səbail rayonu",
-      "count": 190,
-      "withImage": 139
+      "count": 192,
+      "withImage": 142
     },
     {
       "label": "Bakı",
@@ -44,13 +44,13 @@
     },
     {
       "label": "Nəsimi rayonu",
-      "count": 88,
-      "withImage": 44
+      "count": 94,
+      "withImage": 47
     },
     {
       "label": "Yasamal rayonu",
-      "count": 60,
-      "withImage": 50
+      "count": 62,
+      "withImage": 52
     },
     {
       "label": "Şəki",
@@ -79,8 +79,8 @@
     },
     {
       "label": "Sabunçu rayonu",
-      "count": 26,
-      "withImage": 18
+      "count": 28,
+      "withImage": 20
     },
     {
       "label": "Ağstafa rayonu",
