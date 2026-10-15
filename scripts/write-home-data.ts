@@ -10,6 +10,7 @@
  *
  * Offline: reads only the committed geojson, no network.
  */
+import { realpathSync } from "fs";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -26,7 +27,7 @@ interface FeatureCollection {
    features: Array<{ geometry: unknown; properties: Record<string, string> }>;
 }
 
-const main = async (): Promise<void> => {
+export const writeHomeData = async (): Promise<void> => {
    const geojson = JSON.parse(await fs.readFile(GEOJSON_PATH, "utf-8")) as FeatureCollection;
    const featuredIds = JSON.parse(await fs.readFile(FEATURED_PATH, "utf-8")) as string[];
 
@@ -41,7 +42,11 @@ const main = async (): Promise<void> => {
    );
 };
 
-main().catch((error) => {
-   console.error(error);
-   process.exit(1);
-});
+// Import-safe entry guard: the daily pipeline (scripts/update-monuments.ts)
+// imports this function, so only run it when executed directly.
+if (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(__filename)) {
+   writeHomeData().catch((error) => {
+      console.error(error);
+      process.exit(1);
+   });
+}

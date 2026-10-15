@@ -6,14 +6,15 @@
  * works out to ~2.9 MB, which is far too much to send to a browser. This
  * script converts it once, at build time, into simplified SVG paths
  * (~150 KB) and writes the result to `public/`, the same way
- * `convert-data` produces `monuments.pbf` and `write-home-data.ts` produces
- * `home-data.json`.
+ * `scripts/lib/convertData.ts` produces `monuments.pbf` and
+ * `write-home-data.ts` produces `home-data.json`.
  *
  * The source geojson is read-only: nothing here rewrites or repairs it, and
  * no monument `parentLabel` is touched.
  *
  * Offline: reads only committed files, no network.
  */
+import { realpathSync } from "fs";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -29,7 +30,7 @@ interface FeatureCollection {
    features: RegionFeature[];
 }
 
-const main = async (): Promise<void> => {
+export const writeRegionsMap = async (): Promise<void> => {
    const geojson = JSON.parse(await fs.readFile(REGIONS_PATH, "utf-8")) as FeatureCollection;
 
    const map = buildRegionsMap(geojson.features);
@@ -57,7 +58,11 @@ const main = async (): Promise<void> => {
    );
 };
 
-main().catch((error) => {
-   console.error(error);
-   process.exit(1);
-});
+// Import-safe entry guard: the daily pipeline (scripts/update-monuments.ts)
+// imports this function, so only run it when executed directly.
+if (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(__filename)) {
+   writeRegionsMap().catch((error) => {
+      console.error(error);
+      process.exit(1);
+   });
+}

@@ -12072,6 +12072,19 @@
             "type": "Feature",
             "geometry": null,
             "properties": {
+                "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 4 nömrəli daş",
+                "inventory": [
+                    "26—839"
+                ],
+                "item": "http://www.wikidata.org/entity/Q140654168",
+                "itemLabel": "Qayaüstü təsvirlər (2 maral, keçi), qaya yalağı",
+                "lastModified": "2026-07-26T00:15:52Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
                 "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 5 nömrəli daş",
                 "inventory": [
                     "26—840"
@@ -12092,6 +12105,19 @@
                 "item": "http://www.wikidata.org/entity/Q140654171",
                 "itemLabel": "Heyvan bağlamaq üçün dəlmə",
                 "lastModified": "2026-07-26T00:15:54Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 7 nömrəli daş",
+                "inventory": [
+                    "26—842"
+                ],
+                "item": "http://www.wikidata.org/entity/Q140654172",
+                "itemLabel": "Qayaüstü təsvirlər (9 ədəd)",
+                "lastModified": "2026-07-26T00:15:55Z"
             }
         },
         {
@@ -14517,26 +14543,15 @@
             "geometry": null,
             "properties": {
                 "addressLabel": "“Qayaaltı” kolleksiyasının 7, 8, 9 №-li daşları arasında",
-                "inventory": [
-                    "26—1031"
-                ],
-                "item": "http://www.wikidata.org/entity/Q140654500",
-                "itemLabel": "“Qayaarası” düşərgəsi",
-                "lastModified": "2026-07-25T22:49:03Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": null,
-            "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/Qayaaras%C4%B1_d%C3%BC%C5%9F%C9%99rg%C9%99si",
                 "inventory": [
                     "26—1031"
                 ],
-                "item": "http://www.wikidata.org/entity/Q141646493",
+                "item": "http://www.wikidata.org/entity/Q140654500",
+                "itemAltLabel": "Qayaarası düşərgəsi",
                 "itemDescription": "Qobustan dövlət tarixi-bədii qoruğunun ərazisində yerləşən arxeoloji abidə.",
-                "itemLabel": "Qayaarası düşərgəsi",
-                "lastModified": "2026-10-05T12:44:06Z",
+                "itemLabel": "“Qayaarası” düşərgəsi",
+                "lastModified": "2026-10-15T03:38:46Z",
                 "parent": "http://www.wikidata.org/entity/Q4818249",
                 "parentLabel": "Qaradağ rayonu"
             }
@@ -15694,7 +15709,7 @@
                 "itemAltLabel": "Örənqala şəhər xarabalığı, Beyləqan yaşayış yeri (Örənqala)",
                 "itemDescription": "qədim şəhər",
                 "itemLabel": "Örənqala",
-                "lastModified": "2026-10-02T06:36:05Z",
+                "lastModified": "2026-10-12T23:07:44Z",
                 "parent": "http://www.wikidata.org/entity/Q330807",
                 "parentLabel": "Beyləqan rayonu"
             }
@@ -15825,21 +15840,6 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
-            "properties": {
-                "addressLabel": "İçərişəhər",
-                "inventory": [
-                    "66"
-                ],
-                "item": "http://www.wikidata.org/entity/Q140654563",
-                "itemLabel": "Qala divarları",
-                "lastModified": "2026-09-29T13:56:46Z",
-                "parent": "http://www.wikidata.org/entity/Q2028793",
-                "parentLabel": "Səbail rayonu"
-            }
-        },
-        {
-            "type": "Feature",
             "geometry": {
                 "type": "Point",
                 "coordinates": [
@@ -15848,6 +15848,7 @@
                 ]
             },
             "properties": {
+                "addressLabel": "İçərişəhər",
                 "azLink": "https://az.wikipedia.org/wiki/Qo%C5%9Fa_qala_qap%C4%B1lar%C4%B1",
                 "commonsCategory": "Shamakhy Gate of Baku Fortress",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Shamakhy_Gate_of_Baku_Fortress",
@@ -15856,10 +15857,10 @@
                     "66"
                 ],
                 "item": "http://www.wikidata.org/entity/Q30694329",
-                "itemAltLabel": "Şamaxı qapısı",
+                "itemAltLabel": "Şamaxı qapısı, Qala divarları",
                 "itemDescription": "Bakı qalasının şimalında yerləşən qapılar",
                 "itemLabel": "Qoşa qala qapıları",
-                "lastModified": "2026-09-25T12:20:52Z",
+                "lastModified": "2026-10-15T03:37:50Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -17303,7 +17304,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.83235506,
+                    40.391609023
+                ]
+            },
             "properties": {
                 "addressLabel": "Mərdanov qardaşları küçəsi",
                 "inventory": [
@@ -17311,7 +17318,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654587",
                 "itemLabel": "Mərkəzi Şəhər Təcili Yardım Xəstəxanasının binası",
-                "lastModified": "2026-07-25T23:00:30Z",
+                "lastModified": "2026-10-14T22:51:17Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -18846,22 +18853,36 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.815595828,
+                    40.370062943
+                ]
+            },
             "properties": {
                 "addressLabel": "H.Cavid prospekti, 25",
                 "inventory": [
                     "178"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654632",
-                "itemLabel": "Azərbaycan Politexnik Akademiyasının binası",
-                "lastModified": "2026-07-25T22:28:06Z",
+                "itemAltLabel": "Azərbaycan Politexnik Akademiyasının binası",
+                "itemDescription": "Bakıda universitet binası",
+                "itemLabel": "Azərbaycan Texniki Universitetinin binası",
+                "lastModified": "2026-10-14T22:18:32Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.81419994,
+                    40.373192918
+                ]
+            },
             "properties": {
                 "addressLabel": "H.Cavid prospekti, 31",
                 "inventory": [
@@ -18869,7 +18890,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654634",
                 "itemLabel": "Akademiya şəhərciyi",
-                "lastModified": "2026-07-26T02:36:28Z",
+                "lastModified": "2026-10-14T22:14:48Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -63135,13 +63156,7 @@
         },
         {
             "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    49.831972222,
-                    40.368916666
-                ]
-            },
+            "geometry": null,
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/V%C9%99t%C9%99n_(kinoteatr)",
                 "commonsCategory": "Building of Vatan Cinema",
@@ -63152,7 +63167,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q97302130",
                 "itemLabel": "Vətən",
-                "lastModified": "2026-09-06T01:39:03Z",
+                "lastModified": "2026-10-13T15:34:13Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -63483,7 +63498,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.84350016,
+                    40.376445443
+                ]
+            },
             "properties": {
                 "addressLabel": "D.Əliyeva küçəsi, 202",
                 "inventory": [
@@ -63491,7 +63512,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661120",
                 "itemLabel": "Azərbaycan Dövlət Pedaqoji Xarici dillər Universitetinin fransız və alman dilləri fakültəsinin binası",
-                "lastModified": "2026-07-25T22:28:22Z",
+                "lastModified": "2026-10-14T22:41:34Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -65357,15 +65378,26 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.837592055,
+                    40.368691428
+                ]
+            },
             "properties": {
                 "addressLabel": "M.Ə.Rəsulzadə küçəsi, 9",
+                "azLink": "https://az.wikipedia.org/wiki/Az%C9%99rbaycan_(kinoteatr)",
+                "commonsCategory": "Azerbaijan Cinema",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Azerbaijan_Cinema",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Az%C9%99rbaycan%20kinoteatr%C4%B1%20binas%C4%B1%20restavrasiyadan%20%C9%99vv%C9%99l.JPG",
                 "inventory": [
                     "3230"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140661212",
-                "itemLabel": "Yaşayış evi və “Azərbaycan” kinoteatrının binası",
-                "lastModified": "2026-07-26T01:00:00Z",
+                "item": "http://www.wikidata.org/entity/Q97302073",
+                "itemAltLabel": "Ekspress, Qırmızı Şərq",
+                "itemLabel": "Azərbaycan kinoteatrı",
+                "lastModified": "2026-10-14T23:30:22Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -71450,7 +71482,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.830783413,
+                    40.380594895
+                ]
+            },
             "properties": {
                 "addressLabel": "Z.Əhmədbəyov küçəsi, 11",
                 "inventory": [
@@ -71458,7 +71496,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661543",
                 "itemLabel": "Rayon Səhiyyə İdarəsinin binası",
-                "lastModified": "2026-07-25T22:29:25Z",
+                "lastModified": "2026-10-14T23:41:27Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -72888,7 +72926,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.816623549,
+                    40.367424629
+                ]
+            },
             "properties": {
                 "addressLabel": "H.Cavid prospekti, 19",
                 "inventory": [
@@ -72896,14 +72940,20 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661621",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:20:48Z",
+                "lastModified": "2026-10-14T22:24:07Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.816443215,
+                    40.368546111
+                ]
+            },
             "properties": {
                 "addressLabel": "H.Cavid prospekti, 21",
                 "inventory": [
@@ -72911,7 +72961,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661622",
                 "itemLabel": "Yaşayış evi",
-                "lastModified": "2026-07-26T01:20:50Z",
+                "lastModified": "2026-10-14T22:25:46Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -90277,29 +90327,9 @@
                     "4712"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemLabel": "Məscid",
+                "itemDescription": "Qubadlıda məscid",
+                "itemLabel": "Mirlər məscidi",
                 "lastModified": "2026-07-23T15:59:55Z",
-                "parent": "http://www.wikidata.org/entity/Q644048",
-                "parentLabel": "Qubadlı rayonu"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    46.634641666,
-                    39.302825
-                ]
-            },
-            "properties": {
-                "addressLabel": "Mirlər kəndi",
-                "inventory": [
-                    "4712"
-                ],
-                "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemLabel": "Məscid",
-                "lastModified": "2026-07-22T13:14:53Z",
                 "parent": "http://www.wikidata.org/entity/Q644048",
                 "parentLabel": "Qubadlı rayonu"
             }
@@ -91127,8 +91157,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    46.33241932,
-                    39.690762384
+                    46.3324,
+                    39.6907
                 ]
             },
             "properties": {
@@ -91139,10 +91169,10 @@
                 "inventory": [
                     "4757"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140665607",
+                "item": "http://www.wikidata.org/entity/Q107366436",
                 "itemDescription": "Laçında məbəd",
                 "itemLabel": "Mirik məbədi",
-                "lastModified": "2026-07-24T19:21:04Z",
+                "lastModified": "2026-10-12T22:57:56Z",
                 "parent": "http://www.wikidata.org/entity/Q301832",
                 "parentLabel": "Laçın rayonu"
             }

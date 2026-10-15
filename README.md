@@ -129,7 +129,8 @@ omit the monument `inventory` when uploading to avoid the heritage template.
 - `npm run lint` / `npm run lint:fix` — ESLint without auto-fix / with auto-fix.
 - `npm run format` — Prettier (prints files it would rewrite).
 - `npm run update-data` — re-pull monument data from Wikidata and regenerate the
-  PBF used by the map.
+  derived artifacts (map PBF, home data, regions map); a run that finds no data
+  changes skips the rewrites.
 
 Server configuration lives in `src/config.ts`; shared application constants live
 in `src/utils/constants.ts`.
