@@ -74,7 +74,8 @@ const startServer = async () => {
                   "*.openstreetmap.org",
                   "*.wikimedia.org",
                   "tiles.gomap.az",
-                  "mt0.google.com",
+                  // Esri World Imagery satellite layer
+                  "server.arcgisonline.com",
                   "wikilovesmonuments.az",
                ],
                "connect-src": ["'self'", "*.wikimedia.org"],

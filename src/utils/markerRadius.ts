@@ -5,8 +5,8 @@
  * (zoom 7 on first load) but grow large enough to click when zoomed in.
  */
 
-/** Minimum marker radius in pixels. */
-const MIN_RADIUS = 3;
+/** Minimum marker radius in pixels (also the touch hit-target floor). */
+const MIN_RADIUS = 4;
 
 /** Maximum marker radius in pixels. */
 const MAX_RADIUS = 8;
@@ -20,3 +20,9 @@ export const HIGHLIGHT_RADIUS_OFFSET = 2;
  */
 export const getMarkerRadius = (zoom: number): number =>
    Math.min(MAX_RADIUS, Math.max(MIN_RADIUS, zoom - 1));
+
+/**
+ * Returns the pixel gap between neighbouring spread markers for a given
+ * marker radius: dot diameter plus a small breathing gap.
+ */
+export const getSpreadSpacingPx = (radius: number): number => radius * 2 + 2;

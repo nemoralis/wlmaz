@@ -148,11 +148,6 @@ select:focus-visible {
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
    }
-
-   /* Disable transform transitions */
-   .marker-pin:hover {
-      transform: none !important;
-   }
 }
 
 /* Enhanced Focus Indicators for Better Visibility */
@@ -175,8 +170,7 @@ a:focus-visible,
 /* ============================================
    MAP CONTROL FIXES
    ============================================ */
-.leaflet-control-locate a,
-.leaflet-control-layers-toggle {
+.leaflet-control-locate a {
    display: flex !important;
    align-items: center !important;
    justify-content: center !important;
@@ -184,13 +178,11 @@ a:focus-visible,
    background-image: none !important;
 }
 
-.leaflet-control-locate a::before,
-.leaflet-control-layers-toggle::before {
+.leaflet-control-locate a::before {
    display: none !important;
 }
 
-.leaflet-control-locate a .svg-inline--fa,
-.leaflet-control-layers-toggle .svg-inline--fa {
+.leaflet-control-locate a .svg-inline--fa {
    width: 1.1em !important;
    height: 1.1em !important;
 }

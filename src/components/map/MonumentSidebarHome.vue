@@ -54,6 +54,18 @@
             </div>
          </div>
 
+         <!-- Marker legend: matches the shapes rendered on the map -->
+         <div class="marker-legend">
+            <span class="marker-legend-item">
+               <span class="marker-legend-dot marker-legend-dot--with-photo" aria-hidden="true" />
+               Fotoşəkil var
+            </span>
+            <span class="marker-legend-item">
+               <span class="marker-legend-dot marker-legend-dot--needs-photo" aria-hidden="true" />
+               Fotoşəkil yoxdur
+            </span>
+         </div>
+
          <!-- Progress Bar -->
          <div class="progress-section">
             <div class="progress-bar">
@@ -263,7 +275,40 @@ const photoPercentage = computed(() => {
    color: var(--color-progressive, #3366cc);
 }
 
-/* 4. Progress Bar */
+/* 4. Marker legend */
+.marker-legend {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.75rem;
+   font-size: 0.6875rem;
+   color: var(--color-subtle, #54595d);
+}
+
+.marker-legend-item {
+   display: flex;
+   align-items: center;
+   gap: 0.375rem;
+}
+
+/* Mirrors the on-map encoding: solid dots with a white border */
+.marker-legend-dot {
+   width: 12px;
+   height: 12px;
+   border-radius: 50%;
+   box-sizing: border-box;
+   border: 2px solid #fff;
+   box-shadow: 0 0 0 1px #d0d3d9;
+}
+
+.marker-legend-dot--with-photo {
+   background-color: #2e7d32;
+}
+
+.marker-legend-dot--needs-photo {
+   background-color: #d32f2f;
+}
+
+/* 5. Progress Bar */
 .progress-section {
    display: flex;
    flex-direction: column;
@@ -291,7 +336,7 @@ const photoPercentage = computed(() => {
    text-align: center;
 }
 
-/* 5. Filter Toggle */
+/* 6. Filter Toggle */
 .view-settings {
    border-top: 1px solid var(--border-color-subtle, #eaecf0);
    padding-top: 0.75rem;
@@ -327,7 +372,7 @@ const photoPercentage = computed(() => {
    color: var(--color-base, #202122);
 }
 
-/* 6. Quick Links */
+/* 7. Quick Links */
 .quick-links {
    display: flex;
    flex-direction: column;

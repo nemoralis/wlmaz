@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { getMarkerRadius, HIGHLIGHT_RADIUS_OFFSET } from "@/utils/markerRadius.ts";
+import {
+   getMarkerRadius,
+   getSpreadSpacingPx,
+   HIGHLIGHT_RADIUS_OFFSET,
+} from "@/utils/markerRadius.ts";
 
 describe("getMarkerRadius", () => {
    it("returns 6px at the default zoom 7", () => {
@@ -16,9 +20,17 @@ describe("getMarkerRadius", () => {
       expect(getMarkerRadius(16)).toBe(8);
    });
 
-   it("floors at 3px for low zooms", () => {
-      expect(getMarkerRadius(4)).toBe(3);
-      expect(getMarkerRadius(2)).toBe(3);
+   it("floors at 4px for low zooms", () => {
+      expect(getMarkerRadius(4)).toBe(4);
+      expect(getMarkerRadius(2)).toBe(4);
+   });
+});
+
+describe("getSpreadSpacingPx", () => {
+   it("keeps a dot-sized gap between spread markers", () => {
+      expect(getSpreadSpacingPx(6)).toBe(14);
+      expect(getSpreadSpacingPx(4)).toBe(10);
+      expect(getSpreadSpacingPx(8)).toBe(18);
    });
 });
 

@@ -6,7 +6,9 @@ import { icon } from "@fortawesome/fontawesome-svg-core";
 import { shallowRef } from "vue";
 import type { MonumentProps } from "@/types";
 import type { SidebarControl } from "@/types/leaflet-sidebar-v2.ts";
-import { HIGHLIGHT_RADIUS_OFFSET } from "@/utils/markerRadius.ts";
+import { BasemapControl } from "@/utils/basemapControl.ts";
+import { getSpreadPosition } from "@/utils/markerOverlap.ts";
+import { getSpreadSpacingPx, HIGHLIGHT_RADIUS_OFFSET } from "@/utils/markerRadius.ts";
 import "./contextmenu.css";
 
 /**
@@ -31,6 +33,10 @@ export interface MonumentMarker extends L.CircleMarker {
          coordinates: [number, number];
       };
    };
+   /** Overlap-group membership used to spread clustered markers apart. */
+   spread: { index: number; size: number };
+   /** Stroke style to restore after a highlight ends (differs per status). */
+   baseStyle: { color: string; weight: number };
 }
 
 /** Callbacks wired to user interactions with the map (sidebar opens, clicks). */
@@ -38,6 +44,8 @@ export interface MapOptions {
    onMapClick?: (e: L.LeafletMouseEvent) => void;
    onSidebarContentChange?: (id: string) => void;
    onSidebarClosing?: () => void;
+   /** Fires after each viewport sync with the number of markers on screen. */
+   onVisibleCountChange?: (count: number) => void;
 }
 
 /** Marker predicate used to decide whether a marker should be on the map. */
@@ -45,6 +53,9 @@ export type MarkerFilter = (props: MonumentProps) => boolean;
 
 /** How many markers are added per animation frame when populating the viewport. */
 const CHUNK_SIZE = 150;
+
+/** Small viewport diffs are applied synchronously; larger ones are chunked. */
+const IMMEDIATE_ADD_LIMIT = 200;
 
 /**
  * Creates a map controller. Returns reactive refs and methods used by
@@ -56,6 +67,8 @@ export function useLeafletMap() {
    const markersGroup = shallowRef<L.LayerGroup | null>(null);
    const activeMarkerLayer = shallowRef<L.CircleMarker | null>(null);
    let currentBaseRadius = 8;
+   /** Marker the canvas pointer is currently over (drives the cursor only). */
+   let hoveredMarker: L.CircleMarker | null = null;
 
    const initialize = (container: HTMLElement, options: MapOptions = {}) => {
       // 1. Base Layers
@@ -72,11 +85,13 @@ export function useLeafletMap() {
          },
       );
 
-      const googleSatelliteLayer = L.tileLayer(
-         "https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+      // Esri World Imagery replaces the previous unofficial Google tile URL:
+      // licensed for this use, with proper attribution.
+      const satelliteLayer = L.tileLayer(
+         "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
          {
-            maxZoom: 20,
-            attribution: "© Google",
+            maxZoom: 19,
+            attribution: "Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics",
          },
       );
 
@@ -89,6 +104,7 @@ export function useLeafletMap() {
          layers: [osmLayer],
       });
       mapInstance.value = map;
+      visibleCountCallback = options.onVisibleCountChange ?? null;
 
       // 3. Context Menu (right-click)
       let contextMenuEl: HTMLDivElement | null = null;
@@ -172,31 +188,14 @@ export function useLeafletMap() {
 
       // 4. Controls
 
-      const baseMaps = {
-         OpenStreetMap: osmLayer,
-         "Gomap.az": gomapLayer,
-         "Peyk (Google)": googleSatelliteLayer,
-      };
-
-      const layerControl = L.control
-         .layers(baseMaps, undefined, { position: "topright" })
-         .addTo(map);
-
-      // Custom icon for layer control (FontAwesome)
-      const toggleBtn = layerControl
-         .getContainer()
-         ?.querySelector(".leaflet-control-layers-toggle");
-      if (toggleBtn) {
-         const layerGroupIcon = icon({ prefix: "fas", iconName: "layer-group" });
-         toggleBtn.innerHTML = layerGroupIcon.html[0];
-         toggleBtn.classList.add(
-            "text-gray-600",
-            "text-sm",
-            "flex",
-            "items-center",
-            "justify-center",
-         );
-      }
+      // Basemap switcher: a custom control (see utils/basemapControl.ts)
+      // that owns its markup and fires `baselayerchange` like the stock
+      // layers control, so the minimap sync below keeps working unchanged.
+      const layerControl = new BasemapControl([
+         { name: "OpenStreetMap", layer: osmLayer },
+         { name: "Gomap.az", layer: gomapLayer },
+         { name: "Peyk (Esri)", layer: satelliteLayer },
+      ]).addTo(map);
 
       L.control.zoom({ position: "topright" }).addTo(map);
 
@@ -222,10 +221,19 @@ export function useLeafletMap() {
       if (locateBtn) {
          const locateIcon = icon({ prefix: "fas", iconName: "location-arrow" });
          const spinnerIcon = icon({ prefix: "fas", iconName: "spinner" });
-         locateBtn.innerHTML = `
-            <span class="locate-icon-main">${locateIcon.html[0]}</span>
-            <span class="locate-icon-loading" style="display:none">${spinnerIcon.html[0]}</span>
-         `;
+
+         // Build the button contents from real DOM nodes rather than an
+         // innerHTML template string.
+         const main = document.createElement("span");
+         main.className = "locate-icon-main";
+         if (locateIcon.node[0]) main.appendChild(locateIcon.node[0]);
+
+         const loading = document.createElement("span");
+         loading.className = "locate-icon-loading";
+         loading.style.display = "none";
+         if (spinnerIcon.node[0]) loading.appendChild(spinnerIcon.node[0]);
+
+         locateBtn.replaceChildren(main, loading);
       }
 
       // 7. Global Map Events
@@ -264,38 +272,83 @@ export function useLeafletMap() {
       return { map, sidebar, layerControl };
    };
 
+   /** Effective displayed radius: base + highlight offset. */
+   const effectiveRadius = (m: L.Layer): number =>
+      currentBaseRadius + (m === activeMarkerLayer.value ? HIGHLIGHT_RADIUS_OFFSET : 0);
+
+   /** Restores a marker's stroke to its status style (undo highlight). */
+   const restoreBaseStyle = (marker: L.CircleMarker) => {
+      const base = (marker as MonumentMarker).baseStyle;
+      marker.setStyle({ color: base.color, weight: base.weight });
+      marker.setRadius(effectiveRadius(marker));
+   };
+
    const highlightMarker = (marker: L.CircleMarker | null) => {
-      // 1. Remove highlight from previous
-      if (activeMarkerLayer.value) {
-         activeMarkerLayer.value.setStyle({
-            color: "#fff",
-            weight: 2,
-            radius: currentBaseRadius,
-         });
+      // 1. Remove highlight from previous. Clear the active reference first so
+      // effectiveRadius() drops the highlight offset while restoring.
+      const previous = activeMarkerLayer.value;
+      activeMarkerLayer.value = null;
+      if (previous) {
+         restoreBaseStyle(previous);
       }
 
       // 2. Add highlight to new
       if (marker) {
+         activeMarkerLayer.value = marker;
          marker.setStyle({
             color: "#ffd700", // Yellow border for selection
             weight: 4,
-            radius: currentBaseRadius + HIGHLIGHT_RADIUS_OFFSET,
          });
-         activeMarkerLayer.value = marker;
-      } else {
-         activeMarkerLayer.value = null;
+         marker.setRadius(effectiveRadius(marker));
       }
    };
 
-   /** Re-applies the base radius to every rendered marker (highlight kept larger). */
+   /** Shows the pointer cursor while the canvas pointer is over a marker. */
+   const hoverMarker = (marker: L.CircleMarker | null) => {
+      if (hoveredMarker === marker) return;
+      hoveredMarker = marker;
+
+      const container = mapInstance.value?.getContainer();
+      if (container) container.style.cursor = marker ? "pointer" : "";
+   };
+
+   /** Clears a hover; ignores stale outs that arrive after a new hover. */
+   const unhoverMarker = (marker: L.CircleMarker) => {
+      if (hoveredMarker === marker) hoverMarker(null);
+   };
+
+   /**
+    * Moves a spread member back onto the ring for the current zoom. Its true
+    * location stays in feature.geometry.coordinates — only the drawn position
+    * shifts. Members with no overlap group are left untouched.
+    */
+   const repositionSpread = (marker: MonumentMarker) => {
+      const { index, size } = marker.spread;
+      if (size <= 1) return;
+      const [lng, lat] = marker.feature.geometry.coordinates;
+      const zoom = mapInstance.value?.getZoom() ?? 7;
+      const pos = getSpreadPosition(
+         lat,
+         lng,
+         index,
+         size,
+         zoom,
+         getSpreadSpacingPx(currentBaseRadius),
+      );
+      marker.setLatLng([pos.lat, pos.lng]);
+   };
+
+   /**
+    * Re-applies the base radius to every rendered marker (highlight kept
+    * larger) and refreshes spread positions for the current zoom.
+    */
    const setMarkerRadius = (radius: number) => {
       currentBaseRadius = radius;
       const layer = markersGroup.value;
       if (!layer) return;
       layer.getLayers().forEach((m: L.Layer) => {
-         (m as L.CircleMarker).setRadius(
-            m === activeMarkerLayer.value ? radius + HIGHLIGHT_RADIUS_OFFSET : radius,
-         );
+         (m as L.CircleMarker).setRadius(effectiveRadius(m));
+         repositionSpread(m as MonumentMarker);
       });
    };
 
@@ -309,9 +362,12 @@ export function useLeafletMap() {
       return markerLayer;
    };
 
-   const flyToMarker = (marker: L.CircleMarker, zoom = 16) => {
+   const flyToMarker = (marker: MonumentMarker, zoom = 16) => {
       if (!mapInstance.value) return;
-      mapInstance.value.flyTo(marker.getLatLng(), zoom, { duration: 1.5 });
+      // Fly to the true coordinates, not the spread display position, so the
+      // map centres on where the monument actually is.
+      const [lng, lat] = marker.feature.geometry.coordinates;
+      mapInstance.value.flyTo([lat, lng], zoom, { duration: 1.5 });
    };
 
    // --- Viewport & Filter Aware Marker Rendering ---
@@ -323,6 +379,8 @@ export function useLeafletMap() {
    const addedMarkers = new Set<L.Layer>();
    let chunkHandle = 0;
    let viewportTimer: ReturnType<typeof setTimeout> | null = null;
+   // Assigned in initialize; lets syncViewport announce the on-screen count.
+   let visibleCountCallback: ((count: number) => void) | null = null;
 
    const addMarkersChunked = (markers: L.Layer[]) => {
       const layer = markersGroup.value;
@@ -373,8 +431,25 @@ export function useLeafletMap() {
             passesFilter((m as MonumentMarker).feature.properties),
       );
       if (toAdd.length) {
-         addMarkersChunked(toAdd);
+         // A marker's spread position was computed for the zoom it was
+         // created at; refresh it in case the zoom changed since.
+         for (const m of toAdd) repositionSpread(m as MonumentMarker);
+         if (toAdd.length <= IMMEDIATE_ADD_LIMIT) {
+            // Small diffs (a filter toggle, a short pan) land instantly
+            // instead of waiting on the chunked animation-frame path.
+            for (const m of toAdd) {
+               layer.addLayer(m);
+               addedMarkers.add(m);
+            }
+         } else {
+            addMarkersChunked(toAdd);
+         }
       }
+
+      // Announce the settled on-screen count. Chunked adds are not yet in
+      // addedMarkers, so include them; immediate adds already are.
+      const pendingChunked = toAdd.length > IMMEDIATE_ADD_LIMIT ? toAdd.length : 0;
+      visibleCountCallback?.(addedMarkers.size + pendingChunked);
    };
 
    /**
@@ -390,7 +465,7 @@ export function useLeafletMap() {
    /** Debounces a viewport re-sync after pans/zooms. */
    const scheduleViewportSync = (passesFilter: MarkerFilter) => {
       if (viewportTimer) clearTimeout(viewportTimer);
-      viewportTimer = setTimeout(() => syncViewport(passesFilter), 150);
+      viewportTimer = setTimeout(() => syncViewport(passesFilter), 50);
    };
 
    /** Cancels pending work and clears all rendered markers. */
@@ -400,6 +475,7 @@ export function useLeafletMap() {
       chunkHandle++; // Supersede any in-flight chunked add
       allMarkers = [];
       addedMarkers.clear();
+      hoveredMarker = null;
    };
 
    const disposeContextMenu = () => {
@@ -414,6 +490,8 @@ export function useLeafletMap() {
       activeMarkerLayer,
       initialize,
       highlightMarker,
+      hoverMarker,
+      unhoverMarker,
       setupMarkerLayer,
       flyToMarker,
       syncViewport,

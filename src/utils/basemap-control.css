@@ -1,0 +1,77 @@
+/* Basemap switcher control — see utils/basemapControl.ts.
+   Visual language matches the other map controls: 30px white buttons with
+   a translucent border, Codex-blue accents. */
+
+.wlm-basemap-control {
+   position: relative; /* anchors the dropdown panel */
+   border: 2px solid rgba(0, 0, 0, 0.2);
+   border-radius: 4px;
+   background-color: #fff;
+}
+
+/* The panel overlaps the zoom/locate controls below; outrank them while open. */
+.wlm-basemap-control.wlm-basemap-control--open {
+   z-index: 1000;
+}
+
+.wlm-basemap-toggle {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 30px;
+   height: 30px;
+   padding: 0;
+   border: none;
+   border-radius: 2px;
+   background: none;
+   color: #4b5563;
+   cursor: pointer;
+   transition: background-color 0.1s;
+}
+
+.wlm-basemap-toggle:hover {
+   background-color: #f4f4f4;
+}
+
+.wlm-basemap-toggle:focus-visible {
+   outline: 2px solid #3366cc;
+   outline-offset: 1px;
+}
+
+.wlm-basemap-toggle .svg-inline--fa {
+   width: 1.1em;
+   height: 1.1em;
+}
+
+.wlm-basemap-panel {
+   position: absolute;
+   top: calc(100% + 4px);
+   right: -2px;
+   min-width: 160px;
+   padding: 8px 0;
+   background: #fff;
+   border-radius: 8px;
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.wlm-basemap-item {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   padding: 6px 12px;
+   font-size: 13px;
+   color: #374151;
+   cursor: pointer;
+}
+
+.wlm-basemap-item:hover {
+   color: #3366cc;
+}
+
+.wlm-basemap-item input {
+   width: 15px;
+   height: 15px;
+   margin: 0;
+   accent-color: #3366cc;
+   cursor: pointer;
+}

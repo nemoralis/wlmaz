@@ -74,6 +74,9 @@
 
       <div ref="mapContainer" class="z-0 h-full w-full"></div>
 
+      <!-- Announced to screen readers after the viewport marker sync -->
+      <div class="sr-only" aria-live="polite">{{ visibleCount }} abidə görünür</div>
+
       <UploadModal
          :is-open="showUploadModal"
          :monument="monumentStore.selectedMonument"
@@ -108,7 +111,7 @@ import {
 } from "@/composables/useLeafletMap.ts";
 import { useWikiCredits } from "@/composables/useWikiCredits.ts";
 import { getCanonicalId, isIdMatch, resolveInventoryId } from "@/utils/monumentFormatters.ts";
-import { getMarkerRadius } from "@/utils/markerRadius.ts";
+import { getMarkerRadius, getSpreadSpacingPx } from "@/utils/markerRadius.ts";
 import { getOverlapGroupKey, getSpreadPosition } from "@/utils/markerOverlap.ts";
 // CSS
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
@@ -141,6 +144,8 @@ export default defineComponent({
          markersGroup,
          initialize,
          highlightMarker,
+         hoverMarker,
+         unhoverMarker,
          setupMarkerLayer,
          flyToMarker,
          syncViewport,
@@ -156,7 +161,9 @@ export default defineComponent({
 
       // Data
       const stats = ref({ total: 0, withImage: 0 });
-      const markerLookup = new Map<string, L.CircleMarker>();
+      const markerLookup = new Map<string, MonumentMarker>();
+      // On-screen marker count, announced to screen readers after viewport syncs.
+      const visibleCount = ref(0);
 
       // UI
       const showUploadModal = ref(false);
@@ -325,6 +332,9 @@ export default defineComponent({
                   monumentStore.selectedMonument = null;
                }
             },
+            onVisibleCountChange: (count) => {
+               visibleCount.value = count;
+            },
          });
 
          // 2. URL State Management (Lat/Long/Zoom)
@@ -393,75 +403,91 @@ export default defineComponent({
                   const markerLayer = setupMarkerLayer();
                   if (!markerLayer) return;
 
+                  // Radius scales with zoom so markers are small in the overview.
+                  const initialZoom = mapInstance.value?.getZoom() ?? 7;
+                  const initialRadius = getMarkerRadius(initialZoom);
+                  const spacingPx = getSpreadSpacingPx(initialRadius);
+
                   // Group markers by rounded position so overlapping monuments
                   // can be spread apart and stay visible with pure colors.
                   const positionCounts = new Map<string, number>();
-                  geoData.features.forEach((f) => {
-                     if (!f.geometry) return;
-                     const [lng, lat] = f.geometry.coordinates;
+                  for (const f of locatedFeatures) {
+                     const [lng, lat] = (f.geometry as Point).coordinates as [number, number];
                      const key = getOverlapGroupKey(lat, lng);
                      positionCounts.set(key, (positionCounts.get(key) ?? 0) + 1);
-                  });
+                  }
                   const positionIndexes = new Map<string, number>();
 
-                  // Radius scales with zoom so markers are small in the overview.
-                  const initialRadius = getMarkerRadius(mapInstance.value?.getZoom() ?? 7);
+                  // Build markers directly — no GeoJSON intermediary layer.
+                  const markers: L.Layer[] = [];
+                  for (const feature of locatedFeatures) {
+                     const props = feature.properties as MonumentProps;
 
-                  // Create Layers
-                  const geoJsonLayer = L.geoJSON(geoData, {
-                     pointToLayer: (feature) => {
-                        const props = feature.properties as MonumentProps;
+                     const [lng, lat] = (feature.geometry as Point).coordinates as [number, number];
+                     const key = getOverlapGroupKey(lat, lng);
+                     const groupSize = positionCounts.get(key) ?? 1;
+                     const index = positionIndexes.get(key) ?? 0;
+                     positionIndexes.set(key, index + 1);
 
-                        const [lng, lat] = (feature.geometry as Point).coordinates as [
-                           number,
-                           number,
-                        ];
-                        const key = getOverlapGroupKey(lat, lng);
-                        const groupSize = positionCounts.get(key) ?? 1;
-                        const index = positionIndexes.get(key) ?? 0;
-                        positionIndexes.set(key, index + 1);
+                     // Spread overlapping markers around the anchor in screen
+                     // pixels at the current zoom, so their colors never blend
+                     // and every dot stays tappable. The true position always
+                     // comes from geometry.coordinates (see selectMonument).
+                     const spread = getSpreadPosition(
+                        lat,
+                        lng,
+                        index,
+                        groupSize,
+                        initialZoom,
+                        spacingPx,
+                     );
 
-                        // Spread overlapping markers around the anchor so their
-                        // colors never blend. The true position always comes from
-                        // geometry.coordinates (see selectMonument).
-                        const spread = getSpreadPosition(lat, lng, index, groupSize);
-                        const markerLatLng = L.latLng(spread.lat, spread.lng);
+                     const hasImage = !!props.image;
 
-                        const hasImage = !!props.image;
+                     // Solid markers (no alpha, so spread dots never blend):
+                     // green = has photo, red = needs photo.
+                     const marker = L.circleMarker(L.latLng(spread.lat, spread.lng), {
+                        radius: initialRadius,
+                        fillColor: hasImage ? "#2e7d32" : "#d32f2f",
+                        color: "#fff",
+                        weight: 2,
+                        opacity: 1,
+                        fillOpacity: 1,
+                        interactive: true,
+                     });
 
-                        const marker = L.circleMarker(markerLatLng, {
-                           radius: initialRadius,
-                           fillColor: hasImage ? "#2e7d32" : "#d32f2f",
-                           color: "#fff",
-                           weight: 2,
-                           opacity: 1,
-                           fillOpacity: 1,
-                           interactive: true,
-                        });
+                     const monumentMarker = marker as unknown as MonumentMarker;
+                     monumentMarker.feature = feature as unknown as MonumentMarker["feature"];
+                     monumentMarker.spread = { index, size: groupSize };
+                     monumentMarker.baseStyle = {
+                        color: marker.options.color ?? "#fff",
+                        weight: 2,
+                     };
 
-                        // Ensure feature is attached for click handler (pointToLayer
-                        // is only invoked for features with real Point geometry)
-                        const monumentFeature = feature as unknown as MonumentMarker["feature"];
-                        (marker as unknown as MonumentMarker).feature = monumentFeature;
+                     marker.on("click", (evt: L.LeafletMouseEvent) => {
+                        // Stop propagation to prevent map click from firing
+                        L.DomEvent.stopPropagation(evt.originalEvent);
+                        L.DomEvent.preventDefault(evt.originalEvent);
+                        selectMonument(monumentMarker);
+                     });
 
-                        marker.on("click", (evt: L.LeafletMouseEvent) => {
-                           // Stop propagation to prevent map click from firing
-                           L.DomEvent.stopPropagation(evt.originalEvent);
-                           L.DomEvent.preventDefault(evt.originalEvent);
-                           selectMonument(marker as unknown as MonumentMarker);
-                        });
+                     // Canvas markers have no CSS hover state; show the
+                     // pointer cursor on hover instead.
+                     marker.on("mouseover", () => hoverMarker(marker));
+                     marker.on("mouseout", () => unhoverMarker(marker));
 
-                        if (props.inventory) {
-                           for (const id of props.inventory) {
-                              markerLookup.set(id, marker);
-                           }
+                     if (props.inventory) {
+                        for (const id of props.inventory) {
+                           markerLookup.set(id, monumentMarker);
                         }
-                        return marker;
-                     },
-                  });
+                     }
+                     markers.push(marker);
+                  }
 
-                  renderMarkers(geoJsonLayer.getLayers() as L.Layer[], passesFilter);
+                  // Set the base radius first so the initial viewport sync
+                  // repositions spread markers against the correct radius.
                   setMarkerRadius(initialRadius);
+                  renderMarkers(markers, passesFilter);
 
                   // Deep link (markerLookup is populated during marker creation)
                   if (!applyInventoryParam() && window.innerWidth > 768) {
@@ -486,6 +512,7 @@ export default defineComponent({
          showUploadModal,
          needsPhotoOnly,
          unresolvedInventory,
+         visibleCount,
          // Actions
          openUploadModal,
          toggleNeedsPhoto,
@@ -587,41 +614,7 @@ img {
    }
 }
 
-/* 3. MARKERS */
-:deep(.marker-pin) {
-   width: 30px;
-   height: 30px;
-   border-radius: 50%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   border: 2px solid white;
-   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
-   transition: all 0.2s ease;
-}
-
-:deep(.marker-pin:hover) {
-   transform: scale(1.15);
-   z-index: 1000 !important;
-   cursor: pointer;
-}
-
-:deep(.marker-has-image) {
-   background-color: #10b981;
-}
-
-:deep(.marker-needs-image) {
-   background-color: #ef4444;
-}
-
-:deep(.marker-pin.selected-highlight) {
-   border-color: #fbbf24 !important;
-   box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.5) !important;
-   transform: scale(1.3) !important;
-   z-index: 9999 !important;
-}
-
-/* 4. THEME */
+/* 3. THEME */
 :deep(.leaflet-sidebar-header) {
    background-color: #3366cc !important;
    color: white !important;
@@ -639,65 +632,13 @@ img {
    color: white;
 }
 
-/* 5. CONTROLS */
-:deep(.leaflet-control-layers-toggle) {
-   background-image: none !important;
-   width: 30px !important;
-   height: 30px !important;
-   background-color: white;
-   border-radius: 4px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   transition: background-color 0.1s;
-}
-
-:deep(.leaflet-control-layers-toggle:hover) {
-   background-color: #f4f4f4;
-}
-
-:deep(.leaflet-control-layers-expanded) {
-   padding: 12px !important;
-   background: white;
-   border-radius: 8px;
-   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
-   border: none !important;
-   min-width: 160px;
-   font-family: inherit;
-}
-
-:deep(.leaflet-control-layers label) {
-   display: flex;
-   align-items: center;
-   margin-bottom: 8px;
-   cursor: pointer;
-   font-size: 13px;
-   color: #374151;
-}
-
-:deep(.leaflet-control-layers label:hover) {
-   color: #3366cc;
-}
-
-:deep(.leaflet-control-layers input[type="radio"]) {
-   accent-color: #3366cc;
-   width: 15px;
-   height: 15px;
-   margin-right: 10px;
-   cursor: pointer;
-}
-
-:deep(.leaflet-control-layers),
+/* 4. CONTROLS */
 :deep(.leaflet-control-zoom) {
    border: 2px solid rgba(0, 0, 0, 0.2) !important;
    border-radius: 4px;
    box-shadow: none !important;
    margin-right: 10px !important;
    margin-top: 10px !important;
-}
-
-:deep(.leaflet-control-layers.leaflet-control-layers-expanded) {
-   border: none !important;
 }
 
 /* Transitions */
@@ -711,7 +652,7 @@ img {
    opacity: 0;
 }
 
-/* 6. MINIMAP */
+/* 5. MINIMAP */
 :deep(.leaflet-control-minimap) {
    border: 4px solid #fff !important;
    border-radius: 12px !important;
