@@ -26,7 +26,6 @@ import {
    HOME_STEPS_INTRO,
    isCampaignActive,
 } from "../src/content/home";
-import { PRIVACY_DESCRIPTION } from "../src/content/privacy";
 import type { MonumentProps } from "../src/types";
 import { SITE_HOST } from "../src/utils/constants";
 import {
@@ -660,13 +659,6 @@ const STATIC_PAGES = [
       route: "/about",
       title: "Haqqında",
       description: ABOUT_DESCRIPTION,
-   },
-   {
-      // WMCS ToU §7.3.2 — the Privacy Statement itself. Prerendered so the
-      // policy text is readable without JavaScript and to a crawler.
-      route: "/privacy",
-      title: "Məxfilik Bəyannaməsi",
-      description: PRIVACY_DESCRIPTION,
    },
 ];
 

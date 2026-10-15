@@ -71,10 +71,10 @@ export const ABOUT_LOGO = {
    /** Intrinsic size, so the browser reserves the box before the SVG loads. */
    width: 350,
    height: 407,
-   alt: "Wiki Loves Monuments Azərbaycan logosu",
+   alt: "Wiki Loves Monuments Azərbaycan loqosu",
    /** Canonical file page — required as the attribution target. */
    href: "https://commons.wikimedia.org/wiki/File:WLM_az.svg",
-   author: "Interfase",
+   author: "Lusitana",
    license: "CC BY-SA 3.0",
    licenseHref: "https://creativecommons.org/licenses/by-sa/3.0/",
 } as const;

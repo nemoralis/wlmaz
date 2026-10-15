@@ -11,7 +11,6 @@ import {
    HOME_STEPS_HEADING,
    HOME_STEPS_INTRO,
 } from "../src/content/home";
-import { PRIVACY_CANONICAL, PRIVACY_DESCRIPTION, PRIVACY_TITLE } from "../src/content/privacy";
 import { SITE_HOST } from "../src/utils/constants";
 import {
    encodeIdForUrl,
@@ -40,7 +39,7 @@ const SITE_TITLE = "Viki Abidələri Sevir Azərbaycan";
 // still carrying it was never actually prerendered.
 const SHELL_DESCRIPTION = HOME_DESCRIPTION;
 
-const STATIC_PAGES = ["/", "/map", "/stats", "/leaderboard", "/table", "/about", "/privacy"];
+const STATIC_PAGES = ["/", "/map", "/stats", "/leaderboard", "/table", "/about"];
 
 /** GeoJSON properties as the app reads them: literals, plus an id list. */
 type FeatureProperties = Record<string, string> & { inventory?: string[] };
@@ -321,44 +320,6 @@ const checkAboutHead = (html: string): void => {
    }
 };
 
-/**
- * Head checks for /privacy.
- *
- * Same rationale as `checkAboutHead`: the page has no prerendered body, so the
- * head is all the two render paths share and it must match
- * `src/content/privacy.ts` byte for byte. The canonical URL is asserted
- * explicitly because §7.3.1/§9.1 rely on `/privacy` and the End User Terms
- * being reachable, and a wrong `rel="canonical"` would hide the statement from
- * crawlers.
- */
-const checkPrivacyHead = (html: string): void => {
-   const label = "privacy head";
-
-   const title = extractTitle(html);
-   if (title !== escapeHtmlText(PRIVACY_TITLE)) {
-      fail(`${label}: <title> "${title}" != expected "${escapeHtmlText(PRIVACY_TITLE)}"`);
-   }
-
-   const descriptionTags = html.match(/<meta[^>]*name="description"[^>]*>/g) || [];
-   if (descriptionTags.length !== 1) {
-      fail(`${label}: expected exactly 1 description meta, found ${descriptionTags.length}`);
-   } else {
-      const content = attrValue(descriptionTags[0], "content");
-      if (content !== escapeHtmlText(PRIVACY_DESCRIPTION)) {
-         fail(
-            `${label}: description "${content}" != expected "${escapeHtmlText(PRIVACY_DESCRIPTION)}"`,
-         );
-      }
-   }
-
-   const canonical = html.match(/<link[^>]*rel="canonical"[^>]*>/g) || [];
-   if (canonical.length !== 1) {
-      fail(`${label}: expected exactly 1 canonical link, found ${canonical.length}`);
-   } else if (attrValue(canonical[0], "href") !== escapeHtmlText(PRIVACY_CANONICAL)) {
-      fail(`${label}: canonical href != expected "${escapeHtmlText(PRIVACY_CANONICAL)}"`);
-   }
-};
-
 const main = async (): Promise<void> => {
    try {
       const geoData = JSON.parse(await fs.readFile(GEOJSON_PATH, "utf-8"));
@@ -521,8 +482,6 @@ const main = async (): Promise<void> => {
             checkHomeBody(html);
          } else if (route === "/about") {
             checkAboutHead(html);
-         } else if (route === "/privacy") {
-            checkPrivacyHead(html);
          }
       }
 

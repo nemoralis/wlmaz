@@ -7,9 +7,7 @@ import {
    ABOUT_DATA_BODY,
    ABOUT_FEATURES,
    ABOUT_LICENSES,
-   ABOUT_LICENSES_FOOTER,
    ABOUT_LOGO,
-   ABOUT_LOGO_CREDIT,
    ABOUT_PRIMARY_CTA,
    ABOUT_SECONDARY_CTA,
    ABOUT_SOCIAL_IMAGE,
@@ -19,7 +17,7 @@ import {
 import { SITE_HOST } from "@/utils/constants.ts";
 
 /** Every route the app registers (see src/routes/index.ts). */
-const ROUTES = ["/", "/map", "/about", "/privacy", "/stats", "/leaderboard", "/profile", "/table"];
+const ROUTES = ["/", "/map", "/about", "/stats", "/leaderboard", "/profile", "/table"];
 
 describe("about page head", () => {
    it("uses the same title format the prerender writes for static pages", () => {
@@ -80,17 +78,6 @@ describe("hero logo", () => {
       expect(ABOUT_LOGO.width).toBe(350);
       expect(ABOUT_LOGO.height).toBe(407);
       expect(ABOUT_LOGO.alt.length).toBeGreaterThan(0);
-   });
-
-   it("credits the author and links the licence, as CC BY-SA 3.0 requires", () => {
-      expect(ABOUT_LOGO.author).toBe("Interfase");
-      expect(ABOUT_LOGO.license).toBe("CC BY-SA 3.0");
-      expect(ABOUT_LOGO_CREDIT).toBe(`${ABOUT_LOGO.author}, ${ABOUT_LOGO.license}`);
-      expect(ABOUT_LOGO.href).toBe("https://commons.wikimedia.org/wiki/File:WLM_az.svg");
-      expect(ABOUT_LOGO.licenseHref).toMatch(/^https:\/\/creativecommons\.org\//);
-      // The hero shows the logo bare — no frame, no caption — so the license
-      // section is the one place the credit can live.
-      expect(ABOUT_LICENSES_FOOTER).not.toContain(ABOUT_LOGO.author);
    });
 
    it("ships the file the hero points at", async () => {

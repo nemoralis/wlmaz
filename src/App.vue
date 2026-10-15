@@ -275,50 +275,79 @@
          tabindex="-1"
       >
          <router-view />
+         <footer
+            v-if="route.name !== 'Map'"
+            role="contentinfo"
+            class="flex flex-none flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-gray-200 bg-white px-5 py-3 text-sm text-gray-500"
+         >
+            <p class="flex flex-wrap items-center gap-x-2">
+               <span>© {{ ABOUT_COPYRIGHT_YEAR }}</span>
+               <template v-for="link in FOOTER_META_LINKS" :key="link.to">
+                  <span aria-hidden="true">·</span>
+                  <a
+                     v-if="link.external"
+                     :href="link.to"
+                     target="_blank"
+                     rel="noopener"
+                     class="inline-flex items-center gap-1 underline-offset-2 transition-colors hover:text-[#3366cc] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                  >
+                     <font-awesome-icon
+                        v-if="link.to.includes('gitlab')"
+                        :icon="['fab', 'gitlab']"
+                        class="h-4 w-4"
+                        aria-hidden="true"
+                     />
+                     {{ link.label }}
+                  </a>
+                  <router-link
+                     v-else
+                     :to="link.to"
+                     class="underline-offset-2 transition-colors hover:text-[#3366cc] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                  >
+                     {{ link.label }}
+                  </router-link>
+               </template>
+            </p>
+            <div class="flex items-center gap-3">
+               <a
+                  :href="FOOTER_WIKIDATA_STAMP.href"
+                  target="_blank"
+                  rel="noopener"
+                  class="flex-none"
+               >
+                  <img
+                     :src="FOOTER_WIKIDATA_STAMP.src"
+                     :alt="FOOTER_WIKIDATA_STAMP.alt"
+                     :width="FOOTER_WIKIDATA_STAMP.width"
+                     :height="FOOTER_WIKIDATA_STAMP.height"
+                     class="h-10 w-auto"
+                  />
+               </a>
+               <a :href="FOOTER_WMCS_BADGE.href" target="_blank" rel="noopener" class="flex-none">
+                  <img
+                     :src="FOOTER_WMCS_BADGE.src"
+                     :alt="FOOTER_WMCS_BADGE.alt"
+                     :width="FOOTER_WMCS_BADGE.width"
+                     :height="FOOTER_WMCS_BADGE.height"
+                     class="h-10 w-auto"
+                  />
+               </a>
+            </div>
+         </footer>
       </main>
-
-      <!-- Persistent legal footer.
-           WMCS ToU §7.3.1 requires the Privacy Statement to be conspicuously
-           linked from the homepage and §9.1 requires the End User Terms of Use
-           to be conspicuously linked from it. A link that only exists on one
-           page is not conspicuous, so this sits in the shell: `#app` is
-           `h-dvh overflow-hidden` and `<main>` is `flex-1 overflow-y-auto`, so a
-           `flex-none` sibling is pinned to the bottom of the viewport on every
-           page, including the full-bleed map. It costs ~32px of map viewport. -->
-      <footer
-         role="contentinfo"
-         class="flex flex-none flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-gray-200 bg-white px-4 py-2 text-xs text-gray-500"
-      >
-         <p class="flex items-center gap-1.5">
-            <font-awesome-icon :icon="['fas', 'server']" class="text-gray-400" aria-hidden="true" />
-            Wikimedia Cloud Services-də yerləşdirilib
-         </p>
-         <nav aria-label="Hüquqi linklər" class="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <component
-               :is="link.external ? 'a' : 'router-link'"
-               v-for="link in PRIVACY_FOOTER_LINKS"
-               :key="link.to"
-               :to="link.to"
-               :href="link.external ? link.to : undefined"
-               :target="link.external ? '_blank' : undefined"
-               :rel="link.external ? 'noopener' : undefined"
-               class="underline-offset-2 transition-colors hover:text-[#3366cc] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-            >
-               {{ link.label }}
-               <span lang="en" class="sr-only"> — {{ link.labelEn }}</span>
-            </component>
-         </nav>
-      </footer>
    </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, ref } from "vue";
+import { useRoute } from "vue-router";
 import { CdxIcon } from "@wikimedia/codex";
 import { cdxIconLogoWikimediaCommons } from "@wikimedia/codex-icons";
-import { PRIVACY_FOOTER_LINKS } from "@/content/privacy.ts";
+import { ABOUT_COPYRIGHT_YEAR } from "@/content/about.ts";
+import { FOOTER_META_LINKS, FOOTER_WMCS_BADGE, FOOTER_WIKIDATA_STAMP } from "@/content/footer.ts";
 import { useAuthStore } from "@/stores/auth.ts";
 
+const route = useRoute();
 const auth = useAuthStore();
 const menuOpen = ref(false);
 const mobileNavOpen = ref(false);

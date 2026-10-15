@@ -17,7 +17,6 @@ const STATIC_FILES = [
    "leaderboard.html",
    "table.html",
    "about.html",
-   "privacy.html",
 ];
 const SAMPLE_SIZE = 50;
 

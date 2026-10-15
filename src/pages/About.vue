@@ -316,21 +316,6 @@
                >
                tərəfindən ❤️ ilə hazırlanıb.
             </p>
-            <p class="mt-2 flex items-center justify-center gap-2 text-sm text-gray-600">
-               <span>{{ ABOUT_REPO.label }}:</span>
-               <a
-                  :href="ABOUT_REPO.href"
-                  target="_blank"
-                  rel="noopener"
-                  class="inline-flex items-center gap-1 font-medium text-blue-600 hover:underline"
-               >
-                  <font-awesome-icon :icon="['fab', 'gitlab']" class="h-4 w-4" aria-hidden="true" />
-                  GitLab
-               </a>
-            </p>
-            <p class="mt-6 text-xs text-gray-400">
-               &copy; {{ ABOUT_COPYRIGHT_YEAR }} Viki Abidələri Sevir Azərbaycan
-            </p>
          </div>
       </section>
    </div>
@@ -343,7 +328,6 @@ import {
    ABOUT_AUTHOR,
    ABOUT_BREADCRUMB,
    ABOUT_CANONICAL,
-   ABOUT_COPYRIGHT_YEAR,
    ABOUT_COUNTS,
    ABOUT_DATA_BODY,
    ABOUT_DATA_CTA,
@@ -362,7 +346,6 @@ import {
    ABOUT_LOGO,
    ABOUT_LOGO_CREDIT,
    ABOUT_PRIMARY_CTA,
-   ABOUT_REPO,
    ABOUT_SECONDARY_CTA,
    ABOUT_SOCIAL_IMAGE,
    ABOUT_TITLE,
