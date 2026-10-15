@@ -32,9 +32,7 @@
 
             <div class="mt-6 grid items-center gap-10 lg:grid-cols-2">
                <div>
-                  <h1
-                     class="font-display text-4xl leading-tight font-bold text-gray-900 sm:text-5xl"
-                  >
+                  <h1 class="font-display text-4xl leading-tight text-gray-900 sm:text-5xl">
                      {{ ABOUT_HEADLINE }}
                   </h1>
                   <p class="mt-5 text-lg leading-relaxed text-gray-700">{{ ABOUT_LEAD }}</p>

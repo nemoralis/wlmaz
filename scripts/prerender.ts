@@ -515,12 +515,12 @@ const buildHomeStaticContent = (data: HomeData): string => {
       </li>`,
    ).join("");
 
-   return `<div class="min-h-full bg-gray-50">
+   return `<div class="font-onest min-h-full bg-gray-50">
       <section class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-amber-50">
          <div class="mx-auto max-w-7xl px-4 pt-12 pb-16 sm:px-6 sm:pt-20 sm:pb-24 lg:px-8">
             <div class="grid items-center gap-10 lg:grid-cols-2">
                <div>
-                  <h1 class="font-display text-4xl leading-tight font-bold text-gray-900 sm:text-5xl lg:text-6xl">${escapeHtml(HOME_HEADLINE)}</h1>
+                  <h1 class="font-display text-4xl leading-tight text-gray-900 sm:text-5xl lg:text-6xl">${escapeHtml(HOME_HEADLINE)}</h1>
                   <p class="mt-6 text-lg leading-relaxed text-gray-700 sm:text-xl">${escapeHtml(HOME_INTRO)}</p>
                   <div class="mt-8 flex flex-col gap-3 sm:flex-row">
                      <a href="${HOME_PRIMARY_CTA.to}" class="inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">

@@ -1,5 +1,7 @@
 <template>
-   <div class="min-h-full bg-gray-50">
+   <!-- font-onest scopes the Onest body font to this page; shared chrome
+        (header/footer in App.vue) keeps the system stack. -->
+   <div class="font-onest min-h-full bg-gray-50">
       <!-- Hero -->
       <section
          class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-amber-50"
@@ -8,7 +10,7 @@
             <div class="grid items-center gap-10 lg:grid-cols-2">
                <div>
                   <h1
-                     class="font-display text-4xl leading-tight font-bold text-gray-900 sm:text-5xl lg:text-6xl"
+                     class="font-display text-4xl leading-tight text-gray-900 sm:text-5xl lg:text-6xl"
                   >
                      {{ HOME_HEADLINE }}
                   </h1>

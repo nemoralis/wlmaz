@@ -7,6 +7,13 @@
 
    <link rel="preconnect" href="https://tile.openstreetmap.org" />
 
+   <!-- Fonts: FontCDN (Wikimedia Toolforge proxy for Google Fonts). Plain
+        preconnect for the stylesheet, crossorigin for the font files — they
+        use separate connection pools. Allowed in CSP (nginx.conf / helmet). -->
+   <link rel="preconnect" href="https://tools-static.wmflabs.org" />
+   <link rel="preconnect" href="https://tools-static.wmflabs.org" crossorigin />
+   <link rel="stylesheet" href="https://tools-static.wmflabs.org/fontcdn/css2?family=Young+Serif&amp;family=Onest:wght@100..900&amp;display=swap" />
+
    <link rel="icon" href="https://wikilovesmonuments.az/favicon.ico" sizes="any" />
    <link rel="icon" type="image/png" sizes="32x32" href="https://wikilovesmonuments.az/favicon-32x32.png" />
    <link rel="icon" type="image/png" sizes="16x16" href="https://wikilovesmonuments.az/favicon-16x16.png" />

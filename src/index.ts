@@ -64,7 +64,9 @@ const startServer = async () => {
             directives: {
                "default-src": ["'self'"],
                "script-src": ["'self'"],
-               "style-src": ["'self'", "'unsafe-inline'"],
+               // FontCDN (Toolforge) hosts the Young Serif + Onest stylesheet
+               // and the woff2 files it references — allowed for both directives.
+               "style-src": ["'self'", "'unsafe-inline'", "https://tools-static.wmflabs.org"],
                "img-src": [
                   "'self'",
                   "data:",
@@ -76,7 +78,7 @@ const startServer = async () => {
                   "wikilovesmonuments.az",
                ],
                "connect-src": ["'self'", "*.wikimedia.org"],
-               "font-src": ["'self'"],
+               "font-src": ["'self'", "https://tools-static.wmflabs.org"],
                // Explicit worker-src so tightening default-src never silently breaks
                // the data.worker.ts Web Worker.
                "worker-src": ["'self'"],
