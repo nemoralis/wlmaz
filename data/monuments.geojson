@@ -534,7 +534,7 @@
                 "itemAltLabel": "Xaçındərbətli türbəsi, Xaçıntürbətli türbəsi, Qulu Musa oğlu türbəsi, Sarı Musa türbəsi",
                 "itemDescription": "mausoleum in Xaçındərbətli, Azerbaijan",
                 "itemLabel": "Qutlu Musa türbəsi",
-                "lastModified": "2026-10-10T12:48:19Z",
+                "lastModified": "2026-10-17T06:36:42Z",
                 "parent": "http://www.wikidata.org/entity/Q201647",
                 "parentLabel": "Ağdam rayonu"
             }
@@ -12072,19 +12072,6 @@
             "type": "Feature",
             "geometry": null,
             "properties": {
-                "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 4 nömrəli daş",
-                "inventory": [
-                    "26—839"
-                ],
-                "item": "http://www.wikidata.org/entity/Q140654168",
-                "itemLabel": "Qayaüstü təsvirlər (2 maral, keçi), qaya yalağı",
-                "lastModified": "2026-07-26T00:15:52Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": null,
-            "properties": {
                 "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 5 nömrəli daş",
                 "inventory": [
                     "26—840"
@@ -12105,19 +12092,6 @@
                 "item": "http://www.wikidata.org/entity/Q140654171",
                 "itemLabel": "Heyvan bağlamaq üçün dəlmə",
                 "lastModified": "2026-07-26T00:15:54Z"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": null,
-            "properties": {
-                "addressLabel": "Cingildağın şimal ətəyi və Yazılıtəpədə, 7 nömrəli daş",
-                "inventory": [
-                    "26—842"
-                ],
-                "item": "http://www.wikidata.org/entity/Q140654172",
-                "itemLabel": "Qayaüstü təsvirlər (9 ədəd)",
-                "lastModified": "2026-07-26T00:15:55Z"
             }
         },
         {
@@ -16119,7 +16093,7 @@
                 "item": "http://www.wikidata.org/entity/Q12842275",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən karvansara və tarix memarlıq abidəsi.",
                 "itemLabel": "Multani karvansarası",
-                "lastModified": "2026-03-02T06:42:10Z",
+                "lastModified": "2026-10-15T18:25:49Z",
                 "parent": "http://www.wikidata.org/entity/Q9248",
                 "parentLabel": "Bakı"
             }
@@ -18345,7 +18319,7 @@
                 "itemAltLabel": "M.F.Axundov adına Azərbaycan Milli Kitabxanası, Mirzə Fətəli Axundov adına Azərbaycan Milli Kitabxanası, Azərbaycan Dövlət Kitabxanasının binası",
                 "itemDescription": "M. F. Axundov adına Azərbaycan Milli kitabxanası",
                 "itemLabel": "Azərbaycan Milli Kitabxanası",
-                "lastModified": "2026-09-22T10:03:51Z",
+                "lastModified": "2026-10-18T09:39:18Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -19682,7 +19656,6 @@
                 "azLink": "https://az.wikipedia.org/wiki/Axsadan_baba_t%C3%BCrb%C9%99si",
                 "commonsCategory": "Akhsadan Baba Mausoleum",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Akhsadan_Baba_Mausoleum",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Axsadan%20baba%20t%C3%BCrb%C9%99sinin%20plan%C4%B1%20v%C9%99%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC-001.jpg",
                 "inventory": [
                     "209"
                 ],
@@ -19690,7 +19663,7 @@
                 "itemAltLabel": "Axsadan Baba Türbəsinin xarabalıqları",
                 "itemDescription": "14th century building in Azerbaijan",
                 "itemLabel": "Axsadan baba türbəsi",
-                "lastModified": "2026-08-05T23:05:27Z",
+                "lastModified": "2026-10-18T11:45:56Z",
                 "parent": "http://www.wikidata.org/entity/Q330857",
                 "parentLabel": "Bərdə rayonu"
             }
@@ -21011,7 +20984,7 @@
                 "itemAltLabel": "Şeyx Bani türbəsi, Şeyx Bədrəddin türbəsi, Şeyx Məhəmməd türbəsi, Şeyx Mansur türbəsi",
                 "itemDescription": "Qəbələdə türbələr",
                 "itemLabel": "Həzrə türbələr kompleksi",
-                "lastModified": "2026-09-22T10:03:00Z",
+                "lastModified": "2026-10-17T05:53:22Z",
                 "parent": "http://www.wikidata.org/entity/Q593872",
                 "parentLabel": "Qəbələ rayonu"
             }
@@ -21290,7 +21263,7 @@
                 "item": "http://www.wikidata.org/entity/Q31297079",
                 "itemDescription": "Historic site in Qubadli, Azerbaijan",
                 "itemLabel": "Gürcülü türbəsi",
-                "lastModified": "2026-09-22T10:04:06Z",
+                "lastModified": "2026-10-16T08:38:28Z",
                 "parent": "http://www.wikidata.org/entity/Q644048",
                 "parentLabel": "Qubadlı rayonu"
             }
@@ -65227,7 +65200,7 @@
                 "item": "http://www.wikidata.org/entity/Q55700594",
                 "itemDescription": "Balaxanıda yerləşən karvansaray",
                 "itemLabel": "Şah Səfi karvansarası",
-                "lastModified": "2026-09-29T14:06:54Z",
+                "lastModified": "2026-10-18T00:11:27Z",
                 "parent": "http://www.wikidata.org/entity/Q2210210",
                 "parentLabel": "Sabunçu rayonu"
             }
@@ -90327,8 +90300,7 @@
                     "4712"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140665585",
-                "itemDescription": "Qubadlıda məscid",
-                "itemLabel": "Mirlər məscidi",
+                "itemLabel": "Məscid",
                 "lastModified": "2026-07-23T15:59:55Z",
                 "parent": "http://www.wikidata.org/entity/Q644048",
                 "parentLabel": "Qubadlı rayonu"
