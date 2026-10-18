@@ -20,7 +20,7 @@ export default defineConfig({
          manifest: {
             name: "Wiki Loves Monuments Azərbaycan",
             short_name: "WLM Az",
-            description: "Azərbaycan tarixi abidələri xəritəsi",
+            description: "Azərbaycanın tarixi abidələrinin xəritəsi",
             theme_color: "#3B82F6",
             background_color: "#f9fafb",
             display: "standalone",

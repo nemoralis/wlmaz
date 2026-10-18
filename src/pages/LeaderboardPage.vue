@@ -282,7 +282,7 @@ onMounted(() => {
 });
 
 useHead({
-   title: "Liderlik cədvəli - Viki Abidələri Sevir Azərbaycan",
+   title: "Liderlik cədvəli | Viki Abidələri Sevir Azərbaycan",
    link: [
       {
          rel: "canonical",
@@ -293,7 +293,7 @@ useHead({
       {
          name: "description",
          content:
-            "Wiki Loves Monuments Azərbaycan müsabiqəsinin liderlik cədvəli. Ən çox şəkil yükləyən iştirakçıların siyahısı.",
+            "Viki Abidələri Sevir Azərbaycan müsabiqəsinin liderlik cədvəli. Ən çox şəkil yükləyən iştirakçılar.",
       },
    ],
 });

@@ -138,7 +138,7 @@ describe("uploadSingleFile — permanent failures do not retry", () => {
 
       const outcome = await uploadSingleFile(makeFileItem(), "cc-by-sa-4.0", {});
       expect(outcome.failure?.code).toBe("http_error");
-      expect(outcome.failure?.message).toContain("Vikianbara qoşulma xətası");
+      expect(outcome.failure?.message).toContain("Wikimedia Commons-a qoşulma xətası");
    });
 
    it("surfaces the server-provided details message verbatim", async () => {

@@ -21,7 +21,7 @@
       </h3>
       <p class="mb-8 text-gray-500">
          <template v-if="failures.length === 0">
-            {{ results.length }} fayl Vikianbara yükləndi.
+            {{ results.length }} fayl Wikimedia Commons-a yükləndi.
          </template>
          <template v-else>
             {{ results.length }} fayl yükləndi, {{ failures.length }} fayl yüklənə bilmədi.

@@ -33,7 +33,7 @@ export const FOOTER_WMCS_BADGE = {
    src: "/powered-by-wmcs.svg",
    width: 1849,
    height: 652,
-   alt: "Wikimedia Cloud Services-də yerləşdirilib",
+   alt: "Wikimedia Cloud Services əsasında işləyir",
    href: "https://wikitech.wikimedia.org/wiki/Portal:Cloud_VPS",
 } as const;
 
@@ -41,8 +41,8 @@ export const FOOTER_WIKIDATA_STAMP = {
    src: "/wikidata-stamp.svg",
    width: 899,
    height: 246,
-   alt: "Wikidata-powered",
-   href: "https://www.wikidata.org/",
+   alt: "Wikidata əsasında işləyir",
+   href: "https://www.wikidata.org/wiki/Wikidata:Data_access",
 } as const;
 
 /**

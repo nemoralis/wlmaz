@@ -15,7 +15,7 @@
             >
                <!-- Close Button (Mobile) -->
                <button
-                  aria-label="Modulu bağla"
+                  aria-label="Pəncərəni bağla"
                   class="absolute top-4 right-4 z-10 rounded-full bg-white/80 p-2 text-gray-500 hover:bg-gray-100 md:hidden"
                   @click="closeModal"
                >
@@ -55,8 +55,8 @@
                   </div>
                   <h3 class="mb-3 text-2xl font-bold text-gray-900">Yükləmələr dayandırılıb</h3>
                   <p class="mb-8 max-w-md text-gray-600">
-                     Vikianbara yükləmə xidməti müvəqqəti olaraq dayandırılıb. Zəhmət olmasa daha
-                     sonra cəhd edin.
+                     Wikimedia Commons-a yükləmə xidməti müvəqqəti olaraq dayandırılıb. Zəhmət
+                     olmasa daha sonra cəhd edin.
                   </p>
                   <button
                      class="rounded-lg bg-gray-100 px-8 py-3 font-medium text-gray-700 hover:bg-gray-200"
@@ -187,11 +187,11 @@
                      <div>
                         <h3 class="text-xl font-bold text-gray-900">Məlumatları daxil edin</h3>
                         <p v-if="monument" class="text-xs font-medium text-blue-600">
-                           Seçilən abidə: {{ monument.itemLabel }}
+                           Seçilmiş abidə: {{ monument.itemLabel }}
                         </p>
                      </div>
                      <button
-                        aria-label="Modulu bağla"
+                        aria-label="Pəncərəni bağla"
                         class="hidden rounded-full text-gray-400 hover:text-gray-600 md:block"
                         @click="closeModal"
                      >
@@ -209,9 +209,9 @@
                         class="rounded-lg border border-yellow-200 bg-yellow-50 p-3 text-sm text-yellow-700"
                      >
                         <font-awesome-icon :icon="['fas', 'exclamation-triangle']" class="mr-1" />
-                        HEIC fayllarını Vikianbara yükləmək mümkün olmadığı üçün onlar avtomatik
-                        olaraq
-                        <strong>JPG</strong> formatına çevriləcək.
+                        HEIC fayllarını Wikimedia Commons-a yükləmək mümkün olmadığı üçün onlar
+                        avtomatik olaraq
+                        <strong>JPG</strong> formatına çevriləcəklər.
                      </div>
                   </div>
 
@@ -285,21 +285,21 @@
                               <label
                                  for="bulk-title"
                                  class="mb-1 block text-sm font-medium text-gray-700"
-                                 >Başlıq (Ortaq)</label
+                                 >Başlıq (ortaq)</label
                               >
                               <input
                                  id="bulk-title"
                                  v-model="bulkForm.title"
                                  type="text"
                                  class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                                 placeholder="Məs: Qız Qalası ümumi görünüş"
+                                 placeholder="Məsələn: Qız Qalası ümumi görünüş"
                               />
                               <p v-if="files.length > 1" class="mt-1 text-xs text-gray-500">
                                  <font-awesome-icon
                                     :icon="['fas', 'sort-numeric-down']"
                                     class="mr-1"
                                  />
-                                 Fayl adları avtomatik nömrələnəcək (Məs: "{{
+                                 Fayl adları avtomatik nömrələnəcək (məsələn, "{{
                                     bulkForm.title || "Başlıq"
                                  }}
                                  1", "{{ bulkForm.title || "Başlıq" }} 2")
@@ -325,7 +325,7 @@
                                  v-model="bulkForm.license"
                                  class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                               >
-                                 <option value="cc-by-sa-4.0">CC BY-SA 4.0 (Tövsiyə olunur)</option>
+                                 <option value="cc-by-sa-4.0">CC BY-SA 4.0 (tövsiyə olunur)</option>
                                  <option value="cc-by-4.0">CC BY 4.0</option>
                                  <option value="cc0">CC0 (İctimai varidat)</option>
                               </select>
@@ -350,7 +350,7 @@
                               <label
                                  for="bulk-description"
                                  class="mb-1 block text-sm font-medium text-gray-700"
-                                 >Təsvir (Ortaq)</label
+                                 >Təsvir (ortaq)</label
                               >
                               <textarea
                                  id="bulk-description"
@@ -419,7 +419,7 @@
                            class="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
                            @click="closeModal"
                         >
-                           İmtina
+                           Ləğv et
                         </button>
                         <button
                            type="button"

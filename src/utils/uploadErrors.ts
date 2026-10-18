@@ -15,11 +15,12 @@ const TRANSIENT_ERROR_CODES = new Set([
 
 // Friendly Azerbaijani messages for known Commons upload error codes.
 const UPLOAD_ERROR_MESSAGES: Record<string, string> = {
-   fileexists: "Bu adda fayl artıq Vikianbarda mövcuddur.",
+   fileexists: "Bu adda fayl artıq Wikimedia Commons-da mövcuddur.",
    "fileexists-shared-forbidden": "Bu adda fayl artıq mövcuddur və yenidən yüklənə bilməz.",
-   "duplicate-archive": "Bu fayl artıq Vikianbarda başqa adda mövcuddur.",
-   duplicate: "Bu fayl artıq Vikianbarda başqa adda mövcuddur.",
-   duplicateversions: "Bu fayl artıq eyni məzmunla Vikianbarda mövcuddur. Başlığı dəyişdirin.",
+   "duplicate-archive": "Bu fayl artıq Wikimedia Commons-da başqa adda mövcuddur.",
+   duplicate: "Bu fayl artıq Wikimedia Commons-da başqa adda mövcuddur.",
+   duplicateversions:
+      "Bu fayl artıq eyni məzmunla Wikimedia Commons-da mövcuddur. Başlığı dəyişdirin.",
    "no-change": "Bu adda eyni fayl artıq mövcuddur. Başlığı dəyişdirin.",
    "was-deleted": "Bu adda fayl əvvəllər silinib. Başlığı dəyişdirin.",
    "verify-error": "Fayl doğrulama müddəti bitdi. Yenidən cəhd edin.",
@@ -29,12 +30,12 @@ const UPLOAD_ERROR_MESSAGES: Record<string, string> = {
    title_check_failed:
       "Başlıqların mövcudluğunu yoxlamaq mümkün olmadı. İnternet bağlantınızı yoxlayıb yenidən cəhd edin.",
    "external-session-invalid":
-      "Vikianbar sessiyası etibarsızdır. Səhifəni yeniləyib yenidən cəhd edin.",
+      "Wikimedia Commons sessiyası etibarsızdır. Səhifəni yeniləyib yenidən cəhd edin.",
    badtoken: "Təhlükəsizlik tokeni köhnəlmişdir. Səhifəni yeniləyib yenidən cəhd edin.",
-   uploaddisabled: "Vikianbar yükləmələri müvəqqəti olaraq dayandırılıb.",
-   stashfailed: "Vikianbar yükləmə xidməti xəta verdi. Yenidən cəhd edin.",
-   internalerror: "Vikianbar daxili xəta verdi. Yenidən cəhd edin.",
-   http_error: "Vikianbara qoşulma xətası. İnternet bağlantınızı yoxlayın.",
+   uploaddisabled: "Wikimedia Commons-a yükləmə müvəqqəti olaraq dayandırılıb.",
+   stashfailed: "Wikimedia Commons yükləmə xidməti xəta verdi. Yenidən cəhd edin.",
+   internalerror: "Wikimedia Commons daxili xəta verdi. Yenidən cəhd edin.",
+   http_error: "Wikimedia Commons-a qoşulma xətası. İnternet bağlantınızı yoxlayın.",
    timeout: "Yükləmə müddəti bitdi. Yenidən cəhd edin.",
 };
 

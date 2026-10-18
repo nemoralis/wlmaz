@@ -2,7 +2,7 @@
    <div class="sidebar-home">
       <!-- 1. Header -->
       <div class="sidebar-header">
-         <h1 class="sidebar-title">Axtarış və Filtrlər</h1>
+         <h1 class="sidebar-title">Axtarış və filtrlər</h1>
       </div>
 
       <!-- 2. Deep link notice: ?inventory= named something the map cannot show -->
@@ -101,7 +101,7 @@
             </router-link>
             <router-link to="/about" class="quick-link">
                <CdxIcon :icon="cdxIconInfo" size="small" class="quick-link-icon" />
-               <span>Haqqımızda</span>
+               <span>Haqqında</span>
             </router-link>
          </div>
       </div>

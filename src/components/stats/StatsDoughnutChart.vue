@@ -1,6 +1,6 @@
 <template>
    <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-      <h3 class="mb-4 text-lg font-semibold text-gray-800">Şəkilli vs Şəkilsiz</h3>
+      <h3 class="mb-4 text-lg font-semibold text-gray-800">Şəkilli və şəkilsiz</h3>
       <div class="h-[300px]">
          <VChart v-if="option" :option="option" autoresize />
       </div>
@@ -57,7 +57,7 @@ const option = computed(() => {
       ],
       series: [
          {
-            name: "Şəkilli vs Şəkilsiz",
+            name: "Şəkilli və şəkilsiz",
             type: "pie",
             radius: ["50%", "70%"],
             center: ["50%", "45%"],

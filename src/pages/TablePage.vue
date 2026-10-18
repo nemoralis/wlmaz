@@ -131,12 +131,13 @@ const UploadModal = defineAsyncComponent(() => import("../components/UploadModal
 const monumentStore = useMonumentStore();
 
 useHead({
-   title: "Abidələr siyahısı - Azərbaycan tarixi abidələri | Viki Abidələri Sevir",
+   title: "Abidələr siyahısı | Viki Abidələri Sevir Azərbaycan",
    link: [{ rel: "canonical", href: "https://wikilovesmonuments.az/table" }],
    meta: [
       {
          name: "description",
-         content: "Azərbaycanın bütün tarixi abidələrinin tam siyahısı.",
+         content:
+            "Azərbaycanın bütün tarixi abidələrinin tam siyahısı: axtarın, çeşidləyin və şəkil yükləyin.",
       },
    ],
 });

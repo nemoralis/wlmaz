@@ -53,7 +53,7 @@
                      @click="openExternalLink(monument.item)"
                   >
                      <CdxIcon :icon="cdxIconLogoWikidata" />
-                     Vikidata
+                     Wikidata
                   </CdxButton>
                </div>
             </div>

@@ -38,7 +38,7 @@
          <article class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
             <!-- Breadcrumb -->
             <nav class="mb-6 text-sm text-gray-500">
-               <router-link to="/" class="text-blue-600 hover:underline">Ana Səhifə</router-link>
+               <router-link to="/" class="text-blue-600 hover:underline">Ana səhifə</router-link>
                <template v-if="monument.parentLabel">
                   <span class="mx-1 text-gray-300">›</span>
                   <span class="text-gray-500">{{ monument.parentLabel }}</span>
@@ -172,7 +172,7 @@
                   class="inline-flex items-center gap-1 text-sm text-blue-600 hover:underline"
                >
                   <CdxIcon :icon="cdxIconLogoWikimediaCommons" class="h-4 w-4" />
-                  Vikianbar
+                  Wikimedia Commons
                </a>
             </div>
 
@@ -199,7 +199,7 @@
                      ]"
                      @click="showUploadInfo"
                   >
-                     <font-awesome-icon :icon="['fas', 'camera']" class="mr-2" /> Şəkil Yüklə
+                     <font-awesome-icon :icon="['fas', 'camera']" class="mr-2" /> Şəkil yüklə
                   </button>
                   <p v-if="auth.isBlocked" class="mt-3 text-xs font-medium text-red-600">
                      <font-awesome-icon :icon="['fas', 'ban']" class="mr-1" />

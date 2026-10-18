@@ -113,7 +113,7 @@
       <CdxCard v-if="!monument" class="empty-state-card">
          <div class="empty-state">
             <CdxIcon :icon="cdxIconMapPin" class="empty-icon" />
-            <h3>Abidə Seçin</h3>
+            <h3>Abidə seçin</h3>
             <p>Detalları görmək üçün xəritədəki işarələrdən birinə klikləyin.</p>
          </div>
       </CdxCard>

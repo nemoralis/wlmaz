@@ -110,9 +110,9 @@ const renderContent = (props: MonumentProps): string => {
    const srcSet = props.image ? getSrcSet(props.image, [500, 768, 1024, 1536]) : "";
    const categoryUrl = getCategoryUrl(props);
 
-   // Breadcrumb: Ana Səhifə > [District] > Name
+   // Breadcrumb: Ana səhifə > [District] > Name
    const breadcrumbItems: string[] = [
-      `<a href="/" style="color:#2563eb;text-decoration:none;">Ana Səhifə</a>`,
+      `<a href="/" style="color:#2563eb;text-decoration:none;">Ana səhifə</a>`,
    ];
    if (parentLabel) {
       breadcrumbItems.push(`<span style="color:#9ca3af;">${parentLabel}</span>`);
@@ -174,7 +174,7 @@ const renderContent = (props: MonumentProps): string => {
    }
    if (categoryUrl) {
       externalLinks.push(
-         `<a href="${escapeHtml(categoryUrl)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.375rem;color:#2563eb;text-decoration:none;font-size:0.875rem;">Vikianbar</a>`,
+         `<a href="${escapeHtml(categoryUrl)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.375rem;color:#2563eb;text-decoration:none;font-size:0.875rem;">Wikimedia Commons</a>`,
       );
    }
 
@@ -236,7 +236,7 @@ const buildHeadTags = (
    }
 
    // Build breadcrumb with district level when parentLabel is available
-   const breadcrumbItems = [{ name: "Ana Səhifə", url: `${HOST}/` }];
+   const breadcrumbItems = [{ name: "Ana səhifə", url: `${HOST}/` }];
    if (props.parentLabel) {
       breadcrumbItems.push({ name: props.parentLabel, url: `${HOST}/` });
    }
@@ -248,7 +248,7 @@ const buildHeadTags = (
       <link rel="canonical" href="${escapeHtml(canonicalUrl)}">
       <meta property="og:type" content="place">
       <meta property="og:url" content="${escapeHtml(canonicalUrl)}">
-      <meta property="og:site_name" content="Wiki Loves Monuments Azerbaijan">
+      <meta property="og:site_name" content="Viki Abidələri Sevir Azərbaycan">
       <meta property="og:title" content="${escapeHtml(displayLabel)}">
       <meta property="og:description" content="${escapeHtml(description)}">
       <meta property="og:image" content="${escapeHtml(ogImage)}">
@@ -354,7 +354,7 @@ const buildStaticHtml = (
       <link rel="canonical" href="${escapeHtml(pageUrl)}">
       <meta property="og:type" content="website">
       <meta property="og:url" content="${escapeHtml(pageUrl)}">
-      <meta property="og:site_name" content="Wiki Loves Monuments Azerbaijan">
+      <meta property="og:site_name" content="Viki Abidələri Sevir Azərbaycan">
       <meta property="og:title" content="${escapeHtml(title)}">
       <meta property="og:description" content="${escapeHtml(description)}">
       <meta property="og:image" content="${HOST}/wlm-az.png">
@@ -643,17 +643,19 @@ const STATIC_PAGES = [
       route: "/stats",
       title: "Statistika",
       description:
-         "Viki Abidələri Sevir Azərbaycan müsabiqəsi statistikası: iştirakçılar, şəkil sayı və istifadə.",
+         "Azərbaycanın tarixi abidələri haqqında statistika: abidə sayı, fotoşəkillər və əhatə dərəcəsi.",
    },
    {
       route: "/leaderboard",
-      title: "Reytinq",
-      description: "Viki Abidələri Sevir Azərbaycan müsabiqəsinin iştirakçı reytinqi.",
+      title: "Liderlik cədvəli",
+      description:
+         "Viki Abidələri Sevir Azərbaycan müsabiqəsinin liderlik cədvəli. Ən çox şəkil yükləyən iştirakçılar.",
    },
    {
       route: "/table",
-      title: "Abidələrin siyahısı",
-      description: "Azərbaycan abidələrinin tam siyahısı: axtarın, çeşidləyin və şəkil yükləyin.",
+      title: "Abidələr siyahısı",
+      description:
+         "Azərbaycanın bütün tarixi abidələrinin tam siyahısı: axtarın, çeşidləyin və şəkil yükləyin.",
    },
    {
       route: "/about",

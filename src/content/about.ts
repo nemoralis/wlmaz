@@ -40,7 +40,7 @@ export const ABOUT_DESCRIPTION =
 
 /** Mirrors the breadcrumb JSON-LD emitted by About.vue. */
 export const ABOUT_BREADCRUMB = [
-   { name: "Ana Səhifə", url: `${SITE_HOST}/` },
+   { name: "Ana səhifə", url: `${SITE_HOST}/` },
    { name: "Haqqında", url: ABOUT_CANONICAL },
 ] as const;
 
@@ -102,7 +102,7 @@ export const ABOUT_WLM_HEADING = "Viki Abidələri Sevir nədir?";
  * the map exists "to help volunteers" with the concrete tooling.
  */
 export const ABOUT_WLM_BODY = [
-   "Viki Abidələri Sevir hər il sentyabr ayında Vikimedia icması tərəfindən keçirilən " +
+   "Viki Abidələri Sevir hər il sentyabr ayında Wikimedia icması tərəfindən keçirilən " +
       "beynəlxalq fotoşəkil müsabiqəsidir. Müsabiqənin məqsədi ölkələrin mədəni irs " +
       "abidələrinin fotoşəkillərini toplayıb onları Wikimedia Commons-da sərbəst " +
       "istifadəyə verməkdir.",
@@ -158,7 +158,7 @@ export const ABOUT_FEATURES = [
       to: "/map",
       cta: "Yükləməyə başla",
       body:
-         "Vikimedia hesabı ilə daxil olun və fotoşəkli xəritədən və ya abidənin " +
+         "Wikimedia hesabı ilə daxil olun və fotoşəkli xəritədən və ya abidənin " +
          "öz səhifəsindən birbaşa Commons-a yükləyin.",
    },
 ] as const;
@@ -166,8 +166,8 @@ export const ABOUT_FEATURES = [
 export const ABOUT_DATA_HEADING = "Məlumat mənbəsi";
 
 export const ABOUT_DATA_BODY = [
-   "Abidələrin adları, rayonları, inventar nömrələri və mövcud fotoşəkillər Vikidatadan götürülür.",
-   "Xəritə olaraq OpenStreetMap, Google Maps və Gomap.az istifadə olunur ",
+   "Abidələrin adları, rayonları, inventar nömrələri və mövcud fotoşəkillər Wikidatadan götürülür.",
+   "Xəritə üçün OpenStreetMap, Google Maps və Gomap.az istifadə olunur ",
 ] as const;
 
 export const ABOUT_DATA_NOTE =
@@ -194,7 +194,7 @@ export const ABOUT_LICENSES = [
    {
       label: "CC BY 4.0",
       href: "https://creativecommons.org/licenses/by/4.0/deed.az",
-      note: "Təkrar istifadədə müəllifin adını göstərmək kifətdir.",
+      note: "Təkrar istifadədə müəllifin adını göstərmək kifayətdir.",
    },
    {
       label: "CC0",

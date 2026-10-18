@@ -20,7 +20,8 @@
                            >•</span
                         >
                         <p v-if="stats?.commons?.registration" class="text-xs text-gray-400">
-                           Vikianbarda {{ formattedCommonsRegDate }} tarixində qeydiyyatdan keçib
+                           Wikimedia Commons-da {{ formattedCommonsRegDate }} tarixində qeydiyyatdan
+                           keçib
                         </p>
                      </div>
                      <!-- User Groups -->
@@ -51,7 +52,7 @@
                      class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50"
                   >
                      <font-awesome-icon :icon="['fas', 'external-link-alt']" class="text-xs" />
-                     Vikianbar profili
+                     Wikimedia Commons profili
                   </a>
                </div>
             </div>
@@ -102,10 +103,11 @@
                   <font-awesome-icon :icon="['fas', 'ban']" class="text-xl" />
                </div>
                <div class="space-y-2">
-                  <h2 class="text-lg font-bold text-red-900">Hesabınız Vikianbarda bloklanıb</h2>
+                  <h2 class="text-lg font-bold text-red-900">
+                     Hesabınız Wikimedia Commons-da bloklanıb
+                  </h2>
                   <p class="leading-relaxed text-red-700">
-                     Vikianbardakı bloklanmısınız. Bu səbəbdən yeni fotoşəkillər yükləyə
-                     bilməzsiniz.
+                     Wikimedia Commons-da bloklandığınız üçün yeni fotoşəkillər yükləyə bilməzsiniz.
                   </p>
                   <div class="mt-4 space-y-2 border-t border-red-200/50 pt-4">
                      <p v-if="stats.commons.blockreason" class="text-sm font-medium text-red-800">
@@ -131,7 +133,7 @@
                         <font-awesome-icon :icon="['fas', 'image']" />
                      </div>
                      <span class="text-xs font-semibold tracking-wider text-gray-400 uppercase"
-                        >Cəmi Foto</span
+                        >Cəmi foto</span
                      >
                   </div>
                   <div class="flex items-baseline gap-2">
@@ -158,7 +160,7 @@
                      <span class="text-3xl font-bold text-gray-900">{{ stats.total.usage }}</span>
                      <span class="text-sm font-medium text-gray-500">məqalə</span>
                   </div>
-                  <p class="mt-2 text-sm text-gray-500">Vikipediyada istifadə olunan fotolar</p>
+                  <p class="mt-2 text-sm text-gray-500">Vikipediyada istifadə olunan şəkillər</p>
                </div>
 
                <div
@@ -201,7 +203,7 @@
                      }}</span>
                   </div>
                   <p class="mt-2 text-sm text-gray-500">
-                     Vikimedia Commons layihəsində ümumi fəaliyyət
+                     Wikimedia Commons layihəsində ümumi fəaliyyət
                   </p>
                </div>
             </div>
@@ -237,7 +239,7 @@ const auth = useAuthStore();
 const { stats, isLoading, error, fetchUserStats } = useUserStats();
 
 useHead({
-   title: "Profil - Wiki Loves Monuments Azərbaycan",
+   title: "Profil | Viki Abidələri Sevir Azərbaycan",
    link: [
       {
          rel: "canonical",

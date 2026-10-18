@@ -4,12 +4,12 @@
          <div class="leaflet-sidebar-tabs">
             <ul role="tablist">
                <li>
-                  <a href="#home" role="tab" aria-label="Axtarış və Filtrlər"
+                  <a href="#home" role="tab" aria-label="Axtarış və filtrlər"
                      ><font-awesome-icon :icon="['fas', 'info']" />
                   </a>
                </li>
                <li :class="{ disabled: !monumentStore.selectedMonument }">
-                  <a href="#details" role="tab" aria-label="Abidə Detalları"
+                  <a href="#details" role="tab" aria-label="Abidə detalları"
                      ><font-awesome-icon :icon="['fas', 'landmark']" />
                   </a>
                </li>
@@ -31,8 +31,8 @@
                      href="https://gitlab.wikimedia.org/nmw03/wlmaz"
                      target="_blank"
                      rel="noopener noreferrer"
-                     title="View Source on Gitlab"
-                     aria-label="Gitlab Repository"
+                     title="Mənbə kodu"
+                     aria-label="Mənbə kodu"
                   >
                      <font-awesome-icon :icon="['fab', 'gitlab']" />
                   </a>
@@ -298,7 +298,7 @@ export default defineComponent({
          (newVal) => {
             const url = new URL(window.location.href);
             if (newVal && newVal.itemLabel) {
-               document.title = `${newVal.itemLabel} | Viki Abidələri Sevir`;
+               document.title = `${newVal.itemLabel} | Viki Abidələri Sevir Azərbaycan`;
                if (newVal.inventory) {
                   url.searchParams.set("inventory", getCanonicalId(newVal.inventory));
                }

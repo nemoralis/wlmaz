@@ -61,7 +61,7 @@ const { history, currentStats, imagePercentage, lastUpdateDate, fetchData } = us
 onMounted(fetchData);
 
 useHead({
-   title: "Statistika - Azərbaycan Abidələri | Viki Abidələri Sevir",
+   title: "Statistika | Viki Abidələri Sevir Azərbaycan",
    link: [
       {
          rel: "canonical",
@@ -72,7 +72,7 @@ useHead({
       {
          name: "description",
          content:
-            "Azərbaycanın tarixi abidələri haqqında statistika. 300+ abidə, fotoşəkillər və əhatə dərəcəsi məlumatları.",
+            "Azərbaycanın tarixi abidələri haqqında statistika: abidə sayı, fotoşəkillər və əhatə dərəcəsi.",
       },
    ],
 });

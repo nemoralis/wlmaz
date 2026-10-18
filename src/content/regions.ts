@@ -115,7 +115,7 @@ export const REGIONS_GALLERY_LIMIT = 12;
  * the count can never drift from the list it describes.
  */
 export const REGIONS_GALLERY_MORE = (remaining: number): string =>
-   `Daha ${remaining} şəkil bu regionda var. Fərqli şəkilləri Wikivikadaxil etmək üçün səhifəyə baxın.`;
+   `Bu regionda daha ${remaining} şəkil var. Onlara Wikimedia Commons-da baxa bilərsiniz.`;
 
 /** Labels of the three coverage counts. */
 export const REGIONS_STATS = {
