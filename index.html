@@ -14,6 +14,19 @@
    <link rel="preconnect" href="https://tools-static.wmflabs.org" crossorigin />
    <link rel="stylesheet" href="https://tools-static.wmflabs.org/fontcdn/css2?family=Young+Serif&amp;family=Onest:wght@100..900&amp;display=swap" />
 
+   <!-- Preload the four above-the-fold faces so they download in parallel
+        with the stylesheet instead of waiting for first layout — otherwise
+        the hero visibly swaps fonts in late (measured ~700ms on a cold
+        load). In order: Onest latin-ext, Onest latin, Young Serif latin-ext,
+        Young Serif latin — the subsets Azerbaijani text needs, from the
+        variable woff2 files the FontCDN CSS above serves. URLs mirror that
+        CSS (onest v11, youngserif v2); if FontCDN bumps a version, refresh
+        them: a stale preload is one wasted request, never a broken font. -->
+   <link rel="preload" as="font" type="font/woff2" crossorigin href="https://tools-static.wmflabs.org/fontcdn/s/onest/v11/gNMKW3F-SZuj7xmR-HY6EQ.woff2" />
+   <link rel="preload" as="font" type="font/woff2" crossorigin href="https://tools-static.wmflabs.org/fontcdn/s/onest/v11/gNMKW3F-SZuj7xmf-HY.woff2" />
+   <link rel="preload" as="font" type="font/woff2" crossorigin href="https://tools-static.wmflabs.org/fontcdn/s/youngserif/v2/3qTpojO2nS2VtkB3KtkQZ1tz3kYoaQ.woff2" />
+   <link rel="preload" as="font" type="font/woff2" crossorigin href="https://tools-static.wmflabs.org/fontcdn/s/youngserif/v2/3qTpojO2nS2VtkB3KtkQZ1t93kY.woff2" />
+
    <link rel="icon" href="https://wikilovesmonuments.az/favicon.ico" sizes="any" />
    <link rel="icon" type="image/png" sizes="32x32" href="https://wikilovesmonuments.az/favicon-32x32.png" />
    <link rel="icon" type="image/png" sizes="16x16" href="https://wikilovesmonuments.az/favicon-16x16.png" />
