@@ -1,19 +1,21 @@
 /**
- * Loads the generated region map payload (`public/regions-map.json`) once and
+ * Loads the generated region map payload (`public/regions-geo.json`) once and
  * shares it.
  *
  * Both `/regions` and `/region/<name>` need the region list: the map draws it,
  * and a region page has to know which names actually exist so an unknown one
- * can 404 instead of rendering an empty page. The payload is a single ~173 KB
- * request, so it is memoised per module rather than refetched per component.
+ * can 404 instead of rendering an empty page. The payload is a single request
+ * that carries the simplified boundaries and the per-region coverage, so it is
+ * memoised per module rather than refetched per component.
  */
 
 import { computed, readonly, ref } from "vue";
 import {
-   parseRegionsMap,
+   parseRegionsGeo,
    regionKey,
    REGIONS_MAP_URL,
-   type RegionShape,
+   type RegionCoverage,
+   type RegionGeoCollection,
    type RegionsMapData,
 } from "@/utils/regions";
 
@@ -35,7 +37,7 @@ const load = async (): Promise<RegionsMapData | null> => {
       try {
          const response = await fetch(REGIONS_MAP_URL);
          if (!response.ok) throw new Error(String(response.status));
-         const data = parseRegionsMap(await response.text());
+         const data = parseRegionsGeo(await response.text());
          if (!data) throw new Error("malformed payload");
          payload.value = data;
          loadFailed.value = false;
@@ -57,14 +59,17 @@ const load = async (): Promise<RegionsMapData | null> => {
 
 export const useRegionsMap = () => {
    /** Every region, in file order. Empty until `load` resolves. */
-   const regions = computed<RegionShape[]>(() => payload.value?.regions ?? []);
+   const regions = computed<RegionCoverage[]>(() => payload.value?.regions ?? []);
+
+   /** The simplified boundaries, for `registerMap`. Null until `load` resolves. */
+   const geoJson = computed<RegionGeoCollection | null>(() => payload.value?.geoJson ?? null);
 
    /**
     * Resolves a route param to a region, or `null` when it names no region.
     * Uses the same folded key as the monument filter so the page and the map
     * can never disagree about which name is which.
     */
-   const findRegion = (name: string | null | undefined): RegionShape | null => {
+   const findRegion = (name: string | null | undefined): RegionCoverage | null => {
       if (!name) return null;
       const key = regionKey(name);
       return regions.value.find((region) => regionKey(region.name) === key) ?? null;
@@ -74,6 +79,7 @@ export const useRegionsMap = () => {
       load,
       payload: readonly(payload),
       regions,
+      geoJson,
       isLoading: readonly(isLoading),
       loadFailed: readonly(loadFailed),
       findRegion,

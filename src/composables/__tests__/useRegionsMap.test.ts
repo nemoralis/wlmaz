@@ -12,8 +12,27 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
  * dynamic import rather than shared state.
  */
 const validPayload = JSON.stringify({
-   viewBox: "0 0 1000 757",
-   regions: [{ name: "Səbail", path: "M1 1L2 2L3 1Z" }],
+   geoJson: {
+      type: "FeatureCollection",
+      features: [
+         {
+            type: "Feature",
+            properties: { name: "Səbail" },
+            geometry: {
+               type: "Polygon",
+               coordinates: [
+                  [
+                     [49.8, 40.3],
+                     [49.9, 40.3],
+                     [49.9, 40.4],
+                     [49.8, 40.3],
+                  ],
+               ],
+            },
+         },
+      ],
+   },
+   regions: [{ name: "Səbail", total: 10, withPhoto: 4, percent: 40 }],
 });
 
 const freshComposables = async () => {
@@ -53,7 +72,7 @@ describe("useRegionsMap", () => {
       await load();
 
       expect(isLoading.value).toBe(false);
-      expect(payload.value?.viewBox).toBe("0 0 1000 757");
+      expect(payload.value?.geoJson.features).toHaveLength(1);
       expect(payload.value?.regions).toHaveLength(1);
    });
 

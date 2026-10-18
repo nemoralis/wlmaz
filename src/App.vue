@@ -275,6 +275,14 @@
          tabindex="-1"
       >
          <router-view />
+         <!--
+            The footer is a flow sibling of the page inside <main>: it sits after
+            the content rather than pinned to the viewport, so at minimum the
+            bottom of a short page. That only works when pages either grow with
+            their content (`min-h-full`) or scroll internally — a page root
+            pinned to the viewport's height (`h-full`) whose content overflows
+            would paint over this footer.
+         -->
          <footer
             v-if="route.name !== 'Map'"
             role="contentinfo"

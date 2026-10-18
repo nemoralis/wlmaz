@@ -30,7 +30,7 @@
                <img
                   :src="thumbnail(photo)"
                   :srcset="thumbnails(photo)"
-                  sizes="(max-width: 640px) 33vw, 200px"
+                  sizes="(max-width: 640px) 40vw, 300px"
                   :alt="altFor(photo)"
                   loading="lazy"
                   decoding="async"
@@ -77,10 +77,20 @@ const props = defineProps<{
 const shown = computed(() => props.photos.slice(0, REGIONS_GALLERY_LIMIT));
 const remaining = computed(() => Math.max(0, props.photos.length - shown.value.length));
 
-/** Small thumbnails: a grid tile is never wider than ~200px. */
-const thumbnail = (photo: MonumentProps): string => getOptimizedImage(photo.image ?? "", 240);
+/**
+ * Thumbnails are requested larger than the ~200px tile: tiles are square
+ * (`aspect-square` + `object-cover`), so a landscape photo is cropped from
+ * `tile-side × aspect-ratio` pixels of width, not from the tile side. The
+ * `sizes` hint above (40vw on small screens, 300px on desktop) makes browsers
+ * pick the next width up — measured: 330/640 at 1x/2x on desktop, 330/500 at
+ * 2x/3x on phones — which keeps the aspect ratios in the data sharp. Sizing by
+ * the tile alone (the old 200px hint with a 500px ceiling) visibly upscaled
+ * landscape photos.
+ */
+const thumbnail = (photo: MonumentProps): string => getOptimizedImage(photo.image ?? "", 500);
 
-const thumbnails = (photo: MonumentProps): string => getSrcSet(photo.image ?? "", [240, 330, 500]);
+const thumbnails = (photo: MonumentProps): string =>
+   getSrcSet(photo.image ?? "", [330, 500, 640, 960]);
 
 const descriptionPage = (photo: MonumentProps): string =>
    getDescriptionPage(photo.image ?? "") || "#";

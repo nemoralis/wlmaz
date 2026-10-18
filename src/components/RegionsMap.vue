@@ -1,82 +1,61 @@
 <template>
    <div class="w-full">
-      <!-- The map is one link per region. Using router-link means the href,
-           keyboard activation, focus order, and middle-click all come from the
-           router instead of being re-implemented by hand. -->
       <p v-if="loadFailed" class="py-8 text-center text-sm text-gray-500">
          {{ REGIONS_MAP_ERROR }}
       </p>
 
       <div v-else-if="isLoading" class="py-16 text-center text-sm text-gray-400">Yüklənir...</div>
 
-      <div v-else class="relative">
-         <svg
-            ref="svgEl"
-            :viewBox="viewBox"
-            class="h-auto w-full select-none"
-            :style="{ touchAction: 'none' }"
-            role="group"
-            :aria-label="ariaLabel"
-            preserveAspectRatio="xMidYMid meet"
-            @pointerdown="onPointerDown"
-            @pointermove="onPointerMove"
-            @pointerup="endPointer"
-            @pointercancel="endPointer"
-            @focusin="onFocusIn"
-         >
-            <router-link
-               v-for="region in regions"
-               :key="region.name"
-               v-slot="{ href, navigate }"
-               :to="regionPath(region.name)"
-               custom
-            >
-               <!-- Enter needs no handler: this is a real <a href>, so the browser
-                    raises a click on Enter and `@click` routes it. -->
-               <a
-                  :href="href"
-                  class="region-shape"
-                  :aria-label="region.name"
-                  @click="onRegionClick(navigate, $event)"
-               >
-                  <!-- Native SVG tooltip on hover. Not a focus tooltip: the
-                       accessible name is on the link itself, so keyboard and
-                       screen-reader users are covered by aria-label. -->
-                  <title>{{ region.name }}</title>
-                  <path
-                     :d="region.path"
-                     fill-rule="evenodd"
-                     vector-effect="non-scaling-stroke"
-                     class="region-fill"
-                  />
-               </a>
-            </router-link>
-         </svg>
+      <div v-else>
+         <div class="mb-3 flex items-center gap-2">
+            <span class="text-xs text-gray-500">{{ REGIONS_MAP_METRIC_CAPTION }}</span>
+            <CdxSelect
+               :menu-items="REGIONS_MAP_METRICS"
+               :selected="activeMetric"
+               :aria-label="REGIONS_MAP_METRIC_ARIA_LABEL"
+               @update:selected="onMetricSelected"
+            />
+         </div>
 
-         <!-- Zoom buttons sit above the map. They are the pointer-free route to
-              every zoom level, so the map stays usable without a drag. -->
-         <div
-            class="absolute top-2 right-2 z-10 flex flex-col items-end gap-1"
-            role="group"
-            :aria-label="REGIONS_MAP_CONTROLS_LABEL"
-         >
-            <CdxButton
-               :aria-label="REGIONS_MAP_ZOOM_IN_LABEL"
-               :disabled="!canZoomIn"
-               @click="zoomIn"
-            >
-               <CdxIcon :icon="cdxIconZoomIn" />
-            </CdxButton>
-            <CdxButton
-               :aria-label="REGIONS_MAP_ZOOM_OUT_LABEL"
-               :disabled="!canZoomOut"
-               @click="zoomOut"
-            >
-               <CdxIcon :icon="cdxIconZoomOut" />
-            </CdxButton>
-            <CdxButton :aria-label="REGIONS_MAP_RESET_LABEL" :disabled="isReset" @click="reset">
-               {{ REGIONS_MAP_RESET_SHORT }}
-            </CdxButton>
+         <div class="relative">
+            <!--
+               ECharts draws to canvas, so the chart is one image to assistive
+               tech: it carries the map's label, while `RegionsPage.vue`'s region
+               list below is the keyboard and screen-reader path to every region.
+               All pointer interaction (click, drag, wheel, pinch) is ECharts'
+               own `roam` handling.
+
+               The height sits on the wrapper below, not on <VChart> itself:
+               vue-echarts injects `x-vue-echarts { height: 100% }` as unlayered
+               CSS, and unlayered rules beat Tailwind's `@layer utilities` at any
+               specificity — height classes on the chart element would be ignored
+               and the chart would initialise at zero height.
+            -->
+            <div class="h-[380px] sm:h-[540px]">
+               <VChart
+                  v-if="option"
+                  ref="chartRef"
+                  class="region-map"
+                  role="img"
+                  :aria-label="ariaLabel"
+                  :option="option"
+                  autoresize
+                  @click="onChartClick"
+                  @georoam="onRoam"
+               />
+            </div>
+
+            <!-- Reset sits above the map. It is the pointer-free route back to
+                 the whole-country view once a drag or a wheel has moved the map. -->
+            <div class="absolute top-2 right-2 z-10">
+               <CdxButton
+                  :aria-label="REGIONS_MAP_RESET_LABEL"
+                  :disabled="!hasRoamed"
+                  @click="resetView"
+               >
+                  {{ REGIONS_MAP_RESET_SHORT }}
+               </CdxButton>
+            </div>
          </div>
       </div>
 
@@ -85,37 +64,32 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import { CdxButton, CdxIcon } from "@wikimedia/codex";
-import { cdxIconZoomIn, cdxIconZoomOut } from "@wikimedia/codex-icons";
+import { computed, onMounted, ref, watch } from "vue";
+import { useRouter } from "vue-router";
+import { CdxButton, CdxSelect } from "@wikimedia/codex";
+import VChart from "vue-echarts";
+import { registerMap, type EChartsType } from "echarts/core";
+import "@/utils/echartsRegions";
 import { useRegionsMap } from "@/composables/useRegionsMap";
-import { regionPath } from "@/utils/regions";
-import { createGestureTracker } from "@/utils/regionsMapGestures";
 import {
-   canZoomIn as canZoomInView,
-   canZoomOut as canZoomOutView,
-   initialMapView,
-   isResetView,
-   mapBaseOf,
-   panBy,
-   viewBoxFor,
-   viewSize,
-   windowCentre,
-   wheelZoomFactor,
-   ZOOM_STEP,
-   zoomAt,
-   type MapBase,
-   type MapView,
-} from "@/utils/regionsMapView";
+   regionAspectScale,
+   regionMetricScale,
+   regionMetricValue,
+   regionPath,
+   type RegionMetric,
+} from "@/utils/regions";
 import {
    REGIONS_MAP_ARIA_LABEL,
-   REGIONS_MAP_CONTROLS_LABEL,
    REGIONS_MAP_ERROR,
    REGIONS_MAP_HINT,
+   REGIONS_MAP_METRIC_ARIA_LABEL,
+   REGIONS_MAP_METRIC_CAPTION,
+   REGIONS_MAP_METRICS,
    REGIONS_MAP_RESET_LABEL,
    REGIONS_MAP_RESET_SHORT,
-   REGIONS_MAP_ZOOM_IN_LABEL,
-   REGIONS_MAP_ZOOM_OUT_LABEL,
+   REGIONS_MAP_TOOLTIP_COVERAGE,
+   REGIONS_MAP_TOOLTIP_EMPTY,
+   REGIONS_MAP_TOOLTIP_TOTAL,
 } from "@/content/regions";
 
 const props = withDefaults(
@@ -127,252 +101,179 @@ const props = withDefaults(
    { hint: "", ariaLabel: "" },
 );
 
-const { load, payload, isLoading, loadFailed } = useRegionsMap();
+/** The name the built boundaries are registered under; `series.map` points at it. */
+const MAP_NAME = "wlm-az-regions";
 
-const ariaLabel = computed(() => props.ariaLabel || REGIONS_MAP_ARIA_LABEL);
-const hint = computed(() => props.hint || REGIONS_MAP_HINT);
-const viewBox = computed(() => viewBoxFor(view.value, base.value));
-const regions = computed(() => payload.value?.regions ?? []);
+/** Coverage shading, 0% to 100%: near-white to the site's link blue. */
+const COVERAGE_COLORS = ["#eff6ff", "#bfdbfe", "#60a5fa", "#2563eb", "#1e40af"];
 
-const svgEl = ref<SVGSVGElement | null>(null);
+/** The slice of the VChart component instance the reset action needs. */
+interface ChartComponent {
+   chart?: EChartsType;
+}
 
-/**
- * The visible window.
- *
- * Starts at the whole country and is deliberately not persisted: coming back
- * from a region page remounts this component, so a visitor who zoomed into
- * Baku by accident is never left stuck there.
- */
-const view = ref<MapView>(initialMapView());
+const { load, payload, geoJson, isLoading, loadFailed, findRegion } = useRegionsMap();
+const router = useRouter();
 
-/** The map's own extent, taken from the payload's viewBox rather than assumed. */
-const base = computed<MapBase>(() => mapBaseOf(payload.value));
-
-const isReset = computed(() => isResetView(view.value));
-const canZoomIn = computed(() => canZoomInView(view.value));
-const canZoomOut = computed(() => canZoomOutView(view.value));
-
-/**
- * Tap-versus-drag state, owned by a tracker so the rule can be tested.
- *
- * The important part is that capture happens lazily, once a gesture is known to
- * be a drag. Capturing on `pointerdown` retargets the `click` at the `<svg>`,
- * which stops the region links navigating entirely.
- */
-const gestures = createGestureTracker();
-
-/**
- * Client px -> user units, via the SVG's own screen matrix.
- *
- * Reading the matrix on every event rather than caching a scale factor is what
- * makes this correct while the page scrolls or the viewport resizes: a cached
- * scale would silently drift the map against the cursor.
- */
-const toUserPoint = (clientX: number, clientY: number) => {
-   const svg = svgEl.value;
-   const matrix = svg?.getScreenCTM();
-   if (!svg || !matrix) return null;
-   const point = new DOMPoint(clientX, clientY).matrixTransform(matrix.inverse());
-   return { x: point.x, y: point.y };
-};
-
-/** Captures the given pointers so a drag survives leaving the map. */
-const capturePointers = (ids: number[]) => {
-   const svg = svgEl.value;
-   if (!svg) return;
-   for (const id of ids) {
-      if (!svg.hasPointerCapture(id)) svg.setPointerCapture(id);
-   }
-};
-
-/** Distance and midpoint of the two active pointers, for pinch. */
-const pinchGeometry = () => {
-   const [a, b] = gestures.points();
-   if (!a || !b) return null;
-   return {
-      distance: Math.hypot(a.x - b.x, a.y - b.y),
-      centre: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 },
-   };
-};
-
-/** Units per px along each axis at the current view, for pinch midpoint panning. */
-const unitsPerPixel = () => {
-   const size = viewSize(view.value, base.value);
-   const rect = svgEl.value?.getBoundingClientRect();
-   if (!rect || !rect.width || !rect.height) return null;
-   // Equal on both axes because the viewBox aspect is pinned to the element's.
-   return { x: size.width / rect.width, y: size.height / rect.height };
-};
-
-/** Previous pinch geometry, so each move is a delta rather than an absolute. */
-let previousPinch: ReturnType<typeof pinchGeometry> = null;
-
-const zoomIn = () => {
-   view.value = zoomAt(view.value, ZOOM_STEP, windowCentre(view.value, base.value), base.value);
-};
-
-const zoomOut = () => {
-   view.value = zoomAt(view.value, 1 / ZOOM_STEP, windowCentre(view.value, base.value), base.value);
-};
-
-const reset = () => {
-   view.value = initialMapView();
-};
-
-const onPointerDown = (event: PointerEvent) => {
-   // Only the primary button drags. Right-click is left to the browser so the
-   // existing context menu still works over the map.
-   if (event.button !== 0) return;
-   // Buttons and controls sit over the map and handle their own events.
-   if ((event.target as Element | null)?.closest?.("button")) return;
-
-   capturePointers(gestures.down(event.pointerId, { x: event.clientX, y: event.clientY }));
-
-   const geometry = pinchGeometry();
-   if (geometry) previousPinch = geometry;
-};
-
-const onPointerMove = (event: PointerEvent) => {
-   const previous = gestures.at(event.pointerId);
-   if (!previous) return;
-
-   capturePointers(gestures.move(event.pointerId, { x: event.clientX, y: event.clientY }));
-
-   const geometry = pinchGeometry();
-   if (geometry && previousPinch) {
-      // A zero separation (both fingers down on the same spot) has no direction
-      // to scale along, so skip the ratio rather than dividing by it.
-      const factor = previousPinch.distance > 0 ? geometry.distance / previousPinch.distance : 1;
-      const anchor = toUserPoint(geometry.centre.x, geometry.centre.y);
-      if (anchor && Number.isFinite(factor) && factor > 0) {
-         view.value = zoomAt(view.value, factor, anchor, base.value);
-
-         // Two fingers moving together pan as well as scale. The midpoint delta
-         // is in client px, so it has to be converted at the post-zoom scale,
-         // which is why this runs after `zoomAt` has already been applied.
-         const units = unitsPerPixel();
-         if (units) {
-            view.value = panBy(
-               view.value,
-               -(geometry.centre.x - previousPinch.centre.x) * units.x,
-               -(geometry.centre.y - previousPinch.centre.y) * units.y,
-               base.value,
-            );
-         }
-      }
-      previousPinch = geometry;
-      return;
-   }
-
-   const from = toUserPoint(previous.x, previous.y);
-   const to = toUserPoint(event.clientX, event.clientY);
-   if (!from || !to) return;
-
-   // Dragging right must move the map right, hence the negation.
-   view.value = panBy(view.value, to.x - from.x, to.y - from.y, base.value);
-};
-
-const endPointer = (event: PointerEvent) => {
-   if (!gestures.at(event.pointerId)) return;
-
-   gestures.up(event.pointerId);
-   if (svgEl.value?.hasPointerCapture(event.pointerId)) {
-      svgEl.value.releasePointerCapture(event.pointerId);
-   }
-
-   const remaining = gestures.size();
-   if (remaining < 2) previousPinch = null;
-
-   if (remaining === 0) {
-      // Cleared on the next macrotask, after the click that follows this release
-      // has already been dispatched. Otherwise the flag would still be set for
-      // a genuine tap and the region would not open.
-      setTimeout(() => {
-         gestures.clearDrag();
-      }, 0);
-   }
-};
-
-/**
- * Brings a focused region into view.
- *
- * The browser cannot scroll an SVG viewBox, so tabbing to a region that has been
- * panned or zoomed out of frame would move focus to something invisible with no
- * focus ring anywhere on screen. Panning is the only thing that can fix that
- * without reaching for a data change.
- */
-const onFocusIn = (event: FocusEvent) => {
-   const link = event.target as SVGElement | null;
-   const shape = link?.querySelector?.("path");
-   if (!link || !shape || typeof shape.getBBox !== "function") return;
-
-   const size = viewSize(view.value, base.value);
-   // Already comfortably inside the window: leave the framing alone so tabbing
-   // through a run of visible regions does not shift the map under the visitor.
-   const margin = 0;
-   const box = shape.getBBox();
-   const visible =
-      box.x >= view.value.x + margin &&
-      box.y >= view.value.y + margin &&
-      box.x + box.width <= view.value.x + size.width - margin &&
-      box.y + box.height <= view.value.y + size.height - margin;
-   if (visible) return;
-
-   view.value = panBy(
-      view.value,
-      box.x + box.width / 2 - (view.value.x + size.width / 2),
-      box.y + box.height / 2 - (view.value.y + size.height / 2),
-      base.value,
-   );
-};
-
-const onWheel = (event: WheelEvent) => {
-   const factor = wheelZoomFactor(event.deltaY, event.deltaMode);
-   if (!Number.isFinite(factor) || factor === 1) return;
-
-   // Zoom about the cursor, which is what makes a wheel gesture feel anchored
-   // rather than drifting toward the middle of the map.
-   const anchor = toUserPoint(event.clientX, event.clientY) ?? windowCentre(view.value, base.value);
-   const next = zoomAt(view.value, factor, anchor, base.value);
-
-   // At a zoom limit there is nothing to do, and swallowing the event would
-   // trap the visitor on a page they are trying to scroll off.
-   if (next.zoom === view.value.zoom && next.x === view.value.x && next.y === view.value.y) return;
-
-   event.preventDefault();
-   view.value = next;
-};
-
-/**
- * Stops the click that ends a drag from navigating.
- *
- * The click is the last thing a drag produces, and without this every pan would
- * also open a region page.
- */
-const onRegionClick = (navigate: (event: MouseEvent) => void, event: MouseEvent) => {
-   if (gestures.isDrag()) {
-      event.preventDefault();
-      return;
-   }
-   navigate(event);
-};
-
-watch(
-   svgEl,
-   (next, previous) => {
-      // The svg only exists once the payload has loaded, so the listener is
-      // attached to the element rather than bound in the template. It has to be
-      // non-passive, or `preventDefault` is ignored and the page scrolls instead.
-      previous?.removeEventListener("wheel", onWheel);
-      next?.addEventListener("wheel", onWheel, { passive: false });
-   },
-   { flush: "post" },
+const metricLabel = computed(
+   () => REGIONS_MAP_METRICS.find((option) => option.value === activeMetric.value)?.label ?? "",
 );
 
-onBeforeUnmount(() => {
-   svgEl.value?.removeEventListener("wheel", onWheel);
-   gestures.reset();
+const ariaLabel = computed(() => props.ariaLabel || REGIONS_MAP_ARIA_LABEL(metricLabel.value));
+const hint = computed(() => props.hint || REGIONS_MAP_HINT);
+
+const chartRef = ref<ChartComponent | null>(null);
+
+/** Which number the map shades by; the select above the chart writes here. */
+const activeMetric = ref<RegionMetric>("percent");
+
+/**
+ * Applies a metric the select emitted. Only a known id is taken, so a stray
+ * value cannot leave the map shaded by one metric and labelled by another.
+ */
+const onMetricSelected = (value: string | number | null) => {
+   const metric = REGIONS_MAP_METRICS.find((option) => option.value === value);
+   if (metric) activeMetric.value = metric.value;
+};
+
+/**
+ * Set once the payload's boundaries are registered. The chart cannot render
+ * before that, and registration has to happen in this order: `registerMap`
+ * first, then an option naming the map.
+ */
+const mapReady = ref(false);
+
+watch(
+   geoJson,
+   (collection) => {
+      mapReady.value = false;
+      if (!collection) return;
+      registerMap(MAP_NAME, collection);
+      mapReady.value = true;
+   },
+   { immediate: true },
+);
+
+/** Whether the visitor has moved the map, so the reset button stays inert until then. */
+const hasRoamed = ref(false);
+
+const onRoam = () => {
+   hasRoamed.value = true;
+};
+
+/**
+ * Opens the clicked region's page.
+ *
+ * ECharts discards the click that ends a pan itself, so no drag guard is
+ * needed here; the `findRegion` check keeps a stray name from navigating.
+ */
+const onChartClick = (params: unknown) => {
+   const name = (params as { name?: unknown } | null)?.name;
+   if (typeof name !== "string" || !name) return;
+
+   const region = findRegion(name);
+   if (!region) return;
+
+   void router.push(regionPath(region.name));
+};
+
+/**
+ * The hover line follows the active metric: its headline number is the one
+ * the shading shows, and the photographed share stays in the parentheses in
+ * both metrics, so a switch never hides information.
+ */
+const formatTooltip = (raw: unknown): string => {
+   const params = raw as { name?: unknown; data?: unknown } | null;
+   const name = typeof params?.name === "string" ? params.name : "";
+   if (!name) return "";
+
+   const data = params?.data as
+      { total?: unknown; withPhoto?: unknown; value?: unknown } | null | undefined;
+   const total = typeof data?.total === "number" ? data.total : 0;
+   const withPhoto = typeof data?.withPhoto === "number" ? data.withPhoto : 0;
+   const value = typeof data?.value === "number" ? data.value : null;
+
+   // `null` is the marker both metrics use for "nothing recorded".
+   if (value === null) return REGIONS_MAP_TOOLTIP_EMPTY(name);
+   return activeMetric.value === "percent"
+      ? REGIONS_MAP_TOOLTIP_COVERAGE(name, value, withPhoto, total)
+      : REGIONS_MAP_TOOLTIP_TOTAL(name, value, withPhoto);
+};
+
+const option = computed(() => {
+   const collection = geoJson.value;
+   const regions = payload.value?.regions;
+   if (!mapReady.value || !collection || !regions) return null;
+
+   const metric = activeMetric.value;
+   const scale = regionMetricScale(regions, metric);
+
+   return {
+      tooltip: {
+         trigger: "item",
+         confine: true,
+         formatter: formatTooltip,
+      },
+      // The scale follows the active metric, and the chart is only ever
+      // merged (`setOption` without `notMerge`), so switching metrics keeps
+      // the visitor's pan and zoom — deliberately, to compare the same area.
+      visualMap: {
+         type: "continuous",
+         min: scale.min,
+         max: scale.max,
+         left: 8,
+         bottom: 8,
+         itemWidth: 12,
+         itemHeight: 110,
+         text: scale.text,
+         textStyle: { color: "#4b5563", fontSize: 11 },
+         inRange: { color: COVERAGE_COLORS },
+      },
+      series: [
+         {
+            type: "map",
+            map: MAP_NAME,
+            roam: true,
+            scaleLimit: { min: 1, max: 32 },
+            aspectScale: regionAspectScale(collection),
+            itemStyle: { areaColor: "#e5e7eb", borderColor: "#ffffff", borderWidth: 1 },
+            emphasis: {
+               label: {
+                  show: true,
+                  color: "#111827",
+                  textBorderColor: "#ffffff",
+                  textBorderWidth: 3,
+               },
+               itemStyle: { borderColor: "#2a4b8d", borderWidth: 2 },
+            },
+            data: regions.map((region) => ({
+               name: region.name,
+               // `null` means the region has no recorded monuments: it stays
+               // out of the ramp in every metric and shows the neutral colour.
+               value: regionMetricValue(region, metric),
+               total: region.total,
+               withPhoto: region.withPhoto,
+            })),
+         },
+      ],
+   };
 });
+
+/**
+ * Drops the roam offset by rebuilding the chart's model from the same option.
+ *
+ * A plain `setOption` only merges, which keeps the current pan and zoom;
+ * `notMerge` re-initialises the coordinate system, which is exactly the
+ * "show the whole country again" this button promises.
+ */
+const resetView = () => {
+   const chart = chartRef.value?.chart;
+   const current = option.value;
+   if (!chart || !current) return;
+
+   chart.setOption(current, { notMerge: true });
+   hasRoamed.value = false;
+};
 
 onMounted(() => {
    void load();
@@ -380,36 +281,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Stroke and fill live here rather than in Tailwind utilities so the hover
-   transition stays on the element itself. Matches the map accent colour used
-   by TablePage's links (#3366cc) and the app's neutral greys. */
-.region-shape {
-   cursor: pointer;
-   outline: none;
-}
-
-/* Dragging and pinching are both panning the map, so the region cursor has to
-   get out of the way or the map reads as a link rather than a surface. */
-.region-shape:active {
-   cursor: grabbing;
-}
-
-.region-fill {
-   fill: #e5e7eb;
-   stroke: #ffffff;
-   stroke-width: 1;
-   transition:
-      fill 120ms ease,
-      stroke 120ms ease;
-}
-
-.region-shape:hover .region-fill,
-.region-shape:focus-visible .region-fill {
-   fill: #3366cc;
-   stroke: #2a4b8d;
-}
-
-.region-shape:focus-visible .region-fill {
-   stroke-width: 2;
+/* zrender does not disable browser touch gestures on its canvas, so without
+   this a drag on the map scrolls the page instead of roaming the map — the old
+   SVG set the same property on the element itself. */
+.region-map :deep(canvas) {
+   touch-action: none;
 }
 </style>

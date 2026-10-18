@@ -21,7 +21,7 @@ import { writeRegionsMap } from "./write-regions-map";
  * Fetches every Azerbaijani monument from Wikidata, transforms the SPARQL rows
  * into data/monuments.geojson and, only when the data actually changed, records
  * the day's counts and regenerates the derived artifacts (monuments.pbf,
- * home-data.json, regions-map.json).
+ * home-data.json, regions-geo.json).
  *
  * The moving parts live in scripts/lib/:
  * - sparqlClient.ts        the HTTP surface (endpoint, headers, retrying)

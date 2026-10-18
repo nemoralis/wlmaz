@@ -11,6 +11,7 @@
  */
 
 import { SITE_HOST } from "../utils/constants";
+import type { RegionMetric } from "../utils/regions";
 
 /** `/regions` — the interactive map of the administrative regions. */
 export const REGIONS_TITLE = "Regionlar";
@@ -20,22 +21,20 @@ export const REGIONS_DESCRIPTION =
 
 export const REGIONS_CANONICAL = `${SITE_HOST}/regions`;
 
-/** Accessibility label for the <svg> wrapping the region links. */
-export const REGIONS_MAP_ARIA_LABEL = "Azərbaycanın region xəritəsi";
+/**
+ * Accessibility label for the map's canvas container. Takes the active
+ * metric's label, so the image never describes a different shading than the
+ * one on screen.
+ */
+export const REGIONS_MAP_ARIA_LABEL = (metricLabel: string): string =>
+   `Azərbaycanın region xəritəsi: ${metricLabel}`;
 
 /**
- * Hint line under the map. Names all four ways to change the view, because a
+ * Hint line under the map. Names every way to change the view, because a
  * visitor who has not discovered that the map zooms will not go looking.
  */
 export const REGIONS_MAP_HINT =
-   "Region seçmək üçün xəritədə regiona klikləyin. Yaxınlaşdırmaq üçün + və − düymələrindən və ya siçan çarxından, sürüşdürmək üçün isə xəritəni dartın.";
-
-/** Label of the group holding the zoom buttons. */
-export const REGIONS_MAP_CONTROLS_LABEL = "Xəritəni idarə et";
-
-export const REGIONS_MAP_ZOOM_IN_LABEL = "Xəritəni yaxınlaşdır";
-
-export const REGIONS_MAP_ZOOM_OUT_LABEL = "Xəritəni uzaqlaşdır";
+   "Region səhifəsini açmaq üçün xəritədə regiona klikləyin. Xəritəni sürüşdürmək üçün dartın, yaxınlaşdırmaq üçün isə siçan çarxından və ya iki barmaqla böyütməkdən istifadə edin.";
 
 export const REGIONS_MAP_RESET_LABEL = "Xəritənin bütün görünüşünü göstər";
 
@@ -44,6 +43,51 @@ export const REGIONS_MAP_RESET_SHORT = "1:1";
 
 /** Shown instead of the map when the generated payload cannot be loaded. */
 export const REGIONS_MAP_ERROR = "Region xəritəsi yüklənə bilmədi.";
+
+/** Caption in front of the metric select; the select carries its own accessible name. */
+export const REGIONS_MAP_METRIC_CAPTION = "Rəngləmə";
+
+/** Accessible name of the metric select. */
+export const REGIONS_MAP_METRIC_ARIA_LABEL = "Xəritənin rəngləməsi";
+
+/**
+ * The numbers the map can shade by, in the select's order. The ids are
+ * `RegionMetric`s, so a label cannot outlive the metric it names.
+ */
+export const REGIONS_MAP_METRICS: { value: RegionMetric; label: string }[] = [
+   { value: "percent", label: "Foto əhatəsi" },
+   { value: "total", label: "Abidə sayı" },
+];
+
+/** Shared phrase for a region that no monument's `parentLabel` names. */
+export const REGIONS_NO_MONUMENTS = "abidə qeyd edilməyib";
+
+/** Map tooltip line for a region with monuments, e.g. "Şəki — 45.2% (128 / 283)". */
+export const REGIONS_MAP_TOOLTIP_COVERAGE = (
+   name: string,
+   percent: number,
+   withPhoto: number,
+   total: number,
+): string => `${name} — ${percent}% (${withPhoto} / ${total})`;
+
+/** Map tooltip line for a region no monument is recorded under. */
+export const REGIONS_MAP_TOOLTIP_EMPTY = (name: string): string =>
+   `${name} — ${REGIONS_NO_MONUMENTS}`;
+
+/** Map tooltip line for the count metric, e.g. "Şəki — 133 abidə (51 foto)". */
+export const REGIONS_MAP_TOOLTIP_TOTAL = (name: string, total: number, withPhoto: number): string =>
+   `${name} — ${total} abidə (${withPhoto} foto)`;
+
+/** Heading of the accessible region list below the map. */
+export const REGIONS_LIST_HEADING = "Regionların siyahısı";
+
+/** Intro of the region list; says why it sits next to the map. */
+export const REGIONS_LIST_INTRO =
+   "Xəritədəki bütün regionlar burada siyahı şəklində də göstərilib.";
+
+/** Right side of a listed region with monuments, e.g. "45.2% · 128 / 283". */
+export const REGIONS_LIST_COVERAGE = (percent: number, withPhoto: number, total: number): string =>
+   `${percent}% · ${withPhoto} / ${total}`;
 
 /** Heading of the monument table on a region page. */
 export const REGIONS_MONUMENTS_HEADING = "Abidələr";

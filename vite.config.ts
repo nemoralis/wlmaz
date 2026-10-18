@@ -69,10 +69,10 @@ export default defineConfig({
                   },
                },
                {
-                  urlPattern: /^https:\/\/mt\d+\.google\.com\/vt\/.*/i,
+                  urlPattern: /^https:\/\/server\.arcgisonline\.com\/.*/i,
                   handler: "StaleWhileRevalidate",
                   options: {
-                     cacheName: "google-satellite-tiles",
+                     cacheName: "esri-satellite-tiles",
                      expiration: {
                         maxEntries: 1000,
                         maxAgeSeconds: 60 * 60 * 24 * 30,

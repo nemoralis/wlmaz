@@ -1,6 +1,6 @@
 import type { MonumentProps } from "@/types";
 
-const WIKIMEDIA_THUMB_WIDTHS = [20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840];
+const WIKIMEDIA_THUMB_WIDTHS = [20, 40, 60, 120, 250, 330, 500, 640, 960, 1280, 1920, 3840];
 
 /**
  * Finds the closest Wikimedia-supported thumbnail width that is greater than or equal to the target.

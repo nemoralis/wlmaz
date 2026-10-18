@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import type { MonumentProps } from "@/types";
 import { rowActionsFor } from "@/utils/monumentActions.ts";
-import { buildRegionsMap, monumentsInRegion, type RegionFeature } from "@/utils/regions.ts";
+import { buildRegionsGeoJson, monumentsInRegion, type RegionFeature } from "@/utils/regions.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const MONUMENTS_PATH = path.join(__dirname, "../../../data/monuments.geojson");
@@ -79,11 +79,11 @@ describe("rowActionsFor", () => {
 
 describe("the committed dataset's action coverage", () => {
    const monuments = sourceMonuments();
-   const map = buildRegionsMap(regionFeatures());
+   const geo = buildRegionsGeoJson(regionFeatures());
 
    /** Region monuments, as `RegionPage.vue` lists them. */
-   const inRegions = map.regions.flatMap(
-      (region) => monumentsInRegion(monuments, region.name) as MonumentProps[],
+   const inRegions = geo.features.flatMap(
+      (feature) => monumentsInRegion(monuments, feature.properties.name) as MonumentProps[],
    );
 
    it("leaves most rows with no action at all", () => {
@@ -107,19 +107,19 @@ describe("the committed dataset's action coverage", () => {
    it("has regions where no row offers any action", () => {
       // A handful of regions are inventory-only with no coordinates and no
       // article, so the column is entirely blank on their pages.
-      const blank = map.regions.filter((region) =>
-         monumentsInRegion(monuments, region.name).every(
+      const blank = geo.features.filter((feature) =>
+         monumentsInRegion(monuments, feature.properties.name).every(
             (m) => !rowActionsFor(m, false).wiki && !rowActionsFor(m, false).map,
          ),
       );
 
       expect(blank.length).toBeGreaterThan(0);
-      expect(blank.length).toBeLessThan(map.regions.length);
+      expect(blank.length).toBeLessThan(geo.features.length);
    });
 
    it("has regions where most rows do offer an action", () => {
-      const populated = map.regions
-         .map((region) => monumentsInRegion(monuments, region.name))
+      const populated = geo.features
+         .map((feature) => monumentsInRegion(monuments, feature.properties.name))
          .filter((list) => list.length > 0);
 
       const withSome = populated.filter((list) =>

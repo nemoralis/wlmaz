@@ -4,45 +4,63 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import type { MonumentProps } from "@/types";
 import {
-   buildRegionsMap,
+   buildRegionsGeoJson,
    monumentsInRegion,
-   parseRegionsMap,
+   parseRegionsGeo,
    REGION_NAME_PROPERTY,
+   regionAspectScale,
+   regionBarFill,
+   regionCoverages,
    regionKey,
+   regionMetricScale,
+   regionMetricValue,
    regionPath,
    regionPhotoStats,
+   type RegionCoverage,
    type RegionFeature,
+   type RegionGeoCollection,
+   type RegionGeoFeature,
 } from "@/utils/regions.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REGIONS_PATH = path.join(__dirname, "../../../data/regions.geojson");
+const MONUMENTS_PATH = path.join(__dirname, "../../../data/monuments.geojson");
 
 /** The committed boundaries, so the tests exercise the real geometry types. */
+let cachedFeatures: RegionFeature[] | null = null;
 const sourceFeatures = (): RegionFeature[] => {
-   const geojson = JSON.parse(fs.readFileSync(REGIONS_PATH, "utf-8")) as {
-      features: RegionFeature[];
-   };
-   return geojson.features;
+   cachedFeatures ??= (
+      JSON.parse(fs.readFileSync(REGIONS_PATH, "utf-8")) as { features: RegionFeature[] }
+   ).features;
+   return cachedFeatures;
+};
+
+/** The committed boundaries as the map ships them. Building is heavy, so once. */
+let cachedGeo: RegionGeoCollection | null = null;
+const builtGeo = (): RegionGeoCollection => {
+   cachedGeo ??= buildRegionsGeoJson(sourceFeatures());
+   return cachedGeo;
+};
+
+const sourceMonuments = (): MonumentProps[] =>
+   (
+      JSON.parse(fs.readFileSync(MONUMENTS_PATH, "utf-8")) as {
+         features: Array<{ properties: MonumentProps }>;
+      }
+   ).features.map((feature) => feature.properties);
+
+/** Every polygon of a collection, Polygon and MultiPolygon alike. */
+const polygonsOf = (collection: RegionGeoCollection): number[][][][] => {
+   const polygons: number[][][][] = [];
+   for (const feature of collection.features) {
+      if (feature.geometry.type === "Polygon") polygons.push(feature.geometry.coordinates);
+      else polygons.push(...feature.geometry.coordinates);
+   }
+   return polygons;
 };
 
 const monument = (parentLabel: string | undefined, id: string): MonumentProps =>
    ({ itemLabel: `Abidə ${id}`, inventory: [id], parentLabel }) as MonumentProps;
-
-/** Every coordinate in an SVG path, across all its closed subpaths. */
-const pointsOf = (path: string): [number, number][] => {
-   const points: [number, number][] = [];
-   path.replace(
-      /M(-?[\d.]+) (-?[\d.]+)((?:L-?[\d.]+ -?[\d.]+)*)Z/g,
-      (_match, x: string, y: string, rest: string) => {
-         points.push([Number(x), Number(y)]);
-         for (const [, lx, ly] of rest.matchAll(/L(-?[\d.]+) (-?[\d.]+)/g)) {
-            points.push([Number(lx), Number(ly)]);
-         }
-         return "";
-      },
-   );
-   return points;
-};
 
 describe("regionKey", () => {
    it("folds a district suffix onto the bare region name", () => {
@@ -161,70 +179,170 @@ describe("monumentsInRegion", () => {
    });
 });
 
-describe("parseRegionsMap", () => {
-   it("keeps well-formed regions", () => {
-      const parsed = parseRegionsMap(
-         JSON.stringify({
-            viewBox: "0 0 1000 1000",
-            regions: [{ name: "Səbail", path: "M1 1L2 2Z" }],
-         }),
-      );
-      expect(parsed?.regions).toHaveLength(1);
-      expect(parsed?.regions[0].name).toBe("Səbail");
+describe("parseRegionsGeo", () => {
+   const validPayload = JSON.stringify({
+      geoJson: {
+         type: "FeatureCollection",
+         features: [
+            {
+               type: "Feature",
+               properties: { name: "Səbail" },
+               geometry: {
+                  type: "Polygon",
+                  coordinates: [
+                     [
+                        [49.8, 40.3],
+                        [49.9, 40.3],
+                        [49.9, 40.4],
+                        [49.8, 40.3],
+                     ],
+                  ],
+               },
+            },
+         ],
+      },
+      regions: [{ name: "Səbail", total: 10, withPhoto: 4, percent: 40 }],
+   });
+
+   it("keeps well-formed boundaries and coverage", () => {
+      const parsed = parseRegionsGeo(validPayload);
+      expect(parsed?.geoJson.features).toHaveLength(1);
+      expect(parsed?.geoJson.features[0].properties.name).toBe("Səbail");
+      expect(parsed?.regions).toEqual([{ name: "Səbail", total: 10, withPhoto: 4, percent: 40 }]);
    });
 
    it("returns null for missing or malformed input", () => {
-      expect(parseRegionsMap(null)).toBeNull();
-      expect(parseRegionsMap("")).toBeNull();
-      expect(parseRegionsMap("{")).toBeNull();
-      expect(parseRegionsMap('{"viewBox":1,"regions":[]}')).toBeNull();
+      expect(parseRegionsGeo(null)).toBeNull();
+      expect(parseRegionsGeo("")).toBeNull();
+      expect(parseRegionsGeo("{")).toBeNull();
+      expect(parseRegionsGeo("null")).toBeNull();
+      // Coverage without boundaries is not a map, and neither is a feature
+      // where a FeatureCollection belongs.
+      expect(parseRegionsGeo(JSON.stringify({ regions: [] }))).toBeNull();
+      expect(parseRegionsGeo(JSON.stringify({ geoJson: { type: "Feature" }, regions: [] }))).toBe(
+         null,
+      );
+      expect(
+         parseRegionsGeo(JSON.stringify({ geoJson: { type: "FeatureCollection" }, regions: [] })),
+      ).toBeNull();
+      expect(
+         parseRegionsGeo(JSON.stringify({ geoJson: { type: "FeatureCollection", features: [] } })),
+      ).toBeNull();
    });
 
-   it("drops entries with no name or no path", () => {
-      const parsed = parseRegionsMap(
+   it("drops malformed features and coverage entries but keeps valid ones", () => {
+      const parsed = parseRegionsGeo(
          JSON.stringify({
-            viewBox: "0 0 1000 1000",
+            geoJson: {
+               type: "FeatureCollection",
+               features: [
+                  {
+                     type: "Feature",
+                     properties: { name: "" },
+                     geometry: { type: "Polygon", coordinates: [[]] },
+                  },
+                  {
+                     type: "Feature",
+                     properties: { name: "Xəzər" },
+                     geometry: { type: "Point", coordinates: [49, 40] },
+                  },
+                  {
+                     type: "Feature",
+                     properties: { name: "Səbail" },
+                     geometry: {
+                        type: "Polygon",
+                        coordinates: [
+                           [
+                              [49.8, 40.3],
+                              [49.9, 40.3],
+                              [49.9, 40.4],
+                              [49.8, 40.3],
+                           ],
+                        ],
+                     },
+                  },
+               ],
+            },
             regions: [
-               { name: "Səbail", path: "M1 1Z" },
-               { name: "", path: "M2 2Z" },
-               { name: "Xəzər", path: "" },
+               { name: "Səbail", total: 10, withPhoto: 4, percent: 40 },
+               { name: "", total: 1, withPhoto: 0, percent: 0 },
+               { name: "Xəzər", total: "10", withPhoto: 0, percent: 0 },
+               // A real 0% and a "nothing recorded" region both survive.
+               { name: "Naftalan", total: 0, withPhoto: 0, percent: null },
             ],
          }),
       );
-      expect(parsed?.regions.map((r) => r.name)).toEqual(["Səbail"]);
+
+      expect(parsed?.geoJson.features.map((f) => f.properties.name)).toEqual(["Səbail"]);
+      expect(parsed?.regions.map((r) => r.name)).toEqual(["Səbail", "Naftalan"]);
+   });
+
+   it("accepts the payload the build script writes", () => {
+      const payload = {
+         geoJson: builtGeo(),
+         regions: regionCoverages(builtGeo().features, sourceMonuments()),
+      };
+      const parsed = parseRegionsGeo(JSON.stringify(payload));
+
+      expect(parsed?.geoJson.features).toHaveLength(builtGeo().features.length);
+      expect(parsed?.regions).toHaveLength(builtGeo().features.length);
    });
 });
 
-describe("buildRegionsMap", () => {
-   it("renders every region in the committed dataset", () => {
-      const features = sourceFeatures();
-      const map = buildRegionsMap(features);
-
+describe("buildRegionsGeoJson", () => {
+   it("keeps every region in the committed dataset", () => {
       const sourceNames = new Set(
-         features.map((f) => f.properties[REGION_NAME_PROPERTY]).filter(Boolean),
+         sourceFeatures()
+            .map((f) => f.properties[REGION_NAME_PROPERTY])
+            .filter(Boolean),
       );
-      expect(map.regions).toHaveLength(sourceNames.size);
-      expect(new Set(map.regions.map((r) => r.name))).toEqual(sourceNames);
+      expect(builtGeo().features).toHaveLength(sourceNames.size);
+      expect(new Set(builtGeo().features.map((f) => f.properties.name))).toEqual(sourceNames);
    });
 
-   it("emits a closed path for every region", () => {
-      for (const region of buildRegionsMap(sourceFeatures()).regions) {
-         expect(region.path.startsWith("M")).toBe(true);
-         expect(region.path.endsWith("Z")).toBe(true);
+   it("emits closed rings of at least four positions, rounded to 4 decimals", () => {
+      const roundTrip = (value: number) => Math.round(value * 1e4) / 1e4;
+
+      for (const polygon of polygonsOf(builtGeo())) {
+         for (const ring of polygon) {
+            expect(ring.length).toBeGreaterThanOrEqual(4);
+            expect(ring[0]).toEqual(ring[ring.length - 1]);
+            for (const [lon, lat] of ring) {
+               expect(Number.isFinite(lon)).toBe(true);
+               expect(Number.isFinite(lat)).toBe(true);
+               // Already rounded, so re-rounding changes nothing.
+               expect(lon).toBe(roundTrip(lon));
+               expect(lat).toBe(roundTrip(lat));
+            }
+         }
+      }
+   });
+
+   it("keeps coordinates in WGS84 degrees", () => {
+      // Azerbaijan's real extents, plus a small margin: ~44.7–50.5 E, 38.3–42 N.
+      for (const polygon of polygonsOf(builtGeo())) {
+         for (const ring of polygon) {
+            for (const [lon, lat] of ring) {
+               expect(lon).toBeGreaterThan(44);
+               expect(lon).toBeLessThan(51);
+               expect(lat).toBeGreaterThan(38);
+               expect(lat).toBeLessThan(42.5);
+            }
+         }
       }
    });
 
    it("handles Polygon and MultiPolygon through the same code path", () => {
-      const polygon = buildRegionsMap([
+      const built = buildRegionsGeoJson([
          {
             geometry: {
                type: "Polygon",
                coordinates: [
                   [
-                     [0, 0],
-                     [1, 0],
-                     [1, 1],
-                     [0, 0],
+                     [45, 40],
+                     [45.2, 40],
+                     [45.2, 40.2],
+                     [45, 40],
                   ],
                ],
             },
@@ -236,18 +354,18 @@ describe("buildRegionsMap", () => {
                coordinates: [
                   [
                      [
-                        [0, 0],
-                        [1, 0],
-                        [1, 1],
-                        [0, 0],
+                        [45.5, 40],
+                        [45.7, 40],
+                        [45.7, 40.2],
+                        [45.5, 40],
                      ],
                   ],
                   [
                      [
-                        [5, 5],
-                        [6, 5],
-                        [6, 6],
-                        [5, 5],
+                        [46, 40],
+                        [46.2, 40],
+                        [46.2, 40.2],
+                        [46, 40],
                      ],
                   ],
                ],
@@ -256,11 +374,14 @@ describe("buildRegionsMap", () => {
          },
       ]);
 
-      // One entry per region regardless of geometry type, MultiPolygon keeping
-      // both parts as separate closed subpaths.
-      expect(polygon.regions.map((r) => r.name).sort()).toEqual(["Cüt", "Tək"]);
-      const multi = polygon.regions.find((r) => r.name === "Cüt");
-      expect((multi?.path.match(/M/g) ?? []).length).toBe(2);
+      // One feature per region regardless of geometry type, MultiPolygon
+      // keeping both parts.
+      expect(built.features.map((f) => f.properties.name)).toEqual(["Tək", "Cüt"]);
+      expect(built.features[0].geometry.type).toBe("Polygon");
+
+      const multi = built.features[1].geometry;
+      if (multi.type !== "MultiPolygon") throw new Error("expected a MultiPolygon");
+      expect(multi.coordinates).toHaveLength(2);
    });
 
    it("carries both geometry types in the real data", () => {
@@ -269,165 +390,369 @@ describe("buildRegionsMap", () => {
       expect(types).toContain("MultiPolygon");
    });
 
-   it("sets the viewBox to the country's real aspect, not a square", () => {
-      // Equirectangular about the data's mid-latitude. Azerbaijan is ~1.32x
-      // wider than tall; a square viewBox stretches every region ~32% taller.
-      const [, , width, height] = buildRegionsMap(sourceFeatures()).viewBox.split(" ").map(Number);
-      expect(width / height).toBeCloseTo(1.32, 1);
-   });
-
-   it("keeps every coordinate inside the viewBox and fills it", () => {
-      const map = buildRegionsMap(sourceFeatures());
-      const [, , width, height] = map.viewBox.split(" ").map(Number);
-
-      let minX = Infinity;
-      let minY = Infinity;
-      let maxX = -Infinity;
-      let maxY = -Infinity;
-      for (const region of map.regions) {
-         for (const [x, y] of pointsOf(region.path)) {
-            minX = Math.min(minX, x);
-            minY = Math.min(minY, y);
-            maxX = Math.max(maxX, x);
-            maxY = Math.max(maxY, y);
-         }
-      }
-
-      expect(minX).toBeGreaterThanOrEqual(0);
-      expect(minY).toBeGreaterThanOrEqual(0);
-      expect(maxX).toBeLessThanOrEqual(width);
-      expect(maxY).toBeLessThanOrEqual(height);
-      // The bounding region touches both edges, so nothing is clipped and no
-      // empty margin shrinks the map.
-      expect(maxX).toBeCloseTo(width, 0);
-      expect(maxY).toBeCloseTo(height, 0);
-   });
-
-   it("places the regions where they actually are", () => {
-      const centre = (name: string) => {
-         const region = buildRegionsMap(sourceFeatures()).regions.find(
-            (candidate) => candidate.name === name,
-         );
-         expect(region, `region ${name} is missing`).toBeDefined();
-         const points = pointsOf(region!.path);
-         return {
-            x: (Math.min(...points.map((p) => p[0])) + Math.max(...points.map((p) => p[0]))) / 2,
-            y: (Math.min(...points.map((p) => p[1])) + Math.max(...points.map((p) => p[1]))) / 2,
-         };
-      };
-
-      // x grows east, y grows south. Baku sits in the far east and well north
-      // of the southern mountain regions; Nakhchivan is detached in the
-      // south-west; Gəncə is in the west.
-      const bakh = centre("Səbail");
-      const gəncə = centre("Gəncə");
-      const şuşa = centre("Şuşa");
-      const naxçıvan = centre("Naxçıvan");
-      const astara = centre("Astara");
-
-      expect(bakh.x).toBeGreaterThan(gəncə.x);
-      expect(bakh.y).toBeLessThan(şuşa.y);
-      expect(naxçıvan.x).toBeLessThan(bakh.x / 2);
-      expect(naxçıvan.y).toBeGreaterThan(bakh.y);
-      expect(astara.y).toBeGreaterThan(bakh.y);
-   });
-
-   it("flips latitude so north is up", () => {
-      const map = buildRegionsMap([
+   it("preserves holes as inner rings", () => {
+      const built = buildRegionsGeoJson([
          {
             geometry: {
                type: "Polygon",
                coordinates: [
                   [
-                     [0, 0],
-                     [0, 1],
-                     [1, 1],
-                     [0, 0],
+                     [45, 40],
+                     [45.4, 40],
+                     [45.4, 40.3],
+                     [45, 40.3],
+                     [45, 40],
+                  ],
+                  [
+                     [45.1, 40.05],
+                     [45.2, 40.05],
+                     [45.2, 40.15],
+                     [45.1, 40.15],
+                     [45.1, 40.05],
                   ],
                ],
             },
-            properties: { [REGION_NAME_PROPERTY]: "R" },
+            properties: { [REGION_NAME_PROPERTY]: "Deşik" },
          },
       ]);
-      // y=0 at maxY (north), so the later latitude must map to a smaller y.
-      const ys = (map.regions[0].path.match(/-?\d+(\.\d+)? /g) ?? []).map(Number);
-      expect(ys.length).toBeGreaterThan(0);
-      expect(Math.min(...ys)).toBeLessThanOrEqual(1);
+
+      const geometry = built.features[0].geometry;
+      if (geometry.type !== "Polygon") throw new Error("expected a Polygon");
+      expect(geometry.coordinates).toHaveLength(2);
+
+      const hole = geometry.coordinates[1];
+      expect(hole[0]).toEqual(hole[hole.length - 1]);
+      for (const [lon, lat] of hole) {
+         expect(lon).toBeGreaterThanOrEqual(45.1);
+         expect(lon).toBeLessThanOrEqual(45.2);
+         expect(lat).toBeGreaterThanOrEqual(40.05);
+         expect(lat).toBeLessThanOrEqual(40.15);
+      }
    });
 
-   it("drops degenerate rings that have no area to fill", () => {
-      const map = buildRegionsMap([
+   it("drops degenerate rings and the features they leave empty", () => {
+      const built = buildRegionsGeoJson([
          {
             geometry: {
                type: "Polygon",
                coordinates: [
                   [
-                     [0, 0],
-                     [0, 0],
-                     [0, 0],
-                     [0, 0],
+                     [45, 40],
+                     [45, 40],
+                     [45, 40],
+                     [45, 40],
                   ],
                ],
             },
             properties: { [REGION_NAME_PROPERTY]: "Nöqtə" },
          },
       ]);
-      expect(map.regions).toEqual([]);
+      expect(built.features).toEqual([]);
+   });
+
+   it("drops a collapsed hole but keeps its polygon", () => {
+      const built = buildRegionsGeoJson([
+         {
+            geometry: {
+               type: "Polygon",
+               coordinates: [
+                  [
+                     [45, 40],
+                     [45.4, 40],
+                     [45.4, 40.3],
+                     [45, 40.3],
+                     [45, 40],
+                  ],
+                  [
+                     [45.1, 40.05],
+                     [45.1, 40.05],
+                     [45.1, 40.05],
+                     [45.1, 40.05],
+                  ],
+               ],
+            },
+            properties: { [REGION_NAME_PROPERTY]: "Səthi" },
+         },
+      ]);
+
+      const geometry = built.features[0].geometry;
+      if (geometry.type !== "Polygon") throw new Error("expected a Polygon");
+      expect(geometry.coordinates).toHaveLength(1);
    });
 
    it("skips features with no geometry or no name", () => {
-      const map = buildRegionsMap([
+      const built = buildRegionsGeoJson([
          { geometry: null, properties: { [REGION_NAME_PROPERTY]: "Yoxdur" } },
          {
             geometry: {
                type: "Polygon",
                coordinates: [
                   [
-                     [0, 0],
-                     [1, 0],
-                     [1, 1],
-                     [0, 0],
+                     [45, 40],
+                     [45.2, 40],
+                     [45.2, 40.2],
+                     [45, 40],
                   ],
                ],
             },
             properties: {},
          },
       ]);
-      expect(map.regions).toEqual([]);
+      expect(built.features).toEqual([]);
    });
 
-   it("returns an empty map for no features", () => {
-      const map = buildRegionsMap([]);
-      expect(map.regions).toEqual([]);
-      expect(map.viewBox).toBe("0 0 1000 1000");
+   it("returns an empty collection for no features", () => {
+      expect(buildRegionsGeoJson([])).toEqual({ type: "FeatureCollection", features: [] });
+   });
+
+   it("keeps each region where it is on the globe", () => {
+      const bounds = (name: string) => {
+         const feature = builtGeo().features.find(
+            (candidate) => candidate.properties.name === name,
+         );
+         if (!feature) throw new Error(`region ${name} is missing from the built map`);
+
+         const lons: number[] = [];
+         const lats: number[] = [];
+         for (const polygon of polygonsOf({ type: "FeatureCollection", features: [feature] })) {
+            for (const ring of polygon) {
+               for (const [lon, lat] of ring) {
+                  lons.push(lon);
+                  lats.push(lat);
+               }
+            }
+         }
+         return {
+            midLon: (Math.min(...lons) + Math.max(...lons)) / 2,
+            midLat: (Math.min(...lats) + Math.max(...lats)) / 2,
+         };
+      };
+
+      // Baku sits in the far east and well north of the southern mountain
+      // regions; Nakhchivan is detached in the south-west; Astara is the
+      // southern tip; Gəncə is in the west.
+      const bakh = bounds("Səbail");
+      const gəncə = bounds("Gəncə");
+      const şuşa = bounds("Şuşa");
+      const naxçıvan = bounds("Naxçıvan");
+      const astara = bounds("Astara");
+
+      expect(bakh.midLon).toBeGreaterThan(gəncə.midLon);
+      expect(bakh.midLat).toBeGreaterThan(şuşa.midLat);
+      expect(naxçıvan.midLon).toBeLessThan(46);
+      expect(naxçıvan.midLat).toBeLessThan(bakh.midLat);
+      expect(astara.midLat).toBeLessThan(bakh.midLat);
    });
 
    it("stays far smaller than the raw geometry", () => {
-      const size = JSON.stringify(buildRegionsMap(sourceFeatures())).length;
+      const size = JSON.stringify(builtGeo()).length;
       const raw = fs.statSync(REGIONS_PATH).size;
       expect(size).toBeLessThan(raw / 10);
+   });
+
+   it("removes more points at a larger tolerance without losing regions", () => {
+      const pointsOf = (collection: RegionGeoCollection): number => {
+         let points = 0;
+         for (const polygon of polygonsOf(collection)) {
+            for (const ring of polygon) points += ring.length;
+         }
+         return points;
+      };
+
+      const coarse = buildRegionsGeoJson(sourceFeatures(), { tolerance: 0.02 });
+      const finer = buildRegionsGeoJson(sourceFeatures(), { tolerance: 0.002 });
+
+      expect(coarse.features).toHaveLength(finer.features.length);
+      expect(pointsOf(coarse)).toBeLessThan(pointsOf(finer));
+   });
+});
+
+describe("regionAspectScale", () => {
+   it("matches the committed data's mid-latitude cosine", () => {
+      // Azerbaijan's mid-latitude is ~40.15°, so cos ≈ 0.76 — and ECharts'
+      // 0.75 default is close but not exact.
+      const scale = regionAspectScale(builtGeo());
+      expect(scale).toBeGreaterThan(0.75);
+      expect(scale).toBeLessThan(0.78);
+   });
+
+   it("falls back to ECharts' default for an empty collection", () => {
+      expect(regionAspectScale({ type: "FeatureCollection", features: [] })).toBe(0.75);
+   });
+});
+
+describe("regionCoverages", () => {
+   const feature = (name: string): RegionGeoFeature => ({
+      type: "Feature",
+      properties: { name },
+      geometry: {
+         type: "Polygon",
+         coordinates: [
+            [
+               [45, 40],
+               [45.1, 40],
+               [45.1, 40.1],
+               [45, 40],
+            ],
+         ],
+      },
+   });
+
+   const photographed = (parentLabel: string, id: string, image?: string): MonumentProps =>
+      ({ itemLabel: `Abidə ${id}`, inventory: [id], parentLabel, image }) as MonumentProps;
+
+   it("pairs each feature with the stats its region page would show", () => {
+      const monuments = [
+         photographed("Səbail rayonu", "1", "a.jpg"),
+         photographed("Səbail rayonu", "2"),
+      ];
+      const coverage = regionCoverages([feature("Səbail"), feature("Gəncə")], monuments);
+
+      expect(coverage[0]).toEqual({ name: "Səbail", total: 2, withPhoto: 1, percent: 50 });
+      // A region with no monuments is "nothing recorded", not a real 0%.
+      expect(coverage[1]).toEqual({ name: "Gəncə", total: 0, withPhoto: 0, percent: null });
+   });
+
+   it("keeps feature order", () => {
+      const names = ["Xaçmaz", "Astara", "Şəki"];
+      expect(regionCoverages(names.map(feature), []).map((c) => c.name)).toEqual(names);
+   });
+
+   it("matches every non-null percent to the page-level stats", () => {
+      const monuments = sourceMonuments();
+      for (const coverage of regionCoverages(builtGeo().features, monuments)) {
+         const stats = regionPhotoStats(monuments, coverage.name);
+         if (stats) {
+            expect(coverage.percent).toBe(stats.percent);
+            expect(coverage.withPhoto).toBe(stats.withPhoto);
+            expect(coverage.total).toBe(stats.total);
+         } else {
+            expect(coverage.percent).toBeNull();
+            expect(coverage.total).toBe(0);
+         }
+      }
+   });
+});
+
+describe("regionMetricValue", () => {
+   const coverage = (total: number, percent: number | null): RegionCoverage => ({
+      name: "Naxçıvan",
+      total,
+      withPhoto: 0,
+      percent,
+   });
+
+   it("returns the percentage for the coverage metric, null and all", () => {
+      expect(regionMetricValue(coverage(4, 25), "percent")).toBe(25);
+      // Nothing recorded: a real absence of data, not a 0% coverage.
+      expect(regionMetricValue(coverage(0, null), "percent")).toBeNull();
+   });
+
+   it("returns the total for the count metric", () => {
+      expect(regionMetricValue(coverage(22, 0), "total")).toBe(22);
+   });
+
+   it("keeps a region with nothing recorded out of the count ramp", () => {
+      // Already a number, but 0 on a count legend would shade like the
+      // lowest real value; the neutral no-data colour is the honest one.
+      expect(regionMetricValue(coverage(0, null), "total")).toBeNull();
+   });
+});
+
+describe("regionMetricScale", () => {
+   const coverage = (total: number): RegionCoverage => ({
+      name: `Region ${total}`,
+      total,
+      withPhoto: 0,
+      percent: null,
+   });
+
+   it("keeps the coverage legend fixed at 0–100%", () => {
+      expect(regionMetricScale([coverage(298), coverage(0)], "percent")).toEqual({
+         min: 0,
+         max: 100,
+         text: ["100%", "0%"],
+      });
+   });
+
+   it("rounds the count legend up to a readable ceiling", () => {
+      // The committed maximum is 668 (Səbail), whose legend ends at 700 —
+      // Baku's old town holds far more monuments than any other region.
+      expect(regionMetricScale([coverage(668)], "total")).toEqual({
+         min: 0,
+         max: 700,
+         text: ["700", "0"],
+      });
+      expect(regionMetricScale([coverage(298)], "total").max).toBe(300);
+      expect(regionMetricScale([coverage(258)], "total").max).toBe(300);
+      expect(regionMetricScale([coverage(173)], "total").max).toBe(200);
+      expect(regionMetricScale([coverage(47)], "total").max).toBe(50);
+      expect(regionMetricScale([coverage(37)], "total").max).toBe(40);
+   });
+
+   it("never shrinks below the smallest readable count scale", () => {
+      expect(regionMetricScale([coverage(0)], "total").max).toBe(10);
+      expect(regionMetricScale([], "total").max).toBe(10);
+   });
+
+   it("covers the largest count in the committed data", () => {
+      const regions = regionCoverages(builtGeo().features, sourceMonuments());
+      const maxTotal = Math.max(...regions.map((region) => region.total));
+      const scale = regionMetricScale(regions, "total");
+      expect(scale.max).toBeGreaterThanOrEqual(maxTotal);
+      expect(scale.max).toBeLessThan(maxTotal + 50);
+   });
+});
+
+describe("regionBarFill", () => {
+   const coverage = (total: number, percent: number | null): RegionCoverage => ({
+      name: "Naxçıvan",
+      total,
+      withPhoto: 0,
+      percent,
+   });
+
+   it("stays unfilled for a region with nothing recorded", () => {
+      // The map's neutral rule: no monuments is a different fact from 0%.
+      expect(regionBarFill(coverage(0, null))).toBe(0);
+   });
+
+   it("maps a real 0% to no fill and 100% to a full bar", () => {
+      expect(regionBarFill(coverage(4, 0))).toBe(0);
+      expect(regionBarFill(coverage(4, 100))).toBe(1);
+   });
+
+   it("matches the printed percentage exactly", () => {
+      // The bar is read against the label next to it: 7.1% must fill 7.1% of
+      // the card and 75% must fill three quarters — no scale in between.
+      expect(regionBarFill(coverage(151, 7.1))).toBeCloseTo(0.071, 4);
+      expect(regionBarFill(coverage(20, 75))).toBeCloseTo(0.75, 4);
+   });
+
+   it("is monotonic in the percentage", () => {
+      const fills = [1, 5, 20, 50, 90].map((percent) => regionBarFill(coverage(100, percent)));
+      for (let i = 1; i < fills.length; i++) {
+         expect(fills[i]).toBeGreaterThan(fills[i - 1]);
+      }
+   });
+
+   it("clamps at a full bar if a percentage ever exceeds 100", () => {
+      expect(regionBarFill(coverage(10, 120))).toBe(1);
    });
 });
 
 describe("the committed datasets agree", () => {
    it("has no duplicate region names to render twice", () => {
-      const names = sourceFeatures().map((f) => f.properties[REGION_NAME_PROPERTY]);
+      const names = builtGeo().features.map((f) => f.properties.name);
       expect(new Set(names).size).toBe(names.length);
    });
 
    it("matches monuments by parentLabel without repairing any value", () => {
-      const monuments = JSON.parse(
-         fs.readFileSync(path.join(__dirname, "../../../data/monuments.geojson"), "utf-8"),
-      ) as { features: Array<{ properties: MonumentProps }> };
-
-      const before = monuments.features.map((f) => f.properties.parentLabel ?? "");
-      const map = buildRegionsMap(sourceFeatures());
+      const monuments = sourceMonuments();
+      const before = monuments.map((m) => m.parentLabel ?? "");
       let matched = 0;
-      for (const region of map.regions) {
-         matched += monumentsInRegion(
-            monuments.features.map((f) => f.properties),
-            region.name,
-         ).length;
+      for (const feature of builtGeo().features) {
+         matched += monumentsInRegion(monuments, feature.properties.name).length;
       }
 
       // The suffix fold is what takes this from 735 to ~5865 of 7196.
@@ -436,7 +761,7 @@ describe("the committed datasets agree", () => {
 
       // Nothing was written back: every original label is still intact and the
       // monuments this run could not place stay unplaced.
-      const after = monuments.features.map((f) => f.properties.parentLabel ?? "");
+      const after = sourceMonuments().map((m) => m.parentLabel ?? "");
       expect(after).toEqual(before);
       expect(before.filter((label) => label === "").length).toBeGreaterThan(1000);
    });
@@ -559,26 +884,19 @@ describe("regionPhotoStats", () => {
       // not a special case in here.
       expect(regionPhotoStats([monument("Bakı", "1", "a.jpg")], "Bakı")?.total).toBe(1);
 
-      const names = buildRegionsMap(sourceFeatures()).regions.map((region) => region.name);
+      const names = builtGeo().features.map((feature) => feature.properties.name);
       expect(names).not.toContain("Bakı");
       expect(names.some((name) => regionKey(name) === "Bakı")).toBe(false);
    });
 });
 
 describe("the committed datasets agree about photos", () => {
-   const sourceMonuments = (): MonumentProps[] =>
-      (
-         JSON.parse(
-            fs.readFileSync(path.join(__dirname, "../../../data/monuments.geojson"), "utf-8"),
-         ) as { features: Array<{ properties: MonumentProps }> }
-      ).features.map((f) => f.properties);
-
    it("never reports more photos than monuments in any region", () => {
       // The invariant that would break if the photo filter and the count ever
       // diverged, producing a percentage over 100.
       const monuments = sourceMonuments();
-      for (const region of buildRegionsMap(sourceFeatures()).regions) {
-         const stats = regionPhotoStats(monuments, region.name);
+      for (const feature of builtGeo().features) {
+         const stats = regionPhotoStats(monuments, feature.properties.name);
          if (!stats) continue;
          expect(stats.withPhoto).toBeLessThanOrEqual(stats.total);
          expect(stats.withoutPhoto).toBe(stats.total - stats.withPhoto);
@@ -588,15 +906,15 @@ describe("the committed datasets agree about photos", () => {
 
    it("totals the same set the monument filter matches", () => {
       const monuments = sourceMonuments();
-      const map = buildRegionsMap(sourceFeatures());
+      const features = builtGeo().features;
 
-      const fromStats = map.regions.reduce((sum, region) => {
-         const stats = regionPhotoStats(monuments, region.name);
+      const fromStats = features.reduce((sum, feature) => {
+         const stats = regionPhotoStats(monuments, feature.properties.name);
          return sum + (stats?.total ?? 0);
       }, 0);
 
-      const fromFilter = map.regions.reduce(
-         (sum, region) => sum + monumentsInRegion(monuments, region.name).length,
+      const fromFilter = features.reduce(
+         (sum, feature) => sum + monumentsInRegion(monuments, feature.properties.name).length,
          0,
       );
 
@@ -608,8 +926,8 @@ describe("the committed datasets agree about photos", () => {
       // Both branches of the gallery's render condition are exercised by real
       // data, so neither is only reachable through a fixture.
       const monuments = sourceMonuments();
-      const all = buildRegionsMap(sourceFeatures())
-         .regions.map((region) => regionPhotoStats(monuments, region.name))
+      const all = builtGeo()
+         .features.map((feature) => regionPhotoStats(monuments, feature.properties.name))
          .filter((stats): stats is NonNullable<typeof stats> => stats !== null);
 
       expect(all.filter((stats) => stats.withPhoto > 0).length).toBeGreaterThan(50);

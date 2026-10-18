@@ -1,5 +1,5 @@
 <template>
-   <div class="flex h-full flex-col bg-[#f8f9fa]">
+   <div class="flex min-h-full flex-col bg-[#f8f9fa]">
       <div class="border-b border-gray-200 bg-white">
          <div class="container mx-auto px-4 py-4">
             <router-link
@@ -20,8 +20,13 @@
       </div>
 
       <!-- Unknown region: reuse the app's existing 404 page rather than
-           inventing a second "not found" look. -->
-      <NotFound v-if="isUnknown" />
+           inventing a second "not found" look. The wrapper stretches to the
+           remaining height and centres the page vertically — the shared page's
+           own `min-h-full` cannot stretch here, because a flex-grown parent's
+           height does not resolve percentages. -->
+      <div v-if="isUnknown" class="flex flex-1 flex-col justify-center">
+         <NotFound />
+      </div>
 
       <!--
          Height comes from <main> (`overflow-y-auto`), not from this page: the
@@ -29,6 +34,10 @@
          claim "whatever is left" meant the list collapsed to nothing on
          photo-rich regions. The blocks above are auto-height and cannot shrink;
          the table gets an explicit height and scrolls inside itself.
+
+         The root is `min-h-full`, not `h-full`: the footer is a sibling inside
+         <main> (see App.vue), so a root pinned to the viewport's height would
+         let this page's content overflow its box and paint over the footer.
       -->
       <div v-else-if="region" class="container mx-auto flex flex-col px-4 py-6">
          <div class="flex flex-col border border-gray-200 bg-white">

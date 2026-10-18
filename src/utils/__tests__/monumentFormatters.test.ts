@@ -22,6 +22,12 @@ describe("getClosestWikiWidth", () => {
       expect(getClosestWikiWidth(500)).toBe(500);
    });
 
+   it("keeps the region gallery candidate set stable", () => {
+      // RegionPhotoGallery requests these four; snapping any of them up would
+      // silently change the size browsers pick at 2x.
+      expect([330, 500, 640, 960].map(getClosestWikiWidth)).toEqual([330, 500, 640, 960]);
+   });
+
    it("snaps to the largest supported width when target exceeds the list", () => {
       expect(getClosestWikiWidth(5000)).toBe(3840);
    });
