@@ -17,14 +17,14 @@
     {
       "inventory": "4.3",
       "label": "Ramana qalası",
-      "parentLabel": "Ramana",
+      "parentLabel": "Sabunçu rayonu",
       "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Ramana%20Castle.jpg",
       "url": "/monument/4%2E3"
     },
     {
       "inventory": "167",
       "label": "Azərbaycan Dövlət Mahnı Teatrı",
-      "parentLabel": "Bakı",
+      "parentLabel": "Səbail rayonu",
       "image": "https://commons.wikimedia.org/wiki/Special:FilePath/R%C9%99%C5%9Fid%20Behbudov%20ad%C4%B1na%20Mahn%C4%B1%20Teatr%C4%B1.jpg",
       "url": "/monument/167"
     }
@@ -34,23 +34,23 @@
   "regions": [
     {
       "label": "Səbail rayonu",
-      "count": 193,
-      "withImage": 143
-    },
-    {
-      "label": "Bakı",
-      "count": 96,
-      "withImage": 88
+      "count": 241,
+      "withImage": 188
     },
     {
       "label": "Nəsimi rayonu",
-      "count": 95,
-      "withImage": 46
+      "count": 109,
+      "withImage": 59
     },
     {
       "label": "Yasamal rayonu",
-      "count": 67,
-      "withImage": 52
+      "count": 87,
+      "withImage": 70
+    },
+    {
+      "label": "Qazax rayonu",
+      "count": 49,
+      "withImage": 13
     },
     {
       "label": "Şəki",
@@ -58,14 +58,24 @@
       "withImage": 41
     },
     {
-      "label": "Qazax rayonu",
-      "count": 44,
-      "withImage": 9
+      "label": "Tovuz rayonu",
+      "count": 39,
+      "withImage": 0
     },
     {
-      "label": "Tovuz rayonu",
-      "count": 38,
-      "withImage": 0
+      "label": "Quba rayonu",
+      "count": 31,
+      "withImage": 22
+    },
+    {
+      "label": "Sabunçu rayonu",
+      "count": 30,
+      "withImage": 22
+    },
+    {
+      "label": "Laçın rayonu",
+      "count": 29,
+      "withImage": 4
     },
     {
       "label": "Gəncə",
@@ -73,24 +83,14 @@
       "withImage": 23
     },
     {
-      "label": "Laçın rayonu",
-      "count": 28,
-      "withImage": 4
-    },
-    {
-      "label": "Sabunçu rayonu",
-      "count": 28,
-      "withImage": 20
+      "label": "Qax rayonu",
+      "count": 27,
+      "withImage": 21
     },
     {
       "label": "Ağstafa rayonu",
-      "count": 24,
-      "withImage": 1
-    },
-    {
-      "label": "Quba rayonu",
-      "count": 24,
-      "withImage": 19
+      "count": 25,
+      "withImage": 2
     }
   ]
 }

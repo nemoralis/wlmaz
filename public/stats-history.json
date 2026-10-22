@@ -666,7 +666,21 @@
   },
   {
     "date": "2026-10-18",
-    "timestamp": 1792325531895,
+    "timestamp": 1792354889024,
+    "total": 1381,
+    "withImage": 779,
+    "withoutImage": 602
+  },
+  {
+    "date": "2026-10-20",
+    "timestamp": 1792538597043,
+    "total": 1381,
+    "withImage": 778,
+    "withoutImage": 603
+  },
+  {
+    "date": "2026-10-22",
+    "timestamp": 1792692260017,
     "total": 1381,
     "withImage": 778,
     "withoutImage": 603
