@@ -55,6 +55,17 @@ const REDIRECTS_PATH = path.join(__dirname, "..", "monument-redirects.conf");
 
 const SITE_TITLE = "Viki Abidələri Sevir Azərbaycan";
 
+/**
+ * Lets prerendered pages with static content scroll before hydration (the
+ * shell pins html/body to overflow:hidden for the map app). The data
+ * attribute is how src/main.ts finds and removes the override once the SPA
+ * takes over — leaving it active would make #app's height:100% resolve
+ * against an auto-height body and collapse the map page on client-side
+ * navigation.
+ */
+const PRERENDER_SCROLL_OVERRIDE =
+   "<style data-prerender-scroll-override>html, body { overflow: auto !important; height: auto; }</style>";
+
 const escapeXml = (value: string): string =>
    value
       .replace(/&/g, "&amp;")
@@ -295,11 +306,11 @@ const buildMonumentHtml = (
    const headTags = buildHeadTags(props, canonicalUrl, displayLabel);
    // Embed the monument's props for instant runtime rendering (no geojson).
    const embeddedData = buildEmbeddedData(props);
-   // Override the shell's overflow:hidden so static content is scrollable.
-   const styleOverride = "<style>html, body { overflow: auto !important; height: auto; }</style>";
+   // Override the shell's overflow:hidden so static content is scrollable
+   // before hydration; src/main.ts removes it once the SPA mounts.
    html = html.replace(
       "</head>",
-      `${headTags}\n   ${embeddedData}\n   ${styleOverride}\n   </head>`,
+      `${headTags}\n   ${embeddedData}\n   ${PRERENDER_SCROLL_OVERRIDE}\n   </head>`,
    );
 
    // Replace the loading skeleton inside #app with real content. The #app
@@ -600,8 +611,7 @@ const buildHomeHtml = (indexHtml: string, data: HomeData): string => {
    // Payload + scrollable static content (the shell pins html/body to
    // overflow:hidden for the map app).
    const embeddedData = buildHomeDataScript(data);
-   const styleOverride = "<style>html, body { overflow: auto !important; height: auto; }</style>";
-   html = html.replace("</head>", `${embeddedData}\n   ${styleOverride}\n   </head>`);
+   html = html.replace("</head>", `${embeddedData}\n   ${PRERENDER_SCROLL_OVERRIDE}\n   </head>`);
 
    const appStart = html.indexOf('<div id="app">');
    const bodyClose = html.indexOf("</body>");

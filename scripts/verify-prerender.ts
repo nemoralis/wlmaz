@@ -73,6 +73,18 @@ const extractTitle = (html: string): string | null => {
    return match ? match[1] : null;
 };
 
+/**
+ * Pages with prerendered static content ship a marked html/body scroll
+ * override; the runtime removes it by this attribute before mounting (see
+ * src/main.ts). An unmarked style would leak into client-side navigation and
+ * collapse the map page, so the marker is part of the prerender contract.
+ */
+const checkScrollOverride = (html: string, label: string): void => {
+   if (!html.includes("data-prerender-scroll-override")) {
+      fail(`${label}: missing the marked prerender scroll override`);
+   }
+};
+
 // Mirrors escapeHtml() in scripts/prerender.ts so expected titles compare
 // against the escaped text the prerender writes into <title>.
 const escapeHtmlText = (value: string): string =>
@@ -192,6 +204,8 @@ const checkMonumentHtml = (
          fail(`${label}: #monument-data is not valid JSON`);
       }
    }
+
+   checkScrollOverride(html, label);
 };
 
 const checkStaticHtml = (html: string, loc: string, label: string): void => {
@@ -217,6 +231,12 @@ const checkStaticHtml = (html: string, loc: string, label: string): void => {
       fail(`${label}: expected exactly 1 description meta, found ${descriptionTags.length}`);
    } else if (!attrValue(descriptionTags[0], "content")) {
       fail(`${label}: description meta is empty`);
+   }
+
+   // Only the landing page ships prerendered body content, so only it needs
+   // the scroll override.
+   if (loc === `${HOST}/`) {
+      checkScrollOverride(html, label);
    }
 };
 

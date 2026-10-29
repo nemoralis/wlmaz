@@ -16,6 +16,12 @@ import "@wikimedia/codex/dist/codex.style.css";
 const head = createHead();
 const app = createApp(App);
 
+// The prerendered home and monument pages inject a scroll override for their
+// static content; the runtime shell manages its own scrolling. Removing it
+// before mount keeps #app's height:100% resolving against the viewport-sized
+// body (a leaked override collapses the map page on client-side navigation).
+document.querySelector("style[data-prerender-scroll-override]")?.remove();
+
 app.config.errorHandler = (err, instance, info) => {
    console.error(
       "[Vue Error]",
