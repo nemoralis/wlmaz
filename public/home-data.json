@@ -29,18 +29,18 @@
       "url": "/monument/167"
     }
   ],
-  "total": 1381,
-  "withImage": 778,
+  "total": 1390,
+  "withImage": 788,
   "regions": [
     {
       "label": "Səbail rayonu",
-      "count": 241,
-      "withImage": 188
+      "count": 245,
+      "withImage": 191
     },
     {
       "label": "Nəsimi rayonu",
-      "count": 109,
-      "withImage": 59
+      "count": 110,
+      "withImage": 60
     },
     {
       "label": "Yasamal rayonu",
@@ -73,14 +73,14 @@
       "withImage": 22
     },
     {
+      "label": "Gəncə",
+      "count": 29,
+      "withImage": 24
+    },
+    {
       "label": "Laçın rayonu",
       "count": 29,
       "withImage": 4
-    },
-    {
-      "label": "Gəncə",
-      "count": 28,
-      "withImage": 23
     },
     {
       "label": "Qax rayonu",

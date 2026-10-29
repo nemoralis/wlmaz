@@ -534,7 +534,7 @@
                 "itemAltLabel": "Xaçındərbətli türbəsi, Xaçıntürbətli türbəsi, Qulu Musa oğlu türbəsi, Sarı Musa türbəsi",
                 "itemDescription": "mausoleum in Xaçındərbətli, Azerbaijan",
                 "itemLabel": "Qutlu Musa türbəsi",
-                "lastModified": "2026-10-17T06:36:42Z",
+                "lastModified": "2026-10-27T11:51:24Z",
                 "parent": "http://www.wikidata.org/entity/Q201647",
                 "parentLabel": "Ağdam rayonu"
             }
@@ -999,7 +999,7 @@
                 "itemAltLabel": "Damcılı mağara düşərgəsi",
                 "itemDescription": "Qazaxda yerləşən mağara",
                 "itemLabel": "Damcılı mağarası",
-                "lastModified": "2026-07-23T19:09:10Z",
+                "lastModified": "2026-10-28T17:07:57Z",
                 "parent": "http://www.wikidata.org/entity/Q389381",
                 "parentLabel": "Qazax rayonu"
             }
@@ -1074,9 +1074,9 @@
                 "item": "http://www.wikidata.org/entity/Q137274025",
                 "itemDescription": "Qobustandakı latın kitabəsi",
                 "itemLabel": "Qədim Roma yazısı",
-                "lastModified": "2025-12-07T22:49:07Z",
-                "parent": "http://www.wikidata.org/entity/Q457508",
-                "parentLabel": "Qobustan rayonu"
+                "lastModified": "2026-10-24T14:09:50Z",
+                "parent": "http://www.wikidata.org/entity/Q4818249",
+                "parentLabel": "Qaradağ rayonu"
             }
         },
         {
@@ -15903,7 +15903,7 @@
                 "azLink": "https://az.wikipedia.org/wiki/Bak%C4%B1_xan_saray%C4%B1",
                 "commonsCategory": "Palace of Baku Khans",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Palace_of_Baku_Khans",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Bak%C4%B1%20xan%20saray%C4%B1n%C4%B1n%20%C9%99sas%20giri%C5%9Finin%20Xan%20ba%C4%9F%C4%B1%20t%C9%99r%C9%99fd%C9%99n%20g%C3%B6r%C3%BCn%C3%BC%C5%9F%C3%BC.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Baku%20Walled%20City%20-%2054632676450.jpg",
                 "inventory": [
                     "69",
                     "70",
@@ -15913,7 +15913,7 @@
                 "item": "http://www.wikidata.org/entity/Q12837306",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən tarix memarlıq abidəsi.",
                 "itemLabel": "Bakı xan sarayı",
-                "lastModified": "2026-09-29T13:21:36Z",
+                "lastModified": "2026-10-27T11:06:05Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -16147,7 +16147,7 @@
                 "itemAltLabel": "İkimərtəbəli karvansara",
                 "itemDescription": "Azərbaycanın Bakı şəhərində yerləşən karavansara və tarix memarlıq abidəsi.",
                 "itemLabel": "İkimərtəbəli karvansaray",
-                "lastModified": "2026-09-29T13:57:21Z",
+                "lastModified": "2026-10-26T06:19:25Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -17479,9 +17479,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q14955686",
                 "itemAltLabel": "Nizami adına kinoteatrın binası",
-                "itemDescription": "Cinema in Baku, Azerbaijan",
+                "itemDescription": "kinoteatr",
                 "itemLabel": "Nizami Kino Mərkəzi",
-                "lastModified": "2026-09-22T10:02:51Z",
+                "lastModified": "2026-10-26T06:03:31Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -18291,8 +18291,9 @@
                     "156"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140654613",
-                "itemLabel": "Bakı şəhər Prokurorluğunun binası",
-                "lastModified": "2026-09-10T12:15:03Z",
+                "itemAltLabel": "Bakı şəhər Prokurorluğunun binası, Rotşildlərin binası",
+                "itemLabel": "Azərbaycan Respublikası Prokurorluğunun Tarixi Muzeyinin binası",
+                "lastModified": "2026-10-28T04:56:28Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -18388,7 +18389,6 @@
                 "addressLabel": "Bakı",
                 "azLink": "https://az.wikipedia.org/wiki/Az%C9%99rbaycan_D%C3%B6vl%C9%99t_Akademik_Musiqili_Teatr%C4%B1",
                 "commonsCategory": "Azerbaijan State Theatre of Musical Comedy",
-                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Azerbaijan_State_Theatre_of_Musical_Comedy",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Azerbaijan%20State%20Theatre%20of%20Musical%20Comedy%20building%20fa%C3%A7ade%20Neft%C3%A7il%C9%99r%20avenue.jpg",
                 "inventory": [
                     "160"
@@ -18397,7 +18397,7 @@
                 "itemAltLabel": "Azərbaycan Dövlət Musiqili Komediya Teatrı, Azərbaycan Dövlət Akademik Musiqili Teatrının binası",
                 "itemDescription": "Musical theatre in Baku",
                 "itemLabel": "Azərbaycan Dövlət Akademik Musiqili Teatrı",
-                "lastModified": "2026-09-22T10:01:46Z",
+                "lastModified": "2026-10-27T23:57:48Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -19816,15 +19816,27 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.197887268,
+                    39.697360146
+                ]
+            },
             "properties": {
                 "addressLabel": "Aşağı Veysəlli kəndi",
+                "azLink": "https://az.wikipedia.org/wiki/Mir%C9%99li_t%C3%BCrb%C9%99si",
+                "commonsCategory": "Mirali Mausoleum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Mirali_Mausoleum",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mir%C9%99li%20t%C3%BCrb%C9%99si%202022-ci%20ild%C9%99.jpg",
                 "inventory": [
                     "215"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140664937",
+                "item": "http://www.wikidata.org/entity/Q4273775",
+                "itemAltLabel": "Mir Əli türbəsi",
+                "itemDescription": "Füzuli rayonunun Aşağı Veysəlli kəndində türbə",
                 "itemLabel": "Mirəli türbəsi",
-                "lastModified": "2026-09-06T01:35:12Z",
+                "lastModified": "2026-10-24T12:39:04Z",
                 "parent": "http://www.wikidata.org/entity/Q331687",
                 "parentLabel": "Füzuli rayonu"
             }
@@ -20984,7 +20996,7 @@
                 "itemAltLabel": "Şeyx Bani türbəsi, Şeyx Bədrəddin türbəsi, Şeyx Məhəmməd türbəsi, Şeyx Mansur türbəsi",
                 "itemDescription": "Qəbələdə türbələr",
                 "itemLabel": "Həzrə türbələr kompleksi",
-                "lastModified": "2026-10-17T05:53:22Z",
+                "lastModified": "2026-10-27T11:34:29Z",
                 "parent": "http://www.wikidata.org/entity/Q593872",
                 "parentLabel": "Qəbələ rayonu"
             }
@@ -21263,7 +21275,7 @@
                 "item": "http://www.wikidata.org/entity/Q31297079",
                 "itemDescription": "Historic site in Qubadli, Azerbaijan",
                 "itemLabel": "Gürcülü türbəsi",
-                "lastModified": "2026-10-16T08:38:28Z",
+                "lastModified": "2026-10-27T05:18:20Z",
                 "parent": "http://www.wikidata.org/entity/Q644048",
                 "parentLabel": "Qubadlı rayonu"
             }
@@ -21844,7 +21856,7 @@
                 "item": "http://www.wikidata.org/entity/Q4522517",
                 "itemDescription": "Azərbaycanın Şəki şəhərində yerləşən karvansara və tarix memarlıq abidəsi.",
                 "itemLabel": "Yuxarı Karvansara",
-                "lastModified": "2026-09-15T07:52:12Z",
+                "lastModified": "2026-10-27T05:44:03Z",
                 "parent": "http://www.wikidata.org/entity/Q234783",
                 "parentLabel": "Şəki"
             }
@@ -22500,17 +22512,29 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.758333333,
+                    39.755416666
+                ]
+            },
             "properties": {
                 "addressLabel": "Q.Quliyev küçəsi",
+                "azLink": "https://az.wikipedia.org/wiki/Vaqif_t%C3%BCrb%C9%99si",
+                "commonsCategory": "Vagif mausoleum",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Vagif_mausoleum",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Vagif%20mausoleum%20after%20restoration%2C%20Shusha%2C%20Azerbaijan.jpg",
                 "inventory": [
                     "367"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140657668",
-                "itemLabel": "M.P.Vaqifin türbəsi",
-                "lastModified": "2026-10-20T23:10:10Z",
-                "parent": "http://www.wikidata.org/entity/Q388960",
-                "parentLabel": "Şuşa rayonu"
+                "item": "http://www.wikidata.org/entity/Q4273758",
+                "itemAltLabel": "Vaqifin məqbərəsi, M.P.Vaqifin türbəsi",
+                "itemDescription": "mausoleum in Nagorno-Karabakh, Azerbaijan",
+                "itemLabel": "Vaqif türbəsi",
+                "lastModified": "2026-10-24T12:38:15Z",
+                "parent": "http://www.wikidata.org/entity/Q158903",
+                "parentLabel": "Şuşa"
             }
         },
         {
@@ -23543,17 +23567,29 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.8451927,
+                    40.373008531
+                ]
+            },
             "properties": {
                 "addressLabel": "Bakı şəhəri, R.Behbudov və Bülbül prospektlərinin arası",
+                "azLink": "https://az.wikipedia.org/wiki/Sahil_ba%C4%9F%C4%B1",
+                "commonsCategory": "Sahil Park",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Sahil_Park",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Sahil%20ba%C4%9F%C4%B1%2001.jpg",
                 "inventory": [
                     "426"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140657744",
-                "itemLabel": "“Azadlıq” bağı",
-                "lastModified": "2026-07-25T23:37:28Z",
-                "parent": "http://www.wikidata.org/entity/Q9248",
-                "parentLabel": "Bakı"
+                "item": "http://www.wikidata.org/entity/Q65280281",
+                "itemAltLabel": "“Azadlıq” bağı",
+                "itemDescription": "Bakıda park",
+                "itemLabel": "Sahil bağı",
+                "lastModified": "2026-10-24T11:59:09Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -23948,32 +23984,29 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.835197222,
+                    40.369586111
+                ]
+            },
             "properties": {
                 "addressLabel": "Bakı şəhəri, Nizami bağı",
+                "azLink": "https://az.wikipedia.org/wiki/Nizami_G%C9%99nc%C9%99vinin_heyk%C9%99li_(Bak%C4%B1,_1949)",
+                "commonsCategory": "Monument to Nizami Ganjavi (Baku)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Monument_to_Nizami_Ganjavi_(Baku)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Nizami%20G%C9%99nc%C9%99vinin%20Bak%C4%B1dak%C4%B1%20heyk%C9%99li.JPG",
                 "inventory": [
                     "445"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140657763",
+                "item": "http://www.wikidata.org/entity/Q2790637",
+                "itemAltLabel": "Nizaminin heykəli",
+                "itemDescription": "Bakıda heykəl",
                 "itemLabel": "Nizami Gəncəvinin heykəli",
-                "lastModified": "2026-07-26T01:40:19Z",
-                "parent": "http://www.wikidata.org/entity/Q9248",
-                "parentLabel": "Bakı"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": null,
-            "properties": {
-                "addressLabel": "Bakı şəhəri, Ş.Bədəlbəyli küçəsi (Azərbaycan Dövlət Musiqi Akademiyasının qarşısında)",
-                "inventory": [
-                    "446"
-                ],
-                "item": "http://www.wikidata.org/entity/Q140657765",
-                "itemLabel": "Ü.Hacıbəyovun heykəli",
-                "lastModified": "2026-07-26T01:40:20Z",
-                "parent": "http://www.wikidata.org/entity/Q9248",
-                "parentLabel": "Bakı"
+                "lastModified": "2026-10-24T12:16:53Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -23981,8 +24014,32 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    49.829393,
-                    40.357258
+                    49.844422811,
+                    40.377642688
+                ]
+            },
+            "properties": {
+                "addressLabel": "Bakı şəhəri, Ş.Bədəlbəyli küçəsi (Azərbaycan Dövlət Musiqi Akademiyasının qarşısında)",
+                "azLink": "https://az.wikipedia.org/wiki/%C3%9Czeyir_Hac%C4%B1b%C9%99yovun_heyk%C9%99li_(Bak%C4%B1,_1960)",
+                "inventory": [
+                    "446"
+                ],
+                "item": "http://www.wikidata.org/entity/Q16377125",
+                "itemAltLabel": "Ü.Hacıbəyovun heykəli",
+                "itemDescription": "Bakıda heykəl",
+                "itemLabel": "Üzeyir Hacıbəyovun heykəli",
+                "lastModified": "2026-10-24T11:53:41Z",
+                "parent": "http://www.wikidata.org/entity/Q4313899",
+                "parentLabel": "Nəsimi rayonu"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.82814735,
+                    40.358284198
                 ]
             },
             "properties": {
@@ -23996,24 +24053,36 @@
                 "item": "http://www.wikidata.org/entity/Q65279145",
                 "itemDescription": "Bakıda heykəl",
                 "itemLabel": "Həzi Aslanovun heykəli",
-                "lastModified": "2026-10-22T18:03:08Z",
+                "lastModified": "2026-10-27T10:33:59Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.834429,
+                    40.368677
+                ]
+            },
             "properties": {
                 "addressLabel": "Bakı şəhəri, Sabir bağı",
+                "azLink": "https://az.wikipedia.org/wiki/Mirz%C9%99_%C6%8Fl%C9%99kb%C9%99r_Sabirin_heyk%C9%99li",
+                "commonsCategory": "Monument to Mirza Alakbar Sabir (1958)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Monument_to_Mirza_Alakbar_Sabir_(1958)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Mirz%C9%99%20%C6%8Fl%C9%99kb%C9%99r%20Sabirin%20heyk%C9%99li.JPG",
                 "inventory": [
                     "448"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140657766",
-                "itemLabel": "M.Ə.Sabirin heykəli",
-                "lastModified": "2026-07-26T01:40:37Z",
-                "parent": "http://www.wikidata.org/entity/Q9248",
-                "parentLabel": "Bakı"
+                "item": "http://www.wikidata.org/entity/Q4343255",
+                "itemAltLabel": "Sabirin heykəli",
+                "itemDescription": "Bakıda heykəl",
+                "itemLabel": "Mirzə Ələkbər Sabirin heykəli",
+                "lastModified": "2026-10-24T11:54:57Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -24194,13 +24263,15 @@
             },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/%C4%B0mad%C9%99ddin_N%C9%99siminin_heyk%C9%99li_(Bak%C4%B1,_1980)",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Samad%20Vurgun%20Street%20in%20Baku.jpg",
+                "commonsCategory": "Statue of Nasimi (Baku)",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Statue_of_Nasimi_(Baku)",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Baku%20in%202004%2003510029%20%2819890549%29.jpg",
                 "inventory": [
                     "457"
                 ],
                 "item": "http://www.wikidata.org/entity/Q65276710",
                 "itemLabel": "İmadəddin Nəsiminin heykəli",
-                "lastModified": "2026-10-22T18:03:30Z",
+                "lastModified": "2026-10-27T10:50:42Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -24577,7 +24648,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140657775",
                 "itemLabel": "Qatır Məmmədin heykəli",
-                "lastModified": "2026-07-26T01:40:39Z",
+                "lastModified": "2026-10-24T12:36:06Z",
                 "parent": "http://www.wikidata.org/entity/Q131290",
                 "parentLabel": "Gəncə"
             }
@@ -24619,7 +24690,7 @@
                 "itemAltLabel": "Sərdar bağı",
                 "itemDescription": "Gəncədə bağ",
                 "itemLabel": "Xan bağı",
-                "lastModified": "2026-09-03T11:11:10Z",
+                "lastModified": "2026-10-28T05:24:22Z",
                 "parent": "http://www.wikidata.org/entity/Q131290",
                 "parentLabel": "Gəncə"
             }
@@ -56623,13 +56694,17 @@
             },
             "properties": {
                 "addressLabel": "Şüvəlan qəsəbəsi, “Şimal” DRES-in yanında",
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9E%C3%BCv%C9%99lan_mayak%C4%B1",
+                "commonsCategory": "Shuvalan lighthouse",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Shuvalan_lighthouse",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%D0%A8%D1%83%D0%B2%D0%B5%D0%BB%D0%B0%D0%BD%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BC%D0%B0%D1%8F%D0%BA.png",
                 "inventory": [
                     "2617"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140660644",
+                "item": "http://www.wikidata.org/entity/Q12849673",
                 "itemDescription": "Şüvəlanda mayak",
                 "itemLabel": "Şüvəlan mayakı",
-                "lastModified": "2026-09-06T13:44:08Z",
+                "lastModified": "2026-10-26T09:23:20Z",
                 "parent": "http://www.wikidata.org/entity/Q526313",
                 "parentLabel": "Xəzər rayonu"
             }
@@ -60046,13 +60121,16 @@
                 ]
             },
             "properties": {
+                "commonsCategory": "Building of the Republican Athletics Indoor Arena",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_the_Republican_Athletics_Indoor_Arena",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Respublika%20y%C3%BCng%C3%BCl%20atletika%20manejinin%20binas%C4%B1%20%282026%29%202.jpg",
                 "inventory": [
                     "2864"
                 ],
                 "item": "http://www.wikidata.org/entity/Q137907782",
                 "itemDescription": "Bakıda idman binası",
                 "itemLabel": "Respublika yüngül atletika manejinin binası",
-                "lastModified": "2026-01-27T00:33:50Z",
+                "lastModified": "2026-10-25T06:05:32Z",
                 "parent": "http://www.wikidata.org/entity/Q4313166",
                 "parentLabel": "Nərimanov rayonu"
             }
@@ -62159,12 +62237,14 @@
             },
             "properties": {
                 "addressLabel": "Ş.Əzizbəyov və R.Rza küçələrinin tini",
+                "azLink": "https://az.wikipedia.org/wiki/%C5%9Eollar_su_k%C9%99m%C9%99rinin_suyayma_q%C3%BCll%C9%99si",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/3025.%20%C5%9Eollar%20su%20k%C9%99m%C9%99rinin%20suyayma%20q%C3%BCll%C9%99si.jpg",
                 "inventory": [
                     "3025"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661039",
                 "itemLabel": "Şollar su kəmərinin su yayma qülləsi",
-                "lastModified": "2026-09-06T19:14:26Z",
+                "lastModified": "2026-10-27T14:27:49Z",
                 "parent": "http://www.wikidata.org/entity/Q4313899",
                 "parentLabel": "Nəsimi rayonu"
             }
@@ -66622,7 +66702,7 @@
                 "azLink": "https://az.wikipedia.org/wiki/M%C3%BCq%C9%99dd%C9%99s_Nina_q%C4%B1z_gimnaziyas%C4%B1n%C4%B1n_binas%C4%B1_(Bak%C4%B1)",
                 "commonsCategory": "Building of 132-134 Education complex",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_132-134_Education_complex",
-                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/132-134%20sayl%C4%B1%20T%C9%99hsil%20kompleksi.jpg",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/M%C3%BCq%C9%99dd%C9%99s%20Nina%20q%C4%B1z%20gimnaziyas%C4%B1n%C4%B1n%20binas%C4%B1%20%28Bak%C4%B1%29.jpg",
                 "inventory": [
                     "3292"
                 ],
@@ -66630,7 +66710,7 @@
                 "itemAltLabel": "132-134 nömrəli məktəbin binası",
                 "itemDescription": "Bakıda tarixi bina",
                 "itemLabel": "Müqəddəs Nina qız gimnaziyası",
-                "lastModified": "2026-09-06T01:26:22Z",
+                "lastModified": "2026-10-23T23:19:33Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -69314,6 +69394,7 @@
             },
             "properties": {
                 "addressLabel": "Xaqani küçəsi, 10",
+                "azLink": "https://az.wikipedia.org/wiki/Az%C9%99rbaycan_Teatr_Xadiml%C9%99ri_%C4%B0ttifaq%C4%B1_Binas%C4%B1",
                 "inventory": [
                     "3447"
                 ],
@@ -69321,7 +69402,7 @@
                 "itemAltLabel": "Azərbaycan Teatr Cəmiyyətinin binası",
                 "itemDescription": "Bakıda inzibati bina",
                 "itemLabel": "Azərbaycan Teatr Xadimləri İttifaqının binası",
-                "lastModified": "2026-09-17T20:38:52Z",
+                "lastModified": "2026-10-27T16:46:53Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -70109,6 +70190,7 @@
             },
             "properties": {
                 "addressLabel": "S.Əsgərova küçəsi, 85",
+                "azLink": "https://az.wikipedia.org/wiki/%C6%8Fm%C9%99k_v%C9%99_%C6%8Fhalinin_Sosial_M%C3%BCdafi%C9%99si_Nazirliyinin_inzibati_binas%C4%B1",
                 "commonsCategory": "Building of Ministry of Labour and Social Protection of the Population (Azerbaijan)",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Building_of_Ministry_of_Labour_and_Social_Protection_of_the_Population_(Azerbaijan)",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Be%C5%9Fm%C9%99rt%C9%99b%C9%99%20meydan%C4%B1%20-%20panoramio.jpg",
@@ -70116,10 +70198,9 @@
                     "3490"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140665301",
-                "itemAltLabel": "Əmək və Əhalinin Sosial Müdafiəsi Nazirliyinin binası",
                 "itemDescription": "Bakıda inzibati bina",
-                "itemLabel": "İnzibati bina",
-                "lastModified": "2026-10-07T10:58:04Z",
+                "itemLabel": "Əmək və Əhalinin Sosial Müdafiəsi Nazirliyinin inzibati binası",
+                "lastModified": "2026-10-28T06:19:01Z",
                 "parent": "http://www.wikidata.org/entity/Q4539151",
                 "parentLabel": "Yasamal rayonu"
             }
@@ -74240,7 +74321,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.352308497,
+                    40.677396503
+                ]
+            },
             "properties": {
                 "azLink": "https://az.wikipedia.org/wiki/G%C9%99nc%C9%99_Realn%C4%B1_m%C9%99kt%C9%99binin_binas%C4%B1",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Gimnaziya%20binas%C4%B1.%20G%C9%99nc%C9%99%20%C5%9F%C9%99h%C9%99ri.jpg",
@@ -74249,7 +74336,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q12844981",
                 "itemLabel": "Realnıy məktəb binası",
-                "lastModified": "2026-09-06T01:25:01Z",
+                "lastModified": "2026-10-24T12:28:31Z",
                 "parent": "http://www.wikidata.org/entity/Q131290",
                 "parentLabel": "Gəncə"
             }
@@ -88344,7 +88431,7 @@
                 ]
             },
             "properties": {
-                "azLink": "https://az.wikipedia.org/wiki/G%C3%BCmb%C9%99zli_hamam_(Quba)",
+                "azLink": "https://az.wikipedia.org/wiki/G%C3%BCnb%C9%99zli_hamam_(Quba)",
                 "commonsCategory": "Domed bath in Guba",
                 "commonsLink": "https://commons.wikimedia.org/wiki/Category:Domed_bath_in_Guba",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/G%C3%BCnb%C9%99zli%20hamam%20Quba.jpg",
@@ -88355,7 +88442,7 @@
                 "itemAltLabel": "domed bath in Guba",
                 "itemDescription": "Qubada tarixi hamam",
                 "itemLabel": "Gümbəzli hamam",
-                "lastModified": "2026-09-11T12:05:55Z",
+                "lastModified": "2026-10-24T12:58:53Z",
                 "parent": "http://www.wikidata.org/entity/Q647982",
                 "parentLabel": "Quba"
             }
@@ -94259,7 +94346,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q12838084",
                 "itemLabel": "Calut kilsəsi",
-                "lastModified": "2026-10-20T23:17:54Z",
+                "lastModified": "2026-10-26T10:09:01Z",
                 "parent": "http://www.wikidata.org/entity/Q643989",
                 "parentLabel": "Oğuz rayonu"
             }
@@ -105714,7 +105801,7 @@
                 "item": "http://www.wikidata.org/entity/Q12840429",
                 "itemAltLabel": "Hüseyn Cavidin ev muzeyi",
                 "itemLabel": "Hüseyn Cavidin ev muzeyi (Bakı)",
-                "lastModified": "2026-10-22T18:03:06Z",
+                "lastModified": "2026-10-26T12:20:07Z",
                 "parent": "http://www.wikidata.org/entity/Q2028793",
                 "parentLabel": "Səbail rayonu"
             }
@@ -105820,7 +105907,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    49.844967594,
+                    40.370868307
+                ]
+            },
             "properties": {
                 "addressLabel": "Bakı şəhəri, Bülbül prospekti, 3",
                 "inventory": [
@@ -105828,9 +105921,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140663023",
                 "itemLabel": "Görkəmli alim, Z.Ə.Əliyevanın yaşadığı ev",
-                "lastModified": "2026-09-11T21:49:35Z",
-                "parent": "http://www.wikidata.org/entity/Q9248",
-                "parentLabel": "Bakı"
+                "lastModified": "2026-10-24T12:03:32Z",
+                "parent": "http://www.wikidata.org/entity/Q2028793",
+                "parentLabel": "Səbail rayonu"
             }
         },
         {
@@ -107635,15 +107728,26 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.633903237,
+                    40.629012832
+                ]
+            },
             "properties": {
                 "addressLabel": "Şamaxı, Şahıxəndan qəbiristanlığı",
+                "commonsCategory": "Grave of Seyid Azim Shirvani",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Grave_of_Seyid_Azim_Shirvani",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Seyid%20%C6%8Fzim%20%C5%9Eirvaninin%20q%C9%99bri%202022-ci%20il%20%286%29.jpg",
                 "inventory": [
                     "5684"
                 ],
                 "item": "http://www.wikidata.org/entity/Q140663125",
-                "itemLabel": "S.Ə.Şirvaninin qəbirüstü abidəsi",
-                "lastModified": "2026-07-25T23:07:24Z"
+                "itemLabel": "Seyid Əzim Şirvaninin qəbirüstü abidəsi",
+                "lastModified": "2026-10-24T12:51:21Z",
+                "parent": "http://www.wikidata.org/entity/Q388224",
+                "parentLabel": "Şamaxı"
             }
         },
         {
@@ -108507,9 +108611,9 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140663169",
                 "itemLabel": "Kaftala yaşayış yeri",
-                "lastModified": "2026-07-26T02:02:20Z",
-                "parent": "http://www.wikidata.org/entity/Q9248",
-                "parentLabel": "Bakı"
+                "lastModified": "2026-10-24T12:23:51Z",
+                "parent": "http://www.wikidata.org/entity/Q526313",
+                "parentLabel": "Xəzər rayonu"
             }
         },
         {
