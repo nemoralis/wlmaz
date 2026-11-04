@@ -6,6 +6,12 @@ import type {
    UploadConfigResponse,
    UploadStatusResponse,
 } from "@/types/api.ts";
+import { apiFetch } from "@/utils/apiClient.ts";
+import {
+   parseTitlesExistResponse,
+   parseUploadConfigResponse,
+   parseUploadStatusResponse,
+} from "@/utils/apiGuards.ts";
 import { getCanonicalId } from "@/utils/monumentFormatters.ts";
 import { messageFor } from "@/utils/uploadErrors.ts";
 import { nextFreeTitles } from "@/utils/uploadFileNames.ts";
@@ -49,11 +55,11 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
 
    const checkStatus = async () => {
       try {
-         const res = await fetch("/upload/status");
-         if (res.ok) {
-            const data: UploadStatusResponse = await res.json();
-            uploadsEnabled.value = data.enabled;
-         }
+         const data = await apiFetch<UploadStatusResponse>("/upload/status", {
+            parse: parseUploadStatusResponse,
+            label: "upload status",
+         });
+         uploadsEnabled.value = data.enabled;
       } catch (e) {
          console.error("Failed to check status", e);
       }
@@ -61,12 +67,12 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       // Fetch server-driven upload config (safe info only: dev mode flag + wiki
       // URL). Prod always reports non-local; the bot password never leaves the server.
       try {
-         const res = await fetch("/upload/config");
-         if (res.ok) {
-            const data: UploadConfigResponse = await res.json();
-            localUploadEnabled.value = !!data.localUploadEnabled;
-            mediaWikiUrl.value = data.mediaWikiUrl || "";
-         }
+         const data = await apiFetch<UploadConfigResponse>("/upload/config", {
+            parse: parseUploadConfigResponse,
+            label: "upload config",
+         });
+         localUploadEnabled.value = data.localUploadEnabled;
+         mediaWikiUrl.value = data.mediaWikiUrl;
       } catch (e) {
          console.error("Failed to check upload config", e);
       }
@@ -283,17 +289,15 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
                   bulkForm.title,
                   files.value.length,
                   async (candidates) => {
-                     const response = await fetch("/upload/titles-exist", {
+                     const data = await apiFetch<TitlesExistResponse>("/upload/titles-exist", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ titles: candidates }),
-                        signal: AbortSignal.timeout(10000),
+                        parse: parseTitlesExistResponse,
+                        timeoutMs: 10_000,
+                        label: "titles-exist",
                      });
-                     if (!response.ok) {
-                        throw new Error(`titles-exist HTTP ${response.status}`);
-                     }
-                     const data: TitlesExistResponse = await response.json();
-                     return new Set<string>(data.existing || []);
+                     return new Set(data.existing);
                   },
                );
                files.value.forEach((f, index) => {

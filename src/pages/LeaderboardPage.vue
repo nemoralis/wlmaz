@@ -234,6 +234,7 @@ import { defineAsyncComponent, onMounted } from "vue";
 import { useHead } from "@unhead/vue";
 import { useLeaderboard } from "@/composables/useLeaderboard.ts";
 import LeaderboardSkeleton from "@/components/stats/LeaderboardSkeleton.vue";
+import { LEADERBOARD_PAGE } from "@/content/staticPages.ts";
 
 const YearlyBreakdownChart = defineAsyncComponent(
    () => import("../components/stats/YearlyBreakdownChart.vue"),
@@ -282,19 +283,8 @@ onMounted(() => {
 });
 
 useHead({
-   title: "Liderlik cədvəli | Viki Abidələri Sevir Azərbaycan",
-   link: [
-      {
-         rel: "canonical",
-         href: "https://wikilovesmonuments.az/leaderboard",
-      },
-   ],
-   meta: [
-      {
-         name: "description",
-         content:
-            "Viki Abidələri Sevir Azərbaycan müsabiqəsinin liderlik cədvəli. Ən çox şəkil yükləyən iştirakçılar.",
-      },
-   ],
+   title: LEADERBOARD_PAGE.title,
+   link: [{ rel: "canonical", href: LEADERBOARD_PAGE.canonical }],
+   meta: [{ name: "description", content: LEADERBOARD_PAGE.description }],
 });
 </script>

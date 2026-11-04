@@ -1,5 +1,17 @@
 import { defineStore } from "pinia";
-import type { PublicWikiUser, UploadConfigResponse, UserStats } from "@/types/api.ts";
+import type {
+   AuthLogoutResponse,
+   PublicWikiUser,
+   UploadConfigResponse,
+   UserStats,
+} from "@/types/api.ts";
+import { ApiError, apiFetch } from "@/utils/apiClient.ts";
+import {
+   parseAuthLogoutResponse,
+   parsePublicWikiUser,
+   parseUploadConfigResponse,
+   parseUserStats,
+} from "@/utils/apiGuards.ts";
 
 interface AuthState {
    user: PublicWikiUser | null;
@@ -27,39 +39,43 @@ export const useAuthStore = defineStore("auth", {
          try {
             // Server-driven config and auth check are independent — run them in
             // parallel to avoid a sequential ~100ms penalty on every page load.
-            const [cfgRes, res] = await Promise.all([
-               fetch("/upload/config"),
-               fetch("/auth/me", {
+            const [cfgResult, authResult] = await Promise.allSettled([
+               apiFetch<UploadConfigResponse>("/upload/config", {
+                  parse: parseUploadConfigResponse,
+                  label: "upload config",
+               }),
+               apiFetch<PublicWikiUser>("/auth/me", {
                   headers: { "X-Requested-With": "XMLHttpRequest" },
+                  parse: parsePublicWikiUser,
+                  label: "auth user",
                }),
             ]);
 
             // Process local-upload config (non-critical)
-            if (cfgRes.ok) {
-               const cfg: UploadConfigResponse = await cfgRes.json();
-               this.localUploadEnabled = !!cfg.localUploadEnabled;
+            if (cfgResult.status === "fulfilled") {
+               this.localUploadEnabled = cfgResult.value.localUploadEnabled;
             } else {
                this.localUploadEnabled = false;
+               console.error("Failed to fetch upload config:", cfgResult.reason);
             }
 
             // Process authentication state
-            if (res.ok) {
-               const data: PublicWikiUser = await res.json();
-               this.user = data;
+            if (authResult.status === "fulfilled") {
+               this.user = authResult.value;
 
                // Fire-and-forget: fetch block status in the background so the
                // page renders immediately. The upload button may briefly appear
                // enabled; it updates reactively when this completes.
-               if (this.user?.username) {
+               if (this.user.username) {
                   this.fetchBlockStatus(this.user.username);
                }
             } else {
                this.user = null;
+               // 401 is the normal signed-out response, not an error.
+               if (!(authResult.reason instanceof ApiError && authResult.reason.status === 401)) {
+                  console.error("Failed to fetch user:", authResult.reason);
+               }
             }
-         } catch (err) {
-            console.error("Failed to fetch user:", err);
-            this.user = null;
-            this.localUploadEnabled = false;
          } finally {
             this.loading = false;
          }
@@ -72,15 +88,13 @@ export const useAuthStore = defineStore("auth", {
        */
       async fetchBlockStatus(username: string) {
          try {
-            const statsRes = await fetch(`/api/leaderboard/user/${encodeURIComponent(username)}`, {
-               signal: AbortSignal.timeout(10000),
-            });
-            if (statsRes.ok && this.user?.username === username) {
-               const statsData: UserStats = await statsRes.json();
-               if (statsData.commons) {
-                  this.user.blocked = !!statsData.commons.blocked;
-                  this.user.blockreason = statsData.commons.blockreason;
-               }
+            const statsData = await apiFetch<UserStats>(
+               `/api/leaderboard/user/${encodeURIComponent(username)}`,
+               { parse: parseUserStats, timeoutMs: 10_000, label: "block status" },
+            );
+            if (this.user?.username === username && statsData.commons) {
+               this.user.blocked = !!statsData.commons.blocked;
+               this.user.blockreason = statsData.commons.blockreason;
             }
          } catch (e) {
             console.error("Failed to fetch block status:", e);
@@ -93,9 +107,11 @@ export const useAuthStore = defineStore("auth", {
 
       async logout() {
          try {
-            await fetch("/auth/logout", {
+            await apiFetch<AuthLogoutResponse>("/auth/logout", {
                method: "POST",
                headers: { "X-Requested-With": "XMLHttpRequest" },
+               parse: parseAuthLogoutResponse,
+               label: "logout",
             });
             this.user = null;
             window.location.reload();

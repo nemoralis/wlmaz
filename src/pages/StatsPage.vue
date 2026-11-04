@@ -50,6 +50,7 @@ import { defineAsyncComponent, onMounted } from "vue";
 import { useHead } from "@unhead/vue";
 import StatsCard from "@/components/stats/StatsCard.vue";
 import { useStats } from "@/composables/useStats.ts";
+import { STATS_PAGE } from "@/content/staticPages.ts";
 
 const StatsDoughnutChart = defineAsyncComponent(
    () => import("../components/stats/StatsDoughnutChart.vue"),
@@ -61,19 +62,8 @@ const { history, currentStats, imagePercentage, lastUpdateDate, fetchData } = us
 onMounted(fetchData);
 
 useHead({
-   title: "Statistika | Viki Abidələri Sevir Azərbaycan",
-   link: [
-      {
-         rel: "canonical",
-         href: "https://wikilovesmonuments.az/stats",
-      },
-   ],
-   meta: [
-      {
-         name: "description",
-         content:
-            "Azərbaycanın tarixi abidələri haqqında statistika: abidə sayı, fotoşəkillər və əhatə dərəcəsi.",
-      },
-   ],
+   title: STATS_PAGE.title,
+   link: [{ rel: "canonical", href: STATS_PAGE.canonical }],
+   meta: [{ name: "description", content: STATS_PAGE.description }],
 });
 </script>

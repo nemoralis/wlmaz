@@ -121,6 +121,7 @@ import { CdxIcon, CdxSearchInput, CdxSelect } from "@wikimedia/codex";
 import { cdxIconMap } from "@wikimedia/codex-icons";
 import MonumentVirtualTable from "@/components/MonumentVirtualTable.vue";
 import MonumentRowActions from "@/components/MonumentRowActions.vue";
+import { TABLE_PAGE } from "@/content/staticPages.ts";
 import { useMonumentStore } from "@/stores/monuments.ts";
 import type { MonumentProps as Monument } from "@/types";
 import { encodeIdForUrl, getCanonicalId } from "@/utils/monumentFormatters.ts";
@@ -131,15 +132,9 @@ const UploadModal = defineAsyncComponent(() => import("../components/UploadModal
 const monumentStore = useMonumentStore();
 
 useHead({
-   title: "Abidələr siyahısı | Viki Abidələri Sevir Azərbaycan",
-   link: [{ rel: "canonical", href: "https://wikilovesmonuments.az/table" }],
-   meta: [
-      {
-         name: "description",
-         content:
-            "Azərbaycanın bütün tarixi abidələrinin tam siyahısı: axtarın, çeşidləyin və şəkil yükləyin.",
-      },
-   ],
+   title: TABLE_PAGE.title,
+   link: [{ rel: "canonical", href: TABLE_PAGE.canonical }],
+   meta: [{ name: "description", content: TABLE_PAGE.description }],
 });
 
 const virtualTable = ref<{ scrollToTop: () => void } | null>(null);

@@ -4,6 +4,7 @@ import {
    COUNTRY,
    extractCountry,
    isEventFinished,
+   parseLeaderboardResponse,
 } from "@/utils/leaderboard.ts";
 
 /** Minimal country payload shaped like the toolforge `/api/events/monuments<year>` node. */
@@ -177,6 +178,53 @@ describe("extractCountry", () => {
       expect(extractCountry(undefined)).toBeNull();
       expect(extractCountry("Azerbaijan")).toBeNull();
       expect(extractCountry(42)).toBeNull();
+   });
+
+   it("returns null for a country node that is missing fields the app reads", () => {
+      expect(extractCountry({ [COUNTRY]: { users: {} } })).toBeNull();
+      expect(extractCountry({ [COUNTRY]: { ...countryPayload({}), count: "5" } })).toBeNull();
+      expect(
+         extractCountry({
+            [COUNTRY]: {
+               ...countryPayload({}),
+               users: { Tester: { count: "5", usage: 1, reg: 1 } },
+            },
+         }),
+      ).toBeNull();
+      expect(
+         extractCountry({
+            [COUNTRY]: {
+               ...countryPayload({}),
+               data: { 20250901: { images: "five", joiners: 1, newbie_joiners: 0 } },
+            },
+         }),
+      ).toBeNull();
+   });
+});
+
+describe("parseLeaderboardResponse", () => {
+   it("returns only the country we serve", () => {
+      const payload = {
+         Azerbaijan: countryPayload({ count: 5 }),
+         Albania: countryPayload({ count: 999 }),
+      };
+
+      expect(parseLeaderboardResponse(payload)).toEqual({
+         [COUNTRY]: countryPayload({ count: 5 }),
+      });
+   });
+
+   it("rejects malformed payloads instead of returning unchecked data", () => {
+      expect(() => parseLeaderboardResponse(null)).toThrow(TypeError);
+      expect(() => parseLeaderboardResponse({})).toThrow(TypeError);
+      expect(() =>
+         parseLeaderboardResponse({ [COUNTRY]: countryPayload({ count: 5, users: {} }) }),
+      ).not.toThrow();
+      expect(() =>
+         parseLeaderboardResponse({
+            [COUNTRY]: { ...countryPayload({}), years: { 2025: { count: 1 } } },
+         }),
+      ).toThrow(TypeError);
    });
 });
 

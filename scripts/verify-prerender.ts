@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
-import { ABOUT_DESCRIPTION, ABOUT_TITLE } from "../src/content/about";
+import { ALL_STATIC_PAGES, type StaticPage } from "../src/content/staticPages";
 import { SITE_DESCRIPTION, SITE_HOST, SITE_TITLE } from "../src/utils/constants";
 import {
    encodeIdForUrl,
@@ -28,8 +28,6 @@ const NGINX_CONF_PATH = path.join(__dirname, "../nginx.conf");
 // The description the SPA shell ships with (see index.html); a monument page
 // still carrying it was never actually prerendered.
 const SHELL_DESCRIPTION = SITE_DESCRIPTION;
-
-const STATIC_PAGES = ["/", "/stats", "/leaderboard", "/table", "/about"];
 
 /** GeoJSON properties as the app reads them: literals, plus an id list. */
 type FeatureProperties = Record<string, string> & { inventory?: string[] };
@@ -198,89 +196,48 @@ const checkMonumentHtml = (
    checkScrollOverride(html, label);
 };
 
-const checkStaticHtml = (html: string, loc: string, label: string): void => {
+const checkStaticHtml = (html: string, page: StaticPage): void => {
+   const label = `static ${page.canonical}`;
+
    const title = extractTitle(html);
    if (!title) {
       fail(`${label}: missing <title>`);
-   } else if (loc !== `${HOST}/` && title === SITE_TITLE) {
-      // The homepage legitimately carries the site name as its title.
-      fail(`${label}: <title> is the default SPA shell title`);
+   } else if (title !== escapeHtmlText(page.title)) {
+      fail(`${label}: <title> "${title}" != expected "${escapeHtmlText(page.title)}"`);
    }
 
    const canonicalTags = html.match(/<link[^>]*rel="canonical"[^>]*>/g) || [];
    if (canonicalTags.length !== 1) {
       fail(`${label}: expected exactly 1 canonical link, found ${canonicalTags.length}`);
-   } else if (attrValue(canonicalTags[0], "href") !== loc) {
+   } else if (attrValue(canonicalTags[0], "href") !== page.canonical) {
       fail(
-         `${label}: canonical href "${attrValue(canonicalTags[0], "href")}" != sitemap loc "${loc}"`,
+         `${label}: canonical href "${attrValue(canonicalTags[0], "href")}" != expected "${page.canonical}"`,
       );
    }
 
    const descriptionTags = html.match(/<meta[^>]*name="description"[^>]*>/g) || [];
    if (descriptionTags.length !== 1) {
       fail(`${label}: expected exactly 1 description meta, found ${descriptionTags.length}`);
-   } else if (!attrValue(descriptionTags[0], "content")) {
-      fail(`${label}: description meta is empty`);
-   }
-};
-
-/**
- * Head checks for the root document.
- *
- * `/` is the unmodified Vite shell, so its title/description come from
- * `index.html` rather than the prerender. They must match the constants
- * `MapPage.vue` uses, or the runtime head rewrites them after hydration.
- */
-const checkRootHead = (html: string): void => {
-   const label = "root head";
-
-   const title = extractTitle(html);
-   if (title !== escapeHtmlText(SITE_TITLE)) {
-      fail(`${label}: <title> "${title}" != expected "${escapeHtmlText(SITE_TITLE)}"`);
-   }
-
-   const descriptionTags = html.match(/<meta[^>]*name="description"[^>]*>/g) || [];
-   if (descriptionTags.length !== 1) {
-      fail(`${label}: expected exactly 1 description meta, found ${descriptionTags.length}`);
    } else {
       const content = attrValue(descriptionTags[0], "content");
-      if (content !== escapeHtmlText(SITE_DESCRIPTION)) {
+      if (content !== escapeHtmlText(page.description)) {
          fail(
-            `${label}: description "${content}" != expected "${escapeHtmlText(SITE_DESCRIPTION)}"`,
+            `${label}: description "${content}" != expected "${escapeHtmlText(page.description)}"`,
          );
       }
    }
 };
 
 /**
- * Head checks for /about.
+ * Payload check for /about.
  *
- * `checkStaticHtml` only asserts that a title/canonical/description exist. The
- * about page has no prerendered body, so the head is the only thing the two
- * render paths share — and it must match `src/content/about.ts` exactly or the
- * runtime head rewrites the title and description right after hydration.
- * The inlined `#coverage-data` payload is asserted for the same reason:
+ * `checkStaticHtml` already asserts the exact title/canonical/description from
+ * the shared page contract. The about page additionally inlines the coverage
+ * counts into its head, so the first Vue render matches the shipped markup;
  * without it the hero counts would only appear after a client-side fetch.
  */
-const checkAboutHead = (html: string): void => {
-   const label = "about head";
-
-   const title = extractTitle(html);
-   if (title !== escapeHtmlText(ABOUT_TITLE)) {
-      fail(`${label}: <title> "${title}" != expected "${escapeHtmlText(ABOUT_TITLE)}"`);
-   }
-
-   const descriptionTags = html.match(/<meta[^>]*name="description"[^>]*>/g) || [];
-   if (descriptionTags.length !== 1) {
-      fail(`${label}: expected exactly 1 description meta, found ${descriptionTags.length}`);
-   } else {
-      const content = attrValue(descriptionTags[0], "content");
-      if (content !== escapeHtmlText(ABOUT_DESCRIPTION)) {
-         fail(
-            `${label}: description "${content}" != expected "${escapeHtmlText(ABOUT_DESCRIPTION)}"`,
-         );
-      }
-   }
+const checkAboutPayload = (html: string): void => {
+   const label = "about payload";
 
    const payload = html.match(/<script[^>]*id="coverage-data"[^>]*>([\s\S]*?)<\/script>/);
    if (!payload) {
@@ -350,8 +307,7 @@ const main = async (): Promise<void> => {
       }
 
       const expectedLocs = new Set<string>([
-         `${HOST}/`,
-         ...STATIC_PAGES.filter((r) => r !== "/").map((r) => `${HOST}${r}`),
+         ...ALL_STATIC_PAGES.map((page) => page.canonical),
          ...monumentLocToFile.keys(),
       ]);
 
@@ -444,22 +400,18 @@ const main = async (): Promise<void> => {
       }
 
       // --- Static pages ---
-      for (const route of STATIC_PAGES) {
-         const loc = `${HOST}${route}`;
-         const fileName = route === "/" ? "index.html" : `${route.slice(1)}.html`;
-         const label = `static ${loc}`;
+      for (const page of ALL_STATIC_PAGES) {
+         const label = `static ${page.canonical}`;
          let html: string;
          try {
-            html = await fs.readFile(path.join(DIST_DIR, fileName), "utf-8");
+            html = await fs.readFile(path.join(DIST_DIR, page.file), "utf-8");
          } catch {
-            fail(`${label}: file ${fileName} is missing`);
+            fail(`${label}: file ${page.file} is missing`);
             continue;
          }
-         checkStaticHtml(html, loc, label);
-         if (route === "/") {
-            checkRootHead(html);
-         } else if (route === "/about") {
-            checkAboutHead(html);
+         checkStaticHtml(html, page);
+         if (page.route === "/about") {
+            checkAboutPayload(html);
          }
       }
 
@@ -539,7 +491,7 @@ const main = async (): Promise<void> => {
       }
 
       console.log(
-         `HTML verification passed: ${checked} monument pages, ${STATIC_PAGES.length} static pages, sitemap (${sitemapLocs.length} URLs), ${actualRedirects.size} redirects, robots.txt`,
+         `HTML verification passed: ${checked} monument pages, ${ALL_STATIC_PAGES.length} static pages, sitemap (${sitemapLocs.length} URLs), ${actualRedirects.size} redirects, robots.txt`,
       );
    } catch (error) {
       if (error instanceof Error && error.message === "abort") {

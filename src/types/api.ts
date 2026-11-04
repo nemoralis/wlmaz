@@ -21,6 +21,10 @@ export interface AuthUnauthenticatedResponse {
    authenticated: false;
 }
 
+export interface AuthLogoutResponse {
+   success: boolean;
+}
+
 // --- Upload ---
 
 export interface UploadStatusResponse {
@@ -92,6 +96,7 @@ export interface UserStats {
       reg: number;
       yearly?: Record<number, { count: number; usage: number }>;
    };
+   /** Null when the Commons API lookup failed; the WLM totals still stand. */
    commons?: {
       editcount: number;
       registration: string;
@@ -99,7 +104,7 @@ export interface UserStats {
       blocked?: boolean;
       blockreason?: string;
       blockexpiry?: string;
-   };
+   } | null;
    country: string;
 }
 

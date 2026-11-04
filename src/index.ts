@@ -18,6 +18,7 @@ import sharp from "sharp";
 import passport from "@/auth/passport.ts";
 import authRoutes from "@/auth/routes.ts";
 import { config } from "@/config.ts";
+import { STATIC_PAGE_BY_ROUTE, STATIC_PAGES } from "@/content/staticPages.ts";
 import leaderboardRoutes from "@/routes/leaderboard.ts";
 import uploadRoutes from "@/routes/upload.ts";
 import { logger } from "@/utils/logger.ts";
@@ -149,20 +150,20 @@ const startServer = async () => {
       app.use(express.static(distPath));
 
       // Prerendered static pages written by scripts/prerender.ts.
-      const staticPageFiles: Record<string, string> = {
-         "/stats": "stats.html",
-         "/leaderboard": "leaderboard.html",
-         "/table": "table.html",
-         "/about": "about.html",
-      };
-      app.get(Object.keys(staticPageFiles), (req, res) => {
-         const file = path.join(distPath, staticPageFiles[req.path]);
-         if (existsSync(file)) {
-            return res.sendFile(file);
-         }
-         // Fall through to SPA fallback
-         res.sendFile(path.join(distPath, "index.html"));
-      });
+      app.get(
+         STATIC_PAGES.map((page) => page.route),
+         (req, res) => {
+            const page = STATIC_PAGE_BY_ROUTE[req.path];
+            if (page) {
+               const file = path.join(distPath, page.file);
+               if (existsSync(file)) {
+                  return res.sendFile(file);
+               }
+            }
+            // Fall through to SPA fallback
+            res.sendFile(path.join(distPath, "index.html"));
+         },
+      );
 
       // Serve prerendered monument pages (written by scripts/prerender.ts) so
       // crawlers receive unique, static HTML for every monument URL.

@@ -1,6 +1,8 @@
 import { computed, ref } from "vue";
 import type { LeaderboardUser } from "@/types";
 import type { EventStats, LeaderboardResponse, WikiLovesDailyData } from "@/types/api.ts";
+import { ApiError, apiFetch } from "@/utils/apiClient.ts";
+import { parseLeaderboardResponse } from "@/utils/leaderboard.ts";
 
 const API_BASE = "/api/leaderboard";
 const COUNTRY = "Azerbaijan";
@@ -17,6 +19,21 @@ function parseWikiDate(timestamp: number): Date {
    const month = parseInt(str.substring(4, 6)) - 1;
    const day = parseInt(str.substring(6, 8));
    return new Date(year, month, day);
+}
+
+/** Maps an API failure to the message shown above the table. */
+function errorMessage(error: unknown, target: number | "total"): string {
+   if (error instanceof ApiError) {
+      if (error.status === 404) {
+         return target === "total" ? "Məlumat tapılmadı" : `${target}-ci il üçün məlumat tapılmadı`;
+      }
+      if (error.code === "invalid_response") return "API cavabı etibarsızdır";
+      if (error.status > 0) return `API xətası: ${error.status}`;
+      if (error.code === "timeout") return "Server vaxtında cavab vermədi";
+      return "Şəbəkə xətası";
+   }
+
+   return error instanceof Error ? error.message : "Məlumat yüklənərkən xəta baş verdi";
 }
 
 /** The snapshot written to localStorage, as read back. */
@@ -136,29 +153,11 @@ export const useLeaderboard = () => {
 
       try {
          const eventSlug = target === "total" ? "total" : `monuments${target}`;
-         const response = await fetch(`${API_BASE}/${eventSlug}`);
-
-         if (!response.ok) {
-            if (response.status === 404) {
-               throw new Error(
-                  target === "total"
-                     ? "Məlumat tapılmadı"
-                     : `${target}-ci il üçün məlumat tapılmadı`,
-               );
-            }
-            throw new Error(`API xətası: ${response.status}`);
-         }
-
-         const data: LeaderboardResponse = await response.json();
+         const data = await apiFetch<LeaderboardResponse>(`${API_BASE}/${eventSlug}`, {
+            parse: parseLeaderboardResponse,
+            label: "leaderboard",
+         });
          const countryData = data[COUNTRY];
-
-         if (!countryData || !countryData.users) {
-            throw new Error(
-               target === "total"
-                  ? "Azərbaycan məlumatı tapılmadı"
-                  : `${target}-ci il üçün Azərbaycan məlumatı tapılmadı`,
-            );
-         }
 
          // Transform users object into sorted array
          const userList: LeaderboardUser[] = Object.entries(countryData.users)
@@ -213,7 +212,7 @@ export const useLeaderboard = () => {
       } catch (e: unknown) {
          console.error("Failed to fetch leaderboard:", e);
          if (users.value.length === 0) {
-            error.value = e instanceof Error ? e.message : "Məlumat yüklənərkən xəta baş verdi";
+            error.value = errorMessage(e, target);
          }
       } finally {
          isLoading.value = false;

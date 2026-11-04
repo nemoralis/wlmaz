@@ -7,8 +7,8 @@ import {
    useBreadcrumbSchema,
    useMonumentSchema,
 } from "../src/composables/useSchemaOrg";
-import { ABOUT_DESCRIPTION } from "../src/content/about";
 import { resolveCoverage, type CoverageData } from "../src/content/coverage";
+import { ALL_STATIC_PAGES, STATIC_PAGES } from "../src/content/staticPages";
 import type { MonumentProps } from "../src/types";
 import { SITE_HOST, SITE_TITLE } from "../src/utils/constants";
 import {
@@ -325,13 +325,11 @@ const buildCoverageScript = (data: CoverageData): string =>
 
 const buildStaticHtml = (
    indexHtml: string,
-   route: string,
-   pageTitle: string,
+   pageUrl: string,
+   title: string,
    description: string,
    payload?: string,
 ): string => {
-   const title = `${pageTitle} | ${SITE_TITLE}`;
-   const pageUrl = `${HOST}${route}`;
    let html = indexHtml;
    html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`);
    html = html.replace(/<meta[^>]*name="description"[^>]*>/g, "");
@@ -375,32 +373,6 @@ User-agent: *
 Disallow: /*?*inventory=
 
 Sitemap: ${HOST}/sitemap.xml`;
-
-const STATIC_PAGES = [
-   {
-      route: "/stats",
-      title: "Statistika",
-      description:
-         "Azərbaycanın tarixi abidələri haqqında statistika: abidə sayı, fotoşəkillər və əhatə dərəcəsi.",
-   },
-   {
-      route: "/leaderboard",
-      title: "Liderlik cədvəli",
-      description:
-         "Viki Abidələri Sevir Azərbaycan müsabiqəsinin liderlik cədvəli. Ən çox şəkil yükləyən iştirakçılar.",
-   },
-   {
-      route: "/table",
-      title: "Abidələr siyahısı",
-      description:
-         "Azərbaycanın bütün tarixi abidələrinin tam siyahısı: axtarın, çeşidləyin və şəkil yükləyin.",
-   },
-   {
-      route: "/about",
-      title: "Haqqında",
-      description: ABOUT_DESCRIPTION,
-   },
-];
 
 const minifyHtml = (html: string): Promise<string> =>
    minify(html, {
@@ -465,10 +437,10 @@ const main = async () => {
       const features = await readGeoJson();
       const indexHtml = await fs.readFile(path.join(DIST_DIR, "index.html"), "utf-8");
       const now = new Date().toISOString();
-      const sitemapEntries: SitemapEntry[] = [
-         { loc: `${HOST}/`, lastmod: now },
-         ...STATIC_PAGES.map(({ route }) => ({ loc: `${HOST}${route}`, lastmod: now })),
-      ];
+      const sitemapEntries: SitemapEntry[] = ALL_STATIC_PAGES.map(({ canonical }) => ({
+         loc: canonical,
+         lastmod: now,
+      }));
 
       // Only monuments with coordinates get a static page: they're the ones the
       // map/sitemap surface, and coord-less (or stale) IDs 404 at the nginx
@@ -527,7 +499,7 @@ const main = async () => {
       for (const page of STATIC_PAGES) {
          const html = buildStaticHtml(
             indexHtml,
-            page.route,
+            page.canonical,
             page.title,
             page.description,
             // /about shows the coverage counts in its hero, so it gets the
@@ -535,10 +507,7 @@ const main = async () => {
             // fetch of /stats-history.json.
             page.route === "/about" ? buildCoverageScript(coverage) : undefined,
          );
-         await fs.writeFile(
-            path.join(DIST_DIR, `${page.route.slice(1)}.html`),
-            await minifyHtml(html),
-         );
+         await fs.writeFile(path.join(DIST_DIR, page.file), await minifyHtml(html));
       }
 
       await fs.writeFile(path.join(DIST_DIR, "sitemap.xml"), renderSitemap(sitemapEntries));

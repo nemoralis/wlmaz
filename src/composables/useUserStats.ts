@@ -1,5 +1,22 @@
 import { ref } from "vue";
 import type { UserStats } from "@/types/api.ts";
+import { ApiError, apiFetch } from "@/utils/apiClient.ts";
+import { parseUserStats } from "@/utils/apiGuards.ts";
+
+/** Maps an API failure to the message shown on the profile page. */
+function errorMessage(error: unknown): string {
+   if (error instanceof ApiError) {
+      if (error.status === 404) {
+         return "Sizin bu il və ya əvvəlki illərdə WLM Azərbaycan üçün qeydə alınmış şəkliniz tapılmadı.";
+      }
+      if (error.code === "invalid_response") return "Statistika cavabı etibarsızdır";
+      if (error.status > 0) return `Xəta: ${error.status}`;
+      if (error.code === "timeout") return "Server vaxtında cavab vermədi";
+      return "Şəbəkə xətası";
+   }
+
+   return error instanceof Error ? error.message : "Statistikaları yükləmək mümkün olmadı.";
+}
 
 /**
  * Loads a single user's WLM statistics from /api/leaderboard/user/:name with
@@ -30,16 +47,10 @@ export const useUserStats = () => {
 
       error.value = null;
       try {
-         const response = await fetch(`/api/leaderboard/user/${encodeURIComponent(username)}`);
-         if (!response.ok) {
-            if (response.status === 404) {
-               throw new Error(
-                  "Sizin bu il və ya əvvəlki illərdə WLM Azərbaycan üçün qeydə alınmış şəkliniz tapılmadı.",
-               );
-            }
-            throw new Error(`Xəta: ${response.status}`);
-         }
-         const data: UserStats = await response.json();
+         const data = await apiFetch<UserStats>(
+            `/api/leaderboard/user/${encodeURIComponent(username)}`,
+            { parse: parseUserStats, label: "user stats" },
+         );
          stats.value = data;
 
          // Save to local storage for next time
@@ -48,8 +59,7 @@ export const useUserStats = () => {
          console.error("Failed to fetch user stats:", err);
          // Don't show error if we have cached data, just log it
          if (!stats.value) {
-            error.value =
-               err instanceof Error ? err.message : "Statistikaları yükləmək mümkün olmadı.";
+            error.value = errorMessage(err);
          }
       } finally {
          isLoading.value = false;

@@ -34,8 +34,14 @@ const API_PAYLOAD = {
    },
 };
 
-const fetchStub = () =>
-   vi.fn(async () => ({ ok: true, status: 200, json: async () => API_PAYLOAD }));
+const fetchStub = (body: unknown = API_PAYLOAD, status = 200) =>
+   vi.fn(
+      async () =>
+         new Response(JSON.stringify(body), {
+            status,
+            headers: { "Content-Type": "application/json" },
+         }),
+   );
 
 beforeEach(() => {
    vi.stubGlobal("localStorage", createStorage());
@@ -73,6 +79,28 @@ describe("useLeaderboard loading state", () => {
       expect(cached.isValidating.value).toBe(true);
 
       await pending;
+   });
+});
+
+describe("useLeaderboard response validation", () => {
+   it("rejects a malformed payload instead of rendering unchecked rows", async () => {
+      vi.stubGlobal("fetch", fetchStub({ Azerbaijan: { users: {} } }));
+
+      const leaderboard = useLeaderboard();
+      await leaderboard.fetchLeaderboard(2025);
+
+      expect(leaderboard.users.value).toHaveLength(0);
+      expect(leaderboard.eventStats.value).toBeNull();
+      expect(leaderboard.error.value).toBe("API cavabı etibarsızdır");
+   });
+
+   it("keeps the year-specific message for a 404", async () => {
+      vi.stubGlobal("fetch", fetchStub({ error: "No data" }, 404));
+
+      const leaderboard = useLeaderboard();
+      await leaderboard.fetchLeaderboard(2025);
+
+      expect(leaderboard.error.value).toBe("2025-ci il üçün məlumat tapılmadı");
    });
 });
 

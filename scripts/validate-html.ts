@@ -2,6 +2,7 @@ import { execFileSync } from "child_process";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { ALL_STATIC_PAGES } from "../src/content/staticPages";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,12 +11,11 @@ const DIST_DIR = path.join(__dirname, "../dist");
 const MONUMENT_DIR = path.join(DIST_DIR, "monument");
 const HTML_VALIDATE_BIN = path.join(__dirname, "../node_modules/.bin/html-validate");
 
-const STATIC_FILES = ["index.html", "stats.html", "leaderboard.html", "table.html", "about.html"];
 const SAMPLE_SIZE = 50;
 
 const main = async (): Promise<void> => {
    try {
-      const staticFiles = STATIC_FILES.map((file) => path.join(DIST_DIR, file));
+      const staticFiles = ALL_STATIC_PAGES.map((page) => path.join(DIST_DIR, page.file));
 
       const monumentFiles = (await fs.readdir(MONUMENT_DIR))
          .filter((file) => file.endsWith(".html"))

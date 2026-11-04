@@ -33,6 +33,7 @@ import {
 } from "@/utils/mediawikiConfig";
 import { getCanonicalId } from "@/utils/monumentFormatters";
 import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize";
+import { parseTitlesExistRequest, parseUploadFields } from "@/utils/uploadRequest";
 import { buildUploadWikitext } from "@/utils/wikitext";
 
 const router = express.Router();
@@ -125,26 +126,12 @@ router.get("/config", (_req, res) => {
  */
 router.post("/titles-exist", ensureAuthenticatedOrLocalDev, async (req, res) => {
    try {
-      const raw = req.body?.titles;
-      if (!Array.isArray(raw)) {
-         res.status(400).json({ error: "Missing titles parameter" });
+      const parsed = parseTitlesExistRequest(req.body);
+      if (!parsed.ok) {
+         res.status(400).json({ error: parsed.error });
          return;
       }
-
-      const titles = raw
-         .map((t) => String(t ?? "").trim())
-         .filter(Boolean)
-         .slice(0, 50);
-
-      if (titles.length === 0) {
-         res.status(400).json({ error: "Missing titles parameter" });
-         return;
-      }
-
-      if (titles.some((t) => t.length > 255)) {
-         res.status(400).json({ error: "Title too long" });
-         return;
-      }
+      const titles = parsed.value;
 
       const existing = await checkFileExistence(titles);
       logger.info(
@@ -191,30 +178,18 @@ router.post(
             return;
          }
 
-         let { title, description, license, lat, lon, categories, inventory, capturedAt } =
-            req.body;
-
-         // Security: Explicit type check — rejects non-string values (e.g. objects from
-         // parameter pollution) that a truthiness check would incorrectly accept.
-         if (typeof title !== "string" || typeof description !== "string") {
-            res.status(400).json({ error: "Missing title or description" });
+         // Security: validate types and lengths before any value reaches
+         // sanitization or MediaWiki. Non-string fields (e.g. arrays from
+         // parameter pollution) are rejected instead of coerced.
+         const parsed = parseUploadFields(req.body);
+         if (!parsed.ok) {
+            res.status(400).json({ error: parsed.error });
             return;
          }
+         const { title, description, license, lat, lon, categories, inventory, capturedAt } =
+            parsed.value;
 
-         // Security: Validate input lengths to prevent resource abuse and comply with upstream limits.
-         // We cast to String to handle unexpected types and avoid crashing on undefined/null.
-         if (
-            String(title).length > 255 ||
-            String(description).length > 2000 ||
-            (categories && String(categories).length > 255) ||
-            (inventory && String(inventory).length > 255) ||
-            (capturedAt && String(capturedAt).length > 20)
-         ) {
-            res.status(400).json({ error: "Input too long" });
-            return;
-         }
-
-         // Ensure inputs are strings and sanitize to prevent wikitext injection and invalid filenames
+         // Ensure inputs are sanitized to prevent wikitext injection and invalid filenames
          const safeTitle = sanitizeFilename(title);
 
          // Security: Ensure filename is not empty after sanitization to prevent
@@ -227,9 +202,9 @@ router.post(
          }
 
          const safeDescription = sanitizeWikitext(description);
-         const safeCategories = sanitizeWikitext(categories);
+         const safeCategories = sanitizeWikitext(categories ?? "");
          // Sanitize the inventory so no wikitext can leak into the heritage template.
-         const canonicalInventory = getCanonicalId(sanitizeWikitext(inventory));
+         const canonicalInventory = getCanonicalId(sanitizeWikitext(inventory ?? ""));
          // Sanitize the username even though it comes from a trusted source
          // (OAuth session or dev-only bot config). Wikimedia usernames should
          // never contain wikitext-special characters, but being defensive here

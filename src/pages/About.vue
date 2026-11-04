@@ -325,13 +325,11 @@ import { useHead } from "@unhead/vue";
 import {
    ABOUT_AUTHOR,
    ABOUT_BREADCRUMB,
-   ABOUT_CANONICAL,
    ABOUT_COUNTS,
    ABOUT_DATA_BODY,
    ABOUT_DATA_CTA,
    ABOUT_DATA_HEADING,
    ABOUT_DATA_NOTE,
-   ABOUT_DESCRIPTION,
    ABOUT_FEATURES,
    ABOUT_FEATURES_HEADING,
    ABOUT_FEATURES_INTRO,
@@ -346,12 +344,12 @@ import {
    ABOUT_PRIMARY_CTA,
    ABOUT_SECONDARY_CTA,
    ABOUT_SOCIAL_IMAGE,
-   ABOUT_TITLE,
    ABOUT_WLM_BODY,
    ABOUT_WLM_HEADING,
 } from "@/content/about.ts";
 import { schemaToJsonLd, useBreadcrumbSchema } from "@/composables/useSchemaOrg.ts";
 import type { CoverageData } from "@/content/coverage.ts";
+import { ABOUT_PAGE } from "@/content/staticPages.ts";
 import { fetchCoverage, readEmbeddedCoverage } from "@/utils/coverageData.ts";
 import { formatMonumentCount } from "@/utils/monumentFormatters.ts";
 
@@ -424,17 +422,17 @@ const breadcrumbSchema = useBreadcrumbSchema(ABOUT_BREADCRUMB.map((item) => ({ .
 // Title, description and social tags mirror what scripts/prerender.ts writes
 // into dist/about.html, so nothing swaps after hydration.
 useHead({
-   title: ABOUT_TITLE,
+   title: ABOUT_PAGE.title,
    link: [
       {
          rel: "canonical",
-         href: ABOUT_CANONICAL,
+         href: ABOUT_PAGE.canonical,
       },
    ],
    meta: [
       {
          name: "description",
-         content: ABOUT_DESCRIPTION,
+         content: ABOUT_PAGE.description,
       },
       {
          property: "og:site_name",
@@ -442,15 +440,15 @@ useHead({
       },
       {
          property: "og:title",
-         content: ABOUT_TITLE,
+         content: ABOUT_PAGE.title,
       },
       {
          property: "og:description",
-         content: ABOUT_DESCRIPTION,
+         content: ABOUT_PAGE.description,
       },
       {
          property: "og:url",
-         content: ABOUT_CANONICAL,
+         content: ABOUT_PAGE.canonical,
       },
       {
          property: "og:image",
