@@ -12,7 +12,6 @@ import {
    type SparqlResults,
 } from "./lib/sparqlClient";
 import { recordStatsHistory } from "./lib/statsHistory";
-import { writeHomeData } from "./write-home-data";
 import { writeRegionsMap } from "./write-regions-map";
 
 /**
@@ -21,7 +20,7 @@ import { writeRegionsMap } from "./write-regions-map";
  * Fetches every Azerbaijani monument from Wikidata, transforms the SPARQL rows
  * into data/monuments.geojson and, only when the data actually changed, records
  * the day's counts and regenerates the derived artifacts (monuments.pbf,
- * home-data.json, regions-geo.json).
+ * regions-geo.json).
  *
  * The moving parts live in scripts/lib/:
  * - sparqlClient.ts        the HTTP surface (endpoint, headers, retrying)
@@ -91,7 +90,7 @@ async function main() {
       if (existingData) {
          if (JSON.stringify(existingData) === JSON.stringify(newData)) {
             console.log(
-               "No changes detected — skipped the data write and the derived artifacts (geobuf, home data, regions map).",
+               "No changes detected — skipped the data write and the derived artifacts (geobuf, regions map).",
             );
             process.exit(0);
          }
@@ -113,7 +112,6 @@ async function main() {
       //    committed data files, so a no-change run (which exited in step 3)
       //    would only rewrite identical bytes.
       await convertData();
-      await writeHomeData();
       await writeRegionsMap();
    } catch (error) {
       console.error("Error updating monuments:", error);

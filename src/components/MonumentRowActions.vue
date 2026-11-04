@@ -69,12 +69,12 @@ const openWiki = (): void => {
 };
 
 /**
- * Hands the id to `/map`, which reads `?inventory=` on mount and flies to that
- * marker (MonumentMap.vue). Passed as a query object rather than a string so
- * vue-router does the encoding: register ids contain characters like the em-dash
- * in "26—1" that need it.
+ * Hands the id to the map at `/`, which reads `?inventory=` on mount and flies
+ * to that marker (MonumentMap.vue). Passed as a query object rather than a
+ * string so vue-router does the encoding: register ids contain characters like
+ * the em-dash in "26—1" that need it.
  */
 const showOnMap = (): void => {
-   void router.push({ path: "/map", query: { inventory: getCanonicalId(props.row.inventory) } });
+   void router.push({ path: "/", query: { inventory: getCanonicalId(props.row.inventory) } });
 };
 </script>

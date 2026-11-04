@@ -3,13 +3,15 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router"
 const routes: Array<RouteRecordRaw> = [
    {
       path: "/",
-      name: "Home",
-      component: () => import("../pages/Home.vue"),
-   },
-   {
-      path: "/map",
       name: "Map",
       component: () => import("../pages/MapPage.vue"),
+   },
+   {
+      // Compatibility route for old bookmarks. The map is the site root now,
+      // so preserve the query/hash (map state and ?inventory= deep links) and
+      // let the router land on /.
+      path: "/map",
+      redirect: (to) => ({ path: "/", query: to.query, hash: to.hash }),
    },
    {
       path: "/about",

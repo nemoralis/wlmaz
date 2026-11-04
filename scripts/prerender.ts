@@ -8,26 +8,9 @@ import {
    useMonumentSchema,
 } from "../src/composables/useSchemaOrg";
 import { ABOUT_DESCRIPTION } from "../src/content/about";
-import { resolveHomeData, type HomeData } from "../src/content/featured";
-import {
-   CAMPAIGN,
-   formatMonumentCount,
-   HOME_DESCRIPTION,
-   HOME_GAP_CTA,
-   HOME_GAP_HEADING,
-   HOME_HEADLINE,
-   HOME_INTRO,
-   HOME_PRIMARY_CTA,
-   HOME_REGIONS_HEADING,
-   HOME_REGIONS_INTRO,
-   HOME_SECONDARY_CTA,
-   HOME_STEPS,
-   HOME_STEPS_HEADING,
-   HOME_STEPS_INTRO,
-   isCampaignActive,
-} from "../src/content/home";
+import { resolveCoverage, type CoverageData } from "../src/content/coverage";
 import type { MonumentProps } from "../src/types";
-import { SITE_HOST } from "../src/utils/constants";
+import { SITE_HOST, SITE_TITLE } from "../src/utils/constants";
 import {
    encodeIdForUrl,
    findDuplicateLabels,
@@ -46,14 +29,11 @@ const __dirname = path.dirname(__filename);
 const HOST = SITE_HOST;
 const DIST_DIR = path.join(__dirname, "../dist");
 const GEOJSON_PATH = path.join(__dirname, "../data/monuments.geojson");
-const FEATURED_PATH = path.join(__dirname, "../data/featured-monuments.json");
 const MONUMENT_DIR = path.join(DIST_DIR, "monument");
 // Generated nginx include with exact-match 301s for the secondary register
 // ids of a monument. Lives at the repo root (outside the web root) —
 // gitignored; see nginx.conf's include directive.
 const REDIRECTS_PATH = path.join(__dirname, "..", "monument-redirects.conf");
-
-const SITE_TITLE = "Viki Abidələri Sevir Azərbaycan";
 
 /**
  * Lets prerendered pages with static content scroll before hydration (the
@@ -197,7 +177,7 @@ const renderContent = (props: MonumentProps): string => {
    // Map placeholder
    const mapBlock =
       typeof props.lat === "number" && typeof props.lon === "number"
-         ? `<div style="border:1px solid #e5e7eb;border-radius:8px;background:#f3f4f6;padding:2rem;text-align:center;margin:1.5rem 0;"><a href="/map?inventory=${mapInventory}" style="color:#2563eb;text-decoration:none;font-weight:500;">Xəritədə baxın</a></div>`
+         ? `<div style="border:1px solid #e5e7eb;border-radius:8px;background:#f3f4f6;padding:2rem;text-align:center;margin:1.5rem 0;"><a href="/?inventory=${mapInventory}" style="color:#2563eb;text-decoration:none;font-weight:500;">Xəritədə baxın</a></div>`
          : "";
 
    return `
@@ -333,13 +313,12 @@ const buildMonumentHtml = (
 };
 
 /**
- * The `#home-data` payload, inlined into every page that renders coverage
- * counts (the landing page and /about) so the first Vue render already has
- * them — no flash, no request. `<` is escaped so the JSON can never close the
- * script element.
+ * The `#coverage-data` payload, inlined into /about so the first Vue render
+ * already has the coverage counts — no flash, no request. `<` is escaped so
+ * the JSON can never close the script element.
  */
-const buildHomeDataScript = (data: HomeData): string =>
-   `<script type="application/json" id="home-data">${JSON.stringify(data).replace(
+const buildCoverageScript = (data: CoverageData): string =>
+   `<script type="application/json" id="coverage-data">${JSON.stringify(data).replace(
       /</g,
       "\\u003c",
    )}</script>`;
@@ -380,251 +359,6 @@ const buildStaticHtml = (
    return html;
 };
 
-/**
- * Landing-page body markup.
- *
- * Must stay in sync with `src/pages/Home.vue` — same Tailwind classes, same
- * copy module — so the prerendered page and its Vue counterpart render the
- * same thing. The classes are already in the compiled CSS because Tailwind
- * scans the Vue template.
- */
-const buildHomeStaticContent = (data: HomeData): string => {
-   const icon = (className: string) =>
-      `<svg class="${className}" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>`;
-
-   // Collage: the large slot first, then the three small ones. Missing slots
-   // render the same placeholder Home.vue shows while it waits for data.
-   const gridClass = (index: number): string =>
-      index === 0 ? "col-span-4 row-span-6" : "col-span-2 row-span-2";
-
-   const collage = Array.from({ length: 4 }, (_, index) => {
-      const monument = data.featured[index];
-      if (!monument) {
-         return `<div class="${gridClass(index)} rounded-xl bg-gradient-to-br from-gray-100 to-gray-200"></div>`;
-      }
-
-      const src = getOptimizedImage(monument.image, index === 0 ? 960 : 500);
-      const srcSet = getSrcSet(monument.image, index === 0 ? [500, 768, 960, 1280] : [330, 500]);
-      const sizes =
-         index === 0 ? "(max-width: 1024px) 100vw, 40vw" : "(max-width: 1024px) 33vw, 20vw";
-      const caption =
-         index === 0
-            ? `<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-xs text-white">${escapeHtml(monument.label)}${monument.parentLabel ? ` · ${escapeHtml(monument.parentLabel)}` : ""}</div>`
-            : "";
-
-      return `<a href="${escapeHtml(monument.url)}" class="${gridClass(index)} group relative block overflow-hidden rounded-xl shadow-lg">
-         <img src="${escapeHtml(src)}" srcset="${escapeHtml(srcSet)}" sizes="${escapeHtml(sizes)}" alt="${escapeHtml(monument.label)}" loading="${index === 0 ? "eager" : "lazy"}" fetchpriority="${index === 0 ? "high" : "auto"}" width="960" height="720" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
-         ${caption}
-      </a>`;
-   }).join("");
-
-   const countRow =
-      data.total > 0
-         ? `<div class="mt-6 flex items-center gap-6 text-sm text-gray-500">
-            <div class="flex items-center gap-2"><span class="inline-block h-2 w-2 rounded-full bg-green-500" aria-hidden="true"></span>${formatMonumentCount(data.total)} abidə</div>
-         </div>`
-         : "";
-
-   const campaign = isCampaignActive()
-      ? `<section class="bg-white">
-         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <div class="flex flex-col gap-4 rounded-2xl bg-[#8f0000] px-6 py-5 text-white shadow-sm sm:flex-row sm:items-center">
-               <div class="min-w-0 flex-1">
-                  <div class="text-lg font-semibold">${escapeHtml(CAMPAIGN.title)}</div>
-                  <div class="mt-0.5 text-sm text-white/90">${escapeHtml(CAMPAIGN.body)}</div>
-               </div>
-               <a href="${escapeHtml(CAMPAIGN.href)}" target="_blank" rel="noopener" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-[#8f0000] transition hover:bg-gray-100">
-                  ${escapeHtml(CAMPAIGN.cta)} ${icon("h-4 w-4")}
-               </a>
-            </div>
-         </div>
-      </section>`
-      : "";
-
-   // Step icons: inline SVG path data, matching the `v-if` chain in Home.vue's
-   // step loop. FontAwesome components are unusable here (this file emits
-   // hand-written HTML), so both paths inline the same geometry.
-   const stepIconPath = (index: number): string =>
-      [
-         "M12 21s-7-4.35-9.33-8.24A5.5 5.5 0 0 1 12 6.5a5.5 5.5 0 0 1 9.33 6.26C19 16.65 12 21 12 21z",
-         "M3 8.5A1.5 1.5 0 0 1 4.5 7h2L8 5h8l1.5 2h2A1.5 1.5 0 0 1 21 8.5v10A1.5 1.5 0 0 1 19.5 20h-15A1.5 1.5 0 0 1 3 18.5v-10zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
-         "M7 17.5A4.5 4.5 0 0 1 7 8.5a5.5 5.5 0 0 1 10.5-1.6A4 4 0 0 1 17.5 17.5H7zM12 12v9m0-9l-3 3m3-3l3 3",
-      ][index];
-
-   // Photo-gap panel. Mirrors the `gap` computed in Home.vue: same integers, same
-   // rounding, so the prerendered markup and the Vue render agree exactly.
-   const gap =
-      data.total > 0
-         ? {
-              total: data.total,
-              withImage: data.withImage,
-              without: Math.max(0, data.total - data.withImage),
-              percent: Math.round((data.withImage / data.total) * 1000) / 10,
-           }
-         : null;
-
-   const gapPanel =
-      gap && gap.without > 0
-         ? `<section class="border-y border-gray-200 bg-gradient-to-br from-blue-50 to-white">
-         <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-            <div class="grid items-center gap-8 lg:grid-cols-2">
-               <div>
-                  <h2 class="text-2xl font-bold text-gray-900">${escapeHtml(HOME_GAP_HEADING)}</h2>
-                  <p class="mt-2 text-lg text-gray-700">${formatMonumentCount(gap.without)} abidənin hələ fotoşəkili yoxdur.</p>
-                  <a href="${HOME_GAP_CTA.to}" class="mt-6 inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
-                     ${escapeHtml(HOME_GAP_CTA.label)} ${icon("ml-2 h-5 w-5")}
-                  </a>
-               </div>
-               <div>
-                  <div class="flex items-baseline justify-between text-sm text-gray-600">
-                     <span>${formatMonumentCount(gap.withImage)} fotoşəkilləndirilib</span>
-                     <span>${formatMonumentCount(gap.total)} ümumi abidə</span>
-                  </div>
-                  <div class="mt-2 h-3 w-full overflow-hidden rounded-full bg-gray-200" role="img" aria-label="${escapeHtml(`${formatMonumentCount(gap.withImage)} / ${formatMonumentCount(gap.total)} abidə çəkilib`)}">
-                     <div class="h-full rounded-full bg-green-500" style="width:${gap.percent}%"></div>
-                  </div>
-                  <div class="mt-2 text-xs text-gray-500">${gap.percent}% fotoşəkilləndirilib</div>
-               </div>
-            </div>
-         </div>
-      </section>`
-         : "";
-
-   const regions = (data.regions ?? [])
-      .map(
-         (region) => `<li>
-            <a href="/map" class="flex items-baseline justify-between gap-2 rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm transition hover:border-blue-300 hover:bg-blue-50">
-               <span class="min-w-0 truncate text-sm font-medium text-gray-800">${escapeHtml(region.label)}</span>
-               <span class="flex-none text-sm font-semibold text-gray-500">${formatMonumentCount(region.count)}</span>
-            </a>
-         </li>`,
-      )
-      .join("");
-
-   const regionsPanel = regions
-      ? `<section class="bg-white py-16">
-         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="mx-auto max-w-2xl text-center">
-               <h2 class="text-3xl font-bold text-gray-900">${escapeHtml(HOME_REGIONS_HEADING)}</h2>
-               <p class="mt-3 text-gray-600">${escapeHtml(HOME_REGIONS_INTRO)}</p>
-            </div>
-            <ul class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">${regions}</ul>
-         </div>
-      </section>`
-      : "";
-
-   const steps = HOME_STEPS.map(
-      (
-         step,
-         index,
-      ) => `<li class="group relative rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md">
-         <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${stepIconPath(index)}"/></svg>
-         </div>
-         <h3 class="mt-5 text-lg font-semibold text-gray-900">${escapeHtml(step.title)}</h3>
-         <p class="mt-2 text-sm leading-relaxed text-gray-600">${escapeHtml(step.body)}</p>
-      </li>`,
-   ).join("");
-
-   return `<div class="font-onest min-h-full bg-gray-50">
-      <section class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-amber-50">
-         <div class="mx-auto max-w-7xl px-4 pt-12 pb-16 sm:px-6 sm:pt-20 sm:pb-24 lg:px-8">
-            <div class="grid items-center gap-10 lg:grid-cols-2">
-               <div>
-                  <h1 class="font-display text-4xl leading-tight text-gray-900 sm:text-5xl lg:text-6xl">${escapeHtml(HOME_HEADLINE)}</h1>
-                  <p class="mt-6 text-lg leading-relaxed text-gray-700 sm:text-xl">${escapeHtml(HOME_INTRO)}</p>
-                  <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                     <a href="${HOME_PRIMARY_CTA.to}" class="inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
-                        <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
-                        ${escapeHtml(HOME_PRIMARY_CTA.label)}
-                     </a>
-                     <a href="${HOME_SECONDARY_CTA.to}" class="inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-base font-semibold text-gray-900 ring-1 ring-gray-300 ring-inset transition hover:bg-gray-50">
-                        ${escapeHtml(HOME_SECONDARY_CTA.label)} ${icon("ml-2 h-4 w-4")}
-                     </a>
-                  </div>
-                  ${countRow}
-               </div>
-               <div class="relative">
-                  <div class="grid h-[420px] grid-cols-6 grid-rows-6 gap-3 sm:h-[500px]">${collage}</div>
-               </div>
-            </div>
-         </div>
-      </section>
-      ${campaign}
-      ${gapPanel}
-      ${regionsPanel}
-      <section class="bg-white py-16">
-         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="mx-auto max-w-2xl text-center">
-               <h2 class="text-3xl font-bold text-gray-900">${escapeHtml(HOME_STEPS_HEADING)}</h2>
-               <p class="mt-3 text-gray-600">${escapeHtml(HOME_STEPS_INTRO)}</p>
-            </div>
-            <ol class="mt-12 grid gap-6 md:grid-cols-3">${steps}</ol>
-         </div>
-      </section>
-   </div>`;
-};
-
-/**
- * Rewrites the built SPA shell into the landing page: keeps the site-name
- * title and WebSite schema, refreshes the description and social card image,
- * and swaps the loading skeleton for the real markup plus the `#home-data`
- * payload Home.vue hydrates from.
- *
- * Only ever written to dist/index.html — every other page is generated from
- * the pristine shell, so /map and friends never inherit the home content.
- */
-const buildHomeHtml = (indexHtml: string, data: HomeData): string => {
-   let html = indexHtml;
-
-   const heroImage = data.featured[0]
-      ? getOptimizedImage(data.featured[0].image, 1280)
-      : `${HOST}/wlm-az.png`;
-   const metaTag = (attribute: string, name: string, content: string): string =>
-      attribute === "property"
-         ? `<meta property="${name}" content="${escapeHtml(content)}">`
-         : `<meta name="${name}" content="${escapeHtml(content)}">`;
-
-   // Description + social card: index.html predates the copy module and the
-   // hero, so both are rewritten here rather than duplicated by hand.
-   html = html.replace(
-      /<meta[^>]*name="description"[^>]*>/g,
-      metaTag("name", "description", HOME_DESCRIPTION),
-   );
-   html = html.replace(
-      /<meta[^>]*property="og:description"[^>]*>/g,
-      metaTag("property", "og:description", HOME_DESCRIPTION),
-   );
-   html = html.replace(
-      /<meta[^>]*name="twitter:description"[^>]*>/g,
-      metaTag("name", "twitter:description", HOME_DESCRIPTION),
-   );
-   html = html.replace(
-      /<meta[^>]*property="og:image"[^>]*>/g,
-      metaTag("property", "og:image", heroImage),
-   );
-   html = html.replace(
-      /<meta[^>]*name="twitter:image"[^>]*>/g,
-      metaTag("name", "twitter:image", heroImage),
-   );
-
-   // Payload + scrollable static content (the shell pins html/body to
-   // overflow:hidden for the map app).
-   const embeddedData = buildHomeDataScript(data);
-   html = html.replace("</head>", `${embeddedData}\n   ${PRERENDER_SCROLL_OVERRIDE}\n   </head>`);
-
-   const appStart = html.indexOf('<div id="app">');
-   const bodyClose = html.indexOf("</body>");
-   const appContentEnd = html.lastIndexOf("</div>", bodyClose);
-   if (appStart === -1 || bodyClose === -1 || appContentEnd === -1) {
-      throw new Error("Could not locate #app container in index.html");
-   }
-   const contentStart = appStart + '<div id="app">'.length;
-   html = `${html.slice(0, contentStart)}${buildHomeStaticContent(data)}\n   ${html.slice(appContentEnd)}`;
-
-   return html;
-};
-
 const renderSitemap = (entries: SitemapEntry[]): string => {
    const urls = entries
       .map(
@@ -643,12 +377,6 @@ Disallow: /*?*inventory=
 Sitemap: ${HOST}/sitemap.xml`;
 
 const STATIC_PAGES = [
-   {
-      route: "/map",
-      title: "Xəritə",
-      description:
-         "Azərbaycanın tarixi abidələrinin interaktiv xəritəsi: abidəni tapın, koordinat və inventar nömrəsini görün və şəkil yükləyin.",
-   },
    {
       route: "/stats",
       title: "Statistika",
@@ -744,11 +472,12 @@ const main = async () => {
 
       // Only monuments with coordinates get a static page: they're the ones the
       // map/sitemap surface, and coord-less (or stale) IDs 404 at the nginx
-      // layer instead of falling back to the SPA shell — the shell's homepage
+      // layer instead of falling back to the SPA shell — the shell's root
       // canonical is what GSC flagged as "Google chose different canonical".
       // This keeps the static output (and its validation) proportional to the
       // located monument set.
       const locatedFeatures = features.filter((feature) => feature.geometry);
+      const coverage = resolveCoverage(locatedFeatures);
 
       // The page-bearing set: located features that actually get a page (the
       // loop below skips empty inventories). Drives both the redirect map and
@@ -762,12 +491,6 @@ const main = async () => {
       const duplicateLabels = findDuplicateLabels(
          pageFeatures.map((feature) => feature.properties.itemLabel),
       );
-
-      // Landing page payload: curated hero collage + coverage counts. Strict —
-      // a bad id in data/featured-monuments.json fails the build rather than
-      // shipping a hero with an empty slot.
-      const featuredIds = JSON.parse(await fs.readFile(FEATURED_PATH, "utf-8")) as string[];
-      const homeData = resolveHomeData(features, featuredIds, { strict: true });
 
       // Remove pages from previous runs so removed monuments (and the
       // coord-less set that no longer gets a page) don't leave orphans behind.
@@ -807,28 +530,16 @@ const main = async () => {
             page.route,
             page.title,
             page.description,
-            // /about shows the coverage counts in its hero, so it needs the same
-            // payload the landing page gets — otherwise the numbers only appear
-            // after a client-side fetch of /home-data.json.
-            page.route === "/about" ? buildHomeDataScript(homeData) : undefined,
+            // /about shows the coverage counts in its hero, so it gets the
+            // counts inline — otherwise they only appear after a client-side
+            // fetch of /stats-history.json.
+            page.route === "/about" ? buildCoverageScript(coverage) : undefined,
          );
          await fs.writeFile(
             path.join(DIST_DIR, `${page.route.slice(1)}.html`),
             await minifyHtml(html),
          );
       }
-
-      // Landing page last and from the pristine shell, so /map and the rest
-      // never inherit the home markup. The payload is rewritten alongside it
-      // so Home.vue's fallback always matches the shipped geojson.
-      await fs.writeFile(
-         path.join(DIST_DIR, "index.html"),
-         await minifyHtml(buildHomeHtml(indexHtml, homeData)),
-      );
-      await fs.writeFile(
-         path.join(DIST_DIR, "home-data.json"),
-         `${JSON.stringify(homeData, null, 2)}\n`,
-      );
 
       await fs.writeFile(path.join(DIST_DIR, "sitemap.xml"), renderSitemap(sitemapEntries));
       await fs.writeFile(path.join(DIST_DIR, "robots.txt"), ROBOTS_TXT);
@@ -845,7 +556,7 @@ const main = async () => {
       );
       console.log(`Wrote ${redirectCount} nginx redirects to monument-redirects.conf`);
       console.log(
-         `Landing page: ${homeData.featured.length} featured monuments, ${homeData.total} located (${homeData.withImage} photographed)`,
+         `Coverage counts: ${coverage.total} located (${coverage.withImage} photographed)`,
       );
    } catch (error) {
       console.error("Prerender failed:", error);

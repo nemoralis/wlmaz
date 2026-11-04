@@ -58,8 +58,8 @@ import {
    REGIONS_GALLERY_LIMIT,
    REGIONS_GALLERY_MORE,
 } from "@/content/regions";
-import { formatMonumentCount } from "@/content/home";
 import {
+   formatMonumentCount,
    getCanonicalId,
    getDescriptionPage,
    getOptimizedImage,

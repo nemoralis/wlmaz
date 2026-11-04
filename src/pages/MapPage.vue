@@ -31,20 +31,27 @@
 import { computed, onErrorCaptured, ref } from "vue";
 import { useHead } from "@unhead/vue";
 import MonumentMap from "@/components/MonumentMap.vue";
+import { schemaToJsonLd, useOrganizationSchema } from "@/composables/useSchemaOrg.ts";
 import { useMonumentStore } from "@/stores/monuments.ts";
+import { SITE_DESCRIPTION, SITE_HOST, SITE_TITLE } from "@/utils/constants.ts";
 import { getOptimizedImage, getSrcSet } from "@/utils/monumentFormatters.ts";
 
 const monumentStore = useMonumentStore();
 
 const error = ref<Error | null>(null);
 
-// Title matches the prerendered /map head exactly so nothing swaps after hydration.
+const canonicalUrl = `${SITE_HOST}/`;
+const socialImage = `${SITE_HOST}/wlm-az.png`;
+const organizationSchema = schemaToJsonLd(useOrganizationSchema());
+
+// Head matches the root shell (index.html) exactly so nothing swaps after
+// hydration: the map is the site's main page now.
 useHead({
-   title: "Xəritə | Viki Abidələri Sevir Azərbaycan",
+   title: SITE_TITLE,
    link: computed(() => [
       {
          rel: "canonical" as const,
-         href: "https://wikilovesmonuments.az/map",
+         href: canonicalUrl,
       },
       ...(monumentStore.selectedMonument?.image
          ? [
@@ -61,8 +68,37 @@ useHead({
    meta: [
       {
          name: "description",
-         content:
-            "Azərbaycanın tarixi abidələrinin interaktiv xəritəsi: abidəni tapın, koordinat və inventar nömrəsini görün və şəkil yükləyin.",
+         content: SITE_DESCRIPTION,
+      },
+      {
+         property: "og:site_name",
+         content: SITE_TITLE,
+      },
+      {
+         property: "og:title",
+         content: SITE_TITLE,
+      },
+      {
+         property: "og:description",
+         content: SITE_DESCRIPTION,
+      },
+      {
+         property: "og:url",
+         content: canonicalUrl,
+      },
+      {
+         property: "og:image",
+         content: socialImage,
+      },
+      {
+         name: "twitter:image",
+         content: socialImage,
+      },
+   ],
+   script: [
+      {
+         type: "application/ld+json",
+         innerHTML: organizationSchema,
       },
    ],
 });

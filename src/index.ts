@@ -64,7 +64,7 @@ const startServer = async () => {
             directives: {
                "default-src": ["'self'"],
                "script-src": ["'self'"],
-               // FontCDN (Toolforge) hosts the Young Serif + Onest stylesheet
+               // FontCDN (Toolforge) hosts the Young Serif stylesheet
                // and the woff2 files it references — allowed for both directives.
                "style-src": ["'self'", "'unsafe-inline'", "https://tools-static.wmflabs.org"],
                "img-src": [

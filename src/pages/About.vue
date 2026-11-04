@@ -92,7 +92,7 @@
                />
             </div>
 
-            <!-- Coverage counts, from the build-time #home-data payload -->
+            <!-- Coverage counts, from the build-time #coverage-data payload -->
             <div v-if="counts" class="mt-10 grid max-w-3xl gap-4 sm:grid-cols-3">
                <div
                   v-for="count in counts"
@@ -351,14 +351,14 @@ import {
    ABOUT_WLM_HEADING,
 } from "@/content/about.ts";
 import { schemaToJsonLd, useBreadcrumbSchema } from "@/composables/useSchemaOrg.ts";
-import type { HomeData } from "@/content/featured.ts";
-import { formatMonumentCount } from "@/content/home.ts";
-import { fetchHomeData, readEmbeddedHomeData } from "@/utils/homeData.ts";
+import type { CoverageData } from "@/content/coverage.ts";
+import { fetchCoverage, readEmbeddedCoverage } from "@/utils/coverageData.ts";
+import { formatMonumentCount } from "@/utils/monumentFormatters.ts";
 
 /** The five feature icons, keyed by the `icon` field in ABOUT_FEATURES. */
 type FeatureIcon = (typeof ABOUT_FEATURES)[number]["icon"];
 
-/** Icon per feature card. Inline SVG, like the landing page's steps. */
+/** Icon per feature card. Inline SVG, matching the rest of the page. */
 const FEATURE_ICONS: Record<FeatureIcon, string> = {
    map: "M12 21s-7-4.35-9.33-8.24A5.5 5.5 0 0 1 12 6.5a5.5 5.5 0 0 1 9.33 6.26C19 16.65 12 21 12 21z",
    table: "M4 6h16M4 12h16M4 18h10",
@@ -388,15 +388,15 @@ const DATA_SOURCES = [
    },
 ] as const;
 
-const homeData = ref<HomeData | null>(null);
+const coverage = ref<CoverageData | null>(null);
 
 /**
- * Coverage counts. Same arithmetic as Home.vue's photo-gap panel — the
- * deficit is the number a visitor could still contribute, so it gets its own
- * tile rather than being left for the reader to subtract.
+ * Coverage counts. The deficit is the number a visitor could still
+ * contribute, so it gets its own tile rather than being left for the reader
+ * to subtract.
  */
 const counts = computed(() => {
-   const data = homeData.value;
+   const data = coverage.value;
    if (!data || data.total <= 0) return null;
 
    return [
@@ -411,11 +411,11 @@ const counts = computed(() => {
 
 // Read synchronously in setup so the first render already shows the numbers
 // the prerendered document carries — no flash, no request.
-homeData.value = readEmbeddedHomeData();
+coverage.value = readEmbeddedCoverage();
 
-if (!homeData.value) {
-   fetchHomeData().then((data) => {
-      if (data) homeData.value = data;
+if (!coverage.value) {
+   fetchCoverage().then((data) => {
+      if (data) coverage.value = data;
    });
 }
 

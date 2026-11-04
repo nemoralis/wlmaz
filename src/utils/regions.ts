@@ -23,7 +23,7 @@ import { getCanonicalId } from "./monumentFormatters";
 /** Property holding the native (Azerbaijani) region name in regions.geojson. */
 export const REGION_NAME_PROPERTY = "Name_AZ";
 
-/** Where the generated map payload lives, mirroring `public/home-data.json`. */
+/** Where the generated region map payload lives (written by scripts/write-regions-map.ts). */
 export const REGIONS_MAP_URL = "/regions-geo.json";
 
 /**
@@ -81,7 +81,7 @@ export interface RegionPhotoStats {
    withPhoto: number;
    /** `total - withPhoto`. Never negative. */
    withoutPhoto: number;
-   /** `withPhoto / total` as a percentage, to one decimal like `Home.vue`. */
+   /** `withPhoto / total` as a percentage, to one decimal like the coverage panels. */
    percent: number;
    /** The photographed monuments, ordered so the gallery is stable across loads. */
    photos: MonumentProps[];
@@ -175,7 +175,7 @@ export interface RegionFeature {
 /**
  * Parses the generated map payload, returning `null` rather than throwing on
  * malformed input: a broken map must degrade to an empty map, not take the
- * page down. Mirrors `parseHomeData` in `utils/homeData.ts`.
+ * page down. Mirrors `parseCoverageData` in `utils/coverageData.ts`.
  */
 export const parseRegionsGeo = (json: string | null | undefined): RegionsMapData | null => {
    if (!json) return null;

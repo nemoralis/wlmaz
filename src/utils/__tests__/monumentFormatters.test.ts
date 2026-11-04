@@ -3,6 +3,7 @@ import type { MonumentProps } from "@/types";
 import {
    encodeIdForUrl,
    findDuplicateLabels,
+   formatMonumentCount,
    getCanonicalId,
    getCategoryUrl,
    getClosestWikiWidth,
@@ -277,5 +278,17 @@ describe("getDisplayLabel", () => {
 
    it("leaves a shared label bare when there is no inventory id to append", () => {
       expect(getDisplayLabel("Məscid", "", new Set(["Məscid"]))).toBe("Məscid");
+   });
+});
+
+describe("formatMonumentCount", () => {
+   it("groups thousands with a space, like Azerbaijani expects", () => {
+      expect(formatMonumentCount(1313)).toBe("1 313");
+      expect(formatMonumentCount(1000000)).toBe("1 000 000");
+   });
+
+   it("leaves small and zero counts alone", () => {
+      expect(formatMonumentCount(750)).toBe("750");
+      expect(formatMonumentCount(0)).toBe("0");
    });
 });

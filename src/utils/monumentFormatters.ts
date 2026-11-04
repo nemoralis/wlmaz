@@ -165,3 +165,13 @@ export const resolveInventoryId = (
       .filter((s, i, all) => s !== "" && all.indexOf(s) === i);
    return candidates.find((id) => has(id)) ?? null;
 };
+
+/**
+ * Formats a count with an Azerbaijani thousands separator (space).
+ *
+ * Deliberately not `Intl.NumberFormat("az-AZ")`: node and the browser must
+ * produce byte-identical markup for prerendered pages and their Vue
+ * counterparts, and node builds vary in which locales they ship.
+ */
+export const formatMonumentCount = (count: number): string =>
+   String(count).replace(/\B(?=(\d{3})+(?!\d))/g, " ");

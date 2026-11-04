@@ -49,7 +49,7 @@ import {
    REGIONS_STATS_HEADING,
    REGIONS_STATS_PHOTOGRAPHED,
 } from "@/content/regions";
-import { formatMonumentCount } from "@/content/home";
+import { formatMonumentCount } from "@/utils/monumentFormatters";
 import type { RegionPhotoStats } from "@/utils/regions";
 
 const props = defineProps<{

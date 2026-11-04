@@ -2,16 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import { ABOUT_DESCRIPTION, ABOUT_TITLE } from "../src/content/about";
-import {
-   HOME_DESCRIPTION,
-   HOME_GAP_HEADING,
-   HOME_INTRO,
-   HOME_REGIONS_HEADING,
-   HOME_STEPS,
-   HOME_STEPS_HEADING,
-   HOME_STEPS_INTRO,
-} from "../src/content/home";
-import { SITE_HOST } from "../src/utils/constants";
+import { SITE_DESCRIPTION, SITE_HOST, SITE_TITLE } from "../src/utils/constants";
 import {
    encodeIdForUrl,
    findDuplicateLabels,
@@ -34,12 +25,11 @@ const ROBOTS_PATH = path.join(DIST_DIR, "robots.txt");
 const REDIRECTS_PATH = path.join(__dirname, "..", "monument-redirects.conf");
 const NGINX_CONF_PATH = path.join(__dirname, "../nginx.conf");
 
-const SITE_TITLE = "Viki Abidələri Sevir Azərbaycan";
 // The description the SPA shell ships with (see index.html); a monument page
 // still carrying it was never actually prerendered.
-const SHELL_DESCRIPTION = HOME_DESCRIPTION;
+const SHELL_DESCRIPTION = SITE_DESCRIPTION;
 
-const STATIC_PAGES = ["/", "/map", "/stats", "/leaderboard", "/table", "/about"];
+const STATIC_PAGES = ["/", "/stats", "/leaderboard", "/table", "/about"];
 
 /** GeoJSON properties as the app reads them: literals, plus an id list. */
 type FeatureProperties = Record<string, string> & { inventory?: string[] };
@@ -232,65 +222,33 @@ const checkStaticHtml = (html: string, loc: string, label: string): void => {
    } else if (!attrValue(descriptionTags[0], "content")) {
       fail(`${label}: description meta is empty`);
    }
-
-   // Only the landing page ships prerendered body content, so only it needs
-   // the scroll override.
-   if (loc === `${HOST}/`) {
-      checkScrollOverride(html, label);
-   }
 };
 
 /**
- * Body-content checks for the landing page only.
+ * Head checks for the root document.
  *
- * `checkStaticHtml` deliberately covers head tags alone (title, canonical,
- * description), which every static page shares. The homepage is the one page
- * whose body is hand-written twice — `src/pages/Home.vue` and
- * `buildHomeStaticContent()` in scripts/prerender.ts — so it is the one place
- * the two copies can silently drift. These assertions pin the shared copy and
- * the removed duplicate CTA so a change to one render path alone fails the
- * build.
- *
- * Not a byte-equality check: that would pin incidental Tailwind class order and
- * make routine restyles fail for no benefit.
+ * `/` is the unmodified Vite shell, so its title/description come from
+ * `index.html` rather than the prerender. They must match the constants
+ * `MapPage.vue` uses, or the runtime head rewrites them after hydration.
  */
-const checkHomeBody = (html: string): void => {
-   const label = "home body";
+const checkRootHead = (html: string): void => {
+   const label = "root head";
 
-   if (!html.includes(HOME_STEPS_HEADING)) {
-      fail(`${label}: missing the participation heading ${HOME_STEPS_HEADING}`);
+   const title = extractTitle(html);
+   if (title !== escapeHtmlText(SITE_TITLE)) {
+      fail(`${label}: <title> "${title}" != expected "${escapeHtmlText(SITE_TITLE)}"`);
    }
 
-   if (!html.includes(HOME_STEPS_INTRO)) {
-      fail(`${label}: missing the steps intro`);
-   }
-
-   // The hero intro is prose and is the easiest string to accidentally leave
-   // untranslated from the Turkish reference site, so pin it too.
-   if (!html.includes(HOME_INTRO)) {
-      fail(`${label}: missing the hero intro`);
-   }
-
-   for (const step of HOME_STEPS) {
-      if (!html.includes(step.title)) {
-         fail(`${label}: missing step title ${step.title}`);
+   const descriptionTags = html.match(/<meta[^>]*name="description"[^>]*>/g) || [];
+   if (descriptionTags.length !== 1) {
+      fail(`${label}: expected exactly 1 description meta, found ${descriptionTags.length}`);
+   } else {
+      const content = attrValue(descriptionTags[0], "content");
+      if (content !== escapeHtmlText(SITE_DESCRIPTION)) {
+         fail(
+            `${label}: description "${content}" != expected "${escapeHtmlText(SITE_DESCRIPTION)}"`,
+         );
       }
-   }
-
-   // The photo-gap panel and region grid are the two sections added after the
-   // initial landing page; both must survive into the prerendered markup.
-   if (!html.includes(HOME_GAP_HEADING)) {
-      fail(`${label}: missing the photo-gap heading ${HOME_GAP_HEADING}`);
-   }
-
-   if (!html.includes(HOME_REGIONS_HEADING)) {
-      fail(`${label}: missing the regions heading ${HOME_REGIONS_HEADING}`);
-   }
-
-   // The step CTA was dropped as a duplicate of the hero's primary CTA; it must
-   // not reappear in the prerendered markup.
-   if (html.includes("Xəritəyə keç")) {
-      fail(`${label}: reintroduced the removed bottom CTA "Xəritəyə keç"`);
    }
 };
 
@@ -301,8 +259,8 @@ const checkHomeBody = (html: string): void => {
  * about page has no prerendered body, so the head is the only thing the two
  * render paths share — and it must match `src/content/about.ts` exactly or the
  * runtime head rewrites the title and description right after hydration.
- * The inlined `#home-data` payload is asserted for the same reason: without it
- * the hero counts would only appear after a client-side fetch.
+ * The inlined `#coverage-data` payload is asserted for the same reason:
+ * without it the hero counts would only appear after a client-side fetch.
  */
 const checkAboutHead = (html: string): void => {
    const label = "about head";
@@ -324,19 +282,19 @@ const checkAboutHead = (html: string): void => {
       }
    }
 
-   const payload = html.match(/<script[^>]*id="home-data"[^>]*>([\s\S]*?)<\/script>/);
+   const payload = html.match(/<script[^>]*id="coverage-data"[^>]*>([\s\S]*?)<\/script>/);
    if (!payload) {
-      fail(`${label}: missing the #home-data payload`);
+      fail(`${label}: missing the #coverage-data payload`);
       return;
    }
 
    try {
       const data = JSON.parse(payload[1]) as { total?: unknown; withImage?: unknown };
       if (typeof data.total !== "number" || typeof data.withImage !== "number") {
-         fail(`${label}: #home-data is missing the total/withImage counts`);
+         fail(`${label}: #coverage-data is missing the total/withImage counts`);
       }
    } catch {
-      fail(`${label}: #home-data is not valid JSON`);
+      fail(`${label}: #coverage-data is not valid JSON`);
    }
 };
 
@@ -499,7 +457,7 @@ const main = async (): Promise<void> => {
          }
          checkStaticHtml(html, loc, label);
          if (route === "/") {
-            checkHomeBody(html);
+            checkRootHead(html);
          } else if (route === "/about") {
             checkAboutHead(html);
          }

@@ -5,7 +5,7 @@
             <div class="flex items-center justify-between">
                <h1 class="text-2xl font-bold text-gray-900">Abidələr siyahısı</h1>
                <router-link
-                  to="/map"
+                  to="/"
                   class="flex items-center gap-2 font-medium text-[#3366cc] hover:text-[#2a4b8d]"
                >
                   <CdxIcon :icon="cdxIconMap" /> Xəritə

@@ -16,7 +16,10 @@ import {
 } from "@/content/about.ts";
 import { SITE_HOST } from "@/utils/constants.ts";
 
-/** Every route the app registers (see src/routes/index.ts). */
+/**
+ * Every route the app registers (see src/routes/index.ts). `/map` is retained
+ * as a compatibility redirect to the root map page.
+ */
 const ROUTES = ["/", "/map", "/about", "/stats", "/leaderboard", "/profile", "/table"];
 
 describe("about page head", () => {
@@ -41,7 +44,7 @@ describe("about page head", () => {
 
 describe("about page links", () => {
    it("points both hero CTAs at routes that exist", () => {
-      expect(ABOUT_PRIMARY_CTA.to).toBe("/map");
+      expect(ABOUT_PRIMARY_CTA.to).toBe("/");
       expect(ABOUT_SECONDARY_CTA.to).toBe("/stats");
       for (const cta of [ABOUT_PRIMARY_CTA, ABOUT_SECONDARY_CTA]) {
          expect(ROUTES).toContain(cta.to);

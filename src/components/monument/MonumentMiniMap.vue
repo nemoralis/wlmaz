@@ -9,7 +9,7 @@
       <div class="mt-2 flex justify-between text-xs text-gray-400">
          <span>© OpenStreetMap</span>
          <router-link
-            :to="`/map?inventory=${getCanonicalId(inventory)}`"
+            :to="`/?inventory=${getCanonicalId(inventory)}`"
             class="text-blue-600 hover:underline"
          >
             Tam xəritədə baxın

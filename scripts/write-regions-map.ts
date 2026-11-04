@@ -9,7 +9,7 @@
  * and pairs every region with the same `regionPhotoStats` the `/region/<name>`
  * pages compute, so the map's shading and a region page cannot disagree. It
  * writes the result to `public/`, the same way `scripts/lib/convertData.ts`
- * produces `monuments.pbf` and `write-home-data.ts` produces `home-data.json`.
+ * produces `monuments.pbf`.
  *
  * The source geojson is read-only: nothing here rewrites or repairs it, and no
  * monument `parentLabel` is touched.

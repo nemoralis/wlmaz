@@ -30,8 +30,8 @@ export const ABOUT_SOCIAL_IMAGE = `${SITE_HOST}/wlm-az.png`;
 
 /**
  * Meta description for /about. Deliberately free of monument counts — the
- * numbers on the page come from the build-time payload, so they stay accurate
- * without a second edit here (same rule as HOME_DESCRIPTION).
+ * numbers on the page come from the build-time coverage payload, so they stay
+ * accurate without a second edit here.
  */
 export const ABOUT_DESCRIPTION =
    "Azərbaycanın tarixi abidələri üçün açıq xəritə, siyahı və statistika: " +
@@ -49,7 +49,7 @@ export const ABOUT_HEADLINE = "Layihə haqqında";
 export const ABOUT_LEAD =
    "wikilovesmonuments.az Azərbaycanın mədəni irs abidələrini bir xəritədə birləşdirir və " +
    "onların fotoşəkillərini Wikimedia Commons-a yükləməyə kömək edir. ";
-export const ABOUT_PRIMARY_CTA = { label: "Xəritəyə bax", to: "/map" };
+export const ABOUT_PRIMARY_CTA = { label: "Xəritəyə bax", to: "/" };
 
 export const ABOUT_SECONDARY_CTA = { label: "Statistika", to: "/stats" };
 
@@ -118,14 +118,14 @@ export const ABOUT_FEATURES_INTRO =
 /**
  * The site's own capabilities, one card each. `icon` selects an inline SVG
  * path in About.vue (never a FontAwesome component): the map page's markers
- * and buttons use FA, but this page keeps to the landing page's hand-rolled
- * icons so the markup stays predictable.
+ * and buttons use FA, but this page keeps its own hand-rolled icons so the
+ * markup stays predictable.
  */
 export const ABOUT_FEATURES = [
    {
       icon: "map",
       title: "Xəritə",
-      to: "/map",
+      to: "/",
       cta: "Xəritəni aç",
       body: "Abidələr rayonlar üzrə xəritədə göstərilir.",
    },
@@ -155,7 +155,7 @@ export const ABOUT_FEATURES = [
    {
       icon: "upload",
       title: "Şəkil yükləmə",
-      to: "/map",
+      to: "/",
       cta: "Yükləməyə başla",
       body:
          "Wikimedia hesabı ilə daxil olun və fotoşəkli xəritədən və ya abidənin " +

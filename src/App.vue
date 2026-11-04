@@ -31,7 +31,15 @@
               nav starts at lg rather than md: at 768px a signed-in user with a
               long username would push the right-hand cluster off the header. -->
          <nav role="navigation" aria-label="Əsas naviqasiya" class="ml-6 hidden gap-1 lg:flex">
-            <router-link to="/map" :class="NAV_LINK_CLASS" aria-label="Xəritə səhifəsinə get">
+            <!-- Root link needs exact matching: every path starts with "/", so
+                 router-link-active would tint Xəritə on every page. -->
+            <router-link
+               to="/"
+               :class="NAV_LINK_CLASS"
+               active-class=""
+               exact-active-class="router-link-active"
+               aria-label="Xəritə səhifəsinə get"
+            >
                Xəritə
             </router-link>
             <router-link to="/stats" :class="NAV_LINK_CLASS" aria-label="Statistika səhifəsinə get">
@@ -188,8 +196,10 @@
             class="absolute top-14 left-0 z-40 flex w-full flex-col space-y-3 border-b border-gray-200 bg-white p-4 shadow-xl lg:hidden"
          >
             <router-link
-               to="/map"
+               to="/"
                :class="NAV_DRAWER_LINK_CLASS"
+               active-class=""
+               exact-active-class="router-link-active"
                aria-label="Xəritə səhifəsinə get"
                @click="mobileNavOpen = false"
             >

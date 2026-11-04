@@ -1,18 +1,16 @@
 @import "tailwindcss";
 
 /* ============================================
-   DISPLAY + HOME PAGE FONTS (FontCDN)
+   DISPLAY FONT (FontCDN)
    ============================================
-   Young Serif (headline, weight 400) and Onest (home page body text) come
-   from FontCDN, the Wikimedia Toolforge proxy for Google Fonts, linked in
-   index.html — no self-hosted files under /fonts/ anymore. The CDN origin is
-   allowlisted in both style-src and font-src (see nginx.conf / helmet CSP);
-   font-display: swap comes from the `&display=swap` URL parameter. Fallbacks
-   below cover a CDN outage: Georgia for the display face, the system stack
-   for Onest. */
+   Young Serif (headline, weight 400) comes from FontCDN, the Wikimedia
+   Toolforge proxy for Google Fonts, linked in index.html — no self-hosted
+   files under /fonts/ anymore. The CDN origin is allowlisted in both style-src
+   and font-src (see nginx.conf / helmet CSP); font-display: swap comes from
+   the `&display=swap` URL parameter. The fallback below covers a CDN outage:
+   Georgia for the display face. */
 @theme {
    --font-display: "Young Serif", ui-serif, Georgia, serif;
-   --font-onest: "Onest", ui-sans-serif, system-ui, sans-serif;
 }
 
 html,
