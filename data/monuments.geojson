@@ -22153,30 +22153,54 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.752427777,
+                    39.760136111
+                ]
+            },
             "properties": {
                 "addressLabel": "Şuşa şəhəri",
+                "azLink": "https://az.wikipedia.org/wiki/Yuxar%C4%B1_G%C3%B6vh%C9%99r_a%C4%9Fa_m%C9%99scidi",
+                "commonsCategory": "Yukhari Govhar Agha Mosque",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Yukhari_Govhar_Agha_Mosque",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Yuxar%C4%B1%20G%C3%B6vh%C9%99r%20a%C4%9Fa%20m%C9%99scidi%202024-c%C3%BC%20ilin%20aprelind%C9%99.jpg",
                 "inventory": [
                     "344"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140664973",
-                "itemLabel": "Gövhər ağa məscidi",
-                "lastModified": "2026-09-06T01:37:47Z",
+                "item": "http://www.wikidata.org/entity/Q2115869",
+                "itemAltLabel": "Gövhər ağa məscidi, Yuхarı Gövhərağa məscidi",
+                "itemDescription": "Şuşada məscid",
+                "itemLabel": "Yuxarı Gövhərağa məscidi",
+                "lastModified": "2026-11-04T17:25:35Z",
                 "parent": "http://www.wikidata.org/entity/Q388960",
                 "parentLabel": "Şuşa rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.753596,
+                    39.761831
+                ]
+            },
             "properties": {
                 "addressLabel": "Şuşa şəhəri",
+                "azLink": "https://az.wikipedia.org/wiki/A%C5%9Fa%C4%9F%C4%B1_G%C3%B6vh%C9%99r_a%C4%9Fa_m%C9%99scidi",
+                "commonsCategory": "Ashaghi Govhar Agha Mosque",
+                "commonsLink": "https://commons.wikimedia.org/wiki/Category:Ashaghi_Govhar_Agha_Mosque",
+                "image": "http://commons.wikimedia.org/wiki/Special:FilePath/A%C5%9Fa%C4%9F%C4%B1%20G%C3%B6vh%C9%99r%20a%C4%9Fa%20m%C9%99scidi%20restavrasiya%20i%C5%9Fl%C9%99rind%C9%99n%20sonra%2C%202024-c%C3%BC%20ild%C9%99.jpg",
                 "inventory": [
                     "345"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140657654",
+                "item": "http://www.wikidata.org/entity/Q2041222",
+                "itemAltLabel": "Ashaghy Govhar Agha mosque",
+                "itemDescription": "Şuşada məscid",
                 "itemLabel": "Aşağı Gövhər ağa məscidi",
-                "lastModified": "2026-07-25T23:07:45Z",
+                "lastModified": "2026-11-04T17:26:40Z",
                 "parent": "http://www.wikidata.org/entity/Q388960",
                 "parentLabel": "Şuşa rayonu"
             }
@@ -25928,7 +25952,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140665011",
                 "itemLabel": "Ovdan",
-                "lastModified": "2026-09-06T01:31:34Z",
+                "lastModified": "2026-11-04T17:07:52Z",
                 "parent": "http://www.wikidata.org/entity/Q2210210",
                 "parentLabel": "Sabunçu rayonu"
             }
@@ -65396,7 +65420,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.004969291,
+                    40.560601328
+                ]
+            },
             "properties": {
                 "addressLabel": "Nardaran qəsəbəsi",
                 "inventory": [
@@ -65404,7 +65434,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661201",
                 "itemLabel": "Səid Yusif məscidi",
-                "lastModified": "2026-09-06T01:31:30Z",
+                "lastModified": "2026-11-04T17:24:28Z",
                 "parent": "http://www.wikidata.org/entity/Q2210210",
                 "parentLabel": "Sabunçu rayonu"
             }
@@ -76926,15 +76956,24 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.32758,
+                    40.66632
+                ]
+            },
             "properties": {
                 "addressLabel": "Bağmanlar küçəsi",
+                "azLink": "https://az.wikipedia.org/wiki/Q%C4%B1r%C4%B1xl%C4%B1_m%C9%99scidi",
                 "inventory": [
                     "3985"
                 ],
-                "item": "http://www.wikidata.org/entity/Q140661863",
-                "itemLabel": "Qırxlı məscidi",
-                "lastModified": "2026-07-25T23:20:20Z",
+                "item": "http://www.wikidata.org/entity/Q20583118",
+                "itemAltLabel": "Qırxlı məscidi",
+                "itemDescription": "XVII century mosque in Ganja, Azerbaijan",
+                "itemLabel": "Qırıxlı məscidi",
+                "lastModified": "2026-11-04T17:28:05Z",
                 "parent": "http://www.wikidata.org/entity/Q131290",
                 "parentLabel": "Gəncə"
             }
@@ -78958,7 +78997,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.472811588,
+                    40.642312936
+                ]
+            },
             "properties": {
                 "addressLabel": "Ağdaş şəhəri",
                 "inventory": [
@@ -78966,14 +79011,20 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661934",
                 "itemLabel": "Hacı Osman məscidi",
-                "lastModified": "2026-07-25T23:07:57Z",
+                "lastModified": "2026-11-04T17:35:27Z",
                 "parent": "http://www.wikidata.org/entity/Q275784",
                 "parentLabel": "Ağdaş rayonu"
             }
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    47.47340935,
+                    40.642260227
+                ]
+            },
             "properties": {
                 "addressLabel": "Ağdaş şəhəri",
                 "inventory": [
@@ -78981,7 +79032,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661935",
                 "itemLabel": "Qızılbaşlar məscidi",
-                "lastModified": "2026-07-25T23:07:58Z",
+                "lastModified": "2026-11-04T17:35:15Z",
                 "parent": "http://www.wikidata.org/entity/Q275784",
                 "parentLabel": "Ağdaş rayonu"
             }
@@ -79346,7 +79397,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.247381125,
+                    40.585486119
+                ]
+            },
             "properties": {
                 "addressLabel": "Padar kəndi",
                 "inventory": [
@@ -79354,7 +79411,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140661946",
                 "itemLabel": "Bilal Əfəndi məscidi",
-                "lastModified": "2026-07-25T23:08:00Z",
+                "lastModified": "2026-11-04T17:36:39Z",
                 "parent": "http://www.wikidata.org/entity/Q330800",
                 "parentLabel": "Ağsu rayonu"
             }
@@ -89524,7 +89581,13 @@
         },
         {
             "type": "Feature",
-            "geometry": null,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    48.127583097,
+                    41.178031071
+                ]
+            },
             "properties": {
                 "addressLabel": "Xınalıq kəndi",
                 "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%C5%9Eeyx%20%C5%9Ealbuz%20m%C9%99scidi.jpg",
@@ -89533,7 +89596,7 @@
                 ],
                 "item": "http://www.wikidata.org/entity/Q140662269",
                 "itemLabel": "Şeyx Şalbuz məscidi",
-                "lastModified": "2026-09-06T11:44:50Z",
+                "lastModified": "2026-11-04T17:41:27Z",
                 "parent": "http://www.wikidata.org/entity/Q457499",
                 "parentLabel": "Quba rayonu"
             }
