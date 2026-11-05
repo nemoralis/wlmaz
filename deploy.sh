@@ -64,9 +64,6 @@ else
     echo "⏭️ Skipping npm install"
 fi
 
-# echo "🐳 Starting Redis..."
-# docker-compose up -d redis
-
 if confirm "🏗️ Build application?"; then
     npm run build
 else

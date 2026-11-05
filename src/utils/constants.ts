@@ -16,7 +16,7 @@ export const SITE_TITLE = "Viki Abidələri Sevir Azərbaycan";
  * the runtime head in MapPage.vue and the prerender verifier compare against it.
  */
 export const SITE_DESCRIPTION =
-   "Viki Abidələri Sevir Azərbaycan — Azərbaycanın tarixi abidələri və mədəni irs xəritəsi. Abidəni xəritədə tapın, pulsuz şəkil çəkin və Wikimedia Commons-a yükləyin.";
+   "Viki Abidələri Sevir Azərbaycan — Azərbaycanın tarixi abidələri və mədəni irs xəritəsi. Abidəni xəritədə tapın, şəklini çəkin və Wikimedia Commons-a yükləyin.";
 
 /**
  * Maximum number of titles sent per MediaWiki titles= query/batch. Mirrors the
