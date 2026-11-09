@@ -63,30 +63,12 @@ function git(args) {
    }
 }
 
-/** Run a command with output captured; reject with the output attached. */
-function runCaptured(cmd, args = []) {
-   return new Promise((resolve, reject) => {
-      const child = spawn(cmd, args, { stdio: ["inherit", "pipe", "pipe"], cwd: ROOT });
-      activeChild = child;
-      let output = "";
-      child.stdout.on("data", (d) => (output += d));
-      child.stderr.on("data", (d) => (output += d));
-      child.on("error", reject);
-      child.on("close", (code) =>
-         code === 0
-            ? resolve(output)
-            : reject(
-                 Object.assign(new Error(`${cmd} ${args.join(" ")} exited with code ${code}`), {
-                    output,
-                 }),
-              ),
-      );
-   });
-}
-
 /**
- * One deploy step behind a spinner. Success renders `✔ label`; failure
- * renders `✖ label`, dumps the captured output, and aborts the deploy.
+ * One deploy step behind a spinner. The step's stdout/stderr arrives live as
+ * the spinner's message (its last line, so quiet commands still show what
+ * they're doing), and the full captured output is printed once the step
+ * succeeds. Failure renders `✖ label`, dumps the captured output, and
+ * aborts the deploy.
  */
 async function step(label, cmd, args = []) {
    const s = spinner({
@@ -97,17 +79,52 @@ async function step(label, cmd, args = []) {
       },
    });
    s.start(label);
-   try {
-      await runCaptured(cmd, args);
-   } catch (e) {
-      s.error(`${label} — failed`);
-      if (e?.output) console.log(e.output);
-      else console.error(e?.message ?? e);
-      process.exit(1);
-   } finally {
-      activeChild = null;
-   }
-   s.stop(label);
+
+   const output = await new Promise((resolve, reject) => {
+      const child = spawn(cmd, args, { stdio: ["inherit", "pipe", "pipe"], cwd: ROOT });
+      activeChild = child;
+
+      let buf = "";
+      let pending = "";
+      const onData = (d) => {
+         buf += d;
+         pending += d;
+         const lines = pending.split(/[\r\n]+/);
+         const tail = lines[lines.length - 1];
+         pending = tail;
+         if (tail) s.message(`${label} — ${tail}`);
+      };
+      child.stdout.on("data", onData);
+      child.stderr.on("data", onData);
+
+      child.on("error", reject);
+      child.on("close", (code) =>
+         code === 0
+            ? resolve(buf)
+            : reject(
+                 Object.assign(new Error(`${cmd} ${args.join(" ")} exited with code ${code}`), {
+                    output: buf,
+                 }),
+              ),
+      );
+   }).then(
+      (out) => {
+         s.stop(label);
+         // Show the command's actual output once it finishes (the old shell
+         // script streamed it live; unattended -y runs stay quiet).
+         if (out.trim() && process.stdin.isTTY) log.message(out.trimEnd());
+         return out;
+      },
+      (err) => {
+         s.error(`${label} — failed`);
+         if (err?.output) console.log(err.output);
+         else console.error(err?.message ?? err);
+         process.exit(1);
+      },
+   );
+
+   activeChild = null;
+   return output;
 }
 
 /** Ask a yes/no question (auto-yes under -y). Cancel aborts the deploy. */
