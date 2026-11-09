@@ -8,6 +8,7 @@
       "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
       "dev:frontend": "vite --host",
       "dev:backend": "NODE_ENV=development tsx watch --env-file=.env src/index.ts",
+      "deploy": "node scripts/deploy.mjs",
       "update-data": "tsx scripts/update-monuments.ts",
       "build": "vue-tsc -b && vite build && tsx scripts/prerender.ts && npm run verify && npm run build:server",
       "build:server": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/server/index.mjs --packages=external --alias:@=./src",
@@ -67,6 +68,7 @@
       "vue-router": "5.4.0"
    },
    "devDependencies": {
+      "@clack/prompts": "^1.9.0",
       "@ianvs/prettier-plugin-sort-imports": "4.7.1",
       "@tailwindcss/vite": "4.3.4",
       "@types/express": "5.0.6",

@@ -92,8 +92,7 @@
             </div>
             <h2 class="mb-2 text-xl font-bold text-gray-900">Profilə baxmaq üçün daxil olun</h2>
             <p class="mb-6 text-gray-600">
-               Wikimedia Commons hesabınızla daxil olaraq şəxsi
-               statistikanızı görə bilərsiniz.
+               Wikimedia Commons hesabınızla daxil olaraq şəxsi statistikanızı görə bilərsiniz.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-3">
                <button

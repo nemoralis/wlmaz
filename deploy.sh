@@ -1,99 +1,16 @@
 #!/bin/bash
-
-# Exit on error
+# Thin launcher: the deployment workflow (with @clack/prompts UI) lives in
+# scripts/deploy.mjs so it can use real Clack input/spinner primitives.
+# Kept so `bash deploy.sh` and `-y` / `--yes` keep working.
 set -e
+ROOT="$(cd "$(dirname "$0")" && pwd)"
 
-# Check for auto-confirm flag
-AUTO_CONFIRM=false
-if [ "$1" = "-y" ] || [ "$1" = "--yes" ]; then
-    AUTO_CONFIRM=true
-    echo "🤖 Running in auto-confirm mode"
+# deploy.mjs imports @clack/prompts (a devDependency). On a fresh clone
+# without node_modules it would fail at import time, before its own
+# "Install npm packages" step — install quietly first if needed.
+if [ ! -d "$ROOT/node_modules/@clack/prompts" ]; then
+    echo "📦 @clack/prompts missing — running npm install first"
+    (cd "$ROOT" && npm install --silent)
 fi
 
-# Function to ask for confirmation
-confirm() {
-    local message="$1"
-    if [ "$AUTO_CONFIRM" = true ]; then
-        echo "$message (y/n): y (auto)"
-        return 0
-    fi
-    read -p "$message (y/n): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-echo "🚀 Starting Deployment..."
-echo "📅 $(date)"
-echo ""
-
-# Pre-deployment checks
-CURRENT_BRANCH=$(git branch --show-current)
-if [ "$CURRENT_BRANCH" != "main" ]; then
-    echo "⚠️ Warning: You are on branch '$CURRENT_BRANCH', not 'main'"
-    if ! confirm "Continue anyway?"; then
-        echo "❌ Deployment cancelled"
-        exit 1
-    fi
-fi
-
-if [ -n "$(git status --porcelain)" ]; then
-    echo "⚠️ Warning: You have uncommitted changes:"
-    git status --short
-    echo ""
-    if ! confirm "Continue with uncommitted changes?"; then
-        echo "❌ Deployment cancelled"
-        exit 1
-    fi
-fi
-
-echo ""
-
-if confirm "📥 Pull latest changes from git?"; then
-    git pull
-else
-    echo "⏭️ Skipping git pull"
-fi
-
-if confirm "📦 Install/update npm packages?"; then
-    npm install
-else
-    echo "⏭️ Skipping npm install"
-fi
-
-if confirm "🏗️ Build application?"; then
-    npm run build
-else
-    echo "⏭️ Skipping build"
-fi
-
-# nginx.conf includes the prerender-generated monument-redirects.conf;
-# `nginx -t` fails when the file is absent (fresh clone without a build).
-if [ ! -f monument-redirects.conf ]; then
-    echo "⚠️ monument-redirects.conf missing — run npm run build to generate it"
-    if ! confirm "Create an empty placeholder (no redirects) and continue?"; then
-        echo "❌ Deployment cancelled"
-        exit 1
-    fi
-    echo "# placeholder: run npm run build to generate monument redirects" > monument-redirects.conf
-fi
-
-if confirm "🚦 Update Nginx config?"; then
-    sudo cp nginx.conf /etc/nginx/sites-available/wlmaz
-    sudo nginx -t && sudo systemctl reload nginx
-else
-    echo "⏭️ Skipping Nginx config update"
-fi
-
-if confirm "🔄 Restart application with PM2?"; then
-    pm2 reload wlmaz
-    pm2 logs wlmaz
-else
-    echo "⏭️ Skipping PM2 restart"
-fi
-
-echo ""
-echo "✅ Deployment Complete!"
+exec node "$ROOT/scripts/deploy.mjs" "$@"
