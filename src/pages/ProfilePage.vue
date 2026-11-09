@@ -12,7 +12,7 @@
                   </div>
                   <div>
                      <h1 class="text-2xl font-bold tracking-tight text-gray-900">
-                        {{ auth.user?.username }}
+                        {{ auth.user?.username || "Profil" }}
                      </h1>
                      <div class="mt-1 flex flex-wrap items-center gap-2">
                         <p class="text-sm text-gray-500">Şəxsi profil və statistika</p>
@@ -34,15 +34,16 @@
                      </div>
                   </div>
                </div>
-               <div class="flex items-center gap-3">
-                  <div v-if="stats?.commons?.editcount" class="hidden flex-col items-end sm:flex">
-                     <span class="text-xs font-bold tracking-widest text-gray-400 uppercase"
-                        >Redaktə sayı</span
-                     >
-                     <span class="text-lg font-bold text-gray-900">{{
-                        formatNumber(stats.commons.editcount)
-                     }}</span>
-                  </div>
+               <div v-if="auth.user" class="flex flex-wrap items-center gap-2">
+                  <a
+                     :href="commonsUploadsUrl"
+                     target="_blank"
+                     rel="noopener"
+                     class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50"
+                  >
+                     <font-awesome-icon :icon="['fas', 'external-link-alt']" class="text-xs" />
+                     Şəkillərim
+                  </a>
                   <a
                      :href="commonsProfileUrl"
                      target="_blank"
@@ -61,18 +62,62 @@
          <!-- Loading State -->
          <div
             v-if="isLoading || !authResolved"
-            class="flex flex-col items-center justify-center py-20"
+            role="status"
+            aria-label="Statistikalarınız yüklənir"
+            class="space-y-6"
          >
-            <font-awesome-icon
-               :icon="['fas', 'spinner']"
-               class="mb-4 animate-spin text-4xl text-blue-500"
-            />
-            <p class="font-medium text-gray-500">Statistikalarınız yüklənir...</p>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4" aria-hidden="true">
+               <div
+                  v-for="n in 4"
+                  :key="n"
+                  class="h-36 animate-pulse rounded-2xl border border-gray-200 bg-white"
+               ></div>
+            </div>
+            <div
+               class="h-[300px] animate-pulse rounded-2xl border border-gray-200 bg-white"
+               aria-hidden="true"
+            ></div>
+            <p class="text-center font-medium text-gray-500">Statistikalarınız yüklənir...</p>
          </div>
 
-         <!-- Error State -->
+         <!-- Signed-out State -->
          <div
-            v-else-if="error"
+            v-else-if="auth.status === 'anonymous' && !auth.user"
+            class="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm"
+         >
+            <div
+               class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 text-blue-500"
+            >
+               <font-awesome-icon :icon="['fas', 'user-lock']" class="text-2xl" />
+            </div>
+            <h2 class="mb-2 text-xl font-bold text-gray-900">Profilə baxmaq üçün daxil olun</h2>
+            <p class="mb-6 text-gray-600">
+               Wikimedia Commons hesabınızla daxil olaraq şəxsi
+               statistikanızı görə bilərsiniz.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+               <button
+                  type="button"
+                  class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-colors hover:bg-blue-700"
+                  @click="auth.login()"
+               >
+                  <font-awesome-icon :icon="['fas', 'sign-in-alt']" />
+                  Daxil ol
+               </button>
+               <router-link
+                  to="/"
+                  class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-50"
+               >
+                  <font-awesome-icon :icon="['fas', 'location-arrow']" />
+                  Xəritəyə qayıt
+               </router-link>
+            </div>
+         </div>
+
+         <!-- Auth Check Failed State -->
+         <div
+            v-else-if="auth.status === 'error' && !auth.user"
+            role="alert"
             class="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm"
          >
             <div
@@ -80,19 +125,121 @@
             >
                <font-awesome-icon :icon="['fas', 'exclamation-circle']" class="text-2xl" />
             </div>
-            <h2 class="mb-2 text-xl font-bold text-gray-900">Məlumat tapılmadı</h2>
-            <p class="mb-6 text-gray-600">{{ error }}</p>
-            <router-link
-               to="/"
-               class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-colors hover:bg-blue-700"
+            <h2 class="mb-2 text-xl font-bold text-gray-900">Daxil olma yoxlanıla bilmədi</h2>
+            <p class="mb-6 text-gray-600">
+               İstifadəçi məlumatları yüklənə bilmədi. Zəhmət olmasa yenidən cəhd edin.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+               <button
+                  type="button"
+                  class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-colors hover:bg-blue-700"
+                  @click="handleRetryAuth"
+               >
+                  <font-awesome-icon :icon="['fas', 'redo']" />
+                  Yenidən cəhd et
+               </button>
+               <router-link
+                  to="/"
+                  class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-50"
+               >
+                  <font-awesome-icon :icon="['fas', 'location-arrow']" />
+                  Xəritəyə qayıt
+               </router-link>
+            </div>
+         </div>
+
+         <!-- No WLM Records Yet (404) -->
+         <div
+            v-else-if="error && errorKind === 'not_found'"
+            class="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm"
+         >
+            <div
+               class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 text-blue-500"
             >
-               <font-awesome-icon :icon="['fas', 'location-arrow']" />
-               Xəritəyə qayıt
-            </router-link>
+               <font-awesome-icon :icon="['fas', 'image']" class="text-2xl" />
+            </div>
+            <h2 class="mb-2 text-xl font-bold text-gray-900">Hələ WLM Azərbaycan kaydı yoxdur</h2>
+            <p class="mb-6 text-gray-600">
+               {{ error }} Müsabiqəyə ilk şəklinizi yükləyərək başlayın.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+               <router-link
+                  to="/"
+                  class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-colors hover:bg-blue-700"
+               >
+                  <font-awesome-icon :icon="['fas', 'location-arrow']" />
+                  Xəritədən abidə seç
+               </router-link>
+               <a
+                  :href="commonsProfileUrl"
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-50"
+               >
+                  <font-awesome-icon :icon="['fas', 'external-link-alt']" class="text-xs" />
+                  Commons profili
+               </a>
+            </div>
+         </div>
+
+         <!-- Fetch Error State -->
+         <div
+            v-else-if="error"
+            role="alert"
+            class="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm"
+         >
+            <div
+               class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-amber-50 text-amber-500"
+            >
+               <font-awesome-icon :icon="['fas', 'exclamation-circle']" class="text-2xl" />
+            </div>
+            <h2 class="mb-2 text-xl font-bold text-gray-900">Məlumat yüklənə bilmədi</h2>
+            <p class="mb-6 text-gray-600">{{ error }}</p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+               <button
+                  type="button"
+                  class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-colors hover:bg-blue-700"
+                  @click="handleRetryStats"
+               >
+                  <font-awesome-icon :icon="['fas', 'redo']" />
+                  Yenidən cəhd et
+               </button>
+               <router-link
+                  to="/"
+                  class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-50"
+               >
+                  <font-awesome-icon :icon="['fas', 'location-arrow']" />
+                  Xəritəyə qayıt
+               </router-link>
+            </div>
          </div>
 
          <!-- Content -->
-         <div v-else-if="stats" class="animate-in fade-in space-y-8 duration-500">
+         <div v-else-if="stats" class="animate-in fade-in space-y-6 duration-500">
+            <!-- Freshness / refresh -->
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-500">
+               <span v-if="lastFetchedAt"> Son yenilənmə: {{ formattedLastFetchedAt }} </span>
+               <span
+                  v-if="refreshFailed"
+                  class="rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700"
+               >
+                  Köhnə məlumat göstərilir
+               </span>
+               <button
+                  type="button"
+                  class="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 font-medium text-gray-600 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
+                  :disabled="isValidating"
+                  @click="handleRetryStats"
+               >
+                  <font-awesome-icon
+                     :icon="['fas', 'redo']"
+                     :class="isValidating ? 'animate-spin' : ''"
+                     class="text-xs"
+                  />
+                  {{ isValidating ? "Yenilənir..." : "Yenilə" }}
+               </button>
+            </div>
+
             <!-- Block Warning -->
             <div
                v-if="stats.commons?.blocked"
@@ -138,7 +285,9 @@
                      >
                   </div>
                   <div class="flex items-baseline gap-2">
-                     <span class="text-3xl font-bold text-gray-900">{{ stats.total.count }}</span>
+                     <span class="text-3xl font-bold text-gray-900">{{
+                        formatNumber(stats.total.count)
+                     }}</span>
                      <span class="text-sm font-medium text-gray-500">ədəd</span>
                   </div>
                   <p class="mt-2 text-sm text-gray-500">Müsabiqə çərçivəsində yüklənən şəkil</p>
@@ -158,7 +307,9 @@
                      >
                   </div>
                   <div class="flex items-baseline gap-2">
-                     <span class="text-3xl font-bold text-gray-900">{{ stats.total.usage }}</span>
+                     <span class="text-3xl font-bold text-gray-900">{{
+                        formatNumber(stats.total.usage)
+                     }}</span>
                      <span class="text-sm font-medium text-gray-500">məqalə</span>
                   </div>
                   <p class="mt-2 text-sm text-gray-500">Vikipediyada istifadə olunan şəkillər</p>
@@ -200,7 +351,7 @@
                   </div>
                   <div class="flex items-baseline gap-2">
                      <span class="text-3xl font-bold text-gray-900">{{
-                        stats.commons?.editcount ? formatNumber(stats.commons.editcount) : "0"
+                        stats.commons ? formatNumber(stats.commons.editcount) : "—"
                      }}</span>
                   </div>
                   <p class="mt-2 text-sm text-gray-500">
@@ -237,7 +388,17 @@ const YearlyBreakdownChart = defineAsyncComponent(
 );
 
 const auth = useAuthStore();
-const { stats, isLoading, error, fetchUserStats, resetStats } = useUserStats();
+const {
+   stats,
+   isLoading,
+   isValidating,
+   error,
+   errorKind,
+   lastFetchedAt,
+   refreshFailed,
+   fetchUserStats,
+   resetStats,
+} = useUserStats();
 
 useHead({
    title: "Profil | Viki Abidələri Sevir Azərbaycan",
@@ -260,8 +421,14 @@ useHead({
    ],
 });
 
+const encodedUsername = computed(() => encodeURIComponent(auth.user?.username ?? ""));
+
 const commonsProfileUrl = computed(() => {
-   return `https://commons.wikimedia.org/wiki/User:${auth.user?.username}`;
+   return `https://commons.wikimedia.org/wiki/User:${encodedUsername.value}`;
+});
+
+const commonsUploadsUrl = computed(() => {
+   return `https://commons.wikimedia.org/wiki/Special:Uploads/${encodedUsername.value}`;
 });
 
 const usageRate = computed(() => {
@@ -278,9 +445,18 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("az-AZ", {
 
 const NUMBER_FORMATTER = new Intl.NumberFormat("az-AZ");
 
+const DATETIME_FORMATTER = new Intl.DateTimeFormat("az-AZ", {
+   dateStyle: "medium",
+   timeStyle: "short",
+});
+
 const formatNumber = (num: number): string => {
    return NUMBER_FORMATTER.format(num);
 };
+
+const formattedLastFetchedAt = computed(() =>
+   lastFetchedAt.value ? DATETIME_FORMATTER.format(lastFetchedAt.value) : "",
+);
 
 const formattedCommonsRegDate = computed(() => {
    if (!stats.value?.commons?.registration) return "";
@@ -298,8 +474,19 @@ const filteredGroups = computed(() => {
  * resolves to "signed out". Watching the status as well as the username keeps
  * the page from treating the initial unknown state as a logout, and lets a
  * cold load start fetching stats as soon as the session arrives.
+ *
+ * Each state renders its own UI in the template (login card, auth-error
+ * card); the composable's `error` is reserved for statistics fetch failures.
  */
 const authResolved = computed(() => auth.status !== "unknown" && auth.status !== "loading");
+
+const handleRetryStats = (): void => {
+   if (auth.user?.username) void fetchUserStats(auth.user.username);
+};
+
+const handleRetryAuth = (): void => {
+   void auth.fetchUser();
+};
 
 watch(
    [() => auth.status, () => auth.user?.username],
@@ -307,18 +494,13 @@ watch(
       if (status === "unknown" || status === "loading") return;
 
       if (username) {
-         error.value = null;
          fetchUserStats(username);
          return;
       }
 
-      // Sign-out or a failed auth check: drop the previous user's stats rather
-      // than leaving their numbers visible on the signed-out profile page.
+      // Signed out, or the auth check failed: drop the previous user's stats
+      // rather than leaving their numbers visible.
       resetStats();
-      error.value =
-         status === "error"
-            ? "İstifadəçi məlumatları yüklənə bilmədi. Zəhmət olmasa yenidən cəhd edin."
-            : "İstifadəçi məlumatları tapılmadı. Zəhmət olmasa daxil olun.";
    },
    { immediate: true },
 );

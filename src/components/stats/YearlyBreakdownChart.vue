@@ -4,6 +4,8 @@
          <h3 class="text-lg font-bold text-gray-900">{{ title }}</h3>
          <div class="flex gap-2">
             <button
+               type="button"
+               :aria-pressed="mode === 'count'"
                :class="[
                   'rounded-full px-3 py-1 text-xs font-bold transition-all',
                   mode === 'count'
@@ -15,6 +17,8 @@
                Şəkil sayı
             </button>
             <button
+               type="button"
+               :aria-pressed="mode === 'usage'"
                :class="[
                   'rounded-full px-3 py-1 text-xs font-bold transition-all',
                   mode === 'usage'
@@ -28,11 +32,33 @@
          </div>
       </div>
       <div class="h-[300px]">
-         <VChart v-if="option" :option="option" autoresize />
+         <VChart v-if="option" :option="option" autoresize :aria-label="title" role="img" />
          <div v-else class="flex h-full items-center justify-center text-gray-400">
             Məlumat tapılmadı
          </div>
       </div>
+      <!-- Screen-reader table mirroring the chart data. -->
+      <table class="sr-only">
+         <caption>
+            {{
+               title
+            }}
+         </caption>
+         <thead>
+            <tr>
+               <th scope="col">İl</th>
+               <th scope="col">Şəkil sayı</th>
+               <th scope="col">İstifadə</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr v-for="row in screenReaderRows" :key="row.year">
+               <th scope="row">{{ row.year }}</th>
+               <td>{{ row.count }}</td>
+               <td>{{ row.usage }}</td>
+            </tr>
+         </tbody>
+      </table>
    </div>
 </template>
 
@@ -51,22 +77,41 @@ const props = withDefaults(
 
 const mode = ref<"count" | "usage">("count");
 
-const option = computed(() => {
+/** Every contest year from the first WLM AZ edition to the latest available. */
+const allYears = computed<string[]>(() => {
    const startYear = 2013;
    const now = new Date();
    const currentYear = now.getFullYear();
    const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
 
-   const allYears: string[] = [];
+   const years: string[] = [];
    for (let y = startYear; y <= latestYear; y++) {
-      allYears.push(y.toString());
+      years.push(y.toString());
    }
+   return years;
+});
 
-   if (allYears.length === 0) return null;
+const tableRows = computed(() =>
+   allYears.value.map((year) => ({
+      year,
+      count: props.yearlyData[parseInt(year)]?.count ?? 0,
+      usage: props.yearlyData[parseInt(year)]?.usage ?? 0,
+   })),
+);
 
-   const data = allYears.map(
-      (y) => props.yearlyData[parseInt(y)]?.[mode.value === "count" ? "count" : "usage"] || 0,
-   );
+/** Mirrors the chart for assistive technology (same rows, plain numbers). */
+const screenReaderRows = computed(() =>
+   tableRows.value.map((row) => ({
+      year: row.year,
+      count: new Intl.NumberFormat("az-AZ").format(row.count),
+      usage: new Intl.NumberFormat("az-AZ").format(row.usage),
+   })),
+);
+
+const option = computed(() => {
+   if (allYears.value.length === 0) return null;
+
+   const data = tableRows.value.map((row) => (mode.value === "count" ? row.count : row.usage));
    const color = mode.value === "count" ? "#3B82F6" : "#10B981";
 
    return {
@@ -87,7 +132,7 @@ const option = computed(() => {
       xAxis: {
          type: "category",
          boundaryGap: false,
-         data: allYears,
+         data: allYears.value,
          axisLabel: {
             fontSize: 11,
             fontWeight: "600",

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useUserStats } from "@/composables/useUserStats.ts";
 import type { UserStats } from "@/types/api.ts";
-import { apiFetch } from "@/utils/apiClient.ts";
+import { ApiError, apiFetch } from "@/utils/apiClient.ts";
 
 vi.mock("@/utils/apiClient.ts", () => ({
    ApiError: class ApiError extends Error {
@@ -122,5 +122,68 @@ describe("useUserStats", () => {
       expect(user.stats.value).toBeNull();
       expect(user.error.value).toBeNull();
       expect(user.isLoading.value).toBe(false);
+   });
+
+   it("records when the stats were fetched and serves the freshness from cache", async () => {
+      mockApiFetch.mockResolvedValue(userStats("Alice", 12));
+
+      const user = useUserStats();
+      await user.fetchUserStats("Alice");
+
+      expect(user.lastFetchedAt.value).toBeInstanceOf(Date);
+      expect(user.refreshFailed.value).toBe(false);
+      expect(user.errorKind.value).toBeNull();
+
+      // A second instance reads the timestamp back from the cached snapshot.
+      const cached = useUserStats();
+      mockApiFetch.mockResolvedValue(userStats("Alice", 12));
+      await cached.fetchUserStats("Alice");
+
+      expect(cached.lastFetchedAt.value).toBeInstanceOf(Date);
+   });
+
+   it("exposes the error kind so the page can branch (404 vs server)", async () => {
+      /**
+       * Builds a mocked ApiError. The stub class ignores the constructor's
+       * second argument, so status/code are assigned explicitly.
+       */
+      const apiError = (status: number) =>
+         Object.assign(
+            new ApiError("failed", { status, code: "http_error", url: "https://example.org/" }),
+            {
+               status,
+            },
+         );
+
+      mockApiFetch.mockRejectedValueOnce(apiError(404));
+
+      const user = useUserStats();
+      await user.fetchUserStats("Ghost");
+
+      expect(user.stats.value).toBeNull();
+      expect(user.errorKind.value).toBe("not_found");
+      expect(user.error.value).toContain("tapılmadı");
+
+      mockApiFetch.mockRejectedValueOnce(apiError(503));
+      const retry = useUserStats();
+      await retry.fetchUserStats("Ghost");
+
+      expect(retry.errorKind.value).toBe("server");
+   });
+
+   it("flags a stale cached copy when revalidation fails", async () => {
+      mockApiFetch.mockResolvedValueOnce(userStats("Alice", 12));
+
+      const user = useUserStats();
+      await user.fetchUserStats("Alice");
+      expect(user.refreshFailed.value).toBe(false);
+
+      mockApiFetch.mockRejectedValueOnce(new TypeError("Failed to fetch"));
+      await user.fetchUserStats("Alice");
+
+      // Cached numbers stay on screen; the page can say they may be stale.
+      expect(user.stats.value?.total.count).toBe(12);
+      expect(user.refreshFailed.value).toBe(true);
+      expect(user.error.value).toBeNull();
    });
 });
