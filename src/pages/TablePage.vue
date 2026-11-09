@@ -94,6 +94,16 @@
 
                   <template #empty>
                      <div v-if="loading" class="p-4 text-center text-gray-500">Yüklənir...</div>
+                     <div v-else-if="loadFailed" class="p-8 text-center text-gray-500">
+                        <p class="mb-4">Abidələr məlumatları yüklənə bilmədi.</p>
+                        <button
+                           type="button"
+                           class="rounded-lg bg-blue-600 px-5 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                           @click="retryLoad"
+                        >
+                           Yenidən cəhd et
+                        </button>
+                     </div>
                      <div v-else class="p-8 text-center text-gray-500">Nəticə tapılmadı</div>
                   </template>
                </MonumentVirtualTable>
@@ -138,7 +148,13 @@ useHead({
 });
 
 const virtualTable = ref<{ scrollToTop: () => void } | null>(null);
-const loading = computed(() => monumentStore.isLoading);
+// "idle" is the pre-init first render; treating it as loading avoids flashing
+// "no results" before the worker has even been asked for data.
+const loading = computed(
+   () => monumentStore.status === "loading" || monumentStore.status === "idle",
+);
+const loadFailed = computed(() => monumentStore.status === "error");
+const retryLoad = () => monumentStore.init();
 const isUploadModalOpen = ref(false);
 const selectedMonumentForUpload = ref<Monument | null>(null);
 
@@ -162,7 +178,7 @@ const regionOptions = computed(() => {
    return [{ value: REGION_NONE, label: "Region yoxdur" }, ...items];
 });
 
-const isFiltering = computed(() => Boolean(searchQuery.value || selectedRegion.value));
+const isFiltering = computed(() => Boolean(debouncedSearchQuery.value || selectedRegion.value));
 
 // Reset scroll to top when region filter changes (mirrors search behavior)
 watch(selectedRegion, () => {

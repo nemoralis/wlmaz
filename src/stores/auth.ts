@@ -13,9 +13,12 @@ import {
    parseUserStats,
 } from "@/utils/apiGuards.ts";
 
+export type AuthStatus = "unknown" | "loading" | "authenticated" | "anonymous" | "error";
+
 interface AuthState {
    user: PublicWikiUser | null;
    loading: boolean;
+   status: AuthStatus;
    localUploadEnabled: boolean;
 }
 
@@ -23,19 +26,25 @@ export const useAuthStore = defineStore("auth", {
    state: (): AuthState => ({
       user: null,
       loading: false,
+      status: "unknown",
       localUploadEnabled: false,
    }),
 
    getters: {
-      isAuthenticated: (state) => !!state.user,
+      isAuthenticated: (state) => state.status === "authenticated" && !!state.user,
       // True when uploads may proceed without a Commons login (local dev mode).
       canUpload: (state) => state.localUploadEnabled || !!state.user,
       isBlocked: (state) => !!state.user?.blocked,
+      /** False until the first auth check has settled, successfully or not. */
+      isResolved: (state) => state.status !== "unknown" && state.status !== "loading",
    },
 
    actions: {
       async fetchUser() {
+         if (this.loading) return;
+
          this.loading = true;
+         this.status = "loading";
          try {
             // Server-driven config and auth check are independent — run them in
             // parallel to avoid a sequential ~100ms penalty on every page load.
@@ -62,6 +71,7 @@ export const useAuthStore = defineStore("auth", {
             // Process authentication state
             if (authResult.status === "fulfilled") {
                this.user = authResult.value;
+               this.status = "authenticated";
 
                // Fire-and-forget: fetch block status in the background so the
                // page renders immediately. The upload button may briefly appear
@@ -72,7 +82,10 @@ export const useAuthStore = defineStore("auth", {
             } else {
                this.user = null;
                // 401 is the normal signed-out response, not an error.
-               if (!(authResult.reason instanceof ApiError && authResult.reason.status === 401)) {
+               if (authResult.reason instanceof ApiError && authResult.reason.status === 401) {
+                  this.status = "anonymous";
+               } else {
+                  this.status = "error";
                   console.error("Failed to fetch user:", authResult.reason);
                }
             }
@@ -114,6 +127,7 @@ export const useAuthStore = defineStore("auth", {
                label: "logout",
             });
             this.user = null;
+            this.status = "anonymous";
             window.location.reload();
          } catch (err) {
             console.error("Logout failed", err);

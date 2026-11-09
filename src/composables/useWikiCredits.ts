@@ -18,20 +18,27 @@ const creditCache = new Map<string, ImageCredit | null>();
 export function useWikiCredits() {
    const imageCredit = ref<ImageCredit | null>(null);
    const creditLoading = ref(false);
+   // Identifies the newest credit request. Selecting a new monument must make
+   // any slower response for the previous image unable to overwrite the panel.
+   let requestId = 0;
 
    /**
     * Fetches attribution and license metadata for a Wikimedia Commons image.
     * Implements caching and request timeouts for better performance and reliability.
     */
    const fetchImageMetadata = async (imageUrl: string) => {
+      const id = ++requestId;
+
       if (!imageUrl) {
          imageCredit.value = null;
+         creditLoading.value = false;
          return;
       }
 
       // 1. Performance: Check cache first to avoid redundant network requests
       if (creditCache.has(imageUrl)) {
          imageCredit.value = creditCache.get(imageUrl) || null;
+         creditLoading.value = false;
          return;
       }
 
@@ -58,6 +65,9 @@ export function useWikiCredits() {
          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
          const data = await res.json();
+
+         // A newer image was selected while this request was in flight.
+         if (id !== requestId) return;
 
          const page = data.query?.pages?.[0];
          if (page && page.imageinfo && page.imageinfo[0]) {
@@ -86,15 +96,18 @@ export function useWikiCredits() {
          }
       } catch (e) {
          console.error("Failed to load credits", e);
+         // A stale failure must not clear the credit of the current image.
+         if (id !== requestId) return;
          imageCredit.value = null;
          // Note: We don't cache failures to allow for subsequent retries if the network stabilizes
       } finally {
-         creditLoading.value = false;
+         if (id === requestId) creditLoading.value = false;
       }
    };
 
    return {
       imageCredit,
+      creditLoading,
       fetchImageMetadata,
    };
 }

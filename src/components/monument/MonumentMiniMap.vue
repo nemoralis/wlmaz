@@ -31,32 +31,45 @@ const props = defineProps<{
 
 const mapContainer = ref<HTMLDivElement | null>(null);
 let map: LeafletMap | null = null;
+let disposed = false;
 
 const initMap = async () => {
    if (!mapContainer.value || map) return;
 
-   const L = (await import("leaflet")).default;
+   const container = mapContainer.value;
 
-   map = L.map(mapContainer.value, {
-      center: [props.lat, props.lon],
-      zoom: 15,
-      zoomControl: true,
-      scrollWheelZoom: false,
-      attributionControl: false,
-   });
+   try {
+      const L = (await import("leaflet")).default;
 
-   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-   }).addTo(map);
+      // The route can change while the map chunk is loading; creating a map
+      // on a detached node leaks it and can throw from Leaflet.
+      if (disposed || !container.isConnected) return;
 
-   L.circleMarker([props.lat, props.lon], {
-      radius: 8,
-      fillColor: "#3366cc",
-      color: "#fff",
-      weight: 2,
-      opacity: 1,
-      fillOpacity: 1,
-   }).addTo(map);
+      map = L.map(container, {
+         center: [props.lat, props.lon],
+         zoom: 15,
+         zoomControl: true,
+         scrollWheelZoom: false,
+         attributionControl: false,
+      });
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+         maxZoom: 19,
+      }).addTo(map);
+
+      L.circleMarker([props.lat, props.lon], {
+         radius: 8,
+         fillColor: "#3366cc",
+         color: "#fff",
+         weight: 2,
+         opacity: 1,
+         fillOpacity: 1,
+      }).addTo(map);
+   } catch (error) {
+      if (!disposed) {
+         console.error("Failed to initialise mini map", error);
+      }
+   }
 };
 
 onMounted(() => {
@@ -64,6 +77,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+   disposed = true;
    map?.remove();
    map = null;
 });

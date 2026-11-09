@@ -164,18 +164,28 @@ onUnmounted(() => {
    resizeObserver = null;
 });
 
-// Reset scroll on data change if needed (e.g. search)
+/**
+ * Keep the scroll position inside the new list when a filter shrinks it.
+ * Without this, `scrollTop` can point past the last row, `visibleData` becomes
+ * empty, and the table renders blank until the user scrolls by hand.
+ */
 watch(
-   () => props.data,
+   () => props.data.length,
    () => {
-      // We don't necessarily want to scroll to top every time if it's just a sort,
-      // but if the filter changed we should. Let the parent handle this if it wants
+      if (!viewport.value) return;
+      const maxScrollTop = Math.max(0, totalHeight.value - viewportHeight.value);
+      if (scrollTop.value > maxScrollTop) {
+         viewport.value.scrollTop = maxScrollTop;
+         scrollTop.value = maxScrollTop;
+      }
    },
-   { deep: false },
 );
 
 defineExpose({
    scrollToTop: () => {
+      // Update the reactive mirror immediately; waiting for the DOM scroll
+      // event would race a data-shrink clamp in the same tick.
+      scrollTop.value = 0;
       if (viewport.value) viewport.value.scrollTop = 0;
    },
 });

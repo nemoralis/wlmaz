@@ -11,7 +11,7 @@ import {
    resolveMediaWikiTarget,
    type MediaWikiTarget,
 } from "@/utils/mediawikiConfig.ts";
-import { normalizeWikiTitle, pickUploadWarning } from "@/utils/mediawikiShared.ts";
+import { normalizeWikiTitle, pickUploadWarning, requestSignal } from "@/utils/mediawikiShared.ts";
 import { sanitizeFilename } from "@/utils/sanitize.ts";
 
 // The Commons OAuth API target is separate from local dev mode. The upload
@@ -32,14 +32,17 @@ const API_CONFIG = {
  * - bot-password: returns a MediaWikiBotClient already logged in with the
  *   configured bot credentials (development only).
  */
-async function buildBotClient(target: MediaWikiTarget): Promise<MediaWikiBotClient | null> {
+async function buildBotClient(
+   target: MediaWikiTarget,
+   signal?: AbortSignal,
+): Promise<MediaWikiBotClient | null> {
    if (target.auth.mode !== "bot-password") return null;
    const credentials = getBotPasswordCredentials();
    if (!credentials.username || !credentials.password) {
       throw new Error("Local MediaWiki upload mode requires bot credentials to be configured");
    }
    const client = new MediaWikiBotClient(target.apiUrl, credentials);
-   await client.login();
+   await client.login(signal);
    return client;
 }
 
@@ -95,7 +98,7 @@ export class CommonsUploadError extends Error {
  * Fetches a CSRF (Edit) Token.
  * Uses POST x-www-form-urlencoded to avoid query string signing issues.
  */
-async function fetchCsrfToken(user: WikiUser): Promise<string> {
+async function fetchCsrfToken(user: WikiUser, signal?: AbortSignal): Promise<string> {
    const oauth = getOAuthClient();
    const token = getSigningToken(user);
 
@@ -117,7 +120,7 @@ async function fetchCsrfToken(user: WikiUser): Promise<string> {
 
    const response = await fetch(API_CONFIG.url, {
       method: "POST",
-      signal: AbortSignal.timeout(10000),
+      signal: requestSignal(10000, signal),
       headers: {
          ...headers,
          "Content-Type": "application/x-www-form-urlencoded",
@@ -151,11 +154,12 @@ export async function uploadFile(
    fileData: { name: string; buffer: Buffer; mimetype: string },
    metadata: { text: string; comment?: string },
    target: MediaWikiTarget = resolveMediaWikiTarget(),
+   signal?: AbortSignal,
 ): Promise<MediaWikiApiResponse> {
    if (target.auth.mode === "bot-password") {
-      const client = await buildBotClient(target);
+      const client = await buildBotClient(target, signal);
       if (!client) throw new Error("Internal: bot target without bot client");
-      return client.upload(fileData, metadata);
+      return client.upload(fileData, metadata, signal);
    }
 
    // ---- OAuth path (requires a logged-in user) ----
@@ -164,7 +168,7 @@ export async function uploadFile(
    }
 
    // 1. Get Token
-   const csrfToken = await fetchCsrfToken(user);
+   const csrfToken = await fetchCsrfToken(user, signal);
 
    // 2. Setup Request
    const oauth = getOAuthClient();
@@ -205,7 +209,7 @@ export async function uploadFile(
 
    const response = await fetch(fetchUrl, {
       method: "POST",
-      signal: AbortSignal.timeout(30000), // Uploads might take longer than simple queries
+      signal: requestSignal(30000, signal), // Uploads might take longer than simple queries
       headers: {
          ...headers,
          "User-Agent": "WLMAZ-Tool/1.0",

@@ -252,4 +252,55 @@ describe("MediaWikiBotClient", () => {
       expect(queryCall.url.startsWith(API_URL)).toBe(true);
       expect(queryCall.cookies).toContain("session=abc123");
    });
+
+   it("aborts an in-flight upload when the caller signal fires", async () => {
+      const controller = new AbortController();
+      let signalUploadStarted!: () => void;
+      const uploadStarted = new Promise<void>((resolve) => {
+         signalUploadStarted = resolve;
+      });
+
+      const fetchMock = vi.fn((_input: RequestInfo | URL, init?: RequestInit) => {
+         const form = decodeForm(init?.body as string | null | undefined);
+
+         // The CSRF request completes immediately; the upload request is the
+         // one the test keeps in flight.
+         if (form["action"] === "query" && form["meta"] === "tokens" && form["type"] === "csrf") {
+            return Promise.resolve(
+               new Response(JSON.stringify({ query: { tokens: { csrftoken: "csrf123" } } }), {
+                  status: 200,
+                  headers: { "Content-Type": "application/json" },
+               }),
+            );
+         }
+
+         signalUploadStarted();
+         return new Promise<Response>((_resolve, reject) => {
+            const signal = init?.signal;
+            const rejectAborted = () =>
+               reject(new DOMException("The operation was aborted.", "AbortError"));
+
+            if (signal?.aborted) {
+               rejectAborted();
+               return;
+            }
+            signal?.addEventListener("abort", rejectAborted, { once: true });
+         });
+      });
+      vi.stubGlobal("fetch", fetchMock);
+
+      const client = new MediaWikiBotClient(API_URL, CREDENTIALS);
+      withSession(client);
+
+      const pending = client.upload(
+         { name: "Test.jpg", buffer: Buffer.from("x"), mimetype: "image/jpeg" },
+         { text: "wikitext" },
+         controller.signal,
+      );
+
+      await uploadStarted;
+      controller.abort();
+
+      await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+   });
 });

@@ -8,12 +8,22 @@
          <div class="max-w-md rounded-lg bg-white p-8 text-center shadow">
             <h2 class="mb-4 text-2xl font-bold text-red-600">Xəta baş verdi</h2>
             <p class="mb-6 text-gray-600">{{ error }}</p>
-            <router-link
-               to="/"
-               class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-            >
-               Xəritəyə qayıt
-            </router-link>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+               <button
+                  v-if="storeFailed"
+                  type="button"
+                  class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                  @click="retryLoad"
+               >
+                  Yenidən cəhd et
+               </button>
+               <router-link
+                  to="/"
+                  class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+               >
+                  Xəritəyə qayıt
+               </router-link>
+            </div>
          </div>
       </div>
 
@@ -388,6 +398,10 @@ const hasEmbeddedData = Boolean(
    embeddedMonument && isIdMatch(embeddedMonument.inventory, String(route.params.id ?? "")),
 );
 
+/** True when the shared worker failed, so the error card can offer a retry. */
+const storeFailed = computed(() => monumentStore.status === "error");
+const retryLoad = () => monumentStore.init();
+
 if (hasEmbeddedData && embeddedMonument) {
    monument.value = embeddedMonument;
    error.value = null;
@@ -404,49 +418,76 @@ onMounted(() => {
 });
 
 watch(
-   [() => monumentStore.isDataReady, () => route.params.id],
-   ([ready, id]) => {
+   [() => monumentStore.isDataReady, () => monumentStore.status, () => route.params.id],
+   ([ready, status, id]) => {
       const currentId = String(id ?? "");
 
       // The embedded data is only valid for the monument it was prerendered for;
-      // once the route changes, fall back to the store/worker path.
-      if (hasEmbeddedData && isIdMatch(embeddedMonument?.inventory, currentId)) {
-         return;
-      }
-
-      if (!ready) {
-         monumentStore.init();
-         return;
-      }
-
-      if (currentId) {
-         const found = monumentStore.geoData?.features.find((f) =>
-            isIdMatch(f.properties?.inventory, currentId),
-         );
-         if (found) {
-            const canonicalId = getCanonicalId(found.properties?.inventory);
-
-            // Redirect to canonical ID if needed (path string form so %2E is
-            // not double-encoded by vue-router params)
-            if (currentId !== canonicalId) {
-               router.replace(`/monument/${encodeIdForUrl(canonicalId)}`);
-            }
-
-            if (found.geometry) {
-               const [lon, lat] = found.geometry.coordinates;
-               monument.value = { ...found.properties, lat, lon };
-            } else {
-               monument.value = { ...found.properties };
-            }
+      // once the route changes, fall back to the store/worker path. Navigating
+      // back restores it, since the worker path may not have data yet.
+      if (hasEmbeddedData && embeddedMonument && isIdMatch(embeddedMonument.inventory, currentId)) {
+         if (monument.value !== embeddedMonument) {
+            monument.value = embeddedMonument;
             error.value = null;
-            if (monument.value?.image) {
-               fetchImageMetadata(monument.value.image);
+            if (embeddedMonument.image) {
+               fetchImageMetadata(embeddedMonument.image);
             }
-         } else {
-            error.value = "Abidə tapılmadı";
          }
          loading.value = false;
+         return;
       }
+
+      if (ready) {
+         if (currentId) {
+            const found = monumentStore.geoData?.features.find((f) =>
+               isIdMatch(f.properties?.inventory, currentId),
+            );
+            if (found) {
+               const canonicalId = getCanonicalId(found.properties?.inventory);
+
+               // Redirect to canonical ID if needed (path string form so %2E is
+               // not double-encoded by vue-router params)
+               if (currentId !== canonicalId) {
+                  router.replace(`/monument/${encodeIdForUrl(canonicalId)}`);
+               }
+
+               if (found.geometry) {
+                  const [lon, lat] = found.geometry.coordinates;
+                  monument.value = { ...found.properties, lat, lon };
+               } else {
+                  monument.value = { ...found.properties };
+               }
+               error.value = null;
+               if (monument.value?.image) {
+                  fetchImageMetadata(monument.value.image);
+               }
+            } else {
+               // Clear the previous route's monument so the not-found branch
+               // cannot render stale content from another id.
+               monument.value = null;
+               error.value = "Abidə tapılmadı";
+            }
+            loading.value = false;
+         }
+         return;
+      }
+
+      // The worker is the only source of data here; a failure must end the
+      // spinner instead of leaving the page waiting forever.
+      if (status === "error") {
+         monument.value = null;
+         loading.value = false;
+         error.value = "Abidələr məlumatları yüklənə bilmədi.";
+         return;
+      }
+
+      // Idle or loading: show this route's spinner and make sure the worker is
+      // running. Clearing `monument` prevents the previous route's content
+      // from being displayed under the new URL while the data resolves.
+      monument.value = null;
+      error.value = null;
+      loading.value = true;
+      monumentStore.init();
    },
    { immediate: true },
 );

@@ -1,4 +1,4 @@
-import { onUnmounted, watch, type Ref } from "vue";
+import { nextTick, onUnmounted, watch, type Ref } from "vue";
 
 /**
  * Composable for managing focus trap in modals and dialogs
@@ -8,6 +8,10 @@ import { onUnmounted, watch, type Ref } from "vue";
 
 export function useFocusTrap(containerRef: Ref<HTMLElement | null>, isActive: Ref<boolean>) {
    let previouslyFocused: HTMLElement | null = null;
+   let listenerAttached = false;
+   // Invalidates a pending activation when the trap is closed or unmounted
+   // before Vue has flushed the DOM for the newly opened dialog.
+   let activationToken = 0;
 
    // Selector for all focusable elements
    const focusableSelector =
@@ -44,10 +48,13 @@ export function useFocusTrap(containerRef: Ref<HTMLElement | null>, isActive: Re
     * Stores current focus and moves focus to first focusable element
     */
    function activate() {
-      if (!containerRef.value) return;
+      // Idempotent: a second activation must not overwrite the element that
+      // should receive focus back when the dialog closes.
+      if (listenerAttached || !containerRef.value) return;
 
       // Store the currently focused element
-      previouslyFocused = document.activeElement as HTMLElement;
+      previouslyFocused =
+         document.activeElement instanceof HTMLElement ? document.activeElement : null;
 
       // Focus the first focusable element in the container
       const focusableElements = containerRef.value.querySelectorAll<HTMLElement>(focusableSelector);
@@ -58,6 +65,7 @@ export function useFocusTrap(containerRef: Ref<HTMLElement | null>, isActive: Re
 
       // Add keydown listener
       document.addEventListener("keydown", trapFocus);
+      listenerAttached = true;
    }
 
    /**
@@ -65,23 +73,45 @@ export function useFocusTrap(containerRef: Ref<HTMLElement | null>, isActive: Re
     * Removes listeners and restores focus to previously focused element
     */
    function deactivate() {
-      document.removeEventListener("keydown", trapFocus);
+      // Cancel any activation queued behind nextTick.
+      activationToken++;
 
-      // Restore focus to the element that had focus before the trap was activated
-      if (previouslyFocused && typeof previouslyFocused.focus === "function") {
-         previouslyFocused.focus();
+      if (listenerAttached) {
+         document.removeEventListener("keydown", trapFocus);
+         listenerAttached = false;
+      }
+
+      const target = previouslyFocused;
+      previouslyFocused = null;
+
+      // The opener may have been removed from the document while the dialog
+      // was open (e.g. a route change), in which case focusing it is a no-op
+      // that can move focus to the body.
+      if (target?.isConnected && typeof target.focus === "function") {
+         target.focus();
       }
    }
 
-   // Watch isActive and automatically activate/deactivate
-   watch(isActive, (active) => {
-      if (active) {
-         // Use nextTick to ensure the DOM is ready
-         setTimeout(() => activate(), 50);
-      } else {
-         deactivate();
-      }
-   });
+   // Watch isActive and automatically activate/deactivate. `flush: "post"`
+   // waits for the dialog content to be rendered; the token guards against a
+   // close that happens before that flush.
+   watch(
+      isActive,
+      async (active) => {
+         if (!active) {
+            deactivate();
+            return;
+         }
+
+         const token = ++activationToken;
+         await nextTick();
+
+         if (token !== activationToken || !isActive.value || !containerRef.value) return;
+
+         activate();
+      },
+      { flush: "post" },
+   );
 
    // Cleanup on unmount
    onUnmounted(() => {

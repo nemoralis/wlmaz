@@ -22,7 +22,9 @@ import {
    safeFileName,
    toInventoryIds,
 } from "../src/utils/monumentFormatters";
+import { writeFileAtomic } from "./lib/atomicWrite";
 
+const STAGING_PREFIX = ".prerender-";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -432,15 +434,77 @@ const buildRedirectConf = (pageFeatures: MonumentFeature[]): string => {
    ].join("\n");
 };
 
+const pathExists = async (target: string): Promise<boolean> => {
+   try {
+      await fs.access(target);
+      return true;
+   } catch {
+      return false;
+   }
+};
+
+/**
+ * Removes staging directories left behind by a previous run that was killed
+ * before its `finally` block could run. Each build is single-process, so any
+ * directory carrying the staging prefix at startup is stale.
+ */
+const removeStaleStagingDirs = async (): Promise<void> => {
+   const entries = await fs.readdir(DIST_DIR, { withFileTypes: true });
+   await Promise.all(
+      entries
+         .filter((entry) => entry.isDirectory() && entry.name.startsWith(STAGING_PREFIX))
+         .map((entry) => fs.rm(path.join(DIST_DIR, entry.name), { recursive: true, force: true })),
+   );
+};
+
+/**
+ * Swaps a fully built staging directory into place. The previous directory is
+ * renamed aside first and restored if the swap fails, so a live site never
+ * observes an empty or half-populated monument tree.
+ */
+const replaceDirectory = async (stagedDir: string, targetDir: string): Promise<void> => {
+   const backupDir = `${targetDir}.backup-${process.pid}-${Date.now()}`;
+   const hadTarget = await pathExists(targetDir);
+
+   if (hadTarget) {
+      await fs.rename(targetDir, backupDir);
+   }
+
+   try {
+      await fs.rename(stagedDir, targetDir);
+   } catch (error) {
+      if (hadTarget && !(await pathExists(targetDir)) && (await pathExists(backupDir))) {
+         await fs.rename(backupDir, targetDir).catch((restoreError) => {
+            console.error("Failed to restore the previous monument directory:", restoreError);
+         });
+      }
+      throw error;
+   }
+
+   if (hadTarget) {
+      await fs.rm(backupDir, { recursive: true, force: true }).catch((error) => {
+         console.warn("Could not remove the previous monument-directory backup:", error);
+      });
+   }
+};
+
+/** Moves a staged file onto its final path; rename is atomic on one filesystem. */
+const commitStagedFile = async (stagedPath: string, targetPath: string): Promise<void> => {
+   await fs.mkdir(path.dirname(targetPath), { recursive: true });
+   await fs.rename(stagedPath, targetPath);
+};
+
 const main = async () => {
+   let stagingDir: string | null = null;
+
    try {
       const features = await readGeoJson();
       const indexHtml = await fs.readFile(path.join(DIST_DIR, "index.html"), "utf-8");
       const now = new Date().toISOString();
-      const sitemapEntries: SitemapEntry[] = ALL_STATIC_PAGES.map(({ canonical }) => ({
-         loc: canonical,
-         lastmod: now,
-      }));
+
+      await fs.mkdir(DIST_DIR, { recursive: true });
+      await removeStaleStagingDirs();
+      stagingDir = await fs.mkdtemp(path.join(DIST_DIR, STAGING_PREFIX));
 
       // Only monuments with coordinates get a static page: they're the ones the
       // map/sitemap surface, and coord-less (or stale) IDs 404 at the nginx
@@ -463,11 +527,15 @@ const main = async () => {
       const duplicateLabels = findDuplicateLabels(
          pageFeatures.map((feature) => feature.properties.itemLabel),
       );
+      const sitemapEntries: SitemapEntry[] = ALL_STATIC_PAGES.map(({ canonical }) => ({
+         loc: canonical,
+         lastmod: now,
+      }));
 
-      // Remove pages from previous runs so removed monuments (and the
-      // coord-less set that no longer gets a page) don't leave orphans behind.
-      await fs.rm(MONUMENT_DIR, { recursive: true, force: true });
-      await fs.mkdir(MONUMENT_DIR, { recursive: true });
+      // Everything below is written inside the staging tree. Nothing in dist/
+      // changes until every page has rendered successfully.
+      const stagedMonumentDir = path.join(stagingDir, "monument");
+      await fs.mkdir(stagedMonumentDir, { recursive: true });
 
       const BATCH_SIZE = 8;
       let written = 0;
@@ -482,8 +550,8 @@ const main = async () => {
                const props = buildMonumentProps(feature);
 
                const html = buildMonumentHtml(indexHtml, props, canonicalUrl, duplicateLabels);
-               const filePath = path.join(MONUMENT_DIR, `${safeFileName(canonicalId)}.html`);
-               await fs.writeFile(filePath, await minifyHtml(html));
+               const filePath = path.join(stagedMonumentDir, `${safeFileName(canonicalId)}.html`);
+               await writeFileAtomic(filePath, await minifyHtml(html));
 
                sitemapEntries.push({
                   loc: canonicalUrl,
@@ -507,17 +575,38 @@ const main = async () => {
             // fetch of /stats-history.json.
             page.route === "/about" ? buildCoverageScript(coverage) : undefined,
          );
-         await fs.writeFile(path.join(DIST_DIR, page.file), await minifyHtml(html));
+         await writeFileAtomic(path.join(stagingDir, page.file), await minifyHtml(html));
       }
 
-      await fs.writeFile(path.join(DIST_DIR, "sitemap.xml"), renderSitemap(sitemapEntries));
-      await fs.writeFile(path.join(DIST_DIR, "robots.txt"), ROBOTS_TXT);
+      await writeFileAtomic(path.join(stagingDir, "sitemap.xml"), renderSitemap(sitemapEntries));
+      await writeFileAtomic(path.join(stagingDir, "robots.txt"), ROBOTS_TXT);
 
       const redirectConf = buildRedirectConf(pageFeatures);
-      await fs.writeFile(REDIRECTS_PATH, redirectConf);
+      await writeFileAtomic(path.join(stagingDir, "monument-redirects.conf"), redirectConf);
       const redirectCount = redirectConf
          .split("\n")
          .filter((line) => line.startsWith("location")).length;
+
+      // Commit. Each file rename is atomic; the monument tree is swapped last so
+      // a failure at any earlier point leaves the previous complete site live.
+      for (const page of STATIC_PAGES) {
+         await commitStagedFile(path.join(stagingDir, page.file), path.join(DIST_DIR, page.file));
+      }
+      await commitStagedFile(
+         path.join(stagingDir, "sitemap.xml"),
+         path.join(DIST_DIR, "sitemap.xml"),
+      );
+      await commitStagedFile(
+         path.join(stagingDir, "robots.txt"),
+         path.join(DIST_DIR, "robots.txt"),
+      );
+      // The redirects file lives outside dist/, so copy its bytes through the
+      // atomic writer instead of assuming the two paths share a filesystem.
+      await writeFileAtomic(
+         REDIRECTS_PATH,
+         await fs.readFile(path.join(stagingDir, "monument-redirects.conf")),
+      );
+      await replaceDirectory(stagedMonumentDir, MONUMENT_DIR);
 
       console.log(`Prerendered ${written} monument pages`);
       console.log(
@@ -529,7 +618,14 @@ const main = async () => {
       );
    } catch (error) {
       console.error("Prerender failed:", error);
-      process.exit(1);
+      // Do not `process.exit` here: the staging cleanup below must still run.
+      process.exitCode = 1;
+   } finally {
+      if (stagingDir) {
+         await fs.rm(stagingDir, { recursive: true, force: true }).catch((error) => {
+            console.warn("Could not remove the prerender staging directory:", error);
+         });
+      }
    }
 };
 

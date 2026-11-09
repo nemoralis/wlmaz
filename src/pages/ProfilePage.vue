@@ -61,7 +61,10 @@
 
       <main class="container mx-auto flex-1 p-4 sm:p-6 lg:p-8">
          <!-- Loading State -->
-         <div v-if="isLoading" class="flex flex-col items-center justify-center py-20">
+         <div
+            v-if="isLoading || !authResolved"
+            class="flex flex-col items-center justify-center py-20"
+         >
             <font-awesome-icon
                :icon="['fas', 'spinner']"
                class="mb-4 animate-spin text-4xl text-blue-500"
@@ -226,7 +229,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, onMounted } from "vue";
+import { computed, defineAsyncComponent, watch } from "vue";
 import { useHead } from "@unhead/vue";
 import { useUserStats } from "@/composables/useUserStats.ts";
 import { useAuthStore } from "@/stores/auth.ts";
@@ -236,7 +239,7 @@ const YearlyBreakdownChart = defineAsyncComponent(
 );
 
 const auth = useAuthStore();
-const { stats, isLoading, error, fetchUserStats } = useUserStats();
+const { stats, isLoading, error, fetchUserStats, resetStats } = useUserStats();
 
 useHead({
    title: "Profil | Viki Abidələri Sevir Azərbaycan",
@@ -291,13 +294,35 @@ const filteredGroups = computed(() => {
    return (stats.value?.commons?.groups || []).filter((g) => g !== "*");
 });
 
-onMounted(() => {
-   if (auth.user?.username) {
-      fetchUserStats(auth.user.username);
-   } else {
-      error.value = "İstifadəçi məlumatları tapılmadı. Zəhmət olmasa daxil olun.";
-   }
-});
+/**
+ * `auth.user` is null both before the session check resolves and after it
+ * resolves to "signed out". Watching the status as well as the username keeps
+ * the page from treating the initial unknown state as a logout, and lets a
+ * cold load start fetching stats as soon as the session arrives.
+ */
+const authResolved = computed(() => auth.status !== "unknown" && auth.status !== "loading");
+
+watch(
+   [() => auth.status, () => auth.user?.username],
+   ([status, username]) => {
+      if (status === "unknown" || status === "loading") return;
+
+      if (username) {
+         error.value = null;
+         fetchUserStats(username);
+         return;
+      }
+
+      // Sign-out or a failed auth check: drop the previous user's stats rather
+      // than leaving their numbers visible on the signed-out profile page.
+      resetStats();
+      error.value =
+         status === "error"
+            ? "İstifadəçi məlumatları yüklənə bilmədi. Zəhmət olmasa yenidən cəhd edin."
+            : "İstifadəçi məlumatları tapılmadı. Zəhmət olmasa daxil olun.";
+   },
+   { immediate: true },
+);
 </script>
 
 <style scoped>

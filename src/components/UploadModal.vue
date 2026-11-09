@@ -40,30 +40,73 @@
                   :results="uploadResults"
                   :failures="uploadFailures"
                   :is-retrying="isRetrying"
+                  :was-cancelled="wasCancelled"
                   @close="closeModal"
                   @retry="retryFailed"
                   @reset="resetForm"
                />
 
-               <!-- DISABLED STATE (Full Modal) -->
+               <!-- UPLOAD UNAVAILABLE STATE (Full Modal) -->
                <div
                   v-if="!uploadsEnabled"
                   class="flex h-full w-full flex-col items-center justify-center p-8 text-center"
                >
-                  <div class="mb-6 rounded-full bg-red-100 p-6">
-                     <font-awesome-icon :icon="['fas', 'ban']" class="text-5xl text-red-600" />
-                  </div>
-                  <h3 class="mb-3 text-2xl font-bold text-gray-900">Yükləmələr dayandırılıb</h3>
-                  <p class="mb-8 max-w-md text-gray-600">
-                     Wikimedia Commons-a yükləmə xidməti müvəqqəti olaraq dayandırılıb. Zəhmət
-                     olmasa daha sonra cəhd edin.
-                  </p>
-                  <button
-                     class="rounded-lg bg-gray-100 px-8 py-3 font-medium text-gray-700 hover:bg-gray-200"
-                     @click="closeModal"
-                  >
-                     Bağla
-                  </button>
+                  <template v-if="uploadAvailability === 'checking'">
+                     <div
+                        class="mb-6 h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"
+                     ></div>
+                     <h3 class="mb-3 text-2xl font-bold text-gray-900">
+                        Yükləmə statusu yoxlanılır
+                     </h3>
+                     <p class="max-w-md text-gray-600">Zəhmət olmasa gözləyin.</p>
+                  </template>
+
+                  <template v-else-if="uploadAvailability === 'error'">
+                     <div class="mb-6 rounded-full bg-amber-100 p-6">
+                        <font-awesome-icon
+                           :icon="['fas', 'exclamation-triangle']"
+                           class="text-5xl text-amber-600"
+                        />
+                     </div>
+                     <h3 class="mb-3 text-2xl font-bold text-gray-900">
+                        Yükləmə statusu yoxlanıla bilmədi
+                     </h3>
+                     <p class="mb-8 max-w-md text-gray-600">
+                        Serverlə əlaqə saxlanıla bilmədi. Yükləmənin mümkün olub-olmadığını yoxlamaq
+                        üçün yenidən cəhd edin.
+                     </p>
+                     <div class="flex gap-3">
+                        <button
+                           class="rounded-lg bg-gray-100 px-6 py-3 font-medium text-gray-700 hover:bg-gray-200"
+                           @click="closeModal"
+                        >
+                           Bağla
+                        </button>
+                        <button
+                           class="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700"
+                           @click="checkStatus"
+                        >
+                           Yenidən cəhd et
+                        </button>
+                     </div>
+                  </template>
+
+                  <template v-else>
+                     <div class="mb-6 rounded-full bg-red-100 p-6">
+                        <font-awesome-icon :icon="['fas', 'ban']" class="text-5xl text-red-600" />
+                     </div>
+                     <h3 class="mb-3 text-2xl font-bold text-gray-900">Yükləmələr dayandırılıb</h3>
+                     <p class="mb-8 max-w-md text-gray-600">
+                        Wikimedia Commons-a yükləmə xidməti müvəqqəti olaraq dayandırılıb. Zəhmət
+                        olmasa daha sonra cəhd edin.
+                     </p>
+                     <button
+                        class="rounded-lg bg-gray-100 px-8 py-3 font-medium text-gray-700 hover:bg-gray-200"
+                        @click="closeModal"
+                     >
+                        Bağla
+                     </button>
+                  </template>
                </div>
 
                <!-- Left Side: Image Previews (Scrollable Grid) -->
@@ -483,13 +526,17 @@ export default defineComponent({
          mode,
          bulkForm,
          isUploading,
+         isBusy,
          uploadProgress,
          currentFileIndex,
          uploadComplete,
          uploadResults,
          uploadFailures,
          isRetrying,
+         wasCancelled,
          uploadsEnabled,
+         uploadAvailability,
+         checkStatus,
          isDragging,
          localUploadEnabled,
          mediaWikiUrl,
@@ -519,7 +566,7 @@ export default defineComponent({
       );
 
       const closeModal = () => {
-         if (isUploading.value) return;
+         if (isBusy.value) return;
          resetForm();
          emit("close");
       };
@@ -544,6 +591,7 @@ export default defineComponent({
          uploadResults,
          uploadFailures,
          isRetrying,
+         wasCancelled,
          retryFailed,
          resetForm,
          currentFileIndex,
@@ -552,6 +600,8 @@ export default defineComponent({
          licenseUrl,
          hasHeicFiles,
          uploadsEnabled,
+         uploadAvailability,
+         checkStatus,
          localUploadEnabled,
          mediaWikiUrl,
       };

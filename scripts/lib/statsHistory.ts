@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { writeFileAtomic } from "./atomicWrite";
 import type { GeoJSON } from "./monumentTransform";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -18,17 +19,12 @@ export interface HistoryEntry {
 }
 
 /**
- * Appends today's monument counts to public/stats-history.json.
+ * Builds the new history array for today's data without writing anything.
  *
- * Deliberate quirks, both inherited from the original pipeline:
- * - An entry is written **only when the data actually changed** (the caller
- *   exits before reaching this on a no-change run), so days without a data
- *   change leave gaps in the daily chart rather than repeating the previous
- *   day's numbers.
- * - The date key is UTC (`toISOString()`), so a run shortly after midnight
- *   Baku time is recorded under the previous UTC day.
+ * Reads the current file so the daily pipeline can compute it alongside the
+ * other derived artifacts and only commit after every one succeeded.
  */
-export async function recordStatsHistory(newData: GeoJSON): Promise<void> {
+export async function buildStatsHistory(newData: GeoJSON): Promise<HistoryEntry[]> {
    let history: HistoryEntry[] = [];
    try {
       const content = await fs.readFile(HISTORY_PATH, "utf-8");
@@ -59,6 +55,26 @@ export async function recordStatsHistory(newData: GeoJSON): Promise<void> {
    // Sort by date
    history.sort((a, b) => a.timestamp - b.timestamp);
 
-   await fs.writeFile(HISTORY_PATH, JSON.stringify(history, null, 2));
+   return history;
+}
+
+/** Writes a pre-built history array atomically. */
+export async function writeStatsHistory(history: HistoryEntry[]): Promise<void> {
+   await writeFileAtomic(HISTORY_PATH, JSON.stringify(history, null, 2));
    console.log(`Saved update stats to ${HISTORY_PATH}`);
+}
+
+/**
+ * Appends today's monument counts to public/stats-history.json.
+ *
+ * Deliberate quirks, both inherited from the original pipeline:
+ * - An entry is written **only when the data actually changed** (the caller
+ *   exits before reaching this on a no-change run), so days without a data
+ *   change leave gaps in the daily chart rather than repeating the previous
+ *   day's numbers.
+ * - The date key is UTC (`toISOString()`), so a run shortly after midnight
+ *   Baku time is recorded under the previous UTC day.
+ */
+export async function recordStatsHistory(newData: GeoJSON): Promise<void> {
+   await writeStatsHistory(await buildStatsHistory(newData));
 }

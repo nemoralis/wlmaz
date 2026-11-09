@@ -171,7 +171,7 @@
                :aria-expanded="mobileNavOpen"
                aria-label="Mobil menyunu aç"
                aria-controls="mobile-nav"
-               @click="mobileNavOpen = !mobileNavOpen"
+               @click="toggleMobileNav"
                @keydown.escape="mobileNavOpen = false"
             >
                <font-awesome-icon :icon="['fas', 'bars']" class="text-xl" aria-hidden="true" />
@@ -357,7 +357,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { CdxIcon } from "@wikimedia/codex";
 import { cdxIconLogoWikimediaCommons } from "@wikimedia/codex-icons";
@@ -403,7 +403,14 @@ const NAV_DRAWER_LINK_CLASS = [
 ].join(" ");
 
 const toggleMenu = () => {
+   // Only one header overlay may be open at a time.
+   mobileNavOpen.value = false;
    menuOpen.value = !menuOpen.value;
+};
+
+const toggleMobileNav = () => {
+   menuOpen.value = false;
+   mobileNavOpen.value = !mobileNavOpen.value;
 };
 
 const handleDropdownKeydown = (event: KeyboardEvent) => {
@@ -425,10 +432,36 @@ const handleClickOutside = (event: MouseEvent) => {
    }
 };
 
+const handleGlobalKeydown = (event: KeyboardEvent) => {
+   if (event.key !== "Escape") return;
+   menuOpen.value = false;
+   mobileNavOpen.value = false;
+};
+
 function logout() {
    auth.logout();
    menuOpen.value = false;
+   mobileNavOpen.value = false;
 }
+
+// Menus belong to the page they were opened on; do not leave an overlay
+// covering the next view. The sign-out watcher also closes them if the
+// session expires in the background.
+watch(
+   () => route.fullPath,
+   () => {
+      menuOpen.value = false;
+      mobileNavOpen.value = false;
+   },
+);
+
+watch(
+   () => auth.user,
+   () => {
+      menuOpen.value = false;
+      mobileNavOpen.value = false;
+   },
+);
 
 const commonsUrl = computed(() => {
    const username = auth.user?.username;
@@ -440,9 +473,11 @@ const commonsUrl = computed(() => {
 onMounted(() => {
    auth.fetchUser();
    document.addEventListener("click", handleClickOutside);
+   document.addEventListener("keydown", handleGlobalKeydown);
 });
 
 onUnmounted(() => {
    document.removeEventListener("click", handleClickOutside);
+   document.removeEventListener("keydown", handleGlobalKeydown);
 });
 </script>

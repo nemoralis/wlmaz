@@ -74,6 +74,23 @@
 
       <div ref="mapContainer" class="z-0 h-full w-full"></div>
 
+      <!-- The worker is the only source of markers; a failed load must not
+           leave an empty map that looks like "there is nothing here". -->
+      <div
+         v-if="monumentStore.status === 'error'"
+         class="absolute inset-x-4 top-4 z-[2500] mx-auto max-w-md rounded-lg border border-red-200 bg-white p-4 text-center shadow-lg"
+         role="alert"
+      >
+         <p class="mb-3 text-sm text-gray-700">Abidələr məlumatları yüklənə bilmədi.</p>
+         <button
+            type="button"
+            class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+            @click="monumentStore.init()"
+         >
+            Yenidən cəhd et
+         </button>
+      </div>
+
       <!-- Announced to screen readers after the viewport marker sync -->
       <div class="sr-only" aria-live="polite">{{ visibleCount }} abidə görünür</div>
 
@@ -168,6 +185,9 @@ export default defineComponent({
       // UI
       const showUploadModal = ref(false);
       const needsPhotoOnly = ref(false);
+      // Debounced URL write for pan/zoom; cleared on unmount so a pending
+      // replaceState cannot fire after the map is gone.
+      let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
       // Set when `?inventory=` names something the map cannot show, so the
       // sidebar can explain it instead of silently ignoring the link.
@@ -216,6 +236,7 @@ export default defineComponent({
 
       const applyFilter = (enabled: boolean) => {
          needsPhotoOnly.value = enabled;
+         unresolvedInventory.value = null;
          if (!markersGroup.value) return;
          syncViewport(passesFilter);
       };
@@ -335,6 +356,12 @@ export default defineComponent({
             onVisibleCountChange: (count) => {
                visibleCount.value = count;
             },
+            onActiveMarkerRemoved: () => {
+               // The selected marker left the active filter; the details pane
+               // must not keep describing something the map no longer shows.
+               monumentStore.selectedMonument = null;
+               sidebarInstance.value?.close();
+            },
          });
 
          // 2. URL State Management (Lat/Long/Zoom)
@@ -350,7 +377,6 @@ export default defineComponent({
          }
 
          // 3. Debounce utility for URL updates
-         let debounceTimer: ReturnType<typeof setTimeout> | null = null;
          const updateUrl = () => {
             if (debounceTimer) clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
@@ -391,6 +417,9 @@ export default defineComponent({
             (ready) => {
                if (ready && monumentStore.geoData) {
                   const geoData = monumentStore.geoData;
+                  // Marker ids are rebuilt from the current dataset; stale ids
+                  // from a previous render must not resolve to dead markers.
+                  markerLookup.clear();
 
                   // Update Stats — located (geometry-bearing) monuments only, so the
                   // dashboard matches the markers actually on the map and the
@@ -500,6 +529,7 @@ export default defineComponent({
       });
 
       onUnmounted(() => {
+         if (debounceTimer) clearTimeout(debounceTimer);
          disposeMarkers();
          disposeContextMenu();
          mapInstance.value?.remove();

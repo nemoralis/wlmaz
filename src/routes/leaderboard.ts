@@ -11,6 +11,7 @@ import {
    extractCountry,
    FINISHED_TTL,
    isEventFinished,
+   parseLeaderboardResponse,
    START_YEAR,
 } from "@/utils/leaderboard.ts";
 import { logger } from "@/utils/logger.ts";
@@ -22,6 +23,18 @@ const API_BASE = "https://wikiloves.toolforge.org/api/events";
 
 const CACHE_TTL = 3600; // 1 hour — a contest still running keeps changing
 
+/** Maximum age of an in-memory aggregate when upstream is unavailable. */
+const STALE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+
+/** Don't hammer upstream with a background refresh on every request. */
+const REFRESH_MIN_INTERVAL_MS = 60 * 1000;
+
+const AGGREGATE_CACHE_KEY = "leaderboard:aggregate";
+const AGGREGATE_LOCK_KEY = "leaderboard:aggregate:lock";
+const AGGREGATE_LOCK_TTL = 30; // seconds
+const AGGREGATE_LOCK_WAIT_MS = 10_000;
+const AGGREGATE_LOCK_POLL_MS = 250;
+
 /**
  * Redis key for one event's Azerbaijan slice, shared by the per-year proxy
  * route and the aggregate builder so a single upstream fetch serves both.
@@ -32,6 +45,69 @@ function yearCacheKey(eventSlug: string): string {
 
 let aggregatePromise: Promise<LeaderboardResponse> | null = null;
 let lastAggregate: LeaderboardResponse | null = null;
+let lastAggregateAt = 0;
+let lastRefreshAttemptAt = 0;
+
+const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
+
+/** Reads and validates the aggregate cache. A corrupt value counts as a miss. */
+async function readCachedAggregate(): Promise<LeaderboardResponse | null> {
+   if (!redisClient.isOpen) return null;
+
+   let cached: string | null;
+   try {
+      cached = await redisClient.get(AGGREGATE_CACHE_KEY);
+   } catch (e) {
+      logger.error("Redis read error:", e);
+      return null;
+   }
+   if (!cached) return null;
+
+   try {
+      return parseLeaderboardResponse(JSON.parse(cached));
+   } catch (e) {
+      logger.warn("Invalid aggregate cache; discarding it", e);
+      try {
+         await redisClient.del(AGGREGATE_CACHE_KEY);
+      } catch (deleteError) {
+         logger.error("Redis delete error:", deleteError);
+      }
+      return null;
+   }
+}
+
+/**
+ * One Redis lock per refresh so PM2 workers do not all hit toolforge.org at
+ * once. Returns the ownership token, "busy" when another worker holds it, or
+ * null when Redis is unavailable (single-process fallback: proceed unlocked).
+ */
+async function acquireAggregateLock(): Promise<string | "busy" | null> {
+   if (!redisClient.isOpen) return null;
+
+   const token = `${process.pid}:${Date.now()}:${Math.random().toString(36).slice(2)}`;
+   try {
+      const result = await redisClient.set(AGGREGATE_LOCK_KEY, token, {
+         NX: true,
+         EX: AGGREGATE_LOCK_TTL,
+      });
+      return result === "OK" ? token : "busy";
+   } catch (e) {
+      logger.error("Redis lock error:", e);
+      return null;
+   }
+}
+
+/** Releases only the lock this process owns (compare-and-delete). */
+async function releaseAggregateLock(token: string): Promise<void> {
+   try {
+      await redisClient.eval(
+         "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end",
+         { keys: [AGGREGATE_LOCK_KEY], arguments: [token] },
+      );
+   } catch (e) {
+      logger.error("Redis lock release error:", e);
+   }
+}
 
 /**
  * Fetches fresh aggregate data from upstream (toolforge.org) with per-year
@@ -39,69 +115,128 @@ let lastAggregate: LeaderboardResponse | null = null;
  * blocking fetch and the background refresh.
  */
 async function fetchAggregate(): Promise<LeaderboardResponse> {
-   try {
-      const cacheKey = "leaderboard:aggregate";
+   // Try the aggregate cache first; validation keeps corrupt JSON from reaching
+   // the client as a "successful" leaderboard.
+   const cached = await readCachedAggregate();
+   if (cached) return cached;
+
+   const now = new Date();
+   const currentYear = now.getFullYear();
+   const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
+   const years = Array.from({ length: latestYear - START_YEAR + 1 }, (_, i) => START_YEAR + i);
+
+   const fetchPromises = years.map(async (year) => {
+      const eventSlug = `monuments${year}`;
+      const eventCacheKey = yearCacheKey(eventSlug);
 
       try {
          if (redisClient.isOpen) {
-            const cached = await redisClient.get(cacheKey);
-            if (cached) return JSON.parse(cached);
+            const cached = await redisClient.get(eventCacheKey);
+            if (cached) {
+               try {
+                  return parseLeaderboardResponse(JSON.parse(cached));
+               } catch (cacheError) {
+                  // A corrupt year entry must not blank that year; drop it and
+                  // let the upstream fetch below replace it.
+                  logger.warn(
+                     `Invalid cached leaderboard year ${eventSlug}; refetching`,
+                     cacheError,
+                  );
+                  await redisClient.del(eventCacheKey);
+               }
+            }
          }
+
+         const resp = await fetch(`${API_BASE}/${eventSlug}`, {
+            signal: AbortSignal.timeout(10000),
+            headers: { "User-Agent": "WLMAZ-Tool/1.0" },
+         });
+         if (!resp.ok) return null;
+
+         // Only the Azerbaijan slice is ever read — see extractCountry
+         const country = extractCountry(await resp.json());
+         if (!country) return null;
+
+         if (redisClient.isOpen) {
+            const ttl = isEventFinished(country[COUNTRY].end, now) ? FINISHED_TTL : CACHE_TTL;
+            await redisClient.setEx(eventCacheKey, ttl, JSON.stringify(country));
+         }
+         return country;
       } catch (e) {
-         logger.error("Redis read error:", e);
+         logger.error(`Failed to fetch ${eventSlug}:`, e);
+         return null;
       }
+   });
 
-      const now = new Date();
-      const currentYear = now.getFullYear();
-      const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
-      const years = Array.from({ length: latestYear - START_YEAR + 1 }, (_, i) => START_YEAR + i);
+   const results = await Promise.all(fetchPromises);
+   const failedYears = results.filter((result) => result === null).length;
 
-      const fetchPromises = years.map(async (year) => {
-         const eventSlug = `monuments${year}`;
-         const eventCacheKey = yearCacheKey(eventSlug);
+   if (failedYears === years.length) {
+      throw new Error("Every leaderboard year failed to load");
+   }
 
-         try {
-            if (redisClient.isOpen) {
-               const cached = await redisClient.get(eventCacheKey);
-               if (cached) return JSON.parse(cached);
-            }
+   const aggregate = aggregateLeaderboardYears(years, results);
 
-            const resp = await fetch(`${API_BASE}/${eventSlug}`, {
-               signal: AbortSignal.timeout(10000),
-               headers: { "User-Agent": "WLMAZ-Tool/1.0" },
-            });
-            if (!resp.ok) return null;
-
-            // Only the Azerbaijan slice is ever read — see extractCountry
-            const country = extractCountry(await resp.json());
-            if (!country) return null;
-
-            if (redisClient.isOpen) {
-               const ttl = isEventFinished(country[COUNTRY].end, now) ? FINISHED_TTL : CACHE_TTL;
-               await redisClient.setEx(eventCacheKey, ttl, JSON.stringify(country));
-            }
-            return country;
-         } catch (e) {
-            logger.error(`Failed to fetch ${eventSlug}:`, e);
-            return null;
-         }
-      });
-
-      const results = await Promise.all(fetchPromises);
-
-      const aggregate = aggregateLeaderboardYears(years, results);
-
+   if (failedYears > 0) {
+      // A partial aggregate must not displace a complete cached one for an
+      // hour; return it to this caller, but let the next request retry.
+      logger.warn(
+         `Leaderboard aggregate is partial: ${failedYears}/${years.length} years unavailable`,
+      );
+   } else {
       try {
          if (redisClient.isOpen) {
-            await redisClient.setEx(cacheKey, CACHE_TTL, JSON.stringify(aggregate));
+            await redisClient.setEx(AGGREGATE_CACHE_KEY, CACHE_TTL, JSON.stringify(aggregate));
          }
       } catch (e) {
          logger.error("Redis write error:", e);
       }
+   }
 
-      return aggregate;
+   return aggregate;
+}
+
+/**
+ * Runs one aggregate refresh per process. The promise is cleared only after
+ * `lastAggregate` has been updated, so a concurrent request cannot slip into
+ * the gap and start a duplicate upstream fetch.
+ */
+async function loadAggregate(): Promise<LeaderboardResponse> {
+   if (aggregatePromise) return aggregatePromise;
+
+   const promise = (async () => {
+      const lock = await acquireAggregateLock();
+
+      if (lock === "busy") {
+         // Another PM2 worker is refreshing. Wait briefly for it to publish the
+         // result instead of making the same upstream calls in parallel.
+         const deadline = Date.now() + AGGREGATE_LOCK_WAIT_MS;
+         while (Date.now() < deadline) {
+            await sleep(AGGREGATE_LOCK_POLL_MS);
+            const cached = await readCachedAggregate();
+            if (cached) return cached;
+         }
+         logger.warn("Leaderboard refresh lock stayed busy; fetching anyway");
+      }
+
+      try {
+         return await fetchAggregate();
+      } finally {
+         if (typeof lock === "string" && lock !== "busy") {
+            await releaseAggregateLock(lock);
+         }
+      }
+   })();
+
+   aggregatePromise = promise;
+
+   try {
+      const data = await promise;
+      lastAggregate = data;
+      lastAggregateAt = Date.now();
+      return data;
    } finally {
-      aggregatePromise = null;
+      if (aggregatePromise === promise) aggregatePromise = null;
    }
 }
 
@@ -111,13 +246,13 @@ async function fetchAggregate(): Promise<LeaderboardResponse> {
  */
 async function refreshAggregateInBackground(): Promise<void> {
    if (aggregatePromise) return;
-   aggregatePromise = fetchAggregate();
+   if (Date.now() - lastRefreshAttemptAt < REFRESH_MIN_INTERVAL_MS) return;
+
+   lastRefreshAttemptAt = Date.now();
    try {
-      lastAggregate = await aggregatePromise;
+      await loadAggregate();
    } catch (e) {
       logger.error("Background leaderboard refresh failed:", e);
-   } finally {
-      aggregatePromise = null;
    }
 }
 
@@ -126,42 +261,31 @@ async function refreshAggregateInBackground(): Promise<void> {
  *
  * 1. If a fetch is already in flight → piggyback on it.
  * 2. If Redis has fresh data → return it.
- * 3. If stale data exists → return it instantly, refresh in background.
- * 4. If no stale data (first load) → block and fetch.
+ * 3. If a recent in-memory aggregate exists → return it and refresh in the
+ *    background. The in-memory copy is bounded by STALE_MAX_AGE_MS so a
+ *    permanently broken upstream cannot be masked forever.
+ * 4. Otherwise → block and fetch.
  */
-async function getAggregateData() {
+async function getAggregateData(): Promise<LeaderboardResponse> {
    // 1. Piggyback on in-flight fetch
    if (aggregatePromise) return aggregatePromise;
 
-   const cacheKey = "leaderboard:aggregate";
-
    // 2. Try Redis cache
-   try {
-      if (redisClient.isOpen) {
-         const cached = await redisClient.get(cacheKey);
-         if (cached) {
-            lastAggregate = JSON.parse(cached);
-            return lastAggregate;
-         }
-      }
-   } catch (e) {
-      logger.error("Redis read error:", e);
+   const cached = await readCachedAggregate();
+   if (cached) {
+      lastAggregate = cached;
+      lastAggregateAt = Date.now();
+      return cached;
    }
 
-   // 3. Cache miss — serve stale and refresh in background
-   if (lastAggregate) {
-      refreshAggregateInBackground();
+   // 3. Cache miss — serve a recent stale copy and refresh in background
+   if (lastAggregate && Date.now() - lastAggregateAt <= STALE_MAX_AGE_MS) {
+      void refreshAggregateInBackground();
       return lastAggregate;
    }
 
-   // 4. No stale data (first load) — block until fetch completes
-   aggregatePromise = fetchAggregate();
-   try {
-      lastAggregate = await aggregatePromise;
-      return lastAggregate;
-   } finally {
-      aggregatePromise = null;
-   }
+   // 4. No usable stale data — block until fetch completes
+   return loadAggregate();
 }
 
 /**

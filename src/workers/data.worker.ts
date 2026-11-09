@@ -49,7 +49,7 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
          self.postMessage(msg);
       }
    } else if (e.data.type === "SEARCH") {
-      const { query } = e.data;
+      const { query, requestId } = e.data;
       if (!fuse) return;
 
       if (!query || query.trim() === "") {
@@ -57,13 +57,14 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
             type: "SEARCH_RESULTS",
             results: allFeatures.filter((f) => f.geometry),
             query,
+            requestId,
          };
          self.postMessage(msg);
          return;
       }
 
       const results = fuse.search(query).map((r) => r.item);
-      const msg: WorkerResponse = { type: "SEARCH_RESULTS", results, query };
+      const msg: WorkerResponse = { type: "SEARCH_RESULTS", results, query, requestId };
       self.postMessage(msg);
    }
 };

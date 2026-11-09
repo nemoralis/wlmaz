@@ -63,7 +63,7 @@
 
 <script lang="ts" setup>
 import type { ComponentPublicInstance } from "vue";
-import { computed, ref, watch } from "vue";
+import { computed, onUnmounted, ref, watch } from "vue";
 import { CdxIcon, CdxSearchInput } from "@wikimedia/codex";
 import { cdxIconImage } from "@wikimedia/codex-icons";
 import type { MonumentFeature } from "@/types";
@@ -100,6 +100,21 @@ watch(searchQuery, (newVal) => {
 
 const searchResults = computed(() => {
    return monumentStore.searchResults.slice(0, 50);
+});
+
+// The worker can return fewer results than the list had while the user was
+// navigating with the arrow keys. Clamp instead of letting Enter index past
+// the end and emit `undefined`.
+watch(searchResults, (results) => {
+   if (results.length === 0) {
+      selectedIndex.value = -1;
+   } else if (selectedIndex.value >= results.length) {
+      selectedIndex.value = results.length - 1;
+   }
+});
+
+onUnmounted(() => {
+   clearTimeout(searchTimeout);
 });
 
 // Methods
@@ -139,7 +154,8 @@ const handleSearchKeydown = (event: KeyboardEvent) => {
       case "Enter":
          event.preventDefault();
          if (selectedIndex.value >= 0) {
-            selectResult(searchResults.value[selectedIndex.value]);
+            const result = searchResults.value[selectedIndex.value];
+            if (result) selectResult(result);
          }
          break;
 

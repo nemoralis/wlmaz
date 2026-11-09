@@ -34,6 +34,15 @@ const API_PAYLOAD = {
    },
 };
 
+/** The same shape, but with a distinguishable username/count per year. */
+const payloadFor = (username: string, count: number) => ({
+   Azerbaijan: {
+      ...API_PAYLOAD.Azerbaijan,
+      count,
+      users: { [username]: { count, usage: 0, reg: 20200102030405 } },
+   },
+});
+
 const fetchStub = (body: unknown = API_PAYLOAD, status = 200) =>
    vi.fn(
       async () =>
@@ -79,6 +88,48 @@ describe("useLeaderboard loading state", () => {
       expect(cached.isValidating.value).toBe(true);
 
       await pending;
+   });
+});
+
+describe("useLeaderboard request ordering", () => {
+   it("ignores a slow response from a superseded year", async () => {
+      let release2024!: () => void;
+      const gate2024 = new Promise<void>((resolve) => {
+         release2024 = resolve;
+      });
+
+      vi.stubGlobal(
+         "fetch",
+         vi.fn(async (input: RequestInfo | URL) => {
+            const url = String(input);
+            if (url.includes("monuments2024")) {
+               await gate2024;
+               return new Response(JSON.stringify(payloadFor("Older", 1)), {
+                  status: 200,
+                  headers: { "Content-Type": "application/json" },
+               });
+            }
+            return new Response(JSON.stringify(payloadFor("Newer", 2)), {
+               status: 200,
+               headers: { "Content-Type": "application/json" },
+            });
+         }),
+      );
+
+      const leaderboard = useLeaderboard();
+      const older = leaderboard.fetchLeaderboard(2024);
+      await leaderboard.fetchLeaderboard(2025);
+
+      expect(leaderboard.selectedYear.value).toBe(2025);
+      expect(leaderboard.users.value[0].username).toBe("Newer");
+
+      release2024();
+      await older;
+
+      // The older payload must not overwrite the year the user is looking at.
+      expect(leaderboard.users.value[0].username).toBe("Newer");
+      expect(leaderboard.isValidating.value).toBe(false);
+      expect(leaderboard.isLoading.value).toBe(false);
    });
 });
 

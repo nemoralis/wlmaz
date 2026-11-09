@@ -2,10 +2,15 @@
    <div class="flex h-full w-full flex-col items-center justify-center bg-white p-8 text-center">
       <div
          class="mb-4 flex h-20 w-20 items-center justify-center rounded-full"
-         :class="failures.length > 0 ? 'bg-amber-100' : 'bg-green-100'"
+         :class="failures.length > 0 || wasCancelled ? 'bg-amber-100' : 'bg-green-100'"
       >
          <font-awesome-icon
-            v-if="failures.length === 0"
+            v-if="wasCancelled"
+            :icon="['fas', 'ban']"
+            class="text-4xl text-amber-600"
+         />
+         <font-awesome-icon
+            v-else-if="failures.length === 0"
             :icon="['fas', 'check']"
             class="text-4xl text-green-600"
          />
@@ -17,10 +22,22 @@
       </div>
 
       <h3 class="mb-2 text-2xl font-bold text-gray-900">
-         {{ failures.length > 0 ? "Qismən yükləndi" : "Uğurla yükləndi!" }}
+         {{
+            wasCancelled
+               ? "Yükləmə dayandırıldı"
+               : failures.length > 0
+                 ? "Qismən yükləndi"
+                 : "Uğurla yükləndi!"
+         }}
       </h3>
       <p class="mb-8 text-gray-500">
-         <template v-if="failures.length === 0">
+         <template v-if="wasCancelled">
+            <template v-if="results.length > 0">
+               {{ results.length }} fayl yükləndi, yükləmə dayandırıldı.
+            </template>
+            <template v-else>Heç bir fayl yüklənmədi.</template>
+         </template>
+         <template v-else-if="failures.length === 0">
             {{ results.length }} fayl Wikimedia Commons-a yükləndi.
          </template>
          <template v-else>
@@ -82,7 +99,8 @@
 
       <div class="flex space-x-4">
          <button
-            class="rounded-lg px-6 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100"
+            class="rounded-lg px-6 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+            :disabled="isRetrying"
             @click="$emit('close')"
          >
             Bağla
@@ -102,7 +120,8 @@
             {{ isRetrying ? "Yenidən cəhd edilir..." : "Yenidən cəhd et" }}
          </button>
          <button
-            class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700"
+            class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            :disabled="isRetrying"
             @click="$emit('reset')"
          >
             Başqasını yüklə
@@ -118,6 +137,7 @@ defineProps<{
    results: UploadResult[];
    failures: UploadFailure[];
    isRetrying: boolean;
+   wasCancelled: boolean;
 }>();
 
 defineEmits<{

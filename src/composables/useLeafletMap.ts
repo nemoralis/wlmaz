@@ -46,6 +46,8 @@ export interface MapOptions {
    onSidebarClosing?: () => void;
    /** Fires after each viewport sync with the number of markers on screen. */
    onVisibleCountChange?: (count: number) => void;
+   /** Fires when the selected marker no longer passes the active filter. */
+   onActiveMarkerRemoved?: () => void;
 }
 
 /** Marker predicate used to decide whether a marker should be on the map. */
@@ -105,6 +107,7 @@ export function useLeafletMap() {
       });
       mapInstance.value = map;
       visibleCountCallback = options.onVisibleCountChange ?? null;
+      activeMarkerRemovedCallback = options.onActiveMarkerRemoved ?? null;
 
       // 3. Context Menu (right-click)
       let contextMenuEl: HTMLDivElement | null = null;
@@ -381,6 +384,8 @@ export function useLeafletMap() {
    let viewportTimer: ReturnType<typeof setTimeout> | null = null;
    // Assigned in initialize; lets syncViewport announce the on-screen count.
    let visibleCountCallback: ((count: number) => void) | null = null;
+   // Assigned in initialize; notifies the map page that its selection vanished.
+   let activeMarkerRemovedCallback: (() => void) | null = null;
 
    const addMarkersChunked = (markers: L.Layer[]) => {
       const layer = markersGroup.value;
@@ -412,15 +417,28 @@ export function useLeafletMap() {
 
       // Remove markers that left the viewport (or no longer pass the filter)
       const toRemove: L.Layer[] = [];
+      let activeFilteredOut = false;
+      let hoveredRemoved = false;
       for (const m of addedMarkers) {
-         const visible =
-            bounds.contains((m as MonumentMarker).getLatLng()) &&
-            passesFilter((m as MonumentMarker).feature.properties);
-         if (!visible) toRemove.push(m);
+         const marker = m as MonumentMarker;
+         const inBounds = bounds.contains(marker.getLatLng());
+         const passes = passesFilter(marker.feature.properties);
+         if (!inBounds || !passes) {
+            toRemove.push(m);
+            if (m === hoveredMarker) hoveredRemoved = true;
+            if (!passes && m === activeMarkerLayer.value) activeFilteredOut = true;
+         }
       }
       for (const m of toRemove) {
          layer.removeLayer(m);
          addedMarkers.delete(m);
+      }
+      if (hoveredRemoved) hoverMarker(null);
+      if (activeFilteredOut) {
+         // The selection is no longer part of the visible set; clear both the
+         // highlight and the page's selectedMonument so they cannot disagree.
+         highlightMarker(null);
+         activeMarkerRemovedCallback?.();
       }
 
       // Add markers that entered the viewport (and pass the filter)
@@ -457,6 +475,12 @@ export function useLeafletMap() {
     * are currently inside the viewport and pass the filter.
     */
    const renderMarkers = (markers: L.Layer[], passesFilter: MarkerFilter) => {
+      // A re-render replaces the entire set: drop the old layers and any
+      // selection/hover that pointed into it before registering the new one.
+      highlightMarker(null);
+      hoverMarker(null);
+      markersGroup.value?.clearLayers();
+      addedMarkers.clear();
       allMarkers.length = 0;
       allMarkers.push(...markers);
       syncViewport(passesFilter);
@@ -473,9 +497,12 @@ export function useLeafletMap() {
       if (viewportTimer) clearTimeout(viewportTimer);
       viewportTimer = null;
       chunkHandle++; // Supersede any in-flight chunked add
+      highlightMarker(null);
+      hoverMarker(null);
+      markersGroup.value?.clearLayers();
+      markersGroup.value = null;
       allMarkers = [];
       addedMarkers.clear();
-      hoveredMarker = null;
    };
 
    const disposeContextMenu = () => {

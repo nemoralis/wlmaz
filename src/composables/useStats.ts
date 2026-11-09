@@ -1,4 +1,5 @@
 import { computed, ref } from "vue";
+import { isFiniteNumber, isRecord } from "@/utils/typeGuards.ts";
 
 /** One point in the monument-coverage history, as published in stats-history.json. */
 export interface StatHistoryItem {
@@ -8,18 +9,39 @@ export interface StatHistoryItem {
    date: string;
 }
 
+const emptyCurrentStats = (): StatHistoryItem => ({
+   total: 0,
+   withImage: 0,
+   withoutImage: 0,
+   date: "",
+});
+
+/** Runtime validation: the JSON file is an external resource like any API. */
+const isStatHistoryItem = (value: unknown): value is StatHistoryItem => {
+   if (!isRecord(value)) return false;
+   return (
+      isFiniteNumber(value.total) &&
+      isFiniteNumber(value.withImage) &&
+      isFiniteNumber(value.withoutImage) &&
+      typeof value.date === "string" &&
+      !Number.isNaN(Date.parse(value.date))
+   );
+};
+
+const parseStatsHistory = (body: unknown): StatHistoryItem[] => {
+   if (!Array.isArray(body) || !body.every(isStatHistoryItem)) {
+      throw new Error("Statistika məlumatları etibarsızdır");
+   }
+   return body;
+};
+
 /**
  * Loads and formats the monument coverage history (stats-history.json).
  * Exposes the latest snapshot plus derived percentage/last-update strings.
  */
 export const useStats = () => {
    const history = ref<StatHistoryItem[]>([]);
-   const currentStats = ref<StatHistoryItem>({
-      total: 0,
-      withImage: 0,
-      withoutImage: 0,
-      date: new Date().toISOString().split("T")[0],
-   });
+   const currentStats = ref<StatHistoryItem>(emptyCurrentStats());
    const isLoading = ref(false);
    const error = ref<string | null>(null);
 
@@ -28,19 +50,22 @@ export const useStats = () => {
       error.value = null;
       try {
          const res = await fetch("/stats-history.json");
-         if (res.ok) {
-            const data = await res.json();
-            if (Array.isArray(data)) {
-               history.value = data;
-               if (history.value.length > 0) {
-                  currentStats.value = history.value[history.value.length - 1];
-               }
-            }
-         } else {
-            throw new Error("Failed to fetch stats");
+         if (!res.ok) {
+            throw new Error("Statistika məlumatları yüklənə bilmədi");
          }
+
+         const data = parseStatsHistory(await res.json());
+         history.value = data;
+         currentStats.value = data.length > 0 ? data[data.length - 1] : emptyCurrentStats();
       } catch (e) {
-         const message = e instanceof Error ? e.message : "Failed to load data";
+         const message =
+            e instanceof TypeError
+               ? "Şəbəkə xətası"
+               : e instanceof SyntaxError
+                 ? "Statistika məlumatları etibarsızdır"
+                 : e instanceof Error
+                   ? e.message
+                   : "Failed to load data";
          console.error("Failed to load stats history", e);
          error.value = message;
       } finally {
@@ -62,12 +87,16 @@ export const useStats = () => {
 
    const lastUpdateDate = computed(() => {
       if (!currentStats.value.date) return "-";
-      return DATE_FORMATTER.format(new Date(currentStats.value.date));
+      const date = new Date(currentStats.value.date);
+      if (Number.isNaN(date.getTime())) return "-";
+      return DATE_FORMATTER.format(date);
    });
 
    return {
       history,
       currentStats,
+      isLoading,
+      error,
       fetchData,
       imagePercentage,
       lastUpdateDate,

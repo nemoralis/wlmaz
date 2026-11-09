@@ -24,24 +24,49 @@ import {
 } from "@/utils/uploadService.ts";
 
 /**
+ * The upload flow's single lifecycle value. `checking-titles` and `uploading`
+ * are both "busy" (they show the progress overlay and block closing); keeping
+ * them distinct makes the pre-flight title check a real state instead of an
+ * unguarded prologue that could leave `isUploading` stuck.
+ */
+export type UploadPhase = "idle" | "checking-titles" | "uploading" | "complete" | "cancelled";
+
+/**
+ * Server-driven upload availability. The initial value is "checking", not
+ * "enabled": if `/upload/status` cannot be reached the UI must fail closed
+ * rather than offer an upload the server may reject.
+ */
+export type UploadAvailability = "checking" | "enabled" | "disabled" | "error";
+
+/**
  * Encapsulates the file-selection and upload-to-Commons logic used by the
  * UploadModal, keyed off the currently selected monument.
  */
 export function useImageUpload(monument: Ref<MonumentProps | null>) {
    const fileInput = ref<HTMLInputElement | null>(null);
    const files = ref<FileItem[]>([]);
-   const isUploading = ref(false);
+   const phase = ref<UploadPhase>("idle");
    const uploadProgress = ref(0);
    const currentFileIndex = ref(0);
    const mode = ref<"bulk" | "individual">("bulk");
-   const uploadComplete = ref(false);
    const uploadResults = ref<UploadResult[]>([]);
    const uploadFailures = ref<UploadFailure[]>([]);
    const isRetrying = ref(false);
-   const uploadsEnabled = ref(true);
+   const uploadAvailability = ref<UploadAvailability>("checking");
    const isDragging = ref(false);
    const abortController = ref<AbortController | null>(null);
    const isCancelled = ref(false);
+   /** Latest status request; a stale failure must not overwrite a newer result. */
+   let statusRequestId = 0;
+
+   const uploadsEnabled = computed(() => uploadAvailability.value === "enabled");
+
+   const isUploading = computed(
+      () => phase.value === "checking-titles" || phase.value === "uploading",
+   );
+   const uploadComplete = computed(() => phase.value === "complete" || phase.value === "cancelled");
+   const wasCancelled = computed(() => phase.value === "cancelled");
+   const isBusy = computed(() => isUploading.value || isRetrying.value);
    // Server-driven: true when the backend is running in local MediaWiki dev mode
    // (uploads work without a Commons OAuth login). Never carries credentials.
    const localUploadEnabled = ref(false);
@@ -54,14 +79,21 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
    });
 
    const checkStatus = async () => {
+      const id = ++statusRequestId;
+      uploadAvailability.value = "checking";
+
       try {
          const data = await apiFetch<UploadStatusResponse>("/upload/status", {
             parse: parseUploadStatusResponse,
             label: "upload status",
          });
-         uploadsEnabled.value = data.enabled;
+         if (id === statusRequestId) {
+            uploadAvailability.value = data.enabled ? "enabled" : "disabled";
+         }
       } catch (e) {
          console.error("Failed to check status", e);
+         // Unknown is not enabled: keep the upload action unavailable.
+         if (id === statusRequestId) uploadAvailability.value = "error";
       }
 
       // Fetch server-driven upload config (safe info only: dev mode flag + wiki
@@ -71,8 +103,10 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
             parse: parseUploadConfigResponse,
             label: "upload config",
          });
-         localUploadEnabled.value = data.localUploadEnabled;
-         mediaWikiUrl.value = data.mediaWikiUrl;
+         if (id === statusRequestId) {
+            localUploadEnabled.value = data.localUploadEnabled;
+            mediaWikiUrl.value = data.mediaWikiUrl;
+         }
       } catch (e) {
          console.error("Failed to check upload config", e);
       }
@@ -113,20 +147,21 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
    });
 
    const resetForm = () => {
+      if (isBusy.value) return;
       files.value.forEach((f) => URL.revokeObjectURL(f.preview));
       files.value = [];
       bulkForm.title = "";
       bulkForm.description = "";
       bulkForm.license = "cc-by-sa-4.0";
       mode.value = "bulk";
-      isUploading.value = false;
+      phase.value = "idle";
       isCancelled.value = false;
       abortController.value = null;
       uploadProgress.value = 0;
       currentFileIndex.value = 0;
-      uploadComplete.value = false;
       uploadResults.value = [];
       uploadFailures.value = [];
+      isRetrying.value = false;
       if (fileInput.value) fileInput.value.value = "";
    };
 
@@ -229,6 +264,7 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
    };
 
    const cancelUpload = () => {
+      if (!isBusy.value) return;
       isCancelled.value = true;
       abortController.value?.abort();
       abortController.value = null;
@@ -239,8 +275,8 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       e.returnValue = "";
    };
 
-   watch(isUploading, (uploading) => {
-      if (uploading) {
+   watch(isBusy, (busy) => {
+      if (busy) {
          window.addEventListener("beforeunload", beforeUnloadHandler);
       } else {
          window.removeEventListener("beforeunload", beforeUnloadHandler);
@@ -263,66 +299,75 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
    // Process uploads sequentially; each file's outcome is recorded and a
    // failure does not abort the rest of the batch (partial-success UX).
    const handleUpload = async () => {
-      if (!isValid.value) return;
+      if (!isValid.value || isBusy.value) return;
 
-      isUploading.value = true;
+      const controller = new AbortController();
+      phase.value = "checking-titles";
       isCancelled.value = false;
-      abortController.value = new AbortController();
+      abortController.value = controller;
       uploadProgress.value = 0;
       currentFileIndex.value = 0;
+      uploadResults.value = [];
       uploadFailures.value = [];
 
-      // Apply bulk metadata if in bulk mode
-      if (mode.value === "bulk") {
-         files.value.forEach((f, index) => {
-            // Only append number if there are multiple files
-            f.title = files.value.length > 1 ? `${bulkForm.title} ${index + 1}` : bulkForm.title;
-            f.description = bulkForm.description;
-         });
+      try {
+         // Apply bulk metadata if in bulk mode
+         if (mode.value === "bulk") {
+            files.value.forEach((f, index) => {
+               // Only append number if there are multiple files
+               f.title = files.value.length > 1 ? `${bulkForm.title} ${index + 1}` : bulkForm.title;
+               f.description = bulkForm.description;
+            });
 
-         // Multi-file batches skip numbers already taken on Commons so the
-         // upload never collides with an existing file (e.g. a previous
-         // batch already created "Monument 1", so we start at "Monument 2").
-         if (files.value.length > 1) {
-            try {
-               const freeTitles = await nextFreeTitles(
-                  bulkForm.title,
-                  files.value.length,
-                  async (candidates) => {
-                     const data = await apiFetch<TitlesExistResponse>("/upload/titles-exist", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ titles: candidates }),
-                        parse: parseTitlesExistResponse,
-                        timeoutMs: 10_000,
-                        label: "titles-exist",
-                     });
-                     return new Set(data.existing);
-                  },
-               );
-               files.value.forEach((f, index) => {
-                  f.title = freeTitles[index];
-               });
-            } catch (error) {
-               // Fail the batch up-front when availability can't be checked:
-               // safer than uploading blindly against possibly-taken titles.
-               console.error("Failed to check title availability", error);
-               const detail =
-                  error instanceof Error ? error.message : messageFor("title_check_failed", "");
-               uploadFailures.value = files.value.map((f) => ({
-                  fileItem: f,
-                  name: f.file.name,
-                  code: "title_check_failed",
-                  message: detail || messageFor("title_check_failed", ""),
-               }));
-               return;
+            // Multi-file batches skip numbers already taken on Commons so the
+            // upload never collides with an existing file (e.g. a previous
+            // batch already created "Monument 1", so we start at "Monument 2").
+            if (files.value.length > 1) {
+               try {
+                  const freeTitles = await nextFreeTitles(
+                     bulkForm.title,
+                     files.value.length,
+                     async (candidates) => {
+                        const data = await apiFetch<TitlesExistResponse>("/upload/titles-exist", {
+                           method: "POST",
+                           headers: { "Content-Type": "application/json" },
+                           body: JSON.stringify({ titles: candidates }),
+                           parse: parseTitlesExistResponse,
+                           timeoutMs: 10_000,
+                           signal: controller.signal,
+                           label: "titles-exist",
+                        });
+                        return new Set(data.existing);
+                     },
+                  );
+                  files.value.forEach((f, index) => {
+                     f.title = freeTitles[index];
+                  });
+               } catch (error) {
+                  // Cancelling is not a failure; settle in `finally`.
+                  if (isCancelled.value) return;
+
+                  // Fail the batch up-front when availability can't be checked:
+                  // safer than uploading blindly against possibly-taken titles.
+                  console.error("Failed to check title availability", error);
+                  const detail =
+                     error instanceof Error ? error.message : messageFor("title_check_failed", "");
+                  uploadFailures.value = files.value.map((f) => ({
+                     fileItem: f,
+                     name: f.file.name,
+                     code: "title_check_failed",
+                     message: detail || messageFor("title_check_failed", ""),
+                  }));
+                  return;
+               }
             }
          }
-      }
 
-      const md = monumentData();
-      const signal = abortController.value.signal;
-      try {
+         if (isCancelled.value) return;
+
+         phase.value = "uploading";
+         const md = monumentData();
+         const signal = controller.signal;
          for (let i = 0; i < files.value.length; i++) {
             if (isCancelled.value) break;
             currentFileIndex.value = i;
@@ -345,16 +390,32 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
          }
       } finally {
          abortController.value = null;
-         uploadComplete.value = true;
-         isUploading.value = false;
+         // Every path — success, partial failure, title-check failure, cancel —
+         // must settle the machine, otherwise the progress overlay cannot close.
+         // Cancellation is a distinct terminal state so the results view can
+         // say "stopped" instead of claiming a successful zero-file upload.
+         phase.value = isCancelled.value ? "cancelled" : "complete";
       }
    };
 
    // Re-attempts the failed files, keeping their existing titles/descriptions.
    const retryFailed = async () => {
-      if (isRetrying.value || uploadFailures.value.length === 0) return;
+      if (isBusy.value || uploadFailures.value.length === 0) return;
 
+      // A title-check failure has no upload to retry — the batch never started.
+      // Re-run the full flow so titles are checked and renumbered again.
+      if (uploadFailures.value.some((failure) => failure.code === "title_check_failed")) {
+         await handleUpload();
+         return;
+      }
+
+      const controller = new AbortController();
       isRetrying.value = true;
+      isCancelled.value = false;
+      // Leaving "cancelled" behind would keep the old terminal message while
+      // this retry is running; the results overlay stays open either way.
+      phase.value = "complete";
+      abortController.value = controller;
       uploadProgress.value = 0;
       currentFileIndex.value = 0;
       const pending = [...uploadFailures.value];
@@ -363,11 +424,17 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
       const md = monumentData();
       try {
          for (let i = 0; i < pending.length; i++) {
+            if (isCancelled.value) {
+               // Put the untouched files back so they can still be retried.
+               uploadFailures.value.push(...pending.slice(i));
+               break;
+            }
             currentFileIndex.value = i;
             const { ok, result, failure } = await uploadSingleFile(
                pending[i].fileItem,
                bulkForm.license,
                md,
+               controller.signal,
             );
             if (ok && result) {
                uploadResults.value.push(result);
@@ -377,6 +444,8 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
             uploadProgress.value = Math.round(((i + 1) / pending.length) * 100);
          }
       } finally {
+         abortController.value = null;
+         phase.value = isCancelled.value ? "cancelled" : "complete";
          isRetrying.value = false;
       }
    };
@@ -384,16 +453,21 @@ export function useImageUpload(monument: Ref<MonumentProps | null>) {
    return {
       fileInput,
       files,
+      phase,
       isUploading,
+      isBusy,
       isCancelled,
       uploadProgress,
       currentFileIndex,
       mode,
       uploadComplete,
+      wasCancelled,
       uploadResults,
       uploadFailures,
       isRetrying,
       uploadsEnabled,
+      uploadAvailability,
+      checkStatus,
       isDragging,
       localUploadEnabled,
       mediaWikiUrl,

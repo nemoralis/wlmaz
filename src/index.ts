@@ -341,16 +341,44 @@ const startServer = async () => {
       logger.info(`Backend server is running on ${config.port}`);
    });
 
-   const gracefulShutdown = async (signal: string) => {
+   let shuttingDown = false;
+
+   const gracefulShutdown = (signal: string) => {
+      // SIGTERM can arrive more than once (PM2 sends it to the whole tree).
+      if (shuttingDown) return;
+      shuttingDown = true;
       logger.info(`${signal} received: closing HTTP server`);
-      server.close(async () => {
-         logger.info("HTTP server closed");
-         if (redisClient.isOpen) {
-            await redisClient.quit();
-            logger.info("Redis client closed");
+
+      const forceExit = setTimeout(() => {
+         logger.error("Graceful shutdown timed out; forcing exit");
+         server.closeAllConnections();
+         process.exit(1);
+      }, 10_000);
+      forceExit.unref();
+
+      server.close(async (closeError?: Error) => {
+         if (closeError) {
+            logger.error("HTTP server close error:", closeError);
+         } else {
+            logger.info("HTTP server closed");
          }
-         process.exit(0);
+
+         try {
+            if (redisClient.isOpen) {
+               await redisClient.quit();
+               logger.info("Redis client closed");
+            }
+         } catch (redisError) {
+            logger.error("Redis client close error:", redisError);
+         } finally {
+            clearTimeout(forceExit);
+            process.exit(closeError ? 1 : 0);
+         }
       });
+
+      // Keep-alive sockets would otherwise hold close() open until their
+      // timeout; active requests still finish normally.
+      server.closeIdleConnections();
    };
 
    process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));

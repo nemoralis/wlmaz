@@ -59,6 +59,41 @@ const upload = multer({
 });
 
 /**
+ * Multer middleware with its own error mapping. Without this, an oversized or
+ * wrongly encoded multipart request reaches Express's generic handler and is
+ * reported as a 500 instead of a client error.
+ */
+const uploadSingleFile: express.RequestHandler = (req, res, next) => {
+   upload.single("file")(req, res, (error: unknown) => {
+      if (!error) {
+         next();
+         return;
+      }
+
+      if (error instanceof multer.MulterError) {
+         const tooLarge = error.code === "LIMIT_FILE_SIZE";
+         const body: UploadErrorResponse = {
+            error: tooLarge ? "File exceeds the 20 MB limit" : "Invalid multipart upload",
+            code: error.code,
+         };
+         res.status(tooLarge ? 413 : 400).json(body);
+         return;
+      }
+
+      if (error instanceof Error && error.message === "Only image files are allowed") {
+         const body: UploadErrorResponse = {
+            error: error.message,
+            code: "invalid_file_type",
+         };
+         res.status(400).json(body);
+         return;
+      }
+
+      next(error);
+   });
+};
+
+/**
  * Middleware to ensure uploads are permitted for this request.
  *
  * In normal (production) operation this requires an authenticated Commons OAuth
@@ -124,42 +159,58 @@ router.get("/config", (_req, res) => {
  * mode this hits the local MediaWiki instance with the bot session.
  * Uses JSON POST so long filenames never hit query-string/header limits.
  */
-router.post("/titles-exist", ensureAuthenticatedOrLocalDev, async (req, res) => {
-   try {
-      const parsed = parseTitlesExistRequest(req.body);
-      if (!parsed.ok) {
-         res.status(400).json({ error: parsed.error });
-         return;
-      }
-      const titles = parsed.value;
+router.post(
+   "/titles-exist",
+   checkUploadsEnabled,
+   ensureAuthenticatedOrLocalDev,
+   async (req, res) => {
+      try {
+         const parsed = parseTitlesExistRequest(req.body);
+         if (!parsed.ok) {
+            res.status(400).json({ error: parsed.error });
+            return;
+         }
+         const titles = parsed.value;
 
-      const existing = await checkFileExistence(titles);
-      logger.info(
-         "[titles-exist] checked=%d existing=%d first=%s",
-         titles.length,
-         existing.length,
-         titles[0],
-      );
-      const body: TitlesExistResponse = { existing };
-      res.json(body);
-   } catch (error) {
-      logger.error("Titles existence check failed:", error);
-      res.status(502).json({ error: "Failed to check title availability" });
-   }
-});
+         const existing = await checkFileExistence(titles);
+         logger.info(
+            "[titles-exist] checked=%d existing=%d first=%s",
+            titles.length,
+            existing.length,
+            titles[0],
+         );
+         const body: TitlesExistResponse = { existing };
+         res.json(body);
+      } catch (error) {
+         logger.error("Titles existence check failed:", error);
+         res.status(502).json({ error: "Failed to check title availability" });
+      }
+   },
+);
 
 router.post(
    "/",
    checkUploadsEnabled,
    ensureAuthenticatedOrLocalDev,
-   upload.single("file"),
+   uploadSingleFile,
    async (req, res) => {
       if (!req.file) {
          res.status(400).json({ error: "No file uploaded" });
          return;
       }
 
+      // Stop doing expensive work if the browser went away. The response is
+      // only "closed" without ending when the client disconnected; a normal
+      // completed response must not abort anything.
+      const abortController = new AbortController();
+      const handleClientDisconnect = () => {
+         if (!res.writableEnded) abortController.abort();
+      };
+      res.on("close", handleClientDisconnect);
+
       try {
+         if (abortController.signal.aborted) return;
+
          // Resolve the upload target / auth mode once per request. In production
          // this is always Commons OAuth; in local dev mode it is the configured
          // local MediaWiki bot session (server-side authentication).
@@ -241,6 +292,9 @@ router.post(
 
          const optimized = await optimizeImage(fileBuffer, metadata);
 
+         // Sharp cannot be cancelled mid-pipeline; everything after it can.
+         if (abortController.signal.aborted) return;
+
          // Determine final properties
          let finalBuffer = optimized.buffer;
          let finalMime = optimized.mimetype;
@@ -258,6 +312,8 @@ router.post(
          }
 
          // Upload (OAuth Commons or local bot-password) using the optimized buffer.
+         if (abortController.signal.aborted) return;
+
          const result = await uploadToCommons(
             req.user ?? null,
             {
@@ -270,6 +326,7 @@ router.post(
                comment: `Uploaded via wikilovesmonuments.az`,
             },
             target,
+            abortController.signal,
          );
 
          const body: UploadSuccessResponse = {
@@ -280,6 +337,13 @@ router.post(
          };
          res.json(body);
       } catch (error: unknown) {
+         // A client that disconnected is not an upload failure: the response is
+         // already gone and there is nobody to report to.
+         if (abortController.signal.aborted) {
+            logger.info("Upload aborted: client disconnected");
+            return;
+         }
+
          // Commons rejections carry a user-facing code/info; surface them so the
          // client can map them to a helpful message. Everything else is an
          // internal error and stays generic to avoid leaking stack traces.
@@ -310,6 +374,8 @@ router.post(
                ? "An internal error occurred during the upload process."
                : message,
          });
+      } finally {
+         res.off("close", handleClientDisconnect);
       }
    },
 );

@@ -15,7 +15,27 @@
                <template v-else>{{ requestedName }}</template>
             </h1>
 
-            <p v-if="region" class="mt-1 text-sm text-gray-600">{{ monuments.length }} abidə</p>
+            <p v-if="region && monumentStore.isDataReady" class="mt-1 text-sm text-gray-600">
+               {{ monuments.length }} abidə
+            </p>
+         </div>
+      </div>
+
+      <!-- Region list unavailable: distinct from "this region does not exist",
+           which would otherwise render a 404 for a transient network failure. -->
+      <div v-if="regionLoadFailed" class="flex flex-1 items-center justify-center px-4 py-16">
+         <div class="max-w-md rounded-lg border border-gray-200 bg-white p-8 text-center shadow-sm">
+            <h2 class="mb-2 text-xl font-bold text-gray-900">Region məlumatları yüklənə bilmədi</h2>
+            <p class="mb-6 text-sm text-gray-600">
+               Region siyahısı hazırda əlçatan deyil. Zəhmət olmasa yenidən cəhd edin.
+            </p>
+            <button
+               type="button"
+               class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
+               @click="retryLoads"
+            >
+               Yenidən cəhd et
+            </button>
          </div>
       </div>
 
@@ -24,8 +44,39 @@
            remaining height and centres the page vertically — the shared page's
            own `min-h-full` cannot stretch here, because a flex-grown parent's
            height does not resolve percentages. -->
-      <div v-if="isUnknown" class="flex flex-1 flex-col justify-center">
+      <div v-else-if="isUnknown" class="flex flex-1 flex-col justify-center">
          <NotFound />
+      </div>
+
+      <!-- Region exists, but its monument dataset failed to load. -->
+      <div
+         v-else-if="region && monumentsFailed"
+         class="flex flex-1 items-center justify-center px-4 py-16"
+      >
+         <div class="max-w-md rounded-lg border border-gray-200 bg-white p-8 text-center shadow-sm">
+            <h2 class="mb-2 text-xl font-bold text-gray-900">
+               Abidələr məlumatları yüklənə bilmədi
+            </h2>
+            <p class="mb-6 text-sm text-gray-600">
+               Regionun abidələri hazırda əlçatan deyil. Zəhmət olmasa yenidən cəhd edin.
+            </p>
+            <button
+               type="button"
+               class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
+               @click="retryLoads"
+            >
+               Yenidən cəhd et
+            </button>
+         </div>
+      </div>
+
+      <!-- Region exists; wait for the monument dataset before rendering counts
+           and the gallery, so a known region never flashes "0 abidə". -->
+      <div
+         v-else-if="region && !monumentStore.isDataReady"
+         class="flex flex-1 items-center justify-center py-20"
+      >
+         <div class="h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
       </div>
 
       <!--
@@ -135,7 +186,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, onMounted, ref } from "vue";
+import { computed, defineAsyncComponent, onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useHead } from "@unhead/vue";
 import { CdxIcon } from "@wikimedia/codex";
@@ -162,7 +213,7 @@ const UploadModal = defineAsyncComponent(() => import("@/components/UploadModal.
 
 const route = useRoute();
 const monumentStore = useMonumentStore();
-const { load, payload, loadFailed, findRegion } = useRegionsMap();
+const { load, payload, loadFailed, isLoading: regionsLoading, findRegion } = useRegionsMap();
 
 const requestedName = computed(() => String(route.params.name ?? ""));
 const region = computed(() => findRegion(requestedName.value));
@@ -173,11 +224,30 @@ const region = computed(() => findRegion(requestedName.value));
  * would otherwise show a spinner over a 404). A known region waits for both,
  * or its count would flash 0 before the monuments arrive.
  */
-const regionsSettled = computed(() => loadFailed.value || payload.value !== null);
+const regionsSettled = computed(() => payload.value !== null);
+
+/** A failed list is not the same thing as a name that does not exist. */
+const regionLoadFailed = computed(
+   () => loadFailed.value && payload.value === null && !regionsLoading.value,
+);
 
 const isUnknown = computed(() => regionsSettled.value && region.value === null);
 
-const isLoading = computed(() => !isUnknown.value && !(region.value && monumentStore.isDataReady));
+const monumentsFailed = computed(() => monumentStore.status === "error");
+
+const isLoading = computed(
+   () =>
+      !isUnknown.value &&
+      !regionLoadFailed.value &&
+      !monumentsFailed.value &&
+      !(region.value && monumentStore.isDataReady),
+);
+
+/** Retries only the half that failed; a cached region list needs no refetch. */
+const retryLoads = () => {
+   if (!payload.value) void load();
+   if (!monumentStore.isDataReady) monumentStore.init();
+};
 
 /**
  * The one source for both the count and the table. The heading reads
@@ -225,6 +295,16 @@ const openUploadModal = (monument: MonumentProps): void => {
 };
 
 const sortState = ref<Record<string, "asc" | "desc">>({ inventory: "asc" });
+
+/**
+ * Vue reuses this component when only the `:name` route param changes, so
+ * sort order and scroll position from the previous region would otherwise
+ * carry over to a different list.
+ */
+watch(requestedName, () => {
+   sortState.value = { inventory: "asc" };
+   virtualTable.value?.scrollToTop();
+});
 
 const sortedMonuments = computed<MonumentProps[]>(() =>
    sortMonumentsByKey(

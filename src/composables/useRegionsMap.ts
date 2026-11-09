@@ -31,8 +31,11 @@ const load = async (): Promise<RegionsMapData | null> => {
    if (inFlight) return inFlight;
 
    // Set before the request so a render that happens during the fetch already
-   // sees the loading state, and cleared in `finally` on both paths.
+   // sees the loading state, and cleared in `finally` on both paths. Clearing
+   // the failure here is what makes a retry show "loading" rather than keeping
+   // the previous error branch on screen.
    isLoading.value = true;
+   loadFailed.value = false;
    inFlight = (async () => {
       try {
          const response = await fetch(REGIONS_MAP_URL);

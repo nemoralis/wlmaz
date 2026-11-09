@@ -108,9 +108,15 @@ export const useLeaderboard = () => {
    // Contest window (YYYYMMDDHHmmss) of the selected year, bounds the chart axis
    const eventWindow = ref<{ start: number; end: number } | null>(null);
 
+   // Monotonic id for the newest logical fetch. Year switches can leave an
+   // older request in flight; without this guard it could resolve last and
+   // overwrite the newer year's rows while `selectedYear` shows the new year.
+   let requestId = 0;
+
    const fetchLeaderboard = async (year?: number | "total") => {
       const target = year ?? selectedYear.value;
       if (typeof target === "number") selectedYear.value = target;
+      const id = ++requestId;
 
       const cacheKey = `leaderboard_data_${target}`;
 
@@ -144,9 +150,9 @@ export const useLeaderboard = () => {
          clearState();
       }
 
-      if (users.value.length === 0) {
-         isLoading.value = true;
-      }
+      // The cache decision is the loading decision: rows on screen need only
+      // the small revalidating spinner, a cold target needs the skeleton.
+      isLoading.value = users.value.length === 0;
 
       isValidating.value = true;
       error.value = null;
@@ -157,6 +163,9 @@ export const useLeaderboard = () => {
             parse: parseLeaderboardResponse,
             label: "leaderboard",
          });
+         // A newer fetch has started; its state is the one the user asked for.
+         if (id !== requestId) return;
+
          const countryData = data[COUNTRY];
 
          // Transform users object into sorted array
@@ -211,12 +220,17 @@ export const useLeaderboard = () => {
          );
       } catch (e: unknown) {
          console.error("Failed to fetch leaderboard:", e);
+         if (id !== requestId) return;
          if (users.value.length === 0) {
             error.value = errorMessage(e, target);
          }
       } finally {
-         isLoading.value = false;
-         isValidating.value = false;
+         // Only the newest request owns the shared flags. An older response
+         // finishing later must not clear the spinner of the current one.
+         if (id === requestId) {
+            isLoading.value = false;
+            isValidating.value = false;
+         }
       }
    };
 

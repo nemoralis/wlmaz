@@ -9,6 +9,17 @@
 import type { MediaWikiUploadResult } from "@/types/mediawiki.ts";
 
 /**
+ * Combines a caller's abort signal with this request's timeout.
+ *
+ * Using `AbortSignal.timeout` alone would keep a fetch alive after the browser
+ * has gone away; using the caller signal alone would remove the timeout.
+ */
+export function requestSignal(timeoutMs: number, signal?: AbortSignal): AbortSignal {
+   const timeout = AbortSignal.timeout(timeoutMs);
+   return signal ? AbortSignal.any([signal, timeout]) : timeout;
+}
+
+/**
  * Warning keys in priority order — the first key present becomes the upload
  * error code. Mirrors the ordering Commons itself uses for display.
  */

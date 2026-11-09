@@ -17,7 +17,7 @@ import { MEDIAWIKI_TITLES_PER_REQUEST } from "@/utils/constants.ts";
 import { logger } from "@/utils/logger.ts";
 import { CommonsUploadError } from "@/utils/mediawiki.ts";
 import type { BotPasswordCredentials } from "@/utils/mediawikiConfig.ts";
-import { normalizeWikiTitle, pickUploadWarning } from "@/utils/mediawikiShared.ts";
+import { normalizeWikiTitle, pickUploadWarning, requestSignal } from "@/utils/mediawikiShared.ts";
 import { sanitizeFilename } from "@/utils/sanitize.ts";
 
 const USER_AGENT = "WLMAZ-Tool/1.0";
@@ -58,7 +58,8 @@ export class MediaWikiBotClient {
       {
          withSession = false,
          timeoutMs = 15000,
-      }: { withSession?: boolean; timeoutMs?: number } = {},
+         signal,
+      }: { withSession?: boolean; timeoutMs?: number; signal?: AbortSignal } = {},
    ): Promise<MediaWikiApiResponse> {
       const body = new URLSearchParams({ format: "json", ...params }).toString();
       const headers: Record<string, string> = {
@@ -69,7 +70,7 @@ export class MediaWikiBotClient {
 
       const response = await fetch(this.apiUrl, {
          method: "POST",
-         signal: AbortSignal.timeout(timeoutMs),
+         signal: requestSignal(timeoutMs, signal),
          headers,
          body,
       });
@@ -97,12 +98,15 @@ export class MediaWikiBotClient {
     * Performs the standard MediaWiki login-token -> login flow used by Bot
     * Passwords, retaining the session cookies for subsequent requests.
     */
-   async login(): Promise<void> {
-      const tokenRes = await this.apiRequest({
-         action: "query",
-         meta: "tokens",
-         type: "login",
-      });
+   async login(signal?: AbortSignal): Promise<void> {
+      const tokenRes = await this.apiRequest(
+         {
+            action: "query",
+            meta: "tokens",
+            type: "login",
+         },
+         { signal },
+      );
       const token = tokenRes?.query?.tokens?.logintoken;
       if (!token) {
          throw new CommonsUploadError("badtoken", "Could not obtain a MediaWiki login token");
@@ -115,7 +119,7 @@ export class MediaWikiBotClient {
             lgpassword: this.credentials.password,
             lgtoken: token,
          },
-         { withSession: true },
+         { withSession: true, signal },
       );
 
       if (loginRes?.login?.result !== "Success") {
@@ -128,10 +132,10 @@ export class MediaWikiBotClient {
    /**
     * Fetches a CSRF (edit) token using the authenticated session.
     */
-   async getCsrfToken(): Promise<string> {
+   async getCsrfToken(signal?: AbortSignal): Promise<string> {
       const res = await this.apiRequest(
          { action: "query", meta: "tokens", type: "csrf" },
-         { withSession: true },
+         { withSession: true, signal },
       );
       const token = res?.query?.tokens?.csrftoken;
       if (!token) {
@@ -148,8 +152,9 @@ export class MediaWikiBotClient {
    async upload(
       fileData: { name: string; buffer: Buffer; mimetype: string },
       metadata: { text: string; comment?: string },
+      signal?: AbortSignal,
    ): Promise<MediaWikiApiResponse> {
-      const csrfToken = await this.getCsrfToken();
+      const csrfToken = await this.getCsrfToken(signal);
 
       const formData = new FormData();
       formData.append("action", "upload");
@@ -165,7 +170,7 @@ export class MediaWikiBotClient {
 
       const response = await fetch(this.apiUrl, {
          method: "POST",
-         signal: AbortSignal.timeout(30000),
+         signal: requestSignal(30000, signal),
          headers: {
             Cookie: this.getCookieHeader(),
             "User-Agent": USER_AGENT,

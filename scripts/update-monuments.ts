@@ -2,8 +2,10 @@ import { readFileSync, realpathSync } from "fs";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import type { MonumentProps } from "../src/types";
+import { writeFileAtomic } from "./lib/atomicWrite";
 import { createProgressReporter, formatBytes, formatRate } from "./lib/cliProgress";
-import { convertData } from "./lib/convertData";
+import { buildMonumentsPbf, writeMonumentsPbf } from "./lib/convertData";
 import { transformToGeoJSON, type GeoJSON } from "./lib/monumentTransform";
 import {
    SPARQLQueryDispatcher,
@@ -11,8 +13,12 @@ import {
    type SparqlBinding,
    type SparqlResults,
 } from "./lib/sparqlClient";
-import { recordStatsHistory } from "./lib/statsHistory";
-import { writeRegionsMap } from "./write-regions-map";
+import { buildStatsHistory, writeStatsHistory } from "./lib/statsHistory";
+import {
+   buildRegionsMapPayload,
+   readRegionFeatures,
+   writeRegionsMapPayload,
+} from "./write-regions-map";
 
 /**
  * Daily Wikidata data update — the whole `npm run update-data` pipeline.
@@ -99,20 +105,27 @@ async function main() {
          console.log(`Fetched ${newData.features.length} monuments.`);
       }
 
-      // 4. Save new data
-      await fs.writeFile(GEOJSON_PATH, JSON.stringify(newData, null, 4));
-      console.log(`Saved updated GeoJSON to ${GEOJSON_PATH}`);
+      // 4. Compute every derived artifact before writing any published file.
+      //    A failure in any of these leaves the previous data set untouched.
+      const monumentsPbf = buildMonumentsPbf(newData);
+      const regionFeatures = await readRegionFeatures();
+      const regionsPayload = buildRegionsMapPayload(
+         regionFeatures,
+         newData.features.map((feature) => feature.properties as MonumentProps),
+      );
+      const statsHistory = existingData ? await buildStatsHistory(newData) : null;
 
-      // 5. Save history (skipped on no-change runs; see recordStatsHistory)
-      if (existingData) {
-         await recordStatsHistory(newData);
+      // 5. Commit. Derived artifacts first and the source GeoJSON last: if a
+      //    write fails, the next run still sees the old source and retries the
+      //    whole set instead of treating a partial update as current.
+      await writeMonumentsPbf(monumentsPbf);
+      await writeRegionsMapPayload(regionsPayload);
+      if (statsHistory) {
+         await writeStatsHistory(statsHistory);
       }
 
-      // 6. Regenerate the derived artifacts. They are pure functions of the
-      //    committed data files, so a no-change run (which exited in step 3)
-      //    would only rewrite identical bytes.
-      await convertData();
-      await writeRegionsMap();
+      await writeFileAtomic(GEOJSON_PATH, JSON.stringify(newData, null, 4));
+      console.log(`Saved updated GeoJSON to ${GEOJSON_PATH}`);
    } catch (error) {
       console.error("Error updating monuments:", error);
       process.exit(1);

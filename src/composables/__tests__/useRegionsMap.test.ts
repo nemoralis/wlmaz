@@ -123,6 +123,28 @@ describe("useRegionsMap", () => {
       expect(loadFailed.value).toBe(true);
    });
 
+   it("retries after a failure instead of staying in the error branch", async () => {
+      mockFetch(null, false);
+      const { useRegionsMap } = await freshComposables();
+      const { load, isLoading, loadFailed, payload } = useRegionsMap();
+
+      await load();
+      expect(loadFailed.value).toBe(true);
+
+      mockFetch(validPayload);
+      const pending = load();
+
+      // The retry must switch the page back to its loading state immediately.
+      expect(isLoading.value).toBe(true);
+      expect(loadFailed.value).toBe(false);
+
+      await pending;
+
+      expect(payload.value?.regions).toHaveLength(1);
+      expect(loadFailed.value).toBe(false);
+      expect(isLoading.value).toBe(false);
+   });
+
    it("shares one request between concurrent callers", async () => {
       const fetchMock = mockFetch(validPayload);
       const { useRegionsMap } = await freshComposables();

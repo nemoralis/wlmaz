@@ -28,6 +28,7 @@ import {
    type RegionFeature,
    type RegionsMapData,
 } from "../src/utils/regions";
+import { writeFileAtomic } from "./lib/atomicWrite";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,17 +45,22 @@ interface MonumentCollection {
    features: Array<{ properties: MonumentProps }>;
 }
 
-export const writeRegionsMap = async (): Promise<void> => {
-   const [regionsFile, monumentsFile] = await Promise.all([
-      fs.readFile(REGIONS_PATH, "utf-8"),
-      fs.readFile(MONUMENTS_PATH, "utf-8"),
-   ]);
+/** Reads the source region geometry used to build the simplified map. */
+export const readRegionFeatures = async (): Promise<RegionFeature[]> => {
+   const file = await fs.readFile(REGIONS_PATH, "utf-8");
+   return (JSON.parse(file) as FeatureCollection).features;
+};
 
-   const features = (JSON.parse(regionsFile) as FeatureCollection).features;
-   const monuments = (JSON.parse(monumentsFile) as MonumentCollection).features.map(
-      (feature) => feature.properties,
-   );
-
+/**
+ * Builds the regions payload from already-parsed sources.
+ *
+ * Exported so the daily pipeline can build it from the freshly fetched
+ * monuments before any published file is rewritten.
+ */
+export function buildRegionsMapPayload(
+   features: RegionFeature[],
+   monuments: MonumentProps[],
+): RegionsMapData {
    const geoJson = buildRegionsGeoJson(features);
    const payload: RegionsMapData = {
       geoJson,
@@ -78,13 +84,32 @@ export const writeRegionsMap = async (): Promise<void> => {
       throw new Error(`regions missing from the simplified map: ${missing.join(", ")}`);
    }
 
-   await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(payload)}\n`);
+   return payload;
+}
 
-   const bytes = (await fs.stat(OUTPUT_PATH)).size;
+/** Writes a pre-built regions payload atomically and reports its size. */
+export async function writeRegionsMapPayload(payload: RegionsMapData): Promise<void> {
+   const serialized = `${JSON.stringify(payload)}\n`;
+   await writeFileAtomic(OUTPUT_PATH, serialized);
+
    console.log(
       `Wrote ${path.relative(process.cwd(), OUTPUT_PATH)} — ` +
-         `${geoJson.features.length} regions, ${(bytes / 1024).toFixed(0)} KB`,
+         `${payload.geoJson.features.length} regions, ` +
+         `${(Buffer.byteLength(serialized) / 1024).toFixed(0)} KB`,
    );
+}
+
+export const writeRegionsMap = async (): Promise<void> => {
+   const [features, monumentsFile] = await Promise.all([
+      readRegionFeatures(),
+      fs.readFile(MONUMENTS_PATH, "utf-8"),
+   ]);
+
+   const monuments = (JSON.parse(monumentsFile) as MonumentCollection).features.map(
+      (feature) => feature.properties,
+   );
+
+   await writeRegionsMapPayload(buildRegionsMapPayload(features, monuments));
 };
 
 // Import-safe entry guard: the daily pipeline (scripts/update-monuments.ts)
