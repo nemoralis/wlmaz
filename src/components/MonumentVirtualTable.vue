@@ -1,45 +1,58 @@
 <template>
    <div class="virtual-table-container relative flex flex-1 flex-col overflow-hidden">
-      <!-- Header -->
-      <div class="table-header sticky top-0 z-20 flex border-b border-gray-200 bg-gray-50">
+      <!-- Header: scrolls horizontally in sync with the viewport below. -->
+      <div
+         class="table-header sticky top-0 z-20 overflow-hidden border-b border-gray-200 bg-gray-50"
+      >
          <div
-            v-for="col in columns"
-            :key="col.id"
-            :style="{ width: col.width || 'auto', flex: col.width ? 'none' : 1 }"
-            class="px-4 py-3 text-xs font-bold tracking-wider text-gray-500 uppercase"
+            class="flex"
+            :style="{
+               width: `${contentWidth}px`,
+               transform: `translateX(${-visibleScrollLeft}px)`,
+            }"
          >
-            <button
-               v-if="col.allowSort"
-               class="flex items-center gap-1 transition-colors hover:text-gray-900"
-               @click="$emit('sort', col.id)"
+            <div
+               v-for="(col, index) in columns"
+               :key="col.id"
+               :style="{ width: `${columnWidths[index]}px` }"
+               class="shrink-0 overflow-hidden px-2 py-3 text-xs font-bold tracking-wider whitespace-nowrap text-gray-500 uppercase sm:px-4"
             >
-               {{ col.label }}
-               <font-awesome-icon
-                  v-if="sortState[col.id]"
-                  :icon="sortState[col.id] === 'asc' ? 'chevron-up' : 'chevron-down'"
-                  class="text-[10px]"
-               />
-            </button>
-            <span v-else>{{ col.label }}</span>
+               <button
+                  v-if="col.allowSort"
+                  class="flex items-center gap-1 transition-colors hover:text-gray-900"
+                  @click="$emit('sort', col.id)"
+               >
+                  {{ col.label }}
+                  <font-awesome-icon
+                     v-if="sortState[col.id]"
+                     :icon="sortState[col.id] === 'asc' ? 'chevron-up' : 'chevron-down'"
+                     class="text-[10px]"
+                  />
+               </button>
+               <span v-else>{{ col.label }}</span>
+            </div>
          </div>
       </div>
 
-      <!-- Scroll Viewport -->
+      <!-- Scroll Viewport (vertical virtualization + horizontal scroll) -->
       <div
          ref="viewport"
-         class="relative flex-1 scrollbar-thin overflow-y-auto"
+         class="relative flex-1 scrollbar-thin overflow-auto"
          @scroll="handleScroll"
       >
          <!-- Total Height Spacer -->
          <div
-            :style="{ height: `${totalHeight}px` }"
-            class="pointer-events-none absolute inset-0"
+            :style="{ height: `${totalHeight}px`, width: `${contentWidth}px` }"
+            class="pointer-events-none absolute top-0 left-0"
          ></div>
 
          <!-- Visible Rows -->
          <div
-            class="absolute top-0 right-0 left-0"
-            :style="{ transform: `translateY(${offsetY}px)` }"
+            class="absolute top-0 left-0"
+            :style="{
+               transform: `translateY(${offsetY}px)`,
+               width: `${contentWidth}px`,
+            }"
          >
             <div
                v-for="row in visibleData"
@@ -48,13 +61,13 @@
                class="flex items-center border-b border-gray-100 transition-colors hover:bg-blue-50/30"
             >
                <div
-                  v-for="col in columns"
+                  v-for="(col, index) in columns"
                   :key="col.id"
-                  :style="{ width: col.width || 'auto', flex: col.width ? 'none' : 1 }"
-                  class="overflow-hidden px-4"
+                  :style="{ width: `${columnWidths[index]}px` }"
+                  class="shrink-0 overflow-hidden px-2 sm:px-4"
                >
                   <slot :name="`item-${col.id}`" :row="row">
-                     <span class="text-sm text-gray-700">
+                     <span class="block truncate text-sm whitespace-nowrap text-gray-700">
                         {{ getColumnValue(row, col.id) }}
                      </span>
                   </slot>
@@ -81,7 +94,10 @@ import { getCanonicalId } from "@/utils/monumentFormatters.ts";
 interface Column {
    id: string;
    label: string;
+   /** Fixed pixel width (e.g. "100px"). Columns without one flex. */
    width?: string;
+   /** Minimum pixel width for flexible columns; also sets the scroll floor. */
+   minWidth?: string;
    allowSort?: boolean;
 }
 
@@ -97,8 +113,48 @@ defineEmits(["sort"]);
 
 const viewport = ref<HTMLElement | null>(null);
 const scrollTop = ref(0);
+const scrollLeft = ref(0);
 const viewportHeight = ref(0);
+const viewportWidth = ref(0);
 const bufferCount = props.buffer || 5;
+
+const parsePx = (value: string | undefined, fallback: number): number => {
+   const parsed = value ? parseInt(value, 10) : Number.NaN;
+   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+};
+
+/**
+ * Column widths in pixels, shared by the header and the rows so they cannot
+ * drift. Fixed columns keep their width; flexible columns share whatever is
+ * left — but never less than the sum of their minima, which becomes the
+ * horizontal scroll floor. On a narrow phone the table scrolls sideways
+ * instead of crushing every cell to a sliver.
+ */
+const columnWidths = computed<number[]>(() => {
+   const fixedTotal = props.columns.reduce(
+      (sum, col) => (col.width ? sum + parsePx(col.width, 0) : sum),
+      0,
+   );
+   const flexMinTotal = props.columns.reduce(
+      (sum, col) => (col.width ? sum : sum + parsePx(col.minWidth, 140)),
+      0,
+   );
+   const contentWidth = Math.max(viewportWidth.value, fixedTotal + flexMinTotal);
+   const flexAvailable = contentWidth - fixedTotal;
+
+   return props.columns.map((col) => {
+      if (col.width) return parsePx(col.width, 0);
+      const min = parsePx(col.minWidth, 140);
+      return flexMinTotal > 0 ? (flexAvailable * min) / flexMinTotal : min;
+   });
+});
+
+const contentWidth = computed(() => columnWidths.value.reduce((sum, width) => sum + width, 0));
+
+/** Clamped so a stale scrollLeft never pushes the header past the last column. */
+const visibleScrollLeft = computed(() =>
+   Math.min(scrollLeft.value, Math.max(0, contentWidth.value - viewportWidth.value)),
+);
 
 // Calculations
 const totalHeight = computed(() => props.data.length * props.rowHeight);
@@ -125,12 +181,15 @@ const getColumnValue = (row: MonumentProps, id: string): string => {
 };
 
 const handleScroll = (e: Event) => {
-   scrollTop.value = (e.currentTarget as HTMLElement).scrollTop;
+   const target = e.currentTarget as HTMLElement;
+   scrollTop.value = target.scrollTop;
+   scrollLeft.value = target.scrollLeft;
 };
 
-const updateViewportHeight = () => {
+const updateViewportSize = () => {
    if (viewport.value) {
       viewportHeight.value = viewport.value.clientHeight;
+      viewportWidth.value = viewport.value.clientWidth;
    }
 };
 
@@ -152,9 +211,9 @@ const updateViewportHeight = () => {
 let resizeObserver: ResizeObserver | null = null;
 
 onMounted(() => {
-   updateViewportHeight();
+   updateViewportSize();
    if (viewport.value) {
-      resizeObserver = new ResizeObserver(updateViewportHeight);
+      resizeObserver = new ResizeObserver(updateViewportSize);
       resizeObserver.observe(viewport.value);
    }
 });

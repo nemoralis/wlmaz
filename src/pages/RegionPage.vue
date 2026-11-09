@@ -277,10 +277,10 @@ const stats = computed(() =>
  */
 const columns = [
    { id: "inventory", label: "İnventar", allowSort: true, width: "100px" },
-   { id: "itemLabel", label: "Ad", allowSort: true },
-   { id: "addressLabel", label: "Ünvan", allowSort: false },
-   { id: "status", label: "Status" },
-   { id: "actions", label: "" },
+   { id: "itemLabel", label: "Ad", allowSort: true, minWidth: "180px" },
+   { id: "addressLabel", label: "Ünvan", allowSort: false, minWidth: "160px" },
+   { id: "status", label: "Status", minWidth: "96px" },
+   { id: "actions", label: "", minWidth: "112px" },
 ];
 
 const virtualTable = ref<{ scrollToTop: () => void } | null>(null);

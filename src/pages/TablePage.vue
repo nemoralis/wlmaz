@@ -202,11 +202,11 @@ const sortState = ref<Record<string, "asc" | "desc">>({ inventory: "asc" });
 
 const columns = [
    { id: "inventory", label: "İnventar", allowSort: true, width: "100px" },
-   { id: "itemLabel", label: "Ad", allowSort: true },
+   { id: "itemLabel", label: "Ad", allowSort: true, minWidth: "180px" },
    { id: "parentLabel", label: "Region", allowSort: true, width: "150px" },
-   { id: "addressLabel", label: "Ünvan", allowSort: false },
-   { id: "status", label: "Status" },
-   { id: "actions", label: "" },
+   { id: "addressLabel", label: "Ünvan", allowSort: false, minWidth: "160px" },
+   { id: "status", label: "Status", minWidth: "96px" },
+   { id: "actions", label: "", minWidth: "112px" },
 ];
 
 const openUploadModal = (monument: Monument): void => {
