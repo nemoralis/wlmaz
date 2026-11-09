@@ -191,17 +191,17 @@ export async function uploadSingleFile(
    }
 
    // Aborted uploads don't generate failure entries — the caller handles cancellation.
-   if (last?.code === "aborted") {
+   if (!last || last.code === "aborted") {
       return { ok: false };
    }
 
-   const message = last!.message || messageFor(last!.code, "Yükləmə zamanı xəta baş verdi.");
+   const message = last.message || messageFor(last.code, "Yükləmə zamanı xəta baş verdi.");
    return {
       ok: false,
       failure: {
          fileItem,
          name: fileItem.file.name,
-         code: last!.code,
+         code: last.code,
          message,
       },
    };

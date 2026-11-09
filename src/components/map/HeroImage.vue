@@ -16,7 +16,9 @@
          </div>
 
          <div v-if="imageCredit" class="hero-credits">
-            <span>© {{ imageCredit.author }}</span>
+            <span
+               >© {{ [imageCredit.author, imageCredit.license].filter(Boolean).join(" | ") }}</span
+            >
          </div>
       </template>
 

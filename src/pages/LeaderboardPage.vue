@@ -270,7 +270,8 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("az-AZ", {
 
 const NUMBER_FORMATTER = new Intl.NumberFormat("az-AZ");
 
-const formatDate = (date: Date): string => {
+const formatDate = (date: Date | null): string => {
+   if (!date || Number.isNaN(date.getTime())) return "—";
    return DATE_FORMATTER.format(date);
 };
 

@@ -1,4 +1,5 @@
-import sharp, { type Metadata } from "sharp";
+import { type Metadata } from "sharp";
+import { createUploadSharp, MAX_IMAGE_DIMENSION } from "@/utils/imageLimits.ts";
 import { logger } from "@/utils/logger.ts";
 
 interface OptimizedImage {
@@ -24,19 +25,19 @@ export async function optimizeImage(
    preloadedMetadata?: Metadata,
 ): Promise<OptimizedImage> {
    try {
-      const image = sharp(buffer);
+      const image = createUploadSharp(buffer);
       const metadata = preloadedMetadata || (await image.metadata());
 
       // Check if resizing is needed
-      const MAX_DIMENSION = 8192; // Increased to 8K matches Commons "High Resolution" goal
+      // 8192px is an 8K cap that matches Commons' "High Resolution" goal.
       if (
          metadata.width &&
          metadata.height &&
-         (metadata.width > MAX_DIMENSION || metadata.height > MAX_DIMENSION)
+         (metadata.width > MAX_IMAGE_DIMENSION || metadata.height > MAX_IMAGE_DIMENSION)
       ) {
          image.resize({
-            width: MAX_DIMENSION,
-            height: MAX_DIMENSION,
+            width: MAX_IMAGE_DIMENSION,
+            height: MAX_IMAGE_DIMENSION,
             fit: "inside",
             withoutEnlargement: true,
          });

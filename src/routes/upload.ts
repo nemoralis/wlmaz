@@ -9,7 +9,7 @@
 import path from "path";
 import express from "express";
 import multer from "multer";
-import sharp, { type Metadata } from "sharp";
+import { type Metadata } from "sharp";
 import { config } from "@/config";
 import type {
    TitlesExistResponse,
@@ -19,6 +19,11 @@ import type {
    UploadSuccessResponse,
 } from "@/types/api.ts";
 import { optimizeImage } from "@/utils/image";
+import {
+   assertImageWithinLimits,
+   createUploadSharp,
+   ImageTooLargeError,
+} from "@/utils/imageLimits.ts";
 import { logger } from "@/utils/logger";
 import {
    checkFileExistence,
@@ -279,13 +284,25 @@ router.post(
          // sharp.metadata() reads only the image header (fast).  Passing the
          // result into optimizeImage avoids a second header decode.
          const fileBuffer = req.file.buffer;
-         const image = sharp(fileBuffer);
+         const image = createUploadSharp(fileBuffer);
          let metadata: Metadata;
          try {
             metadata = await image.metadata();
-         } catch {
+            assertImageWithinLimits(metadata);
+         } catch (error) {
+            if (
+               error instanceof ImageTooLargeError ||
+               (error instanceof Error && /exceeds (pixel|channel) limit/.test(error.message))
+            ) {
+               res.status(413).json({
+                  error: "Image exceeds the maximum pixel limit",
+                  code: "image_too_large",
+               });
+               return;
+            }
             res.status(400).json({
                error: "Invalid image: file content is not a recognised image format",
+               code: "invalid_image",
             });
             return;
          }

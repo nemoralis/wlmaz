@@ -37,6 +37,10 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+/** Upper bound for draining in-flight requests during shutdown. Kept above the
+ * 30s Commons upload timeout; PM2's kill_timeout is set higher still. */
+const GRACEFUL_SHUTDOWN_TIMEOUT_MS = 35_000;
+
 const startServer = async () => {
    // redisClient handles its own connection in utils/redis.ts
 
@@ -353,7 +357,7 @@ const startServer = async () => {
          logger.error("Graceful shutdown timed out; forcing exit");
          server.closeAllConnections();
          process.exit(1);
-      }, 10_000);
+      }, GRACEFUL_SHUTDOWN_TIMEOUT_MS);
       forceExit.unref();
 
       server.close(async (closeError?: Error) => {

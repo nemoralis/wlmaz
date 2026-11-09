@@ -120,14 +120,24 @@ export default defineConfig({
             entryFileNames: "assets/[name]-[hash].js",
             assetFileNames: "assets/[name]-[hash][extname]",
             manualChunks(id) {
+               // Keep the Vue runtime in its own chunk. ECharts is deliberately
+               // NOT given a manual chunk: it is only imported by lazy chart
+               // components, so Rolldown's code splitting keeps it out of the
+               // initial bundle. Manual-chunking it forces a shared chunk that
+               // the entry then statically imports (and preloads) on every page.
+               if (
+                  id.includes('node_modules/vue/') ||
+                  id.includes('node_modules/@vue/') ||
+                  id.includes('node_modules/vue-router/') ||
+                  id.includes('node_modules/pinia/')
+               ) {
+                  return 'vendor-vue';
+               }
                if (id.includes('node_modules/leaflet') || id.includes('node_modules/leaflet-minimap')) {
                   return 'vendor-map';
                }
                if (id.includes('node_modules/geobuf') || id.includes('node_modules/pbf') || id.includes('node_modules/fuse.js')) {
                   return 'vendor-data';
-               }
-               if (id.includes('node_modules/echarts') || id.includes('node_modules/vue-echarts')) {
-                  return 'vendor-charts';
                }
             }
          },

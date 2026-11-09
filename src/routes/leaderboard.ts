@@ -4,7 +4,8 @@
  * background refresh. Serves both the ranking list and individual user stats.
  */
 import express from "express";
-import type { LeaderboardResponse } from "@/types/api.ts";
+import type { LeaderboardResponse, UserStats } from "@/types/api.ts";
+import { parseUserStats } from "@/utils/apiGuards.ts";
 import {
    aggregateLeaderboardYears,
    COUNTRY,
@@ -16,6 +17,7 @@ import {
 } from "@/utils/leaderboard.ts";
 import { logger } from "@/utils/logger.ts";
 import redisClient from "@/utils/redis.ts";
+import { isValidWikiUsername } from "@/utils/username.ts";
 
 const router = express.Router();
 
@@ -72,6 +74,58 @@ async function readCachedAggregate(): Promise<LeaderboardResponse | null> {
       } catch (deleteError) {
          logger.error("Redis delete error:", deleteError);
       }
+      return null;
+   }
+}
+
+async function deleteCacheKey(cacheKey: string): Promise<void> {
+   try {
+      await redisClient.del(cacheKey);
+   } catch (deleteError) {
+      logger.error("Redis delete error:", deleteError);
+   }
+}
+
+/** Reads and validates one user's cached stats. A corrupt value counts as a miss. */
+async function readCachedUserStats(cacheKey: string): Promise<UserStats | null> {
+   if (!redisClient.isOpen) return null;
+
+   let cached: string | null;
+   try {
+      cached = await redisClient.get(cacheKey);
+   } catch (e) {
+      logger.error("Redis read error:", e);
+      return null;
+   }
+   if (!cached) return null;
+
+   try {
+      return parseUserStats(JSON.parse(cached));
+   } catch (e) {
+      logger.warn("Invalid user stats cache; discarding it", e);
+      await deleteCacheKey(cacheKey);
+      return null;
+   }
+}
+
+/** Reads and validates one event's cached leaderboard slice. */
+async function readCachedYear(cacheKey: string): Promise<LeaderboardResponse | null> {
+   if (!redisClient.isOpen) return null;
+
+   let cached: string | null;
+   try {
+      cached = await redisClient.get(cacheKey);
+   } catch (e) {
+      logger.error("Redis read error:", e);
+      return null;
+   }
+   if (!cached) return null;
+
+   try {
+      return parseLeaderboardResponse(JSON.parse(cached));
+   } catch (e) {
+      logger.warn("Invalid leaderboard year cache; discarding it", e);
+      await deleteCacheKey(cacheKey);
       return null;
    }
 }
@@ -308,21 +362,21 @@ router.get("/user/:username", async (req, res) => {
    try {
       const { username } = req.params;
 
-      // Enforce valid Wikimedia username characters — blocks control
-      // chars, newlines (log/Redis injection), and wikitext/API delimiters (|, =).
-      if (!username || !/^[A-Za-z0-9_\-.\s]{1,255}$/.test(username)) {
+      // Wikimedia usernames are Unicode account names, so this intentionally
+      // accepts letters such as ə, ç, ğ, ı, and ş. It rejects only control
+      // characters and URL/MediaWiki delimiters that could corrupt the
+      // lookup, cache key, or logs.
+      if (!isValidWikiUsername(username)) {
          res.status(400).json({ error: "Invalid username" });
          return;
       }
 
       const cacheKey = `userstats:${encodeURIComponent(username)}`;
 
-      if (redisClient.isOpen) {
-         const cached = await redisClient.get(cacheKey);
-         if (cached) {
-            res.json(JSON.parse(cached));
-            return;
-         }
+      const cachedUserStats = await readCachedUserStats(cacheKey);
+      if (cachedUserStats) {
+         res.json(cachedUserStats);
+         return;
       }
 
       const data = await getAggregateData();
@@ -401,12 +455,10 @@ router.get("/:eventSlug", async (req, res) => {
       }
 
       const cacheKey = yearCacheKey(eventSlug);
-      if (redisClient.isOpen) {
-         const cached = await redisClient.get(cacheKey);
-         if (cached) {
-            res.json(JSON.parse(cached));
-            return;
-         }
+      const cachedYear = await readCachedYear(cacheKey);
+      if (cachedYear) {
+         res.json(cachedYear);
+         return;
       }
 
       const response = await fetch(`${API_BASE}/${eventSlug}`, {

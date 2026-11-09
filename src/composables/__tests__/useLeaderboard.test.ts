@@ -169,6 +169,7 @@ describe("useLeaderboard cache round-trip", () => {
       // "Invalid time value" while formatting the registration column.
       const reg = cached.users.value[0].reg;
       expect(reg).toBeInstanceOf(Date);
+      if (!(reg instanceof Date)) throw new Error("expected cached reg to revive as a Date");
       expect(() =>
          new Intl.DateTimeFormat("az-AZ", { dateStyle: "medium" }).format(reg),
       ).not.toThrow();

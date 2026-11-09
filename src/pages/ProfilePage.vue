@@ -16,10 +16,8 @@
                      </h1>
                      <div class="mt-1 flex flex-wrap items-center gap-2">
                         <p class="text-sm text-gray-500">Şəxsi profil və statistika</p>
-                        <span v-if="stats?.commons?.registration" class="text-xs text-gray-400"
-                           >•</span
-                        >
-                        <p v-if="stats?.commons?.registration" class="text-xs text-gray-400">
+                        <span v-if="formattedCommonsRegDate" class="text-xs text-gray-400">•</span>
+                        <p v-if="formattedCommonsRegDate" class="text-xs text-gray-400">
                            Wikimedia Commons-da {{ formattedCommonsRegDate }} tarixində qeydiyyatdan
                            keçib
                         </p>
@@ -287,6 +285,7 @@ const formatNumber = (num: number): string => {
 const formattedCommonsRegDate = computed(() => {
    if (!stats.value?.commons?.registration) return "";
    const date = new Date(stats.value.commons.registration);
+   if (Number.isNaN(date.getTime())) return "";
    return DATE_FORMATTER.format(date);
 });
 

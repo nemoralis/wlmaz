@@ -171,6 +171,17 @@ describe("uploadSingleFile — cancellation", () => {
       expect(outcome.ok).toBe(false);
       expect(outcome.failure).toBeUndefined();
    });
+
+   it("returns cancellation without fetching when the signal is already aborted", async () => {
+      const controller = new AbortController();
+      controller.abort();
+
+      const outcome = await uploadSingleFile(makeFileItem(), "cc-by-sa-4.0", {}, controller.signal);
+
+      expect(outcome.ok).toBe(false);
+      expect(outcome.failure).toBeUndefined();
+      expect(fetchMock).not.toHaveBeenCalled();
+   });
 });
 
 describe("isHeicFile", () => {

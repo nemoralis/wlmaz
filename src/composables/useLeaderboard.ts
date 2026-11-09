@@ -3,6 +3,7 @@ import type { LeaderboardUser } from "@/types";
 import type { EventStats, LeaderboardResponse, WikiLovesDailyData } from "@/types/api.ts";
 import { ApiError, apiFetch } from "@/utils/apiClient.ts";
 import { parseLeaderboardResponse } from "@/utils/leaderboard.ts";
+import { isFiniteNumber, isRecord } from "@/utils/typeGuards.ts";
 
 const API_BASE = "/api/leaderboard";
 const COUNTRY = "Azerbaijan";
@@ -11,14 +12,33 @@ const COUNTRY = "Azerbaijan";
 const START_YEAR = 2013;
 
 /**
- * Parses the API's timestamp format (YYYYMMDDHHmmss) into a Date object
+ * Parses the API's timestamp format (YYYYMMDDHHmmss) into a Date object.
+ *
+ * Returns null for malformed values instead of an Invalid Date: the table
+ * formatter cannot call Intl.DateTimeFormat on an invalid Date without
+ * throwing and taking the whole page down.
  */
-function parseWikiDate(timestamp: number): Date {
-   const str = timestamp.toString();
-   const year = parseInt(str.substring(0, 4));
-   const month = parseInt(str.substring(4, 6)) - 1;
-   const day = parseInt(str.substring(6, 8));
-   return new Date(year, month, day);
+function parseWikiDate(timestamp: number): Date | null {
+   if (!Number.isFinite(timestamp)) return null;
+
+   const str = String(Math.trunc(timestamp));
+   if (!/^\d{14}$/.test(str)) return null;
+
+   const year = Number(str.slice(0, 4));
+   const monthIndex = Number(str.slice(4, 6)) - 1;
+   const day = Number(str.slice(6, 8));
+   const hour = Number(str.slice(8, 10));
+   const minute = Number(str.slice(10, 12));
+   const second = Number(str.slice(12, 14));
+
+   if (hour > 23 || minute > 59 || second > 59) return null;
+
+   const date = new Date(year, monthIndex, day);
+   if (date.getFullYear() !== year || date.getMonth() !== monthIndex || date.getDate() !== day) {
+      return null;
+   }
+
+   return date;
 }
 
 /** Maps an API failure to the message shown above the table. */
@@ -46,25 +66,169 @@ interface CachedLeaderboard {
 }
 
 /**
+ * localStorage can be blocked or unavailable (privacy settings, quota, stale
+ * permissions). Reads and writes are best-effort so a storage failure behaves
+ * like a cache miss instead of an uncaught rejection from the page hook.
+ */
+function readCache(key: string): string | null {
+   try {
+      return localStorage.getItem(key);
+   } catch (e) {
+      console.warn("Failed to read cached leaderboard", e);
+      return null;
+   }
+}
+
+function writeCache(key: string, value: string): void {
+   try {
+      localStorage.setItem(key, value);
+   } catch (e) {
+      console.warn("Failed to write cached leaderboard", e);
+   }
+}
+
+function removeCache(key: string): void {
+   try {
+      localStorage.removeItem(key);
+   } catch (e) {
+      console.warn("Failed to remove cached leaderboard", e);
+   }
+}
+
+function parseEventStats(value: unknown): EventStats | null {
+   if (value === undefined || value === null) return null;
+   if (
+      !isRecord(value) ||
+      !isFiniteNumber(value.totalPhotos) ||
+      !isFiniteNumber(value.totalUsers) ||
+      !isFiniteNumber(value.photosUsed)
+   ) {
+      throw new TypeError("cached eventStats is invalid");
+   }
+   return {
+      totalPhotos: value.totalPhotos,
+      totalUsers: value.totalUsers,
+      photosUsed: value.photosUsed,
+   };
+}
+
+function parseYearlyBreakdown(
+   value: unknown,
+): Record<number, { count: number; usage: number }> | null {
+   if (value === undefined || value === null) return null;
+   if (!isRecord(value)) throw new TypeError("cached yearlyBreakdown is invalid");
+
+   const yearly: Record<number, { count: number; usage: number }> = {};
+   for (const [year, entry] of Object.entries(value)) {
+      if (
+         !/^\d{4}$/.test(year) ||
+         !isRecord(entry) ||
+         !isFiniteNumber(entry.count) ||
+         !isFiniteNumber(entry.usage)
+      ) {
+         throw new TypeError("cached yearlyBreakdown is invalid");
+      }
+      yearly[Number(year)] = { count: entry.count, usage: entry.usage };
+   }
+   return yearly;
+}
+
+function parseDailyStats(value: unknown): Record<string, WikiLovesDailyData> | null {
+   if (value === undefined || value === null) return null;
+   if (!isRecord(value)) throw new TypeError("cached dailyStats is invalid");
+
+   const daily: Record<string, WikiLovesDailyData> = {};
+   for (const [date, entry] of Object.entries(value)) {
+      if (
+         !isRecord(entry) ||
+         !isFiniteNumber(entry.images) ||
+         !isFiniteNumber(entry.joiners) ||
+         !isFiniteNumber(entry.newbie_joiners)
+      ) {
+         throw new TypeError("cached dailyStats is invalid");
+      }
+      daily[date] = {
+         images: entry.images,
+         joiners: entry.joiners,
+         newbie_joiners: entry.newbie_joiners,
+      };
+   }
+   return daily;
+}
+
+function parseEventWindow(value: unknown): { start: number; end: number } | null {
+   if (value === undefined || value === null) return null;
+   if (!isRecord(value) || !isFiniteNumber(value.start) || !isFiniteNumber(value.end)) {
+      throw new TypeError("cached eventWindow is invalid");
+   }
+   return { start: value.start, end: value.end };
+}
+
+/**
  * Rebuilds cached users into the shape the page renders.
  *
  * JSON has no Date type, so `reg` comes back as an ISO string — and
  * `Intl.DateTimeFormat.format()` on a string throws "Invalid time value",
- * taking the whole table down on every visit after the first. Throws on
- * anything unusable so the caller can drop the entry and fetch fresh.
+ * taking the whole table down on every visit after the first. A null `reg`
+ * means the upstream timestamp was malformed; the page renders an em dash.
+ * Throws on anything unusable so the caller can drop the entry and fetch
+ * fresh.
  */
 function reviveUsers(users: unknown): LeaderboardUser[] {
    if (!Array.isArray(users)) {
       throw new TypeError("cached users is not an array");
    }
 
-   return users.map((user: Record<string, unknown>) => {
-      const reg = user.reg instanceof Date ? user.reg : new Date(user.reg as string | number);
-      if (Number.isNaN(reg.getTime())) {
-         throw new TypeError(`cached reg is not a date: ${String(user.reg)}`);
+   return users.map((user: unknown) => {
+      if (!isRecord(user)) {
+         throw new TypeError("cached user is not an object");
       }
-      return { ...user, reg } as LeaderboardUser;
+
+      const { username, count, usage, rank, reg } = user;
+      if (
+         typeof username !== "string" ||
+         !isFiniteNumber(count) ||
+         !isFiniteNumber(usage) ||
+         !isFiniteNumber(rank)
+      ) {
+         throw new TypeError("cached user is missing valid fields");
+      }
+
+      if (reg === null) {
+         return { username, count, usage, rank, reg: null };
+      }
+
+      if (reg instanceof Date) {
+         if (Number.isNaN(reg.getTime())) {
+            throw new TypeError("cached reg is not a valid date");
+         }
+         return { username, count, usage, rank, reg };
+      }
+
+      if (typeof reg === "string" || typeof reg === "number") {
+         const date = new Date(reg);
+         if (Number.isNaN(date.getTime())) {
+            throw new TypeError(`cached reg is not a date: ${String(reg)}`);
+         }
+         return { username, count, usage, rank, reg: date };
+      }
+
+      throw new TypeError(`cached reg is not a date: ${String(reg)}`);
    });
+}
+
+function parseCachedLeaderboard(value: unknown): CachedLeaderboard {
+   if (!isRecord(value)) {
+      throw new TypeError("cached leaderboard is not an object");
+   }
+
+   return {
+      users: reviveUsers(value.users),
+      eventStats: parseEventStats(value.eventStats),
+      yearlyBreakdown: parseYearlyBreakdown(value.yearlyBreakdown),
+      dailyStats: parseDailyStats(value.dailyStats),
+      eventWindow: parseEventWindow(value.eventWindow),
+   };
 }
 
 /**
@@ -120,8 +284,9 @@ export const useLeaderboard = () => {
 
       const cacheKey = `leaderboard_data_${target}`;
 
-      // SWR: Load from local storage
-      const cached = localStorage.getItem(cacheKey);
+      // SWR: Load from local storage. The cached snapshot is untrusted input,
+      // so every field is validated before it reaches the page.
+      const cached = readCache(cacheKey);
       const clearState = () => {
          users.value = [];
          eventStats.value = null;
@@ -132,18 +297,18 @@ export const useLeaderboard = () => {
 
       if (cached) {
          try {
-            const parsed = JSON.parse(cached) as CachedLeaderboard;
-            users.value = reviveUsers(parsed.users);
+            const parsed = parseCachedLeaderboard(JSON.parse(cached));
+            users.value = parsed.users;
             eventStats.value = parsed.eventStats;
             yearlyBreakdown.value = parsed.yearlyBreakdown;
-            dailyStats.value = parsed.dailyStats ?? null;
-            eventWindow.value = parsed.eventWindow ?? null;
+            dailyStats.value = parsed.dailyStats;
+            eventWindow.value = parsed.eventWindow;
          } catch (e) {
             // Unusable entry — hand-edited, or written by an older build. Drop
             // it and fall through to a fresh fetch, so the loading state shows
             // instead of the page rendering rows it cannot format.
             console.warn("Failed to read cached leaderboard", e);
-            localStorage.removeItem(cacheKey);
+            removeCache(cacheKey);
             clearState();
          }
       } else {
@@ -207,8 +372,9 @@ export const useLeaderboard = () => {
                ? { start: countryData.start, end: countryData.end }
                : null;
 
-         // Cache everything
-         localStorage.setItem(
+         // Cache everything. A storage failure only loses the SWR snapshot;
+         // the freshly fetched state above is already correct.
+         writeCache(
             cacheKey,
             JSON.stringify({
                users: users.value,
