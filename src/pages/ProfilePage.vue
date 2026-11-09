@@ -61,7 +61,7 @@
       <main class="container mx-auto flex-1 p-4 sm:p-6 lg:p-8">
          <!-- Loading State -->
          <div
-            v-if="isLoading || !authResolved"
+            v-if="phase === 'loading'"
             role="status"
             aria-label="Statistikalarınız yüklənir"
             class="space-y-6"
@@ -82,7 +82,7 @@
 
          <!-- Signed-out State -->
          <div
-            v-else-if="auth.status === 'anonymous' && !auth.user"
+            v-else-if="phase === 'anonymous'"
             class="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm"
          >
             <div
@@ -115,7 +115,7 @@
 
          <!-- Auth Check Failed State -->
          <div
-            v-else-if="auth.status === 'error' && !auth.user"
+            v-else-if="phase === 'auth-error'"
             role="alert"
             class="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm"
          >
@@ -149,7 +149,7 @@
 
          <!-- No WLM Records Yet (404) -->
          <div
-            v-else-if="error && errorKind === 'not_found'"
+            v-else-if="phase === 'not-found'"
             class="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm"
          >
             <div
@@ -183,7 +183,7 @@
 
          <!-- Fetch Error State -->
          <div
-            v-else-if="error"
+            v-else-if="phase === 'fetch-error'"
             role="alert"
             class="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm"
          >
@@ -213,7 +213,7 @@
             </div>
          </div>
 
-         <!-- Content -->
+         <!-- Content (phase === 'ready' implies stats; the guard also narrows the type) -->
          <div v-else-if="stats" class="animate-in fade-in space-y-6 duration-500">
             <!-- Freshness / refresh -->
             <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-500">
@@ -381,6 +381,7 @@ import { computed, defineAsyncComponent, watch } from "vue";
 import { useHead } from "@unhead/vue";
 import { useUserStats } from "@/composables/useUserStats.ts";
 import { useAuthStore } from "@/stores/auth.ts";
+import { dateLong, dateTime, formatNumber } from "@/utils/format.ts";
 
 const YearlyBreakdownChart = defineAsyncComponent(
    () => import("../components/stats/YearlyBreakdownChart.vue"),
@@ -435,33 +436,15 @@ const usageRate = computed(() => {
    return Math.round((stats.value.total.usage / stats.value.total.count) * 100);
 });
 
-// Hoist Intl formatters for performance: avoids redundant instantiation in computed properties
-const DATE_FORMATTER = new Intl.DateTimeFormat("az-AZ", {
-   year: "numeric",
-   month: "long",
-   day: "numeric",
-});
-
-const NUMBER_FORMATTER = new Intl.NumberFormat("az-AZ");
-
-const DATETIME_FORMATTER = new Intl.DateTimeFormat("az-AZ", {
-   dateStyle: "medium",
-   timeStyle: "short",
-});
-
-const formatNumber = (num: number): string => {
-   return NUMBER_FORMATTER.format(num);
-};
-
 const formattedLastFetchedAt = computed(() =>
-   lastFetchedAt.value ? DATETIME_FORMATTER.format(lastFetchedAt.value) : "",
+   lastFetchedAt.value ? dateTime.format(lastFetchedAt.value) : "",
 );
 
 const formattedCommonsRegDate = computed(() => {
    if (!stats.value?.commons?.registration) return "";
    const date = new Date(stats.value.commons.registration);
    if (Number.isNaN(date.getTime())) return "";
-   return DATE_FORMATTER.format(date);
+   return dateLong.format(date);
 });
 
 const filteredGroups = computed(() => {
@@ -486,6 +469,21 @@ const handleRetryStats = (): void => {
 const handleRetryAuth = (): void => {
    void auth.fetchUser();
 };
+
+/**
+ * The page's single lifecycle state. The template branches on this instead
+ * of re-deriving a five-way v-if chain from four independent refs — auth
+ * state, fetch flags and data presence can't contradict each other.
+ */
+type ProfilePhase = "loading" | "anonymous" | "auth-error" | "not-found" | "fetch-error" | "ready";
+
+const phase = computed<ProfilePhase>(() => {
+   if (isLoading.value || !authResolved.value) return "loading";
+   if (!auth.user) return auth.status === "error" ? "auth-error" : "anonymous";
+   if (error.value && !stats.value)
+      return errorKind.value === "not_found" ? "not-found" : "fetch-error";
+   return stats.value ? "ready" : "loading";
+});
 
 watch(
    [() => auth.status, () => auth.user?.username],

@@ -42,6 +42,7 @@ import VChart from "vue-echarts";
 import { computed, ref } from "vue";
 import type { WikiLovesDailyData } from "@/types/api.ts";
 import { buildDailySeries } from "@/utils/dailyStats.ts";
+import { dateDayMonth, formatNumber } from "@/utils/format.ts";
 
 const props = withDefaults(
    defineProps<{
@@ -57,10 +58,6 @@ const props = withDefaults(
 );
 
 const mode = ref<"images" | "joiners">("images");
-
-// Hoist formatters for performance: avoids per-tick Intl instantiation
-const DATE_FORMATTER = new Intl.DateTimeFormat("az-AZ", { day: "numeric", month: "short" });
-const NUMBER_FORMATTER = new Intl.NumberFormat("az-AZ");
 
 const toTimestamp = (date: string): number => Date.parse(`${date}T00:00:00Z`);
 
@@ -87,11 +84,11 @@ const option = computed(() => {
             const daily = isImages ? point.images : point.joiners;
             const total = isImages ? point.totalImages : point.totalJoiners;
             return [
-               `<div style="font-weight:600;margin-bottom:4px">${DATE_FORMATTER.format(
+               `<div style="font-weight:600;margin-bottom:4px">${dateDayMonth.format(
                   new Date(toTimestamp(point.date)),
                )}</div>`,
-               `<div>${totalName}: ${NUMBER_FORMATTER.format(total)}</div>`,
-               `<div style="color:#6b7280">Bu gün: +${NUMBER_FORMATTER.format(daily)}</div>`,
+               `<div>${totalName}: ${formatNumber(total)}</div>`,
+               `<div style="color:#6b7280">Bu gün: +${formatNumber(daily)}</div>`,
             ].join("");
          },
       },
@@ -110,7 +107,7 @@ const option = computed(() => {
             fontWeight: "600",
             color: "#4b5563",
             hideOverlap: true,
-            formatter: (value: number) => DATE_FORMATTER.format(new Date(value)),
+            formatter: (value: number) => dateDayMonth.format(new Date(value)),
          },
       },
       yAxis: {

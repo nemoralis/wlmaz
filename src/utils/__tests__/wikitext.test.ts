@@ -5,7 +5,7 @@ import {
    buildHeritageTemplate,
    buildLocationTemplate,
    buildUploadWikitext,
-} from "@/utils/wikitext.ts";
+} from "@/utils/uploadPayload.ts";
 
 describe("buildDateTemplate", () => {
    afterEach(() => {

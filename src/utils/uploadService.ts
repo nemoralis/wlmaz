@@ -7,7 +7,53 @@
  */
 
 import type { UploadSuccessResponse } from "@/types/api.ts";
-import { isTransientError, messageFor } from "@/utils/uploadErrors.ts";
+
+// Commons API error codes that are safe to auto-retry (transient/server-side).
+const TRANSIENT_ERROR_CODES = new Set([
+   "http_error",
+   "stashfailed",
+   "internalerror",
+   "uploaddisabled",
+   "sessionlost",
+]);
+
+// Friendly Azerbaijani messages for known Commons upload error codes.
+const UPLOAD_ERROR_MESSAGES: Record<string, string> = {
+   fileexists: "Bu adda fayl artıq Wikimedia Commons-da mövcuddur.",
+   "fileexists-shared-forbidden": "Bu adda fayl artıq mövcuddur və yenidən yüklənə bilməz.",
+   "duplicate-archive": "Bu fayl artıq Wikimedia Commons-da başqa adda mövcuddur.",
+   duplicate: "Bu fayl artıq Wikimedia Commons-da başqa adda mövcuddur.",
+   duplicateversions:
+      "Bu fayl artıq eyni məzmunla Wikimedia Commons-da mövcuddur. Başlığı dəyişdirin.",
+   "no-change": "Bu adda eyni fayl artıq mövcuddur. Başlığı dəyişdirin.",
+   "was-deleted": "Bu adda fayl əvvəllər silinib. Başlığı dəyişdirin.",
+   "verify-error": "Fayl doğrulama müddəti bitdi. Yenidən cəhd edin.",
+   "empty-file": "Fayl boşdur və yüklənə bilməz.",
+   badfilename: "Bu fayl adı etibarsızdır.",
+   "filename-too-short": "Fayl adı çox qısadır.",
+   title_check_failed:
+      "Başlıqların mövcudluğunu yoxlamaq mümkün olmadı. İnternet bağlantınızı yoxlayıb yenidən cəhd edin.",
+   "external-session-invalid":
+      "Wikimedia Commons sessiyası etibarsızdır. Səhifəni yeniləyib yenidən cəhd edin.",
+   badtoken: "Təhlükəsizlik tokeni köhnəlmişdir. Səhifəni yeniləyib yenidən cəhd edin.",
+   uploaddisabled: "Wikimedia Commons-a yükləmə müvəqqəti olaraq dayandırılıb.",
+   stashfailed: "Wikimedia Commons yükləmə xidməti xəta verdi. Yenidən cəhd edin.",
+   internalerror: "Wikimedia Commons daxili xəta verdi. Yenidən cəhd edin.",
+   http_error: "Wikimedia Commons-a qoşulma xətası. İnternet bağlantınızı yoxlayın.",
+   timeout: "Yükləmə müddəti bitdi. Yenidən cəhd edin.",
+};
+
+/** Returns the friendly message for a known Commons error code, else the fallback. */
+export const messageFor = (code: string | undefined, fallback: string): string =>
+   (code && UPLOAD_ERROR_MESSAGES[code]) || fallback;
+
+/**
+ * Whether a failed upload should be retried: a known transient code or any
+ * HTTP status >= 500 (server-side error). Kept with the retry loop so the
+ * policy and its single caller cannot drift apart.
+ */
+const isTransientError = (code: string | undefined, httpStatus?: number): boolean =>
+   (!!code && TRANSIENT_ERROR_CODES.has(code)) || (httpStatus !== undefined && httpStatus >= 500);
 
 /**
  * One file entry in a pending upload queue. EXIF-originated fields
@@ -35,7 +81,7 @@ export interface UploadFailure {
    name: string;
    /** Stable machine code (e.g. "aborted", "timeout", "http_error", or a Commons error code). */
    code?: string;
-   /** User-facing message, resolved via uploadErrors' messageFor when missing. */
+   /** User-facing message, resolved via messageFor when missing. */
    message: string;
 }
 

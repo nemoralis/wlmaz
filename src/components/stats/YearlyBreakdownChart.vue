@@ -66,6 +66,8 @@
 import "@/utils/echarts";
 import VChart from "vue-echarts";
 import { computed, ref } from "vue";
+import { latestWlmYear, START_YEAR } from "@/utils/leaderboard.ts";
+import { formatNumber } from "@/utils/format.ts";
 
 const props = withDefaults(
    defineProps<{
@@ -79,13 +81,8 @@ const mode = ref<"count" | "usage">("count");
 
 /** Every contest year from the first WLM AZ edition to the latest available. */
 const allYears = computed<string[]>(() => {
-   const startYear = 2013;
-   const now = new Date();
-   const currentYear = now.getFullYear();
-   const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
-
    const years: string[] = [];
-   for (let y = startYear; y <= latestYear; y++) {
+   for (let y = START_YEAR; y <= latestWlmYear(); y++) {
       years.push(y.toString());
    }
    return years;
@@ -103,8 +100,8 @@ const tableRows = computed(() =>
 const screenReaderRows = computed(() =>
    tableRows.value.map((row) => ({
       year: row.year,
-      count: new Intl.NumberFormat("az-AZ").format(row.count),
-      usage: new Intl.NumberFormat("az-AZ").format(row.usage),
+      count: formatNumber(row.count),
+      usage: formatNumber(row.usage),
    })),
 );
 

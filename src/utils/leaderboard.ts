@@ -27,6 +27,16 @@ export const START_YEAR = 2013;
 /** Seconds. TTL for a contest that has already ended — its data never changes. */
 export const FINISHED_TTL = 60 * 60 * 24 * 30; // 30 days
 
+/**
+ * The latest WLM year with data available. The contest runs in September, so
+ * January–August still refers to the previous year. Single source for the
+ * client (leaderboard + charts) and the server aggregate builder.
+ */
+export function latestWlmYear(now: Date = new Date()): number {
+   const year = now.getFullYear();
+   return now.getMonth() < 8 ? year - 1 : year;
+}
+
 const isYearlyBreakdown = (value: unknown): value is Record<number, WikiLovesYearData> =>
    isRecord(value) &&
    Object.entries(value).every(

@@ -2,6 +2,7 @@ import { ref } from "vue";
 import type { UserStats } from "@/types/api.ts";
 import { ApiError, apiFetch } from "@/utils/apiClient.ts";
 import { parseUserStats } from "@/utils/apiGuards.ts";
+import { readStorage, removeStorage, writeStorage } from "@/utils/safeStorage.ts";
 
 /**
  * The kind of the last failed fetch, when no stats are on screen. The page
@@ -63,45 +64,20 @@ export const useUserStats = () => {
    /** Latest request; an older user's response must not replace the current one. */
    let requestId = 0;
 
-   const readCache = (key: string): string | null => {
-      try {
-         return localStorage.getItem(key);
-      } catch {
-         return null;
-      }
-   };
-
-   const writeCache = (key: string, value: string): void => {
-      try {
-         localStorage.setItem(key, value);
-      } catch (e) {
-         console.error("Failed to cache user stats", e);
-      }
-   };
-
-   const removeCache = (key: string): void => {
-      try {
-         localStorage.removeItem(key);
-         localStorage.removeItem(`${key}:fetchedAt`);
-      } catch {
-         // Storage may be unavailable; the in-memory value is still correct.
-      }
-   };
-
    /**
     * The sibling `...:fetchedAt` key records when the cached snapshot was
     * written, so the page can say how fresh the numbers are. Kept separate
     * from the stats payload, which the API parser validates as-is.
     */
    const readFetchedAt = (key: string): Date | null => {
-      const raw = readCache(`${key}:fetchedAt`);
+      const raw = readStorage(`${key}:fetchedAt`);
       if (!raw) return null;
       const date = new Date(raw);
       return Number.isNaN(date.getTime()) ? null : date;
    };
 
    const writeFetchedAt = (key: string, date: Date): void => {
-      writeCache(`${key}:fetchedAt`, date.toISOString());
+      writeStorage(`${key}:fetchedAt`, date.toISOString());
    };
 
    const fetchUserStats = async (username: string) => {
@@ -122,7 +98,7 @@ export const useUserStats = () => {
 
       // SWR: Load from local storage immediately if available. The cached JSON
       // is untrusted input, so it goes through the same parser as the API.
-      const cached = readCache(cacheKey);
+      const cached = readStorage(cacheKey);
       if (cached) {
          try {
             const parsed = parseUserStats(JSON.parse(cached));
@@ -133,7 +109,8 @@ export const useUserStats = () => {
             lastFetchedAt.value = readFetchedAt(cacheKey);
          } catch (e) {
             console.error("Failed to parse cached stats", e);
-            removeCache(cacheKey);
+            removeStorage(cacheKey);
+            removeStorage(`${cacheKey}:fetchedAt`);
          }
       }
 
@@ -156,7 +133,7 @@ export const useUserStats = () => {
          loadedUsername.value = username;
          lastFetchedAt.value = new Date();
          refreshFailed.value = false;
-         writeCache(cacheKey, JSON.stringify(data));
+         writeStorage(cacheKey, JSON.stringify(data));
          writeFetchedAt(cacheKey, lastFetchedAt.value);
       } catch (err: unknown) {
          if (id !== requestId) return;

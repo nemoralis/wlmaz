@@ -151,37 +151,36 @@ export const parsePublicWikiUser = (body: unknown): PublicWikiUser => {
    return user;
 };
 
-/** Validates one user entry from the leaderboard aggregate. */
-export const parseWikiLovesUserData = (body: unknown): WikiLovesUserData => {
-   const record = asRecord(body, "leaderboard user");
-   const user: WikiLovesUserData = {
-      count: numberField(record, "count", "leaderboard user"),
-      usage: numberField(record, "usage", "leaderboard user"),
-      reg: numberField(record, "reg", "leaderboard user"),
+/**
+ * Validates the shared per-user totals shape (`count` / `usage` / `reg` plus
+ * an optional `yearly` breakdown). Identical in the leaderboard aggregate
+ * entries and in the user-stats response, so both parsers share it.
+ */
+const parseUserTotals = (body: unknown, label: string): WikiLovesUserData => {
+   const record = asRecord(body, label);
+   const total: WikiLovesUserData = {
+      count: numberField(record, "count", label),
+      usage: numberField(record, "usage", label),
+      reg: numberField(record, "reg", label),
    };
 
-   const yearly = parseYearly(record.yearly, "leaderboard user");
-   if (yearly) user.yearly = yearly;
+   const yearly = parseYearly(record.yearly, label);
+   if (yearly) total.yearly = yearly;
 
-   return user;
+   return total;
 };
+
+/** Validates one user entry from the leaderboard aggregate. */
+export const parseWikiLovesUserData = (body: unknown): WikiLovesUserData =>
+   parseUserTotals(body, "leaderboard user");
 
 /** Validates `GET /api/leaderboard/user/:name`. */
 export const parseUserStats = (body: unknown): UserStats => {
    const record = asRecord(body, "user stats");
-   const totals = asRecord(record.total, "user stats");
-
-   const total: UserStats["total"] = {
-      count: numberField(totals, "count", "user stats"),
-      usage: numberField(totals, "usage", "user stats"),
-      reg: numberField(totals, "reg", "user stats"),
-   };
-   const yearly = parseYearly(totals.yearly, "user stats");
-   if (yearly) total.yearly = yearly;
 
    const stats: UserStats = {
       username: stringField(record, "username", "user stats"),
-      total,
+      total: parseUserTotals(record.total, "user stats"),
       country: stringField(record, "country", "user stats"),
    };
 

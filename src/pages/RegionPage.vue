@@ -117,7 +117,7 @@
                   ref="virtualTable"
                   :columns="columns"
                   :data="sortedMonuments"
-                  :row-height="75"
+                  :row-height="112"
                   :sort-state="sortState"
                   @sort="handleSort"
                >
@@ -128,7 +128,7 @@
                                 it so crawlers can discover /monument/* URLs. -->
                            <router-link
                               v-if="hasPage(row)"
-                              :to="monumentPath(row)"
+                              :to="monumentPath(row.inventory)"
                               class="hover:text-[#3366cc] hover:underline"
                            >
                               {{ row.itemLabel }}
@@ -137,13 +137,13 @@
                         </div>
                         <div
                            v-if="row.itemDescription"
-                           class="mt-0.5 truncate text-xs text-gray-500"
+                           class="mt-0.5 break-words text-xs text-gray-500"
                         >
                            {{ row.itemDescription }}
                         </div>
                         <div
                            v-if="row.itemAltLabel"
-                           class="mt-0.5 truncate text-xs text-gray-400 italic"
+                           class="mt-0.5 break-words text-xs text-gray-400"
                         >
                            {{ row.itemAltLabel }}
                         </div>
@@ -154,7 +154,7 @@
                        row that a photo gallery above cannot show. -->
                   <template #item-status="{ row }">
                      <span
-                        class="inline-flex px-2 text-xs font-semibold"
+                        class="inline-flex px-2 text-xs font-semibold whitespace-nowrap"
                         :class="row.image ? 'text-[#14866d]' : 'text-[#d73333]'"
                      >
                         {{ row.image ? "Şəkilli" : "Şəkilsiz" }}
@@ -204,7 +204,7 @@ import {
    REGIONS_MONUMENTS_HEADING,
 } from "@/content/regions";
 import { SITE_HOST } from "@/utils/constants";
-import { encodeIdForUrl, getCanonicalId } from "@/utils/monumentFormatters";
+import { monumentPath } from "@/utils/monumentFormatters";
 import { activeSortKey, sortDirectionFor, sortMonumentsByKey } from "@/utils/monumentSorting";
 import { monumentsInRegion, regionPhotoStats } from "@/utils/regions";
 import type { MonumentProps } from "@/types";
@@ -276,11 +276,11 @@ const stats = computed(() =>
  * the three-line label cell needs.
  */
 const columns = [
-   { id: "inventory", label: "İnventar", allowSort: true, width: "100px" },
-   { id: "itemLabel", label: "Ad", allowSort: true, minWidth: "180px" },
-   { id: "addressLabel", label: "Ünvan", allowSort: false, minWidth: "160px" },
-   { id: "status", label: "Status", minWidth: "96px" },
-   { id: "actions", label: "", minWidth: "112px" },
+   { id: "inventory", label: "İnventar", allowSort: true, width: "80px" },
+   { id: "itemLabel", label: "Ad", allowSort: true, width: "220px" },
+   { id: "addressLabel", label: "Ünvan", allowSort: false, width: "160px", hideBelow: "md" as const },
+   { id: "status", label: "Status", width: "80px" },
+   { id: "actions", label: "", width: "100px" },
 ];
 
 const virtualTable = ref<{ scrollToTop: () => void } | null>(null);
@@ -323,9 +323,6 @@ const handleSort = (colId: string) => {
 /** Only monuments with a page of their own get linked. */
 const hasPage = (row: MonumentProps): boolean =>
    typeof row.lat === "number" && Boolean(row.inventory?.length);
-
-const monumentPath = (row: MonumentProps): string =>
-   `/monument/${encodeIdForUrl(getCanonicalId(row.inventory))}`;
 
 onMounted(() => {
    monumentStore.init();

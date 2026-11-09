@@ -8,14 +8,18 @@
             class="flex"
             :style="{
                width: `${contentWidth}px`,
-               transform: `translateX(${-visibleScrollLeft}px)`,
+               margin: '0 auto',
+               transform: `translateX(${-scrollLeft}px)`,
             }"
          >
             <div
-               v-for="(col, index) in columns"
+               v-for="col in columns"
                :key="col.id"
-               :style="{ width: `${columnWidths[index]}px` }"
-               class="shrink-0 overflow-hidden px-2 py-3 text-xs font-bold tracking-wider whitespace-nowrap text-gray-500 uppercase sm:px-4"
+               :style="{ width: col.width }"
+               :class="[
+                  col.hideBelow === 'md' ? 'hidden md:block' : '',
+                  'shrink-0 overflow-hidden px-2 py-3 text-xs font-bold tracking-wider whitespace-nowrap text-gray-500 uppercase sm:px-4',
+               ]"
             >
                <button
                   v-if="col.allowSort"
@@ -42,16 +46,17 @@
       >
          <!-- Total Height Spacer -->
          <div
-            :style="{ height: `${totalHeight}px`, width: `${contentWidth}px` }"
+            :style="{ height: `${totalHeight}px`, width: '100%' }"
             class="pointer-events-none absolute top-0 left-0"
          ></div>
 
          <!-- Visible Rows -->
          <div
-            class="absolute top-0 left-0"
+            class="absolute top-0 right-0 left-0"
             :style="{
                transform: `translateY(${offsetY}px)`,
                width: `${contentWidth}px`,
+               margin: '0 auto',
             }"
          >
             <div
@@ -61,13 +66,16 @@
                class="flex items-center border-b border-gray-100 transition-colors hover:bg-blue-50/30"
             >
                <div
-                  v-for="(col, index) in columns"
+                  v-for="col in columns"
                   :key="col.id"
-                  :style="{ width: `${columnWidths[index]}px` }"
-                  class="shrink-0 overflow-hidden px-2 sm:px-4"
+                  :style="{ width: col.width }"
+                  :class="[
+                     col.hideBelow === 'md' ? 'hidden md:block' : '',
+                     'shrink-0 overflow-hidden px-2 sm:px-4',
+                  ]"
                >
                   <slot :name="`item-${col.id}`" :row="row">
-                     <span class="block truncate text-sm whitespace-nowrap text-gray-700">
+                     <span class="block text-sm break-words text-gray-700">
                         {{ getColumnValue(row, col.id) }}
                      </span>
                   </slot>
@@ -94,10 +102,11 @@ import { getCanonicalId } from "@/utils/monumentFormatters.ts";
 interface Column {
    id: string;
    label: string;
-   /** Fixed pixel width (e.g. "100px"). Columns without one flex. */
-   width?: string;
-   /** Minimum pixel width for flexible columns; also sets the scroll floor. */
-   minWidth?: string;
+   /** Fixed pixel width (e.g. "100px"). The table is exactly the sum of its
+    *  columns: centered when wider than the viewport, scrolling when not. */
+   width: string;
+   /** Hide below the `md` breakpoint (6 columns don't fit a handset). */
+   hideBelow?: "md";
    allowSort?: boolean;
 }
 
@@ -118,42 +127,20 @@ const viewportHeight = ref(0);
 const viewportWidth = ref(0);
 const bufferCount = props.buffer || 5;
 
-const parsePx = (value: string | undefined, fallback: number): number => {
-   const parsed = value ? parseInt(value, 10) : Number.NaN;
-   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+const parsePx = (value: string): number => {
+   const parsed = parseInt(value, 10);
+   return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
 };
 
 /**
- * Column widths in pixels, shared by the header and the rows so they cannot
- * drift. Fixed columns keep their width; flexible columns share whatever is
- * left — but never less than the sum of their minima, which becomes the
- * horizontal scroll floor. On a narrow phone the table scrolls sideways
- * instead of crushing every cell to a sliver.
+ * The table's total width: the sum of the (fixed) column widths, ignoring
+ * the columns hidden at the current breakpoint — so on a phone the table
+ * scrolls sideways by the columns you can actually see, and no further.
  */
-const columnWidths = computed<number[]>(() => {
-   const fixedTotal = props.columns.reduce(
-      (sum, col) => (col.width ? sum + parsePx(col.width, 0) : sum),
-      0,
-   );
-   const flexMinTotal = props.columns.reduce(
-      (sum, col) => (col.width ? sum : sum + parsePx(col.minWidth, 140)),
-      0,
-   );
-   const contentWidth = Math.max(viewportWidth.value, fixedTotal + flexMinTotal);
-   const flexAvailable = contentWidth - fixedTotal;
-
-   return props.columns.map((col) => {
-      if (col.width) return parsePx(col.width, 0);
-      const min = parsePx(col.minWidth, 140);
-      return flexMinTotal > 0 ? (flexAvailable * min) / flexMinTotal : min;
-   });
-});
-
-const contentWidth = computed(() => columnWidths.value.reduce((sum, width) => sum + width, 0));
-
-/** Clamped so a stale scrollLeft never pushes the header past the last column. */
-const visibleScrollLeft = computed(() =>
-   Math.min(scrollLeft.value, Math.max(0, contentWidth.value - viewportWidth.value)),
+const contentWidth = computed(() =>
+   props.columns
+      .filter((col) => col.hideBelow !== "md" || viewportWidth.value >= 768)
+      .reduce((sum, col) => sum + parsePx(col.width), 0),
 );
 
 // Calculations
@@ -187,10 +174,9 @@ const handleScroll = (e: Event) => {
 };
 
 const updateViewportSize = () => {
-   if (viewport.value) {
-      viewportHeight.value = viewport.value.clientHeight;
-      viewportWidth.value = viewport.value.clientWidth;
-   }
+   if (!viewport.value) return;
+   viewportHeight.value = viewport.value.clientHeight;
+   viewportWidth.value = viewport.value.clientWidth;
 };
 
 /**

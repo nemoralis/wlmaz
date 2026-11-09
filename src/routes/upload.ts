@@ -38,8 +38,11 @@ import {
 } from "@/utils/mediawikiConfig";
 import { getCanonicalId } from "@/utils/monumentFormatters";
 import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize";
-import { parseTitlesExistRequest, parseUploadFields } from "@/utils/uploadRequest";
-import { buildUploadWikitext } from "@/utils/wikitext";
+import {
+   buildUploadWikitext,
+   parseTitlesExistRequest,
+   parseUploadFields,
+} from "@/utils/uploadPayload";
 
 const router = express.Router();
 

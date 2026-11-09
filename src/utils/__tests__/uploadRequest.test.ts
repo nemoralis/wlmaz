@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseTitlesExistRequest, parseUploadFields } from "@/utils/uploadRequest.ts";
+import { parseTitlesExistRequest, parseUploadFields } from "@/utils/uploadPayload.ts";
 
 describe("parseUploadFields", () => {
    it("accepts and normalizes the upload form fields", () => {

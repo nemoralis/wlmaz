@@ -13,10 +13,10 @@ import {
    parseUploadStatusResponse,
 } from "@/utils/apiGuards.ts";
 import { getCanonicalId } from "@/utils/monumentFormatters.ts";
-import { messageFor } from "@/utils/uploadErrors.ts";
 import { nextFreeTitles } from "@/utils/uploadFileNames.ts";
 import {
    isHeicFile,
+   messageFor,
    uploadSingleFile,
    type FileItem,
    type UploadFailure,

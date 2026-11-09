@@ -12,6 +12,7 @@ import {
    extractCountry,
    FINISHED_TTL,
    isEventFinished,
+   latestWlmYear,
    parseLeaderboardResponse,
    START_YEAR,
 } from "@/utils/leaderboard.ts";
@@ -54,28 +55,7 @@ const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout
 
 /** Reads and validates the aggregate cache. A corrupt value counts as a miss. */
 async function readCachedAggregate(): Promise<LeaderboardResponse | null> {
-   if (!redisClient.isOpen) return null;
-
-   let cached: string | null;
-   try {
-      cached = await redisClient.get(AGGREGATE_CACHE_KEY);
-   } catch (e) {
-      logger.error("Redis read error:", e);
-      return null;
-   }
-   if (!cached) return null;
-
-   try {
-      return parseLeaderboardResponse(JSON.parse(cached));
-   } catch (e) {
-      logger.warn("Invalid aggregate cache; discarding it", e);
-      try {
-         await redisClient.del(AGGREGATE_CACHE_KEY);
-      } catch (deleteError) {
-         logger.error("Redis delete error:", deleteError);
-      }
-      return null;
-   }
+   return readValidatedCache(AGGREGATE_CACHE_KEY, parseLeaderboardResponse, "aggregate");
 }
 
 async function deleteCacheKey(cacheKey: string): Promise<void> {
@@ -86,8 +66,16 @@ async function deleteCacheKey(cacheKey: string): Promise<void> {
    }
 }
 
-/** Reads and validates one user's cached stats. A corrupt value counts as a miss. */
-async function readCachedUserStats(cacheKey: string): Promise<UserStats | null> {
+/**
+ * Reads a Redis cache entry through a runtime parser. A corrupt value is
+ * discarded and counts as a miss, so one bad write can never turn a route
+ * into a permanent 500 until the TTL expires.
+ */
+async function readValidatedCache<T>(
+   cacheKey: string,
+   parse: (value: unknown) => T,
+   label: string,
+): Promise<T | null> {
    if (!redisClient.isOpen) return null;
 
    let cached: string | null;
@@ -100,34 +88,22 @@ async function readCachedUserStats(cacheKey: string): Promise<UserStats | null> 
    if (!cached) return null;
 
    try {
-      return parseUserStats(JSON.parse(cached));
+      return parse(JSON.parse(cached));
    } catch (e) {
-      logger.warn("Invalid user stats cache; discarding it", e);
+      logger.warn(`Invalid ${label} cache; discarding it`, e);
       await deleteCacheKey(cacheKey);
       return null;
    }
 }
 
+/** Reads and validates one user's cached stats. A corrupt value counts as a miss. */
+async function readCachedUserStats(cacheKey: string): Promise<UserStats | null> {
+   return readValidatedCache(cacheKey, parseUserStats, "user stats");
+}
+
 /** Reads and validates one event's cached leaderboard slice. */
 async function readCachedYear(cacheKey: string): Promise<LeaderboardResponse | null> {
-   if (!redisClient.isOpen) return null;
-
-   let cached: string | null;
-   try {
-      cached = await redisClient.get(cacheKey);
-   } catch (e) {
-      logger.error("Redis read error:", e);
-      return null;
-   }
-   if (!cached) return null;
-
-   try {
-      return parseLeaderboardResponse(JSON.parse(cached));
-   } catch (e) {
-      logger.warn("Invalid leaderboard year cache; discarding it", e);
-      await deleteCacheKey(cacheKey);
-      return null;
-   }
+   return readValidatedCache(cacheKey, parseLeaderboardResponse, "leaderboard year");
 }
 
 /**
@@ -175,8 +151,7 @@ async function fetchAggregate(): Promise<LeaderboardResponse> {
    if (cached) return cached;
 
    const now = new Date();
-   const currentYear = now.getFullYear();
-   const latestYear = now.getMonth() < 8 ? currentYear - 1 : currentYear;
+   const latestYear = latestWlmYear(now);
    const years = Array.from({ length: latestYear - START_YEAR + 1 }, (_, i) => START_YEAR + i);
 
    const fetchPromises = years.map(async (year) => {

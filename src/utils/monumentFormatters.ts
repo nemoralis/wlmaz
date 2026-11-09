@@ -146,6 +146,13 @@ export const isIdMatch = (
 };
 
 /**
+ * The prerendered page path for a monument's canonical id. Shared by the
+ * tables and the map so every link encodes the id the same way.
+ */
+export const monumentPath = (inventory: string[] | string | undefined | null): string =>
+   `/monument/${encodeIdForUrl(getCanonicalId(inventory))}`;
+
+/**
  * Resolves a `?inventory=` deep-link value to an id that actually exists.
  *
  * The value may be a single id ("38"), a whole inventory string ("38, 1945"),

@@ -235,6 +235,7 @@ import { useHead } from "@unhead/vue";
 import { useLeaderboard } from "@/composables/useLeaderboard.ts";
 import LeaderboardSkeleton from "@/components/stats/LeaderboardSkeleton.vue";
 import { LEADERBOARD_PAGE } from "@/content/staticPages.ts";
+import { dateShort, formatNumber } from "@/utils/format.ts";
 
 const YearlyBreakdownChart = defineAsyncComponent(
    () => import("../components/stats/YearlyBreakdownChart.vue"),
@@ -261,22 +262,9 @@ const onYearChange = () => {
    fetchLeaderboard(selectedYear.value);
 };
 
-// Hoist Intl formatters for performance: avoids redundant instantiation in v-for loops
-const DATE_FORMATTER = new Intl.DateTimeFormat("az-AZ", {
-   year: "numeric",
-   month: "short",
-   day: "numeric",
-});
-
-const NUMBER_FORMATTER = new Intl.NumberFormat("az-AZ");
-
 const formatDate = (date: Date | null): string => {
    if (!date || Number.isNaN(date.getTime())) return "—";
-   return DATE_FORMATTER.format(date);
-};
-
-const formatNumber = (num: number): string => {
-   return NUMBER_FORMATTER.format(num);
+   return dateShort.format(date);
 };
 
 onMounted(() => {
