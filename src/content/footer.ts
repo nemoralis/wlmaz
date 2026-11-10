@@ -1,8 +1,8 @@
 /**
  * Footer-strip copy for the app shell (`src/App.vue`).
  *
- * Follows the XTools footer logic: the WMCS badge on the right links to the
- * Cloud VPS portal, and a muted credits line sits on the left. The legal links
+ * Follows the XTools footer logic: the partner badges on the right link to
+ * their portals, and a muted credits line sits on the left. The legal links
  * that used to live here were removed by project decision, so nothing in this
  * module has to stay in step with the Privacy Statement copy.
  *
@@ -43,6 +43,23 @@ export const FOOTER_WIKIDATA_STAMP = {
    height: 246,
    alt: "Wikidata əsasında işləyir",
    href: "https://www.wikidata.org/wiki/Wikidata:Data_access",
+} as const;
+
+/**
+ * MilliNet 2026 participant badge.
+ *
+ * MilliNet supplies a <script> that document.writes exactly this anchor/image
+ * pair. Rendering the same markup natively keeps third-party JavaScript out of
+ * the origin and avoids parser-blocking document.write behaviour. The image is
+ * hotlinked so MilliNet can update the artwork; `img-src` in the CSP allows
+ * only this origin.
+ */
+export const FOOTER_MILLINET_BADGE = {
+   src: "https://millinet.az/images/participant.png?v=2",
+   width: 200,
+   height: 103,
+   alt: "MilliNet 2026 iştirakçısı",
+   href: "https://millinet.az",
 } as const;
 
 /**

@@ -82,6 +82,8 @@ const startServer = async () => {
                   // Esri World Imagery satellite layer
                   "server.arcgisonline.com",
                   "wikilovesmonuments.az",
+                  // MilliNet 2026 participant badge (image only; no script).
+                  "https://millinet.az",
                ],
                "connect-src": ["'self'", "*.wikimedia.org"],
                "font-src": ["'self'", "https://tools-static.wmflabs.org"],

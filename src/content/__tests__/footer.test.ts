@@ -12,7 +12,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { FOOTER_META_LINKS, FOOTER_WMCS_BADGE } from "@/content/footer.ts";
+import { FOOTER_META_LINKS, FOOTER_MILLINET_BADGE, FOOTER_WMCS_BADGE } from "@/content/footer.ts";
 
 /** Repo root, resolved from this file rather than process.cwd(). */
 const ROOT = path.resolve(import.meta.dirname, "../../..");
@@ -50,6 +50,37 @@ describe("footer WMCS badge", () => {
       // The badge replaced the sentence, which now survives only as alt text;
       // the shell must not print both.
       expect(app).not.toContain("Wikimedia Cloud Services-də yerləşdirilib");
+   });
+});
+
+describe("footer MilliNet badge", () => {
+   it("links to MilliNet and declares the supplied badge dimensions", () => {
+      expect(FOOTER_MILLINET_BADGE.href).toBe("https://millinet.az");
+      expect(FOOTER_MILLINET_BADGE.src).toBe("https://millinet.az/images/participant.png?v=2");
+      expect(FOOTER_MILLINET_BADGE.width).toBe(200);
+      expect(FOOTER_MILLINET_BADGE.height).toBe(103);
+      expect(FOOTER_MILLINET_BADGE.alt).toContain("MilliNet");
+   });
+
+   it("is rendered natively instead of loading the third-party script", () => {
+      const app = readRootFile(path.join("src", "App.vue"));
+      expect(app).toContain("FOOTER_MILLINET_BADGE");
+
+      // The supplied snippet document.writes this exact anchor/image pair.
+      // Keep it out of the shell so no third-party script runs in our origin.
+      const index = readRootFile("index.html");
+      expect(index).not.toContain("millinet.az/banner.js");
+   });
+
+   it("allows the badge image in both CSP definitions", () => {
+      const server = readRootFile(path.join("src", "index.ts"));
+      expect(server).toContain("https://millinet.az");
+      expect(server).toContain('"script-src": ["\'self\'"]');
+
+      const nginx = readRootFile("nginx.conf");
+      expect(nginx).toContain("https://millinet.az");
+      // All three duplicated CSP strings should carry the image origin.
+      expect(nginx.match(/https:\/\/millinet\.az/g)).toHaveLength(3);
    });
 });
 

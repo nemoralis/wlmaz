@@ -326,7 +326,7 @@
                   </router-link>
                </template>
             </p>
-            <div class="flex items-center gap-3">
+            <div class="flex flex-wrap items-center justify-end gap-3">
                <a
                   :href="FOOTER_WIKIDATA_STAMP.href"
                   target="_blank"
@@ -350,6 +350,23 @@
                      class="h-10 w-auto"
                   />
                </a>
+               <a
+                  :href="FOOTER_MILLINET_BADGE.href"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  referrerpolicy="no-referrer"
+                  class="flex-none"
+               >
+                  <img
+                     :src="FOOTER_MILLINET_BADGE.src"
+                     :alt="FOOTER_MILLINET_BADGE.alt"
+                     :width="FOOTER_MILLINET_BADGE.width"
+                     :height="FOOTER_MILLINET_BADGE.height"
+                     decoding="async"
+                     referrerpolicy="no-referrer"
+                     class="h-10 w-auto"
+                  />
+               </a>
             </div>
          </footer>
       </main>
@@ -362,7 +379,12 @@ import { useRoute } from "vue-router";
 import { CdxIcon } from "@wikimedia/codex";
 import { cdxIconLogoWikimediaCommons } from "@wikimedia/codex-icons";
 import { ABOUT_COPYRIGHT_YEAR } from "@/content/about.ts";
-import { FOOTER_META_LINKS, FOOTER_WMCS_BADGE, FOOTER_WIKIDATA_STAMP } from "@/content/footer.ts";
+import {
+   FOOTER_META_LINKS,
+   FOOTER_MILLINET_BADGE,
+   FOOTER_WMCS_BADGE,
+   FOOTER_WIKIDATA_STAMP,
+} from "@/content/footer.ts";
 import { useAuthStore } from "@/stores/auth.ts";
 
 const route = useRoute();
