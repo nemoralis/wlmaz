@@ -7,13 +7,14 @@ SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?inventory ?coordinate ?i
 WHERE {
   {
     SELECT ?item ?inventory ?lastModified
-           (SAMPLE(?coord)   AS ?coordinate)
-           (SAMPLE(?img)     AS ?image)
-           (SAMPLE(?cat)     AS ?commonsCategory)
-           (SAMPLE(?az)      AS ?azLink)
-           (SAMPLE(?cLink)   AS ?commonsLink)
-           (SAMPLE(?p131)    AS ?parent)
-           (SAMPLE(?address) AS ?addressLabel)
+           # MIN is stable; SAMPLE changes the picked value between runs.
+           (MIN(?coord)   AS ?coordinate)
+           (MIN(?img)     AS ?image)
+           (MIN(?cat)     AS ?commonsCategory)
+           (MIN(?az)      AS ?azLink)
+           (MIN(?cLink)   AS ?commonsLink)
+           (MIN(?p131)    AS ?parent)
+           (MIN(?address) AS ?addressLabel)
     WHERE {
       hint:Query hint:optimizer "None".   # run in the order written below
 
