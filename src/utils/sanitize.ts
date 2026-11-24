@@ -11,7 +11,7 @@
  */
 export const sanitizeWikitext = (text: string): string =>
    String(text || "")
-      .replace(/[\[\]{}|]/g, "")
+      .replace(/[\[\]{}|<>]/g, "")
       .trim();
 
 /**

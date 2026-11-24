@@ -14,6 +14,12 @@ describe("sanitizeWikitext", () => {
       expect(sanitizeWikitext("a|b|c")).toBe("abc");
    });
 
+   it("strips HTML-like tags", () => {
+      expect(sanitizeWikitext("x<gallery>File:Evil.jpg</gallery>")).toBe(
+         "xgalleryFile:Evil.jpg/gallery",
+      );
+   });
+
    it("trims surrounding whitespace", () => {
       expect(sanitizeWikitext("  hello  ")).toBe("hello");
    });
