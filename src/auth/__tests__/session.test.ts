@@ -18,13 +18,18 @@ const makeRequest = (options: FailureOptions = {}) => {
       callback(options.loginError),
    );
 
+   const sessionStore = {
+      destroy: vi.fn((_id: string, callback: (error?: Error) => void) => callback()),
+   };
    const req = {
       user: { username: "Example" },
+      sessionID: "old-session-id",
       session,
+      sessionStore,
       login,
    } as unknown as Request;
 
-   return { req, session, login };
+   return { req, session, sessionStore, login };
 };
 
 describe("establishSession", () => {
@@ -59,12 +64,13 @@ describe("establishSession", () => {
       expect(session.destroy).toHaveBeenCalledOnce();
    });
 
-   it("does not attempt login when regeneration fails", async () => {
+   it("destroys the old session when regeneration fails", async () => {
       const regenerateError = new Error("regenerate failed");
-      const { req, session, login } = makeRequest({ regenerateError });
+      const { req, session, sessionStore, login } = makeRequest({ regenerateError });
 
       await expect(establishSession(req)).rejects.toBe(regenerateError);
 
+      expect(sessionStore.destroy).toHaveBeenCalledWith("old-session-id", expect.any(Function));
       expect(login).not.toHaveBeenCalled();
       expect(session.save).not.toHaveBeenCalled();
    });

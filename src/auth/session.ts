@@ -11,10 +11,13 @@ import type { Request } from "express";
  * point; "fail cleanly" is the strongest guarantee available.
  */
 export function establishSession(req: Request): Promise<void> {
+   const oldId = req.sessionID;
    return new Promise((resolve, reject) => {
       req.session.regenerate((regenerateError) => {
          if (regenerateError) {
-            reject(regenerateError);
+            // Regenerate can fail after deleting the old record; make sure the
+            // pre-login session (and its OAuth token) cannot still be reused.
+            req.sessionStore.destroy(oldId, () => reject(regenerateError));
             return;
          }
 
