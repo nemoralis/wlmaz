@@ -585,16 +585,16 @@ export default defineComponent({
 }
 
 :deep(.leaflet-sidebar-tabs) {
-   background-color: #fff !important;
-   border-right: 1px solid #ddd;
+   background-color: var(--wlm-surface, #fff) !important;
+   border-right: 1px solid var(--wlm-border, #ddd);
 }
 
 :deep(.leaflet-sidebar-content) {
-   background-color: #fff !important;
+   background-color: var(--wlm-surface, #fff) !important;
 }
 
 :deep(.leaflet-sidebar-pane) {
-   background-color: #fff !important;
+   background-color: var(--wlm-surface, #fff) !important;
    padding: 0 !important;
 }
 
@@ -633,13 +633,13 @@ img {
    /* Ensure bottom tabs are not covered by safe areas */
    :deep(.leaflet-sidebar-tabs > ul:last-child) {
       padding-bottom: env(safe-area-inset-bottom) !important;
-      background-color: #fff !important;
+      background-color: var(--wlm-surface, #fff) !important;
    }
 
    /* Fix for Leaflet attribution on narrow screens */
    :deep(.leaflet-control-attribution) {
       font-size: 9px !important;
-      background-color: rgba(255, 255, 255, 0.8) !important;
+      background-color: var(--wlm-surface-translucent, rgba(255, 255, 255, 0.8)) !important;
       margin-bottom: env(safe-area-inset-bottom) !important;
    }
 }
@@ -684,7 +684,7 @@ img {
 
 /* 5. MINIMAP */
 :deep(.leaflet-control-minimap) {
-   border: 4px solid #fff !important;
+   border: 4px solid var(--wlm-surface, #fff) !important;
    border-radius: 12px !important;
    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
    overflow: hidden;
@@ -693,7 +693,7 @@ img {
 
 :deep(.leaflet-control-minimap-toggle-display) {
    border-radius: 0 !important;
-   background-color: #fff !important;
+   background-color: var(--wlm-surface, #fff) !important;
 }
 
 @media (max-width: 768px) {

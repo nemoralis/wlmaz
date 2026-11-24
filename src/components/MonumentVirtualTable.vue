@@ -244,10 +244,10 @@ defineExpose({
    background: transparent;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-   background: #e5e7eb;
+   background: var(--wlm-scrollbar-thumb-alt, #e5e7eb);
    border-radius: 3px;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-   background: #d1d5db;
+   background: var(--wlm-scrollbar-thumb-alt-hover, #d1d5db);
 }
 </style>

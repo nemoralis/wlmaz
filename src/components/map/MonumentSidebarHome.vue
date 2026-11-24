@@ -234,7 +234,7 @@ const photoPercentage = computed(() => {
 }
 
 .stat-item {
-   background-color: #fff;
+   background-color: var(--wlm-surface, #fff);
    padding: 0.75rem 0.5rem;
    display: flex;
    flex-direction: column;

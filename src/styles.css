@@ -13,6 +13,241 @@
    --font-display: "Young Serif", ui-serif, Georgia, serif;
 }
 
+/* ============================================
+   AUTO DARK MODE — follows the device setting only.
+   ============================================ */
+:root {
+   --wlm-page: #f9fafb;
+   --wlm-surface: #fff;
+   --wlm-surface-translucent: rgba(255, 255, 255, 0.8);
+   --wlm-border: #e5e7eb;
+   --wlm-fg: #374151;
+   --wlm-fg-muted: #6b7280;
+   --wlm-control-fg: #4b5563;
+   --wlm-menu-fg: #374151;
+   --wlm-hover: #f3f4f6;
+   --wlm-scrollbar-thumb: #cbd5e1;
+   --wlm-scrollbar-thumb-hover: #94a3b8;
+   --wlm-scrollbar-thumb-alt: #e5e7eb;
+   --wlm-scrollbar-thumb-alt-hover: #d1d5db;
+}
+
+@media (prefers-color-scheme: dark) {
+   :root {
+      /* Tailwind colour tokens (utilities read these vars). --color-white is
+         deliberately untouched: white text on blue buttons must stay white. */
+      --color-gray-50: #0f172a;
+      --color-gray-100: #1e293b;
+      --color-gray-200: #334155;
+      --color-gray-300: #475569;
+      --color-gray-400: #64748b;
+      --color-gray-500: #94a3b8;
+      --color-gray-600: #cbd5e1;
+      --color-gray-700: #e2e8f0;
+      --color-gray-800: #f1f5f9;
+      --color-gray-900: #f8fafc;
+
+      /* Wikimedia Codex tokens fall back to light values when unset. */
+      --background-color-base: #0f172a;
+      --background-color-base-fixed: #0f172a;
+      --background-color-interactive-subtle: #1e293b;
+      --background-color-interactive-subtle--hover: #334155;
+      --background-color-interactive: #1e293b;
+      --background-color-disabled-subtle: #1e293b;
+      --background-color-neutral-subtle: #1e293b;
+      --background-color-destructive-subtle: #451e1e;
+      --background-color-warning-subtle: #3f2f14;
+      --border-color-base: #475569;
+      --border-color-subtle: #334155;
+      --color-base: #f8fafc;
+      --color-subtle: #cbd5e1;
+      --color-disabled: #94a3b8;
+      --color-progressive: #8ab4f8;
+      --color-inverted: #0f172a;
+      --border-color-inverted: #f8fafc;
+      --color-destructive: #fca5a5;
+      --color-success: #6ee7b7;
+      --color-warning: #fcd34d;
+      /* Codex buttons/icons default to dark grey when these are unset, which
+         disappears against the dark surfaces above. */
+      --color-emphasized: #f8fafc;
+      --color-neutral: #e2e8f0;
+      --color-placeholder: #94a3b8;
+      --color-disabled-emphasized: #cbd5e1;
+      --color-inverted-fixed: #0f172a;
+      --color-progressive--hover: #bfdbfe;
+      --color-progressive--active: #93c5fd;
+      --color-destructive--hover: #fecaca;
+      --color-destructive--active: #fca5a5;
+      --color-error: #fca5a5;
+      --color-error--hover: #fecaca;
+      --color-error--active: #fca5a5;
+      --color-icon-error: #fca5a5;
+      --color-icon-notice: #94a3b8;
+      --color-icon-progressive: #8ab4f8;
+      --color-icon-success: #6ee7b7;
+      --color-icon-warning: #fcd34d;
+      --background-color-inverted: #f8fafc;
+      --background-color-interactive-subtle--active: #334155;
+      --background-color-disabled: #334155;
+      --background-color-notice-subtle: #334155;
+      --background-color-progressive-subtle: #1e3a5f;
+      --background-color-progressive-subtle--hover: #24476f;
+      --background-color-progressive-subtle--active: #2d5683;
+      --background-color-success-subtle: #14342b;
+      --background-color-error: #7f1d1d;
+      --background-color-error--hover: #991b1b;
+      --background-color-error--active: #7f1d1d;
+      --background-color-error-subtle: #451e1e;
+      --background-color-error-subtle--hover: #5a2525;
+      --background-color-error-subtle--active: #6b2a2a;
+      --background-color-backdrop-light: rgba(15, 23, 42, 0.75);
+      --border-color-interactive: #64748b;
+      --border-color-interactive--hover: #94a3b8;
+      --border-color-interactive--active: #cbd5e1;
+      --border-color-muted: #334155;
+      --border-color-disabled: #475569;
+      --border-color-notice: #64748b;
+      --border-color-destructive: #fca5a5;
+      --border-color-destructive--hover: #fecaca;
+      --border-color-destructive--active: #fca5a5;
+      --border-color-error: #fca5a5;
+      --border-color-error--hover: #fecaca;
+      --border-color-error--active: #fca5a5;
+      --border-color-success: #6ee7b7;
+      --border-color-warning: #fcd34d;
+      --box-shadow-color-inverted: #0f172a;
+      --accent-color-base: #8ab4f8;
+      /* Codex's old-browser icon fallback is a black SVG. */
+      --filter-invert-icon: 1;
+
+      --wlm-page: #0f172a;
+      --wlm-surface: #1e293b;
+      --wlm-surface-translucent: rgba(30, 41, 59, 0.85);
+      --wlm-border: #334155;
+      --wlm-fg: #e2e8f0;
+      --wlm-fg-muted: #94a3b8;
+      --wlm-control-fg: #cbd5e1;
+      --wlm-menu-fg: #e2e8f0;
+      --wlm-hover: #334155;
+      --wlm-scrollbar-thumb: #475569;
+      --wlm-scrollbar-thumb-hover: #64748b;
+      --wlm-scrollbar-thumb-alt: #334155;
+      --wlm-scrollbar-thumb-alt-hover: #475569;
+   }
+
+   html,
+   body {
+      background-color: var(--wlm-page);
+      color: var(--color-gray-900);
+   }
+
+   .bg-white {
+      background-color: var(--wlm-surface) !important;
+   }
+
+   /* Literal brand colours in class names cannot use a theme token. */
+   [class~="text-[#3366cc]"],
+   [class~="hover:text-[#3366cc]"]:hover,
+   [class~="hover:text-[#2a4b8d]"]:hover {
+      color: #8ab4f8;
+   }
+
+   [class~="text-[#14866d]"] {
+      color: #6ee7b7;
+   }
+
+   [class~="text-[#d73333]"] {
+      color: #fca5a5;
+   }
+
+   /* Coloured accents keep their light-mode values without these. Button
+      fills (bg-blue-600 and friends) and text-white are left untouched. */
+   [class~="text-blue-500"],
+   [class~="text-blue-600"],
+   [class~="hover:text-blue-600"]:hover {
+      color: #93c5fd;
+   }
+   [class~="text-blue-700"],
+   [class~="text-blue-800"],
+   [class~="hover:text-blue-800"]:hover {
+      color: #bfdbfe;
+   }
+   [class~="text-red-400"],
+   [class~="text-red-500"],
+   [class~="text-red-600"],
+   [class~="text-red-700"] {
+      color: #fca5a5;
+   }
+   [class~="text-red-800"],
+   [class~="text-red-900"] {
+      color: #fecaca;
+   }
+   [class~="text-amber-500"],
+   [class~="text-amber-600"] {
+      color: #fbbf24;
+   }
+   [class~="text-amber-700"],
+   [class~="text-amber-800"],
+   [class~="text-yellow-700"] {
+      color: #fcd34d;
+   }
+   [class~="text-green-600"] {
+      color: #6ee7b7;
+   }
+   [class~="text-purple-600"] {
+      color: #c4b5fd;
+   }
+
+   /* Tinted pills and panels stay dark; solid button fills are unaffected. */
+   [class~="bg-blue-50"],
+   [class~="hover:bg-blue-50"]:hover {
+      background-color: #172554;
+   }
+   [class~="bg-blue-50/30"] {
+      background-color: rgb(23 37 84 / 30%);
+   }
+   [class~="bg-blue-100"] {
+      background-color: #1e3a5f;
+   }
+   [class~="bg-red-50"] {
+      background-color: #451e1e;
+   }
+   [class~="bg-red-100"] {
+      background-color: #5a2525;
+   }
+   [class~="bg-amber-50"],
+   [class~="bg-yellow-50"] {
+      background-color: #3f2f14;
+   }
+   [class~="bg-amber-100"] {
+      background-color: #4a3517;
+   }
+   [class~="bg-green-50"] {
+      background-color: #14342b;
+   }
+   [class~="bg-purple-50"] {
+      background-color: #2e1f47;
+   }
+   [class~="bg-orange-50"] {
+      background-color: #3f2a17;
+   }
+   [class~="bg-white/80"] {
+      background-color: rgb(30 41 59 / 80%);
+   }
+   [class~="bg-white/90"] {
+      background-color: rgb(30 41 59 / 90%);
+   }
+   [class~="bg-white/95"] {
+      background-color: rgb(30 41 59 / 95%);
+   }
+
+   /* The oversized 404 digits are a grey gradient; dark greys would vanish. */
+   [class~="bg-clip-text"] {
+      background-image: linear-gradient(to bottom, #cbd5e1, #64748b);
+   }
+}
+
 html,
 body {
    margin: 0;
@@ -136,6 +371,21 @@ select:focus-visible {
    }
 }
 
+/* The high-contrast block above hard-codes dark text; undo it in dark mode. */
+@media (prefers-contrast: high) and (prefers-color-scheme: dark) {
+   .text-gray-500 {
+      color: #cbd5e1 !important;
+   }
+
+   .text-gray-400 {
+      color: #94a3b8 !important;
+   }
+
+   .text-gray-600 {
+      color: #e2e8f0 !important;
+   }
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
    *,
@@ -212,5 +462,27 @@ a:focus-visible,
 
    100% {
       transform: rotate(359deg);
+   }
+}
+
+/* Leaflet's own CSS is imported after this file, so its control colours need
+   !important to lose to the dark surface palette. */
+@media (prefers-color-scheme: dark) {
+   .leaflet-control-zoom a,
+   .leaflet-control-zoom a:hover {
+      background: var(--wlm-surface) !important;
+      color: var(--wlm-fg) !important;
+   }
+
+   .leaflet-control-locate a {
+      color: var(--wlm-fg) !important;
+   }
+
+   .leaflet-control-locate.active a {
+      color: #8ab4f8 !important;
+   }
+
+   .leaflet-control-attribution {
+      color: var(--wlm-fg-muted) !important;
    }
 }

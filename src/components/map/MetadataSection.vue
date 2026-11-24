@@ -154,6 +154,6 @@ const openExternalLink = (url: string) => {
 
 .link-chip {
    border: 1px solid var(--border-color-base, #a2a9b1) !important;
-   background-color: #fff !important;
+   background-color: var(--wlm-surface, #fff) !important;
 }
 </style>

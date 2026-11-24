@@ -629,10 +629,10 @@ export default defineComponent({
    background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-   background: #cbd5e1;
+   background: var(--wlm-scrollbar-thumb, #cbd5e1);
    border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-   background: #94a3b8;
+   background: var(--wlm-scrollbar-thumb-hover, #94a3b8);
 }
 </style>

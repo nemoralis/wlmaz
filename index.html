@@ -176,6 +176,30 @@
             transform: translateY(0);
          }
       }
+
+      /* First paint follows the device setting too — no white flash before
+         the app stylesheet and Vue take over. */
+      @media (prefers-color-scheme: dark) {
+         :root {
+            --wlm-blue: #8ab4f8;
+            --gray-100: #1e293b;
+            --gray-200: #334155;
+         }
+
+         html,
+         body,
+         .skeleton-content {
+            background: #0f172a;
+         }
+
+         .skeleton-header {
+            background: #1e293b;
+         }
+
+         .loading-box p {
+            color: #cbd5e1 !important;
+         }
+      }
    </style>
 </head>
 

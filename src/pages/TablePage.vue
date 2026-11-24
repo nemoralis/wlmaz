@@ -1,5 +1,5 @@
 <template>
-   <div class="flex h-full flex-col bg-[#f8f9fa]">
+   <div class="flex h-full flex-col bg-gray-50">
       <div class="border-b border-gray-200 bg-white">
          <div class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
@@ -17,7 +17,7 @@
       <div class="container mx-auto flex flex-1 flex-col px-4 py-6">
          <div class="flex flex-1 flex-col border border-gray-200 bg-white">
             <!-- Search / Filter -->
-            <div class="border-b border-gray-200 bg-[#f8f9fa] p-4">
+            <div class="border-b border-gray-200 bg-gray-50 p-4">
                <div class="flex flex-wrap items-center gap-4">
                   <div class="max-w-md flex-1 basis-72">
                      <CdxSearchInput
@@ -109,7 +109,7 @@
                </MonumentVirtualTable>
             </div>
             <div
-               class="flex justify-between border-t border-gray-200 bg-[#f8f9fa] px-6 py-3 text-sm text-gray-500"
+               class="flex justify-between border-t border-gray-200 bg-gray-50 px-6 py-3 text-sm text-gray-500"
             >
                <span>Cəmi: {{ monuments.length }} abidə</span>
                <span v-if="isFiltering">Filtrlənmiş: {{ sortedMonuments.length }}</span>

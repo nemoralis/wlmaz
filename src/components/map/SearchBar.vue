@@ -181,7 +181,7 @@ const handleSearchKeydown = (event: KeyboardEvent) => {
    right: 0;
    z-index: 100;
    margin-top: 4px;
-   background-color: #fff;
+   background-color: var(--wlm-surface, #fff);
    border: 1px solid var(--border-color-base, #a2a9b1);
    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
    max-height: 60vh;

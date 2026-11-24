@@ -1,5 +1,5 @@
 <template>
-   <div class="flex min-h-full flex-col bg-[#f8f9fa]">
+   <div class="flex min-h-full flex-col bg-gray-50">
       <div class="border-b border-gray-200 bg-white">
          <div class="container mx-auto px-4 py-4">
             <h1 class="text-2xl font-bold text-gray-900">{{ REGIONS_TITLE }}</h1>

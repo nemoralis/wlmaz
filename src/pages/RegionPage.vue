@@ -1,5 +1,5 @@
 <template>
-   <div class="flex min-h-full flex-col bg-[#f8f9fa]">
+   <div class="flex min-h-full flex-col bg-gray-50">
       <div class="border-b border-gray-200 bg-white">
          <div class="container mx-auto px-4 py-4">
             <router-link
@@ -101,7 +101,7 @@
 
             <RegionPhotoStats v-if="stats" :stats="stats" />
 
-            <div class="border-b border-gray-200 bg-[#f8f9fa] p-4">
+            <div class="border-b border-gray-200 bg-gray-50 p-4">
                <h2 class="text-sm font-bold tracking-wider text-gray-500 uppercase">
                   {{ REGIONS_MONUMENTS_HEADING }}
                </h2>
