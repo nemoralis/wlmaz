@@ -55,6 +55,9 @@ export const messageFor = (code: string | undefined, fallback: string): string =
 const isTransientError = (code: string | undefined, httpStatus?: number): boolean =>
    (!!code && TRANSIENT_ERROR_CODES.has(code)) || (httpStatus !== undefined && httpStatus >= 500);
 
+// On a retry, "file exists" means the first try already published the file.
+const ALREADY_UPLOADED_CODES = new Set(["fileexists", "fileexists-shared-forbidden"]);
+
 /**
  * One file entry in a pending upload queue. EXIF-originated fields
  * (`capturedAt`, `latitude`, `longitude`) are optional and take priority over
@@ -233,6 +236,17 @@ export async function uploadSingleFile(
       last = await attemptUpload(fileItem, license, monument, signal);
       if (last.ok) return { ok: true, result: last.result };
       if (last.code === "aborted") break;
+      if (attempt > 0 && last.code && ALREADY_UPLOADED_CODES.has(last.code)) {
+         const title = fileItem.title.toLowerCase();
+         const filename = title.endsWith(".jpg") ? title : `${title}.jpg`;
+         return {
+            ok: true,
+            result: {
+               filename,
+               url: `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(filename)}`,
+            },
+         };
+      }
       if (!isTransientError(last.code, last.httpStatus)) break;
    }
 

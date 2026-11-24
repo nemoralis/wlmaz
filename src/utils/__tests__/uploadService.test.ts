@@ -109,6 +109,20 @@ describe("uploadSingleFile — transient failures retry", () => {
       expect(fetchMock).toHaveBeenCalledTimes(2);
    });
 
+   it("treats fileexists on a retry as the success it actually was", async () => {
+      fetchMock
+         .mockResolvedValueOnce(new Response(JSON.stringify({ error: "boom" }), { status: 502 }))
+         .mockResolvedValueOnce(
+            new Response(JSON.stringify({ error: "exists", code: "fileexists" }), { status: 422 }),
+         );
+
+      const outcome = await uploadSingleFile(makeFileItem(), "cc-by-sa-4.0", {});
+      expect(outcome.ok).toBe(true);
+      expect(outcome.failure).toBeUndefined();
+      expect(outcome.result?.filename).toBe("test monument.jpg");
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+   });
+
    it("retries on transient HTTP 5xx and then fails after exhausting attempts", async () => {
       fetchMock
          .mockResolvedValueOnce(new Response(JSON.stringify({ error: "boom" }), { status: 500 }))
