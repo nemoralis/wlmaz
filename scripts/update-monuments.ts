@@ -85,6 +85,13 @@ async function main() {
          conflictingDuplicates,
       } = transformToGeoJSON(bindings);
 
+      if (existingData && newData.features.length < existingData.features.length * 0.8) {
+         throw new Error(
+            `Wikidata returned only ${newData.features.length} monuments ` +
+               `(was ${existingData.features.length}) — refusing to overwrite the data set`,
+         );
+      }
+
       const locatedCount = newData.features.filter((f) => f.geometry).length;
       console.log(
          `✓ ${newData.features.length} monuments (${locatedCount} located) — ` +

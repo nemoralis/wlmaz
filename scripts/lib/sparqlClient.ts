@@ -28,6 +28,22 @@ export const WIKIDATA_SPARQL_ENDPOINT = "https://query.wikidata.org/sparql";
 export type ProgressCallback = (loaded: number, total: number | null) => void;
 
 /**
+ * Parses a SPARQL result and refuses empty or malformed sets before anything is
+ * published. A valid-looking but empty answer otherwise wipes the whole site.
+ */
+export function parseSparqlResults(body: string): SparqlResults {
+   const parsed = JSON.parse(body) as SparqlResults;
+   const bindings = parsed?.results?.bindings;
+   if (!Array.isArray(bindings)) {
+      throw new Error("Wikidata returned a malformed result set");
+   }
+   if (bindings.length === 0) {
+      throw new Error("Wikidata returned no monuments — refusing to overwrite the data set");
+   }
+   return parsed;
+}
+
+/**
  * Reads the response body as text, reporting byte progress.
  *
  * The big monument query streams without a `Content-Length` header, so `total`
@@ -96,7 +112,7 @@ export class SPARQLQueryDispatcher {
          }
          try {
             const body = await readBody(response, onProgress);
-            return JSON.parse(body) as SparqlResults;
+            return parseSparqlResults(body);
          } catch (error) {
             if (attempt >= this.maxRetries) {
                throw error;

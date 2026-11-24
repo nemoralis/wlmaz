@@ -1,7 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { SPARQLQueryDispatcher } from "../sparqlClient";
+import { parseSparqlResults, SPARQLQueryDispatcher } from "../sparqlClient";
 
-const PAYLOAD = { results: { bindings: [] } };
+const PAYLOAD = {
+   results: { bindings: [{ item: { type: "uri", value: "http://example.org/Q1" } }] },
+};
 const encoder = new TextEncoder();
 
 /** A fetch-Response stub streaming `text` through `body.getReader()`. */
@@ -63,6 +65,13 @@ describe("SPARQLQueryDispatcher", () => {
       expect(init.headers["User-Agent"]).toContain("WLMAZ-Updater");
       // Progress counts raw bytes, so the body must arrive uncompressed.
       expect(init.headers["Accept-Encoding"]).toBe("identity");
+   });
+
+   it("refuses an empty or malformed result set", () => {
+      expect(() => parseSparqlResults(JSON.stringify({ results: { bindings: [] } }))).toThrow(
+         "no monuments",
+      );
+      expect(() => parseSparqlResults(JSON.stringify({ results: {} }))).toThrow("malformed");
    });
 
    it("throws on a non-2xx response without retrying", async () => {
