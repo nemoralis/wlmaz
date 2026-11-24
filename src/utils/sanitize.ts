@@ -29,6 +29,10 @@ export const sanitizeFilename = (name: string): string =>
       .replace(/^[\s\.]+/, "") // Cannot start with space or dot
       .trim();
 
+/** Adds the Commons extension only when an already-sanitized title lacks it. */
+export const withJpgExtension = (safeTitle: string): string =>
+   safeTitle.toLowerCase().endsWith(".jpg") ? safeTitle : `${safeTitle}.jpg`;
+
 /**
  * Maps a license key to its Wikimedia Commons wikitext template.
  * Unknown/missing licenses default to cc-by-sa-4.0.

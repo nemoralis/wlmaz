@@ -193,7 +193,9 @@ export function buildDateTemplate(capturedAt?: string): string {
          min <= 59 &&
          s >= 0 &&
          s <= 59 &&
-         !Number.isNaN(parsed.getTime())
+         !Number.isNaN(parsed.getTime()) &&
+         parsed.getUTCMonth() === m - 1 &&
+         parsed.getUTCDate() === d
       ) {
          return `${y}-${mS}-${dS} ${hS}:${minS}:${sS}`;
       }
@@ -210,7 +212,15 @@ export function buildDateTemplate(capturedAt?: string): string {
       const d = Number(dS);
       const parsed = new Date(Date.UTC(y, m - 1, d));
 
-      if (m >= 1 && m <= 12 && d >= 1 && d <= 31 && !Number.isNaN(parsed.getTime())) {
+      if (
+         m >= 1 &&
+         m <= 12 &&
+         d >= 1 &&
+         d <= 31 &&
+         !Number.isNaN(parsed.getTime()) &&
+         parsed.getUTCMonth() === m - 1 &&
+         parsed.getUTCDate() === d
+      ) {
          return `${y}-${mS}-${dS} 00:00:00`;
       }
 

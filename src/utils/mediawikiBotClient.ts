@@ -18,7 +18,7 @@ import { logger } from "@/utils/logger.ts";
 import { CommonsUploadError } from "@/utils/mediawiki.ts";
 import type { BotPasswordCredentials } from "@/utils/mediawikiConfig.ts";
 import { normalizeWikiTitle, pickUploadWarning, requestSignal } from "@/utils/mediawikiShared.ts";
-import { sanitizeFilename } from "@/utils/sanitize.ts";
+import { sanitizeFilename, withJpgExtension } from "@/utils/sanitize.ts";
 
 const USER_AGENT = "WLMAZ-Tool/1.0";
 
@@ -212,7 +212,7 @@ export class MediaWikiBotClient {
 
       for (let i = 0; i < rawTitles.length; i += MEDIAWIKI_TITLES_PER_REQUEST) {
          const chunk = rawTitles.slice(i, i + MEDIAWIKI_TITLES_PER_REQUEST);
-         const fileTitles = chunk.map((t) => `File:${sanitizeFilename(t)}.jpg`);
+         const fileTitles = chunk.map((t) => `File:${withJpgExtension(sanitizeFilename(t))}`);
 
          const params = new URLSearchParams({
             action: "query",
@@ -251,7 +251,11 @@ export class MediaWikiBotClient {
          );
 
          for (const raw of chunk) {
-            if (existingKeys.has(normalizeWikiTitle(`File:${sanitizeFilename(raw)}.jpg`))) {
+            if (
+               existingKeys.has(
+                  normalizeWikiTitle(`File:${withJpgExtension(sanitizeFilename(raw))}`),
+               )
+            ) {
                existing.push(raw);
             }
          }

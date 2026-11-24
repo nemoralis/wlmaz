@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize.ts";
+import {
+   mapLicenseTemplate,
+   sanitizeFilename,
+   sanitizeWikitext,
+   withJpgExtension,
+} from "@/utils/sanitize.ts";
 
 describe("sanitizeWikitext", () => {
    it("strips link and category brackets", () => {
@@ -50,6 +55,14 @@ describe("sanitizeFilename", () => {
 
    it("handles empty input", () => {
       expect(sanitizeFilename("")).toBe("");
+   });
+});
+
+describe("withJpgExtension", () => {
+   it("adds .jpg only when the title does not already end with it", () => {
+      expect(withJpgExtension("Photo")).toBe("Photo.jpg");
+      expect(withJpgExtension("Photo.jpg")).toBe("Photo.jpg");
+      expect(withJpgExtension("Photo.JPG")).toBe("Photo.JPG");
    });
 });
 

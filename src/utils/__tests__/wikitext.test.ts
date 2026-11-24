@@ -62,6 +62,14 @@ describe("buildDateTemplate", () => {
       expect(buildDateTemplate("2025-06-32")).toBe("2025-03-10 00:00:00");
    });
 
+   it("falls back to today for a day that rolls into the next month", () => {
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date("2025-03-10T12:00:00Z"));
+
+      expect(buildDateTemplate("2025-02-31")).toBe("2025-03-10 00:00:00");
+      expect(buildDateTemplate("2025-02-31 10:00:00")).toBe("2025-03-10 00:00:00");
+   });
+
    it("falls back to today for invalid time components", () => {
       vi.useFakeTimers();
       vi.setSystemTime(new Date("2025-03-10T12:00:00Z"));
