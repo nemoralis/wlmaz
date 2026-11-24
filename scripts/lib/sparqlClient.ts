@@ -24,6 +24,9 @@ export interface SparqlResults {
 /** The query endpoint the daily data update reads from. */
 export const WIKIDATA_SPARQL_ENDPOINT = "https://query.wikidata.org/sparql";
 
+/** The monument query is large, but a stalled job must not hang forever. */
+const SPARQL_TIMEOUT_MS = 120_000;
+
 /** Called with the cumulative byte count; `total` is null when size is unknown. */
 export type ProgressCallback = (loaded: number, total: number | null) => void;
 
@@ -103,22 +106,27 @@ export class SPARQLQueryDispatcher {
          "User-Agent": "WLMAZ-Updater/1.0 (https://gitlab.wikimedia.org/nmw03/wlmaz)",
       };
 
-      // Large result sets occasionally arrive truncated over the network; retry
-      // the request a few times before giving up.
+      // A stalled endpoint, a 5xx or a truncated body are all worth retrying.
+      // A 4xx is our mistake and fails straight away.
       for (let attempt = 1; ; attempt++) {
-         const response = await fetch(fullUrl, { headers });
-         if (!response.ok) {
-            throw new Error(`Failed to fetch data: ${response.statusText}`);
-         }
+         let retryable = true;
          try {
+            const response = await fetch(fullUrl, {
+               headers,
+               signal: AbortSignal.timeout(SPARQL_TIMEOUT_MS),
+            });
+            if (!response.ok) {
+               retryable = response.status >= 500;
+               throw new Error(`Failed to fetch data: ${response.statusText}`);
+            }
             const body = await readBody(response, onProgress);
             return parseSparqlResults(body);
          } catch (error) {
-            if (attempt >= this.maxRetries) {
+            if (!retryable || attempt >= this.maxRetries) {
                throw error;
             }
             console.warn(
-               `Response corrupted on attempt ${attempt}/${this.maxRetries}, retrying...`,
+               `Wikidata request failed on attempt ${attempt}/${this.maxRetries}, retrying...`,
             );
             await new Promise((resolve) => setTimeout(resolve, 2000 * attempt));
          }

@@ -74,15 +74,37 @@ describe("SPARQLQueryDispatcher", () => {
       expect(() => parseSparqlResults(JSON.stringify({ results: {} }))).toThrow("malformed");
    });
 
-   it("throws on a non-2xx response without retrying", async () => {
-      const fetchMock = vi.fn().mockResolvedValue({ ok: false, statusText: "Bad Gateway" });
+   it("throws on a 4xx response without retrying", async () => {
+      const fetchMock = vi
+         .fn()
+         .mockResolvedValue({ ok: false, status: 400, statusText: "Bad Request" });
       vi.stubGlobal("fetch", fetchMock);
 
       const dispatcher = new SPARQLQueryDispatcher("https://example.org/sparql");
       await expect(dispatcher.query("SELECT 1")).rejects.toThrow(
-         "Failed to fetch data: Bad Gateway",
+         "Failed to fetch data: Bad Request",
       );
       expect(fetchMock).toHaveBeenCalledTimes(1);
+   });
+
+   it("retries a 5xx and a network error and sends a deadline signal", async () => {
+      vi.useFakeTimers();
+      vi.spyOn(console, "warn").mockImplementation(() => {});
+
+      const fetchMock = vi
+         .fn()
+         .mockResolvedValueOnce({ ok: false, status: 502, statusText: "Bad Gateway" })
+         .mockRejectedValueOnce(new Error("socket hang up"))
+         .mockResolvedValueOnce(okResponse());
+      vi.stubGlobal("fetch", fetchMock);
+
+      const dispatcher = new SPARQLQueryDispatcher("https://example.org/sparql");
+      const pending = dispatcher.query("SELECT 1");
+      await vi.runAllTimersAsync();
+
+      await expect(pending).resolves.toEqual(PAYLOAD);
+      expect(fetchMock).toHaveBeenCalledTimes(3);
+      expect(fetchMock.mock.calls[0][1].signal).toBeInstanceOf(AbortSignal);
    });
 
    it("reports cumulative byte progress, with a null total when the size is unknown", async () => {
@@ -141,7 +163,9 @@ describe("SPARQLQueryDispatcher", () => {
 
       await expect(pending).resolves.toEqual(PAYLOAD);
       expect(fetchMock).toHaveBeenCalledTimes(2);
-      expect(console.warn).toHaveBeenCalledWith("Response corrupted on attempt 1/3, retrying...");
+      expect(console.warn).toHaveBeenCalledWith(
+         "Wikidata request failed on attempt 1/3, retrying...",
+      );
    });
 
    it("gives up after maxRetries corrupted responses", async () => {
