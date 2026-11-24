@@ -8,6 +8,27 @@ interface OptimizedImage {
    extension: string;
 }
 
+const MAX_CONCURRENT_DECODES = 2;
+let activeDecodes = 0;
+const waitingDecodes: Array<() => void> = [];
+
+/**
+ * Runs one Sharp pipeline at a time up to a small limit. A decoded image can
+ * take hundreds of MB, so unbounded parallel uploads can kill the worker.
+ */
+export async function withImageSlot<T>(work: () => Promise<T>): Promise<T> {
+   if (activeDecodes >= MAX_CONCURRENT_DECODES) {
+      await new Promise<void>((resolve) => waitingDecodes.push(resolve));
+   }
+   activeDecodes++;
+   try {
+      return await work();
+   } finally {
+      activeDecodes--;
+      waitingDecodes.shift()?.();
+   }
+}
+
 /**
  * Optimizes an image buffer for Wikimedia Commons upload.
  * - Resizes if dimensions are excessive (>8192px).

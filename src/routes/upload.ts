@@ -18,7 +18,7 @@ import type {
    UploadStatusResponse,
    UploadSuccessResponse,
 } from "@/types/api.ts";
-import { optimizeImage } from "@/utils/image";
+import { optimizeImage, withImageSlot } from "@/utils/image";
 import {
    assertImageWithinLimits,
    createUploadSharp,
@@ -310,7 +310,7 @@ router.post(
             return;
          }
 
-         const optimized = await optimizeImage(fileBuffer, metadata);
+         const optimized = await withImageSlot(() => optimizeImage(fileBuffer, metadata));
 
          // Sharp cannot be cancelled mid-pipeline; everything after it can.
          if (abortController.signal.aborted) return;
