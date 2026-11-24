@@ -63,18 +63,3 @@ export async function writeStatsHistory(history: HistoryEntry[]): Promise<void> 
    await writeFileAtomic(HISTORY_PATH, JSON.stringify(history, null, 2));
    console.log(`Saved update stats to ${HISTORY_PATH}`);
 }
-
-/**
- * Appends today's monument counts to public/stats-history.json.
- *
- * Deliberate quirks, both inherited from the original pipeline:
- * - An entry is written **only when the data actually changed** (the caller
- *   exits before reaching this on a no-change run), so days without a data
- *   change leave gaps in the daily chart rather than repeating the previous
- *   day's numbers.
- * - The date key is UTC (`toISOString()`), so a run shortly after midnight
- *   Baku time is recorded under the previous UTC day.
- */
-export async function recordStatsHistory(newData: GeoJSON): Promise<void> {
-   await writeStatsHistory(await buildStatsHistory(newData));
-}

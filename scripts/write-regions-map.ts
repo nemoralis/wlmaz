@@ -16,7 +16,6 @@
  *
  * Offline: reads only committed files, no network.
  */
-import { realpathSync } from "fs";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -34,15 +33,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const REGIONS_PATH = path.join(__dirname, "../data/regions.geojson");
-const MONUMENTS_PATH = path.join(__dirname, "../data/monuments.geojson");
 const OUTPUT_PATH = path.join(__dirname, "../public/regions-geo.json");
 
 interface FeatureCollection {
    features: RegionFeature[];
-}
-
-interface MonumentCollection {
-   features: Array<{ properties: MonumentProps }>;
 }
 
 /** Reads the source region geometry used to build the simplified map. */
@@ -97,26 +91,4 @@ export async function writeRegionsMapPayload(payload: RegionsMapData): Promise<v
          `${payload.geoJson.features.length} regions, ` +
          `${(Buffer.byteLength(serialized) / 1024).toFixed(0)} KB`,
    );
-}
-
-export const writeRegionsMap = async (): Promise<void> => {
-   const [features, monumentsFile] = await Promise.all([
-      readRegionFeatures(),
-      fs.readFile(MONUMENTS_PATH, "utf-8"),
-   ]);
-
-   const monuments = (JSON.parse(monumentsFile) as MonumentCollection).features.map(
-      (feature) => feature.properties,
-   );
-
-   await writeRegionsMapPayload(buildRegionsMapPayload(features, monuments));
-};
-
-// Import-safe entry guard: the daily pipeline (scripts/update-monuments.ts)
-// imports this function, so only run it when executed directly.
-if (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(__filename)) {
-   writeRegionsMap().catch((error) => {
-      console.error(error);
-      process.exit(1);
-   });
 }

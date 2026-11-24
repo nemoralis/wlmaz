@@ -37,17 +37,6 @@ export function removeStorage(key: string): void {
    }
 }
 
-/**
- * Reads and validates a JSON entry. Returns `null` when absent; throws on
- * malformed JSON or a value the parser rejects, so callers can distinguish
- * "no cache" from "corrupt cache" (the latter usually deletes the entry).
- */
-export function readJson<T>(key: string, parse: (value: unknown) => T): T | null {
-   const raw = readStorage(key);
-   if (!raw) return null;
-   return parse(JSON.parse(raw));
-}
-
 /** Serializes and stores a JSON entry. */
 export function writeJson(key: string, value: unknown): void {
    writeStorage(key, JSON.stringify(value));

@@ -1,9 +1,9 @@
 import { decode } from "geobuf";
 import { PbfReader as Pbf } from "pbf";
 import { describe, expect, it } from "vitest";
-import { encodeGeobuf } from "../convertData";
+import { buildMonumentsPbf } from "../convertData";
 
-describe("encodeGeobuf", () => {
+describe("buildMonumentsPbf", () => {
    it("round-trips a monument-shaped FeatureCollection", () => {
       // Typed loosely: `geometry: null` (coord-less monuments) is valid GeoJSON
       // and valid for this pipeline, but @types/geojson models Feature.geometry
@@ -27,7 +27,7 @@ describe("encodeGeobuf", () => {
       };
 
       const decoded = decode(
-         new Pbf(encodeGeobuf(geojson as Parameters<typeof encodeGeobuf>[0])),
+         new Pbf(buildMonumentsPbf(geojson as { type: string; features: unknown[] })),
       ) as typeof geojson;
 
       expect(decoded.type).toBe("FeatureCollection");

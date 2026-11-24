@@ -6,7 +6,6 @@
  * and pushes the result to Commons via OAuth or the local bot-password mode.
  * Replies are strictly typed (api.ts) and never expose credentials.
  */
-import path from "path";
 import express from "express";
 import multer from "multer";
 import { type Metadata } from "sharp";
@@ -37,7 +36,12 @@ import {
    resolveMediaWikiTarget,
 } from "@/utils/mediawikiConfig";
 import { getCanonicalId } from "@/utils/monumentFormatters";
-import { mapLicenseTemplate, sanitizeFilename, sanitizeWikitext } from "@/utils/sanitize";
+import {
+   mapLicenseTemplate,
+   sanitizeFilename,
+   sanitizeWikitext,
+   withJpgExtension,
+} from "@/utils/sanitize";
 import {
    buildUploadWikitext,
    parseTitlesExistRequest,
@@ -268,7 +272,7 @@ router.post(
          // (OAuth session or dev-only bot config). Wikimedia usernames should
          // never contain wikitext-special characters, but being defensive here
          // prevents template corruption if that assumption breaks.
-         const safeUsername = sanitizeWikitext(authorUsername).replace(/\|/g, "");
+         const safeUsername = sanitizeWikitext(authorUsername);
 
          // Assemble wikitext from sanitized inputs (pure function, no side effects).
          const wikitext = buildUploadWikitext({
@@ -316,20 +320,9 @@ router.post(
          if (abortController.signal.aborted) return;
 
          // Determine final properties
-         let finalBuffer = optimized.buffer;
-         let finalMime = optimized.mimetype;
-         let finalExt = optimized.extension || path.extname(req.file.originalname);
-
-         // Ensure extension starts with a dot for consistent check
-         if (finalExt && !finalExt.startsWith(".")) {
-            finalExt = "." + finalExt;
-         }
-
-         // Ensure extension matches
-         let finalFilename = safeTitle;
-         if (finalExt && !finalFilename.toLowerCase().endsWith(finalExt.toLowerCase())) {
-            finalFilename += finalExt;
-         }
+         const finalBuffer = optimized.buffer;
+         const finalMime = optimized.mimetype;
+         const finalFilename = withJpgExtension(safeTitle);
 
          // Upload (OAuth Commons or local bot-password) using the optimized buffer.
          if (abortController.signal.aborted) return;
